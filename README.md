@@ -10,3 +10,13 @@ Scripts are required to:
 + Configure forms within QGIS for the field data capture layers
 
 The code in this repository should not depend on BGS infrastructure as it should be able to stand alone.
+
+
+### Useful links
+
++ [PyQGIS Developer Cookbook](https://docs.qgis.org/3.28/en/docs/pyqgis_developer_cookbook/intro.html)
++ [QGIS Python API docs](https://qgis.org/pyqgis/3.28/)
++ [QGIS C++ API docs](https://api.qgis.org/api/3.28/)
++ [MerginMaps documentation](https://merginmaps.com/docs/layer/external-link/)
++ [SQLite docs (triggers)](https://sqlite.org/lang_createtrigger.html)
++ [GeoPackage data model guidance](https://www.geopackage.org/guidance/modeling.html)
