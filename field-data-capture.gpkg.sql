@@ -1,55 +1,563 @@
-PRAGMA foreign_keys=OFF;
+PRAGMA foreign_keys = OFF;
+
 BEGIN TRANSACTION;
-CREATE TABLE gpkg_spatial_ref_sys (srs_name TEXT NOT NULL,srs_id INTEGER NOT NULL PRIMARY KEY,organization TEXT NOT NULL,organization_coordsys_id INTEGER NOT NULL,definition  TEXT NOT NULL,description TEXT);
-INSERT INTO gpkg_spatial_ref_sys VALUES('Undefined Cartesian SRS',-1,'NONE',-1,'undefined','undefined Cartesian coordinate reference system');
-INSERT INTO gpkg_spatial_ref_sys VALUES('Undefined geographic SRS',0,'NONE',0,'undefined','undefined geographic coordinate reference system');
-INSERT INTO gpkg_spatial_ref_sys VALUES('WGS 84 geodetic',4326,'EPSG',4326,'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]','longitude/latitude coordinates in decimal degrees on the WGS 84 spheroid');
-CREATE TABLE gpkg_contents (table_name TEXT NOT NULL PRIMARY KEY,data_type TEXT NOT NULL,identifier TEXT UNIQUE,description TEXT DEFAULT '',last_change DATETIME NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')),min_x DOUBLE, min_y DOUBLE,max_x DOUBLE, max_y DOUBLE,srs_id INTEGER,CONSTRAINT fk_gc_r_srs_id FOREIGN KEY (srs_id) REFERENCES gpkg_spatial_ref_sys(srs_id));
-INSERT INTO gpkg_contents VALUES('locality_point','features','locality_point','','2023-08-22T11:28:41.741Z',-1.9618650238832369137,55.734604112132487331,-1.9618650238832369137,55.734604112132487331,4326);
-CREATE TABLE gpkg_ogr_contents(table_name TEXT NOT NULL PRIMARY KEY,feature_count INTEGER DEFAULT NULL);
-INSERT INTO gpkg_ogr_contents VALUES('locality_point',5);
-CREATE TABLE gpkg_geometry_columns (table_name TEXT NOT NULL,column_name TEXT NOT NULL,geometry_type_name TEXT NOT NULL,srs_id INTEGER NOT NULL,z TINYINT NOT NULL,m TINYINT NOT NULL,CONSTRAINT pk_geom_cols PRIMARY KEY (table_name, column_name),CONSTRAINT uk_gc_table_name UNIQUE (table_name),CONSTRAINT fk_gc_tn FOREIGN KEY (table_name) REFERENCES gpkg_contents(table_name),CONSTRAINT fk_gc_srs FOREIGN KEY (srs_id) REFERENCES gpkg_spatial_ref_sys (srs_id));
-INSERT INTO gpkg_geometry_columns VALUES('locality_point','geometry','POINT',4326,0,0);
-CREATE TABLE gpkg_tile_matrix_set (table_name TEXT NOT NULL PRIMARY KEY,srs_id INTEGER NOT NULL,min_x DOUBLE NOT NULL,min_y DOUBLE NOT NULL,max_x DOUBLE NOT NULL,max_y DOUBLE NOT NULL,CONSTRAINT fk_gtms_table_name FOREIGN KEY (table_name) REFERENCES gpkg_contents(table_name),CONSTRAINT fk_gtms_srs FOREIGN KEY (srs_id) REFERENCES gpkg_spatial_ref_sys (srs_id));
-CREATE TABLE gpkg_tile_matrix (table_name TEXT NOT NULL,zoom_level INTEGER NOT NULL,matrix_width INTEGER NOT NULL,matrix_height INTEGER NOT NULL,tile_width INTEGER NOT NULL,tile_height INTEGER NOT NULL,pixel_x_size DOUBLE NOT NULL,pixel_y_size DOUBLE NOT NULL,CONSTRAINT pk_ttm PRIMARY KEY (table_name, zoom_level),CONSTRAINT fk_tmm_table_name FOREIGN KEY (table_name) REFERENCES gpkg_contents(table_name));
-CREATE TABLE IF NOT EXISTS "locality_point" ( "fid" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "geometry" POINT, "objectid" MEDIUMINT, "uuid" TEXT, "description" TEXT, "user_entered" TEXT, "date_entered" DATETIME, "locality" TEXT);
-INSERT INTO locality_point VALUES(1,X'47500001e610000001010000008dea4b94cc63ffbfe08eee8107de4b40',NULL,'{3ecdc133-35a0-4c45-b1ed-76de10240335}','Salt pan at north end of Cocklawburn Beach','colb','2023-08-22T12:26:50.000','colb_001');
-INSERT INTO locality_point VALUES(2,X'47500001e610000001010000002ce02c3ea4223140657f7f2c200e4840',NULL,'{cd4d4a02-670c-413a-b6f0-51af07aa7ae3}','Near the river','jostev','2023-08-22T13:02:02.000','jostev_001');
-INSERT INTO locality_point VALUES(3,X'47500001e61000000101000000bdbf9b98d8870ac0b98fec34e6f44b40',NULL,'{9eb2f092-37e0-4c30-ae40-5b4fe6ad464d}','Rear car park ','colb2','2023-08-22T13:02:01.000','colb_002');
-INSERT INTO locality_point VALUES(4,X'47500001e61000000101000000474fd392a69e0ac07200fb05c5f44b40',NULL,'{137a41b7-71b2-4e3c-aa45-da2e1adcb9ab}','From my laptop','jostev','2023-08-22T13:03:41.000','jostev_001');
-INSERT INTO locality_point VALUES(5,X'47500001e610000001010000003076cda65e08314080c80da9431d4840',NULL,'{8ef5abe5-a99d-4ed6-81eb-2f4192acee5d}','Test point','jostev','2023-08-29T10:34:14.000','JAS001');
-CREATE TABLE gpkg_extensions (table_name TEXT,column_name TEXT,extension_name TEXT NOT NULL,definition TEXT NOT NULL,scope TEXT NOT NULL,CONSTRAINT ge_tce UNIQUE (table_name, column_name, extension_name));
-INSERT INTO gpkg_extensions VALUES('locality_point','geometry','gpkg_rtree_index','http://www.geopackage.org/spec120/#extension_rtree','write-only');
-CREATE TABLE IF NOT EXISTS "rtree_locality_point_geometry_rowid"(rowid INTEGER PRIMARY KEY,nodeno);
-INSERT INTO rtree_locality_point_geometry_rowid VALUES(1,1);
-INSERT INTO rtree_locality_point_geometry_rowid VALUES(2,1);
-INSERT INTO rtree_locality_point_geometry_rowid VALUES(3,1);
-INSERT INTO rtree_locality_point_geometry_rowid VALUES(4,1);
-INSERT INTO rtree_locality_point_geometry_rowid VALUES(5,1);
-CREATE TABLE IF NOT EXISTS "rtree_locality_point_geometry_node"(nodeno INTEGER PRIMARY KEY,data);
-INSERT INTO rtree_locality_point_geometry_node VALUES(1,X'000000050000000000000001bffb1e65bffb1e63425ef03c425ef03e0000000000000002418915214189152242407101424071030000000000000003c0543ec5c0543ec3425fa730425fa7320000000000000004c054f535c054f533425fa628425fa62a0000000000000005418842f5418842f64240ea1d4240ea1f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000');
-CREATE TABLE IF NOT EXISTS "rtree_locality_point_geometry_parent"(nodeno INTEGER PRIMARY KEY,parentnode);
-PRAGMA writable_schema=ON;
-INSERT INTO sqlite_schema(type,name,tbl_name,rootpage,sql)VALUES('table','rtree_locality_point_geometry','rtree_locality_point_geometry',0,'CREATE VIRTUAL TABLE "rtree_locality_point_geometry" USING rtree(id, minx, maxx, miny, maxy)');
-DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('locality_point',5);
-CREATE TRIGGER 'gpkg_tile_matrix_zoom_level_insert' BEFORE INSERT ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN SELECT RAISE(ABORT, 'insert on table ''gpkg_tile_matrix'' violates constraint: zoom_level cannot be less than 0') WHERE (NEW.zoom_level < 0); END;
-CREATE TRIGGER 'gpkg_tile_matrix_zoom_level_update' BEFORE UPDATE of zoom_level ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN SELECT RAISE(ABORT, 'update on table ''gpkg_tile_matrix'' violates constraint: zoom_level cannot be less than 0') WHERE (NEW.zoom_level < 0); END;
-CREATE TRIGGER 'gpkg_tile_matrix_matrix_width_insert' BEFORE INSERT ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN SELECT RAISE(ABORT, 'insert on table ''gpkg_tile_matrix'' violates constraint: matrix_width cannot be less than 1') WHERE (NEW.matrix_width < 1); END;
-CREATE TRIGGER 'gpkg_tile_matrix_matrix_width_update' BEFORE UPDATE OF matrix_width ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN SELECT RAISE(ABORT, 'update on table ''gpkg_tile_matrix'' violates constraint: matrix_width cannot be less than 1') WHERE (NEW.matrix_width < 1); END;
-CREATE TRIGGER 'gpkg_tile_matrix_matrix_height_insert' BEFORE INSERT ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN SELECT RAISE(ABORT, 'insert on table ''gpkg_tile_matrix'' violates constraint: matrix_height cannot be less than 1') WHERE (NEW.matrix_height < 1); END;
-CREATE TRIGGER 'gpkg_tile_matrix_matrix_height_update' BEFORE UPDATE OF matrix_height ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN SELECT RAISE(ABORT, 'update on table ''gpkg_tile_matrix'' violates constraint: matrix_height cannot be less than 1') WHERE (NEW.matrix_height < 1); END;
-CREATE TRIGGER 'gpkg_tile_matrix_pixel_x_size_insert' BEFORE INSERT ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN SELECT RAISE(ABORT, 'insert on table ''gpkg_tile_matrix'' violates constraint: pixel_x_size must be greater than 0') WHERE NOT (NEW.pixel_x_size > 0); END;
-CREATE TRIGGER 'gpkg_tile_matrix_pixel_x_size_update' BEFORE UPDATE OF pixel_x_size ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN SELECT RAISE(ABORT, 'update on table ''gpkg_tile_matrix'' violates constraint: pixel_x_size must be greater than 0') WHERE NOT (NEW.pixel_x_size > 0); END;
-CREATE TRIGGER 'gpkg_tile_matrix_pixel_y_size_insert' BEFORE INSERT ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN SELECT RAISE(ABORT, 'insert on table ''gpkg_tile_matrix'' violates constraint: pixel_y_size must be greater than 0') WHERE NOT (NEW.pixel_y_size > 0); END;
-CREATE TRIGGER 'gpkg_tile_matrix_pixel_y_size_update' BEFORE UPDATE OF pixel_y_size ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN SELECT RAISE(ABORT, 'update on table ''gpkg_tile_matrix'' violates constraint: pixel_y_size must be greater than 0') WHERE NOT (NEW.pixel_y_size > 0); END;
-CREATE TRIGGER "rtree_locality_point_geometry_insert" AFTER INSERT ON "locality_point" WHEN (new."geometry" NOT NULL AND NOT ST_IsEmpty(NEW."geometry")) BEGIN INSERT OR REPLACE INTO "rtree_locality_point_geometry" VALUES (NEW."fid",ST_MinX(NEW."geometry"), ST_MaxX(NEW."geometry"),ST_MinY(NEW."geometry"), ST_MaxY(NEW."geometry")); END;
-CREATE TRIGGER "rtree_locality_point_geometry_update1" AFTER UPDATE OF "geometry" ON "locality_point" WHEN OLD."fid" = NEW."fid" AND (NEW."geometry" NOTNULL AND NOT ST_IsEmpty(NEW."geometry")) BEGIN INSERT OR REPLACE INTO "rtree_locality_point_geometry" VALUES (NEW."fid",ST_MinX(NEW."geometry"), ST_MaxX(NEW."geometry"),ST_MinY(NEW."geometry"), ST_MaxY(NEW."geometry")); END;
-CREATE TRIGGER "rtree_locality_point_geometry_update2" AFTER UPDATE OF "geometry" ON "locality_point" WHEN OLD."fid" = NEW."fid" AND (NEW."geometry" ISNULL OR ST_IsEmpty(NEW."geometry")) BEGIN DELETE FROM "rtree_locality_point_geometry" WHERE id = OLD."fid"; END;
-CREATE TRIGGER "rtree_locality_point_geometry_update3" AFTER UPDATE ON "locality_point" WHEN OLD."fid" != NEW."fid" AND (NEW."geometry" NOTNULL AND NOT ST_IsEmpty(NEW."geometry")) BEGIN DELETE FROM "rtree_locality_point_geometry" WHERE id = OLD."fid"; INSERT OR REPLACE INTO "rtree_locality_point_geometry" VALUES (NEW."fid",ST_MinX(NEW."geometry"), ST_MaxX(NEW."geometry"),ST_MinY(NEW."geometry"), ST_MaxY(NEW."geometry")); END;
-CREATE TRIGGER "rtree_locality_point_geometry_update4" AFTER UPDATE ON "locality_point" WHEN OLD."fid" != NEW."fid" AND (NEW."geometry" ISNULL OR ST_IsEmpty(NEW."geometry")) BEGIN DELETE FROM "rtree_locality_point_geometry" WHERE id IN (OLD."fid", NEW."fid"); END;
-CREATE TRIGGER "rtree_locality_point_geometry_delete" AFTER DELETE ON "locality_point" WHEN old."geometry" NOT NULL BEGIN DELETE FROM "rtree_locality_point_geometry" WHERE id = OLD."fid"; END;
-CREATE TRIGGER "trigger_insert_feature_count_locality_point" AFTER INSERT ON "locality_point" BEGIN UPDATE gpkg_ogr_contents SET feature_count = feature_count + 1 WHERE lower(table_name) = lower('locality_point'); END;
-CREATE TRIGGER "trigger_delete_feature_count_locality_point" AFTER DELETE ON "locality_point" BEGIN UPDATE gpkg_ogr_contents SET feature_count = feature_count - 1 WHERE lower(table_name) = lower('locality_point'); END;
-PRAGMA writable_schema=OFF;
+
+CREATE TABLE gpkg_spatial_ref_sys (
+    srs_name TEXT NOT NULL,
+    srs_id INTEGER NOT NULL PRIMARY KEY,
+    organization TEXT NOT NULL,
+    organization_coordsys_id INTEGER NOT NULL,
+    definition TEXT NOT NULL,
+    description TEXT
+);
+
+INSERT INTO
+    gpkg_spatial_ref_sys
+VALUES
+(
+        'Undefined Cartesian SRS',
+        -1,
+        'NONE',
+        -1,
+        'undefined',
+        'undefined Cartesian coordinate reference system'
+    );
+
+INSERT INTO
+    gpkg_spatial_ref_sys
+VALUES
+(
+        'Undefined geographic SRS',
+        0,
+        'NONE',
+        0,
+        'undefined',
+        'undefined geographic coordinate reference system'
+    );
+
+INSERT INTO
+    gpkg_spatial_ref_sys
+VALUES
+(
+        'WGS 84 geodetic',
+        4326,
+        'EPSG',
+        4326,
+        'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AXIS["Latitude",NORTH],AXIS["Longitude",EAST],AUTHORITY["EPSG","4326"]]',
+        'longitude/latitude coordinates in decimal degrees on the WGS 84 spheroid'
+    );
+
+CREATE TABLE gpkg_contents (
+    table_name TEXT NOT NULL PRIMARY KEY,
+    data_type TEXT NOT NULL,
+    identifier TEXT UNIQUE,
+    description TEXT DEFAULT '',
+    last_change DATETIME NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')),
+    min_x DOUBLE,
+    min_y DOUBLE,
+    max_x DOUBLE,
+    max_y DOUBLE,
+    srs_id INTEGER,
+    CONSTRAINT fk_gc_r_srs_id FOREIGN KEY (srs_id) REFERENCES gpkg_spatial_ref_sys(srs_id)
+);
+
+INSERT INTO
+    gpkg_contents
+VALUES
+(
+        'locality_point',
+        'features',
+        'locality_point',
+        '',
+        '2023-08-22T11:28:41.741Z',
+        -1.9618650238832369137,
+        55.734604112132487331,
+        -1.9618650238832369137,
+        55.734604112132487331,
+        4326
+    );
+
+CREATE TABLE gpkg_ogr_contents(
+    table_name TEXT NOT NULL PRIMARY KEY,
+    feature_count INTEGER DEFAULT NULL
+);
+
+INSERT INTO
+    gpkg_ogr_contents
+VALUES
+('locality_point', 5);
+
+CREATE TABLE gpkg_geometry_columns (
+    table_name TEXT NOT NULL,
+    column_name TEXT NOT NULL,
+    geometry_type_name TEXT NOT NULL,
+    srs_id INTEGER NOT NULL,
+    z TINYINT NOT NULL,
+    m TINYINT NOT NULL,
+    CONSTRAINT pk_geom_cols PRIMARY KEY (table_name, column_name),
+    CONSTRAINT uk_gc_table_name UNIQUE (table_name),
+    CONSTRAINT fk_gc_tn FOREIGN KEY (table_name) REFERENCES gpkg_contents(table_name),
+    CONSTRAINT fk_gc_srs FOREIGN KEY (srs_id) REFERENCES gpkg_spatial_ref_sys (srs_id)
+);
+
+INSERT INTO
+    gpkg_geometry_columns
+VALUES
+('locality_point', 'geometry', 'POINT', 4326, 0, 0);
+
+CREATE TABLE gpkg_tile_matrix_set (
+    table_name TEXT NOT NULL PRIMARY KEY,
+    srs_id INTEGER NOT NULL,
+    min_x DOUBLE NOT NULL,
+    min_y DOUBLE NOT NULL,
+    max_x DOUBLE NOT NULL,
+    max_y DOUBLE NOT NULL,
+    CONSTRAINT fk_gtms_table_name FOREIGN KEY (table_name) REFERENCES gpkg_contents(table_name),
+    CONSTRAINT fk_gtms_srs FOREIGN KEY (srs_id) REFERENCES gpkg_spatial_ref_sys (srs_id)
+);
+
+CREATE TABLE gpkg_tile_matrix (
+    table_name TEXT NOT NULL,
+    zoom_level INTEGER NOT NULL,
+    matrix_width INTEGER NOT NULL,
+    matrix_height INTEGER NOT NULL,
+    tile_width INTEGER NOT NULL,
+    tile_height INTEGER NOT NULL,
+    pixel_x_size DOUBLE NOT NULL,
+    pixel_y_size DOUBLE NOT NULL,
+    CONSTRAINT pk_ttm PRIMARY KEY (table_name, zoom_level),
+    CONSTRAINT fk_tmm_table_name FOREIGN KEY (table_name) REFERENCES gpkg_contents(table_name)
+);
+
+CREATE TABLE IF NOT EXISTS "locality_point" (
+    "fid" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    "geometry" POINT,
+    "objectid" MEDIUMINT,
+    "uuid" TEXT,
+    "description" TEXT,
+    "user_entered" TEXT,
+    "date_entered" DATETIME,
+    "locality" TEXT
+);
+
+INSERT INTO
+    locality_point
+VALUES
+(
+        1,
+        X '47500001e610000001010000008dea4b94cc63ffbfe08eee8107de4b40',
+        NULL,
+        '{3ecdc133-35a0-4c45-b1ed-76de10240335}',
+        'Salt pan at north end of Cocklawburn Beach',
+        'colb',
+        '2023-08-22T12:26:50.000',
+        'colb_001'
+    );
+
+INSERT INTO
+    locality_point
+VALUES
+(
+        2,
+        X '47500001e610000001010000002ce02c3ea4223140657f7f2c200e4840',
+        NULL,
+        '{cd4d4a02-670c-413a-b6f0-51af07aa7ae3}',
+        'Near the river',
+        'jostev',
+        '2023-08-22T13:02:02.000',
+        'jostev_001'
+    );
+
+INSERT INTO
+    locality_point
+VALUES
+(
+        3,
+        X '47500001e61000000101000000bdbf9b98d8870ac0b98fec34e6f44b40',
+        NULL,
+        '{9eb2f092-37e0-4c30-ae40-5b4fe6ad464d}',
+        'Rear car park ',
+        'colb2',
+        '2023-08-22T13:02:01.000',
+        'colb_002'
+    );
+
+INSERT INTO
+    locality_point
+VALUES
+(
+        4,
+        X '47500001e61000000101000000474fd392a69e0ac07200fb05c5f44b40',
+        NULL,
+        '{137a41b7-71b2-4e3c-aa45-da2e1adcb9ab}',
+        'From my laptop',
+        'jostev',
+        '2023-08-22T13:03:41.000',
+        'jostev_001'
+    );
+
+INSERT INTO
+    locality_point
+VALUES
+(
+        5,
+        X '47500001e610000001010000003076cda65e08314080c80da9431d4840',
+        NULL,
+        '{8ef5abe5-a99d-4ed6-81eb-2f4192acee5d}',
+        'Test point',
+        'jostev',
+        '2023-08-29T10:34:14.000',
+        'JAS001'
+    );
+
+CREATE TABLE gpkg_extensions (
+    table_name TEXT,
+    column_name TEXT,
+    extension_name TEXT NOT NULL,
+    definition TEXT NOT NULL,
+    scope TEXT NOT NULL,
+    CONSTRAINT ge_tce UNIQUE (table_name, column_name, extension_name)
+);
+
+INSERT INTO
+    gpkg_extensions
+VALUES
+(
+        'locality_point',
+        'geometry',
+        'gpkg_rtree_index',
+        'http://www.geopackage.org/spec120/#extension_rtree',
+        'write-only'
+    );
+
+CREATE TABLE IF NOT EXISTS "rtree_locality_point_geometry_rowid"(rowid INTEGER PRIMARY KEY, nodeno);
+
+INSERT INTO
+    rtree_locality_point_geometry_rowid
+VALUES
+(1, 1);
+
+INSERT INTO
+    rtree_locality_point_geometry_rowid
+VALUES
+(2, 1);
+
+INSERT INTO
+    rtree_locality_point_geometry_rowid
+VALUES
+(3, 1);
+
+INSERT INTO
+    rtree_locality_point_geometry_rowid
+VALUES
+(4, 1);
+
+INSERT INTO
+    rtree_locality_point_geometry_rowid
+VALUES
+(5, 1);
+
+CREATE TABLE IF NOT EXISTS "rtree_locality_point_geometry_node"(nodeno INTEGER PRIMARY KEY, data);
+
+INSERT INTO
+    rtree_locality_point_geometry_node
+VALUES
+(
+        1,
+        X '000000050000000000000001bffb1e65bffb1e63425ef03c425ef03e0000000000000002418915214189152242407101424071030000000000000003c0543ec5c0543ec3425fa730425fa7320000000000000004c054f535c054f533425fa628425fa62a0000000000000005418842f5418842f64240ea1d4240ea1f000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000'
+    );
+
+CREATE TABLE IF NOT EXISTS "rtree_locality_point_geometry_parent"(nodeno INTEGER PRIMARY KEY, parentnode);
+
+PRAGMA writable_schema = ON;
+
+INSERT INTO
+    sqlite_schema(type, name, tbl_name, rootpage, sql)
+VALUES
+(
+        'table',
+        'rtree_locality_point_geometry',
+        'rtree_locality_point_geometry',
+        0,
+        'CREATE VIRTUAL TABLE "rtree_locality_point_geometry" USING rtree(id, minx, maxx, miny, maxy)'
+    );
+
+DELETE FROM
+    sqlite_sequence;
+
+INSERT INTO
+    sqlite_sequence
+VALUES
+('locality_point', 5);
+
+CREATE TRIGGER 'gpkg_tile_matrix_zoom_level_insert' BEFORE
+INSERT
+    ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN
+SELECT
+    RAISE(
+        ABORT,
+        'insert on table ''gpkg_tile_matrix'' violates constraint: zoom_level cannot be less than 0'
+    )
+WHERE
+    (NEW.zoom_level < 0);
+
+END;
+
+CREATE TRIGGER 'gpkg_tile_matrix_zoom_level_update' BEFORE
+UPDATE
+    of zoom_level ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN
+SELECT
+    RAISE(
+        ABORT,
+        'update on table ''gpkg_tile_matrix'' violates constraint: zoom_level cannot be less than 0'
+    )
+WHERE
+    (NEW.zoom_level < 0);
+
+END;
+
+CREATE TRIGGER 'gpkg_tile_matrix_matrix_width_insert' BEFORE
+INSERT
+    ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN
+SELECT
+    RAISE(
+        ABORT,
+        'insert on table ''gpkg_tile_matrix'' violates constraint: matrix_width cannot be less than 1'
+    )
+WHERE
+    (NEW.matrix_width < 1);
+
+END;
+
+CREATE TRIGGER 'gpkg_tile_matrix_matrix_width_update' BEFORE
+UPDATE
+    OF matrix_width ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN
+SELECT
+    RAISE(
+        ABORT,
+        'update on table ''gpkg_tile_matrix'' violates constraint: matrix_width cannot be less than 1'
+    )
+WHERE
+    (NEW.matrix_width < 1);
+
+END;
+
+CREATE TRIGGER 'gpkg_tile_matrix_matrix_height_insert' BEFORE
+INSERT
+    ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN
+SELECT
+    RAISE(
+        ABORT,
+        'insert on table ''gpkg_tile_matrix'' violates constraint: matrix_height cannot be less than 1'
+    )
+WHERE
+    (NEW.matrix_height < 1);
+
+END;
+
+CREATE TRIGGER 'gpkg_tile_matrix_matrix_height_update' BEFORE
+UPDATE
+    OF matrix_height ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN
+SELECT
+    RAISE(
+        ABORT,
+        'update on table ''gpkg_tile_matrix'' violates constraint: matrix_height cannot be less than 1'
+    )
+WHERE
+    (NEW.matrix_height < 1);
+
+END;
+
+CREATE TRIGGER 'gpkg_tile_matrix_pixel_x_size_insert' BEFORE
+INSERT
+    ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN
+SELECT
+    RAISE(
+        ABORT,
+        'insert on table ''gpkg_tile_matrix'' violates constraint: pixel_x_size must be greater than 0'
+    )
+WHERE
+    NOT (NEW.pixel_x_size > 0);
+
+END;
+
+CREATE TRIGGER 'gpkg_tile_matrix_pixel_x_size_update' BEFORE
+UPDATE
+    OF pixel_x_size ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN
+SELECT
+    RAISE(
+        ABORT,
+        'update on table ''gpkg_tile_matrix'' violates constraint: pixel_x_size must be greater than 0'
+    )
+WHERE
+    NOT (NEW.pixel_x_size > 0);
+
+END;
+
+CREATE TRIGGER 'gpkg_tile_matrix_pixel_y_size_insert' BEFORE
+INSERT
+    ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN
+SELECT
+    RAISE(
+        ABORT,
+        'insert on table ''gpkg_tile_matrix'' violates constraint: pixel_y_size must be greater than 0'
+    )
+WHERE
+    NOT (NEW.pixel_y_size > 0);
+
+END;
+
+CREATE TRIGGER 'gpkg_tile_matrix_pixel_y_size_update' BEFORE
+UPDATE
+    OF pixel_y_size ON 'gpkg_tile_matrix' FOR EACH ROW BEGIN
+SELECT
+    RAISE(
+        ABORT,
+        'update on table ''gpkg_tile_matrix'' violates constraint: pixel_y_size must be greater than 0'
+    )
+WHERE
+    NOT (NEW.pixel_y_size > 0);
+
+END;
+
+CREATE TRIGGER "rtree_locality_point_geometry_insert"
+AFTER
+INSERT
+    ON "locality_point"
+    WHEN (
+        new."geometry" NOT NULL
+        AND NOT ST_IsEmpty(NEW."geometry")
+    ) BEGIN
+INSERT
+    OR REPLACE INTO "rtree_locality_point_geometry"
+VALUES
+    (
+        NEW."fid",
+        ST_MinX(NEW."geometry"),
+        ST_MaxX(NEW."geometry"),
+        ST_MinY(NEW."geometry"),
+        ST_MaxY(NEW."geometry")
+    );
+
+END;
+
+CREATE TRIGGER "rtree_locality_point_geometry_update1"
+AFTER
+UPDATE
+    OF "geometry" ON "locality_point"
+    WHEN OLD."fid" = NEW."fid"
+    AND (
+        NEW."geometry" NOTNULL
+        AND NOT ST_IsEmpty(NEW."geometry")
+    ) BEGIN
+INSERT
+    OR REPLACE INTO "rtree_locality_point_geometry"
+VALUES
+    (
+        NEW."fid",
+        ST_MinX(NEW."geometry"),
+        ST_MaxX(NEW."geometry"),
+        ST_MinY(NEW."geometry"),
+        ST_MaxY(NEW."geometry")
+    );
+
+END;
+
+CREATE TRIGGER "rtree_locality_point_geometry_update2"
+AFTER
+UPDATE
+    OF "geometry" ON "locality_point"
+    WHEN OLD."fid" = NEW."fid"
+    AND (
+        NEW."geometry" ISNULL
+        OR ST_IsEmpty(NEW."geometry")
+    ) BEGIN
+DELETE FROM
+    "rtree_locality_point_geometry"
+WHERE
+    id = OLD."fid";
+
+END;
+
+CREATE TRIGGER "rtree_locality_point_geometry_update3"
+AFTER
+UPDATE
+    ON "locality_point"
+    WHEN OLD."fid" != NEW."fid"
+    AND (
+        NEW."geometry" NOTNULL
+        AND NOT ST_IsEmpty(NEW."geometry")
+    ) BEGIN
+DELETE FROM
+    "rtree_locality_point_geometry"
+WHERE
+    id = OLD."fid";
+
+INSERT
+    OR REPLACE INTO "rtree_locality_point_geometry"
+VALUES
+    (
+        NEW."fid",
+        ST_MinX(NEW."geometry"),
+        ST_MaxX(NEW."geometry"),
+        ST_MinY(NEW."geometry"),
+        ST_MaxY(NEW."geometry")
+    );
+
+END;
+
+CREATE TRIGGER "rtree_locality_point_geometry_update4"
+AFTER
+UPDATE
+    ON "locality_point"
+    WHEN OLD."fid" != NEW."fid"
+    AND (
+        NEW."geometry" ISNULL
+        OR ST_IsEmpty(NEW."geometry")
+    ) BEGIN
+DELETE FROM
+    "rtree_locality_point_geometry"
+WHERE
+    id IN (OLD."fid", NEW."fid");
+
+END;
+
+CREATE TRIGGER "rtree_locality_point_geometry_delete"
+AFTER
+    DELETE ON "locality_point"
+    WHEN old."geometry" NOT NULL BEGIN
+DELETE FROM
+    "rtree_locality_point_geometry"
+WHERE
+    id = OLD."fid";
+
+END;
+
+CREATE TRIGGER "trigger_insert_feature_count_locality_point"
+AFTER
+INSERT
+    ON "locality_point" BEGIN
+UPDATE
+    gpkg_ogr_contents
+SET
+    feature_count = feature_count + 1
+WHERE
+    lower(table_name) = lower('locality_point');
+
+END;
+
+CREATE TRIGGER "trigger_delete_feature_count_locality_point"
+AFTER
+    DELETE ON "locality_point" BEGIN
+UPDATE
+    gpkg_ogr_contents
+SET
+    feature_count = feature_count - 1
+WHERE
+    lower(table_name) = lower('locality_point');
+
+END;
+
+PRAGMA writable_schema = OFF;
+
 COMMIT;
