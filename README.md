@@ -19,4 +19,6 @@ The code in this repository should not depend on BGS infrastructure as it should
 + [QGIS C++ API docs](https://api.qgis.org/api/3.28/)
 + [MerginMaps documentation](https://merginmaps.com/docs/layer/external-link/)
 + [SQLite docs (triggers)](https://sqlite.org/lang_createtrigger.html)
++ [GeoPackage getting started guide](http://www.geopackage.org/guidance/getting-started.html)
 + [GeoPackage data model guidance](https://www.geopackage.org/guidance/modeling.html)
++ [GeoPackage many-to-many](http://www.geopackage.org/guidance/extensions/related_tables.html)
