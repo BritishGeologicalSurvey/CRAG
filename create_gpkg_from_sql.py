@@ -13,7 +13,7 @@ print(db_file)
 
 with sqlite3.connect(db_file) as conn:
     cursor = conn.cursor()
-    
+
     # Recreate the database from the dump file
     cursor.executescript(sql_file.read_text())
 

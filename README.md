@@ -21,6 +21,23 @@ There are a few overarching principles to bear in mind during development:
 + If it is shared, it may be open sourced.  Code should be written in the assumption that the world will be able to see it.  No BGS infrastructure or credentials should be present.
 + Overseas partners may not have an internal data store for map creation.  The option to extend to inclusion of polygons for creation of a final map should be kept open.
 
+## Running scripts
+
+Create a virtual environment (Python 3.11) and install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+The `requirements.txt` file was created with [pip-compile](https://pip-tools.readthedocs.io/en/latest/cli/pip-compile/), which can be used again when dependencies need to be updated.
+
+The repository also contains a `bin` directory with useful scripts.  The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.
+
+```bash
+bin/format_sql.sh raw_dump.sql > sql/V00x__pretty_formatted.sql
+```
+
+
 ## Useful links
 
 + [PyQGIS Developer Cookbook](https://docs.qgis.org/3.28/en/docs/pyqgis_developer_cookbook/intro.html)
