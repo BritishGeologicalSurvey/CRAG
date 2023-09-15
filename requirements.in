@@ -1,0 +1,6 @@
+pip-tools
+etlhelper
+sqlparse
+pytest
+flake8
+ipython
