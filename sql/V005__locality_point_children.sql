@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS "locality_structural_measurement" (
   "objectid" INTEGER,
   "activity_fuid" TEXT,
   "locality_fuid" TEXT NOT NULL,
-  "uuid" TEXT NOT NULL DEFAULT 'uuid()',
+  "uuid" TEXT NOT NULL UNIQUE,
   "structure_type_category" TEXT NOT NULL,
   "structure_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),
@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS "locality_structural_measurement" (
   FOREIGN KEY("structure_type_code") REFERENCES "dic_structure_code"("code"),
   FOREIGN KEY("secondary_attrib") REFERENCES "dic_structure_secondary"("code"),
   FOREIGN KEY("structure_type_category") REFERENCES "dic_structure_code"("category"),
-  FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"), PRIMARY KEY("fid" AUTOINCREMENT)
+  FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
+  PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 INSERT INTO gpkg_contents
@@ -47,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "locality_manmade_landform" (
   "objectid" INTEGER,
   "activity_fuid" TEXT,
   "locality_fuid" TEXT NOT NULL,
-  "uuid" TEXT NOT NULL DEFAULT 'uuid()' UNIQUE,
+  "uuid" TEXT NOT NULL UNIQUE,
   "manmade_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),
   "dip_dir" INTEGER CHECK("dip" >= 0 AND "dip" <= 360),
@@ -73,7 +74,7 @@ CREATE TABLE IF NOT EXISTS "locality_media" (
   "objectid" INTEGER,
   "activity_fuid" TEXT,
   "locality_fuid" TEXT NOT NULL,
-  "uuid" TEXT NOT NULL DEFAULT 'uuid()',
+  "uuid" TEXT NOT NULL,
   "media_type_code" TEXT NOT NULL,
   "media_link" TEXT NOT NULL,
   "comment" TEXT,
@@ -95,7 +96,7 @@ CREATE TABLE IF NOT EXISTS "locality_sample" (
   "objectid" INTEGER,
   "activity_fuid" TEXT,
   "locality_fuid" TEXT NOT NULL,
-  "uuid" TEXT NOT NULL DEFAULT 'uuid()' UNIQUE,
+  "uuid" TEXT NOT NULL UNIQUE,
   "sample_type_code" TEXT NOT NULL,
   "sample_description" TEXT,
   "comment" TEXT,
@@ -118,7 +119,7 @@ CREATE TABLE IF NOT EXISTS "locality_superficial_landform" (
   "objectid" INTEGER,
   "activity_fuid" TEXT,
   "locality_fuid" TEXT NOT NULL,
-  "uuid" TEXT NOT NULL DEFAULT 'uuid()' UNIQUE,
+  "uuid" TEXT NOT NULL UNIQUE,
   "superficial_type_category" TEXT NOT NULL,
   "superficial_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),

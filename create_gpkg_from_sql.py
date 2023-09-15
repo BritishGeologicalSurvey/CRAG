@@ -1,21 +1,25 @@
 from pathlib import Path
+import logging
 import sqlite3
 
+logger = logging.getLogger('create_gpkg')
 WORKDIR = Path.cwd()
 DB_FILE = WORKDIR / 'field-data-capture.gpkg'
 
 
 def main():
     if DB_FILE.exists():
+        logger.info('Deleting existing database')
         DB_FILE.unlink()
 
     sql_scripts = Path(WORKDIR / 'sql').glob('V*.sql')
 
-    for sql_script in sql_scripts:
+    for sql_script in sorted(sql_scripts):
+        logger.info('Applying %s', sql_script.name)
         apply_script(DB_FILE, sql_script)
 
 
-def apply_script(geopackage_file, sql_script):
+def apply_script(geopackage_file: Path, sql_script: Path):
     with sqlite3.connect(geopackage_file) as conn:
         cursor = conn.cursor()
 
@@ -24,4 +28,5 @@ def apply_script(geopackage_file, sql_script):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     main()
