@@ -13,6 +13,10 @@ CREATE TABLE IF NOT EXISTS "dic_sample" (
 	"date_updated"	DATE,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
+
+INSERT INTO gpkg_contents
+VALUES('dic_sample','attributes','dic_sample','Sample type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
 CREATE TABLE IF NOT EXISTS "dic_media" (
 	"fid"	INTEGER NOT NULL UNIQUE,
 	"code"	TEXT NOT NULL,
@@ -25,6 +29,10 @@ CREATE TABLE IF NOT EXISTS "dic_media" (
 	"date_updated"	DATE,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
+
+INSERT INTO gpkg_contents
+VALUES('dic_media','attributes','dic_media','Media type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
 CREATE TABLE IF NOT EXISTS "dic_activity" (
 	"fid"	INTEGER NOT NULL UNIQUE,
 	"code"	TEXT NOT NULL,
@@ -37,6 +45,10 @@ CREATE TABLE IF NOT EXISTS "dic_activity" (
 	"date_updated"	DATE,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
+
+INSERT INTO gpkg_contents
+VALUES('dic_activity','attributes','dic_activity','Activity type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
 CREATE TABLE IF NOT EXISTS "dic_users" (
 	"fid"	INTEGER NOT NULL UNIQUE,
 	"code"	TEXT NOT NULL,
@@ -50,6 +62,10 @@ CREATE TABLE IF NOT EXISTS "dic_users" (
 	"date_updated"	DATE,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
+
+INSERT INTO gpkg_contents
+VALUES('dic_users','attributes','dic_users','Dictionary of users','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
 CREATE TABLE IF NOT EXISTS "dic_structure_category" (
 	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
@@ -62,6 +78,10 @@ CREATE TABLE IF NOT EXISTS "dic_structure_category" (
 	"date_updated"	DATE,
 	PRIMARY KEY("code")
 );
+
+INSERT INTO gpkg_contents
+VALUES('dic_structure_category','attributes','dic_structure_category','Dictionary of structure categories.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
 CREATE TABLE IF NOT EXISTS "dic_superficial_category" (
 	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
@@ -74,6 +94,10 @@ CREATE TABLE IF NOT EXISTS "dic_superficial_category" (
 	"date_updated"	DATE,
 	PRIMARY KEY("code")
 );
+
+insert into gpkg_contents
+values('dic_superficial_category','attributes','dic_superficial_category','Dictionary of superficial categories.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
 CREATE TABLE IF NOT EXISTS "dic_manmade_code" (
 	"fid"	INTEGER NOT NULL UNIQUE,
 	"code"	TEXT NOT NULL UNIQUE,
@@ -87,6 +111,10 @@ CREATE TABLE IF NOT EXISTS "dic_manmade_code" (
 	"date_updated"	DATE,
 	PRIMARY KEY("code")
 );
+
+insert into gpkg_contents
+values('dic_manmade_code','attributes','dic_manmade_code','Dictionary of man-made features.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
 CREATE TABLE IF NOT EXISTS "dic_structure_secondary" (
 	"fid"	INTEGER,
 	"category"	TEXT,
@@ -100,6 +128,10 @@ CREATE TABLE IF NOT EXISTS "dic_structure_secondary" (
 	"date_updated"	TEXT,
 	FOREIGN KEY("category") REFERENCES "dic_structure_code"("secondary_attribute")
 );
+
+insert into gpkg_contents
+values('dic_structure_secondary','attributes','dic_structure_secondary','Dictionary of structure secondary attributes.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
 CREATE TABLE IF NOT EXISTS "dic_structure_third" (
 	"fid"	INTEGER NOT NULL UNIQUE,
 	"category"	TEXT NOT NULL,
@@ -114,6 +146,10 @@ CREATE TABLE IF NOT EXISTS "dic_structure_third" (
 	PRIMARY KEY("code"),
 	FOREIGN KEY("code") REFERENCES "dic_structure_code"("third_attribute")
 );
+
+insert into gpkg_contents
+values('dic_structure_third','attributes','dic_structure_third','Dictionary of structure tertiary attributes.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
 CREATE TABLE IF NOT EXISTS "dic_structure_code" (
 	"fid"	INTEGER NOT NULL UNIQUE,
 	"category"	TEXT NOT NULL,
@@ -132,6 +168,9 @@ CREATE TABLE IF NOT EXISTS "dic_structure_code" (
 	FOREIGN KEY("category") REFERENCES "dic_structure_category"("code")
 );
 
+insert into gpkg_contents
+values('dic_structure_code','attributes','dic_structure_code','Dictionary of structure codes.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
 CREATE TABLE IF NOT EXISTS "dic_superficial_code" (
 	"fid"	INTEGER NOT NULL UNIQUE,
 	"category"	TEXT,
@@ -147,6 +186,10 @@ CREATE TABLE IF NOT EXISTS "dic_superficial_code" (
 	PRIMARY KEY("fid" AUTOINCREMENT),
 	FOREIGN KEY("category") REFERENCES "dic_superficial_category"("code")
 );
+
+insert into gpkg_contents
+values('dic_superficial_code','attributes','dic_superficial_code','Dictionary of superficial codes.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
 INSERT INTO "dic_sample" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'FOSS','Fossil sample','fossil_sample','C','kigl','01/01/2012','jbow','13/09/2023');
 INSERT INTO "dic_sample" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'HAND','Hand specimen','hand_specimen','C','kigl','01/01/2012','jbow','13/09/2023');
 INSERT INTO "dic_sample" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'ROCK','Bedrock sample','bedrock_sample','C','kigl','01/01/2012','jbow','13/09/2023');

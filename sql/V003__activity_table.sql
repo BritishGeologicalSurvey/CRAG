@@ -21,4 +21,7 @@ CREATE TABLE IF NOT EXISTS "activity" (
 	PRIMARY KEY("fid","uuid")
 );
 
+INSERT INTO gpkg_contents
+VALUES('activity','attributes','activity','Metadata for project activity.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
 COMMIT;
