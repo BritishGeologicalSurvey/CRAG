@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
 	"locality_description"	TEXT,
 	"geological_note"	TEXT,
 	"epsg_code"	TEXT DEFAULT 27700,
-    "geometry" POINT,
+  "geometry" POINT,
 	"user_entered"	TEXT,
 	"date_entered"	DATETIME,
 	"user_updated"	TEXT,
