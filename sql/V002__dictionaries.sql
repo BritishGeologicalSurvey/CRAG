@@ -35,7 +35,7 @@ VALUES('dic_media','attributes','dic_media','Media type dictionary.','2023-09-15
 
 CREATE TABLE IF NOT EXISTS "dic_activity" (
 	"fid"	INTEGER NOT NULL UNIQUE,
-	"code"	TEXT NOT NULL,
+	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT NOT NULL,
 	"translation"	TEXT,
 	"status"	TEXT,
@@ -68,7 +68,7 @@ VALUES('dic_users','attributes','dic_users','Dictionary of users','2023-09-15T13
 
 CREATE TABLE IF NOT EXISTS "dic_structure_category" (
 	"fid"	INTEGER NOT NULL,
-	"code"	TEXT NOT NULL UNIQUE,
+	"code"	TEXT NOT NULL UNIQUE UNIQUE,
 	"description"	TEXT,
 	"translation"	TEXT,
 	"status"	TEXT,
