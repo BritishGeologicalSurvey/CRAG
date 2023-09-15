@@ -6,7 +6,10 @@ DB_FILE = WORKDIR / 'field-data-capture.gpkg'
 
 
 def main():
-    sql_scripts = Path(WORKDIR / 'sql').glob('*.sql')
+    if DB_FILE.exists():
+        DB_FILE.unlink()
+
+    sql_scripts = Path(WORKDIR / 'sql').glob('V*.sql')
 
     for sql_script in sql_scripts:
         apply_script(DB_FILE, sql_script)
