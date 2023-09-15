@@ -22,6 +22,9 @@ CREATE TABLE IF NOT EXISTS "locality_structural_measurement" (
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"), PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
+INSERT INTO gpkg_contents
+VALUES('locality_structural_measurement','attributes','locality_structural_measurement','Structural measurement data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
 
 CREATE TABLE IF NOT EXISTS "user_details" (
   "fid" INTEGER NOT NULL UNIQUE,
@@ -34,6 +37,9 @@ CREATE TABLE IF NOT EXISTS "user_details" (
   "last_strucuture_no" INTEGER,
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
+
+INSERT INTO gpkg_contents
+VALUES('user_details','attributes','user_details','Localised user information and user numbers.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
 CREATE TABLE IF NOT EXISTS "locality_manmade_landform" (
@@ -58,6 +64,9 @@ CREATE TABLE IF NOT EXISTS "locality_manmade_landform" (
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
+INSERT INTO gpkg_contents
+VALUES('locality_manmade_landform','attributes','locality_manmade_landform','Man-made landforms data, e.g. quarries.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
 
 CREATE TABLE IF NOT EXISTS "locality_media" (
   "fid" INTEGER NOT NULL UNIQUE,
@@ -76,6 +85,9 @@ CREATE TABLE IF NOT EXISTS "locality_media" (
   FOREIGN KEY("activity_fuid") REFERENCES "activity"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
+
+INSERT INTO gpkg_contents
+VALUES('locality_media','attributes','locality_media','Media files associated with locality.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
 CREATE TABLE IF NOT EXISTS "locality_sample" (
@@ -96,6 +108,9 @@ CREATE TABLE IF NOT EXISTS "locality_sample" (
   FOREIGN KEY("activity_fuid") REFERENCES "activity"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
+
+INSERT INTO gpkg_contents
+VALUES('locality_sample','attributes','locality_sample','Sample data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
 CREATE TABLE IF NOT EXISTS "locality_superficial_landform" (
@@ -120,5 +135,8 @@ CREATE TABLE IF NOT EXISTS "locality_superficial_landform" (
   FOREIGN KEY("activity_fuid") REFERENCES "activity"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
+
+INSERT INTO gpkg_contents
+VALUES('locality_superficial_landform','attributes','locality_superficial_landform','Superficial landform data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 COMMIT;
