@@ -33,3 +33,43 @@ def test_data_model_columns(data_model_gpkg, tables, expected_col_names):
         check_col_names.sort()
         expected_col_names.sort()
         assert check_col_names == expected_col_names
+
+
+def test_gpkg_contents(data_model_gpkg):
+    # Arrange
+    expected_contents = [
+        ["activity", "attributes"],
+        ["dic_activity", "attributes"],
+        ["dic_manmade_code", "attributes"],
+        ["dic_media", "attributes"],
+        ["dic_sample", "attributes"],
+        ["dic_structure_category", "attributes"],
+        ["dic_structure_code", "attributes"],
+        ["dic_structure_secondary", "attributes"],
+        ["dic_structure_third", "attributes"],
+        ["dic_superficial_category", "attributes"],
+        ["dic_superficial_code", "attributes"],
+        ["dic_users", "attributes"],
+        ["locality_manmade_landform", "attributes"],
+        ["locality_media", "attributes"],
+        ["locality_sample", "attributes"],
+        ["locality_structural_measurement", "attributes"],
+        ["locality_superficial_landform", "attributes"],
+        ["user_details", "attributes"],
+        ["locality_point", "features"],
+    ]
+
+    # Act
+    query = """
+        SELECT
+            table_name,
+            data_type
+        FROM
+            gpkg_contents
+        ORDER BY
+            data_type ASC,
+            table_name ASC
+    """
+    actual_contents = etl.fetchall(query, conn=data_model_gpkg, row_factory=etl.row_factories.list_row_factory)
+
+    assert actual_contents == expected_contents
