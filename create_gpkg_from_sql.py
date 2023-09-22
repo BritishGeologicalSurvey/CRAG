@@ -3,7 +3,8 @@ import logging
 import sqlite3
 
 logger = logging.getLogger('create_gpkg')
-WORKDIR = Path.cwd()
+# Using __file__ rather than cwd() so that the import location does not affect the path
+WORKDIR = Path(__file__).parent
 DB_FILE = WORKDIR / 'field-data-capture.gpkg'
 
 

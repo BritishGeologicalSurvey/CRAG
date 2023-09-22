@@ -1,3 +1,4 @@
+import sqlite3
 from typing import (
     Optional,
     Any,
@@ -11,32 +12,35 @@ import etlhelper as etl
     ["tables", "expected_col_names"],
     [
         (   # Spatial (feature) tables
-            ["locality_point"],
-            ["fid", "objectid", "uuid", "geometry", "user_entered", "date_entered", "user_updated", "date_updated"],
+            {"locality_point"},
+            {"fid", "objectid", "uuid", "geometry", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Non-spatial (attribute) tables
-            ["locality_manmade_landform", "locality_media", "locality_sample", "locality_structural_measurement",
-             "locality_superficial_landform"],
-            ["fid", "objectid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"],
+            {"locality_manmade_landform", "locality_media", "locality_sample", "locality_structural_measurement",
+             "locality_superficial_landform"},
+            {"fid", "objectid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
-            ["dic_activity", "dic_manmade_code", "dic_media", "dic_sample", "dic_structure_category",
+            {"dic_activity", "dic_manmade_code", "dic_media", "dic_sample", "dic_structure_category",
              "dic_structure_code", "dic_structure_secondary", "dic_structure_third", "dic_superficial_category",
-             "dic_superficial_code", "dic_users"],
-            ["fid", "code", "description", "translation"],
+             "dic_superficial_code", "dic_users"},
+            {"fid", "code", "description", "translation"},
         ),
     ],
 )
-def test_data_model_columns(data_model_gpkg, tables: list[str], expected_col_names: list[str]):
+def test_data_model_columns_exist(
+    data_model_gpkg: sqlite3.Connection,
+    tables: set[str],
+    expected_col_names: set[str],
+):
     for table in tables:
+        # Act
         table_info = etl.table_info(table=table, conn=data_model_gpkg)
         # Only get the columns from the actual list of columns that we want to check
         check_cols = [col for col in table_info if col.name in expected_col_names]
+        check_col_names = {col.name for col in check_cols}
 
-        check_col_names = [col.name for col in check_cols]
-        # Sort the lists so that the table names lists match exactly
-        check_col_names.sort()
-        expected_col_names.sort()
+        # Assert
         assert check_col_names == expected_col_names
 
 
@@ -67,28 +71,70 @@ def test_data_model_columns(data_model_gpkg, tables: list[str], expected_col_nam
     ],
 )
 def test_data_model_columns_constraints(
-    request,
-    data_model_gpkg,
+    request: pytest.FixtureRequest,
+    data_model_gpkg: sqlite3.Connection,
     table: str,
     new_data: dict[str, Any],
     expected_string: Optional[str],
 ):
-    # To use pytest fixtures with parameterisation, you have to access the fixture via request with it's string name
-    row = request.getfixturevalue(table + "_dict_row")
+    # Arrange
+    # Get the dict row fixture for the given table
+    row: dict[str, Any] = request.getfixturevalue(table + "_dict_row")
     row.update(new_data)
     rows = [row]
 
+    # Act
     if expected_string is not None:
         # Check that the correct error is raised
         with pytest.raises(etl.exceptions.ETLHelperInsertError) as excinfo:
             etl.load(table=table, conn=data_model_gpkg, rows=rows)
+
+        # Assert
         assert expected_string in str(excinfo.value)
     else:
         # Inserting the row should not raise an error
         etl.load(table=table, conn=data_model_gpkg, rows=rows)
 
 
-def test_gpkg_contents(data_model_gpkg):
+@pytest.mark.parametrize(
+    ["table"],
+    [
+        ("locality_manmade_landform",),
+        # The UNIQUE constraint is not used on locality_media.uuid
+        # ("locality_media",),
+        ("locality_point",),
+        ("locality_sample",),
+        ("locality_structural_measurement",),
+        ("locality_superficial_landform",),
+    ],
+)
+def test_data_model_columns_uuid_unique(
+    request: pytest.FixtureRequest,
+    data_model_gpkg: sqlite3.Connection,
+    table: str,
+):
+    # Arrange
+    # Get the dict row fixture for the given table
+    row: dict[str, Any] = request.getfixturevalue(table + "_dict_row")
+    expected_string = f"UNIQUE constraint failed: {table}.uuid"
+
+    # Create a list of multiple rows
+    # Replace the fid so that it is unique, but leave the uuid the same so that they will be duplicates
+    rows = [
+        {**row, **{"fid": x}}
+        for x in range(3)
+    ]
+
+    # Act
+    # Check that the correct error is raised
+    with pytest.raises(etl.exceptions.ETLHelperInsertError) as excinfo:
+        etl.load(table=table, conn=data_model_gpkg, rows=rows)
+
+    # Assert
+    assert expected_string in str(excinfo.value)
+
+
+def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     # Arrange
     expected_contents = [
         ["activity", "attributes"],
