@@ -37,6 +37,19 @@ The repository also contains a `bin` directory with useful scripts.  The `format
 bin/format_sql.sh raw_dump.sql > sql/V00x__pretty_formatted.sql
 ```
 
+## Running tests
+
+Install `spatialite` extension for `sqlite`:
+
+```bash
+sudo apt install spatialite-bin libsqlite3-mod-spatialite
+```
+
+To run the tests:
+
+```python
+pytest -vvs test/
+```
 
 ## Useful links
 
