@@ -4,5 +4,5 @@ sqlparse
 pytest
 flake8
 ipython
-sqlalchemy
+sqlalchemy<1.4
 eralchemy
