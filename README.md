@@ -21,6 +21,11 @@ There are a few overarching principles to bear in mind during development:
 + If it is shared, it may be open sourced.  Code should be written in the assumption that the world will be able to see it.  No BGS infrastructure or credentials should be present.
 + Overseas partners may not have an internal data store for map creation.  The option to extend to inclusion of polygons for creation of a final map should be kept open.
 
+## File Downloads
+
+- [ER Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/7-ci-pipeline-to-test-model-and-publish-database-and-er-diagram/raw/er-diagram.png?job=publish_artifacts)
+- [Field Data Capture GPKG](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/7-ci-pipeline-to-test-model-and-publish-database-and-er-diagram/raw/field-data-capture.gpkg?job=publish_artifacts)
+
 ## Running scripts
 
 Create a virtual environment (Python 3.11) and install dependencies:
