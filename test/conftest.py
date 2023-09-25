@@ -27,7 +27,11 @@ def data_model_gpkg(tmp_path: Path) -> Generator[sqlite3.Connection, None, None]
 
     # Enable sqlite extensions and load spatialite
     conn.enable_load_extension(True)
-    etl.execute("""SELECT load_extension("mod_spatialite")""", conn=conn)
+    try:
+        etl.execute("""SELECT load_extension("mod_spatialite")""", conn=conn)
+    except etl.exceptions.ETLHelperQueryError:
+        msg = "spatialite must be installed on the system to run these tests, see README for details"
+        raise OSError(msg)
 
     yield conn
 

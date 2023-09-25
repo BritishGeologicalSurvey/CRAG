@@ -45,6 +45,8 @@ Install `spatialite` extension for `sqlite`:
 sudo apt install spatialite-bin libsqlite3-mod-spatialite
 ```
 
+spatialite provides access to spatial features that are used by some of the GeoPackage index triggers.
+
 To run the tests:
 
 ```python
