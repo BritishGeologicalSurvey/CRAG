@@ -1,1 +1,5 @@
+__pycache__
+.pytest_cache
+setup_env.sh
+
 field-data-capture.gpkg
