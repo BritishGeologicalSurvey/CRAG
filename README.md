@@ -50,6 +50,7 @@ spatialite provides access to spatial features that are used by some of the GeoP
 To run the tests:
 
 ```python
+export PYTHONPATH=.
 pytest -vvs test/
 ```
 
