@@ -59,9 +59,9 @@ def test_data_model_columns_exist(
         ("locality_structural_measurement", {"dip": -1}, "CHECK constraint failed: dip"),
         ("locality_structural_measurement", {"dip": 91}, "CHECK constraint failed: dip"),
         ("locality_structural_measurement", {"dip_direction": 0}, None),
-        ("locality_structural_measurement", {"dip_direction": 360}, None),
+        ("locality_structural_measurement", {"dip_direction": 359}, None),
         ("locality_structural_measurement", {"dip_direction": -1}, "CHECK constraint failed: dip_direction"),
-        ("locality_structural_measurement", {"dip_direction": 361}, "CHECK constraint failed: dip_direction"),
+        ("locality_structural_measurement", {"dip_direction": 360}, "CHECK constraint failed: dip_direction"),
 
         # Table: locality_superficial_landform
         ("locality_superficial_landform", {"dip": 0}, None),

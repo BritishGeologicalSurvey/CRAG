@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS "locality_structural_measurement" (
   "structure_type_category" TEXT NOT NULL,
   "structure_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),
-  "dip_direction" INTEGER CHECK("dip_direction" >= 0 AND "dip_direction" <= 360),
+  "dip_direction" INTEGER CHECK("dip_direction" >= 0 AND "dip_direction" < 360),
   "secondary_attrib" TEXT,
   "third_attrib" TEXT,
   "user_entered" TEXT NOT NULL,
