@@ -10,6 +10,33 @@ Scripts are required to:
 + Configure forms within QGIS for the field data capture layers
 + Configure QGIS to have minimal interface for ease of use on tablets
 
+## Mergin Maps projects
+
+Development of the field data capture system will follow this pattern:
+
+> Data model updates -> QGIS/Mergin project configured by hand -> QGIS plugin implements automatic config
+
+There is lots of exploratory work to do in terms of QGIS project configuration.
+This will require multiple QGIS projects to be created.
+We will share these projects via Mergin Maps so that they can be tested and feedback collected.
+
+The table below can be used to keep track of them:
+
+|Model version tag|Mergin project|Feedback issue|Features|
+|---|---|---|---|
+|[data-model-v1](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/tags/data-model-v1)|data-model-v1|[data-model-v1 feedback](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/issues/18)|Locality points and forms. Experimental callouts. Photos are broken|
+
+The code used to build the model for a given Mergin project should be tagged and linked here, as should an issue created to record feedback.
+
+## File Downloads
+
+- [ER Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram.png?job=publish_artifacts)
+- [Field Data Capture GPKG](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/field-data-capture.gpkg?job=publish_artifacts)
+
+## ER Diagram
+
+![ER Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram.png?job=publish_artifacts)
+
 ## Overall philosophy
 
 The plugin in this repository should contain everything that is required to set up a field data capture project in QGIS.
@@ -20,15 +47,6 @@ There are a few overarching principles to bear in mind during development:
 + At some point, this plugin is likely to be shared with overseas partners - it should not depend on BGS infrastructure nor on Mergin Maps and the liklihood of future translation requirements should be kept in mind.
 + If it is shared, it may be open sourced.  Code should be written in the assumption that the world will be able to see it.  No BGS infrastructure or credentials should be present.
 + Overseas partners may not have an internal data store for map creation.  The option to extend to inclusion of polygons for creation of a final map should be kept open.
-
-## File Downloads
-
-- [ER Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram.png?job=publish_artifacts)
-- [Field Data Capture GPKG](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/field-data-capture.gpkg?job=publish_artifacts)
-
-## ER Diagram
-
-![ER Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram.png?job=publish_artifacts)
 
 ## Running scripts
 
