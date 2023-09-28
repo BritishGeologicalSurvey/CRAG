@@ -42,6 +42,22 @@ There are a few overarching principles to bear in mind during development:
 + If it is shared, it may be open sourced.  Code should be written in the assumption that the world will be able to see it.  No BGS infrastructure or credentials should be present.
 + Overseas partners may not have an internal data store for map creation.  The option to extend to inclusion of polygons for creation of a final map should be kept open.
 
+## Plugin
+
+### Installing the QGIS plugin
+
+1. Enable the repository in QGIS via _Plugins > Manage and Install Plugins > Settings > Plugin Repositories > Add_
+2. Set the Name to "Field Data Capture"
+3. Set the URL to http://field-data-capture.glpages.ad.nerc.ac.uk/model-and-forms/plugins.xml
+4. Press OK
+5. Search for and install `Field Data Capture` in the _All_ tab
+
+The plugin can then be launched from the _Plugins_ menu.  When new versions are released they will be shown in the _Upgradeable_ tab.
+
+## Running# the plugin
+
+Once installed, the plugin is available at _Plugins > Field Data Capture_.
+
 ## Running scripts
 
 Create a virtual environment (Python 3.11) and install dependencies:
