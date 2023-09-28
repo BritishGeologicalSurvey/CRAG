@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/plugins/field_data_capture" >
+        <file>icon.png</file>
+    </qresource>
+</RCC>
