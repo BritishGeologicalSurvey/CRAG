@@ -24,8 +24,8 @@ TEMPLATE = dedent("""
     </plugins>
     """).strip()
 
-REPOSITORY_ROOT = "http://mobile-field-capture.glpages.ad.nerc.ac.uk/sigmalite-import"
-ZIPFILE_NAME = "sigmalite_importer.zip"
+REPOSITORY_ROOT = "http://field-data-capture.glpages.ad.nerc.ac.uk/model-and-forms/"
+ZIPFILE_NAME = "field_data_capture.zip"
 CREATE_DATE = "2023-09-28"
 
 
