@@ -1,3 +1,4 @@
+import datetime as dt
 import sqlite3
 from typing import (
     Optional,
@@ -6,6 +7,35 @@ from typing import (
 
 import pytest
 import etlhelper as etl
+
+TABLES = {
+    "features": [
+        "locality_point",
+    ],
+    "attributes": [
+        # Dictionaries
+        "dic_activity",
+        "dic_manmade_code",
+        "dic_media",
+        "dic_sample",
+        "dic_structure_category",
+        "dic_structure_code",
+        "dic_structure_secondary",
+        "dic_structure_third",
+        "dic_superficial_category",
+        "dic_superficial_code",
+        "dic_users",
+        # Attributes
+        "locality_manmade_landform",
+        "locality_media",
+        "locality_sample",
+        "locality_structural_measurement",
+        "locality_superficial_landform",
+        # Metadata
+        "activity",
+        "user_details",
+    ]
+}
 
 
 @pytest.mark.parametrize(
@@ -131,6 +161,32 @@ def test_data_model_columns_uuid_unique(
 
     # Assert
     assert expected_string in str(excinfo.value)
+
+
+@pytest.mark.parametrize(["table"],
+    [(table,) for table in TABLES['attributes'] if table.startswith('dic_') ],
+)
+def test_dic_constraints(
+    data_model_gpkg: sqlite3.Connection,
+    table: str,
+):
+    # Arrange
+    # TODO: update tests when new dictionary format is decided
+    not_null_columns = {"fid", "code", "user_entered", "date_entered"}
+
+    # Act and assert
+    for column in etl.table_info(table, data_model_gpkg):
+        if column.name in not_null_columns:
+            assert column.not_null, f"{table}.{column.name} is missing not null constraint"
+
+    # TODO: add tests for unique constraint on "code" column.
+    minimal_row = {
+        "fid": 1,
+        "code": "repeated value",
+        "description": "test_description",
+        "user_entered": "test_user",
+        "date_entered": dt.date.today()
+    }
 
 
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
