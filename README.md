@@ -54,7 +54,7 @@ There are a few overarching principles to bear in mind during development:
 
 The plugin can then be launched from the _Plugins_ menu.  When new versions are released they will be shown in the _Upgradeable_ tab.
 
-## Running# the plugin
+### Running the plugin
 
 Once installed, the plugin is available at _Plugins > Field Data Capture_.
 
