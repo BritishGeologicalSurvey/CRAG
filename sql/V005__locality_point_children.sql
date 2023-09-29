@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS "locality_media" (
   "objectid" INTEGER,
   "activity_fuid" TEXT,
   "locality_fuid" TEXT NOT NULL,
-  "uuid" TEXT NOT NULL,
+  "uuid" TEXT NOT NULL UNIQUE,
   "media_type_code" TEXT NOT NULL,
   "media_link" TEXT NOT NULL,
   "comment" TEXT,

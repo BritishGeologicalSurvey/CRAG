@@ -100,8 +100,7 @@ def test_data_model_columns_constraints(
     ["table"],
     [
         ("locality_manmade_landform",),
-        # The UNIQUE constraint is not used on locality_media.uuid
-        # ("locality_media",),
+        ("locality_media",),
         ("locality_point",),
         ("locality_sample",),
         ("locality_structural_measurement",),
