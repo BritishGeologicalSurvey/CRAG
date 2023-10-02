@@ -25,7 +25,6 @@ def main(
         "dic_structure_third",
         "dic_superficial_category",
         "dic_superficial_code",
-        "dic_users",
         "locality_manmade_landform",
         "locality_media",
         "locality_point",

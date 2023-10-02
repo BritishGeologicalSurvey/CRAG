@@ -49,23 +49,6 @@ CREATE TABLE IF NOT EXISTS "dic_activity" (
 INSERT INTO gpkg_contents
 VALUES('dic_activity','attributes','dic_activity','Activity type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
-CREATE TABLE IF NOT EXISTS "dic_users" (
-	"fid"	INTEGER NOT NULL UNIQUE,
-	"code"	TEXT NOT NULL,
-	"description"	TEXT NOT NULL,
-	"translation"	TEXT,
-	"site"	TEXT NOT NULL,
-	"status"	TEXT,
-	"user_entered"	TEXT,
-	"date_entered"	DATE,
-	"user_updated"	TEXT,
-	"date_updated"	DATE,
-	PRIMARY KEY("fid" AUTOINCREMENT)
-);
-
-INSERT INTO gpkg_contents
-VALUES('dic_users','attributes','dic_users','Dictionary of users','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
-
 CREATE TABLE IF NOT EXISTS "dic_structure_category" (
 	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE UNIQUE,
@@ -206,54 +189,6 @@ INSERT INTO "dic_activity" ("fid","code","description","translation","status","u
 INSERT INTO "dic_activity" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'ARCHIVE','Archive upload','archive_upload','C','jbow','04/09/2023',NULL,NULL);
 INSERT INTO "dic_activity" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'LAB','Lab study','lab_study','C','jbow','04/09/2023',NULL,NULL);
 INSERT INTO "dic_activity" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'PAPER','Derived from a paper map or fieldslip','derived_from_paper','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'AGH','HULBERT, ANDREW',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'AJPI','BAPTIE, AMELIA',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'APBE','BEVAN, ANDY',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'APMA','MARCHANT, ANDREW',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'ARF','FARRANT, ANDREW',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'CGH','HORABIN, CARL',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'CLRL','SHELLEY, CLAIRE',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (8,'COLB','BLACKBURN, COLIN',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (9,'DANWAR','WARREN, DANIEL',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (10,'DBURGESS','BURGESS, DANIEL',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (11,'DJRM','MORGAN, DAVE',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (12,'ECAL','CALLAGHAN, EILEEN',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (13,'EIMEAR','DEADY, EIMEAR',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (14,'ERP','PHILLIPS, EMRYS',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (15,'GAYLEP','PLENDERLEITH, GAYLE',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (16,'HBU','BURKE, HELEN',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (17,'JBOW','BOW, JENNIFER',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (18,'JENN','RICHARDSON, JENNIFER',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (19,'JFORD','FORD, JONATHAN',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (20,'JNA','NADEN, JONATHAN',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (21,'JOSTEV','STEVENSON, JOHN',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (22,'JRLEE','LEE, JONATHAN',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (23,'JYOU','YOUSAF, JAVID',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (24,'KBO','LEE, KATHRYN',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (25,'KIGL','LAWRIE, KEN',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (26,'KMGO','GOODENOUGH, KATHRYN M',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (27,'KWHI','WHITBREAD, KATIE',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (28,'LAUBG','BURREL, LAURA',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (29,'LAURA1','AUSTIN SYDES, LAURA',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (30,'LEAN1','HUGHES, LEANNE',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (31,'LEORUD','RUDCZENKO, LEO',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (32,'LIAMS','SPENCER, LIAM',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (33,'MKRAB','KRABBENDAM, MAARTEN',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (34,'MLN','NAYEMBIL, MARTIN L',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (35,'NASM','SMITH, NIKKI',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (36,'PAUTVA','TVARANAVICIUS, PAULIUS',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (37,'RHND1','KENDALL, RHIAN',NULL,'CD',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (38,'RICHAS','HASLAM, RICHARD',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (39,'ROMESH','PALAMAKUMBURA, ROMESH',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (40,'ROWVER','VERNON, ROWAN',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (41,'RROTH','ROTH, ROMAN',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (42,'RSHAW','SHAW, ROB',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (43,'SMPI','PIPER, SIMON',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (44,'STAY','TAYLOR, SOPHIE',NULL,'KW',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (45,'SVEA','RAUTENBERG, SVEA',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (46,'TAR','RANDLES, TOM',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (47,'TARAS','STEPHENS, TARA',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
-INSERT INTO "dic_users" ("fid","code","description","translation","site","status","user_entered","date_entered","user_updated","date_updated") VALUES (48,'TIMKI','KEARSEY, TIMOTHY',NULL,'ED',NULL,NULL,NULL,NULL,NULL);
 INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'Bedding','Bedding','bedding','C','jbow','23/08/2023',NULL,NULL);
 INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'Fault','Fault','fault','C','jbow','23/08/2023',NULL,NULL);
 INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'Younging','Younging','younging','C','jbow','23/08/2023',NULL,NULL);

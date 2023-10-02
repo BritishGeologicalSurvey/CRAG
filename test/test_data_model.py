@@ -24,7 +24,6 @@ TABLES = {
         "dic_structure_third",
         "dic_superficial_category",
         "dic_superficial_code",
-        "dic_users",
         # Attributes
         "locality_manmade_landform",
         "locality_media",
@@ -53,7 +52,7 @@ TABLES = {
         (   # Dictionary tables
             {"dic_activity", "dic_manmade_code", "dic_media", "dic_sample", "dic_structure_category",
              "dic_structure_code", "dic_structure_secondary", "dic_structure_third", "dic_superficial_category",
-             "dic_superficial_code", "dic_users"},
+             "dic_superficial_code"},
             {"fid", "code", "description", "translation"},
         ),
     ],
@@ -203,7 +202,6 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
         ["dic_structure_third", "attributes"],
         ["dic_superficial_category", "attributes"],
         ["dic_superficial_code", "attributes"],
-        ["dic_users", "attributes"],
         ["locality_manmade_landform", "attributes"],
         ["locality_media", "attributes"],
         ["locality_sample", "attributes"],
