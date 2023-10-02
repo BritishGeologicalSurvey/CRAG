@@ -21,8 +21,6 @@ def main(
         "dic_sample",
         "dic_structure_category",
         "dic_structure_code",
-        "dic_structure_secondary",
-        "dic_structure_third",
         "dic_superficial_category",
         "dic_superficial_code",
         "locality_manmade_landform",
