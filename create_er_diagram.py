@@ -14,8 +14,8 @@ def main(
     meta.reflect(bind=engine)
 
     tables = [
-        "activity",
-        "dic_activity",
+        "project",
+        "dic_project_type",
         "dic_manmade_code",
         "dic_media",
         "dic_sample",

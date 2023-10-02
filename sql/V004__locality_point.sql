@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
 	"fid" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
 	"objectid"	INTEGER,
 	"uuid"	TEXT NOT NULL UNIQUE,
-	"activity_fuid"	TEXT NOT NULL,
+	"project_fuid"	TEXT NOT NULL,
 	"locality_name"	TEXT,
 	"locality_description"	TEXT,
 	"geological_note"	TEXT,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
 	"date_entered"	DATETIME,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	FOREIGN KEY("activity_fuid") REFERENCES "activity"("uuid")
+	FOREIGN KEY("project_fuid") REFERENCES "project"("uuid")
 );
 
 PRAGMA writable_schema=ON;

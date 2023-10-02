@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS "dic_media" (
 INSERT INTO gpkg_contents
 VALUES('dic_media','attributes','dic_media','Media type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
-CREATE TABLE IF NOT EXISTS "dic_activity" (
+CREATE TABLE IF NOT EXISTS "dic_project_type" (
 	"fid"	INTEGER NOT NULL UNIQUE,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS "dic_activity" (
 );
 
 INSERT INTO gpkg_contents
-VALUES('dic_activity','attributes','dic_activity','Activity type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+VALUES('dic_project_type','attributes','dic_project_type','Project type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 CREATE TABLE IF NOT EXISTS "dic_structure_category" (
 	"fid"	INTEGER NOT NULL UNIQUE,
@@ -147,13 +147,13 @@ INSERT INTO "dic_sample" ("fid","code","description","translation","status","use
 INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'IMAGE','Image or Photograph','image','C','jbow','13/09/2023',NULL,NULL);
 INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'VIDEO','Video','video','C','jbow','13/09/2023',NULL,NULL);
 INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'VOICE','Voice note','voice','C','jbow','13/09/2023',NULL,NULL);
-INSERT INTO "dic_activity" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'FIELD','Field work','field_work','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_activity" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'RAPID','Rapid field work','rapid_field_work','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_activity" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'REMOTE','Derived using remote sensing resources','remote_sensing','C','jbow','13/09/2023',NULL,NULL);
-INSERT INTO "dic_activity" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'DESK','Desk compilation','desk_compilation','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_activity" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'ARCHIVE','Archive upload','archive_upload','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_activity" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'LAB','Lab study','lab_study','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_activity" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'PAPER','Derived from a paper map or fieldslip','derived_from_paper','C','jbow','04/09/2023',NULL,NULL);
+INSERT INTO "dic_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'FIELD','Field work','field_work','C','jbow','04/09/2023',NULL,NULL);
+INSERT INTO "dic_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'RAPID','Rapid field work','rapid_field_work','C','jbow','04/09/2023',NULL,NULL);
+INSERT INTO "dic_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'REMOTE','Derived using remote sensing resources','remote_sensing','C','jbow','13/09/2023',NULL,NULL);
+INSERT INTO "dic_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'DESK','Desk compilation','desk_compilation','C','jbow','04/09/2023',NULL,NULL);
+INSERT INTO "dic_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'ARCHIVE','Archive upload','archive_upload','C','jbow','04/09/2023',NULL,NULL);
+INSERT INTO "dic_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'LAB','Lab study','lab_study','C','jbow','04/09/2023',NULL,NULL);
+INSERT INTO "dic_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'PAPER','Derived from a paper map or fieldslip','derived_from_paper','C','jbow','04/09/2023',NULL,NULL);
 INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'Bedding','Bedding','bedding','C','jbow','23/08/2023',NULL,NULL);
 INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'Fault','Fault','fault','C','jbow','23/08/2023',NULL,NULL);
 INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'Younging','Younging','younging','C','jbow','23/08/2023',NULL,NULL);

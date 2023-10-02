@@ -42,35 +42,35 @@ def data_model_gpkg(tmp_path: Path) -> Generator[sqlite3.Connection, None, None]
 
 @pytest.fixture()
 def locality_manmade_landform_dict_row() -> dict[str, Any]:
-    return {"fid": 1, "objectid": None, "activity_fuid": None, "locality_fuid": "a", "uuid": "abc",
+    return {"fid": 1, "objectid": None, "project_fuid": None, "locality_fuid": "a", "uuid": "abc",
             "manmade_type_code": "b", "dip": 45, "dip_dir": 180, "length": None, "width": None, "comment": None,
             "user_entered": "c", "date_entered": dt.datetime.now(), "user_updated": None, "date_updated": None}
 
 
 @pytest.fixture()
 def locality_media_dict_row() -> dict[str, Any]:
-    return {"fid": 1, "objectid": None, "activity_fuid": None, "locality_fuid": "a", "uuid": "abc",
+    return {"fid": 1, "objectid": None, "project_fuid": None, "locality_fuid": "a", "uuid": "abc",
             "media_type_code": "b", "media_link": "c", "comment": None, "user_entered": "d",
             "date_entered": dt.datetime.now(), "user_updated": None, "date_updated": None}
 
 
 @pytest.fixture()
 def locality_point_dict_row() -> dict[str, Any]:
-    return {"fid": 1, "objectid": None, "uuid": "abc", "activity_fuid": "a", "locality_name": None,
+    return {"fid": 1, "objectid": None, "uuid": "abc", "project_fuid": "a", "locality_name": None,
             "locality_description": None, "geological_note": None, "epsg_code": None, "geometry": None,
             "user_entered": "b", "date_entered": dt.datetime.now(), "user_updated": None, "date_updated": None}
 
 
 @pytest.fixture()
 def locality_sample_dict_row() -> dict[str, Any]:
-    return {"fid": 1, "objectid": None, "activity_fuid": None, "locality_fuid": "a", "uuid": "abc",
+    return {"fid": 1, "objectid": None, "project_fuid": None, "locality_fuid": "a", "uuid": "abc",
             "sample_type_code": "b", "sample_description": None, "comment": None, "user_entered": "d",
             "date_entered": dt.datetime.now(), "user_updated": None, "date_updated": None}
 
 
 @pytest.fixture()
 def locality_structural_measurement_dict_row() -> dict[str, Any]:
-    return {"fid": 1, "objectid": None, "activity_fuid": None, "locality_fuid": "a", "uuid": "abc",
+    return {"fid": 1, "objectid": None, "project_fuid": None, "locality_fuid": "a", "uuid": "abc",
             "structure_type_category": "b", "structure_type_code": "c", "dip": 45, "dip_direction": 180,
             "secondary_attrib": None, "third_attrib": None, "user_entered": "d",
             "date_entered": dt.datetime.now(), "user_updated": None, "date_updated": None}
@@ -78,7 +78,7 @@ def locality_structural_measurement_dict_row() -> dict[str, Any]:
 
 @pytest.fixture()
 def locality_superficial_landform_dict_row() -> dict[str, Any]:
-    return {"fid": 1, "objectid": None, "activity_fuid": None, "locality_fuid": "a", "uuid": "abc",
+    return {"fid": 1, "objectid": None, "project_fuid": None, "locality_fuid": "a", "uuid": "abc",
             "superficial_type_category": "b", "superficial_type_code": "c", "dip": 45, "length": None, "width": None,
             "height_depth": None, "comment": None, "user_entered": "d", "date_entered": dt.datetime.now(),
             "user_updated": None, "date_updated": None}

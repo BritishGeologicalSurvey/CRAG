@@ -13,7 +13,7 @@ TABLES = {
     ],
     "attributes": [
         # Dictionaries
-        "dic_activity",
+        "dic_project_type",
         "dic_manmade_code",
         "dic_media",
         "dic_sample",
@@ -28,7 +28,7 @@ TABLES = {
         "locality_structural_measurement",
         "locality_superficial_landform",
         # Metadata
-        "activity",
+        "project",
         "user_details",
     ]
 }
@@ -47,7 +47,7 @@ TABLES = {
             {"fid", "objectid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
-            {"dic_activity", "dic_manmade_code", "dic_media", "dic_sample", "dic_structure_category",
+            {"dic_project_type", "dic_manmade_code", "dic_media", "dic_sample", "dic_structure_category",
              "dic_structure_code", "dic_superficial_category", "dic_superficial_code"},
             {"fid", "code", "description", "translation"},
         ),
@@ -201,10 +201,9 @@ def test_dic_constraints(
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     # Arrange
     expected_contents = [
-        ["activity", "attributes"],
-        ["dic_activity", "attributes"],
         ["dic_manmade_code", "attributes"],
         ["dic_media", "attributes"],
+        ["dic_project_type", "attributes"],
         ["dic_sample", "attributes"],
         ["dic_structure_category", "attributes"],
         ["dic_structure_code", "attributes"],
@@ -215,6 +214,7 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
         ["locality_sample", "attributes"],
         ["locality_structural_measurement", "attributes"],
         ["locality_superficial_landform", "attributes"],
+        ["project", "attributes"],
         ["user_details", "attributes"],
         ["locality_point", "features"],
     ]
