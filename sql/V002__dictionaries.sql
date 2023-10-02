@@ -51,7 +51,7 @@ VALUES('dic_activity','attributes','dic_activity','Activity type dictionary.','2
 
 CREATE TABLE IF NOT EXISTS "dic_structure_category" (
 	"fid"	INTEGER NOT NULL,
-	"code"	TEXT NOT NULL UNIQUE UNIQUE,
+	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
 	"translation"	TEXT,
 	"status"	TEXT,
