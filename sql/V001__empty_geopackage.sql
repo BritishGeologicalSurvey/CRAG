@@ -79,3 +79,5 @@ CREATE TABLE gpkg_contents (
 
 
 COMMIT;
+
+PRAGMA foreign_keys=ON;
