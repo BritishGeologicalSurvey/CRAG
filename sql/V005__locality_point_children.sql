@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-CREATE TABLE IF NOT EXISTS "locality_structural_measurement" (
+CREATE TABLE IF NOT EXISTS "structural_measurement" (
   "fid" INTEGER NOT NULL UNIQUE,
   "objectid" INTEGER,
   "uuid" TEXT NOT NULL UNIQUE,
@@ -23,10 +23,10 @@ CREATE TABLE IF NOT EXISTS "locality_structural_measurement" (
 );
 
 INSERT INTO gpkg_contents
-VALUES('locality_structural_measurement','attributes','locality_structural_measurement','Structural measurement data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+VALUES('structural_measurement','attributes','structural_measurement','Structural measurement data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
-CREATE TABLE IF NOT EXISTS "locality_manmade_landform" (
+CREATE TABLE IF NOT EXISTS "manmade_landform" (
   "fid" INTEGER NOT NULL UNIQUE,
   "objectid" INTEGER,
   "uuid" TEXT NOT NULL UNIQUE,
@@ -47,10 +47,10 @@ CREATE TABLE IF NOT EXISTS "locality_manmade_landform" (
 );
 
 INSERT INTO gpkg_contents
-VALUES('locality_manmade_landform','attributes','locality_manmade_landform','Man-made landforms data, e.g. quarries.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+VALUES('manmade_landform','attributes','manmade_landform','Man-made landforms data, e.g. quarries.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
-CREATE TABLE IF NOT EXISTS "locality_media" (
+CREATE TABLE IF NOT EXISTS "media" (
   "fid" INTEGER NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
   "objectid" INTEGER,
@@ -67,10 +67,10 @@ CREATE TABLE IF NOT EXISTS "locality_media" (
 );
 
 INSERT INTO gpkg_contents
-VALUES('locality_media','attributes','locality_media','Media files associated with locality.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+VALUES('media','attributes','media','Media files associated with locality.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
-CREATE TABLE IF NOT EXISTS "locality_sample" (
+CREATE TABLE IF NOT EXISTS "sample" (
   "fid" INTEGER NOT NULL UNIQUE,
   "objectid" INTEGER,
   "uuid" TEXT NOT NULL UNIQUE,
@@ -88,10 +88,10 @@ CREATE TABLE IF NOT EXISTS "locality_sample" (
 );
 
 INSERT INTO gpkg_contents
-VALUES('locality_sample','attributes','locality_sample','Sample data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+VALUES('sample','attributes','sample','Sample data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
-CREATE TABLE IF NOT EXISTS "locality_superficial_landform" (
+CREATE TABLE IF NOT EXISTS "superficial_landform" (
   "fid" INTEGER NOT NULL UNIQUE,
   "objectid" INTEGER,
   "uuid" TEXT NOT NULL UNIQUE,
@@ -113,6 +113,6 @@ CREATE TABLE IF NOT EXISTS "locality_superficial_landform" (
 );
 
 INSERT INTO gpkg_contents
-VALUES('locality_superficial_landform','attributes','locality_superficial_landform','Superficial landform data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+VALUES('superficial_landform','attributes','superficial_landform','Superficial landform data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 COMMIT;

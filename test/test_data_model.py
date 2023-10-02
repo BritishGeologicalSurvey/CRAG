@@ -22,11 +22,11 @@ TABLES = {
         "dic_superficial_category",
         "dic_superficial_code",
         # Attributes
-        "locality_manmade_landform",
-        "locality_media",
-        "locality_sample",
-        "locality_structural_measurement",
-        "locality_superficial_landform",
+        "manmade_landform",
+        "media",
+        "sample",
+        "structural_measurement",
+        "superficial_landform",
         # Metadata
         "project",
     ]
@@ -41,8 +41,8 @@ TABLES = {
             {"fid", "objectid", "uuid", "geometry", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Non-spatial (attribute) tables
-            {"locality_manmade_landform", "locality_media", "locality_sample", "locality_structural_measurement",
-             "locality_superficial_landform"},
+            {"manmade_landform", "media", "sample", "structural_measurement",
+             "superficial_landform"},
             {"fid", "objectid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
@@ -71,27 +71,27 @@ def test_data_model_columns_exist(
 @pytest.mark.parametrize(
     ["table", "new_data", "expected_string"],
     [
-        # Table: locality_manmade_landform
-        ("locality_manmade_landform", {"dip": 0}, None),
-        ("locality_manmade_landform", {"dip": 90}, None),
-        ("locality_manmade_landform", {"dip": -1}, "CHECK constraint failed: dip"),
-        ("locality_manmade_landform", {"dip": 91}, "CHECK constraint failed: dip"),
+        # Table: manmade_landform
+        ("manmade_landform", {"dip": 0}, None),
+        ("manmade_landform", {"dip": 90}, None),
+        ("manmade_landform", {"dip": -1}, "CHECK constraint failed: dip"),
+        ("manmade_landform", {"dip": 91}, "CHECK constraint failed: dip"),
 
-        # Table: locality_structural_measurement
-        ("locality_structural_measurement", {"dip": 0}, None),
-        ("locality_structural_measurement", {"dip": 90}, None),
-        ("locality_structural_measurement", {"dip": -1}, "CHECK constraint failed: dip"),
-        ("locality_structural_measurement", {"dip": 91}, "CHECK constraint failed: dip"),
-        ("locality_structural_measurement", {"dip_direction": 0}, None),
-        ("locality_structural_measurement", {"dip_direction": 359}, None),
-        ("locality_structural_measurement", {"dip_direction": -1}, "CHECK constraint failed: dip_direction"),
-        ("locality_structural_measurement", {"dip_direction": 360}, "CHECK constraint failed: dip_direction"),
+        # Table: structural_measurement
+        ("structural_measurement", {"dip": 0}, None),
+        ("structural_measurement", {"dip": 90}, None),
+        ("structural_measurement", {"dip": -1}, "CHECK constraint failed: dip"),
+        ("structural_measurement", {"dip": 91}, "CHECK constraint failed: dip"),
+        ("structural_measurement", {"dip_direction": 0}, None),
+        ("structural_measurement", {"dip_direction": 359}, None),
+        ("structural_measurement", {"dip_direction": -1}, "CHECK constraint failed: dip_direction"),
+        ("structural_measurement", {"dip_direction": 360}, "CHECK constraint failed: dip_direction"),
 
-        # Table: locality_superficial_landform
-        ("locality_superficial_landform", {"dip": 0}, None),
-        ("locality_superficial_landform", {"dip": 90}, None),
-        ("locality_superficial_landform", {"dip": -1}, "CHECK constraint failed: dip"),
-        ("locality_superficial_landform", {"dip": 91}, "CHECK constraint failed: dip"),
+        # Table: superficial_landform
+        ("superficial_landform", {"dip": 0}, None),
+        ("superficial_landform", {"dip": 90}, None),
+        ("superficial_landform", {"dip": -1}, "CHECK constraint failed: dip"),
+        ("superficial_landform", {"dip": 91}, "CHECK constraint failed: dip"),
     ],
 )
 def test_data_model_columns_constraints(
@@ -123,12 +123,12 @@ def test_data_model_columns_constraints(
 @pytest.mark.parametrize(
     ["table"],
     [
-        ("locality_manmade_landform",),
-        ("locality_media",),
+        ("manmade_landform",),
+        ("media",),
         ("locality_point",),
-        ("locality_sample",),
-        ("locality_structural_measurement",),
-        ("locality_superficial_landform",),
+        ("sample",),
+        ("structural_measurement",),
+        ("superficial_landform",),
     ],
 )
 def test_data_model_columns_uuid_unique(
@@ -208,12 +208,12 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
         ["dic_structure_code", "attributes"],
         ["dic_superficial_category", "attributes"],
         ["dic_superficial_code", "attributes"],
-        ["locality_manmade_landform", "attributes"],
-        ["locality_media", "attributes"],
-        ["locality_sample", "attributes"],
-        ["locality_structural_measurement", "attributes"],
-        ["locality_superficial_landform", "attributes"],
+        ["manmade_landform", "attributes"],
+        ["media", "attributes"],
         ["project", "attributes"],
+        ["sample", "attributes"],
+        ["structural_measurement", "attributes"],
+        ["superficial_landform", "attributes"],
         ["locality_point", "features"],
     ]
 

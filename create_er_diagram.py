@@ -23,12 +23,12 @@ def main(
         "dic_structure_code",
         "dic_superficial_category",
         "dic_superficial_code",
-        "locality_manmade_landform",
-        "locality_media",
+        "manmade_landform",
+        "media",
         "locality_point",
-        "locality_sample",
-        "locality_structural_measurement",
-        "locality_superficial_landform",
+        "sample",
+        "structural_measurement",
+        "superficial_landform",
     ]
 
     # Only include the given tables in the diagram
