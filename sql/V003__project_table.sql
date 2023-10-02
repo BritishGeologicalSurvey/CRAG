@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS "project" (
 	"fid"	INTEGER NOT NULL UNIQUE,
 	"objectid"	INTEGER,
 	"uuid"	TEXT NOT NULL UNIQUE,
+	"short_name" TEXT NOT NULL UNIQUE,
 	"title"	TEXT,
 	"description"	TEXT,
 	"responsible_person_id"	TEXT,
