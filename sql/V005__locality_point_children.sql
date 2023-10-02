@@ -26,22 +26,6 @@ INSERT INTO gpkg_contents
 VALUES('locality_structural_measurement','attributes','locality_structural_measurement','Structural measurement data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
-CREATE TABLE IF NOT EXISTS "user_details" (
-  "fid" INTEGER NOT NULL UNIQUE,
-  "objectid" INTEGER NOT NULL UNIQUE,
-  "user_type_code" TEXT NOT NULL,
-  "user_description" TEXT NOT NULL,
-  "last_location_no" INTEGER,
-  "last_media_no" INTEGER,
-  "last_sample_no" INTEGER,
-  "last_strucuture_no" INTEGER,
-  PRIMARY KEY("fid" AUTOINCREMENT)
-);
-
-INSERT INTO gpkg_contents
-VALUES('user_details','attributes','user_details','Localised user information and user numbers.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
-
-
 CREATE TABLE IF NOT EXISTS "locality_manmade_landform" (
   "fid" INTEGER NOT NULL UNIQUE,
   "objectid" INTEGER,

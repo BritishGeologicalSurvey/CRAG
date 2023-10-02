@@ -29,7 +29,6 @@ TABLES = {
         "locality_superficial_landform",
         # Metadata
         "project",
-        "user_details",
     ]
 }
 
@@ -215,7 +214,6 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
         ["locality_structural_measurement", "attributes"],
         ["locality_superficial_landform", "attributes"],
         ["project", "attributes"],
-        ["user_details", "attributes"],
         ["locality_point", "features"],
     ]
 
