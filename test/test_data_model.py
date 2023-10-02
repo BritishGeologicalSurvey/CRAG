@@ -1,4 +1,3 @@
-import datetime as dt
 import sqlite3
 from typing import (
     Optional,
@@ -159,8 +158,12 @@ def test_data_model_columns_uuid_unique(
     assert expected_string in str(excinfo.value)
 
 
-@pytest.mark.parametrize(["table"],
-    [(table,) for table in TABLES['attributes'] if table.startswith('dic_') ],
+@pytest.mark.parametrize(
+        ["table"],
+        [
+            (table,) for table in TABLES['attributes']
+            if table.startswith('dic_')
+        ],
 )
 def test_dic_constraints(
     data_model_gpkg: sqlite3.Connection,
@@ -170,19 +173,29 @@ def test_dic_constraints(
     # TODO: update tests when new dictionary format is decided
     not_null_columns = {"fid", "code", "user_entered", "date_entered"}
 
+    # Test not-null columns
     # Act and assert
     for column in etl.table_info(table, data_model_gpkg):
         if column.name in not_null_columns:
             assert column.not_null, f"{table}.{column.name} is missing not null constraint"
 
-    # TODO: add tests for unique constraint on "code" column.
-    minimal_row = {
-        "fid": 1,
-        "code": "repeated value",
-        "description": "test_description",
-        "user_entered": "test_user",
-        "date_entered": dt.date.today()
-    }
+    # Test unique constraint on "fid" and "code"
+    # Arrange
+    first_row = etl.fetchone(f"SELECT * FROM {table} ORDER BY fid LIMIT 1",
+                             data_model_gpkg, row_factory=etl.row_factories.dict_row_factory)
+
+    # Act and assert
+    duplicate_fid = first_row.copy()
+    duplicate_fid.update({"code": "this code does not exist"})
+    with pytest.raises(etl.exceptions.ETLHelperInsertError) as excinfo:
+        etl.load(table=table, conn=data_model_gpkg, rows=[duplicate_fid])
+    assert f"UNIQUE constraint failed: {table}.fid" in str(excinfo.value)
+
+    duplicate_code = first_row.copy()
+    duplicate_code.update({"fid": -1})
+    with pytest.raises(etl.exceptions.ETLHelperInsertError) as excinfo:
+        etl.load(table=table, conn=data_model_gpkg, rows=[duplicate_code])
+    assert f"UNIQUE constraint failed: {table}.code" in str(excinfo.value)
 
 
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):

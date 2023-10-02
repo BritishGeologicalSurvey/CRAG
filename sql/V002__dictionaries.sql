@@ -3,13 +3,13 @@
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "dic_sample" (
 	"fid"	INTEGER NOT NULL UNIQUE,
-	"code"	TEXT NOT NULL,
+	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT NOT NULL,
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
 	"date_entered"	DATE NOT NULL,
-	"user_updated"	INTEGER,
+	"user_updated"	TEXT,
 	"date_updated"	DATE,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
@@ -19,13 +19,13 @@ VALUES('dic_sample','attributes','dic_sample','Sample type dictionary.','2023-09
 
 CREATE TABLE IF NOT EXISTS "dic_media" (
 	"fid"	INTEGER NOT NULL UNIQUE,
-	"code"	TEXT NOT NULL,
+	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT NOT NULL,
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
 	"date_entered"	DATE NOT NULL,
-	"user_updated"	INTEGER,
+	"user_updated"	TEXT,
 	"date_updated"	DATE,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
@@ -50,7 +50,7 @@ INSERT INTO gpkg_contents
 VALUES('dic_activity','attributes','dic_activity','Activity type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 CREATE TABLE IF NOT EXISTS "dic_structure_category" (
-	"fid"	INTEGER NOT NULL,
+	"fid"	INTEGER NOT NULL UNIQUE,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
 	"translation"	TEXT,
@@ -66,7 +66,7 @@ INSERT INTO gpkg_contents
 VALUES('dic_structure_category','attributes','dic_structure_category','Dictionary of structure categories.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 CREATE TABLE IF NOT EXISTS "dic_superficial_category" (
-	"fid"	INTEGER NOT NULL,
+	"fid"	INTEGER NOT NULL UNIQUE,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
 	"translation"	TEXT,
