@@ -72,7 +72,7 @@ def sample_dict_row() -> dict[str, Any]:
 def structural_measurement_dict_row() -> dict[str, Any]:
     return {"fid": 1, "objectid": None, "locality_fuid": "a", "uuid": "abc",
             "structure_type_category": "b", "structure_type_code": "c", "dip": 45, "dip_direction": 180,
-            "secondary_attrib": None, "third_attrib": None, "user_entered": "d",
+            "user_entered": "d",
             "date_entered": dt.datetime.now(), "user_updated": None, "date_updated": None}
 
 
