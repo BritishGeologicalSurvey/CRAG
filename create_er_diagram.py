@@ -14,24 +14,21 @@ def main(
     meta.reflect(bind=engine)
 
     tables = [
-        "activity",
-        "dic_activity",
+        "project",
+        "dic_project_type",
         "dic_manmade_code",
         "dic_media",
         "dic_sample",
         "dic_structure_category",
         "dic_structure_code",
-        "dic_structure_secondary",
-        "dic_structure_third",
         "dic_superficial_category",
         "dic_superficial_code",
-        "dic_users",
-        "locality_manmade_landform",
-        "locality_media",
+        "manmade_landform",
+        "media",
         "locality_point",
-        "locality_sample",
-        "locality_structural_measurement",
-        "locality_superficial_landform",
+        "sample",
+        "structural_measurement",
+        "superficial_landform",
     ]
 
     # Only include the given tables in the diagram
