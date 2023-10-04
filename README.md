@@ -58,15 +58,28 @@ The plugin can then be launched from the _Plugins_ menu.  When new versions are 
 
 Once installed, the plugin is available at _Plugins > Field Data Capture_.
 
-## Running scripts
+## For Developers
+
+### Running scripts
+
+> The development environment is Linux under WSL. It assumes you have Conda installed via the WSL ansible role.
+
+To install OS system dependencies:
+
+```bash
+sudo apt install graphviz graphviz-dev build-essential spatialite-bin libsqlite3-mod-spatialite -y
+```
+
+ - spatialite provides access to spatial features that are used by some of the GeoPackage index triggers.
+ - graphviz is used to generate the ER diagram.
 
 Create a virtual environment (Python 3.11) and install dependencies:
 
 ```bash
-pip install -r requirements.txt
+conda env create -f environment.yaml
 ```
 
-The `requirements.txt` file was created with [pip-compile](https://pip-tools.readthedocs.io/en/latest/cli/pip-compile/), which can be used again when dependencies need to be updated.
+The `environment_unversioned.yaml` file was created with `conda env export --from-history`. Creating a new environment from this file will use the most up-to-date dependencies.
 
 The repository also contains a `bin` directory with useful scripts.  The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.
 
@@ -74,15 +87,7 @@ The repository also contains a `bin` directory with useful scripts.  The `format
 bin/format_sql.sh raw_dump.sql > sql/V00x__pretty_formatted.sql
 ```
 
-## Running tests
-
-Install `spatialite` extension for `sqlite`:
-
-```bash
-sudo apt install spatialite-bin libsqlite3-mod-spatialite
-```
-
-spatialite provides access to spatial features that are used by some of the GeoPackage index triggers.
+### Running tests
 
 To run the tests:
 
