@@ -12,3 +12,7 @@ RUN apt-get update -y && \
 COPY environment.yml /environment.yml
 
 RUN conda env create -f /environment.yml
+
+# Make future shell commands use the fdc environment
+# See https://pythonspeed.com/articles/activate-conda-dockerfile/
+SHELL ["conda", "run", "-n", "fdc", "/bin/bash", "-c"]
