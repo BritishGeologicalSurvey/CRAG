@@ -9,7 +9,7 @@ from typing import (
 import pytest
 import etlhelper as etl
 
-from create_gpkg_from_sql import main as gpkg_from_sql
+from plugin.create_gpkg_from_sql import main as gpkg_from_sql
 
 
 @pytest.fixture()
