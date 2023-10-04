@@ -6,7 +6,6 @@ dependencies:
   - python=3.11
   - qgis=3.28.11
   - pip:
-      - pip-tools
       - etlhelper
       - sqlparse
       - pytest
