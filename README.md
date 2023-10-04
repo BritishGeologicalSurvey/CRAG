@@ -96,6 +96,18 @@ export PYTHONPATH=.
 pytest -vvs test/
 ```
 
+### Deploying plugin
+
+To copy the plugin to your QGIS plugins folder, run:
+
+```bash
+bin/deploy_plugin.sh
+```
+
+You may need to manually activate the plugin if it was not installed already.
+
+If you install the QGIS Plugin Reloader plugin, you can use it to quickly reload to the newly installed version.
+
 ## Useful links
 
 + [PyQGIS Developer Cookbook](https://docs.qgis.org/3.28/en/docs/pyqgis_developer_cookbook/intro.html)
