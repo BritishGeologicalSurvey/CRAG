@@ -1,6 +1,9 @@
 __pycache__
 .pytest_cache
 setup_env.sh
+plugin/help/build
 
 field-data-capture.gpkg
 er-diagram.png
+
+.vscode
