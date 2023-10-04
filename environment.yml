@@ -224,23 +224,38 @@ dependencies:
   - zstd=1.5.5=hfc55251_0
   - pip:
       - alabaster==0.7.13
+      - asttokens==2.4.0
       - babel==2.13.0
       - backcall==0.2.0
       - build==1.0.3
+      - click==8.1.7
       - colorama==0.4.6
       - decorator==5.1.1
+      - docutils==0.20.1
       - eralchemy==1.2.10
+      - etlhelper==0.14.3
+      - executing==2.0.0
+      - flake8==6.1.0
       - imagesize==1.4.1
+      - iniconfig==2.0.0
+      - ipython==8.16.1
       - jedi==0.19.1
       - matplotlib-inline==0.1.6
+      - mccabe==0.7.0
       - parso==0.8.3
       - pb-tool==3.1.0
       - pexpect==4.8.0
       - pickleshare==0.7.5
       - pip-tools==7.3.0
+      - pluggy==1.3.0
+      - prompt-toolkit==3.0.39
       - ptyprocess==0.7.0
+      - pure-eval==0.2.2
+      - pycodestyle==2.11.0
+      - pyflakes==3.1.0
       - pygraphviz==1.11
       - pyproject-hooks==1.0.0
+      - pytest==7.4.2
       - snowballstemmer==2.2.0
       - sphinx==7.2.6
       - sphinxcontrib-applehelp==1.0.7
@@ -251,5 +266,6 @@ dependencies:
       - sphinxcontrib-serializinghtml==1.1.9
       - sqlalchemy==1.3.24
       - sqlparse==0.4.4
+      - stack-data==0.6.3
       - traitlets==5.11.2
       - wcwidth==0.2.8
