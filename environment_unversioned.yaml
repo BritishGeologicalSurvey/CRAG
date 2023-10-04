@@ -1,0 +1,17 @@
+name: fdc
+channels:
+  - https://nexus-internal.bgs.ac.uk/repository/conda/main
+  - https://nexus-internal.bgs.ac.uk/repository/conda-forge
+dependencies:
+  - python=3.11
+  - qgis=3.28.11
+  - pip:
+      - pip-tools
+      - etlhelper
+      - sqlparse
+      - pytest
+      - flake8
+      - ipython
+      - sqlalchemy<1.4
+      - eralchemy
+      - pb_tool
