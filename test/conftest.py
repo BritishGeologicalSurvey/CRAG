@@ -62,6 +62,13 @@ def media_dict_row() -> dict[str, Any]:
 
 
 @pytest.fixture()
+def photo_dict_row() -> dict[str, Any]:
+    return {"fid": 1, "objectid": None, "locality_fuid": "a", "uuid": "abc",
+            "photo_file": "c", "comment": None, "user_entered": "d",
+            "date_entered": dt.datetime.now(), "user_updated": None, "date_updated": None}
+
+
+@pytest.fixture()
 def sample_dict_row() -> dict[str, Any]:
     return {"fid": 1, "objectid": None, "locality_fuid": "a", "uuid": "abc",
             "sample_type_code": "b", "sample_description": None, "comment": None, "user_entered": "d",

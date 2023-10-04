@@ -24,6 +24,7 @@ TABLES = {
         # Attributes
         "manmade_landform",
         "media",
+        "photo",
         "sample",
         "structural_measurement",
         "superficial_landform",
@@ -41,7 +42,7 @@ TABLES = {
             {"fid", "objectid", "uuid", "geometry", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Non-spatial (attribute) tables
-            {"manmade_landform", "media", "sample", "structural_measurement",
+            {"manmade_landform", "media", "photo", "sample", "structural_measurement",
              "superficial_landform"},
             {"fid", "objectid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
@@ -125,6 +126,7 @@ def test_data_model_columns_constraints(
     [
         ("manmade_landform",),
         ("media",),
+        ("photo",),
         ("locality_point",),
         ("sample",),
         ("structural_measurement",),
@@ -210,6 +212,7 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
         ["dic_superficial_code", "attributes"],
         ["manmade_landform", "attributes"],
         ["media", "attributes"],
+        ["photo", "attributes"],
         ["project", "attributes"],
         ["sample", "attributes"],
         ["structural_measurement", "attributes"],
