@@ -37,7 +37,7 @@ from .resources import *
 import os.path
 
 from .create_gpkg_from_sql import main as gpkg_from_sql
-from .plugin.utils import ipdb_breakpoint
+from .utils import ipdb_breakpoint
 
 
 class FieldDataCapture:

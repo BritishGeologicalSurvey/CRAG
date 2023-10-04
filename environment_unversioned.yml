@@ -9,6 +9,7 @@ dependencies:
       - eralchemy
       - etlhelper
       - flake8
+      - ipdb
       - ipython
       - pb_tool
       - pytest
