@@ -9,14 +9,11 @@ CREATE TABLE IF NOT EXISTS "structural_measurement" (
   "structure_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),
   "dip_direction" INTEGER CHECK("dip_direction" >= 0 AND "dip_direction" < 360),
-  "secondary_attrib" TEXT,
-  "third_attrib" TEXT,
   "user_entered" TEXT NOT NULL,
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
   FOREIGN KEY("structure_type_code") REFERENCES "dic_structure_code"("code"),
-  FOREIGN KEY("secondary_attrib") REFERENCES "dic_structure_secondary"("code"),
   FOREIGN KEY("structure_type_category") REFERENCES "dic_structure_code"("category"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
@@ -68,6 +65,24 @@ CREATE TABLE IF NOT EXISTS "media" (
 
 INSERT INTO gpkg_contents
 VALUES('media','attributes','media','Media files associated with locality.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
+
+CREATE TABLE IF NOT EXISTS "photo" (
+  "fid" INTEGER NOT NULL UNIQUE,
+  "locality_fuid" TEXT NOT NULL,
+  "objectid" INTEGER,
+  "uuid" TEXT NOT NULL UNIQUE,
+  "photo_file" TEXT NOT NULL,
+  "comment" TEXT,
+  "user_entered" TEXT NOT NULL,
+  "date_entered" DATETIME NOT NULL,
+  "user_updated" TEXT, "date_updated" DATETIME,
+  FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
+  PRIMARY KEY("fid" AUTOINCREMENT)
+);
+
+INSERT INTO gpkg_contents
+VALUES('photo','attributes','photo','Photo files associated with locality.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
 CREATE TABLE IF NOT EXISTS "sample" (
