@@ -76,10 +76,10 @@ sudo apt install graphviz graphviz-dev build-essential spatialite-bin libsqlite3
 Create a virtual environment (Python 3.11) and install dependencies:
 
 ```bash
-conda env create -f environment.yaml
+conda env create -f environment.yml
 ```
 
-The `environment_unversioned.yaml` file was created with `conda env export --from-history`. Creating a new environment from this file will use the most up-to-date dependencies.
+The `environment_unversioned.yml` file was created with `conda env export --from-history`. Creating a new environment from this file will use the most up-to-date dependencies.
 
 The repository also contains a `bin` directory with useful scripts.  The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.
 
