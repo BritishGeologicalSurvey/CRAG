@@ -24,6 +24,7 @@ def main(
         "dic_superficial_category",
         "dic_superficial_code",
         "manmade_landform",
+        "photo",
         "media",
         "locality_point",
         "sample",
