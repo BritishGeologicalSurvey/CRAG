@@ -20,13 +20,7 @@ There is lots of exploratory work to do in terms of QGIS project configuration.
 This will require multiple QGIS projects to be created.
 We will share these projects via Mergin Maps so that they can be tested and feedback collected.
 
-The table below can be used to keep track of them:
-
-|Model version tag|Mergin project|Feedback issue|Features|
-|---|---|---|---|
-|[data-model-v1](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/tags/data-model-v1)|data-model-v1|[data-model-v1 feedback](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/issues/18)|Locality points and forms. Experimental callouts. Photos are broken|
-
-The code used to build the model for a given Mergin project should be tagged and linked here, as should an issue created to record feedback.
+See the [Versions and Feedback](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/wikis/versions-and-feedback) page on the Wiki for details.
 
 ## File Downloads
 
