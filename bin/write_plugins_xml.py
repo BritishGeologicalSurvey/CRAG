@@ -12,7 +12,7 @@ TEMPLATE = dedent("""
       <pyqgis_plugin name='{name}' version='{version}'>
         <description>{description}</description>
         <version>{version}</version>
-        <qgis_minimum_version>3.0</qgis_minimum_version>
+        <qgis_minimum_version>3.28</qgis_minimum_version>
         <homepage>{homepage}</homepage>
         <file_name>{file_name}</file_name>
         <author_name>{author}</author_name>
