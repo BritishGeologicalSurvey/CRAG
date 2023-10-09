@@ -12,6 +12,7 @@ def main(
     workdir: Path = WORKDIR,
     db_file: Path = DB_FILE,
 ):
+    logger.info('Creating database at: %s', str(db_file))
     if db_file.exists():
         logger.info('Deleting existing database')
         db_file.unlink()
