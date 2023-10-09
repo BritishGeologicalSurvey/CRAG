@@ -4,10 +4,13 @@ FROM continuumio/miniconda3:23.5.2-0
 RUN apt-get update -y && \
     apt-get install -y \
       build-essential \
+      # graphviz is required to render ER diagrams
       graphviz \
       graphviz-dev \
+      # spatialite provides spatial functions in SQLite database
       spatialite-bin \
       libsqlite3-mod-spatialite \
+      # xvfb provides a headless X server for testing gui apps
       xvfb
 
 COPY environment.yml /environment.yml
