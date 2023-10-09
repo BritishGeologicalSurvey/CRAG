@@ -1,8 +1,0 @@
-pip-tools
-etlhelper
-sqlparse
-pytest
-flake8
-ipython
-sqlalchemy<1.4
-eralchemy

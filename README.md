@@ -42,15 +42,44 @@ There are a few overarching principles to bear in mind during development:
 + If it is shared, it may be open sourced.  Code should be written in the assumption that the world will be able to see it.  No BGS infrastructure or credentials should be present.
 + Overseas partners may not have an internal data store for map creation.  The option to extend to inclusion of polygons for creation of a final map should be kept open.
 
-## Running scripts
+## Plugin
+
+### Installing the QGIS plugin
+
+1. Enable the repository in QGIS via _Plugins > Manage and Install Plugins > Settings > Plugin Repositories > Add_
+2. Set the Name to "Field Data Capture"
+3. Set the URL to http://field-data-capture.glpages.ad.nerc.ac.uk/model-and-forms/plugins.xml
+4. Press OK
+5. Search for and install `Field Data Capture` in the _All_ tab
+
+The plugin can then be launched from the _Plugins_ menu.  When new versions are released they will be shown in the _Upgradeable_ tab.
+
+### Running the plugin
+
+Once installed, the plugin is available at _Plugins > Field Data Capture_.
+
+## For Developers
+
+### Running scripts
+
+> The development environment is Linux under WSL. It assumes you have Conda installed via the WSL ansible role.
+
+To install OS system dependencies:
+
+```bash
+sudo apt install graphviz graphviz-dev build-essential spatialite-bin libsqlite3-mod-spatialite -y
+```
+
+ - spatialite provides access to spatial features that are used by some of the GeoPackage index triggers.
+ - graphviz is used to generate the ER diagram.
 
 Create a virtual environment (Python 3.11) and install dependencies:
 
 ```bash
-pip install -r requirements.txt
+conda env create -f environment.yml
 ```
 
-The `requirements.txt` file was created with [pip-compile](https://pip-tools.readthedocs.io/en/latest/cli/pip-compile/), which can be used again when dependencies need to be updated.
+The `environment_unversioned.yml` file was created with `conda env export --from-history`. Creating a new environment from this file will use the most up-to-date dependencies.
 
 The repository also contains a `bin` directory with useful scripts.  The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.
 
@@ -58,15 +87,7 @@ The repository also contains a `bin` directory with useful scripts.  The `format
 bin/format_sql.sh raw_dump.sql > sql/V00x__pretty_formatted.sql
 ```
 
-## Running tests
-
-Install `spatialite` extension for `sqlite`:
-
-```bash
-sudo apt install spatialite-bin libsqlite3-mod-spatialite
-```
-
-spatialite provides access to spatial features that are used by some of the GeoPackage index triggers.
+### Running tests
 
 To run the tests:
 
@@ -74,6 +95,18 @@ To run the tests:
 export PYTHONPATH=.
 pytest -vvs test/
 ```
+
+### Deploying plugin
+
+To copy the plugin to your QGIS plugins folder, run:
+
+```bash
+bin/deploy_plugin.sh
+```
+
+You may need to manually activate the plugin if it was not installed already.
+
+If you install the QGIS Plugin Reloader plugin, you can use it to quickly reload to the newly installed version.
 
 ## Useful links
 
