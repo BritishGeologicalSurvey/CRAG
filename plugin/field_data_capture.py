@@ -56,16 +56,16 @@ class FieldDataCapture:
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
-        locale = QSettings().value('locale/userLocale')[0:2]
-        locale_path = os.path.join(
-            self.plugin_dir,
-            'i18n',
-            'FieldDataCapture_{}.qm'.format(locale))
+        # locale = QSettings().value('locale/userLocale')[0:2]
+        # locale_path = os.path.join(
+        #     self.plugin_dir,
+        #     'i18n',
+        #     'FieldDataCapture_{}.qm'.format(locale))
 
-        if os.path.exists(locale_path):
-            self.translator = QTranslator()
-            self.translator.load(locale_path)
-            QCoreApplication.installTranslator(self.translator)
+        # if os.path.exists(locale_path):
+        #     self.translator = QTranslator()
+        #     self.translator.load(locale_path)
+        #     QCoreApplication.installTranslator(self.translator)
 
         # Declare instance attributes
         self.actions = []
@@ -190,14 +190,6 @@ class FieldDataCapture:
 
     def run(self):
         """Run method that performs all the real work"""
-
-        ipdb_breakpoint()
-        # Create the dialog with elements (after translation) and keep reference
-        # Only create GUI ONCE in callback, so that it will only load when the plugin is started
-        if self.first_start == True:
-            self.first_start = False
-            # self.dlg = HelloWorldDialog()
-
         project_path = QgsProject.instance().readPath("./")
         if str(project_path) != "./":
             db_file = Path(project_path) / "field-data-capture.gpkg"
