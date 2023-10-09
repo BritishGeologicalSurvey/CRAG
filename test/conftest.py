@@ -8,8 +8,10 @@ from typing import (
 
 import pytest
 import etlhelper as etl
+from qgis.testing.mocked import get_iface
 
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
+from plugin.field_data_capture import FieldDataCapture
 
 
 @pytest.fixture()
@@ -89,3 +91,11 @@ def superficial_landform_dict_row() -> dict[str, Any]:
             "superficial_type_category": "b", "superficial_type_code": "c", "dip": 45, "length": None, "width": None,
             "height_depth": None, "comment": None, "user_entered": "d", "date_entered": dt.datetime.now(),
             "user_updated": None, "date_updated": None}
+
+
+@pytest.fixture(scope="session")
+def fdc() -> FieldDataCapture:
+    """
+    An instance of the FieldDataCapture plugin for tests, using a mock iface.
+    """
+    return FieldDataCapture(get_iface())
