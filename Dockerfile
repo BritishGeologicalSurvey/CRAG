@@ -11,7 +11,8 @@ RUN apt-get update -y && \
       spatialite-bin \
       libsqlite3-mod-spatialite \
       # xvfb provides a headless X server for testing gui apps
-      xvfb
+      xvfb \
+      zip
 
 COPY environment.yml /environment.yml
 
