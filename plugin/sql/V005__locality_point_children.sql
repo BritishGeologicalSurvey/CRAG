@@ -49,9 +49,9 @@ VALUES('manmade_landform','attributes','manmade_landform','Man-made landforms da
 
 CREATE TABLE IF NOT EXISTS "media" (
   "fid" INTEGER NOT NULL UNIQUE,
-  "locality_fuid" TEXT NOT NULL,
   "objectid" INTEGER,
   "uuid" TEXT NOT NULL UNIQUE,
+  "locality_fuid" TEXT NOT NULL,
   "media_type_code" TEXT NOT NULL,
   "media_link" TEXT NOT NULL,
   "comment" TEXT,
@@ -69,9 +69,9 @@ VALUES('media','attributes','media','Media files associated with locality.','202
 
 CREATE TABLE IF NOT EXISTS "photo" (
   "fid" INTEGER NOT NULL UNIQUE,
-  "locality_fuid" TEXT NOT NULL,
   "objectid" INTEGER,
   "uuid" TEXT NOT NULL UNIQUE,
+  "locality_fuid" TEXT NOT NULL,
   "photo_file" TEXT NOT NULL,
   "comment" TEXT,
   "user_entered" TEXT NOT NULL,
