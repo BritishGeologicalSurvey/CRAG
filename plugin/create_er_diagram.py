@@ -15,6 +15,8 @@ def main(
 
     tables = [
         "project",
+        "dic_exposure_type",
+        "dic_rock_all",
         "dic_project_type",
         "dic_manmade_code",
         "dic_media",

@@ -13,6 +13,8 @@ TABLES = {
     ],
     "attributes": [
         # Dictionaries
+        "dic_exposure_type",
+        "dic_rock_all",
         "dic_project_type",
         "dic_manmade_code",
         "dic_media",
@@ -48,7 +50,7 @@ TABLES = {
             {"fid", "objectid", "uuid", "comment", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
-            {"dic_project_type", "dic_manmade_code", "dic_media", "dic_sample", "dic_structure_category",
+            {"dic_exposure_type", "dic_rock_all", "dic_project_type", "dic_manmade_code", "dic_media", "dic_sample", "dic_structure_category",
              "dic_structure_code", "dic_superficial_category", "dic_superficial_code"},
             {"fid", "code", "description", "translation"},
         ),
@@ -204,9 +206,11 @@ def test_dic_constraints(
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     # Arrange
     expected_contents = [
+        ["dic_exposure_type", "attributes"],
         ["dic_manmade_code", "attributes"],
         ["dic_media", "attributes"],
         ["dic_project_type", "attributes"],
+        ["dic_rock_all", "attributes"],
         ["dic_sample", "attributes"],
         ["dic_structure_category", "attributes"],
         ["dic_structure_code", "attributes"],
