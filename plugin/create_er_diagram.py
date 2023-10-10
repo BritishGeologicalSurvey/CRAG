@@ -38,7 +38,13 @@ def main(
         if table.name in tables:
             table.tometadata(new_meta)
 
-    render_er(new_meta, img_filepath)
+    render_er(new_meta, img_filepath,
+              exclude_columns=["fid",
+                               "objectid",
+                               "user_entered",
+                               "date_entered",
+                               "user_updated",
+                               "date_updated"])
 
 
 if __name__ == "__main__":
