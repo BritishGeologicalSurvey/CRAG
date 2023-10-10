@@ -48,6 +48,30 @@ INSERT INTO gpkg_contents
 VALUES('manmade_landform','attributes','manmade_landform','Man-made landforms data, e.g. quarries.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
+CREATE TABLE IF NOT EXISTS "exposure"(
+  "fid" INTEGER NOT NULL UNIQUE,
+  "objectid" INTEGER UNIQUE,
+  "uuid" TEXT NOT NULL UNIQUE,
+  "locality_fuid" TEXT NOT NULL,
+  "exposure_type_code"  TEXT NOT NULL,
+  "lithology_code" TEXT,
+  "description" TEXT,
+  "comment" TEXT,
+  "user_entered" TEXT NOT NULL,
+  "date_entered" DATETIME NOT NULL,
+  "user_updated" TEXT,
+  "date_updated" DATETIME,
+  FOREIGN KEY("exposure_type_code") REFERENCES "dic_exposure_type"("code"),
+  FOREIGN KEY("lithology_code") REFERENCES "dic_rock_all"("code"),
+  FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
+  PRIMARY KEY("fid" AUTOINCREMENT)
+)
+;
+
+INSERT INTO gpkg_contents
+VALUES('exposure','attributes','exposure','Rock type at the surface','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
+
 CREATE TABLE IF NOT EXISTS "media" (
   "fid" INTEGER NOT NULL UNIQUE,
   "objectid" INTEGER UNIQUE,

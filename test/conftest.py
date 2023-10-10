@@ -50,6 +50,13 @@ def locality_point_dict_row() -> dict[str, Any]:
 
 
 @pytest.fixture()
+def exposure_dict_row() -> dict[str, Any]:
+    return {"fid": 1, "objectid": None, "locality_fuid": "a", "uuid": "abc",
+            "exposure_type_code": "b", "lithology_code": "some text", "description": "some text",
+            "comment": None, "user_entered": "c", "date_entered": dt.datetime.now(),
+            "user_updated": None, "date_updated": None}
+
+@pytest.fixture()
 def manmade_landform_dict_row() -> dict[str, Any]:
     return {"fid": 1, "objectid": None, "locality_fuid": "a", "uuid": "abc",
             "manmade_type_code": "b", "dip": 45, "dip_dir": 180, "length": None, "width": None, "comment": None,

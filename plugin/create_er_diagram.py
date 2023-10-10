@@ -23,6 +23,7 @@ def main(
         "dic_structure_code",
         "dic_superficial_category",
         "dic_superficial_code",
+        "exposure",
         "manmade_landform",
         "photo",
         "media",
