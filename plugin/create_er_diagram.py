@@ -15,6 +15,8 @@ def main(
 
     tables = [
         "project",
+        "dic_exposure_type",
+        "dic_rock_all",
         "dic_project_type",
         "dic_manmade_code",
         "dic_media",
@@ -23,6 +25,7 @@ def main(
         "dic_structure_code",
         "dic_superficial_category",
         "dic_superficial_code",
+        "exposure",
         "manmade_landform",
         "photo",
         "media",
@@ -38,7 +41,13 @@ def main(
         if table.name in tables:
             table.tometadata(new_meta)
 
-    render_er(new_meta, img_filepath)
+    render_er(new_meta, img_filepath,
+              exclude_columns=["fid",
+                               "objectid",
+                               "user_entered",
+                               "date_entered",
+                               "user_updated",
+                               "date_updated"])
 
 
 if __name__ == "__main__":

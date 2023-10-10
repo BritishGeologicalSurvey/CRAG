@@ -8,9 +8,9 @@ CREATE TABLE IF NOT EXISTS "dic_sample" (
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS "dic_media" (
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -40,9 +40,9 @@ CREATE TABLE IF NOT EXISTS "dic_project_type" (
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -56,9 +56,9 @@ CREATE TABLE IF NOT EXISTS "dic_structure_category" (
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("code")
 );
 
@@ -72,9 +72,9 @@ CREATE TABLE IF NOT EXISTS "dic_superficial_category" (
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("code")
 );
 
@@ -89,14 +89,46 @@ CREATE TABLE IF NOT EXISTS "dic_manmade_code" (
 	"status"	TEXT,
 	"archived_code"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("code")
 );
 
 insert into gpkg_contents
 values('dic_manmade_code','attributes','dic_manmade_code','Dictionary of man-made features.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
+CREATE TABLE IF NOT EXISTS "dic_exposure_type" (
+	"fid"	INTEGER NOT NULL UNIQUE,
+	"code"	TEXT NOT NULL UNIQUE,
+	"description"	TEXT,
+	"translation"	TEXT,
+	"status"	TEXT,
+	"user_entered"	TEXT NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
+	"user_updated"	TEXT,
+	"date_updated"	DATETIME,
+	PRIMARY KEY("code")
+);
+
+insert into gpkg_contents
+values('dic_exposure_type','attributes','dic_exposure_type','Dictionary of exposure types','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
+CREATE TABLE IF NOT EXISTS "dic_rock_all" (
+	"fid"	INTEGER NOT NULL UNIQUE,
+	"code"	TEXT NOT NULL UNIQUE,
+	"description"	TEXT,
+	"translation"	TEXT,
+	"status"	TEXT,
+	"user_entered"	TEXT NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
+	"user_updated"	TEXT,
+	"date_updated"	DATETIME,
+	PRIMARY KEY("code")
+);
+
+insert into gpkg_contents
+values('dic_rock_all','attributes','dic_rock_all','Dictionary of rock types','2023-09-15t13:21:52.679z',null,null,null,null,null);
 
 CREATE TABLE IF NOT EXISTS "dic_structure_code" (
 	"fid"	INTEGER NOT NULL UNIQUE,
@@ -109,9 +141,9 @@ CREATE TABLE IF NOT EXISTS "dic_structure_code" (
 	"status"	TEXT,
 	"translation"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("code"),
 	FOREIGN KEY("category") REFERENCES "dic_structure_category"("code")
 );
@@ -275,4 +307,61 @@ INSERT INTO "dic_superficial_code" ("fid","category","code","description","trans
 INSERT INTO "dic_superficial_code" ("fid","category","code","description","translation","status","archived_code","user_entered","date_entered","user_updated","date_updated") VALUES (29,'TOPOGRAPHIC_FEATURE','SL_TF_HPM','High point mound','high_point_mound','C','HPM','kigl','01/01/2012','jbow','13/09/2023');
 INSERT INTO "dic_superficial_code" ("fid","category","code","description","translation","status","archived_code","user_entered","date_entered","user_updated","date_updated") VALUES (30,'TOPOGRAPHIC_FEATURE','SL_TF_LPH','Low point hollow','low_point_hollow','C','LPH','kigl','01/01/2012','jbow','13/09/2023');
 INSERT INTO "dic_superficial_code" ("fid","category","code","description","translation","status","archived_code","user_entered","date_entered","user_updated","date_updated") VALUES (31,'TOPOGRAPHIC_FEATURE','SL_TF_SH','Subsidence hollow','subsidence_hollow','C','SUBHOL','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'OUTCROP','Outcrop','outcrop','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'SECTION','Section','section','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'QUARRY','Quarry','quarry','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'AUGER_BOREHOLE','Auger/Borehole','auger_borehole','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'ROAD_CUT','Road cut','road_cut','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'TRENCH','Trench','trench','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'OTHER','Other','other','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'Sandstone','Sandstone','sandstone',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'Siltstone','Siltstone','siltstone',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'Mudstone','Mudstone','mudstone',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'Limestone','Limestone','limestone',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'Gritstone','Gritstone','gritstone',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'Artificial deposit','Artificial deposit','artificial deposit',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'Diamict','Diamict','diamict',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (8,'Peat','Peat','peat',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (9,'Clay','Clay','clay',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (10,'Silt','Silt','silt',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (11,'Sand','Sand','sand',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (12,'Granules','Granules','granules',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (13,'Gravel','Gravel','gravel',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (14,'Cobbles','Cobbles','cobbles',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (15,'Boulders','Boulders','boulders',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (16,'Andesite','Andesite','andesite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (17,'Anhydrite','Anhydrite','anhydrite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (18,'Basalt','Basalt','basalt',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (19,'Breccia','Breccia','breccia',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (20,'Cataclasite','Cataclasite','cataclasite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (21,'Chalk','Chalk','chalk',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (22,'Chert','Chert','chert',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (23,'Coal','Coal','coal',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (24,'Conglomerate','Conglomerate','conglomerate',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (25,'Dioritic','Dioritic','dioritic',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (26,'Dolerite','Dolerite','dolerite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (27,'Dolomite','Dolomite','dolomite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (28,'Dolostone','Dolostone','dolostone',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (29,'Gabbritic','Gabbritic','gabbritic',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (30,'Gneiss','Gneiss','gneiss',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (31,'Granitic','Granitic','granitic',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (32,'Gypsum','Gypsum','gypsum',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (33,'Halite','Halite','halite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (34,'Hornfels','Hornfels','hornfels',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (35,'Ironstone','Ironstone','ironstone',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (36,'Lapillistone','Lapillistone','lapillistone',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (37,'Marble','Marble','marble',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (38,'Migmatite','Migmatite','migmatite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (39,'Mylonite','Mylonite','mylonite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (40,'Obsidian','Obsidian','obsidian',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (41,'Pelite','Pelite','pelite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (42,'Psammite','Psammite','psammite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (43,'Quartzite','Quartzite','quartzite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (44,'Rhyolite','Rhyolite','rhyolite',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (45,'Schist','Schist','schist',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (46,'Scoria','Scoria','scoria',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (47,'Slate','Slate','slate',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (48,'Tephra','Tephra','tephra',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (49,'Tuff','Tuff','tuff',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
+INSERT INTO "dic_rock_all" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (50,'Void','Void','void',NULL,'jostev','2023-10-10 16:16:28',NULL,NULL);
 COMMIT;

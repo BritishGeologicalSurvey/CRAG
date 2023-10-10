@@ -19,18 +19,18 @@ VALUES('locality_point','features','locality_point','Locality where observations
 
 CREATE TABLE IF NOT EXISTS "locality_point" (
 	"fid" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-	"objectid"	INTEGER,
+	"objectid"	INTEGER UNIQUE,
 	"uuid"	TEXT NOT NULL UNIQUE,
 	"project_fuid"	TEXT NOT NULL,
 	"name"	TEXT,
 	"description"	TEXT,
 	"geological_note"	TEXT,
-	"epsg_code"	TEXT DEFAULT 27700,
-  "geometry" POINT,
+  "comment" TEXT,
 	"user_entered"	TEXT,
 	"date_entered"	DATETIME,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
+  "geometry" POINT,
 	FOREIGN KEY("project_fuid") REFERENCES "project"("uuid")
 );
 

@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 
 CREATE TABLE IF NOT EXISTS "project" (
 	"fid"	INTEGER NOT NULL UNIQUE,
-	"objectid"	INTEGER,
+	"objectid"	INTEGER UNIQUE,
 	"uuid"	TEXT NOT NULL UNIQUE,
 	"short_name" TEXT NOT NULL UNIQUE,
 	"title"	TEXT,
@@ -15,9 +15,9 @@ CREATE TABLE IF NOT EXISTS "project" (
 	"project_type"	TEXT NOT NULL,
 	"comment"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	FOREIGN KEY("project_type") REFERENCES "dic_project_type"("code"),
 	PRIMARY KEY("fid")
 );

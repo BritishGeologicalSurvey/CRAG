@@ -13,6 +13,8 @@ TABLES = {
     ],
     "attributes": [
         # Dictionaries
+        "dic_exposure_type",
+        "dic_rock_all",
         "dic_project_type",
         "dic_manmade_code",
         "dic_media",
@@ -22,6 +24,7 @@ TABLES = {
         "dic_superficial_category",
         "dic_superficial_code",
         # Attributes
+        "exposure",
         "manmade_landform",
         "media",
         "photo",
@@ -39,16 +42,17 @@ TABLES = {
     [
         (   # Spatial (feature) tables
             {"locality_point"},
-            {"fid", "objectid", "uuid", "geometry", "user_entered", "date_entered", "user_updated", "date_updated"},
+            {"fid", "objectid", "uuid", "geometry", "comment", "user_entered", "date_entered", "user_updated",
+             "date_updated"},
         ),
         (   # Non-spatial (attribute) tables
-            {"manmade_landform", "media", "photo", "sample", "structural_measurement",
+            {"exposure", "manmade_landform", "media", "photo", "sample", "structural_measurement",
              "superficial_landform"},
-            {"fid", "objectid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"},
+            {"fid", "objectid", "uuid", "comment", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
-            {"dic_project_type", "dic_manmade_code", "dic_media", "dic_sample", "dic_structure_category",
-             "dic_structure_code", "dic_superficial_category", "dic_superficial_code"},
+            {"dic_exposure_type", "dic_rock_all", "dic_project_type", "dic_manmade_code", "dic_media", "dic_sample",
+             "dic_structure_category", "dic_structure_code", "dic_superficial_category", "dic_superficial_code"},
             {"fid", "code", "description", "translation"},
         ),
     ],
@@ -125,6 +129,7 @@ def test_data_model_columns_constraints(
     ["table"],
     [
         ("manmade_landform",),
+        ("exposure",),
         ("media",),
         ("photo",),
         ("locality_point",),
@@ -202,14 +207,17 @@ def test_dic_constraints(
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     # Arrange
     expected_contents = [
+        ["dic_exposure_type", "attributes"],
         ["dic_manmade_code", "attributes"],
         ["dic_media", "attributes"],
         ["dic_project_type", "attributes"],
+        ["dic_rock_all", "attributes"],
         ["dic_sample", "attributes"],
         ["dic_structure_category", "attributes"],
         ["dic_structure_code", "attributes"],
         ["dic_superficial_category", "attributes"],
         ["dic_superficial_code", "attributes"],
+        ["exposure", "attributes"],
         ["manmade_landform", "attributes"],
         ["media", "attributes"],
         ["photo", "attributes"],
