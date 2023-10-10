@@ -25,11 +25,12 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
 	"name"	TEXT,
 	"description"	TEXT,
 	"geological_note"	TEXT,
-  "geometry" POINT,
+  "comment" TEXT,
 	"user_entered"	TEXT,
 	"date_entered"	DATETIME,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
+  "geometry" POINT,
 	FOREIGN KEY("project_fuid") REFERENCES "project"("uuid")
 );
 

@@ -39,12 +39,12 @@ TABLES = {
     [
         (   # Spatial (feature) tables
             {"locality_point"},
-            {"fid", "objectid", "uuid", "geometry", "user_entered", "date_entered", "user_updated", "date_updated"},
+            {"fid", "objectid", "uuid", "geometry", "comment", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Non-spatial (attribute) tables
             {"manmade_landform", "media", "photo", "sample", "structural_measurement",
              "superficial_landform"},
-            {"fid", "objectid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"},
+            {"fid", "objectid", "uuid", "comment", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
             {"dic_project_type", "dic_manmade_code", "dic_media", "dic_sample", "dic_structure_category",
