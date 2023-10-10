@@ -8,9 +8,9 @@ CREATE TABLE IF NOT EXISTS "dic_sample" (
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS "dic_media" (
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -40,9 +40,9 @@ CREATE TABLE IF NOT EXISTS "dic_project_type" (
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -56,9 +56,9 @@ CREATE TABLE IF NOT EXISTS "dic_structure_category" (
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("code")
 );
 
@@ -72,9 +72,9 @@ CREATE TABLE IF NOT EXISTS "dic_superficial_category" (
 	"translation"	TEXT,
 	"status"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("code")
 );
 
@@ -89,9 +89,9 @@ CREATE TABLE IF NOT EXISTS "dic_manmade_code" (
 	"status"	TEXT,
 	"archived_code"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("code")
 );
 
@@ -109,9 +109,9 @@ CREATE TABLE IF NOT EXISTS "dic_structure_code" (
 	"status"	TEXT,
 	"translation"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("code"),
 	FOREIGN KEY("category") REFERENCES "dic_structure_category"("code")
 );
