@@ -42,7 +42,8 @@ TABLES = {
     [
         (   # Spatial (feature) tables
             {"locality_point"},
-            {"fid", "objectid", "uuid", "geometry", "comment", "user_entered", "date_entered", "user_updated", "date_updated"},
+            {"fid", "objectid", "uuid", "geometry", "comment", "user_entered", "date_entered", "user_updated",
+             "date_updated"},
         ),
         (   # Non-spatial (attribute) tables
             {"exposure", "manmade_landform", "media", "photo", "sample", "structural_measurement",
@@ -50,8 +51,8 @@ TABLES = {
             {"fid", "objectid", "uuid", "comment", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
-            {"dic_exposure_type", "dic_rock_all", "dic_project_type", "dic_manmade_code", "dic_media", "dic_sample", "dic_structure_category",
-             "dic_structure_code", "dic_superficial_category", "dic_superficial_code"},
+            {"dic_exposure_type", "dic_rock_all", "dic_project_type", "dic_manmade_code", "dic_media", "dic_sample",
+             "dic_structure_category", "dic_structure_code", "dic_superficial_category", "dic_superficial_code"},
             {"fid", "code", "description", "translation"},
         ),
     ],

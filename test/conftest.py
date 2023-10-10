@@ -56,6 +56,7 @@ def exposure_dict_row() -> dict[str, Any]:
             "comment": None, "user_entered": "c", "date_entered": dt.datetime.now(),
             "user_updated": None, "date_updated": None}
 
+
 @pytest.fixture()
 def manmade_landform_dict_row() -> dict[str, Any]:
     return {"fid": 1, "objectid": None, "locality_fuid": "a", "uuid": "abc",
