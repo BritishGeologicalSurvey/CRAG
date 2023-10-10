@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 
 CREATE TABLE IF NOT EXISTS "project" (
 	"fid"	INTEGER NOT NULL UNIQUE,
-	"objectid"	INTEGER,
+	"objectid"	INTEGER UNIQUE,
 	"uuid"	TEXT NOT NULL UNIQUE,
 	"short_name" TEXT NOT NULL UNIQUE,
 	"title"	TEXT,
