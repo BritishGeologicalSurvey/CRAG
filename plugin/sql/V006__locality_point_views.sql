@@ -6,10 +6,10 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
   SELECT
     p.short_name as project,
     lp.name as locality_point,
-    st.category AS structure_category,
-    st.description AS structure_type,
     ST_X(ST_Transform(lp.geometry, 4326)) AS lon,
     ST_Y(ST_Transform(lp.geometry, 4326)) AS lat,
+    st.category AS structure_category,
+    st.description AS structure_type,
     sm.dip,
     sm.dip_direction,
     sm.comment,
