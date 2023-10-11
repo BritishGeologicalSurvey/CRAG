@@ -4,6 +4,8 @@ from sqlalchemy import (
     create_engine,
 )
 
+from plugin.config import FEATURE_TABLES, ATTRIBUTE_TABLES, DICTIONARIES
+
 
 def main(
     gpkg_filepath: str = "field-data-capture.gpkg",
@@ -13,27 +15,7 @@ def main(
     meta = MetaData()
     meta.reflect(bind=engine)
 
-    tables = [
-        "project",
-        "dic_exposure_type",
-        "dic_rock_all",
-        "dic_project_type",
-        "dic_manmade_code",
-        "dic_media",
-        "dic_sample",
-        "dic_structure_category",
-        "dic_structure_code",
-        "dic_superficial_category",
-        "dic_superficial_code",
-        "exposure",
-        "manmade_landform",
-        "photo",
-        "media",
-        "locality_point",
-        "sample",
-        "structural_measurement",
-        "superficial_landform",
-    ]
+    tables = FEATURE_TABLES.union(ATTRIBUTE_TABLES).union(DICTIONARIES)
 
     # Only include the given tables in the diagram
     new_meta = MetaData()
