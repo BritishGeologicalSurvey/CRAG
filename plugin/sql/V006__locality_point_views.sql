@@ -25,4 +25,29 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
 INSERT INTO gpkg_contents
 VALUES('view_structural_measurement','features','view_structural_measurement','View with structural measurements at locality positions','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
+
+CREATE VIEW IF NOT EXISTS "view_exposure" AS
+ SELECT
+    p.short_name as project,
+    lp.name as locality_point,
+    ST_X(ST_Transform(lp.geometry, 4326)) AS lon,
+    ST_Y(ST_Transform(lp.geometry, 4326)) AS lat,
+    type.translation as exposure_type,
+	exp.lithology_code,
+	rock.translation as lithology,
+    exp.description,
+    exp.comment,
+    exp.uuid AS exposure_uuid,
+    lp.uuid AS locality_uuid,
+    lp.geometry as geometry
+  FROM exposure exp
+    LEFT JOIN locality_point lp on exp.locality_fuid = lp.fid
+    LEFT JOIN dic_exposure_type type on exp.exposure_type_code = type.code
+	LEFT JOIN dic_rock_all rock on exp.lithology_code = rock.code
+    LEFT JOIN project p on lp.project_fuid = p.uuid
+;
+
+INSERT INTO gpkg_contents
+VALUES('view_exposure','features','view_exposure','View with exposure results at locality positions','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
 COMMIT;

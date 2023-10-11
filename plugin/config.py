@@ -6,7 +6,8 @@ TABLES = {
     "features": [
         "locality_point",
         # Views
-        "view_structural_measurement"
+        "view_structural_measurement",
+        "view_exposure"
     ],
     "attributes": [
         # Dictionaries
