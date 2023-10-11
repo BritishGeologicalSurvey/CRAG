@@ -17,7 +17,7 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
     lp.uuid AS locality_uuid,
     lp.geometry as geometry
   FROM structural_measurement sm
-    LEFT JOIN locality_point lp on sm.locality_fuid = lp.fid
+    LEFT JOIN locality_point lp on sm.locality_fuid = lp.uuid
     LEFT JOIN dic_structure_code st on sm.structure_type_code = st.code
     LEFT JOIN project p on lp.project_fuid = p.uuid
 ;
@@ -44,7 +44,7 @@ CREATE VIEW IF NOT EXISTS "view_exposure" AS
     lp.uuid AS locality_uuid,
     lp.geometry as geometry
   FROM exposure exp
-    LEFT JOIN locality_point lp on exp.locality_fuid = lp.fid
+    LEFT JOIN locality_point lp on exp.locality_fuid = lp.uuid
     LEFT JOIN dic_exposure_type type on exp.exposure_type_code = type.code
 	LEFT JOIN dic_rock_all rock on exp.lithology_code = rock.code
     LEFT JOIN project p on lp.project_fuid = p.uuid
