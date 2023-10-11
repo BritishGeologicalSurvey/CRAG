@@ -7,7 +7,12 @@ from typing import (
 import pytest
 import etlhelper as etl
 
-from plugin.config import FEATURE_TABLES, ATTRIBUTE_TABLES, DICTIONARIES
+from plugin.config import (
+    ATTRIBUTE_TABLES,
+    DICTIONARIES,
+    FEATURE_TABLES,
+    VIEWS
+)
 
 
 @pytest.mark.parametrize(
@@ -17,6 +22,10 @@ from plugin.config import FEATURE_TABLES, ATTRIBUTE_TABLES, DICTIONARIES
             FEATURE_TABLES,
             {"fid", "objectid", "uuid", "geometry", "comment", "user_entered", "date_entered", "user_updated",
              "date_updated"},
+        ),
+        (   # Spatial views
+            VIEWS,
+            {"project", "locality_point", "locality_uuid", "lon", "lat"},
         ),
         (   # Non-spatial (attribute) tables
             ATTRIBUTE_TABLES,
@@ -176,6 +185,7 @@ def test_dic_constraints(
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     # Arrange
     expected_contents = [(table, "features") for table in FEATURE_TABLES]
+    expected_contents += [(table, "features") for table in VIEWS]
     expected_contents += [(table, "attributes") for table in ATTRIBUTE_TABLES]
     expected_contents += [(table, "attributes") for table in DICTIONARIES]
 
@@ -195,3 +205,17 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
 
     # Assert
     assert sorted(actual_contents) == sorted(expected_contents)
+
+
+@pytest.mark.parametrize("view", VIEWS)
+def test_views_are_callable(data_model_gpkg: sqlite3.Connection,
+                            view: str):
+    # Arrange
+    query = f"SELECT * FROM {view}"
+
+    # Act
+    # Simplest check is that the view can be called without raising an error
+    result = etl.fetchall(query, conn=data_model_gpkg)
+
+    # Assert
+    assert isinstance(result, list)

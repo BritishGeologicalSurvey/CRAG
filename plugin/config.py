@@ -5,6 +5,8 @@ Shared global variables used within the plugin.
 TABLES = {
     "features": [
         "locality_point",
+        # Views
+        "view_structural_measurement"
     ],
     "attributes": [
         # Dictionaries
@@ -31,8 +33,12 @@ TABLES = {
     ]
 }
 
-FEATURE_TABLES = {table for table in TABLES['features']}
-ATTRIBUTE_TABLES = {table for table in TABLES['attributes']
-                    if not table.startswith('dic_')}
+VIEWS = {table for table in TABLES['features']
+         if table.startswith('view_')}
+FEATURE_TABLES = {table for table in TABLES['features']}.difference(VIEWS)
+
 DICTIONARIES = {table for table in TABLES['attributes']
                 if table.startswith('dic_')}
+ATTRIBUTE_TABLES = {table for table in TABLES['attributes']}.difference(DICTIONARIES)
+
+TABLE_LIST = sorted(TABLES["features"] + TABLES["attributes"])

@@ -4,7 +4,7 @@ from sqlalchemy import (
     create_engine,
 )
 
-from plugin.config import FEATURE_TABLES, ATTRIBUTE_TABLES, DICTIONARIES
+from plugin.config import TABLE_LIST
 
 
 def main(
@@ -15,12 +15,10 @@ def main(
     meta = MetaData()
     meta.reflect(bind=engine)
 
-    tables = FEATURE_TABLES.union(ATTRIBUTE_TABLES).union(DICTIONARIES)
-
     # Only include the given tables in the diagram
     new_meta = MetaData()
     for table in meta.sorted_tables:
-        if table.name in tables:
+        if table.name in TABLE_LIST:
             table.tometadata(new_meta)
 
     render_er(new_meta, img_filepath,
