@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
 	"objectid"	INTEGER UNIQUE,
 	"uuid"	TEXT NOT NULL UNIQUE,
 	"project_fuid"	TEXT NOT NULL,
-	"name"	TEXT,
+	"name"	TEXT NOT NULL,
 	"description"	TEXT,
 	"geological_note"	TEXT,
   "comment" TEXT,
