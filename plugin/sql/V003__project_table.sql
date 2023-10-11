@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS "project" (
 	"start_date"	DATE,
 	"end_date"	DATE,
 	"project_type"	TEXT NOT NULL,
+	"local_epsg"  INTEGER NOT NULL,
 	"comment"	TEXT,
 	"user_entered"	TEXT NOT NULL,
 	"date_entered"	DATETIME NOT NULL,
