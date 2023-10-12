@@ -7,52 +7,32 @@ from typing import (
 import pytest
 import etlhelper as etl
 
-TABLES = {
-    "features": [
-        "locality_point",
-    ],
-    "attributes": [
-        # Dictionaries
-        "dic_exposure_type",
-        "dic_rock_all",
-        "dic_project_type",
-        "dic_manmade_code",
-        "dic_media",
-        "dic_sample",
-        "dic_structure_category",
-        "dic_structure_code",
-        "dic_superficial_category",
-        "dic_superficial_code",
-        # Attributes
-        "exposure",
-        "manmade_landform",
-        "media",
-        "photo",
-        "sample",
-        "structural_measurement",
-        "superficial_landform",
-        # Metadata
-        "project",
-    ]
-}
+from plugin.config import (
+    ATTRIBUTE_TABLES,
+    DICTIONARIES,
+    FEATURE_TABLES,
+    VIEWS
+)
 
 
 @pytest.mark.parametrize(
     ["tables", "expected_col_names"],
     [
         (   # Spatial (feature) tables
-            {"locality_point"},
+            FEATURE_TABLES,
             {"fid", "objectid", "uuid", "geometry", "comment", "user_entered", "date_entered", "user_updated",
              "date_updated"},
         ),
+        (   # Spatial views
+            VIEWS,
+            {"project", "locality_point", "locality_uuid", "x", "y"},
+        ),
         (   # Non-spatial (attribute) tables
-            {"exposure", "manmade_landform", "media", "photo", "sample", "structural_measurement",
-             "superficial_landform"},
+            ATTRIBUTE_TABLES,
             {"fid", "objectid", "uuid", "comment", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
-            {"dic_exposure_type", "dic_rock_all", "dic_project_type", "dic_manmade_code", "dic_media", "dic_sample",
-             "dic_structure_category", "dic_structure_code", "dic_superficial_category", "dic_superficial_code"},
+            DICTIONARIES,
             {"fid", "code", "description", "translation"},
         ),
     ],
@@ -128,14 +108,7 @@ def test_data_model_columns_constraints(
 @pytest.mark.parametrize(
     ["table"],
     [
-        ("manmade_landform",),
-        ("exposure",),
-        ("media",),
-        ("photo",),
-        ("locality_point",),
-        ("sample",),
-        ("structural_measurement",),
-        ("superficial_landform",),
+        (table,) for table in FEATURE_TABLES.union(ATTRIBUTE_TABLES)
     ],
 )
 def test_data_model_columns_uuid_unique(
@@ -155,6 +128,12 @@ def test_data_model_columns_uuid_unique(
         for x in range(3)
     ]
 
+    # This is a hack to cope with project data also requiring a unique short name
+    # It will change when we get proper test data and stop using the fixtures
+    if table == "project":
+        for row in rows:
+            row["short_name"] = str(row["fid"])
+
     # Act
     # Check that the correct error is raised
     with pytest.raises(etl.exceptions.ETLHelperInsertError) as excinfo:
@@ -167,8 +146,7 @@ def test_data_model_columns_uuid_unique(
 @pytest.mark.parametrize(
         ["table"],
         [
-            (table,) for table in TABLES['attributes']
-            if table.startswith('dic_')
+            (table,) for table in DICTIONARIES
         ],
 )
 def test_dic_constraints(
@@ -206,27 +184,10 @@ def test_dic_constraints(
 
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     # Arrange
-    expected_contents = [
-        ["dic_exposure_type", "attributes"],
-        ["dic_manmade_code", "attributes"],
-        ["dic_media", "attributes"],
-        ["dic_project_type", "attributes"],
-        ["dic_rock_all", "attributes"],
-        ["dic_sample", "attributes"],
-        ["dic_structure_category", "attributes"],
-        ["dic_structure_code", "attributes"],
-        ["dic_superficial_category", "attributes"],
-        ["dic_superficial_code", "attributes"],
-        ["exposure", "attributes"],
-        ["manmade_landform", "attributes"],
-        ["media", "attributes"],
-        ["photo", "attributes"],
-        ["project", "attributes"],
-        ["sample", "attributes"],
-        ["structural_measurement", "attributes"],
-        ["superficial_landform", "attributes"],
-        ["locality_point", "features"],
-    ]
+    expected_contents = [(table, "features") for table in FEATURE_TABLES]
+    expected_contents += [(table, "features") for table in VIEWS]
+    expected_contents += [(table, "attributes") for table in ATTRIBUTE_TABLES]
+    expected_contents += [(table, "attributes") for table in DICTIONARIES]
 
     # Act
     query = """
@@ -239,7 +200,22 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
             data_type ASC,
             table_name ASC
     """
-    actual_contents = etl.fetchall(query, conn=data_model_gpkg, row_factory=etl.row_factories.list_row_factory)
+    actual_contents = etl.fetchall(query, conn=data_model_gpkg,
+                                   row_factory=etl.row_factories.tuple_row_factory)
 
     # Assert
-    assert actual_contents == expected_contents
+    assert sorted(actual_contents) == sorted(expected_contents)
+
+
+@pytest.mark.parametrize("view", VIEWS)
+def test_views_are_callable(data_model_gpkg: sqlite3.Connection,
+                            view: str):
+    # Arrange
+    query = f"SELECT * FROM {view}"
+
+    # Act
+    # Simplest check is that the view can be called without raising an error
+    result = etl.fetchall(query, conn=data_model_gpkg)
+
+    # Assert
+    assert isinstance(result, list)

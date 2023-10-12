@@ -44,9 +44,19 @@ def data_model_gpkg(tmp_path: Path) -> Generator[sqlite3.Connection, None, None]
 
 @pytest.fixture()
 def locality_point_dict_row() -> dict[str, Any]:
-    return {"fid": 1, "objectid": None, "uuid": "abc", "project_fuid": "124", "name": None,
+    return {"fid": 1, "objectid": None, "uuid": "abc", "project_fuid": "124", "name": "locality_name",
             "description": None, "geological_note": None, "geometry": None,
             "user_entered": "b", "date_entered": dt.datetime.now(), "user_updated": None, "date_updated": None}
+
+
+@pytest.fixture()
+def project_dict_row() -> dict[str, Any]:
+    return {"fid": 1, "objectid": None, "uuid": "abc",
+            "short_name": None, "title": "some text", "description": "some text",
+            "responsible_person_id": "b", "status_code": "some text", "local_epsg": 27700,
+            "start_date": dt.date.today(), "end_date": None, "project_type": "some text",
+            "comment": None, "user_entered": "c", "date_entered": dt.datetime.now(),
+            "user_updated": None, "date_updated": None}
 
 
 @pytest.fixture()

@@ -2,7 +2,10 @@ from eralchemy import render_er
 from sqlalchemy import (
     MetaData,
     create_engine,
+    event
 )
+
+from plugin.config import TABLE_LIST
 
 
 def main(
@@ -10,35 +13,25 @@ def main(
     img_filepath: str = "er-diagram.png",
 ):
     engine = create_engine(f"sqlite:///{gpkg_filepath}")
-    meta = MetaData()
-    meta.reflect(bind=engine)
 
-    tables = [
-        "project",
-        "dic_exposure_type",
-        "dic_rock_all",
-        "dic_project_type",
-        "dic_manmade_code",
-        "dic_media",
-        "dic_sample",
-        "dic_structure_category",
-        "dic_structure_code",
-        "dic_superficial_category",
-        "dic_superficial_code",
-        "exposure",
-        "manmade_landform",
-        "photo",
-        "media",
-        "locality_point",
-        "sample",
-        "structural_measurement",
-        "superficial_landform",
-    ]
+    # Define a hook to run as soon as engine connects.
+    # This one loads the Spatialite extension to all spatial functions to be used.
+    # https://docs.sqlalchemy.org/en/14/core/engines.html#modifying-the-dbapi-connection-after-connect-or-running-commands-after-connect
+    # See also https://stackoverflow.com/a/73451804/3508733
+    @event.listens_for(engine, "connect")
+    def connect(conn, _):
+        conn.enable_load_extension(True)
+        conn.execute("SELECT load_extension('mod_spatialite');")
+        conn.enable_load_extension(False)
+
+    # Connect and read metadata
+    meta = MetaData()
+    meta.reflect(bind=engine, views=True)
 
     # Only include the given tables in the diagram
     new_meta = MetaData()
     for table in meta.sorted_tables:
-        if table.name in tables:
+        if table.name in TABLE_LIST:
             table.tometadata(new_meta)
 
     render_er(new_meta, img_filepath,
