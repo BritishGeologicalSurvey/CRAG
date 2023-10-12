@@ -6,8 +6,8 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
   SELECT
     p.short_name as project,
     lp.name as locality_point,
-    ST_X(ST_Transform(lp.geometry, p.local_epsg)) AS lon,
-    ST_Y(ST_Transform(lp.geometry, p.local_epsg)) AS lat,
+    ST_X(ST_Transform(lp.geometry, p.local_epsg)) AS x,
+    ST_Y(ST_Transform(lp.geometry, p.local_epsg)) AS y,
     p.local_epsg,
     st.category AS structure_category,
     st.description AS structure_type,
@@ -34,8 +34,8 @@ CREATE VIEW IF NOT EXISTS "view_exposure" AS
  SELECT
     p.short_name as project,
     lp.name as locality_point,
-    ST_X(ST_Transform(lp.geometry, p.local_epsg)) AS lon,
-    ST_Y(ST_Transform(lp.geometry, p.local_epsg)) AS lat,
+    ST_X(ST_Transform(lp.geometry, p.local_epsg)) AS x,
+    ST_Y(ST_Transform(lp.geometry, p.local_epsg)) AS y,
     p.local_epsg,
     type.translation as exposure_type,
 	exp.lithology_code,

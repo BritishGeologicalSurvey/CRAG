@@ -25,7 +25,7 @@ from plugin.config import (
         ),
         (   # Spatial views
             VIEWS,
-            {"project", "locality_point", "locality_uuid", "lon", "lat"},
+            {"project", "locality_point", "locality_uuid", "x", "y"},
         ),
         (   # Non-spatial (attribute) tables
             ATTRIBUTE_TABLES,
