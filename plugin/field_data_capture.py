@@ -23,8 +23,12 @@
 """
 from pathlib import Path
 
-from qgis.core import QgsProject
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
+from qgis.core import (
+    QgsDataProvider,
+    QgsProject,
+    QgsVectorLayer,
+)
+from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import (
     QAction,
@@ -74,6 +78,19 @@ class FieldDataCapture:
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
+
+        self.gpkg_filename = Path("field-data-capture.gpkg")
+
+
+    @property
+    def db_file(self) -> Path:
+        """
+        Get the db file path from the current project.
+        """
+        project_path = QgsProject.instance().readPath("./")
+        db_file = Path(project_path) / self.gpkg_filename
+        return db_file
+
 
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
@@ -172,8 +189,16 @@ class FieldDataCapture:
         self.add_action(
             icon_path,
             text=self.tr(u'Add GeoPackage to Project'),
-            callback=self.run,
-            parent=self.iface.mainWindow())
+            callback=self.add_gpkg_to_project,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Add GeoPackage Layers to Project'),
+            callback=self.add_gpkg_layers_to_project,
+            parent=self.iface.mainWindow(),
+        )
 
         # will be set False in run()
         self.first_start = True
@@ -188,15 +213,16 @@ class FieldDataCapture:
             self.iface.removeToolBarIcon(action)
 
 
-    def run(self):
-        """Run method that performs all the real work"""
+    def add_gpkg_to_project(self) -> None:
+        """
+        Add the GeoPackage file to the current project.
+        """
         project_path = QgsProject.instance().readPath("./")
         if str(project_path) != "./":
-            db_file = Path(project_path) / "field-data-capture.gpkg"
             run = True
             message = None
 
-            if db_file.exists():
+            if self.db_file.exists():
                 # Setup the QMessageBox, we don't call QMessageBox.Question because we want to modify it before showing
                 message_box = QMessageBox()
                 message_box.setWindowTitle("File Already Exists")
@@ -210,10 +236,83 @@ class FieldDataCapture:
                     run = False
 
             if run:
-                message = f"Created GeoPackage:\n\n{db_file}"
-                gpkg_from_sql(db_file=db_file)
+                message = f"Created GeoPackage:\n\n{self.db_file}"
+                gpkg_from_sql(db_file=self.db_file)
         else:
             message = "No project is currently open."
 
         if message is not None:
             QMessageBox.information(None, "Information", message)
+
+
+    def add_gpkg_layers_to_project(self) -> None:
+        """
+        Add the GeoPackage layers to the current project.
+        """
+        groups_layers = {
+            None: ["locality_point"],
+            "views": [
+                # "view_media",
+                "view_structural_measurement",
+                # "view_sample",
+                "view_exposure",
+            ],
+            "locality_data": [
+                "media",
+                "photo",
+                "structure_measurement",
+                "sample",
+                "exposure",
+            ],
+            "metadata": [
+                "project",
+                "dic_exposure_type",
+                "dic_rock_all",
+                "dic_project_type",
+                "dic_manmade_code",
+                "dic_media",
+                "dic_sample",
+                "dic_structure_category",
+                "dic_structure_code",
+                "dic_superficial_category",
+                "dic_superficial_code",
+            ],
+        }
+
+        project_path = QgsProject.instance().readPath("./")
+        if str(project_path) != "./":
+            if self.db_file.exists():
+                # Get layers root
+                root = QgsProject.instance().layerTreeRoot()
+                # Get db layers
+                db_layer = QgsVectorLayer(str(self.db_file), "", "ogr")
+                db_sub_layers = db_layer.dataProvider().subLayers()
+                db_sub_layer_names = [
+                    sub_layer.split(QgsDataProvider.SUBLAYER_SEPARATOR)[1]
+                    for sub_layer in db_sub_layers
+                ]
+
+                for group_name, group_layer_names in groups_layers.items():
+                    # Create the group if required
+                    add_to_legend = True
+                    if group_name is not None:
+                        group = root.addGroup(group_name)
+                        add_to_legend = False
+
+                    for layer_name in group_layer_names:
+                        # If the layer name in the dictionary is in the list of layers in the db file
+                        if layer_name in db_sub_layer_names:
+
+                            # Create layer
+                            uri = f"{self.db_file}|layername={layer_name}"
+                            sub_vlayer = QgsVectorLayer(uri, layer_name, "ogr")
+                            QgsProject.instance().addMapLayer(sub_vlayer, add_to_legend)
+
+                            # Add layer to a group if required
+                            if group_name is not None:
+                                group.addLayer(sub_vlayer)
+
+            else:
+                QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+        else:
+            QMessageBox.information(None, "Information", "No project is currently open")
