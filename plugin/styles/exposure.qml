@@ -35,32 +35,59 @@
             <Option value="locality_point_b5d4a64c_6865_4086_866f_ff25c1aea696" name="ReferencedLayerId" type="QString"/>
             <Option value="locality_point" name="ReferencedLayerName" type="QString"/>
             <Option value="ogr" name="ReferencedLayerProviderKey" type="QString"/>
-            <Option value="locality_point_photo" name="Relation" type="QString"/>
+            <Option value="locality_point_exposure" name="Relation" type="QString"/>
             <Option value="false" name="ShowForm" type="bool"/>
             <Option value="true" name="ShowOpenFormButton" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="photo_file" configurationFlags="None">
-      <editWidget type="ExternalResource">
+    <field name="exposure_type_code" configurationFlags="None">
+      <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option value="1" name="DocumentViewer" type="int"/>
-            <Option value="0" name="DocumentViewerHeight" type="int"/>
-            <Option value="600" name="DocumentViewerWidth" type="int"/>
-            <Option value="true" name="FileWidget" type="bool"/>
-            <Option value="true" name="FileWidgetButton" type="bool"/>
-            <Option value="" name="FileWidgetFilter" type="QString"/>
-            <Option name="PropertyCollection" type="Map">
-              <Option value="" name="name" type="QString"/>
-              <Option name="properties"/>
-              <Option value="collection" name="type" type="QString"/>
-            </Option>
-            <Option value="0" name="RelativeStorage" type="int"/>
-            <Option value="" name="StorageAuthConfigId" type="QString"/>
-            <Option value="0" name="StorageMode" type="int"/>
-            <Option value="" name="StorageType" type="QString"/>
+            <Option value="false" name="AllowAddFeatures" type="bool"/>
+            <Option value="false" name="AllowNULL" type="bool"/>
+            <Option value="false" name="MapIdentification" type="bool"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="ReadOnly" type="bool"/>
+            <Option value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_exposure_type" name="ReferencedLayerDataSource" type="QString"/>
+            <Option value="dic_exposure_type_f5450c3c_9213_4960_b5d5_edecc60a8ca1" name="ReferencedLayerId" type="QString"/>
+            <Option value="dic_exposure_type" name="ReferencedLayerName" type="QString"/>
+            <Option value="ogr" name="ReferencedLayerProviderKey" type="QString"/>
+            <Option value="dic_exposure_type_exposure_3" name="Relation" type="QString"/>
+            <Option value="false" name="ShowForm" type="bool"/>
+            <Option value="true" name="ShowOpenFormButton" type="bool"/>
+          </Option>
+        </config>
+      </editWidget>
+    </field>
+    <field name="lithology_code" configurationFlags="None">
+      <editWidget type="RelationReference">
+        <config>
+          <Option type="Map">
+            <Option value="false" name="AllowAddFeatures" type="bool"/>
+            <Option value="false" name="AllowNULL" type="bool"/>
+            <Option value="false" name="MapIdentification" type="bool"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="ReadOnly" type="bool"/>
+            <Option value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_rock_all" name="ReferencedLayerDataSource" type="QString"/>
+            <Option value="dic_rock_all_1c6e4a7d_53c4_4eeb_8b0f_b5fe0955bb96" name="ReferencedLayerId" type="QString"/>
+            <Option value="dic_rock_all" name="ReferencedLayerName" type="QString"/>
+            <Option value="ogr" name="ReferencedLayerProviderKey" type="QString"/>
+            <Option value="dic_rock_all_exposure_2" name="Relation" type="QString"/>
+            <Option value="false" name="ShowForm" type="bool"/>
+            <Option value="true" name="ShowOpenFormButton" type="bool"/>
+          </Option>
+        </config>
+      </editWidget>
+    </field>
+    <field name="description" configurationFlags="None">
+      <editWidget type="TextEdit">
+        <config>
+          <Option type="Map">
+            <Option value="true" name="IsMultiline" type="bool"/>
+            <Option value="false" name="UseHtml" type="bool"/>
           </Option>
         </config>
       </editWidget>
@@ -109,19 +136,23 @@
     <alias name="" field="objectid" index="1"/>
     <alias name="" field="uuid" index="2"/>
     <alias name="" field="locality_fuid" index="3"/>
-    <alias name="" field="photo_file" index="4"/>
-    <alias name="" field="comment" index="5"/>
-    <alias name="" field="user_entered" index="6"/>
-    <alias name="" field="date_entered" index="7"/>
-    <alias name="" field="user_updated" index="8"/>
-    <alias name="" field="date_updated" index="9"/>
+    <alias name="" field="exposure_type_code" index="4"/>
+    <alias name="" field="lithology_code" index="5"/>
+    <alias name="" field="description" index="6"/>
+    <alias name="" field="comment" index="7"/>
+    <alias name="" field="user_entered" index="8"/>
+    <alias name="" field="date_entered" index="9"/>
+    <alias name="" field="user_updated" index="10"/>
+    <alias name="" field="date_updated" index="11"/>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"/>
     <policy field="objectid" policy="Duplicate"/>
     <policy field="uuid" policy="Duplicate"/>
     <policy field="locality_fuid" policy="Duplicate"/>
-    <policy field="photo_file" policy="Duplicate"/>
+    <policy field="exposure_type_code" policy="Duplicate"/>
+    <policy field="lithology_code" policy="Duplicate"/>
+    <policy field="description" policy="Duplicate"/>
     <policy field="comment" policy="Duplicate"/>
     <policy field="user_entered" policy="Duplicate"/>
     <policy field="date_entered" policy="Duplicate"/>
@@ -133,7 +164,9 @@
     <default expression="" applyOnUpdate="0" field="objectid"/>
     <default expression="" applyOnUpdate="0" field="uuid"/>
     <default expression="" applyOnUpdate="0" field="locality_fuid"/>
-    <default expression="" applyOnUpdate="0" field="photo_file"/>
+    <default expression="" applyOnUpdate="0" field="exposure_type_code"/>
+    <default expression="" applyOnUpdate="0" field="lithology_code"/>
+    <default expression="" applyOnUpdate="0" field="description"/>
     <default expression="" applyOnUpdate="0" field="comment"/>
     <default expression="@user_account_name" applyOnUpdate="0" field="user_entered"/>
     <default expression="now()" applyOnUpdate="0" field="date_entered"/>
@@ -145,7 +178,9 @@
     <constraint unique_strength="1" notnull_strength="0" field="objectid" constraints="2" exp_strength="0"/>
     <constraint unique_strength="1" notnull_strength="1" field="uuid" constraints="3" exp_strength="0"/>
     <constraint unique_strength="0" notnull_strength="1" field="locality_fuid" constraints="1" exp_strength="0"/>
-    <constraint unique_strength="0" notnull_strength="1" field="photo_file" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="exposure_type_code" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="lithology_code" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="description" constraints="0" exp_strength="0"/>
     <constraint unique_strength="0" notnull_strength="0" field="comment" constraints="0" exp_strength="0"/>
     <constraint unique_strength="0" notnull_strength="1" field="user_entered" constraints="1" exp_strength="0"/>
     <constraint unique_strength="0" notnull_strength="1" field="date_entered" constraints="1" exp_strength="0"/>
@@ -157,7 +192,9 @@
     <constraint exp="" field="objectid" desc=""/>
     <constraint exp="" field="uuid" desc=""/>
     <constraint exp="" field="locality_fuid" desc=""/>
-    <constraint exp="" field="photo_file" desc=""/>
+    <constraint exp="" field="exposure_type_code" desc=""/>
+    <constraint exp="" field="lithology_code" desc=""/>
+    <constraint exp="" field="description" desc=""/>
     <constraint exp="" field="comment" desc=""/>
     <constraint exp="" field="user_entered" desc=""/>
     <constraint exp="" field="date_entered" desc=""/>
@@ -192,10 +229,12 @@ def my_form_open(dialog, layer, feature):
     <field name="comment" editable="1"/>
     <field name="date_entered" editable="1"/>
     <field name="date_updated" editable="1"/>
+    <field name="description" editable="1"/>
+    <field name="exposure_type_code" editable="1"/>
     <field name="fid" editable="1"/>
+    <field name="lithology_code" editable="1"/>
     <field name="locality_fuid" editable="1"/>
     <field name="objectid" editable="1"/>
-    <field name="photo_file" editable="1"/>
     <field name="user_entered" editable="1"/>
     <field name="user_updated" editable="1"/>
     <field name="uuid" editable="1"/>
@@ -204,10 +243,12 @@ def my_form_open(dialog, layer, feature):
     <field name="comment" labelOnTop="0"/>
     <field name="date_entered" labelOnTop="0"/>
     <field name="date_updated" labelOnTop="0"/>
+    <field name="description" labelOnTop="0"/>
+    <field name="exposure_type_code" labelOnTop="0"/>
     <field name="fid" labelOnTop="0"/>
+    <field name="lithology_code" labelOnTop="0"/>
     <field name="locality_fuid" labelOnTop="0"/>
     <field name="objectid" labelOnTop="0"/>
-    <field name="photo_file" labelOnTop="0"/>
     <field name="user_entered" labelOnTop="0"/>
     <field name="user_updated" labelOnTop="0"/>
     <field name="uuid" labelOnTop="0"/>
@@ -216,10 +257,12 @@ def my_form_open(dialog, layer, feature):
     <field name="comment" reuseLastValue="0"/>
     <field name="date_entered" reuseLastValue="0"/>
     <field name="date_updated" reuseLastValue="0"/>
+    <field name="description" reuseLastValue="0"/>
+    <field name="exposure_type_code" reuseLastValue="0"/>
     <field name="fid" reuseLastValue="0"/>
+    <field name="lithology_code" reuseLastValue="0"/>
     <field name="locality_fuid" reuseLastValue="0"/>
     <field name="objectid" reuseLastValue="0"/>
-    <field name="photo_file" reuseLastValue="0"/>
     <field name="user_entered" reuseLastValue="0"/>
     <field name="user_updated" reuseLastValue="0"/>
     <field name="uuid" reuseLastValue="0"/>

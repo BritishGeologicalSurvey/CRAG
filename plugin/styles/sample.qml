@@ -1,117 +1,109 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="3.30.0-'s-Hertogenbosch" styleCategories="Symbology|Labeling|Forms|Relations">
-  <referencedLayers>
-    <relation referencedLayer="dic_sample_4b39a4d1_d099_4477_a092_c2a18b63a3da" dataSource="./field-data-capture.gpkg|layername=dic_sample" name="dic_sample_sample" referencingLayer="sample_43c17397_b03f_4477_9cbe_70848a0802a4" id="dic_sample_sample" layerName="dic_sample" providerKey="ogr" strength="Association" layerId="dic_sample_4b39a4d1_d099_4477_a092_c2a18b63a3da">
-      <fieldRef referencedField="code" referencingField="sample_type_code"/>
-    </relation>
-    <relation referencedLayer="locality_point_f54eb9eb_e369_431e_a1a8_73aa93286d97" dataSource="./field-data-capture.gpkg|layername=locality_point" name="locality_point_sample_2" referencingLayer="sample_43c17397_b03f_4477_9cbe_70848a0802a4" id="locality_point_sample_2" layerName="locality_point" providerKey="ogr" strength="Association" layerId="locality_point_f54eb9eb_e369_431e_a1a8_73aa93286d97">
-      <fieldRef referencedField="uuid" referencingField="locality_fuid"/>
-    </relation>
-  </referencedLayers>
+<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.30.0-'s-Hertogenbosch">
   <fieldConfiguration>
-    <field name="fid">
+    <field name="fid" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="objectid">
+    <field name="objectid" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="uuid">
-      <editWidget type="Hidden">
+    <field name="uuid" configurationFlags="None">
+      <editWidget type="UuidGenerator">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="locality_fuid">
+    <field name="locality_fuid" configurationFlags="None">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option name="AllowAddFeatures" value="false" type="bool"/>
-            <Option name="AllowNULL" value="false" type="bool"/>
-            <Option name="MapIdentification" value="false" type="bool"/>
-            <Option name="OrderByValue" value="false" type="bool"/>
-            <Option name="ReadOnly" value="false" type="bool"/>
-            <Option name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=locality_point" type="QString"/>
-            <Option name="ReferencedLayerId" value="locality_point_f54eb9eb_e369_431e_a1a8_73aa93286d97" type="QString"/>
-            <Option name="ReferencedLayerName" value="locality_point" type="QString"/>
-            <Option name="ReferencedLayerProviderKey" value="ogr" type="QString"/>
-            <Option name="Relation" value="locality_point_sample_2" type="QString"/>
-            <Option name="ShowForm" value="false" type="bool"/>
-            <Option name="ShowOpenFormButton" value="true" type="bool"/>
+            <Option value="false" name="AllowAddFeatures" type="bool"/>
+            <Option value="false" name="AllowNULL" type="bool"/>
+            <Option value="false" name="MapIdentification" type="bool"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="ReadOnly" type="bool"/>
+            <Option value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point" name="ReferencedLayerDataSource" type="QString"/>
+            <Option value="locality_point_b5d4a64c_6865_4086_866f_ff25c1aea696" name="ReferencedLayerId" type="QString"/>
+            <Option value="locality_point" name="ReferencedLayerName" type="QString"/>
+            <Option value="ogr" name="ReferencedLayerProviderKey" type="QString"/>
+            <Option value="locality_point_sample_2" name="Relation" type="QString"/>
+            <Option value="false" name="ShowForm" type="bool"/>
+            <Option value="true" name="ShowOpenFormButton" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="sample_type_code">
+    <field name="sample_type_code" configurationFlags="None">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option name="AllowAddFeatures" value="false" type="bool"/>
-            <Option name="AllowNULL" value="false" type="bool"/>
-            <Option name="MapIdentification" value="false" type="bool"/>
-            <Option name="OrderByValue" value="false" type="bool"/>
-            <Option name="ReadOnly" value="false" type="bool"/>
-            <Option name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=dic_sample" type="QString"/>
-            <Option name="ReferencedLayerId" value="dic_sample_4b39a4d1_d099_4477_a092_c2a18b63a3da" type="QString"/>
-            <Option name="ReferencedLayerName" value="dic_sample" type="QString"/>
-            <Option name="ReferencedLayerProviderKey" value="ogr" type="QString"/>
-            <Option name="Relation" value="dic_sample_sample" type="QString"/>
-            <Option name="ShowForm" value="false" type="bool"/>
-            <Option name="ShowOpenFormButton" value="true" type="bool"/>
+            <Option value="false" name="AllowAddFeatures" type="bool"/>
+            <Option value="false" name="AllowNULL" type="bool"/>
+            <Option value="false" name="MapIdentification" type="bool"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="ReadOnly" type="bool"/>
+            <Option value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_sample" name="ReferencedLayerDataSource" type="QString"/>
+            <Option value="dic_sample_54f6cefb_ee7b_4bf7_bb31_0b5184e7dcf2" name="ReferencedLayerId" type="QString"/>
+            <Option value="dic_sample" name="ReferencedLayerName" type="QString"/>
+            <Option value="ogr" name="ReferencedLayerProviderKey" type="QString"/>
+            <Option value="dic_sample_sample" name="Relation" type="QString"/>
+            <Option value="false" name="ShowForm" type="bool"/>
+            <Option value="true" name="ShowOpenFormButton" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="sample_description">
+    <field name="sample_description" configurationFlags="None">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option name="IsMultiline" value="false" type="bool"/>
-            <Option name="UseHtml" value="false" type="bool"/>
+            <Option value="true" name="IsMultiline" type="bool"/>
+            <Option value="false" name="UseHtml" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="comment">
+    <field name="comment" configurationFlags="None">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option name="IsMultiline" value="true" type="bool"/>
-            <Option name="UseHtml" value="false" type="bool"/>
+            <Option value="true" name="IsMultiline" type="bool"/>
+            <Option value="false" name="UseHtml" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="user_entered">
+    <field name="user_entered" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_entered">
+    <field name="date_entered" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="user_updated">
+    <field name="user_updated" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_updated">
+    <field name="date_updated" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
@@ -119,6 +111,72 @@
       </editWidget>
     </field>
   </fieldConfiguration>
+  <aliases>
+    <alias name="" field="fid" index="0"/>
+    <alias name="" field="objectid" index="1"/>
+    <alias name="" field="uuid" index="2"/>
+    <alias name="" field="locality_fuid" index="3"/>
+    <alias name="" field="sample_type_code" index="4"/>
+    <alias name="" field="sample_description" index="5"/>
+    <alias name="" field="comment" index="6"/>
+    <alias name="" field="user_entered" index="7"/>
+    <alias name="" field="date_entered" index="8"/>
+    <alias name="" field="user_updated" index="9"/>
+    <alias name="" field="date_updated" index="10"/>
+  </aliases>
+  <splitPolicies>
+    <policy field="fid" policy="Duplicate"/>
+    <policy field="objectid" policy="Duplicate"/>
+    <policy field="uuid" policy="Duplicate"/>
+    <policy field="locality_fuid" policy="Duplicate"/>
+    <policy field="sample_type_code" policy="Duplicate"/>
+    <policy field="sample_description" policy="Duplicate"/>
+    <policy field="comment" policy="Duplicate"/>
+    <policy field="user_entered" policy="Duplicate"/>
+    <policy field="date_entered" policy="Duplicate"/>
+    <policy field="user_updated" policy="Duplicate"/>
+    <policy field="date_updated" policy="Duplicate"/>
+  </splitPolicies>
+  <defaults>
+    <default expression="" applyOnUpdate="0" field="fid"/>
+    <default expression="" applyOnUpdate="0" field="objectid"/>
+    <default expression="" applyOnUpdate="0" field="uuid"/>
+    <default expression="" applyOnUpdate="0" field="locality_fuid"/>
+    <default expression="" applyOnUpdate="0" field="sample_type_code"/>
+    <default expression="" applyOnUpdate="0" field="sample_description"/>
+    <default expression="" applyOnUpdate="0" field="comment"/>
+    <default expression="@user_account_name" applyOnUpdate="0" field="user_entered"/>
+    <default expression="now()" applyOnUpdate="0" field="date_entered"/>
+    <default expression="@user_account_name" applyOnUpdate="1" field="user_updated"/>
+    <default expression="now()" applyOnUpdate="1" field="date_updated"/>
+  </defaults>
+  <constraints>
+    <constraint unique_strength="1" notnull_strength="1" field="fid" constraints="3" exp_strength="0"/>
+    <constraint unique_strength="1" notnull_strength="0" field="objectid" constraints="2" exp_strength="0"/>
+    <constraint unique_strength="1" notnull_strength="1" field="uuid" constraints="3" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="locality_fuid" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="sample_type_code" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="sample_description" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="comment" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="user_entered" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="date_entered" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="user_updated" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="date_updated" constraints="0" exp_strength="0"/>
+  </constraints>
+  <constraintExpressions>
+    <constraint exp="" field="fid" desc=""/>
+    <constraint exp="" field="objectid" desc=""/>
+    <constraint exp="" field="uuid" desc=""/>
+    <constraint exp="" field="locality_fuid" desc=""/>
+    <constraint exp="" field="sample_type_code" desc=""/>
+    <constraint exp="" field="sample_description" desc=""/>
+    <constraint exp="" field="comment" desc=""/>
+    <constraint exp="" field="user_entered" desc=""/>
+    <constraint exp="" field="date_entered" desc=""/>
+    <constraint exp="" field="user_updated" desc=""/>
+    <constraint exp="" field="date_updated" desc=""/>
+  </constraintExpressions>
+  <expressionfields/>
   <editform tolerant="1"></editform>
   <editforminit/>
   <editforminitcodesource>0</editforminitcodesource>

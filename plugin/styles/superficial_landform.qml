@@ -1,170 +1,152 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="3.30.0-'s-Hertogenbosch" styleCategories="Symbology|Labeling|Forms|Relations">
-  <referencedLayers>
-    <relation referencedLayer="dic_superficial_category_f413ecf3_c374_4e41_9764_6d6375218882" dataSource="./field-data-capture.gpkg|layername=dic_superficial_category" name="dic_superficial_category_superficial_landform_2" referencingLayer="superficial_landform_b736762e_e453_41c8_bcaa_812bbde517ef" id="dic_superficial_category_superficial_landform_2" layerName="dic_superficial_category" providerKey="ogr" strength="Association" layerId="dic_superficial_category_f413ecf3_c374_4e41_9764_6d6375218882">
-      <fieldRef referencedField="code" referencingField="superficial_type_category"/>
-    </relation>
-    <relation referencedLayer="dic_superficial_code_96d4bba1_b151_4d1d_ab9d_981019ad241c" dataSource="./field-data-capture.gpkg|layername=dic_superficial_code" name="dic_superficial_code_superficial_landform_3" referencingLayer="superficial_landform_b736762e_e453_41c8_bcaa_812bbde517ef" id="dic_superficial_code_superficial_landform_3" layerName="dic_superficial_code" providerKey="ogr" strength="Association" layerId="dic_superficial_code_96d4bba1_b151_4d1d_ab9d_981019ad241c">
-      <fieldRef referencedField="code" referencingField="superficial_type_code"/>
-    </relation>
-    <relation referencedLayer="locality_point_f54eb9eb_e369_431e_a1a8_73aa93286d97" dataSource="./field-data-capture.gpkg|layername=locality_point" name="locality_point_superficial_landform" referencingLayer="superficial_landform_b736762e_e453_41c8_bcaa_812bbde517ef" id="locality_point_superficial_landform" layerName="locality_point" providerKey="ogr" strength="Association" layerId="locality_point_f54eb9eb_e369_431e_a1a8_73aa93286d97">
-      <fieldRef referencedField="uuid" referencingField="locality_fuid"/>
-    </relation>
-  </referencedLayers>
+<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.30.0-'s-Hertogenbosch">
   <fieldConfiguration>
-    <field name="fid">
+    <field name="fid" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="objectid">
+    <field name="objectid" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="uuid">
-      <editWidget type="Hidden">
+    <field name="uuid" configurationFlags="None">
+      <editWidget type="UuidGenerator">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="locality_fuid">
+    <field name="locality_fuid" configurationFlags="None">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option name="AllowAddFeatures" value="false" type="bool"/>
-            <Option name="AllowNULL" value="false" type="bool"/>
-            <Option name="MapIdentification" value="false" type="bool"/>
-            <Option name="OrderByValue" value="false" type="bool"/>
-            <Option name="ReadOnly" value="false" type="bool"/>
-            <Option name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=locality_point" type="QString"/>
-            <Option name="ReferencedLayerId" value="locality_point_f54eb9eb_e369_431e_a1a8_73aa93286d97" type="QString"/>
-            <Option name="ReferencedLayerName" value="locality_point" type="QString"/>
-            <Option name="ReferencedLayerProviderKey" value="ogr" type="QString"/>
-            <Option name="Relation" value="locality_point_superficial_landform" type="QString"/>
-            <Option name="ShowForm" value="false" type="bool"/>
-            <Option name="ShowOpenFormButton" value="true" type="bool"/>
+            <Option value="false" name="AllowAddFeatures" type="bool"/>
+            <Option value="false" name="AllowNULL" type="bool"/>
+            <Option value="false" name="MapIdentification" type="bool"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="ReadOnly" type="bool"/>
+            <Option value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point" name="ReferencedLayerDataSource" type="QString"/>
+            <Option value="locality_point_b5d4a64c_6865_4086_866f_ff25c1aea696" name="ReferencedLayerId" type="QString"/>
+            <Option value="locality_point" name="ReferencedLayerName" type="QString"/>
+            <Option value="ogr" name="ReferencedLayerProviderKey" type="QString"/>
+            <Option value="locality_point_superficial_landform" name="Relation" type="QString"/>
+            <Option value="false" name="ShowForm" type="bool"/>
+            <Option value="true" name="ShowOpenFormButton" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="superficial_type_category">
-      <editWidget type="RelationReference">
+    <field name="superficial_type_category" configurationFlags="None">
+      <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
-            <Option name="AllowAddFeatures" value="false" type="bool"/>
-            <Option name="AllowNULL" value="false" type="bool"/>
-            <Option name="MapIdentification" value="false" type="bool"/>
-            <Option name="OrderByValue" value="false" type="bool"/>
-            <Option name="ReadOnly" value="false" type="bool"/>
-            <Option name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=dic_superficial_category" type="QString"/>
-            <Option name="ReferencedLayerId" value="dic_superficial_category_f413ecf3_c374_4e41_9764_6d6375218882" type="QString"/>
-            <Option name="ReferencedLayerName" value="dic_superficial_category" type="QString"/>
-            <Option name="ReferencedLayerProviderKey" value="ogr" type="QString"/>
-            <Option name="Relation" value="dic_superficial_category_superficial_landform_2" type="QString"/>
-            <Option name="ShowForm" value="false" type="bool"/>
-            <Option name="ShowOpenFormButton" value="true" type="bool"/>
+            <Option value="false" name="AllowMulti" type="bool"/>
+            <Option value="false" name="AllowNull" type="bool"/>
+            <Option value="" name="Description" type="QString"/>
+            <Option value="" name="FilterExpression" type="QString"/>
+            <Option value="code" name="Key" type="QString"/>
+            <Option value="dic_superficial_category_76c3b143_4b39_488e_8475_09dc0971900d" name="Layer" type="QString"/>
+            <Option value="dic_superficial_category" name="LayerName" type="QString"/>
+            <Option value="ogr" name="LayerProviderName" type="QString"/>
+            <Option value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_superficial_category" name="LayerSource" type="QString"/>
+            <Option value="1" name="NofColumns" type="int"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="UseCompleter" type="bool"/>
+            <Option value="code" name="Value" type="QString"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="superficial_type_code">
-      <editWidget type="RelationReference">
+    <field name="superficial_type_code" configurationFlags="None">
+      <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
-            <Option name="AllowAddFeatures" value="false" type="bool"/>
-            <Option name="AllowNULL" value="false" type="bool"/>
-            <Option name="MapIdentification" value="false" type="bool"/>
-            <Option name="OrderByValue" value="false" type="bool"/>
-            <Option name="ReadOnly" value="false" type="bool"/>
-            <Option name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=dic_superficial_code" type="QString"/>
-            <Option name="ReferencedLayerId" value="dic_superficial_code_96d4bba1_b151_4d1d_ab9d_981019ad241c" type="QString"/>
-            <Option name="ReferencedLayerName" value="dic_superficial_code" type="QString"/>
-            <Option name="ReferencedLayerProviderKey" value="ogr" type="QString"/>
-            <Option name="Relation" value="dic_superficial_code_superficial_landform_3" type="QString"/>
-            <Option name="ShowForm" value="true" type="bool"/>
-            <Option name="ShowOpenFormButton" value="true" type="bool"/>
+            <Option value="false" name="AllowMulti" type="bool"/>
+            <Option value="false" name="AllowNull" type="bool"/>
+            <Option value="" name="Description" type="QString"/>
+            <Option value="&quot;category&quot; = current_value('superficial_type_category')" name="FilterExpression" type="QString"/>
+            <Option value="code" name="Key" type="QString"/>
+            <Option value="dic_superficial_code_bf7ab3f3_04f9_4c36_9bc0_9ebdecfb3b34" name="Layer" type="QString"/>
+            <Option value="dic_superficial_code" name="LayerName" type="QString"/>
+            <Option value="ogr" name="LayerProviderName" type="QString"/>
+            <Option value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_superficial_code" name="LayerSource" type="QString"/>
+            <Option value="1" name="NofColumns" type="int"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="UseCompleter" type="bool"/>
+            <Option value="code" name="Value" type="QString"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="dip">
+    <field name="dip" configurationFlags="None">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option name="IsMultiline" value="false" type="bool"/>
-            <Option name="UseHtml" value="false" type="bool"/>
+            <Option value="false" name="IsMultiline" type="bool"/>
+            <Option value="false" name="UseHtml" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="length">
+    <field name="length" configurationFlags="None">
+      <editWidget type="TextEdit">
+        <config>
+          <Option/>
+        </config>
+      </editWidget>
+    </field>
+    <field name="width" configurationFlags="None">
+      <editWidget type="TextEdit">
+        <config>
+          <Option/>
+        </config>
+      </editWidget>
+    </field>
+    <field name="height_depth" configurationFlags="None">
+      <editWidget type="TextEdit">
+        <config>
+          <Option/>
+        </config>
+      </editWidget>
+    </field>
+    <field name="comment" configurationFlags="None">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option name="IsMultiline" value="false" type="bool"/>
-            <Option name="UseHtml" value="false" type="bool"/>
+            <Option value="true" name="IsMultiline" type="bool"/>
+            <Option value="false" name="UseHtml" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="width">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" value="false" type="bool"/>
-            <Option name="UseHtml" value="false" type="bool"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field name="height_depth">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" value="false" type="bool"/>
-            <Option name="UseHtml" value="false" type="bool"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field name="comment">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" value="true" type="bool"/>
-            <Option name="UseHtml" value="false" type="bool"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field name="user_entered">
+    <field name="user_entered" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_entered">
+    <field name="date_entered" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="user_updated">
+    <field name="user_updated" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_updated">
+    <field name="date_updated" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
@@ -172,6 +154,92 @@
       </editWidget>
     </field>
   </fieldConfiguration>
+  <aliases>
+    <alias name="" field="fid" index="0"/>
+    <alias name="" field="objectid" index="1"/>
+    <alias name="" field="uuid" index="2"/>
+    <alias name="" field="locality_fuid" index="3"/>
+    <alias name="" field="superficial_type_category" index="4"/>
+    <alias name="" field="superficial_type_code" index="5"/>
+    <alias name="" field="dip" index="6"/>
+    <alias name="" field="length" index="7"/>
+    <alias name="" field="width" index="8"/>
+    <alias name="" field="height_depth" index="9"/>
+    <alias name="" field="comment" index="10"/>
+    <alias name="" field="user_entered" index="11"/>
+    <alias name="" field="date_entered" index="12"/>
+    <alias name="" field="user_updated" index="13"/>
+    <alias name="" field="date_updated" index="14"/>
+  </aliases>
+  <splitPolicies>
+    <policy field="fid" policy="Duplicate"/>
+    <policy field="objectid" policy="Duplicate"/>
+    <policy field="uuid" policy="Duplicate"/>
+    <policy field="locality_fuid" policy="Duplicate"/>
+    <policy field="superficial_type_category" policy="Duplicate"/>
+    <policy field="superficial_type_code" policy="Duplicate"/>
+    <policy field="dip" policy="Duplicate"/>
+    <policy field="length" policy="Duplicate"/>
+    <policy field="width" policy="Duplicate"/>
+    <policy field="height_depth" policy="Duplicate"/>
+    <policy field="comment" policy="Duplicate"/>
+    <policy field="user_entered" policy="Duplicate"/>
+    <policy field="date_entered" policy="Duplicate"/>
+    <policy field="user_updated" policy="Duplicate"/>
+    <policy field="date_updated" policy="Duplicate"/>
+  </splitPolicies>
+  <defaults>
+    <default expression="" applyOnUpdate="0" field="fid"/>
+    <default expression="" applyOnUpdate="0" field="objectid"/>
+    <default expression="" applyOnUpdate="0" field="uuid"/>
+    <default expression="" applyOnUpdate="0" field="locality_fuid"/>
+    <default expression="" applyOnUpdate="0" field="superficial_type_category"/>
+    <default expression="" applyOnUpdate="0" field="superficial_type_code"/>
+    <default expression="" applyOnUpdate="0" field="dip"/>
+    <default expression="" applyOnUpdate="0" field="length"/>
+    <default expression="" applyOnUpdate="0" field="width"/>
+    <default expression="" applyOnUpdate="0" field="height_depth"/>
+    <default expression="" applyOnUpdate="0" field="comment"/>
+    <default expression="@user_account_name" applyOnUpdate="0" field="user_entered"/>
+    <default expression="now()" applyOnUpdate="0" field="date_entered"/>
+    <default expression="@user_account_name" applyOnUpdate="1" field="user_updated"/>
+    <default expression="now()" applyOnUpdate="1" field="date_updated"/>
+  </defaults>
+  <constraints>
+    <constraint unique_strength="1" notnull_strength="1" field="fid" constraints="3" exp_strength="0"/>
+    <constraint unique_strength="1" notnull_strength="0" field="objectid" constraints="2" exp_strength="0"/>
+    <constraint unique_strength="1" notnull_strength="1" field="uuid" constraints="3" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="locality_fuid" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="superficial_type_category" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="superficial_type_code" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="dip" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="length" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="width" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="height_depth" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="comment" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="user_entered" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="date_entered" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="user_updated" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="date_updated" constraints="0" exp_strength="0"/>
+  </constraints>
+  <constraintExpressions>
+    <constraint exp="" field="fid" desc=""/>
+    <constraint exp="" field="objectid" desc=""/>
+    <constraint exp="" field="uuid" desc=""/>
+    <constraint exp="" field="locality_fuid" desc=""/>
+    <constraint exp="" field="superficial_type_category" desc=""/>
+    <constraint exp="" field="superficial_type_code" desc=""/>
+    <constraint exp="" field="dip" desc=""/>
+    <constraint exp="" field="length" desc=""/>
+    <constraint exp="" field="width" desc=""/>
+    <constraint exp="" field="height_depth" desc=""/>
+    <constraint exp="" field="comment" desc=""/>
+    <constraint exp="" field="user_entered" desc=""/>
+    <constraint exp="" field="date_entered" desc=""/>
+    <constraint exp="" field="user_updated" desc=""/>
+    <constraint exp="" field="date_updated" desc=""/>
+  </constraintExpressions>
+  <expressionfields/>
   <editform tolerant="1"></editform>
   <editforminit/>
   <editforminitcodesource>0</editforminitcodesource>

@@ -1,141 +1,141 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="3.30.0-'s-Hertogenbosch" styleCategories="Symbology|Labeling|Forms|Relations">
-  <referencedLayers>
-    <relation referencedLayer="dic_structure_code_474f4a6e_da0d_4a0a_aa64_5aec270f2d27" dataSource="./field-data-capture.gpkg|layername=dic_structure_code" name="dic_structure_code_structural_measurement_2" referencingLayer="structural_measurement_719a6ddc_1e31_481b_97ca_d04e4a53d7d4" id="dic_structure_code_structural_measurement_2" layerName="dic_structure_code" providerKey="ogr" strength="Association" layerId="dic_structure_code_474f4a6e_da0d_4a0a_aa64_5aec270f2d27">
-      <fieldRef referencedField="category" referencingField="structure_type_category"/>
-    </relation>
-    <relation referencedLayer="dic_structure_code_474f4a6e_da0d_4a0a_aa64_5aec270f2d27" dataSource="./field-data-capture.gpkg|layername=dic_structure_code" name="dic_structure_code_structural_measurement_3" referencingLayer="structural_measurement_719a6ddc_1e31_481b_97ca_d04e4a53d7d4" id="dic_structure_code_structural_measurement_3" layerName="dic_structure_code" providerKey="ogr" strength="Association" layerId="dic_structure_code_474f4a6e_da0d_4a0a_aa64_5aec270f2d27">
-      <fieldRef referencedField="code" referencingField="structure_type_code"/>
-    </relation>
-    <relation referencedLayer="locality_point_f54eb9eb_e369_431e_a1a8_73aa93286d97" dataSource="./field-data-capture.gpkg|layername=locality_point" name="locality_point_structural_measurement" referencingLayer="structural_measurement_719a6ddc_1e31_481b_97ca_d04e4a53d7d4" id="locality_point_structural_measurement" layerName="locality_point" providerKey="ogr" strength="Association" layerId="locality_point_f54eb9eb_e369_431e_a1a8_73aa93286d97">
-      <fieldRef referencedField="uuid" referencingField="locality_fuid"/>
-    </relation>
-  </referencedLayers>
+<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.30.0-'s-Hertogenbosch">
   <fieldConfiguration>
-    <field name="fid">
+    <field name="fid" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="objectid">
+    <field name="objectid" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="uuid">
-      <editWidget type="Hidden">
+    <field name="uuid" configurationFlags="None">
+      <editWidget type="UuidGenerator">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="locality_fuid">
+    <field name="locality_fuid" configurationFlags="None">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option name="AllowAddFeatures" value="false" type="bool"/>
-            <Option name="AllowNULL" value="false" type="bool"/>
-            <Option name="MapIdentification" value="false" type="bool"/>
-            <Option name="OrderByValue" value="false" type="bool"/>
-            <Option name="ReadOnly" value="false" type="bool"/>
-            <Option name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=locality_point" type="QString"/>
-            <Option name="ReferencedLayerId" value="locality_point_f54eb9eb_e369_431e_a1a8_73aa93286d97" type="QString"/>
-            <Option name="ReferencedLayerName" value="locality_point" type="QString"/>
-            <Option name="ReferencedLayerProviderKey" value="ogr" type="QString"/>
-            <Option name="Relation" value="locality_point_structural_measurement" type="QString"/>
-            <Option name="ShowForm" value="false" type="bool"/>
-            <Option name="ShowOpenFormButton" value="true" type="bool"/>
+            <Option value="false" name="AllowAddFeatures" type="bool"/>
+            <Option value="false" name="AllowNULL" type="bool"/>
+            <Option value="false" name="MapIdentification" type="bool"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="ReadOnly" type="bool"/>
+            <Option value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point" name="ReferencedLayerDataSource" type="QString"/>
+            <Option value="locality_point_b5d4a64c_6865_4086_866f_ff25c1aea696" name="ReferencedLayerId" type="QString"/>
+            <Option value="locality_point" name="ReferencedLayerName" type="QString"/>
+            <Option value="ogr" name="ReferencedLayerProviderKey" type="QString"/>
+            <Option value="locality_point_structural_measurement" name="Relation" type="QString"/>
+            <Option value="false" name="ShowForm" type="bool"/>
+            <Option value="true" name="ShowOpenFormButton" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="structure_type_category">
-      <editWidget type="RelationReference">
-        <config>
-          <Option type="Map">
-            <Option name="AllowAddFeatures" value="false" type="bool"/>
-            <Option name="AllowNULL" value="false" type="bool"/>
-            <Option name="MapIdentification" value="false" type="bool"/>
-            <Option name="OrderByValue" value="false" type="bool"/>
-            <Option name="ReadOnly" value="false" type="bool"/>
-            <Option name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=dic_structure_code" type="QString"/>
-            <Option name="ReferencedLayerId" value="dic_structure_code_474f4a6e_da0d_4a0a_aa64_5aec270f2d27" type="QString"/>
-            <Option name="ReferencedLayerName" value="dic_structure_code" type="QString"/>
-            <Option name="ReferencedLayerProviderKey" value="ogr" type="QString"/>
-            <Option name="Relation" value="dic_structure_code_structural_measurement_2" type="QString"/>
-            <Option name="ShowForm" value="false" type="bool"/>
-            <Option name="ShowOpenFormButton" value="true" type="bool"/>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field name="structure_type_code">
+    <field name="structure_type_category" configurationFlags="None">
       <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
-            <Option name="AllowMulti" value="false" type="bool"/>
-            <Option name="AllowNull" value="false" type="bool"/>
-            <Option name="Description" value="" type="QString"/>
-            <Option name="FilterExpression" value="&quot;category&quot; = current_value(&quot;structure_type_category&quot;)" type="QString"/>
-            <Option name="Key" value="code" type="QString"/>
-            <Option name="Layer" value="dic_structure_code_474f4a6e_da0d_4a0a_aa64_5aec270f2d27" type="QString"/>
-            <Option name="LayerName" value="dic_structure_code" type="QString"/>
-            <Option name="LayerProviderName" value="ogr" type="QString"/>
-            <Option name="LayerSource" value="C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=dic_structure_code" type="QString"/>
-            <Option name="NofColumns" value="1" type="int"/>
-            <Option name="OrderByValue" value="false" type="bool"/>
-            <Option name="UseCompleter" value="true" type="bool"/>
-            <Option name="Value" value="description" type="QString"/>
+            <Option value="false" name="AllowMulti" type="bool"/>
+            <Option value="false" name="AllowNull" type="bool"/>
+            <Option value="" name="Description" type="QString"/>
+            <Option value="" name="FilterExpression" type="QString"/>
+            <Option value="code" name="Key" type="QString"/>
+            <Option value="dic_structure_category_b05ce80f_19c5_4cd2_9d5b_0d1e17320c82" name="Layer" type="QString"/>
+            <Option value="dic_structure_category" name="LayerName" type="QString"/>
+            <Option value="ogr" name="LayerProviderName" type="QString"/>
+            <Option value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_structure_category" name="LayerSource" type="QString"/>
+            <Option value="1" name="NofColumns" type="int"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="UseCompleter" type="bool"/>
+            <Option value="code" name="Value" type="QString"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="dip">
+    <field name="structure_type_code" configurationFlags="None">
+      <editWidget type="ValueRelation">
+        <config>
+          <Option type="Map">
+            <Option value="false" name="AllowMulti" type="bool"/>
+            <Option value="false" name="AllowNull" type="bool"/>
+            <Option value="" name="Description" type="QString"/>
+            <Option value="&quot;category&quot; = current_value('structure_type_category')" name="FilterExpression" type="QString"/>
+            <Option value="code" name="Key" type="QString"/>
+            <Option value="dic_structure_code_bdfb729a_46ae_46cb_980d_ad1e88aa9e1f" name="Layer" type="QString"/>
+            <Option value="dic_structure_code" name="LayerName" type="QString"/>
+            <Option value="ogr" name="LayerProviderName" type="QString"/>
+            <Option value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_structure_code" name="LayerSource" type="QString"/>
+            <Option value="1" name="NofColumns" type="int"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="UseCompleter" type="bool"/>
+            <Option value="code" name="Value" type="QString"/>
+          </Option>
+        </config>
+      </editWidget>
+    </field>
+    <field name="dip" configurationFlags="None">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option name="IsMultiline" value="false" type="bool"/>
-            <Option name="UseHtml" value="false" type="bool"/>
+            <Option value="false" name="IsMultiline" type="bool"/>
+            <Option value="false" name="UseHtml" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="dip_direction">
+    <field name="dip_direction" configurationFlags="None">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option name="IsMultiline" value="false" type="bool"/>
-            <Option name="UseHtml" value="false" type="bool"/>
+            <Option value="false" name="IsMultiline" type="bool"/>
+            <Option value="false" name="UseHtml" type="bool"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="user_entered">
+    <field name="comment" configurationFlags="None">
+      <editWidget type="TextEdit">
+        <config>
+          <Option type="Map">
+            <Option value="true" name="IsMultiline" type="bool"/>
+            <Option value="false" name="UseHtml" type="bool"/>
+          </Option>
+        </config>
+      </editWidget>
+    </field>
+    <field name="user_entered" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_entered">
+    <field name="date_entered" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="user_updated">
+    <field name="user_updated" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_updated">
+    <field name="date_updated" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
@@ -143,6 +143,82 @@
       </editWidget>
     </field>
   </fieldConfiguration>
+  <aliases>
+    <alias name="" field="fid" index="0"/>
+    <alias name="" field="objectid" index="1"/>
+    <alias name="" field="uuid" index="2"/>
+    <alias name="" field="locality_fuid" index="3"/>
+    <alias name="" field="structure_type_category" index="4"/>
+    <alias name="" field="structure_type_code" index="5"/>
+    <alias name="" field="dip" index="6"/>
+    <alias name="" field="dip_direction" index="7"/>
+    <alias name="" field="comment" index="8"/>
+    <alias name="" field="user_entered" index="9"/>
+    <alias name="" field="date_entered" index="10"/>
+    <alias name="" field="user_updated" index="11"/>
+    <alias name="" field="date_updated" index="12"/>
+  </aliases>
+  <splitPolicies>
+    <policy field="fid" policy="Duplicate"/>
+    <policy field="objectid" policy="Duplicate"/>
+    <policy field="uuid" policy="Duplicate"/>
+    <policy field="locality_fuid" policy="Duplicate"/>
+    <policy field="structure_type_category" policy="Duplicate"/>
+    <policy field="structure_type_code" policy="Duplicate"/>
+    <policy field="dip" policy="Duplicate"/>
+    <policy field="dip_direction" policy="Duplicate"/>
+    <policy field="comment" policy="Duplicate"/>
+    <policy field="user_entered" policy="Duplicate"/>
+    <policy field="date_entered" policy="Duplicate"/>
+    <policy field="user_updated" policy="Duplicate"/>
+    <policy field="date_updated" policy="Duplicate"/>
+  </splitPolicies>
+  <defaults>
+    <default expression="" applyOnUpdate="0" field="fid"/>
+    <default expression="" applyOnUpdate="0" field="objectid"/>
+    <default expression="" applyOnUpdate="0" field="uuid"/>
+    <default expression="" applyOnUpdate="0" field="locality_fuid"/>
+    <default expression="" applyOnUpdate="0" field="structure_type_category"/>
+    <default expression="" applyOnUpdate="0" field="structure_type_code"/>
+    <default expression="" applyOnUpdate="0" field="dip"/>
+    <default expression="" applyOnUpdate="0" field="dip_direction"/>
+    <default expression="" applyOnUpdate="0" field="comment"/>
+    <default expression="@user_account_name" applyOnUpdate="0" field="user_entered"/>
+    <default expression="now()" applyOnUpdate="0" field="date_entered"/>
+    <default expression="@user_account_name" applyOnUpdate="1" field="user_updated"/>
+    <default expression="now()" applyOnUpdate="1" field="date_updated"/>
+  </defaults>
+  <constraints>
+    <constraint unique_strength="1" notnull_strength="1" field="fid" constraints="3" exp_strength="0"/>
+    <constraint unique_strength="1" notnull_strength="0" field="objectid" constraints="2" exp_strength="0"/>
+    <constraint unique_strength="1" notnull_strength="1" field="uuid" constraints="3" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="locality_fuid" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="structure_type_category" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="structure_type_code" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="dip" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="dip_direction" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="comment" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="user_entered" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="1" field="date_entered" constraints="1" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="user_updated" constraints="0" exp_strength="0"/>
+    <constraint unique_strength="0" notnull_strength="0" field="date_updated" constraints="0" exp_strength="0"/>
+  </constraints>
+  <constraintExpressions>
+    <constraint exp="" field="fid" desc=""/>
+    <constraint exp="" field="objectid" desc=""/>
+    <constraint exp="" field="uuid" desc=""/>
+    <constraint exp="" field="locality_fuid" desc=""/>
+    <constraint exp="" field="structure_type_category" desc=""/>
+    <constraint exp="" field="structure_type_code" desc=""/>
+    <constraint exp="" field="dip" desc=""/>
+    <constraint exp="" field="dip_direction" desc=""/>
+    <constraint exp="" field="comment" desc=""/>
+    <constraint exp="" field="user_entered" desc=""/>
+    <constraint exp="" field="date_entered" desc=""/>
+    <constraint exp="" field="user_updated" desc=""/>
+    <constraint exp="" field="date_updated" desc=""/>
+  </constraintExpressions>
+  <expressionfields/>
   <editform tolerant="1"></editform>
   <editforminit/>
   <editforminitcodesource>0</editforminitcodesource>
@@ -167,20 +243,22 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
+    <field name="comment" editable="1"/>
     <field name="date_entered" editable="1"/>
     <field name="date_updated" editable="1"/>
     <field name="dip" editable="1"/>
     <field name="dip_direction" editable="1"/>
-    <field name="fid" editable="1"/>
+    <field name="fid" editable="0"/>
     <field name="locality_fuid" editable="1"/>
-    <field name="objectid" editable="1"/>
+    <field name="objectid" editable="0"/>
     <field name="structure_type_category" editable="1"/>
     <field name="structure_type_code" editable="1"/>
     <field name="user_entered" editable="1"/>
     <field name="user_updated" editable="1"/>
-    <field name="uuid" editable="1"/>
+    <field name="uuid" editable="0"/>
   </editable>
   <labelOnTop>
+    <field name="comment" labelOnTop="0"/>
     <field name="date_entered" labelOnTop="0"/>
     <field name="date_updated" labelOnTop="0"/>
     <field name="dip" labelOnTop="0"/>
@@ -195,6 +273,7 @@ def my_form_open(dialog, layer, feature):
     <field name="uuid" labelOnTop="0"/>
   </labelOnTop>
   <reuseLastValue>
+    <field name="comment" reuseLastValue="0"/>
     <field name="date_entered" reuseLastValue="0"/>
     <field name="date_updated" reuseLastValue="0"/>
     <field name="dip" reuseLastValue="0"/>
