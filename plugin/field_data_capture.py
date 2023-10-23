@@ -22,6 +22,7 @@
  ***************************************************************************/
 """
 from pathlib import Path
+from typing import Callable
 
 from qgis.core import (
     QgsDataProvider,
@@ -213,38 +214,54 @@ class FieldDataCapture:
             self.iface.removeToolBarIcon(action)
 
 
+    def validate_project(check_db: bool = True) -> Callable:
+        """
+        Function decorator to validate the current QGIS project.
+        """
+        def decorator(function_: Callable) -> Callable:
+            def wrapper(self):
+                # Set default return in the event of an error
+                function_return = None
+                # Validate that the project is ready and OK
+                project_path = QgsProject.instance().readPath("./")
+                if str(project_path) != "./":
+                    # Only check the db if required
+                    if not check_db or self.db_file.exists():
+                        function_return = function_(self)
+                    else:
+                        QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+                else:
+                    QMessageBox.information(None, "Information", "No project is currently open")
+                return function_return
+            return wrapper
+        return decorator
+
+
+    @validate_project(check_db=False)
     def add_gpkg_to_project(self) -> None:
         """
         Add the GeoPackage file to the current project.
         """
-        project_path = QgsProject.instance().readPath("./")
-        if str(project_path) != "./":
-            run = True
-            message = None
+        run = True
+        if self.db_file.exists():
+            # Setup the QMessageBox, we don't call QMessageBox.Question because we want to modify it before showing
+            message_box = QMessageBox()
+            message_box.setWindowTitle("File Already Exists")
+            message_box.setText(f"The file already exists, would you like to overwrite the file?\n\n{self.db_file}")
+            message_box.setIcon(QMessageBox.Question)
+            message_box.setStandardButtons(QMessageBox.Yes | QMessageBox.Cancel)
+            result = message_box.exec_()
 
-            if self.db_file.exists():
-                # Setup the QMessageBox, we don't call QMessageBox.Question because we want to modify it before showing
-                message_box = QMessageBox()
-                message_box.setWindowTitle("File Already Exists")
-                message_box.setText(f"The file already exists, would you like to overwrite the file?\n\n{db_file}")
-                message_box.setIcon(QMessageBox.Question)
-                message_box.setStandardButtons(QMessageBox.Yes | QMessageBox.Cancel)
-                result = message_box.exec_()
+            # Get the result from the user
+            if result == QMessageBox.Cancel:
+                run = False
 
-                # Get the result from the user
-                if result == QMessageBox.Cancel:
-                    run = False
-
-            if run:
-                message = f"Created GeoPackage:\n\n{self.db_file}"
-                gpkg_from_sql(db_file=self.db_file)
-        else:
-            message = "No project is currently open."
-
-        if message is not None:
-            QMessageBox.information(None, "Information", message)
+        if run:
+            QMessageBox.information(None, "Information", f"Created GeoPackage:\n\n{self.db_file}")
+            gpkg_from_sql(db_file=self.db_file)
 
 
+    @validate_project()
     def add_gpkg_layers_to_project(self) -> None:
         """
         Add the GeoPackage layers to the current project.
@@ -279,40 +296,32 @@ class FieldDataCapture:
             ],
         }
 
-        project_path = QgsProject.instance().readPath("./")
-        if str(project_path) != "./":
-            if self.db_file.exists():
-                # Get layers root
-                root = QgsProject.instance().layerTreeRoot()
-                # Get db layers
-                db_layer = QgsVectorLayer(str(self.db_file), "", "ogr")
-                db_sub_layers = db_layer.dataProvider().subLayers()
-                db_sub_layer_names = [
-                    sub_layer.split(QgsDataProvider.SUBLAYER_SEPARATOR)[1]
-                    for sub_layer in db_sub_layers
-                ]
+        # Get layers root
+        root = QgsProject.instance().layerTreeRoot()
+        # Get db layers
+        db_layer = QgsVectorLayer(str(self.db_file), "", "ogr")
+        db_sub_layers = db_layer.dataProvider().subLayers()
+        db_sub_layer_names = [
+            sub_layer.split(QgsDataProvider.SUBLAYER_SEPARATOR)[1]
+            for sub_layer in db_sub_layers
+        ]
 
-                for group_name, group_layer_names in groups_layers.items():
-                    # Create the group if required
-                    add_to_legend = True
+        for group_name, group_layer_names in groups_layers.items():
+            # Create the group if required
+            add_to_legend = True
+            if group_name is not None:
+                group = root.addGroup(group_name)
+                add_to_legend = False
+
+            for layer_name in group_layer_names:
+                # If the layer name in the dictionary is in the list of layers in the db file
+                if layer_name in db_sub_layer_names:
+
+                    # Create layer
+                    uri = f"{self.db_file}|layername={layer_name}"
+                    sub_vlayer = QgsVectorLayer(uri, layer_name, "ogr")
+                    QgsProject.instance().addMapLayer(sub_vlayer, add_to_legend)
+
+                    # Add layer to a group if required
                     if group_name is not None:
-                        group = root.addGroup(group_name)
-                        add_to_legend = False
-
-                    for layer_name in group_layer_names:
-                        # If the layer name in the dictionary is in the list of layers in the db file
-                        if layer_name in db_sub_layer_names:
-
-                            # Create layer
-                            uri = f"{self.db_file}|layername={layer_name}"
-                            sub_vlayer = QgsVectorLayer(uri, layer_name, "ogr")
-                            QgsProject.instance().addMapLayer(sub_vlayer, add_to_legend)
-
-                            # Add layer to a group if required
-                            if group_name is not None:
-                                group.addLayer(sub_vlayer)
-
-            else:
-                QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-        else:
-            QMessageBox.information(None, "Information", "No project is currently open")
+                        group.addLayer(sub_vlayer)
