@@ -42,6 +42,7 @@ from .resources import *
 import os.path
 
 from .create_gpkg_from_sql import main as gpkg_from_sql
+from .create_gpkg_from_sql import WORKDIR
 from .utils import ipdb_breakpoint
 
 
@@ -84,13 +85,19 @@ class FieldDataCapture:
 
 
     @property
+    def project_dir(self) -> Path:
+        """
+        Get the current project directory.
+        """
+        return Path(QgsProject.instance().readPath("./"))
+
+
+    @property
     def db_file(self) -> Path:
         """
         Get the db file path from the current project.
         """
-        project_path = QgsProject.instance().readPath("./")
-        db_file = Path(project_path) / self.gpkg_filename
-        return db_file
+        return self.project_dir / self.gpkg_filename
 
 
     # noinspection PyMethodMayBeStatic
@@ -223,8 +230,7 @@ class FieldDataCapture:
                 # Set default return in the event of an error
                 function_return = None
                 # Validate that the project is ready and OK
-                project_path = QgsProject.instance().readPath("./")
-                if str(project_path) != "./":
+                if str(self.project_dir) != "./":
                     # Only check the db if required
                     if not check_db or self.db_file.exists():
                         function_return = function_(self)
@@ -317,6 +323,7 @@ class FieldDataCapture:
                     uri = f"{self.db_file}|layername={layer_name}"
                     vector_layer = QgsVectorLayer(uri, layer_name, "ogr")
                     QgsProject.instance().addMapLayer(vector_layer, add_to_legend)
+                    self.apply_qml_style(vector_layer)
                     vector_layers.append(vector_layer)
 
                     # Add layer to a group if required
@@ -324,6 +331,22 @@ class FieldDataCapture:
                         group.addLayer(vector_layer)
 
         self.find_create_relationships(vector_layers)
+
+
+    def apply_qml_style(self, vector_layer: QgsVectorLayer) -> None:
+        """
+        Find and apply the QML style file for the given layer name.
+        """
+        qml_files = list(Path(WORKDIR / "styles").glob(f"{vector_layer.name()}.qml"))
+        # Only apply a style if a matching style file can be found
+        if len(qml_files) == 1:
+            matching_qml_file = qml_files[0]
+
+            # Copy the style file into the new directory
+            styles_dir = self.project_dir / "styles"
+            styles_dir.mkdir(parents=True, exist_ok=True)
+            new_qml_file = styles_dir / matching_qml_file.name
+            new_qml_file.write_bytes(matching_qml_file.read_bytes())
 
 
     def find_create_relationships(self, vector_layers: list[QgsVectorLayer]) -> None:
