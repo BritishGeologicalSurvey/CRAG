@@ -244,16 +244,11 @@ class FieldDataCapture:
         """
         run = True
         if self.db_file.exists():
-            # Setup the QMessageBox, we don't call QMessageBox.Question because we want to modify it before showing
-            message_box = QMessageBox()
-            message_box.setWindowTitle("File Already Exists")
-            message_box.setText(f"The file already exists, would you like to overwrite the file?\n\n{self.db_file}")
-            message_box.setIcon(QMessageBox.Question)
-            message_box.setStandardButtons(QMessageBox.Yes | QMessageBox.Cancel)
-            result = message_box.exec_()
-
-            # Get the result from the user
-            if result == QMessageBox.Cancel:
+            result = QMessageBox.question(
+                None, "File Already Exists",
+                f"The file already exists, would you like to overwrite the file?\n\n{self.db_file}",
+            )
+            if result == QMessageBox.No:
                 run = False
 
         if run:
