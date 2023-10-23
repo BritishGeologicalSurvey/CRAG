@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS "structural_measurement" (
   "user_updated" TEXT,
   "date_updated" DATETIME,
   FOREIGN KEY("structure_type_code") REFERENCES "dic_structure_code"("code"),
-  FOREIGN KEY("structure_type_category") REFERENCES "dic_structure_code"("category"),
+  FOREIGN KEY("structure_type_category") REFERENCES "dic_structure_category"("code"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS "superficial_landform" (
   "user_updated" TEXT,
   "date_updated" DATETIME,
   FOREIGN KEY("superficial_type_code") REFERENCES "dic_superficial_code"("code"),
-  FOREIGN KEY("superficial_type_category") REFERENCES "dic_superficial_code"("category"),
+  FOREIGN KEY("superficial_type_category") REFERENCES "dic_superficial_category"("code"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
