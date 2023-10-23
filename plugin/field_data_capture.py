@@ -301,6 +301,7 @@ class FieldDataCapture:
             for sub_layer in db_sub_layers
         ]
 
+        vector_layers = []
         for group_name, group_layer_names in groups_layers.items():
             # Create the group if required
             add_to_legend = True
@@ -314,9 +315,22 @@ class FieldDataCapture:
 
                     # Create layer
                     uri = f"{self.db_file}|layername={layer_name}"
-                    sub_vlayer = QgsVectorLayer(uri, layer_name, "ogr")
-                    QgsProject.instance().addMapLayer(sub_vlayer, add_to_legend)
+                    vector_layer = QgsVectorLayer(uri, layer_name, "ogr")
+                    QgsProject.instance().addMapLayer(vector_layer, add_to_legend)
+                    vector_layers.append(vector_layer)
 
                     # Add layer to a group if required
                     if group_name is not None:
-                        group.addLayer(sub_vlayer)
+                        group.addLayer(vector_layer)
+
+        self.find_create_relationships(vector_layers)
+
+
+    def find_create_relationships(self, vector_layers: list[QgsVectorLayer]) -> None:
+        """
+        Automatically find and create relationships between vector layers.
+        """
+        relation_manager = QgsProject.instance().relationManager()
+        relations = relation_manager.discoverRelations([], vector_layers)
+        for relation in relations:
+            relation_manager.addRelation(relation)
