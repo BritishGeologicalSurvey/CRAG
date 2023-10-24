@@ -41,6 +41,12 @@ from .resources import *
 # Import the code for the dialog
 import os.path
 
+from .config import (
+    ATTRIBUTE_TABLES,
+    DICTIONARIES,
+    FEATURE_TABLES,
+    VIEWS,
+)
 from .create_gpkg_from_sql import main as gpkg_from_sql
 from .create_gpkg_from_sql import WORKDIR
 from .utils import ipdb_breakpoint
@@ -267,35 +273,7 @@ class FieldDataCapture:
         """
         Add the GeoPackage layers to the current project.
         """
-        groups_layers = {
-            None: ["locality_point"],
-            "views": [
-                # "view_media",
-                "view_structural_measurement",
-                # "view_sample",
-                "view_exposure",
-            ],
-            "locality_data": [
-                "media",
-                "photo",
-                "structure_measurement",
-                "sample",
-                "exposure",
-            ],
-            "metadata": [
-                "project",
-                "dic_exposure_type",
-                "dic_rock_all",
-                "dic_project_type",
-                "dic_manmade_code",
-                "dic_media",
-                "dic_sample",
-                "dic_structure_category",
-                "dic_structure_code",
-                "dic_superficial_category",
-                "dic_superficial_code",
-            ],
-        }
+        groups_layers = self.get_groups_layers()
 
         # Get layers root
         root = QgsProject.instance().layerTreeRoot()
@@ -332,6 +310,32 @@ class FieldDataCapture:
         # We apply relationships and then styles after all layers are added to avoid conflicts
         self.find_create_relationships(vector_layers)
         self.apply_qml_styles(vector_layers)
+
+
+    def get_groups_layers(self) -> dict[str | None, list[str]]:
+        """
+        Get a dictionary of tables/layers which will represent the QGIS layer tree.
+        """
+        # Create inital structure
+        groups_layers = {
+            None: FEATURE_TABLES,
+            "views": VIEWS,
+            "locality_data": ATTRIBUTE_TABLES,
+            "metadata": DICTIONARIES,
+        }
+
+        # Sort the lists
+        for layer_name, table_set in groups_layers.items():
+            table_list = list(table_set)
+            table_list.sort()
+            groups_layers[layer_name] = table_list
+
+        # Move the project layer
+        project_name = "project"
+        groups_layers["locality_data"].remove(project_name)
+        groups_layers["metadata"].insert(0, project_name)
+
+        return groups_layers
 
 
     def apply_qml_styles(self, vector_layers: list[QgsVectorLayer]) -> None:
