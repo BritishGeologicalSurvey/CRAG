@@ -300,11 +300,11 @@ class FieldDataCapture:
         # Get layers root
         root = QgsProject.instance().layerTreeRoot()
         # Get db layers
-        db_layer = QgsVectorLayer(str(self.db_file), "", "ogr")
-        db_sub_layers = db_layer.dataProvider().subLayers()
-        db_sub_layer_names = [
-            sub_layer.split(QgsDataProvider.SUBLAYER_SEPARATOR)[1]
-            for sub_layer in db_sub_layers
+        db_root_layer = QgsVectorLayer(str(self.db_file), "", "ogr")
+        db_layers = db_root_layer.dataProvider().subLayers()
+        db_layer_names = [
+            layer.split(QgsDataProvider.SUBLAYER_SEPARATOR)[1]
+            for layer in db_layers
         ]
 
         vector_layers = []
@@ -317,36 +317,47 @@ class FieldDataCapture:
 
             for layer_name in group_layer_names:
                 # If the layer name in the dictionary is in the list of layers in the db file
-                if layer_name in db_sub_layer_names:
+                if layer_name in db_layer_names:
 
                     # Create layer
                     uri = f"{self.db_file}|layername={layer_name}"
                     vector_layer = QgsVectorLayer(uri, layer_name, "ogr")
                     QgsProject.instance().addMapLayer(vector_layer, add_to_legend)
-                    self.apply_qml_style(vector_layer)
                     vector_layers.append(vector_layer)
 
                     # Add layer to a group if required
                     if group_name is not None:
                         group.addLayer(vector_layer)
 
+        # We apply relationships and then styles after all layers are added to avoid conflicts
         self.find_create_relationships(vector_layers)
+        self.apply_qml_styles(vector_layers)
 
 
-    def apply_qml_style(self, vector_layer: QgsVectorLayer) -> None:
+    def apply_qml_styles(self, vector_layers: list[QgsVectorLayer]) -> None:
         """
-        Find and apply the QML style file for the given layer name.
+        Find and apply the QML style files for the given layers.
         """
-        qml_files = list(Path(WORKDIR / "styles").glob(f"{vector_layer.name()}.qml"))
-        # Only apply a style if a matching style file can be found
-        if len(qml_files) == 1:
-            matching_qml_file = qml_files[0]
+        plugin_styles_dir = WORKDIR / "styles"
+        vector_layer_names = {
+            vector_layer.name(): vector_layer
+            for vector_layer in vector_layers
+        }
 
-            # Copy the style file into the new directory
-            styles_dir = self.project_dir / "styles"
-            styles_dir.mkdir(parents=True, exist_ok=True)
-            new_qml_file = styles_dir / matching_qml_file.name
-            new_qml_file.write_bytes(matching_qml_file.read_bytes())
+        # Create the directory to store style files in the current project
+        styles_dir = self.project_dir / "styles"
+        styles_dir.mkdir(parents=True, exist_ok=True)
+
+        for plugin_qml_file in plugin_styles_dir.glob("*.qml"):
+            # If a matching vector layer exists for the qml file
+            if plugin_qml_file.stem in vector_layer_names:
+                # Copy the plugin qml file to the new project qml file
+                new_qml_file = styles_dir / plugin_qml_file.name
+                new_qml_file.write_bytes(plugin_qml_file.read_bytes())
+
+                # Apply the new style
+                vector_layer_names[new_qml_file.stem].loadNamedStyle(str(new_qml_file))
+                vector_layer_names[new_qml_file.stem].triggerRepaint()
 
 
     def find_create_relationships(self, vector_layers: list[QgsVectorLayer]) -> None:
