@@ -22,7 +22,6 @@
  ***************************************************************************/
 """
 from pathlib import Path
-from typing import Callable
 
 from qgis.core import (
     QgsDataProvider,
@@ -226,34 +225,22 @@ class FieldDataCapture:
                 action)
             self.iface.removeToolBarIcon(action)
 
+    @staticmethod
+    def project_is_active() -> bool:
+        if QgsProject.instance().fileName() != '':
+            return True
+        else:
+            QMessageBox.information(None, "Information", "Please open a saved project.")
+            return False
 
-    def validate_project(check_db: bool = True) -> Callable:
-        """
-        Function decorator to validate the current QGIS project.
-        """
-        def decorator(function_: Callable) -> Callable:
-            def wrapper(self):
-                # Set default return in the event of an error
-                function_return = None
-                # Validate that the project is ready and OK
-                if str(self.project_dir) != "./":
-                    # Only check the db if required
-                    if not check_db or self.db_file.exists():
-                        function_return = function_(self)
-                    else:
-                        QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-                else:
-                    QMessageBox.information(None, "Information", "No project is currently open")
-                return function_return
-            return wrapper
-        return decorator
-
-
-    @validate_project(check_db=False)
     def add_gpkg_to_project(self) -> None:
         """
         Add the GeoPackage file to the current project.
         """
+        # Check that we have an open project
+        if not self.project_is_active():
+            return None
+
         run = True
         if self.db_file.exists():
             result = QMessageBox.question(
@@ -268,11 +255,17 @@ class FieldDataCapture:
             gpkg_from_sql(db_file=self.db_file)
 
 
-    @validate_project()
     def add_gpkg_layers_to_project(self) -> None:
         """
         Add the GeoPackage layers to the current project.
         """
+        # Check that we have an open project and a geopackage
+        if not self.project_is_active():
+            return None
+        if not self.db_file.exists():
+            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+            return None
+
         groups_layers = self.get_groups_layers()
 
         # Get layers root
