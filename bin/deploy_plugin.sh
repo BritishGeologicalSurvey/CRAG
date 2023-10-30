@@ -1,5 +1,6 @@
 #! /bin/bash
 
 cd plugin
-pbt deploy -y --user-profile default
+# -q does quick deployment, avoiding issues with HTML help pages.
+pbt deploy -y -q --user-profile default
 cd -
