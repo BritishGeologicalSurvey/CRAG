@@ -3,8 +3,10 @@ channels:
   - https://nexus-internal.bgs.ac.uk/repository/conda/main
   - https://nexus-internal.bgs.ac.uk/repository/conda-forge
 dependencies:
-  - python=3.11
-  - qgis=3.28.11
+  # Correspond to current long-term support versions in Windows
+  - python=3.9
+  - pip=23.2
+  - qgis=3.28
   - pip:
       - eralchemy
       - etlhelper

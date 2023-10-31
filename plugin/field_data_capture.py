@@ -21,7 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 """
+import os.path
 from pathlib import Path
+from typing import Optional
 
 from qgis.core import (
     QgsDataProvider,
@@ -37,8 +39,6 @@ from qgis.PyQt.QtWidgets import (
 
 # Initialize Qt resources from file resources.py
 from .resources import *
-# Import the code for the dialog
-import os.path
 
 from .config import (
     ATTRIBUTE_TABLES,
@@ -305,7 +305,7 @@ class FieldDataCapture:
         self.apply_qml_styles(vector_layers)
 
 
-    def get_groups_layers(self) -> dict[str | None, list[str]]:
+    def get_groups_layers(self) -> dict[Optional[str], list[str]]:
         """
         Get a dictionary of tables/layers which will represent the QGIS layer tree.
         """
