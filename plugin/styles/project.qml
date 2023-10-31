@@ -81,7 +81,7 @@
           <Option type="Map">
             <Option type="bool" name="allow_null" value="true"/>
             <Option type="bool" name="calendar_popup" value="true"/>
-            <Option type="QString" name="display_format" value="dd/MM/yyyy"/>
+            <Option type="QString" name="display_format" value="yyyy-MM-dd"/>
             <Option type="QString" name="field_format" value="yyyy-MM-dd"/>
             <Option type="bool" name="field_iso_format" value="false"/>
           </Option>
@@ -94,7 +94,7 @@
           <Option type="Map">
             <Option type="bool" name="allow_null" value="true"/>
             <Option type="bool" name="calendar_popup" value="true"/>
-            <Option type="QString" name="display_format" value="dd/MM/yyyy"/>
+            <Option type="QString" name="display_format" value="yyyy-MM-dd"/>
             <Option type="QString" name="field_format" value="yyyy-MM-dd"/>
             <Option type="bool" name="field_iso_format" value="false"/>
           </Option>
