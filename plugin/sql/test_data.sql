@@ -1,9 +1,8 @@
 BEGIN TRANSACTION;
+SELECT load_extension("mod_spatialite");
 INSERT INTO project VALUES(1,NULL,'{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}','test_project','test project title','test project description','test_user','active','2023-01-01','2023-12-31','DESK',27700,'test project comment','colb','2023-10-31T16:20:11.012','colb','2023-10-31T16:20:11.012');
 INSERT INTO locality_point VALUES(1,NULL,'{abc43098-fe9b-4da0-b008-7518694466bb}','{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}','test_point_001','test_point_001 description','test_point_001 note','test_point_001 comment','colb','2023-10-31T16:24:14.088','colb','2023-10-31T16:24:14.088',X'47500001346c000001e9030000bc207507b2b50fc1eca0650a59ee55c10000000000000000');
 INSERT INTO locality_point VALUES(2,NULL,'{b5bf63bb-0811-4074-99bc-422a78aa5b52}','{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}','test_point_002','test_point_002 description','test_point_002 note','test_point_002 comment','colb','2023-10-31T16:25:36.038','colb','2023-10-31T16:25:36.038',X'47500001346c000001e90300009400006cca9f0ec1fcc89c50865b56c10000000000000000');
-INSERT INTO rtree_locality_point_geometry_rowid VALUES(1,1);
-INSERT INTO rtree_locality_point_geometry_rowid VALUES(2,1);
 INSERT INTO structural_measurement VALUES(1,NULL,'{e176536d-4c54-4a7b-803c-0648c6079e96}','{abc43098-fe9b-4da0-b008-7518694466bb}','Bedding','Strata_Cross_Bedding_Foresets',10,90,'test_point_001 structural comment','colb','2023-10-31T16:41:20.796','colb','2023-10-31T16:45:20.476');
 INSERT INTO structural_measurement VALUES(2,NULL,'{fd49ec2a-b824-4778-8f90-55a8dda55d77}','{b5bf63bb-0811-4074-99bc-422a78aa5b52}','Bedding','Strata_Cross_Bedding_Foresets',20,180,'test_point_002 structural comment','colb','2023-10-31T16:53:41.638','colb','2023-10-31T16:53:41.638');
 INSERT INTO exposure VALUES(1,NULL,'{d44b5820-0993-40ab-b5af-0f9cdd26bd25}','{abc43098-fe9b-4da0-b008-7518694466bb}','AUGER_BOREHOLE','Andesite','test_point_001 exposure description','test_point_001 exposure comment','colb','2023-10-31T16:35:40.328','colb','2023-10-31T16:35:40.328');
