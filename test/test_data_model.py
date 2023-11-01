@@ -14,8 +14,18 @@ from plugin.config import (
     VIEWS
 )
 
+COLUMN_CONSTRAINTS = {
+    # column_name: constraint
+    "fid": "INTEGER NOT NULL,",  # include the comma to ensure extra constraints aren't added
+    "objectid": "INTEGER UNIQUE",
+    "uuid": "TEXT NOT NULL UNIQUE",
+    "user_entered": "TEXT NOT NULL",
+    "date_entered": "DATETIME NOT NULL",
+}
+
 
 def test_data_loading(test_data_gpkg):
+    # Testing that the fixutre works
     assert True
 
 
@@ -27,10 +37,6 @@ def test_data_loading(test_data_gpkg):
             {"fid", "objectid", "uuid", "geometry", "comment", "user_entered", "date_entered", "user_updated",
              "date_updated"},
         ),
-        (   # Spatial views
-            VIEWS,
-            {"project", "locality_point", "locality_uuid", "x", "y"},
-        ),
         (   # Non-spatial (attribute) tables
             ATTRIBUTE_TABLES,
             {"fid", "objectid", "uuid", "comment", "user_entered", "date_entered", "user_updated", "date_updated"},
@@ -41,7 +47,7 @@ def test_data_loading(test_data_gpkg):
         ),
     ],
 )
-def test_data_model_columns_exist(
+def test_data_model_columns(
     data_model_gpkg: sqlite3.Connection,
     tables: set[str],
     expected_col_names: set[str],
@@ -49,12 +55,41 @@ def test_data_model_columns_exist(
     for table in tables:
         # Act
         table_info = etl.table_info(table=table, conn=data_model_gpkg)
-        # Only get the columns from the actual list of columns that we want to check
-        check_cols = [col for col in table_info if col.name in expected_col_names]
-        check_col_names = {col.name for col in check_cols}
+        all_col_names = [col.name for col in table_info]
 
-        # Assert
+        # Only get the columns from the actual list of columns that we want to check
+        check_col_names = {col_name for col_name in all_col_names if col_name in expected_col_names}
+        # Assert names are correct
         assert check_col_names == expected_col_names
+
+        assert_column_constraints(data_model_gpkg, table)
+
+
+def assert_column_constraints(
+    data_model_gpkg: sqlite3.Connection,
+    table: str,
+) -> None:
+    """
+    Assert that the required columns in the given table have applied the correct constraints.
+    """
+    create_sql: str = etl.fetchone(
+        'select sql from sqlite_schema where type="table" and tbl_name=?',
+        data_model_gpkg, parameters=(table,)
+    ).sql
+
+    # Translate tabs to spaces
+    create_sql = create_sql.replace("\t", " ")
+
+    for col_name, col_constraints in COLUMN_CONSTRAINTS.items():
+
+        # Don't check the constraints for dic tables on uuid and objectid
+        if table.startswith("dic_") and col_name in ["uuid", "objectid"]:
+            continue
+
+        search_str = f'"{col_name}" {col_constraints}'
+        assert search_str in create_sql
+
+    assert 'PRIMARY KEY("fid" AUTOINCREMENT)' in create_sql
 
 
 @pytest.mark.parametrize(
@@ -109,83 +144,6 @@ def test_data_model_columns_constraints(
         etl.load(table=table, conn=data_model_gpkg, rows=rows)
 
 
-@pytest.mark.parametrize(
-    ["table"],
-    [
-        (table,) for table in FEATURE_TABLES.union(ATTRIBUTE_TABLES)
-    ],
-)
-def test_data_model_columns_uuid_unique(
-    request: pytest.FixtureRequest,
-    data_model_gpkg: sqlite3.Connection,
-    table: str,
-):
-    # Arrange
-    # Get the dict row fixture for the given table
-    row: dict[str, Any] = request.getfixturevalue(table + "_dict_row")
-    expected_string = f"UNIQUE constraint failed: {table}.uuid"
-
-    # Create a list of multiple rows
-    # Replace the fid so that it is unique, but leave the uuid the same so that they will be duplicates
-    rows = [
-        {**row, **{"fid": x}}
-        for x in range(3)
-    ]
-
-    # This is a hack to cope with project data also requiring a unique short name
-    # It will change when we get proper test data and stop using the fixtures
-    if table == "project":
-        for row in rows:
-            row["short_name"] = str(row["fid"])
-
-    # Act
-    # Check that the correct error is raised
-    with pytest.raises(etl.exceptions.ETLHelperInsertError) as excinfo:
-        etl.load(table=table, conn=data_model_gpkg, rows=rows)
-
-    # Assert
-    assert expected_string in str(excinfo.value)
-
-
-@pytest.mark.parametrize(
-        ["table"],
-        [
-            (table,) for table in DICTIONARIES
-        ],
-)
-def test_dic_constraints(
-    data_model_gpkg: sqlite3.Connection,
-    table: str,
-):
-    # Arrange
-    # TODO: update tests when new dictionary format is decided
-    not_null_columns = {"fid", "code", "user_entered", "date_entered"}
-
-    # Test not-null columns
-    # Act and assert
-    for column in etl.table_info(table, data_model_gpkg):
-        if column.name in not_null_columns:
-            assert column.not_null, f"{table}.{column.name} is missing not null constraint"
-
-    # Test unique constraint on "fid" and "code"
-    # Arrange
-    first_row = etl.fetchone(f"SELECT * FROM {table} ORDER BY fid LIMIT 1",
-                             data_model_gpkg, row_factory=etl.row_factories.dict_row_factory)
-
-    # Act and assert
-    duplicate_fid = first_row.copy()
-    duplicate_fid.update({"code": "this code does not exist"})
-    with pytest.raises(etl.exceptions.ETLHelperInsertError) as excinfo:
-        etl.load(table=table, conn=data_model_gpkg, rows=[duplicate_fid])
-    assert f"UNIQUE constraint failed: {table}.fid" in str(excinfo.value)
-
-    duplicate_code = first_row.copy()
-    duplicate_code.update({"fid": -1})
-    with pytest.raises(etl.exceptions.ETLHelperInsertError) as excinfo:
-        etl.load(table=table, conn=data_model_gpkg, rows=[duplicate_code])
-    assert f"UNIQUE constraint failed: {table}.code" in str(excinfo.value)
-
-
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     # Arrange
     expected_contents = [(table, "features") for table in FEATURE_TABLES]
@@ -212,8 +170,10 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
 
 
 @pytest.mark.parametrize("view", VIEWS)
-def test_views_are_callable(data_model_gpkg: sqlite3.Connection,
-                            view: str):
+def test_views(
+    data_model_gpkg: sqlite3.Connection,
+    view: str
+):
     # Arrange
     query = f"SELECT * FROM {view}"
 
@@ -223,3 +183,9 @@ def test_views_are_callable(data_model_gpkg: sqlite3.Connection,
 
     # Assert
     assert isinstance(result, list)
+
+    # Check that required columns are in the view
+    view_info = etl.table_info(table=view, conn=data_model_gpkg)
+    all_col_names = {col.name for col in view_info}
+    required_cols = {"project", "locality_point", "locality_uuid", "x", "y"}
+    assert required_cols.issubset(all_col_names)
