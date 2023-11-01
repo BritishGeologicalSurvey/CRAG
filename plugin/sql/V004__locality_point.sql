@@ -18,7 +18,7 @@ VALUES('locality_point','features','locality_point','Locality where observations
 
 
 CREATE TABLE IF NOT EXISTS "locality_point" (
-	"fid" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+	"fid" INTEGER NOT NULL,
 	"objectid"	INTEGER UNIQUE,
 	"uuid"	TEXT NOT NULL UNIQUE,
 	"project_fuid"	TEXT NOT NULL,
@@ -26,12 +26,13 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
 	"description"	TEXT,
 	"geological_note"	TEXT,
   "comment" TEXT,
-	"user_entered"	TEXT,
-	"date_entered"	DATETIME,
+	"user_entered"	TEXT NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
   "geometry" POINT,
-	FOREIGN KEY("project_fuid") REFERENCES "project"("uuid")
+	FOREIGN KEY("project_fuid") REFERENCES "project"("uuid"),
+  PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 PRAGMA writable_schema=ON;
