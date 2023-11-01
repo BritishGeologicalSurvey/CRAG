@@ -11,6 +11,7 @@ import etlhelper as etl
 from qgis.testing.mocked import get_iface
 
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
+from plugin.create_gpkg_from_sql import add_test_data
 from plugin.field_data_capture import FieldDataCapture
 
 
@@ -40,6 +41,12 @@ def data_model_gpkg(tmp_path: Path) -> Generator[sqlite3.Connection, None, None]
     # Close database and delete geopackage file
     conn.close()
     db_file.unlink()
+
+
+@pytest.fixture()
+def test_data_gpkg(data_model_gpkg):
+    add_test_data(data_model_gpkg)
+    yield data_model_gpkg
 
 
 @pytest.fixture()

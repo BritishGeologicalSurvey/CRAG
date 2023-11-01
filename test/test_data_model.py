@@ -15,6 +15,10 @@ from plugin.config import (
 )
 
 
+def test_data_loading(test_data_gpkg):
+    assert True
+
+
 @pytest.mark.parametrize(
     ["tables", "expected_col_names"],
     [
