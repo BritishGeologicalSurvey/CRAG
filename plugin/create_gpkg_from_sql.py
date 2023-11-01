@@ -20,16 +20,18 @@ def main(
     sql_scripts = Path(workdir / 'sql').glob('V*.sql')
 
     for sql_script in sorted(sql_scripts):
-        logger.info('Applying %s', sql_script.name)
-        apply_script(db_file, sql_script)
+        with sqlite3.connect(db_file) as conn:
+            logger.info('Applying %s', sql_script.name)
+            apply_script(conn, sql_script)
 
 
-def apply_script(geopackage_file: Path, sql_script: Path):
-    with sqlite3.connect(geopackage_file) as conn:
-        cursor = conn.cursor()
+def apply_script(conn: sqlite3.Connection, sql_script: Path):
+    # Recreate the database from the dump file
+    conn.executescript(sql_script.read_text())
 
-        # Recreate the database from the dump file
-        cursor.executescript(sql_script.read_text())
+
+def add_test_data(conn: sqlite3.Connection):
+    apply_script(conn, Path(WORKDIR / 'sql' / 'test_data.sql'))
 
 
 if __name__ == "__main__":

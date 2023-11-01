@@ -2,7 +2,7 @@
 BEGIN TRANSACTION;
 
 CREATE TABLE IF NOT EXISTS "project" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"objectid"	INTEGER UNIQUE,
 	"uuid"	TEXT NOT NULL UNIQUE,
 	"short_name" TEXT NOT NULL UNIQUE,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS "project" (
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
 	FOREIGN KEY("project_type") REFERENCES "dic_project_type"("code"),
-	PRIMARY KEY("fid")
+	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 INSERT INTO gpkg_contents

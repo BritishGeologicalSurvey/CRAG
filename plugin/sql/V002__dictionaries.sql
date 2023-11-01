@@ -2,7 +2,7 @@
 
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "dic_sample" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT NOT NULL,
 	"translation"	TEXT,
@@ -18,7 +18,7 @@ INSERT INTO gpkg_contents
 VALUES('dic_sample','attributes','dic_sample','Sample type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 CREATE TABLE IF NOT EXISTS "dic_media" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT NOT NULL,
 	"translation"	TEXT,
@@ -34,7 +34,7 @@ INSERT INTO gpkg_contents
 VALUES('dic_media','attributes','dic_media','Media type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 CREATE TABLE IF NOT EXISTS "dic_project_type" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT NOT NULL,
 	"translation"	TEXT,
@@ -50,7 +50,7 @@ INSERT INTO gpkg_contents
 VALUES('dic_project_type','attributes','dic_project_type','Project type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 CREATE TABLE IF NOT EXISTS "dic_structure_category" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
 	"translation"	TEXT,
@@ -59,14 +59,14 @@ CREATE TABLE IF NOT EXISTS "dic_structure_category" (
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	PRIMARY KEY("code")
+	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 INSERT INTO gpkg_contents
 VALUES('dic_structure_category','attributes','dic_structure_category','Dictionary of structure categories.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 CREATE TABLE IF NOT EXISTS "dic_superficial_category" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
 	"translation"	TEXT,
@@ -75,14 +75,14 @@ CREATE TABLE IF NOT EXISTS "dic_superficial_category" (
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	PRIMARY KEY("code")
+	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 insert into gpkg_contents
 values('dic_superficial_category','attributes','dic_superficial_category','Dictionary of superficial categories.','2023-09-15t13:21:52.679z',null,null,null,null,null);
 
 CREATE TABLE IF NOT EXISTS "dic_manmade_code" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
 	"translation"	TEXT,
@@ -92,14 +92,14 @@ CREATE TABLE IF NOT EXISTS "dic_manmade_code" (
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	PRIMARY KEY("code")
+	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 insert into gpkg_contents
 values('dic_manmade_code','attributes','dic_manmade_code','Dictionary of man-made features.','2023-09-15t13:21:52.679z',null,null,null,null,null);
 
 CREATE TABLE IF NOT EXISTS "dic_exposure_type" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
 	"translation"	TEXT,
@@ -108,14 +108,14 @@ CREATE TABLE IF NOT EXISTS "dic_exposure_type" (
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	PRIMARY KEY("code")
+	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 insert into gpkg_contents
 values('dic_exposure_type','attributes','dic_exposure_type','Dictionary of exposure types','2023-09-15t13:21:52.679z',null,null,null,null,null);
 
 CREATE TABLE IF NOT EXISTS "dic_rock_all" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
 	"translation"	TEXT,
@@ -124,14 +124,14 @@ CREATE TABLE IF NOT EXISTS "dic_rock_all" (
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	PRIMARY KEY("code")
+	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 insert into gpkg_contents
 values('dic_rock_all','attributes','dic_rock_all','Dictionary of rock types','2023-09-15t13:21:52.679z',null,null,null,null,null);
 
 CREATE TABLE IF NOT EXISTS "dic_structure_code" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"category"	TEXT NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS "dic_structure_code" (
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	PRIMARY KEY("code"),
+	PRIMARY KEY("fid" AUTOINCREMENT),
 	FOREIGN KEY("category") REFERENCES "dic_structure_category"("code")
 );
 
@@ -152,7 +152,7 @@ insert into gpkg_contents
 values('dic_structure_code','attributes','dic_structure_code','Dictionary of structure codes.','2023-09-15t13:21:52.679z',null,null,null,null,null);
 
 CREATE TABLE IF NOT EXISTS "dic_superficial_code" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"category"	TEXT,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
@@ -160,9 +160,9 @@ CREATE TABLE IF NOT EXISTS "dic_superficial_code" (
 	"status"	TEXT,
 	"archived_code"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	TEXT NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	TEXT,
+	"date_updated"	DATETIME,
 	PRIMARY KEY("fid" AUTOINCREMENT),
 	FOREIGN KEY("category") REFERENCES "dic_superficial_category"("code")
 );
@@ -240,9 +240,9 @@ INSERT INTO "dic_structure_code" ("fid","category","code","description","seconda
 INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (23,'Vergence','Vergence_Sinistral','Vergence Sinistral',NULL,'',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
 INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (24,'Vergence','Vergence_Neutral','Vergence Neutral',NULL,'',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
 INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (25,'Mineral_Vein','Mineral_Vein_dip','Mineral Vein Dip','Mineral_Dictionary',NULL,NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
-INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (26,'Axial _Plane','Axial_Plane_Inclined','Axial Plane Inclined','Fold_Shape','Deformation_Phase',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
-INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (27,'Axial _Plane','Axial_Plane_Horizontal','Axial Plane Horizontal','Fold_Shape','Deformation_Phase',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
-INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (28,'Axial _Plane','Axial_Plane_Vertical','Axial Plane Vertical','Fold_Shape','Deformation_Phase',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
+INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (26,'Axial_Plane','Axial_Plane_Inclined','Axial Plane Inclined','Fold_Shape','Deformation_Phase',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
+INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (27,'Axial_Plane','Axial_Plane_Horizontal','Axial Plane Horizontal','Fold_Shape','Deformation_Phase',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
+INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (28,'Axial_Plane','Axial_Plane_Vertical','Axial Plane Vertical','Fold_Shape','Deformation_Phase',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
 INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (29,'Fold_Axis','Fold_Axis','Fold Axis Horizontal','Fold_Shape','Deformation_Phase',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
 INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (30,'Fold_Axis','Fold_Axis_Horizontal','Fold Axis Inclined','Fold_Shape','Deformation_Phase',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');
 INSERT INTO "dic_structure_code" ("fid","category","code","description","secondary_attribute","third_attribute","fourth_attribute","status","translation","user_entered","date_entered","user_updated","date_updated") VALUES (31,'Fold_Axis','Fold_Axis_Vertical','Fold Axis Vertical','Fold_Shape','Deformation_Phase',NULL,'C',NULL,'kigl','01/01/2012','jbow','05/09/2023');

@@ -77,13 +77,19 @@ sudo apt install graphviz graphviz-dev build-essential spatialite-bin libsqlite3
  - spatialite provides access to spatial features that are used by some of the GeoPackage index triggers.
  - graphviz is used to generate the ER diagram.
 
-Create a virtual environment (Python 3.11) and install dependencies:
+Create a virtual environment (Python 3.9) and install dependencies:
 
 ```bash
 conda env create -f environment.yml
 ```
 
 The `environment_unversioned.yml` file was created with `conda env export --from-history`. Creating a new environment from this file will use the most up-to-date dependencies.
+
+There is a dependency version issue in the environment with QGIS 3.28 and Python 3.9.5.  This can be fixed by symlinking the installed version of libgsl to the required one.
+
+```bash
+ln -s ${CONDA_PREFIX}/lib/libgsl.so.27  ${CONDA_PREFIX}/lib/libgsl.so.25
+```
 
 The repository also contains a `bin` directory with useful scripts.  The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.
 
