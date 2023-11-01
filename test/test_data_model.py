@@ -1,8 +1,5 @@
 import sqlite3
-from typing import (
-    Optional,
-    Any,
-)
+from typing import Optional
 
 import pytest
 import etlhelper as etl
@@ -93,55 +90,57 @@ def assert_column_constraints(
 
 
 @pytest.mark.parametrize(
-    ["table", "new_data", "expected_string"],
+    ["table", "field", "value", "error_message"],
     [
         # Table: manmade_landform
-        ("manmade_landform", {"dip": 0}, None),
-        ("manmade_landform", {"dip": 90}, None),
-        ("manmade_landform", {"dip": -1}, "CHECK constraint failed: dip"),
-        ("manmade_landform", {"dip": 91}, "CHECK constraint failed: dip"),
+        ("manmade_landform", "dip", 0, None),
+        ("manmade_landform", "dip", 90, None),
+        ("manmade_landform", "dip", -1, "CHECK constraint failed: dip"),
+        ("manmade_landform", "dip", 91, "CHECK constraint failed: dip"),
+        ("manmade_landform", "dip_direction", 0, None),
+        ("manmade_landform", "dip_direction", 359, None),
+        ("manmade_landform", "dip_direction", -1, "CHECK constraint failed: dip_direction"),
+        ("manmade_landform", "dip_direction", 360, "CHECK constraint failed: dip_direction"),
 
         # Table: structural_measurement
-        ("structural_measurement", {"dip": 0}, None),
-        ("structural_measurement", {"dip": 90}, None),
-        ("structural_measurement", {"dip": -1}, "CHECK constraint failed: dip"),
-        ("structural_measurement", {"dip": 91}, "CHECK constraint failed: dip"),
-        ("structural_measurement", {"dip_direction": 0}, None),
-        ("structural_measurement", {"dip_direction": 359}, None),
-        ("structural_measurement", {"dip_direction": -1}, "CHECK constraint failed: dip_direction"),
-        ("structural_measurement", {"dip_direction": 360}, "CHECK constraint failed: dip_direction"),
+        ("structural_measurement", "dip", 0, None),
+        ("structural_measurement", "dip", 90, None),
+        ("structural_measurement", "dip", -1, "CHECK constraint failed: dip"),
+        ("structural_measurement", "dip", 91, "CHECK constraint failed: dip"),
+        ("structural_measurement", "dip_direction", 0, None),
+        ("structural_measurement", "dip_direction", 359, None),
+        ("structural_measurement", "dip_direction", -1, "CHECK constraint failed: dip_direction"),
+        ("structural_measurement", "dip_direction", 360, "CHECK constraint failed: dip_direction"),
 
         # Table: superficial_landform
-        ("superficial_landform", {"dip": 0}, None),
-        ("superficial_landform", {"dip": 90}, None),
-        ("superficial_landform", {"dip": -1}, "CHECK constraint failed: dip"),
-        ("superficial_landform", {"dip": 91}, "CHECK constraint failed: dip"),
+        ("superficial_landform", "dip", 0, None),
+        ("superficial_landform", "dip", 90, None),
+        ("superficial_landform", "dip", -1, "CHECK constraint failed: dip"),
+        ("superficial_landform", "dip", 91, "CHECK constraint failed: dip"),
     ],
 )
 def test_data_model_columns_constraints(
-    request: pytest.FixtureRequest,
-    data_model_gpkg: sqlite3.Connection,
+    test_data_gpkg: sqlite3.Connection,
     table: str,
-    new_data: dict[str, Any],
-    expected_string: Optional[str],
+    field: str,
+    value: int,
+    error_message: Optional[str],
 ):
     # Arrange
     # Get the dict row fixture for the given table
-    row: dict[str, Any] = request.getfixturevalue(table + "_dict_row")
-    row.update(new_data)
-    rows = [row]
+    update_sql = f'UPDATE {table} SET "{field}"={value} WHERE fid=1'
 
     # Act
-    if expected_string is not None:
+    if error_message is None:
+        # Inserting the row should not raise an error
+        etl.execute(update_sql, test_data_gpkg)
+    else:
         # Check that the correct error is raised
-        with pytest.raises(etl.exceptions.ETLHelperInsertError) as excinfo:
-            etl.load(table=table, conn=data_model_gpkg, rows=rows)
+        with pytest.raises(etl.exceptions.ETLHelperQueryError) as excinfo:
+            etl.execute(update_sql, test_data_gpkg)
 
         # Assert
-        assert expected_string in str(excinfo.value)
-    else:
-        # Inserting the row should not raise an error
-        etl.load(table=table, conn=data_model_gpkg, rows=rows)
+        assert error_message in str(excinfo.value)
 
 
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):

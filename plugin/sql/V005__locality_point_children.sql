@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS "manmade_landform" (
   "locality_fuid" TEXT NOT NULL,
   "manmade_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),
-  "dip_dir" INTEGER CHECK("dip" >= 0 AND "dip" <= 360),
+  "dip_direction" INTEGER CHECK("dip_direction" >= 0 AND "dip_direction" < 360),
   "length" INTEGER,
   "width" INTEGER,
   "comment" TEXT,
