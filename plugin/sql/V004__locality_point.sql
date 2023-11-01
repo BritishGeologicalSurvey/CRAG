@@ -1,12 +1,8 @@
 BEGIN TRANSACTION;
 
 
-INSERT INTO gpkg_spatial_ref_sys
-VALUES('OSGB36 / British National Grid',27700,'EPSG',27700,'PROJCS["OSGB36 / British National Grid",GEOGCS["OSGB36",DATUM["Ordnance_Survey_of_Great_Britain_1936",SPHEROID["Airy 1830",6377563.396,299.3249646,AUTHORITY["EPSG","7001"]],AUTHORITY["EPSG","6277"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4277"]],PROJECTION["Transverse_Mercator"],PARAMETER["latitude_of_origin",49],PARAMETER["central_meridian",-2],PARAMETER["scale_factor",0.9996012717],PARAMETER["false_easting",400000],PARAMETER["false_northing",-100000],UNIT["metre",1,AUTHORITY["EPSG","9001"]],AXIS["Easting",EAST],AXIS["Northing",NORTH],AUTHORITY["EPSG","27700"]]',NULL);
-
-
 INSERT INTO gpkg_geometry_columns
-VALUES('locality_point','geometry','POINT',27700,1,0);
+VALUES('locality_point','geometry','POINT',4326,1,0);
 
 
 INSERT INTO gpkg_extensions
@@ -14,25 +10,25 @@ VALUES('locality_point','geometry','gpkg_rtree_index','http://www.geopackage.org
 
 
 INSERT INTO gpkg_contents
-VALUES('locality_point','features','locality_point','Locality where observations are made.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,27700);
+VALUES('locality_point','features','locality_point','Locality where observations are made.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,4326);
 
 
 CREATE TABLE IF NOT EXISTS "locality_point" (
-	"fid" INTEGER NOT NULL,
-	"objectid"	INTEGER UNIQUE,
-	"uuid"	TEXT NOT NULL UNIQUE,
-	"project_fuid"	TEXT NOT NULL,
-	"name"	TEXT NOT NULL,
-	"description"	TEXT,
-	"geological_note"	TEXT,
-  "comment" TEXT,
-	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATETIME NOT NULL,
-	"user_updated"	TEXT,
-	"date_updated"	DATETIME,
-  "geometry" POINT,
-	FOREIGN KEY("project_fuid") REFERENCES "project"("uuid"),
-  PRIMARY KEY("fid" AUTOINCREMENT)
+    "fid" INTEGER NOT NULL,
+    "objectid" INTEGER UNIQUE,
+    "uuid" TEXT NOT NULL UNIQUE,
+    "project_fuid" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "description" TEXT,
+    "geological_note" TEXT,
+    "comment" TEXT,
+    "user_entered" TEXT NOT NULL,
+    "date_entered" DATETIME NOT NULL,
+    "user_updated" TEXT,
+    "date_updated" DATETIME,
+    "geometry" POINT,
+    FOREIGN KEY("project_fuid") REFERENCES "project"("uuid"),
+    PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 PRAGMA writable_schema=ON;
