@@ -1,3 +1,4 @@
 [flake8]
 max-line-length = 120
-exclude = plugin/
+# The below files were automatically generated using the QGIS plugin builder
+exclude = plugin/__init__.py,plugin/field_data_capture.py,plugin/resources.py
