@@ -26,11 +26,18 @@ def main(
 
 
 def apply_script(conn: sqlite3.Connection, sql_script: Path):
-    # Recreate the database from the dump file
+    """
+    Apply the given SQL script to the given database connection.
+    """
     conn.executescript(sql_script.read_text())
 
 
 def add_test_data(conn: sqlite3.Connection):
+    """
+    Add the test data set to the given database connection.
+    The connection must have already enabled extensions using:
+    conn.enable_load_extension(True)
+    """
     apply_script(conn, Path(WORKDIR / 'sql' / 'test_data.sql'))
 
 
