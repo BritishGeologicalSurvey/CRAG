@@ -350,26 +350,17 @@ class FieldDataCapture:
         """
         Find and apply the QML style files for the given layers.
         """
-        plugin_styles_dir = WORKDIR / "styles"
         vector_layer_names = {
             vector_layer.name(): vector_layer
             for vector_layer in vector_layers
         }
+        self.copy_plugin_files_to_project(plugin_src="styles", project_dest="styles")
 
-        # Create the directory to store style files in the current project
-        styles_dir = self.project_dir / "styles"
-        styles_dir.mkdir(parents=True, exist_ok=True)
-
-        for plugin_qml_file in plugin_styles_dir.glob("*.qml"):
-            # If a matching vector layer exists for the qml file
-            if plugin_qml_file.stem in vector_layer_names:
-                # Copy the plugin qml file to the new project qml file
-                new_qml_file = styles_dir / plugin_qml_file.name
-                new_qml_file.write_bytes(plugin_qml_file.read_bytes())
-
+        for qml_file in (self.project_dir / "styles").glob("*"):
+            if qml_file.stem in vector_layer_names:
                 # Apply the new style
-                vector_layer_names[new_qml_file.stem].loadNamedStyle(str(new_qml_file))
-                vector_layer_names[new_qml_file.stem].triggerRepaint()
+                vector_layer_names[qml_file.stem].loadNamedStyle(str(qml_file))
+                vector_layer_names[qml_file.stem].triggerRepaint()
 
 
     def find_create_relationships(self, vector_layers: list[QgsVectorLayer]) -> None:
@@ -396,8 +387,11 @@ class FieldDataCapture:
         with sqlite3.connect(self.db_file) as conn:
             conn.enable_load_extension(True)
             add_test_data(conn)
-            self.repaint_fdc_layers()
-            QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
+
+        # Copy test data media files across into current project
+        self.copy_plugin_files_to_project(plugin_src="test/data/media", project_dest="media")
+        self.repaint_fdc_layers()
+        QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
 
 
     def repaint_fdc_layers(self) -> None:
@@ -407,3 +401,16 @@ class FieldDataCapture:
         for layer in QgsProject.instance().mapLayers().values():
             if layer.name() in set(TABLE_LIST):
                 layer.triggerRepaint()
+
+
+    def copy_plugin_files_to_project(self, plugin_src: Path, project_dest: Path) -> None:
+        """
+        Copy the files from the given plugin source directory into the given project destination directory.
+        """
+        plugin_src_dir = WORKDIR / plugin_src
+        project_dest_dir = self.project_dir / project_dest
+        project_dest_dir.mkdir(parents=True, exist_ok=True)
+
+        for src_file in plugin_src_dir.glob("*"):
+            dest_file = project_dest_dir / src_file.name
+            dest_file.write_bytes(src_file.read_bytes())
