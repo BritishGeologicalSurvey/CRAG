@@ -46,6 +46,7 @@ from .config import (
     DICTIONARIES,
     FEATURE_TABLES,
     VIEWS,
+    TABLE_LIST,
 )
 from .create_gpkg_from_sql import main as gpkg_from_sql
 from .create_gpkg_from_sql import (
@@ -395,4 +396,14 @@ class FieldDataCapture:
         with sqlite3.connect(self.db_file) as conn:
             conn.enable_load_extension(True)
             add_test_data(conn)
+            self.repaint_fdc_layers()
             QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
+
+
+    def repaint_fdc_layers(self) -> None:
+        """
+        Trigger a repaint for only the layers which come from the Field Data Capture plugin.
+        """
+        for layer in QgsProject.instance().mapLayers().values():
+            if layer.name() in set(TABLE_LIST):
+                layer.triggerRepaint()
