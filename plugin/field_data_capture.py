@@ -315,6 +315,9 @@ class FieldDataCapture:
                     if group_name is not None:
                         group.addLayer(vector_layer)
 
+                    if layer_name.startswith("dic"):
+                        vector_layer.setReadOnly()
+
         # We apply relationships and then styles after all layers are added to avoid conflicts
         self.find_create_relationships(vector_layers)
         self.apply_qml_styles(vector_layers)
