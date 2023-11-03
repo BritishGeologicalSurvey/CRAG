@@ -389,7 +389,7 @@ class FieldDataCapture:
             add_test_data(conn)
 
         # Copy test data media files across into current project
-        self.copy_plugin_files_to_project(plugin_src="test/data/media", project_dest="media")
+        self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest="photos")
         self.repaint_fdc_layers()
         QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
 
