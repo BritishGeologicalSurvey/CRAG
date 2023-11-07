@@ -1,4 +1,4 @@
-from eralchemy import render_er
+from eralchemy2 import render_er
 from sqlalchemy import (
     MetaData,
     create_engine,
