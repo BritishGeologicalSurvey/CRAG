@@ -26,4 +26,11 @@ CREATE TABLE IF NOT EXISTS "project" (
 INSERT INTO gpkg_contents
 VALUES('project','attributes','project','Metadata for project.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
+
+CREATE TRIGGER "project_clear_updated"
+  AFTER INSERT ON "project" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
+    BEGIN
+      UPDATE "project" SET user_updated = NULL, date_updated = NULL
+      WHERE fid = NEW."fid"; END;
+
 COMMIT;
