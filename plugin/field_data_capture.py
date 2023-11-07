@@ -30,6 +30,7 @@ from qgis.core import (
     QgsDataProvider,
     QgsProject,
     QgsVectorLayer,
+    QgsVectorLayerUtils,
 )
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
@@ -221,6 +222,13 @@ class FieldDataCapture:
 
         self.add_action(
             icon_path,
+            text=self.tr(u'Add Project'),
+            callback=lambda: self.open_layer_form(layer_name="project"),
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            icon_path,
             text=self.tr(u'Add Test Data to Project'),
             callback=self.add_test_data_to_project,
             parent=self.iface.mainWindow(),
@@ -245,6 +253,14 @@ class FieldDataCapture:
             return True
         else:
             QMessageBox.information(None, "Information", "Please open a saved project.")
+            return False
+
+
+    @staticmethod
+    def check_layer_exists(layer_name: str) -> bool:
+        if len(QgsProject.instance().mapLayersByName(layer_name)) > 0:
+            return True
+        else:
             return False
 
 
@@ -321,6 +337,7 @@ class FieldDataCapture:
         # We apply relationships and then styles after all layers are added to avoid conflicts
         self.find_create_relationships(vector_layers)
         self.apply_qml_styles(vector_layers)
+        QMessageBox.warning(None, "Warning", "You must add a project before you can add locality data.")
 
 
     def get_groups_layers(self) -> dict[Optional[str], list[str]]:
@@ -374,6 +391,37 @@ class FieldDataCapture:
         relations = relation_manager.discoverRelations([], vector_layers)
         for relation in relations:
             relation_manager.addRelation(relation)
+
+
+    def open_layer_form(self, layer_name: str) -> None:
+        """
+        Open the attribute form for the given layer.
+        """
+        if not self.project_is_active():
+            return None
+        if not self.db_file.exists():
+            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+            return None
+        if not self.check_layer_exists(layer_name):
+            QMessageBox.information(None, "Information", f"Could not find layer: {layer_name}")
+            return None
+        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
+        # Ensure the layer is editable
+        if not layer.isEditable():
+            layer.startEditing()
+
+        # Create a new feature with automatically generated values from the layer
+        feature = QgsVectorLayerUtils.createFeature(layer)
+        # We have to add the new feature to the layer before it can be opened in the form
+        layer.addFeature(feature)
+        keep_feature = self.iface.openFeatureForm(layer, feature)
+
+        # Only save if the user confirms the new feature
+        if keep_feature:
+            layer.commitChanges()
+        else:
+            layer.rollBack()
 
 
     def add_test_data_to_project(self) -> None:
