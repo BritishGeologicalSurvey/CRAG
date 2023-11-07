@@ -188,3 +188,31 @@ def test_views(
     all_col_names = {col.name for col in view_info}
     required_cols = {"project", "locality_point", "locality_uuid", "x", "y"}
     assert required_cols.issubset(all_col_names)
+
+
+def test_clear_updated_trigger(data_model_gpkg: sqlite3.Connection):
+    # Act
+    # Insert a new project row with user_updated and date_updated values
+    data_model_gpkg.execute("INSERT INTO project VALUES(1,NULL,'{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}','test_project','test project title','test project description','test_user','active','2023-01-01','2023-12-31','DESK',27700,'test project comment','colb','2023-10-31T16:20:11.012','colb','2023-10-31T16:20:11.012')")  # noqa
+
+    # Assert
+    # Check that the user_updated and date_updated values are both NULL
+    insert_result = etl.fetchone(
+        "SELECT user_updated, date_updated FROM project WHERE fid = 1",
+        data_model_gpkg,
+        row_factory=etl.row_factories.tuple_row_factory,
+    )
+    assert insert_result == (None, None)
+
+    # Act 2
+    # Update the existing project to include new user_updated and date_updated values
+    data_model_gpkg.execute("UPDATE project SET user_updated = 'leorud', date_updated = '2023-11-31T16:20:11.012'")
+
+    # Assert
+    # Check that the user_updated and date_updated values are both complete
+    update_result = etl.fetchone(
+        "SELECT user_updated, date_updated FROM project WHERE fid = 1",
+        data_model_gpkg,
+        row_factory=etl.row_factories.tuple_row_factory,
+    )
+    assert update_result == ("leorud", "2023-11-31T16:20:11.012")
