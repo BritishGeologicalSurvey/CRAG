@@ -57,10 +57,16 @@
             <Option type="QString" name="FileWidgetFilter" value=""/>
             <Option type="Map" name="PropertyCollection">
               <Option type="QString" name="name" value=""/>
-              <Option type="invalid" name="properties"/>
+              <Option type="Map" name="properties">
+                <Option type="Map" name="propertyRootPath">
+                  <Option type="bool" name="active" value="true"/>
+                  <Option type="QString" name="expression" value="@project_folder + '/photos'"/>
+                  <Option type="int" name="type" value="3"/>
+                </Option>
+              </Option>
               <Option type="QString" name="type" value="collection"/>
             </Option>
-            <Option type="int" name="RelativeStorage" value="1"/>
+            <Option type="int" name="RelativeStorage" value="2"/>
             <Option type="QString" name="StorageAuthConfigId" value=""/>
             <Option type="int" name="StorageMode" value="0"/>
             <Option type="QString" name="StorageType" value=""/>

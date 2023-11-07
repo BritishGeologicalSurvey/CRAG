@@ -22,6 +22,7 @@
  ***************************************************************************/
 """
 import os.path
+import sqlite3
 from pathlib import Path
 from typing import Optional
 
@@ -45,9 +46,13 @@ from .config import (
     DICTIONARIES,
     FEATURE_TABLES,
     VIEWS,
+    TABLE_LIST,
 )
 from .create_gpkg_from_sql import main as gpkg_from_sql
-from .create_gpkg_from_sql import WORKDIR
+from .create_gpkg_from_sql import (
+    add_test_data,
+    WORKDIR,
+)
 from .utils import ipdb_breakpoint
 
 
@@ -195,6 +200,7 @@ class FieldDataCapture:
 
         return action
 
+
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
@@ -213,6 +219,13 @@ class FieldDataCapture:
             parent=self.iface.mainWindow(),
         )
 
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Add Test Data to Project'),
+            callback=self.add_test_data_to_project,
+            parent=self.iface.mainWindow(),
+        )
+
         # will be set False in run()
         self.first_start = True
 
@@ -225,6 +238,7 @@ class FieldDataCapture:
                 action)
             self.iface.removeToolBarIcon(action)
 
+
     @staticmethod
     def project_is_active() -> bool:
         if QgsProject.instance().fileName() != '':
@@ -232,6 +246,7 @@ class FieldDataCapture:
         else:
             QMessageBox.information(None, "Information", "Please open a saved project.")
             return False
+
 
     def add_gpkg_to_project(self) -> None:
         """
@@ -300,6 +315,9 @@ class FieldDataCapture:
                     if group_name is not None:
                         group.addLayer(vector_layer)
 
+                    if layer_name.startswith("dic"):
+                        vector_layer.setReadOnly()
+
         # We apply relationships and then styles after all layers are added to avoid conflicts
         self.find_create_relationships(vector_layers)
         self.apply_qml_styles(vector_layers)
@@ -335,26 +353,17 @@ class FieldDataCapture:
         """
         Find and apply the QML style files for the given layers.
         """
-        plugin_styles_dir = WORKDIR / "styles"
         vector_layer_names = {
             vector_layer.name(): vector_layer
             for vector_layer in vector_layers
         }
+        self.copy_plugin_files_to_project(plugin_src="styles", project_dest="styles")
 
-        # Create the directory to store style files in the current project
-        styles_dir = self.project_dir / "styles"
-        styles_dir.mkdir(parents=True, exist_ok=True)
-
-        for plugin_qml_file in plugin_styles_dir.glob("*.qml"):
-            # If a matching vector layer exists for the qml file
-            if plugin_qml_file.stem in vector_layer_names:
-                # Copy the plugin qml file to the new project qml file
-                new_qml_file = styles_dir / plugin_qml_file.name
-                new_qml_file.write_bytes(plugin_qml_file.read_bytes())
-
+        for qml_file in (self.project_dir / "styles").glob("*"):
+            if qml_file.stem in vector_layer_names:
                 # Apply the new style
-                vector_layer_names[new_qml_file.stem].loadNamedStyle(str(new_qml_file))
-                vector_layer_names[new_qml_file.stem].triggerRepaint()
+                vector_layer_names[qml_file.stem].loadNamedStyle(str(qml_file))
+                vector_layer_names[qml_file.stem].triggerRepaint()
 
 
     def find_create_relationships(self, vector_layers: list[QgsVectorLayer]) -> None:
@@ -365,3 +374,46 @@ class FieldDataCapture:
         relations = relation_manager.discoverRelations([], vector_layers)
         for relation in relations:
             relation_manager.addRelation(relation)
+
+
+    def add_test_data_to_project(self) -> None:
+        """
+        Add the test data set to the current project.
+        """
+        # Check that we have an open project and a geopackage
+        if not self.project_is_active():
+            return None
+        if not self.db_file.exists():
+            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+            return None
+
+        with sqlite3.connect(self.db_file) as conn:
+            conn.enable_load_extension(True)
+            add_test_data(conn)
+
+        # Copy test data media files across into current project
+        self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest="photos")
+        self.repaint_fdc_layers()
+        QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
+
+
+    def repaint_fdc_layers(self) -> None:
+        """
+        Trigger a repaint for only the layers which come from the Field Data Capture plugin.
+        """
+        for layer in QgsProject.instance().mapLayers().values():
+            if layer.name() in set(TABLE_LIST):
+                layer.triggerRepaint()
+
+
+    def copy_plugin_files_to_project(self, plugin_src: Path, project_dest: Path) -> None:
+        """
+        Copy the files from the given plugin source directory into the given project destination directory.
+        """
+        plugin_src_dir = WORKDIR / plugin_src
+        project_dest_dir = self.project_dir / project_dest
+        project_dest_dir.mkdir(parents=True, exist_ok=True)
+
+        for src_file in plugin_src_dir.glob("*"):
+            dest_file = project_dest_dir / src_file.name
+            dest_file.write_bytes(src_file.read_bytes())
