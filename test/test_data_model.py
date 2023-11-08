@@ -209,7 +209,7 @@ def test_clear_updated_trigger(data_model_gpkg: sqlite3.Connection):
     data_model_gpkg.execute("UPDATE project SET user_updated = 'leorud', date_updated = '2023-11-31T16:20:11.012'")
 
     # Assert
-    # Check that the user_updated and date_updated values are both complete
+    # Make sure that the trigger does not clear for an update
     update_result = etl.fetchone(
         "SELECT user_updated, date_updated FROM project WHERE fid = 1",
         data_model_gpkg,
