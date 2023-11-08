@@ -124,12 +124,9 @@
       </editWidget>
     </field>
     <field name="user_updated" configurationFlags="None">
-      <editWidget type="TextEdit">
+      <editWidget type="Hidden">
         <config>
-          <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="false"/>
-            <Option type="bool" name="UseHtml" value="false"/>
-          </Option>
+          <Option/>
         </config>
       </editWidget>
     </field>
