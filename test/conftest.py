@@ -4,6 +4,7 @@ from typing import Generator
 
 import pytest
 import etlhelper as etl
+from qgis.core import QgsProject
 from qgis.testing.mocked import get_iface
 
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
@@ -51,3 +52,17 @@ def fdc() -> FieldDataCapture:
     An instance of the FieldDataCapture plugin for tests, using a mock iface.
     """
     return FieldDataCapture(get_iface())
+
+
+@pytest.fixture()
+def qgs_project(tmp_path: Path) -> Path:
+    """
+    Create a QGIS project for testing.
+    Returns the filepath for the project file within the project directory.
+    """
+    project_dir = tmp_path / "test_project_dir"
+    project_dir.mkdir(parents=True, exist_ok=True)
+    project_file = project_dir / "test_project.qgz"
+    # We have to convert the Path object to a string for PyGIS
+    QgsProject.instance().write(str(project_file))
+    return project_file
