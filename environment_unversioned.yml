@@ -8,12 +8,12 @@ dependencies:
   - pip=23.2
   - qgis=3.28
   - pip:
-      - eralchemy
+      - eralchemy2
       - etlhelper
       - flake8
       - ipdb
       - ipython
       - pb_tool
       - pytest
-      - sqlalchemy<1.4
+      - sqlalchemy
       - sqlparse
