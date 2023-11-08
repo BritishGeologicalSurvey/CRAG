@@ -156,4 +156,53 @@ CREATE TABLE IF NOT EXISTS "superficial_landform" (
 INSERT INTO gpkg_contents
 VALUES('superficial_landform','attributes','superficial_landform','Superficial landform data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
+
+CREATE TRIGGER "structural_measurement_clear_updated"
+  AFTER INSERT ON "structural_measurement" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
+    BEGIN
+      UPDATE "structural_measurement" SET user_updated = NULL, date_updated = NULL
+      WHERE fid = NEW."fid"; END;
+
+
+CREATE TRIGGER "manmade_landform_clear_updated"
+  AFTER INSERT ON "manmade_landform" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
+    BEGIN
+      UPDATE "manmade_landform" SET user_updated = NULL, date_updated = NULL
+      WHERE fid = NEW."fid"; END;
+
+
+CREATE TRIGGER "exposure_clear_updated"
+  AFTER INSERT ON "exposure" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
+    BEGIN
+      UPDATE "exposure" SET user_updated = NULL, date_updated = NULL
+      WHERE fid = NEW."fid"; END;
+
+
+CREATE TRIGGER "media_clear_updated"
+  AFTER INSERT ON "media" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
+    BEGIN
+      UPDATE "media" SET user_updated = NULL, date_updated = NULL
+      WHERE fid = NEW."fid"; END;
+
+
+CREATE TRIGGER "photo_clear_updated"
+  AFTER INSERT ON "photo" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
+    BEGIN
+      UPDATE "photo" SET user_updated = NULL, date_updated = NULL
+      WHERE fid = NEW."fid"; END;
+
+
+CREATE TRIGGER "sample_clear_updated"
+  AFTER INSERT ON "sample" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
+    BEGIN
+      UPDATE "sample" SET user_updated = NULL, date_updated = NULL
+      WHERE fid = NEW."fid"; END;
+
+
+CREATE TRIGGER "superficial_landform_clear_updated"
+  AFTER INSERT ON "superficial_landform" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
+    BEGIN
+      UPDATE "superficial_landform" SET user_updated = NULL, date_updated = NULL
+      WHERE fid = NEW."fid"; END;
+
 COMMIT;

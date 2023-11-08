@@ -113,6 +113,13 @@ DELETE
 FROM "rtree_locality_point_geometry"
 WHERE id = OLD."fid"; END;
 
+
+CREATE TRIGGER "locality_point_clear_updated"
+  AFTER INSERT ON "locality_point" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
+    BEGIN
+      UPDATE "locality_point" SET user_updated = NULL, date_updated = NULL
+      WHERE fid = NEW."fid"; END;
+
 PRAGMA writable_schema=OFF;
 
 COMMIT;

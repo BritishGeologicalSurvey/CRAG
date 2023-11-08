@@ -188,3 +188,32 @@ def test_views(
     all_col_names = {col.name for col in view_info}
     required_cols = {"project", "locality_point", "locality_uuid", "x", "y"}
     assert required_cols.issubset(all_col_names)
+
+
+@pytest.mark.parametrize('table', FEATURE_TABLES | ATTRIBUTE_TABLES)
+def test_clear_update_field_on_insert_trigger(test_data_gpkg: sqlite3.Connection, table: str):
+    # The script that loads test data inserts values for the user_updated and date_updated fields.
+    # The table_clear_updated triggers fire for inserts, so these values should have been cleared.
+    insert_result = etl.fetchone(
+        f"SELECT user_updated, date_updated FROM {table} WHERE fid = 1",
+        test_data_gpkg,
+        row_factory=etl.row_factories.tuple_row_factory,
+    )
+
+    assert insert_result == (None, None)
+
+    # Next we confirm that the trigger doesn't fire for updates
+    # Update the existing project to include new user_updated and date_updated values
+    etl.execute(
+        f"UPDATE {table} SET user_updated = 'leorud', date_updated = '2023-11-31T16:20:11.012'",
+        test_data_gpkg
+    )
+
+    # Assert that data were not wiped
+    update_result = etl.fetchone(
+        f"SELECT user_updated, date_updated FROM {table} WHERE fid = 1",
+        test_data_gpkg,
+        row_factory=etl.row_factories.tuple_row_factory,
+    )
+
+    assert update_result == ("leorud", "2023-11-31T16:20:11.012")
