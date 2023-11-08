@@ -190,29 +190,30 @@ def test_views(
     assert required_cols.issubset(all_col_names)
 
 
-def test_clear_updated_trigger(data_model_gpkg: sqlite3.Connection):
-    # Act
-    # Insert a new project row with user_updated and date_updated values
-    data_model_gpkg.execute("INSERT INTO project VALUES(1,NULL,'{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}','test_project','test project title','test project description','test_user','active','2023-01-01','2023-12-31','DESK',27700,'test project comment','colb','2023-10-31T16:20:11.012','colb','2023-10-31T16:20:11.012')")  # noqa
-
-    # Assert
-    # Check that the user_updated and date_updated values are both NULL
+@pytest.mark.parametrize('table', FEATURE_TABLES | ATTRIBUTE_TABLES)
+def test_clear_update_field_on_insert_trigger(test_data_gpkg: sqlite3.Connection, table: str):
+    # The script that loads test data inserts values for the user_updated and date_updated fields.
+    # The table_clear_updated triggers fire for inserts, so these values should have been cleared.
     insert_result = etl.fetchone(
-        "SELECT user_updated, date_updated FROM project WHERE fid = 1",
-        data_model_gpkg,
+        f"SELECT user_updated, date_updated FROM {table} WHERE fid = 1",
+        test_data_gpkg,
         row_factory=etl.row_factories.tuple_row_factory,
     )
+
     assert insert_result == (None, None)
 
-    # Act 2
+    # Next we confirm that the trigger doesn't fire for updates
     # Update the existing project to include new user_updated and date_updated values
-    data_model_gpkg.execute("UPDATE project SET user_updated = 'leorud', date_updated = '2023-11-31T16:20:11.012'")
+    etl.execute(
+        f"UPDATE {table} SET user_updated = 'leorud', date_updated = '2023-11-31T16:20:11.012'",
+        test_data_gpkg
+    )
 
-    # Assert
-    # Make sure that the trigger does not clear for an update
+    # Assert that data were not wiped
     update_result = etl.fetchone(
-        "SELECT user_updated, date_updated FROM project WHERE fid = 1",
-        data_model_gpkg,
+        f"SELECT user_updated, date_updated FROM {table} WHERE fid = 1",
+        test_data_gpkg,
         row_factory=etl.row_factories.tuple_row_factory,
     )
+
     assert update_result == ("leorud", "2023-11-31T16:20:11.012")
