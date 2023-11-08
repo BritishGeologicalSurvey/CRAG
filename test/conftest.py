@@ -12,15 +12,10 @@ from plugin.create_gpkg_from_sql import add_test_data
 from plugin.field_data_capture import FieldDataCapture
 
 
-@pytest.fixture()
-def data_model_gpkg(tmp_path: Path) -> Generator[sqlite3.Connection, None, None]:
+def setup_db_conn(db_file: Path) -> sqlite3.Connection:
     """
-    Create a connection to the test GeoPackage and enable spatialite.
+    Setup the connection to the given database file.
     """
-    # Create geopackage file
-    db_file = tmp_path / "test_geopackage.gpkg"
-    gpkg_from_sql(db_file=db_file)
-
     # Create database connection
     db = etl.DbParams(dbtype="SQLITE", filename=db_file)
     conn = etl.connect(db)
@@ -33,6 +28,29 @@ def data_model_gpkg(tmp_path: Path) -> Generator[sqlite3.Connection, None, None]
         msg = "spatialite must be installed on the system to run these tests, see README for details"
         raise OSError(msg)
 
+    return conn
+
+
+@pytest.fixture()
+def project_dir(tmp_path: Path) -> Path:
+    """
+    Project directory used across tests for file structure.
+    """
+    project_dir = tmp_path / "test_project_dir"
+    project_dir.mkdir(parents=True, exist_ok=True)
+    return project_dir
+
+
+@pytest.fixture()
+def data_model_gpkg(project_dir: Path) -> Generator[sqlite3.Connection, None, None]:
+    """
+    Create a connection to the test GeoPackage and enable spatialite.
+    """
+    # Create geopackage file
+    db_file = project_dir / "field-data-capture.gpkg"
+    gpkg_from_sql(db_file=db_file)
+
+    conn = setup_db_conn(db_file)
     yield conn
 
     # Close database and delete geopackage file
@@ -55,13 +73,11 @@ def fdc() -> FieldDataCapture:
 
 
 @pytest.fixture()
-def qgs_project(tmp_path: Path) -> Path:
+def qgs_project(project_dir: Path) -> Path:
     """
     Create a QGIS project for testing.
     Returns the filepath for the project file within the project directory.
     """
-    project_dir = tmp_path / "test_project_dir"
-    project_dir.mkdir(parents=True, exist_ok=True)
     project_file = project_dir / "test_project.qgz"
     # We have to convert the Path object to a string for PyGIS
     QgsProject.instance().write(str(project_file))
