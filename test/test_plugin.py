@@ -19,6 +19,7 @@ def test_instantiation(fdc):
 
 def test_project_fixture(fdc: FieldDataCapture, qgs_project: Path):
     # Check the project directory
+    assert qgs_project.exists()
     assert fdc.project_dir.name == "test_project_dir"
     # Check the qgz file
     files = list(fdc.project_dir.glob("*"))
