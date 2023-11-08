@@ -64,7 +64,7 @@ def test_data_gpkg(data_model_gpkg):
     yield data_model_gpkg
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def fdc() -> FieldDataCapture:
     """
     An instance of the FieldDataCapture plugin for tests, using a mock iface.
