@@ -337,7 +337,7 @@ class FieldDataCapture:
         # We apply relationships and then styles after all layers are added to avoid conflicts
         self.find_create_relationships(vector_layers)
         self.apply_qml_styles(vector_layers)
-        QMessageBox.warning(None, "Warning", "You must add a project before you can add locality data.")
+        QMessageBox.warning(None, "Warning", "Now add a project OR test data to allow you to begin adding locality data.")
 
 
     def get_groups_layers(self) -> dict[Optional[str], list[str]]:
