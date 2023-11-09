@@ -28,6 +28,7 @@ from typing import Optional
 
 from qgis.core import (
     QgsDataProvider,
+    QgsEditorWidgetSetup,
     QgsProject,
     QgsVectorLayer,
     QgsVectorLayerUtils,
@@ -337,6 +338,33 @@ class FieldDataCapture:
         self.apply_qml_styles(vector_layers)
         QMessageBox.warning(None, "Warning", "Now add a project OR test data to allow you to begin adding locality data.")
 
+    def configure_forms_widgets(self, vector_layers: list[QgsVectorLayer]):
+        """
+        Apply automated configuration to form widgets.  Some configuration
+        is loaded from the .qml files, then this method applies dynamic updates
+        and enforces styles.
+        """
+        ipdb_breakpoint()
+        qgis_project = QgsProject.instance()
+        project_layer = qgis_project.mapLayersByName('project')[0]
+        fields = project_layer.fields()
+        widget = fields.field('project_type').editorWidgetSetup()
+        assert widget.type() == "RelationReference"
+        config = widget.config()
+
+        # Config looks like this.  We can see ReferencedLayerID specifies a UUID in the name
+        # {'AllowAddFeatures': False, 'AllowNULL': False, 'MapIdentification': False, 'OrderByValue': False, 'ReadOnly': False, 'ReferencedLayerDataSource': 'C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=dic_project_type', 'ReferencedLayerId': 'dic_project_type_c1a93252_0aca_461f_9aba_7ff3cf1e3400', 'ReferencedLayerName': 'dic_project_type', 'ReferencedLayerProviderKey': 'ogr', 'Relation': 'dic_project_type_project', 'ShowForm': False, 'ShowOpenFormButton': True}
+
+        # ReferencedLayerName points to a layer, which looks good and we could just replace the layer
+        referenced_layer_instance = qgis_project.mapLayersByName('project')[0]
+
+        # Get 
+        layer_instances_by_id = qgis_project.layers()  # Dict of {layer_id: layer_instance}
+        layer_ids_by_instance = dict(zip(layer_instances_by_id.values(), layer_instances_by_id.keys()))  # Dict of {layer_instance: layer_id}
+        config.update({'ReferencedLayerID': layer_ids_by_instance[referenced_layer_instance]})
+
+        updated_widget = QgsEditorWidgetSetup('RelationReference', config)
+        fields.field('project_type').setEditorWidgetSetup(updated_widget)
 
     @property
     def layer_tree_structure(self) -> dict[Optional[str], list[str]]:
