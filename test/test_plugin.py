@@ -37,6 +37,13 @@ def test_validation_good(fdc: FieldDataCapture, qgs_project: Path):
     assert fdc.db_file.exists()
 
 
+def test_validation_bad(
+    fdc: FieldDataCapture,
+    monkeypatch_qmsgbox_info_warn,
+):
+    assert not fdc.project_is_active()
+
+
 def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Act
     # Directly call the backend method rather than the front end method to avoid message boxes
