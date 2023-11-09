@@ -66,12 +66,23 @@ def test_data_gpkg(data_model_gpkg) -> Generator[sqlite3.Connection, None, None]
 
 
 @pytest.fixture()
-def fdc() -> Generator[FieldDataCapture, None, None]:
+def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, None]:
     """
     An instance of the FieldDataCapture plugin for tests, using a mock iface.
+    Also uses monkeypatch to prevent basic QMessageBox popups, including information and warning.
     """
+    # Setup plugin
     iface = get_iface()
     field_data_capture = FieldDataCapture(iface)
+
+    # Apply monkeypatch for QMessageBox
+    message_types = [
+        "information",
+        "warning",
+    ]
+    for message_type in message_types:
+        monkeypatch.setattr(QMessageBox, message_type, lambda *args: QMessageBox.Ok)
+
     yield field_data_capture
     # Reset the QGIS interface
     iface.reset_mock()
@@ -90,19 +101,6 @@ def qgs_project(project_dir: Path) -> Generator[Path, None, None]:
     yield project_file
     # Close the project
     project.clear()
-
-
-@pytest.fixture()
-def monkeypatch_qmsgbox_info_warn(monkeypatch: pytest.MonkeyPatch) -> None:
-    """
-    A monkeypatch to prevent QMessageBox information and warning popups from showing during tests.
-    """
-    message_types = [
-        "information",
-        "warning",
-    ]
-    for message_type in message_types:
-        monkeypatch.setattr(QMessageBox, message_type, lambda *args: QMessageBox.Ok)
 
 
 @pytest.fixture()
