@@ -5,6 +5,7 @@ from typing import Generator
 import pytest
 import etlhelper as etl
 from qgis.core import QgsProject
+from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.testing.mocked import get_iface
 
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
@@ -82,3 +83,34 @@ def qgs_project(project_dir: Path) -> Path:
     # We have to convert the Path object to a string for PyGIS
     QgsProject.instance().write(str(project_file))
     return project_file
+
+
+@pytest.fixture()
+def monkeypatch_qmsgbox_info_warn(monkeypatch: pytest.MonkeyPatch) -> None:
+    """
+    A monkeypatch to prevent QMessageBox information and warning popups from showing during tests.
+    """
+    message_types = [
+        "information",
+        "warning",
+    ]
+    for message_type in message_types:
+        monkeypatch.setattr(QMessageBox, message_type, lambda *args: QMessageBox.Ok)
+
+
+@pytest.fixture()
+def monkeypatch_qmsgbox_question_yes(monkeypatch: pytest.MonkeyPatch) -> None:
+    """
+    A monkeypatch to prevent QMessageBox.question popups from showing during tests.
+    Instead, calls to it will return QMessageBox.Yes.
+    """
+    monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.Yes)
+
+
+@pytest.fixture()
+def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
+    """
+    A monkeypatch to prevent QMessageBox.question popups from showing during tests.
+    Instead, calls to it will return QMessageBox.No.
+    """
+    monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.No)
