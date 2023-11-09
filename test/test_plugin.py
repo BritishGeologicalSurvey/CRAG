@@ -11,10 +11,8 @@ from qgis.core import (
 
 from conftest import setup_db_conn
 from plugin.config import TABLE_LIST
-from plugin.field_data_capture import (
-    FieldDataCapture,
-    gpkg_from_sql,
-)
+from plugin.field_data_capture import FieldDataCapture
+from plugin.utils import ipdb_breakpoint  # noqa
 
 
 def test_instantiation(fdc):
@@ -32,25 +30,21 @@ def test_project_fixture(fdc: FieldDataCapture, qgs_project: Path):
 
 
 def test_validation_good(fdc: FieldDataCapture, qgs_project: Path):
-    gpkg_from_sql(db_file=fdc.db_file)
+    fdc.add_gpkg_to_project()
     assert fdc.project_is_active()
     assert fdc.db_file.exists()
 
 
-def test_validation_bad(
-    fdc: FieldDataCapture,
-    monkeypatch_qmsgbox_info_warn,
-):
+def test_validation_bad(fdc: FieldDataCapture):
     assert not fdc.project_is_active()
 
 
 def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Act
-    # Directly call the backend method rather than the front end method to avoid message boxes
-    gpkg_from_sql(db_file=fdc.db_file)
+    fdc.add_gpkg_to_project()
 
     # Check file exists
-    assert (fdc.project_dir / fdc.gpkg_filename).exists()
+    assert Path(fdc.project_dir / fdc.gpkg_filename).exists()
 
     # Check tables are in file
     conn = setup_db_conn(fdc.db_file)
@@ -66,7 +60,7 @@ def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
 
 def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Arrange
-    gpkg_from_sql(db_file=fdc.db_file)
+    fdc.add_gpkg_to_project()
     expected_root_names = ["locality_point", "views", "locality_data", "metadata"]
     expected_qml_files = [
         # Make the expected path relative to the project root
