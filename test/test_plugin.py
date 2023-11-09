@@ -82,3 +82,8 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     for group in root_groups:
         group_layer_names = [layer.name() for layer in group.children()]
         assert fdc.layer_tree_structure[group.name()] == group_layer_names
+
+    # Check that dic layers are readonly
+    for layer in QgsProject.instance().mapLayers().values():
+        if layer.name().startswith("dic"):
+            assert layer.readOnly()
