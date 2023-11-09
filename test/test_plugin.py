@@ -61,6 +61,11 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Arrange
     gpkg_from_sql(db_file=fdc.db_file)
     expected_root_names = ["locality_point", "views", "locality_data", "metadata"]
+    expected_qml_files = [
+        # Make the expected path relative to the project root
+        Path(qml_file.parent.name) / qml_file.name
+        for qml_file in Path("plugin/styles").glob("*.qml")
+    ]
 
     # Act
     fdc.add_gpkg_layers_to_project()
@@ -87,3 +92,11 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     for layer in QgsProject.instance().mapLayers().values():
         if layer.name().startswith("dic"):
             assert layer.readOnly()
+
+    # Check that the style files have been copied into the project directory
+    actual_qml_files = [
+        # Make the actual path relative to the plugin root
+        Path(qml_file.parent.name) / qml_file.name
+        for qml_file in Path(fdc.project_dir / "styles").glob("*.qml")
+    ]
+    assert expected_qml_files == actual_qml_files
