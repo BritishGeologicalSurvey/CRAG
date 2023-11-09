@@ -60,9 +60,9 @@ def data_model_gpkg(project_dir: Path) -> Generator[sqlite3.Connection, None, No
 
 
 @pytest.fixture()
-def test_data_gpkg(data_model_gpkg) -> Generator[sqlite3.Connection, None, None]:
+def test_data_gpkg(data_model_gpkg) -> sqlite3.Connection:
     add_test_data(data_model_gpkg)
-    yield data_model_gpkg
+    return data_model_gpkg
 
 
 @pytest.fixture()
