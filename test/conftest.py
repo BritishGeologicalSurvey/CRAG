@@ -60,29 +60,36 @@ def data_model_gpkg(project_dir: Path) -> Generator[sqlite3.Connection, None, No
 
 
 @pytest.fixture()
-def test_data_gpkg(data_model_gpkg):
+def test_data_gpkg(data_model_gpkg) -> Generator[sqlite3.Connection, None, None]:
     add_test_data(data_model_gpkg)
     yield data_model_gpkg
 
 
 @pytest.fixture()
-def fdc() -> FieldDataCapture:
+def fdc() -> Generator[FieldDataCapture, None, None]:
     """
     An instance of the FieldDataCapture plugin for tests, using a mock iface.
     """
-    return FieldDataCapture(get_iface())
+    iface = get_iface()
+    field_data_capture = FieldDataCapture(iface)
+    yield field_data_capture
+    # Reset the QGIS interface
+    iface.reset_mock()
 
 
 @pytest.fixture()
-def qgs_project(project_dir: Path) -> Path:
+def qgs_project(project_dir: Path) -> Generator[Path, None, None]:
     """
     Create a QGIS project for testing.
     Returns the filepath for the project file within the project directory.
     """
     project_file = project_dir / "test_project.qgz"
+    project = QgsProject.instance()
     # We have to convert the Path object to a string for PyGIS
-    QgsProject.instance().write(str(project_file))
-    return project_file
+    project.write(str(project_file))
+    yield project_file
+    # Close the project
+    project.clear()
 
 
 @pytest.fixture()
