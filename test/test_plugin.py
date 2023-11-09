@@ -60,7 +60,7 @@ def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
 def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Arrange
     gpkg_from_sql(db_file=fdc.db_file)
-    expected_root_names = {"locality_point", "views", "locality_data", "metadata"}
+    expected_root_names = ["locality_point", "views", "locality_data", "metadata"]
 
     # Act
     fdc.add_gpkg_layers_to_project()
@@ -68,7 +68,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Assert
     # Check root layers
     root_layers = QgsProject.instance().layerTreeRoot().children()
-    root_names = {layer.name() for layer in root_layers}
+    root_names = [layer.name() for layer in root_layers]
     assert expected_root_names == root_names
 
     # Get only groups from the root
@@ -80,5 +80,5 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
 
     # Check layers in groups
     for group in root_groups:
-        group_layer_names = {layer.name() for layer in group.children()}
-        assert set(fdc.layer_tree_structure[group.name()]) == group_layer_names
+        group_layer_names = [layer.name() for layer in group.children()]
+        assert fdc.layer_tree_structure[group.name()] == group_layer_names
