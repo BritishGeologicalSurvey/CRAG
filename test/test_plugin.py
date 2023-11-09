@@ -79,7 +79,6 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     ]
 
     # Check layers in groups
-    group_structure = fdc.get_groups_layers()
     for group in root_groups:
         group_layer_names = {layer.name() for layer in group.children()}
-        assert set(group_structure[group.name()]) == group_layer_names
+        assert set(fdc.layer_tree_structure[group.name()]) == group_layer_names
