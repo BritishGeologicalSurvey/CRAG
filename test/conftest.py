@@ -4,6 +4,8 @@ from typing import Generator
 
 import pytest
 import etlhelper as etl
+from qgis.core import QgsProject
+from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.testing.mocked import get_iface
 
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
@@ -11,15 +13,10 @@ from plugin.create_gpkg_from_sql import add_test_data
 from plugin.field_data_capture import FieldDataCapture
 
 
-@pytest.fixture()
-def data_model_gpkg(tmp_path: Path) -> Generator[sqlite3.Connection, None, None]:
+def setup_db_conn(db_file: Path) -> sqlite3.Connection:
     """
-    Create a connection to the test GeoPackage and enable spatialite.
+    Setup the connection to the given database file.
     """
-    # Create geopackage file
-    db_file = tmp_path / "test_geopackage.gpkg"
-    gpkg_from_sql(db_file=db_file)
-
     # Create database connection
     db = etl.DbParams(dbtype="SQLITE", filename=db_file)
     conn = etl.connect(db)
@@ -32,6 +29,29 @@ def data_model_gpkg(tmp_path: Path) -> Generator[sqlite3.Connection, None, None]
         msg = "spatialite must be installed on the system to run these tests, see README for details"
         raise OSError(msg)
 
+    return conn
+
+
+@pytest.fixture()
+def project_dir(tmp_path: Path) -> Path:
+    """
+    Project directory used across tests for file structure.
+    """
+    project_dir = tmp_path / "test_project_dir"
+    project_dir.mkdir(parents=True, exist_ok=True)
+    return project_dir
+
+
+@pytest.fixture()
+def data_model_gpkg(project_dir: Path) -> Generator[sqlite3.Connection, None, None]:
+    """
+    Create a connection to the test GeoPackage and enable spatialite.
+    """
+    # Create geopackage file
+    db_file = project_dir / "field-data-capture.gpkg"
+    gpkg_from_sql(db_file=db_file)
+
+    conn = setup_db_conn(db_file)
     yield conn
 
     # Close database and delete geopackage file
@@ -40,14 +60,67 @@ def data_model_gpkg(tmp_path: Path) -> Generator[sqlite3.Connection, None, None]
 
 
 @pytest.fixture()
-def test_data_gpkg(data_model_gpkg):
+def test_data_gpkg(data_model_gpkg) -> sqlite3.Connection:
     add_test_data(data_model_gpkg)
-    yield data_model_gpkg
+    return data_model_gpkg
 
 
-@pytest.fixture(scope="session")
-def fdc() -> FieldDataCapture:
+@pytest.fixture()
+def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, None]:
     """
     An instance of the FieldDataCapture plugin for tests, using a mock iface.
+    Also uses monkeypatch to prevent basic QMessageBox popups, including information and warning.
+    QMessageBoxes just return QMessageBox.Ok by default.
     """
-    return FieldDataCapture(get_iface())
+    # Setup plugin
+    iface = get_iface()
+    field_data_capture = FieldDataCapture(iface)
+
+    # Apply monkeypatch for QMessageBox
+    message_types = [
+        "information",
+        "warning",
+    ]
+    for message_type in message_types:
+        # Usually, QMessageBoxes prevent tests from progressing, as they require user input
+        # To show a message, the code would usually be:
+        # result = QMessageBox.warning(parent, title, message)
+        # The monkeypatched version swallows the arguments and always returns QMessageBox.Ok
+        monkeypatch.setattr(QMessageBox, message_type, lambda *args: QMessageBox.Ok)
+
+    yield field_data_capture
+    # Reset the QGIS interface
+    iface.reset_mock()
+
+
+@pytest.fixture()
+def qgs_project(project_dir: Path) -> Generator[Path, None, None]:
+    """
+    Create a QGIS project for testing.
+    Returns the filepath for the project file within the project directory.
+    """
+    project_file = project_dir / "test_project.qgz"
+    project = QgsProject.instance()
+    # We have to convert the Path object to a string for PyGIS
+    project.write(str(project_file))
+    yield project_file
+    # Close the project
+    project.clear()
+
+
+@pytest.fixture()
+def monkeypatch_qmsgbox_question_yes(monkeypatch: pytest.MonkeyPatch) -> None:
+    """
+    A monkeypatch to prevent QMessageBox.question popups from showing during tests.
+    Instead, calls to it will return QMessageBox.Yes.
+    """
+    monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.Yes)
+
+
+@pytest.fixture()
+def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
+    """
+    A monkeypatch to prevent QMessageBox.question popups from showing during tests.
+    Instead, calls to it will return QMessageBox.No.
+    """
+    monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.No)

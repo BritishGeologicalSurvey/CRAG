@@ -297,8 +297,6 @@ class FieldDataCapture:
             QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
             return None
 
-        groups_layers = self.get_groups_layers()
-
         # Get layers root
         root = QgsProject.instance().layerTreeRoot()
         # Get db layers
@@ -310,7 +308,7 @@ class FieldDataCapture:
         ]
 
         vector_layers = []
-        for group_name, group_layer_names in groups_layers.items():
+        for group_name, group_layer_names in self.layer_tree_structure.items():
             # Create the group if required
             add_to_legend = True
             if group_name is not None:
@@ -340,12 +338,13 @@ class FieldDataCapture:
         QMessageBox.warning(None, "Warning", "Now add a project OR test data to allow you to begin adding locality data.")
 
 
-    def get_groups_layers(self) -> dict[Optional[str], list[str]]:
+    @property
+    def layer_tree_structure(self) -> dict[Optional[str], list[str]]:
         """
-        Get a dictionary of tables/layers which will represent the QGIS layer tree.
+        Dictionary of layer names which will represent the QGIS layer tree structure.
         """
         # Create inital structure
-        groups_layers = {
+        layer_tree_structure = {
             None: FEATURE_TABLES,
             "views": VIEWS,
             "locality_data": ATTRIBUTE_TABLES,
@@ -353,17 +352,17 @@ class FieldDataCapture:
         }
 
         # Sort the lists
-        for layer_name, table_set in groups_layers.items():
+        for group_name, table_set in layer_tree_structure.items():
             table_list = list(table_set)
             table_list.sort()
-            groups_layers[layer_name] = table_list
+            layer_tree_structure[group_name] = table_list
 
         # Move the project layer
         project_name = "project"
-        groups_layers["locality_data"].remove(project_name)
-        groups_layers["metadata"].insert(0, project_name)
+        layer_tree_structure["locality_data"].remove(project_name)
+        layer_tree_structure["metadata"].insert(0, project_name)
 
-        return groups_layers
+        return layer_tree_structure
 
 
     def apply_qml_styles(self, vector_layers: list[QgsVectorLayer]) -> None:
