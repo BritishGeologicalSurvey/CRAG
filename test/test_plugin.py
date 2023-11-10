@@ -101,3 +101,33 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         for qml_file in Path(fdc.project_dir / "styles").glob("*.qml")
     ]
     assert expected_qml_files == actual_qml_files
+
+
+def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
+    # Arrange
+    fdc.add_gpkg_to_project()
+    fdc.add_gpkg_layers_to_project()
+    expected_row_counts = {
+        "project": 1,
+        "locality_point": 2,
+        "structural_measurement": 2,
+        "exposure": 3,
+        "media": 2,
+        "photo": 2,
+        "sample": 2,
+        "superficial_landform": 2,
+        "manmade_landform": 2,
+    }
+
+    # Act
+    fdc.add_test_data_to_project()
+
+    # Assert
+    conn = setup_db_conn(fdc.db_file)
+    for table, expected_row_count in expected_row_counts.items():
+        actual_row_count = etl.fetchone(
+            f"SELECT COUNT() FROM {table}",
+            conn,
+            row_factory=etl.row_factories.tuple_row_factory,
+        )[0]
+        assert expected_row_count == actual_row_count
