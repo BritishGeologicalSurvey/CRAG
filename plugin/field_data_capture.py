@@ -358,17 +358,21 @@ class FieldDataCapture:
         config = widget.config()
         # Config looks like this.  We can see ReferencedLayerID specifies a UUID in the name
         # {'AllowAddFeatures': False, 'AllowNULL': False, 'MapIdentification': False, 'OrderByValue': False, 'ReadOnly': False, 'ReferencedLayerDataSource': 'C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=dic_project_type', 'ReferencedLayerId': 'dic_project_type_c1a93252_0aca_461f_9aba_7ff3cf1e3400', 'ReferencedLayerName': 'dic_project_type', 'ReferencedLayerProviderKey': 'ogr', 'Relation': 'dic_project_type_project', 'ShowForm': False, 'ShowOpenFormButton': True}
-        print(config)
+        # print(config)
         print(f"old relation id: {config['ReferencedLayerId']}")
+        print(f"old data source: {config['ReferencedLayerDataSource']}")
 
         # get correct relationship
         relation_manager = QgsProject.instance().relationManager()
         relation = relation_manager.relations()[config['Relation']]
         correct_relation_id = relation.referencedLayerId()
+        correct_relation_data_source = project_layer.source()
+        print(f"correct relation data source: {correct_relation_data_source}")
         print(f"new_relation_id: {correct_relation_id}")
 
-        config.update({'ReferencedLayerID': correct_relation_id})
-        print(f"updated config: {config}")
+        config.update({'ReferencedLayerId': correct_relation_id})
+        config.update({"ReferencedLayerDataSource": correct_relation_data_source})
+        # print(f"updated config: {config}")
 
         updated_widget = QgsEditorWidgetSetup('RelationReference', config)
         fields.field('project_type').setEditorWidgetSetup(updated_widget)
