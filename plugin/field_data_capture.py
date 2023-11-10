@@ -336,6 +336,7 @@ class FieldDataCapture:
         # We apply relationships and then styles after all layers are added to avoid conflicts
         self.find_create_relationships(vector_layers)
         self.apply_qml_styles(vector_layers)
+        self.configure_forms_widgets(vector_layers)
         QMessageBox.warning(None, "Warning", "Now add a project OR test data to allow you to begin adding locality data.")
 
     def configure_forms_widgets(self, vector_layers: list[QgsVectorLayer]):
@@ -344,27 +345,34 @@ class FieldDataCapture:
         is loaded from the .qml files, then this method applies dynamic updates
         and enforces styles.
         """
-        ipdb_breakpoint()
+        # TODO: make this work on more than just project layer
+        # For now we concentrate on one layer, but eventually we will loop over them all
+        # then loop over all their fields, find the relation references and update those.
+
+        # get config for project relation widget
         qgis_project = QgsProject.instance()
-        project_layer = qgis_project.mapLayersByName('project')[0]
+        project_layer: QgsVectorLayer = qgis_project.mapLayersByName('project')[0]
         fields = project_layer.fields()
         widget = fields.field('project_type').editorWidgetSetup()
         assert widget.type() == "RelationReference"
         config = widget.config()
-
         # Config looks like this.  We can see ReferencedLayerID specifies a UUID in the name
         # {'AllowAddFeatures': False, 'AllowNULL': False, 'MapIdentification': False, 'OrderByValue': False, 'ReadOnly': False, 'ReferencedLayerDataSource': 'C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=dic_project_type', 'ReferencedLayerId': 'dic_project_type_c1a93252_0aca_461f_9aba_7ff3cf1e3400', 'ReferencedLayerName': 'dic_project_type', 'ReferencedLayerProviderKey': 'ogr', 'Relation': 'dic_project_type_project', 'ShowForm': False, 'ShowOpenFormButton': True}
+        print(config)
+        print(f"old relation id: {config['ReferencedLayerId']}")
 
-        # ReferencedLayerName points to a layer, which looks good and we could just replace the layer
-        referenced_layer_instance = qgis_project.mapLayersByName('project')[0]
+        # get correct relationship
+        relation_manager = QgsProject.instance().relationManager()
+        relation = relation_manager.relations()[config['Relation']]
+        correct_relation_id = relation.referencedLayerId()
+        print(f"new_relation_id: {correct_relation_id}")
 
-        # Get 
-        layer_instances_by_id = qgis_project.layers()  # Dict of {layer_id: layer_instance}
-        layer_ids_by_instance = dict(zip(layer_instances_by_id.values(), layer_instances_by_id.keys()))  # Dict of {layer_instance: layer_id}
-        config.update({'ReferencedLayerID': layer_ids_by_instance[referenced_layer_instance]})
+        config.update({'ReferencedLayerID': correct_relation_id})
+        print(f"updated config: {config}")
 
         updated_widget = QgsEditorWidgetSetup('RelationReference', config)
         fields.field('project_type').setEditorWidgetSetup(updated_widget)
+        print("Applying new config")
 
     @property
     def layer_tree_structure(self) -> dict[Optional[str], list[str]]:
