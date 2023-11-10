@@ -1,31 +1,28 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="3.30.0-'s-Hertogenbosch" styleCategories="Symbology|Labeling|Fields|Forms">
+<qgis version="3.28.11-Firenze" styleCategories="Symbology|Labeling|Fields|Forms">
   <fieldConfiguration>
-    <field configurationFlags="None" name="fid">
+    <field name="fid" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="objectid">
+    <field name="objectid" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="uuid">
-      <editWidget type="TextEdit">
+    <field name="uuid" configurationFlags="None">
+      <editWidget type="Hidden">
         <config>
-          <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="false"/>
-            <Option type="bool" name="UseHtml" value="false"/>
-          </Option>
+          <Option/>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="locality_fuid">
+    <field name="locality_fuid" configurationFlags="None">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -45,7 +42,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="structure_type_category">
+    <field name="structure_type_category" configurationFlags="None">
       <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
@@ -66,7 +63,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="structure_type_code">
+    <field name="structure_type_code" configurationFlags="None">
       <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
@@ -87,7 +84,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="dip">
+    <field name="dip" configurationFlags="None">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -97,7 +94,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="dip_direction">
+    <field name="dip_direction" configurationFlags="None">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -107,7 +104,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="comment">
+    <field name="comment" configurationFlags="None">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -117,28 +114,28 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="user_entered">
+    <field name="user_entered" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="date_entered">
+    <field name="date_entered" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="user_updated">
+    <field name="user_updated" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="date_updated">
+    <field name="date_updated" configurationFlags="None">
       <editWidget type="Hidden">
         <config>
           <Option/>
@@ -147,79 +144,64 @@
     </field>
   </fieldConfiguration>
   <aliases>
-    <alias field="fid" name="" index="0"/>
-    <alias field="objectid" name="" index="1"/>
-    <alias field="uuid" name="" index="2"/>
-    <alias field="locality_fuid" name="" index="3"/>
-    <alias field="structure_type_category" name="" index="4"/>
-    <alias field="structure_type_code" name="" index="5"/>
-    <alias field="dip" name="" index="6"/>
-    <alias field="dip_direction" name="" index="7"/>
-    <alias field="comment" name="" index="8"/>
-    <alias field="user_entered" name="" index="9"/>
-    <alias field="date_entered" name="" index="10"/>
-    <alias field="user_updated" name="" index="11"/>
-    <alias field="date_updated" name="" index="12"/>
+    <alias name="" field="fid" index="0"/>
+    <alias name="" field="objectid" index="1"/>
+    <alias name="" field="uuid" index="2"/>
+    <alias name="" field="locality_fuid" index="3"/>
+    <alias name="" field="structure_type_category" index="4"/>
+    <alias name="" field="structure_type_code" index="5"/>
+    <alias name="" field="dip" index="6"/>
+    <alias name="" field="dip_direction" index="7"/>
+    <alias name="" field="comment" index="8"/>
+    <alias name="" field="user_entered" index="9"/>
+    <alias name="" field="date_entered" index="10"/>
+    <alias name="" field="user_updated" index="11"/>
+    <alias name="" field="date_updated" index="12"/>
   </aliases>
-  <splitPolicies>
-    <policy field="fid" policy="Duplicate"/>
-    <policy field="objectid" policy="Duplicate"/>
-    <policy field="uuid" policy="Duplicate"/>
-    <policy field="locality_fuid" policy="Duplicate"/>
-    <policy field="structure_type_category" policy="Duplicate"/>
-    <policy field="structure_type_code" policy="Duplicate"/>
-    <policy field="dip" policy="Duplicate"/>
-    <policy field="dip_direction" policy="Duplicate"/>
-    <policy field="comment" policy="Duplicate"/>
-    <policy field="user_entered" policy="Duplicate"/>
-    <policy field="date_entered" policy="Duplicate"/>
-    <policy field="user_updated" policy="Duplicate"/>
-    <policy field="date_updated" policy="Duplicate"/>
-  </splitPolicies>
   <defaults>
-    <default field="fid" applyOnUpdate="0" expression=""/>
-    <default field="objectid" applyOnUpdate="0" expression=""/>
-    <default field="uuid" applyOnUpdate="0" expression="uuid()"/>
-    <default field="locality_fuid" applyOnUpdate="0" expression=""/>
-    <default field="structure_type_category" applyOnUpdate="0" expression=""/>
-    <default field="structure_type_code" applyOnUpdate="0" expression=""/>
-    <default field="dip" applyOnUpdate="0" expression=""/>
-    <default field="dip_direction" applyOnUpdate="0" expression=""/>
-    <default field="comment" applyOnUpdate="0" expression=""/>
-    <default field="user_entered" applyOnUpdate="0" expression="@user_account_name"/>
-    <default field="date_entered" applyOnUpdate="0" expression="now()"/>
-    <default field="user_updated" applyOnUpdate="1" expression="@user_account_name"/>
-    <default field="date_updated" applyOnUpdate="1" expression="now()"/>
+    <default field="fid" expression="" applyOnUpdate="0"/>
+    <default field="objectid" expression="" applyOnUpdate="0"/>
+    <default field="uuid" expression="uuid()" applyOnUpdate="0"/>
+    <default field="locality_fuid" expression="" applyOnUpdate="0"/>
+    <default field="structure_type_category" expression="" applyOnUpdate="0"/>
+    <default field="structure_type_code" expression="" applyOnUpdate="0"/>
+    <default field="dip" expression="" applyOnUpdate="0"/>
+    <default field="dip_direction" expression="" applyOnUpdate="0"/>
+    <default field="comment" expression="" applyOnUpdate="0"/>
+    <default field="user_entered" expression="@user_account_name" applyOnUpdate="0"/>
+    <default field="date_entered" expression="now()" applyOnUpdate="0"/>
+    <default field="user_updated" expression="@user_account_name" applyOnUpdate="1"/>
+    <default field="date_updated" expression="now()" applyOnUpdate="1"/>
   </defaults>
   <constraints>
-    <constraint exp_strength="0" constraints="3" field="fid" unique_strength="1" notnull_strength="1"/>
-    <constraint exp_strength="0" constraints="2" field="objectid" unique_strength="1" notnull_strength="0"/>
-    <constraint exp_strength="0" constraints="3" field="uuid" unique_strength="1" notnull_strength="1"/>
-    <constraint exp_strength="0" constraints="1" field="locality_fuid" unique_strength="0" notnull_strength="1"/>
-    <constraint exp_strength="0" constraints="1" field="structure_type_category" unique_strength="0" notnull_strength="1"/>
-    <constraint exp_strength="0" constraints="1" field="structure_type_code" unique_strength="0" notnull_strength="1"/>
-    <constraint exp_strength="0" constraints="0" field="dip" unique_strength="0" notnull_strength="0"/>
-    <constraint exp_strength="0" constraints="0" field="dip_direction" unique_strength="0" notnull_strength="0"/>
-    <constraint exp_strength="0" constraints="0" field="comment" unique_strength="0" notnull_strength="0"/>
-    <constraint exp_strength="0" constraints="1" field="user_entered" unique_strength="0" notnull_strength="1"/>
-    <constraint exp_strength="0" constraints="1" field="date_entered" unique_strength="0" notnull_strength="1"/>
-    <constraint exp_strength="0" constraints="0" field="user_updated" unique_strength="0" notnull_strength="0"/>
-    <constraint exp_strength="0" constraints="0" field="date_updated" unique_strength="0" notnull_strength="0"/>
+    <constraint constraints="3" field="fid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
+    <constraint constraints="2" field="objectid" notnull_strength="0" exp_strength="0" unique_strength="1"/>
+    <constraint constraints="3" field="uuid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
+    <constraint constraints="1" field="locality_fuid" notnull_strength="1" exp_strength="0" unique_strength="0"/>
+    <constraint constraints="1" field="structure_type_category" notnull_strength="1" exp_strength="0" unique_strength="0"/>
+    <constraint constraints="1" field="structure_type_code" notnull_strength="1" exp_strength="0" unique_strength="0"/>
+    <constraint constraints="0" field="dip" notnull_strength="0" exp_strength="0" unique_strength="0"/>
+    <constraint constraints="0" field="dip_direction" notnull_strength="0" exp_strength="0" unique_strength="0"/>
+    <constraint constraints="0" field="comment" notnull_strength="0" exp_strength="0" unique_strength="0"/>
+    <constraint constraints="1" field="user_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
+    <constraint constraints="1" field="date_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
+    <constraint constraints="0" field="user_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
+    <constraint constraints="0" field="date_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
   </constraints>
   <constraintExpressions>
-    <constraint field="fid" desc="" exp=""/>
-    <constraint field="objectid" desc="" exp=""/>
-    <constraint field="uuid" desc="" exp=""/>
-    <constraint field="locality_fuid" desc="" exp=""/>
-    <constraint field="structure_type_category" desc="" exp=""/>
-    <constraint field="structure_type_code" desc="" exp=""/>
-    <constraint field="dip" desc="" exp=""/>
-    <constraint field="dip_direction" desc="" exp=""/>
-    <constraint field="comment" desc="" exp=""/>
-    <constraint field="user_entered" desc="" exp=""/>
-    <constraint field="date_entered" desc="" exp=""/>
-    <constraint field="user_updated" desc="" exp=""/>
-    <constraint field="date_updated" desc="" exp=""/>
+    <constraint desc="" field="fid" exp=""/>
+    <constraint desc="" field="objectid" exp=""/>
+    <constraint desc="" field="uuid" exp=""/>
+    <constraint desc="" field="locality_fuid" exp=""/>
+    <constraint desc="" field="structure_type_category" exp=""/>
+    <constraint desc="" field="structure_type_code" exp=""/>
+    <constraint desc="" field="dip" exp=""/>
+    <constraint desc="" field="dip_direction" exp=""/>
+    <constraint desc="" field="comment" exp=""/>
+    <constraint desc="" field="user_entered" exp=""/>
+    <constraint desc="" field="date_entered" exp=""/>
+    <constraint desc="" field="user_updated" exp=""/>
+    <constraint desc="" field="date_updated" exp=""/>
   </constraintExpressions>
   <expressionfields/>
   <editform tolerant="1"></editform>
@@ -246,19 +228,19 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
-    <field name="comment" editable="1"/>
-    <field name="date_entered" editable="1"/>
-    <field name="date_updated" editable="1"/>
-    <field name="dip" editable="1"/>
-    <field name="dip_direction" editable="1"/>
-    <field name="fid" editable="0"/>
-    <field name="locality_fuid" editable="1"/>
-    <field name="objectid" editable="0"/>
-    <field name="structure_type_category" editable="1"/>
-    <field name="structure_type_code" editable="1"/>
-    <field name="user_entered" editable="1"/>
-    <field name="user_updated" editable="1"/>
-    <field name="uuid" editable="0"/>
+    <field editable="1" name="comment"/>
+    <field editable="1" name="date_entered"/>
+    <field editable="1" name="date_updated"/>
+    <field editable="1" name="dip"/>
+    <field editable="1" name="dip_direction"/>
+    <field editable="0" name="fid"/>
+    <field editable="1" name="locality_fuid"/>
+    <field editable="0" name="objectid"/>
+    <field editable="1" name="structure_type_category"/>
+    <field editable="1" name="structure_type_code"/>
+    <field editable="1" name="user_entered"/>
+    <field editable="1" name="user_updated"/>
+    <field editable="0" name="uuid"/>
   </editable>
   <labelOnTop>
     <field name="comment" labelOnTop="0"/>
