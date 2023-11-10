@@ -70,6 +70,7 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     """
     An instance of the FieldDataCapture plugin for tests, using a mock iface.
     Also uses monkeypatch to prevent basic QMessageBox popups, including information and warning.
+    QMessageBoxes just return QMessageBox.Ok by default.
     """
     # Setup plugin
     iface = get_iface()
@@ -81,6 +82,10 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
         "warning",
     ]
     for message_type in message_types:
+        # Usually, QMessageBoxes prevent tests from progressing, as they require user input
+        # To show a message, the code would usually be:
+        # result = QMessageBox.warning(parent, title, message)
+        # The monkeypatched version swallows the arguments and always returns QMessageBox.Ok
         monkeypatch.setattr(QMessageBox, message_type, lambda *args: QMessageBox.Ok)
 
     yield field_data_capture
