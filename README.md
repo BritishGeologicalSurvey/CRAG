@@ -118,6 +118,23 @@ You may need to manually activate the plugin if it was not installed already.
 
 If you install the QGIS Plugin Reloader plugin, you can use it to quickly reload to the newly installed version.
 
+
+### QGIS debugging tips
+
+It is much easier to debug and understand your application by interacting with it directly.
+This is possible in QGIS via the Python console.
+Even better is the IPython QGIS console plugin, which offers tab complete.
+It is necessary to have Jupyter installed on the Python environment used by QGIS in order to use it.
+To access the plugin class within the Python console, run
+
+```python
+import qgis
+fdc = qgis.utils.plugins['field_data_capture']
+```
+
+From there, plugin attributes and methods can accessed directly e.g. `fdc.add_gpkg_to_project()`
+
+
 ## Useful links
 
 + [PyQGIS Developer Cookbook](https://docs.qgis.org/3.28/en/docs/pyqgis_developer_cookbook/intro.html)
