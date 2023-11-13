@@ -21,7 +21,9 @@
  *                                                                         *
  ***************************************************************************/
 """
+import logging
 import os.path
+import pprint
 import sqlite3
 from pathlib import Path
 from typing import Optional
@@ -56,6 +58,9 @@ from .create_gpkg_from_sql import (
     WORKDIR,
 )
 from .utils import ipdb_breakpoint
+
+logger = logging.getLogger('fdc')
+logging.basicConfig(level=logging.DEBUG)
 
 
 class FieldDataCapture:
@@ -95,6 +100,7 @@ class FieldDataCapture:
 
         self.gpkg_filename = Path("field-data-capture.gpkg")
 
+        logger.debug("Field Data Capture plugin initialised.")
 
     @property
     def project_dir(self) -> Path:
@@ -334,9 +340,9 @@ class FieldDataCapture:
                         vector_layer.setReadOnly()
 
         # We apply relationships and then styles after all layers are added to avoid conflicts
-        self.find_create_relationships(vector_layers)
+        #self.find_create_relationships(vector_layers)
         self.apply_qml_styles(vector_layers)
-        self.configure_forms_widgets(vector_layers)
+        #self.configure_forms_widgets(vector_layers)
         QMessageBox.warning(None, "Warning", "Now add a project OR test data to allow you to begin adding locality data.")
 
     def configure_forms_widgets(self, vector_layers: list[QgsVectorLayer]):
@@ -377,6 +383,40 @@ class FieldDataCapture:
         updated_widget = QgsEditorWidgetSetup('RelationReference', config)
         fields.field('project_type').setEditorWidgetSetup(updated_widget)
         print("Applying new config")
+
+    def log_active_layer_widgets(self):
+        layer = self.iface.activeLayer()
+        logger.debug("Layer ID: %s", layer.id())
+
+        for field in layer.fields():
+            widget_setup = field.editorWidgetSetup()
+            if widget_setup.isNull():
+                logger.debug("No editor widget for field '%s'", field.name())
+            else:
+                widget = {
+                    'field': field.name(),
+                    'widget_type': widget_setup.type(),
+                    'widget_config': widget_setup.config()
+                }
+                logger.debug('\n' + pprint.pformat(widget, indent=2, sort_dicts=False))
+
+            if widget_setup.type() == "RelationReference":
+                relation_manager = QgsProject.instance().relationManager()
+                # Check for duplicate relations
+                matching_relations = relation_manager.relationsByName(widget_setup.config()['Relation'])
+                logger.debug('Matching relations: %s', matching_relations)
+
+                relation = matching_relations[0]
+                relation_metadata = {
+                    'name': relation.name(),
+                    'isValid': relation.isValid(),
+                    'referencingLayer': relation.referencingLayer(),
+                    'referencingLayerId': relation.referencingLayerId(),
+                    'referencedLayer': relation.referencedLayer(),
+                    'referencedLayerId': relation.referencedLayerId(),
+                }
+                msg = pprint.pformat(relation_metadata, indent=2, sort_dicts=False)
+                logger.debug('Relation metadata:\n%s', msg)
 
     @property
     def layer_tree_structure(self) -> dict[Optional[str], list[str]]:
