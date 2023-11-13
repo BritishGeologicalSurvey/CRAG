@@ -131,3 +131,11 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
             row_factory=etl.row_factories.tuple_row_factory,
         )[0]
         assert expected_row_count == actual_row_count
+
+    # Check that relation widgets reference layers in current project
+    map_layers = QgsProject.instance().mapLayers()
+    for layer in map_layers.values():
+        widgets = fdc.editor_widget_metadata(layer)
+        for widget in widgets.values():
+            if widget["type"] == "RelationReference":
+                assert widget["config"]["ReferencedLayerId"] in map_layers

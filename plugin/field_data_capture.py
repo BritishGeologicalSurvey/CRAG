@@ -342,50 +342,46 @@ class FieldDataCapture:
         # We apply relationships and then styles after all layers are added to avoid conflicts
         self.find_create_relationships(vector_layers)
         self.apply_qml_styles(vector_layers)
-        #self.configure_forms_widgets(vector_layers)
+        for layer in vector_layers:
+            self.refresh_relation_reference_widgets(layer)
         QMessageBox.warning(None, "Warning", "Now add a project OR test data to allow you to begin adding locality data.")
 
-    def configure_forms_widgets(self, vector_layers: list[QgsVectorLayer]):
+    def refresh_relation_reference_widgets(self, layer: QgsVectorLayer):
         """
-        Apply automated configuration to form widgets.  Some configuration
-        is loaded from the .qml files, then this method applies dynamic updates
-        and enforces styles.
+        Recreate the relation reference widgets ensuring that they use the
+        layer id that corresponds to the current project relationships.
         """
-        # TODO: make this work on more than just project layer
-        # For now we concentrate on one layer, but eventually we will loop over them all
-        # then loop over all their fields, find the relation references and update those.
-
-        # get config for project relation widget
-        qgis_project = QgsProject.instance()
-        project_layer: QgsVectorLayer = qgis_project.mapLayersByName('project')[0]
-        fields = project_layer.fields()
-        widget = fields.field('project_type').editorWidgetSetup()
-        assert widget.type() == "RelationReference"
-        config = widget.config()
-        # Config looks like this.  We can see ReferencedLayerID specifies a UUID in the name
-        # {'AllowAddFeatures': False, 'AllowNULL': False, 'MapIdentification': False, 'OrderByValue': False, 'ReadOnly': False, 'ReferencedLayerDataSource': 'C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=dic_project_type', 'ReferencedLayerId': 'dic_project_type_c1a93252_0aca_461f_9aba_7ff3cf1e3400', 'ReferencedLayerName': 'dic_project_type', 'ReferencedLayerProviderKey': 'ogr', 'Relation': 'dic_project_type_project', 'ShowForm': False, 'ShowOpenFormButton': True}
-        # print(config)
-        print(f"old relation id: {config['ReferencedLayerId']}")
-        print(f"old data source: {config['ReferencedLayerDataSource']}")
-
-        # get correct relationship
         relation_manager = QgsProject.instance().relationManager()
-        relation = relation_manager.relations()[config['Relation']]
-        correct_relation_id = relation.referencedLayerId()
-        correct_relation_data_source = project_layer.source()
-        print(f"correct relation data source: {correct_relation_data_source}")
-        print(f"new_relation_id: {correct_relation_id}")
+        widgets = self.editor_widget_metadata(layer)
 
-        config.update({'ReferencedLayerId': correct_relation_id})
-        config.update({"ReferencedLayerDataSource": correct_relation_data_source})
-        print(f"updated config: {config}")
+        for idx, field_name in enumerate(widgets):
+            if widgets[field_name]["type"] == "RelationReference":
+                logger.debug("Updating relation widget for %s.%s",
+                             layer.name(), field_name)
+                config = widgets[field_name]["config"]
 
-        updated_widget = QgsEditorWidgetSetup('RelationReference', config)
-        # Apply the editor widget to the project, and not to the fields as that
-        # didn't work.
-        project_layer.setEditorWidgetSetup(fields.indexFromName('project_type'),
-                                           updated_widget)
-        print("Applying new config")
+                matching_relations = relation_manager.relationsByName(config['Relation'])
+                if len(matching_relations) != 1:
+                    msg = f"Relation name ({config['Relation']}) is not unique"
+                    raise ValueError(msg)
+                relation = matching_relations[0]
+
+                config.update({'ReferencedLayerId': relation.referencedLayerId()})
+                new_widget = QgsEditorWidgetSetup('RelationReference', config)
+                layer.setEditorWidgetSetup(idx, new_widget)
+
+    @staticmethod
+    def editor_widget_metadata(layer: QgsVectorLayer):
+        widgets = {}
+
+        for field in layer.fields():
+            widget_setup = field.editorWidgetSetup()
+            widgets[field.name()] = {
+                'type': widget_setup.type(),
+                'config': widget_setup.config()
+            }
+
+        return widgets
 
     def log_active_layer_widgets(self):
         layer = self.iface.activeLayer()
