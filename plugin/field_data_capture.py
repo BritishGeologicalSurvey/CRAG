@@ -340,7 +340,7 @@ class FieldDataCapture:
                         vector_layer.setReadOnly()
 
         # We apply relationships and then styles after all layers are added to avoid conflicts
-        #self.find_create_relationships(vector_layers)
+        self.find_create_relationships(vector_layers)
         self.apply_qml_styles(vector_layers)
         #self.configure_forms_widgets(vector_layers)
         QMessageBox.warning(None, "Warning", "Now add a project OR test data to allow you to begin adding locality data.")
@@ -378,10 +378,13 @@ class FieldDataCapture:
 
         config.update({'ReferencedLayerId': correct_relation_id})
         config.update({"ReferencedLayerDataSource": correct_relation_data_source})
-        # print(f"updated config: {config}")
+        print(f"updated config: {config}")
 
         updated_widget = QgsEditorWidgetSetup('RelationReference', config)
-        fields.field('project_type').setEditorWidgetSetup(updated_widget)
+        # Apply the editor widget to the project, and not to the fields as that
+        # didn't work.
+        project_layer.setEditorWidgetSetup(fields.indexFromName('project_type'),
+                                           updated_widget)
         print("Applying new config")
 
     def log_active_layer_widgets(self):
@@ -406,17 +409,20 @@ class FieldDataCapture:
                 matching_relations = relation_manager.relationsByName(widget_setup.config()['Relation'])
                 logger.debug('Matching relations: %s', matching_relations)
 
-                relation = matching_relations[0]
-                relation_metadata = {
-                    'name': relation.name(),
-                    'isValid': relation.isValid(),
-                    'referencingLayer': relation.referencingLayer(),
-                    'referencingLayerId': relation.referencingLayerId(),
-                    'referencedLayer': relation.referencedLayer(),
-                    'referencedLayerId': relation.referencedLayerId(),
-                }
-                msg = pprint.pformat(relation_metadata, indent=2, sort_dicts=False)
-                logger.debug('Relation metadata:\n%s', msg)
+                try:
+                    relation = matching_relations[0]
+                    relation_metadata = {
+                        'name': relation.name(),
+                        'isValid': relation.isValid(),
+                        'referencingLayer': relation.referencingLayer(),
+                        'referencingLayerId': relation.referencingLayerId(),
+                        'referencedLayer': relation.referencedLayer(),
+                        'referencedLayerId': relation.referencedLayerId(),
+                    }
+                    msg = pprint.pformat(relation_metadata, indent=2, sort_dicts=False)
+                    logger.debug('Relation metadata:\n%s', msg)
+                except IndexError:
+                    logger.debug('No relations defined in project')
 
     @property
     def layer_tree_structure(self) -> dict[Optional[str], list[str]]:
