@@ -76,8 +76,8 @@
     <sizescale/>
   </renderer-v2>
   <labeling type="rule-based">
-    <rules key="{1922f1fd-04a8-46fb-8e1b-02f5cbe95c16}">
-      <rule key="{87a818b7-701e-45b8-8881-f52ca425c2a5}">
+    <rules key="{58b97843-fe14-49d3-85d8-06d8bda2a343}">
+      <rule key="{20f2cf3f-a7a9-4bf1-b759-c60e62688b08}">
         <settings calloutType="simple">
           <text-style textColor="50,50,50,255" blendMode="0" fontWordSpacing="0" fontFamily="Sans Serif" namedStyle="" multilineHeight="1" fontKerning="1" isExpression="0" multilineHeightUnit="Percentage" previewBkgrdColor="255,255,255,255" fontSizeMapUnitScale="3x:0,0,0,0,0,0" textOpacity="1" textOrientation="horizontal" fontStrikeout="0" capitalization="0" fontWeight="50" useSubstitutions="0" fontSize="9" allowHtml="0" fontUnderline="0" legendString="Aa" forcedItalic="0" fontSizeUnit="Point" forcedBold="0" fontLetterSpacing="0" fontItalic="0" fieldName="name">
             <families/>
@@ -201,7 +201,7 @@
           </callout>
         </settings>
       </rule>
-      <rule description="geological note" key="{ad6f1288-aa39-404a-bef4-e9c62b72a95e}">
+      <rule description="geological note" key="{50be3fff-57eb-4bbc-b652-d192139f4fb5}">
         <settings calloutType="balloon">
           <text-style textColor="50,50,50,255" blendMode="0" fontWordSpacing="0" fontFamily="Sans Serif" namedStyle="" multilineHeight="1" fontKerning="1" isExpression="0" multilineHeightUnit="Percentage" previewBkgrdColor="255,255,255,255" fontSizeMapUnitScale="3x:0,0,0,0,0,0" textOpacity="1" textOrientation="horizontal" fontStrikeout="0" capitalization="0" fontWeight="50" useSubstitutions="0" fontSize="9" allowHtml="0" fontUnderline="0" legendString="Aa" forcedItalic="0" fontSizeUnit="Point" forcedBold="0" fontLetterSpacing="0" fontItalic="0" fieldName="geological_note">
             <families/>
@@ -362,7 +362,7 @@
             <Option type="bool" value="false" name="OrderByValue"/>
             <Option type="bool" value="false" name="ReadOnly"/>
             <Option type="QString" value="C:/Users/jostev/mergin/jostev-minimal/field-data-capture.gpkg|layername=project" name="ReferencedLayerDataSource"/>
-            <Option type="QString" value="project_c5b48d8e_768a_41e2_9d00_aa0a4f27bdb7" name="ReferencedLayerId"/>
+            <Option type="QString" value="project_1c3ffc57_827f_4617_8d70_0750cfa4a61f" name="ReferencedLayerId"/>
             <Option type="QString" value="project" name="ReferencedLayerName"/>
             <Option type="QString" value="ogr" name="ReferencedLayerProviderKey"/>
             <Option type="QString" value="project_locality_point" name="Relation"/>
