@@ -2,7 +2,9 @@
 These are tests for the plugin which depend on a running QGIS version which is supplied by the 'fdc' fixture.
 """
 from pathlib import Path
+from unittest.mock import Mock
 
+import pytest
 import etlhelper as etl
 from qgis.core import (
     QgsLayerTreeGroup,
@@ -37,6 +39,63 @@ def test_validation_good(fdc: FieldDataCapture, qgs_project: Path):
 
 def test_validation_bad(fdc: FieldDataCapture):
     assert not fdc.project_is_active()
+
+
+def test_setup_project_logic_good(
+    fdc: FieldDataCapture,
+    qgs_project: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    # Arrange
+    # Setup mock/monkeypatch for function calls
+    check_functions: dict[str, Mock] = {
+        "add_gpkg_to_project": None,
+        "add_gpkg_layers_to_project": None,
+        "open_layer_form": None,
+    }
+    for function_name in check_functions.keys():
+        # All functions will return True which should mean they are all called
+        mock_function = Mock(return_value=True)
+        monkeypatch.setattr(FieldDataCapture, function_name, mock_function)
+        check_functions[function_name] = mock_function
+
+    # Act
+    # A saved QGIS project is open so this should work and call all functions once
+    fdc.full_project_setup()
+
+    # Assert
+    for mock_function in check_functions.values():
+        mock_function.assert_called_once()
+
+
+def test_setup_project_logic_bad(
+    fdc: FieldDataCapture,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    # Arrange
+    # Setup mock/monkeypatch for function calls
+    check_functions: dict[str, Mock] = {
+        "add_gpkg_to_project": None,
+        "add_gpkg_layers_to_project": None,
+        "open_layer_form": None,
+    }
+    for function_name in check_functions.keys():
+        # All functions return False which should mean only the first function is called
+        mock_function = Mock(return_value=False)
+        monkeypatch.setattr(FieldDataCapture, function_name, mock_function)
+        check_functions[function_name] = mock_function
+
+    # Act
+    # No QGIS project is open, so only the first function should be called once
+    fdc.full_project_setup()
+
+    # Assert
+    # Check that the first function was called once
+    first_mock_function = check_functions.pop("add_gpkg_to_project")
+    first_mock_function.assert_called_once()
+    # Check that all other functios were not called
+    for mock_function in check_functions.values():
+        mock_function.assert_not_called()
 
 
 def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
