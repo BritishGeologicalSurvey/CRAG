@@ -242,7 +242,7 @@ class FieldDataCapture:
         # We still create a QAction, but we set it's menu with a new QMenu
         dev_submenu_action = self.add_action(
             icon_path,
-            text=self.tr(u'Developer Options'),
+            text=self.tr(u'Developer Tools'),
             callback=None,
             parent=self.iface.mainWindow(),
         )
@@ -327,6 +327,7 @@ class FieldDataCapture:
         ]
         for function_ in functions:
             return_ = function_()
+            # We don't want to continue through the setup if a process fails
             if return_ is False:
                 return False
 
