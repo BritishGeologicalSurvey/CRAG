@@ -1,28 +1,28 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
 <qgis version="3.28.11-Firenze" styleCategories="Symbology|Labeling|Fields|Forms">
   <fieldConfiguration>
-    <field name="fid" configurationFlags="None">
+    <field configurationFlags="None" name="fid">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="objectid" configurationFlags="None">
+    <field configurationFlags="None" name="objectid">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="uuid" configurationFlags="None">
+    <field configurationFlags="None" name="uuid">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="locality_fuid" configurationFlags="None">
+    <field configurationFlags="None" name="locality_fuid">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -32,7 +32,7 @@
             <Option type="bool" name="OrderByValue" value="false"/>
             <Option type="bool" name="ReadOnly" value="false"/>
             <Option type="QString" name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"/>
-            <Option type="QString" name="ReferencedLayerId" value="locality_point_b5d4a64c_6865_4086_866f_ff25c1aea696"/>
+            <Option type="QString" name="ReferencedLayerId" value="locality_point_09acf2b3_5030_4514_8ed2_1a8cbd935a84"/>
             <Option type="QString" name="ReferencedLayerName" value="locality_point"/>
             <Option type="QString" name="ReferencedLayerProviderKey" value="ogr"/>
             <Option type="QString" name="Relation" value="locality_point_superficial_landform"/>
@@ -42,19 +42,19 @@
         </config>
       </editWidget>
     </field>
-    <field name="superficial_type_category" configurationFlags="None">
+    <field configurationFlags="None" name="superficial_type_category">
       <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
             <Option type="bool" name="AllowMulti" value="false"/>
-            <Option type="bool" name="AllowNull" value="false"/>
+            <Option type="bool" name="AllowNull" value="true"/>
             <Option type="QString" name="Description" value=""/>
             <Option type="QString" name="FilterExpression" value=""/>
             <Option type="QString" name="Key" value="code"/>
-            <Option type="QString" name="Layer" value="dic_superficial_category_76c3b143_4b39_488e_8475_09dc0971900d"/>
+            <Option type="QString" name="Layer" value="dic_superficial_category_cb188d00_d38d_41bb_89af_d08d2abf2c24"/>
             <Option type="QString" name="LayerName" value="dic_superficial_category"/>
             <Option type="QString" name="LayerProviderName" value="ogr"/>
-            <Option type="QString" name="LayerSource" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_superficial_category"/>
+            <Option type="QString" name="LayerSource" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_superficial_category"/>
             <Option type="int" name="NofColumns" value="1"/>
             <Option type="bool" name="OrderByValue" value="false"/>
             <Option type="bool" name="UseCompleter" value="false"/>
@@ -63,19 +63,19 @@
         </config>
       </editWidget>
     </field>
-    <field name="superficial_type_code" configurationFlags="None">
+    <field configurationFlags="None" name="superficial_type_code">
       <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
             <Option type="bool" name="AllowMulti" value="false"/>
-            <Option type="bool" name="AllowNull" value="false"/>
+            <Option type="bool" name="AllowNull" value="true"/>
             <Option type="QString" name="Description" value=""/>
             <Option type="QString" name="FilterExpression" value="&quot;category&quot; = current_value('superficial_type_category')"/>
             <Option type="QString" name="Key" value="code"/>
-            <Option type="QString" name="Layer" value="dic_superficial_code_bf7ab3f3_04f9_4c36_9bc0_9ebdecfb3b34"/>
+            <Option type="QString" name="Layer" value="dic_superficial_code_ce01bb0e_008b_421b_96eb_f20ed661b244"/>
             <Option type="QString" name="LayerName" value="dic_superficial_code"/>
             <Option type="QString" name="LayerProviderName" value="ogr"/>
-            <Option type="QString" name="LayerSource" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_superficial_code"/>
+            <Option type="QString" name="LayerSource" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_superficial_code"/>
             <Option type="int" name="NofColumns" value="1"/>
             <Option type="bool" name="OrderByValue" value="false"/>
             <Option type="bool" name="UseCompleter" value="false"/>
@@ -84,7 +84,7 @@
         </config>
       </editWidget>
     </field>
-    <field name="dip" configurationFlags="None">
+    <field configurationFlags="None" name="dip">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -94,28 +94,28 @@
         </config>
       </editWidget>
     </field>
-    <field name="length" configurationFlags="None">
+    <field configurationFlags="None" name="length">
       <editWidget type="TextEdit">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="width" configurationFlags="None">
+    <field configurationFlags="None" name="width">
       <editWidget type="TextEdit">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="height_depth" configurationFlags="None">
+    <field configurationFlags="None" name="height_depth">
       <editWidget type="TextEdit">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="comment" configurationFlags="None">
+    <field configurationFlags="None" name="comment">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -125,28 +125,28 @@
         </config>
       </editWidget>
     </field>
-    <field name="user_entered" configurationFlags="None">
+    <field configurationFlags="None" name="user_entered">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_entered" configurationFlags="None">
+    <field configurationFlags="None" name="date_entered">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="user_updated" configurationFlags="None">
+    <field configurationFlags="None" name="user_updated">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_updated" configurationFlags="None">
+    <field configurationFlags="None" name="date_updated">
       <editWidget type="Hidden">
         <config>
           <Option/>
@@ -172,38 +172,38 @@
     <alias name="" field="date_updated" index="14"/>
   </aliases>
   <defaults>
-    <default field="fid" expression="" applyOnUpdate="0"/>
-    <default field="objectid" expression="" applyOnUpdate="0"/>
-    <default field="uuid" expression="uuid()" applyOnUpdate="0"/>
-    <default field="locality_fuid" expression="" applyOnUpdate="0"/>
-    <default field="superficial_type_category" expression="" applyOnUpdate="0"/>
-    <default field="superficial_type_code" expression="" applyOnUpdate="0"/>
-    <default field="dip" expression="" applyOnUpdate="0"/>
-    <default field="length" expression="" applyOnUpdate="0"/>
-    <default field="width" expression="" applyOnUpdate="0"/>
-    <default field="height_depth" expression="" applyOnUpdate="0"/>
-    <default field="comment" expression="" applyOnUpdate="0"/>
-    <default field="user_entered" expression="@user_account_name" applyOnUpdate="0"/>
-    <default field="date_entered" expression="now()" applyOnUpdate="0"/>
-    <default field="user_updated" expression="@user_account_name" applyOnUpdate="1"/>
-    <default field="date_updated" expression="now()" applyOnUpdate="1"/>
+    <default applyOnUpdate="0" field="fid" expression=""/>
+    <default applyOnUpdate="0" field="objectid" expression=""/>
+    <default applyOnUpdate="0" field="uuid" expression="uuid()"/>
+    <default applyOnUpdate="0" field="locality_fuid" expression=""/>
+    <default applyOnUpdate="0" field="superficial_type_category" expression=""/>
+    <default applyOnUpdate="0" field="superficial_type_code" expression=""/>
+    <default applyOnUpdate="0" field="dip" expression=""/>
+    <default applyOnUpdate="0" field="length" expression=""/>
+    <default applyOnUpdate="0" field="width" expression=""/>
+    <default applyOnUpdate="0" field="height_depth" expression=""/>
+    <default applyOnUpdate="0" field="comment" expression=""/>
+    <default applyOnUpdate="0" field="user_entered" expression="@user_account_name"/>
+    <default applyOnUpdate="0" field="date_entered" expression="now()"/>
+    <default applyOnUpdate="1" field="user_updated" expression="@user_account_name"/>
+    <default applyOnUpdate="1" field="date_updated" expression="now()"/>
   </defaults>
   <constraints>
-    <constraint constraints="3" field="fid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="2" field="objectid" notnull_strength="0" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="3" field="uuid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="1" field="locality_fuid" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="superficial_type_category" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="superficial_type_code" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="dip" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="length" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="width" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="height_depth" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="comment" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="user_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="date_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="user_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="date_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
+    <constraint exp_strength="0" field="fid" constraints="3" unique_strength="1" notnull_strength="1"/>
+    <constraint exp_strength="0" field="objectid" constraints="2" unique_strength="1" notnull_strength="0"/>
+    <constraint exp_strength="0" field="uuid" constraints="3" unique_strength="1" notnull_strength="1"/>
+    <constraint exp_strength="0" field="locality_fuid" constraints="1" unique_strength="0" notnull_strength="1"/>
+    <constraint exp_strength="0" field="superficial_type_category" constraints="1" unique_strength="0" notnull_strength="1"/>
+    <constraint exp_strength="0" field="superficial_type_code" constraints="1" unique_strength="0" notnull_strength="1"/>
+    <constraint exp_strength="0" field="dip" constraints="0" unique_strength="0" notnull_strength="0"/>
+    <constraint exp_strength="0" field="length" constraints="0" unique_strength="0" notnull_strength="0"/>
+    <constraint exp_strength="0" field="width" constraints="0" unique_strength="0" notnull_strength="0"/>
+    <constraint exp_strength="0" field="height_depth" constraints="0" unique_strength="0" notnull_strength="0"/>
+    <constraint exp_strength="0" field="comment" constraints="0" unique_strength="0" notnull_strength="0"/>
+    <constraint exp_strength="0" field="user_entered" constraints="1" unique_strength="0" notnull_strength="1"/>
+    <constraint exp_strength="0" field="date_entered" constraints="1" unique_strength="0" notnull_strength="1"/>
+    <constraint exp_strength="0" field="user_updated" constraints="0" unique_strength="0" notnull_strength="0"/>
+    <constraint exp_strength="0" field="date_updated" constraints="0" unique_strength="0" notnull_strength="0"/>
   </constraints>
   <constraintExpressions>
     <constraint desc="" field="fid" exp=""/>
@@ -247,21 +247,21 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
-    <field editable="1" name="comment"/>
-    <field editable="1" name="date_entered"/>
-    <field editable="1" name="date_updated"/>
-    <field editable="1" name="dip"/>
-    <field editable="1" name="fid"/>
-    <field editable="1" name="height_depth"/>
-    <field editable="1" name="length"/>
-    <field editable="1" name="locality_fuid"/>
-    <field editable="1" name="objectid"/>
-    <field editable="1" name="superficial_type_category"/>
-    <field editable="1" name="superficial_type_code"/>
-    <field editable="1" name="user_entered"/>
-    <field editable="1" name="user_updated"/>
-    <field editable="1" name="uuid"/>
-    <field editable="1" name="width"/>
+    <field name="comment" editable="1"/>
+    <field name="date_entered" editable="1"/>
+    <field name="date_updated" editable="1"/>
+    <field name="dip" editable="1"/>
+    <field name="fid" editable="1"/>
+    <field name="height_depth" editable="1"/>
+    <field name="length" editable="1"/>
+    <field name="locality_fuid" editable="1"/>
+    <field name="objectid" editable="1"/>
+    <field name="superficial_type_category" editable="1"/>
+    <field name="superficial_type_code" editable="1"/>
+    <field name="user_entered" editable="1"/>
+    <field name="user_updated" editable="1"/>
+    <field name="uuid" editable="1"/>
+    <field name="width" editable="1"/>
   </editable>
   <labelOnTop>
     <field name="comment" labelOnTop="0"/>
