@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="3.28.11-Firenze" styleCategories="Symbology|Labeling|Fields|Forms">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.30.0-'s-Hertogenbosch">
   <fieldConfiguration>
     <field name="fid" configurationFlags="None">
       <editWidget type="Hidden">
@@ -26,18 +26,18 @@
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option type="bool" name="AllowAddFeatures" value="false"/>
-            <Option type="bool" name="AllowNULL" value="false"/>
-            <Option type="bool" name="MapIdentification" value="false"/>
-            <Option type="bool" name="OrderByValue" value="false"/>
-            <Option type="bool" name="ReadOnly" value="false"/>
-            <Option type="QString" name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"/>
-            <Option type="QString" name="ReferencedLayerId" value="locality_point_b5d4a64c_6865_4086_866f_ff25c1aea696"/>
-            <Option type="QString" name="ReferencedLayerName" value="locality_point"/>
-            <Option type="QString" name="ReferencedLayerProviderKey" value="ogr"/>
-            <Option type="QString" name="Relation" value="locality_point_exposure"/>
-            <Option type="bool" name="ShowForm" value="false"/>
-            <Option type="bool" name="ShowOpenFormButton" value="true"/>
+            <Option value="false" name="AllowAddFeatures" type="bool"/>
+            <Option value="false" name="AllowNULL" type="bool"/>
+            <Option value="false" name="MapIdentification" type="bool"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="ReadOnly" type="bool"/>
+            <Option value="C:\Users\jostev\mergin\jostev-minimal\field-data-capture.gpkg|layername=locality_point" name="ReferencedLayerDataSource" type="QString"/>
+            <Option value="locality_point_b91cabcd_71e0_463b_8a04_1d9c31d08f87" name="ReferencedLayerId" type="QString"/>
+            <Option value="locality_point" name="ReferencedLayerName" type="QString"/>
+            <Option value="ogr" name="ReferencedLayerProviderKey" type="QString"/>
+            <Option value="locality_point_exposure" name="Relation" type="QString"/>
+            <Option value="false" name="ShowForm" type="bool"/>
+            <Option value="true" name="ShowOpenFormButton" type="bool"/>
           </Option>
         </config>
       </editWidget>
@@ -46,18 +46,18 @@
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option type="bool" name="AllowAddFeatures" value="false"/>
-            <Option type="bool" name="AllowNULL" value="false"/>
-            <Option type="bool" name="MapIdentification" value="false"/>
-            <Option type="bool" name="OrderByValue" value="false"/>
-            <Option type="bool" name="ReadOnly" value="false"/>
-            <Option type="QString" name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_exposure_type"/>
-            <Option type="QString" name="ReferencedLayerId" value="dic_exposure_type_f5450c3c_9213_4960_b5d5_edecc60a8ca1"/>
-            <Option type="QString" name="ReferencedLayerName" value="dic_exposure_type"/>
-            <Option type="QString" name="ReferencedLayerProviderKey" value="ogr"/>
-            <Option type="QString" name="Relation" value="dic_exposure_type_exposure_3"/>
-            <Option type="bool" name="ShowForm" value="false"/>
-            <Option type="bool" name="ShowOpenFormButton" value="true"/>
+            <Option value="false" name="AllowAddFeatures" type="bool"/>
+            <Option value="false" name="AllowNULL" type="bool"/>
+            <Option value="false" name="MapIdentification" type="bool"/>
+            <Option value="false" name="OrderByValue" type="bool"/>
+            <Option value="false" name="ReadOnly" type="bool"/>
+            <Option value="C:\Users\jostev\mergin\jostev-minimal\field-data-capture.gpkg|layername=dic_exposure_type" name="ReferencedLayerDataSource" type="QString"/>
+            <Option value="dic_exposure_type_3bc9ab97_16c7_4a46_b67e_5265da38a506" name="ReferencedLayerId" type="QString"/>
+            <Option value="dic_exposure_type" name="ReferencedLayerName" type="QString"/>
+            <Option value="ogr" name="ReferencedLayerProviderKey" type="QString"/>
+            <Option value="dic_exposure_type_exposure_3" name="Relation" type="QString"/>
+            <Option value="false" name="ShowForm" type="bool"/>
+            <Option value="false" name="ShowOpenFormButton" type="bool"/>
           </Option>
         </config>
       </editWidget>
@@ -66,18 +66,23 @@
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option type="bool" name="AllowAddFeatures" value="false"/>
-            <Option type="bool" name="AllowNULL" value="false"/>
-            <Option type="bool" name="MapIdentification" value="false"/>
-            <Option type="bool" name="OrderByValue" value="false"/>
-            <Option type="bool" name="ReadOnly" value="false"/>
-            <Option type="QString" name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_rock_all"/>
-            <Option type="QString" name="ReferencedLayerId" value="dic_rock_all_1c6e4a7d_53c4_4eeb_8b0f_b5fe0955bb96"/>
-            <Option type="QString" name="ReferencedLayerName" value="dic_rock_all"/>
-            <Option type="QString" name="ReferencedLayerProviderKey" value="ogr"/>
-            <Option type="QString" name="Relation" value="dic_rock_all_exposure_2"/>
-            <Option type="bool" name="ShowForm" value="false"/>
-            <Option type="bool" name="ShowOpenFormButton" value="true"/>
+            <Option value="false" name="AllowAddFeatures" type="bool"/>
+            <Option value="false" name="AllowNULL" type="bool"/>
+            <Option value="false" name="ChainFilters" type="bool"/>
+            <Option value="" name="FilterExpression" type="QString"/>
+            <Option name="FilterFields" type="StringList">
+              <Option value="rock_grouping" type="QString"/>
+            </Option>
+            <Option value="false" name="MapIdentification" type="bool"/>
+            <Option value="true" name="OrderByValue" type="bool"/>
+            <Option value="false" name="ReadOnly" type="bool"/>
+            <Option value="C:\Users\jostev\mergin\jostev-minimal\field-data-capture.gpkg|layername=dic_rock_all" name="ReferencedLayerDataSource" type="QString"/>
+            <Option value="dic_rock_all_bf9f0a19_a352_4fa7_8906_d86ce8e4876a" name="ReferencedLayerId" type="QString"/>
+            <Option value="dic_rock_all" name="ReferencedLayerName" type="QString"/>
+            <Option value="ogr" name="ReferencedLayerProviderKey" type="QString"/>
+            <Option value="dic_rock_all_exposure_2" name="Relation" type="QString"/>
+            <Option value="false" name="ShowForm" type="bool"/>
+            <Option value="false" name="ShowOpenFormButton" type="bool"/>
           </Option>
         </config>
       </editWidget>
@@ -86,8 +91,8 @@
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="true"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option value="true" name="IsMultiline" type="bool"/>
+            <Option value="false" name="UseHtml" type="bool"/>
           </Option>
         </config>
       </editWidget>
@@ -96,8 +101,8 @@
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="true"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option value="true" name="IsMultiline" type="bool"/>
+            <Option value="false" name="UseHtml" type="bool"/>
           </Option>
         </config>
       </editWidget>
@@ -145,47 +150,61 @@
     <alias name="" field="user_updated" index="10"/>
     <alias name="" field="date_updated" index="11"/>
   </aliases>
+  <splitPolicies>
+    <policy policy="Duplicate" field="fid"/>
+    <policy policy="Duplicate" field="objectid"/>
+    <policy policy="Duplicate" field="uuid"/>
+    <policy policy="Duplicate" field="locality_fuid"/>
+    <policy policy="Duplicate" field="exposure_type_code"/>
+    <policy policy="Duplicate" field="lithology_code"/>
+    <policy policy="Duplicate" field="description"/>
+    <policy policy="Duplicate" field="comment"/>
+    <policy policy="Duplicate" field="user_entered"/>
+    <policy policy="Duplicate" field="date_entered"/>
+    <policy policy="Duplicate" field="user_updated"/>
+    <policy policy="Duplicate" field="date_updated"/>
+  </splitPolicies>
   <defaults>
-    <default field="fid" expression="" applyOnUpdate="0"/>
-    <default field="objectid" expression="" applyOnUpdate="0"/>
-    <default field="uuid" expression="uuid()" applyOnUpdate="0"/>
-    <default field="locality_fuid" expression="" applyOnUpdate="0"/>
-    <default field="exposure_type_code" expression="" applyOnUpdate="0"/>
-    <default field="lithology_code" expression="" applyOnUpdate="0"/>
-    <default field="description" expression="" applyOnUpdate="0"/>
-    <default field="comment" expression="" applyOnUpdate="0"/>
-    <default field="user_entered" expression="@user_account_name" applyOnUpdate="0"/>
-    <default field="date_entered" expression="now()" applyOnUpdate="0"/>
-    <default field="user_updated" expression="@user_account_name" applyOnUpdate="1"/>
-    <default field="date_updated" expression="now()" applyOnUpdate="1"/>
+    <default applyOnUpdate="0" expression="" field="fid"/>
+    <default applyOnUpdate="0" expression="" field="objectid"/>
+    <default applyOnUpdate="0" expression="uuid()" field="uuid"/>
+    <default applyOnUpdate="0" expression="" field="locality_fuid"/>
+    <default applyOnUpdate="0" expression="" field="exposure_type_code"/>
+    <default applyOnUpdate="0" expression="" field="lithology_code"/>
+    <default applyOnUpdate="0" expression="" field="description"/>
+    <default applyOnUpdate="0" expression="" field="comment"/>
+    <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"/>
+    <default applyOnUpdate="0" expression="now()" field="date_entered"/>
+    <default applyOnUpdate="1" expression="@user_account_name" field="user_updated"/>
+    <default applyOnUpdate="1" expression="now()" field="date_updated"/>
   </defaults>
   <constraints>
-    <constraint constraints="3" field="fid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="2" field="objectid" notnull_strength="0" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="3" field="uuid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="1" field="locality_fuid" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="exposure_type_code" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="lithology_code" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="description" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="comment" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="user_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="date_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="user_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="date_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
+    <constraint exp_strength="0" unique_strength="1" constraints="3" notnull_strength="1" field="fid"/>
+    <constraint exp_strength="0" unique_strength="1" constraints="2" notnull_strength="0" field="objectid"/>
+    <constraint exp_strength="0" unique_strength="1" constraints="3" notnull_strength="1" field="uuid"/>
+    <constraint exp_strength="0" unique_strength="0" constraints="1" notnull_strength="1" field="locality_fuid"/>
+    <constraint exp_strength="0" unique_strength="0" constraints="1" notnull_strength="1" field="exposure_type_code"/>
+    <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="lithology_code"/>
+    <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="description"/>
+    <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="comment"/>
+    <constraint exp_strength="0" unique_strength="0" constraints="1" notnull_strength="1" field="user_entered"/>
+    <constraint exp_strength="0" unique_strength="0" constraints="1" notnull_strength="1" field="date_entered"/>
+    <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="user_updated"/>
+    <constraint exp_strength="0" unique_strength="0" constraints="0" notnull_strength="0" field="date_updated"/>
   </constraints>
   <constraintExpressions>
-    <constraint desc="" field="fid" exp=""/>
-    <constraint desc="" field="objectid" exp=""/>
-    <constraint desc="" field="uuid" exp=""/>
-    <constraint desc="" field="locality_fuid" exp=""/>
-    <constraint desc="" field="exposure_type_code" exp=""/>
-    <constraint desc="" field="lithology_code" exp=""/>
-    <constraint desc="" field="description" exp=""/>
-    <constraint desc="" field="comment" exp=""/>
-    <constraint desc="" field="user_entered" exp=""/>
-    <constraint desc="" field="date_entered" exp=""/>
-    <constraint desc="" field="user_updated" exp=""/>
-    <constraint desc="" field="date_updated" exp=""/>
+    <constraint field="fid" exp="" desc=""/>
+    <constraint field="objectid" exp="" desc=""/>
+    <constraint field="uuid" exp="" desc=""/>
+    <constraint field="locality_fuid" exp="" desc=""/>
+    <constraint field="exposure_type_code" exp="" desc=""/>
+    <constraint field="lithology_code" exp="" desc=""/>
+    <constraint field="description" exp="" desc=""/>
+    <constraint field="comment" exp="" desc=""/>
+    <constraint field="user_entered" exp="" desc=""/>
+    <constraint field="date_entered" exp="" desc=""/>
+    <constraint field="user_updated" exp="" desc=""/>
+    <constraint field="date_updated" exp="" desc=""/>
   </constraintExpressions>
   <expressionfields/>
   <editform tolerant="1"></editform>
