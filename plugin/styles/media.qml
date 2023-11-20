@@ -1,28 +1,28 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
 <qgis version="3.28.11-Firenze" styleCategories="Symbology|Labeling|Fields|Forms">
   <fieldConfiguration>
-    <field name="fid" configurationFlags="None">
+    <field configurationFlags="None" name="fid">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="objectid" configurationFlags="None">
+    <field configurationFlags="None" name="objectid">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="uuid" configurationFlags="None">
+    <field configurationFlags="None" name="uuid">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="locality_fuid" configurationFlags="None">
+    <field configurationFlags="None" name="locality_fuid">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -32,7 +32,7 @@
             <Option type="bool" name="OrderByValue" value="false"/>
             <Option type="bool" name="ReadOnly" value="false"/>
             <Option type="QString" name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"/>
-            <Option type="QString" name="ReferencedLayerId" value="locality_point_b5d4a64c_6865_4086_866f_ff25c1aea696"/>
+            <Option type="QString" name="ReferencedLayerId" value="locality_point_09acf2b3_5030_4514_8ed2_1a8cbd935a84"/>
             <Option type="QString" name="ReferencedLayerName" value="locality_point"/>
             <Option type="QString" name="ReferencedLayerProviderKey" value="ogr"/>
             <Option type="QString" name="Relation" value="locality_point_media"/>
@@ -42,17 +42,17 @@
         </config>
       </editWidget>
     </field>
-    <field name="media_type_code" configurationFlags="None">
+    <field configurationFlags="None" name="media_type_code">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
             <Option type="bool" name="AllowAddFeatures" value="false"/>
-            <Option type="bool" name="AllowNULL" value="false"/>
+            <Option type="bool" name="AllowNULL" value="true"/>
             <Option type="bool" name="MapIdentification" value="false"/>
             <Option type="bool" name="OrderByValue" value="false"/>
             <Option type="bool" name="ReadOnly" value="false"/>
-            <Option type="QString" name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=dic_media"/>
-            <Option type="QString" name="ReferencedLayerId" value="dic_media_22c702cd_a5fd_4124_8a34_dafe4ed58e7c"/>
+            <Option type="QString" name="ReferencedLayerDataSource" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_media"/>
+            <Option type="QString" name="ReferencedLayerId" value="dic_media_1bc3cd66_e06b_4863_a3af_a9c2a783c764"/>
             <Option type="QString" name="ReferencedLayerName" value="dic_media"/>
             <Option type="QString" name="ReferencedLayerProviderKey" value="ogr"/>
             <Option type="QString" name="Relation" value="dic_media_media_2"/>
@@ -62,7 +62,7 @@
         </config>
       </editWidget>
     </field>
-    <field name="media_link" configurationFlags="None">
+    <field configurationFlags="None" name="media_link">
       <editWidget type="ExternalResource">
         <config>
           <Option type="Map">
@@ -92,7 +92,7 @@
         </config>
       </editWidget>
     </field>
-    <field name="comment" configurationFlags="None">
+    <field configurationFlags="None" name="comment">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -102,28 +102,28 @@
         </config>
       </editWidget>
     </field>
-    <field name="user_entered" configurationFlags="None">
+    <field configurationFlags="None" name="user_entered">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_entered" configurationFlags="None">
+    <field configurationFlags="None" name="date_entered">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="user_updated" configurationFlags="None">
+    <field configurationFlags="None" name="user_updated">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_updated" configurationFlags="None">
+    <field configurationFlags="None" name="date_updated">
       <editWidget type="Hidden">
         <config>
           <Option/>
@@ -145,30 +145,30 @@
     <alias name="" field="date_updated" index="10"/>
   </aliases>
   <defaults>
-    <default field="fid" expression="" applyOnUpdate="0"/>
-    <default field="objectid" expression="" applyOnUpdate="0"/>
-    <default field="uuid" expression="uuid()" applyOnUpdate="0"/>
-    <default field="locality_fuid" expression="" applyOnUpdate="0"/>
-    <default field="media_type_code" expression="" applyOnUpdate="0"/>
-    <default field="media_link" expression="" applyOnUpdate="0"/>
-    <default field="comment" expression="mallard" applyOnUpdate="0"/>
-    <default field="user_entered" expression="@user_account_name" applyOnUpdate="0"/>
-    <default field="date_entered" expression="now()" applyOnUpdate="0"/>
-    <default field="user_updated" expression="@user_account_name" applyOnUpdate="1"/>
-    <default field="date_updated" expression="now()" applyOnUpdate="1"/>
+    <default applyOnUpdate="0" field="fid" expression=""/>
+    <default applyOnUpdate="0" field="objectid" expression=""/>
+    <default applyOnUpdate="0" field="uuid" expression="uuid()"/>
+    <default applyOnUpdate="0" field="locality_fuid" expression=""/>
+    <default applyOnUpdate="0" field="media_type_code" expression=""/>
+    <default applyOnUpdate="0" field="media_link" expression=""/>
+    <default applyOnUpdate="0" field="comment" expression="mallard"/>
+    <default applyOnUpdate="0" field="user_entered" expression="@user_account_name"/>
+    <default applyOnUpdate="0" field="date_entered" expression="now()"/>
+    <default applyOnUpdate="1" field="user_updated" expression="@user_account_name"/>
+    <default applyOnUpdate="1" field="date_updated" expression="now()"/>
   </defaults>
   <constraints>
-    <constraint constraints="3" field="fid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="2" field="objectid" notnull_strength="0" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="3" field="uuid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="1" field="locality_fuid" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="media_type_code" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="media_link" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="comment" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="user_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="date_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="user_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="date_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
+    <constraint exp_strength="0" field="fid" constraints="3" unique_strength="1" notnull_strength="1"/>
+    <constraint exp_strength="0" field="objectid" constraints="2" unique_strength="1" notnull_strength="0"/>
+    <constraint exp_strength="0" field="uuid" constraints="3" unique_strength="1" notnull_strength="1"/>
+    <constraint exp_strength="0" field="locality_fuid" constraints="1" unique_strength="0" notnull_strength="1"/>
+    <constraint exp_strength="0" field="media_type_code" constraints="1" unique_strength="0" notnull_strength="1"/>
+    <constraint exp_strength="0" field="media_link" constraints="1" unique_strength="0" notnull_strength="1"/>
+    <constraint exp_strength="0" field="comment" constraints="0" unique_strength="0" notnull_strength="0"/>
+    <constraint exp_strength="0" field="user_entered" constraints="1" unique_strength="0" notnull_strength="1"/>
+    <constraint exp_strength="0" field="date_entered" constraints="1" unique_strength="0" notnull_strength="1"/>
+    <constraint exp_strength="0" field="user_updated" constraints="0" unique_strength="0" notnull_strength="0"/>
+    <constraint exp_strength="0" field="date_updated" constraints="0" unique_strength="0" notnull_strength="0"/>
   </constraints>
   <constraintExpressions>
     <constraint desc="" field="fid" exp=""/>
@@ -208,17 +208,17 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
-    <field editable="1" name="comment"/>
-    <field editable="1" name="date_entered"/>
-    <field editable="1" name="date_updated"/>
-    <field editable="1" name="fid"/>
-    <field editable="1" name="locality_fuid"/>
-    <field editable="1" name="media_link"/>
-    <field editable="1" name="media_type_code"/>
-    <field editable="1" name="objectid"/>
-    <field editable="1" name="user_entered"/>
-    <field editable="1" name="user_updated"/>
-    <field editable="1" name="uuid"/>
+    <field name="comment" editable="1"/>
+    <field name="date_entered" editable="1"/>
+    <field name="date_updated" editable="1"/>
+    <field name="fid" editable="1"/>
+    <field name="locality_fuid" editable="1"/>
+    <field name="media_link" editable="1"/>
+    <field name="media_type_code" editable="1"/>
+    <field name="objectid" editable="1"/>
+    <field name="user_entered" editable="1"/>
+    <field name="user_updated" editable="1"/>
+    <field name="uuid" editable="1"/>
   </editable>
   <labelOnTop>
     <field name="comment" labelOnTop="0"/>

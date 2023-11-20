@@ -26,7 +26,11 @@ import os.path
 import pprint
 import sqlite3
 from pathlib import Path
-from typing import Optional
+from typing import (
+    Any,
+    Callable,
+    Optional,
+)
 
 from qgis.core import (
     QgsDataProvider,
@@ -39,7 +43,9 @@ from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import (
     QAction,
+    QMenu,
     QMessageBox,
+    QWidget,
 )
 
 # Initialize Qt resources from file resources.py
@@ -136,15 +142,17 @@ class FieldDataCapture:
 
     def add_action(
         self,
-        icon_path,
-        text,
-        callback,
-        enabled_flag=True,
-        add_to_menu=True,
-        add_to_toolbar=True,
-        status_tip=None,
-        whats_this=None,
-        parent=None):
+        icon_path: str,
+        text: str,
+        callback: Callable,
+        enabled_flag: bool = True,
+        add_to_menu: bool = True,
+        add_to_toolbar: bool = True,
+        status_tip: Optional[str] = None,
+        whats_this: Optional[str] = None,
+        parent: Optional[QWidget] = None,
+        submenu: Optional[QMenu] = None,
+    ) -> QAction:
         """Add a toolbar icon to the toolbar.
 
         :param icon_path: Path to the icon for this action. Can be a resource
@@ -173,6 +181,10 @@ class FieldDataCapture:
             hovers over the action.
         :type status_tip: str
 
+        :param submenu: Optional QMenu widget. The new action will be added
+            to this submenu.
+        :type submenu: QMenu
+
         :param parent: Parent widget for the new action. Defaults None.
         :type parent: QWidget
 
@@ -186,8 +198,10 @@ class FieldDataCapture:
 
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
-        action.triggered.connect(callback)
         action.setEnabled(enabled_flag)
+
+        if callback is not None:
+            action.triggered.connect(callback)
 
         if status_tip is not None:
             action.setStatusTip(status_tip)
@@ -199,10 +213,14 @@ class FieldDataCapture:
             # Adds plugin icon to Plugins toolbar
             self.iface.addToolBarIcon(action)
 
-        if add_to_menu:
+        if add_to_menu and submenu is None:
             self.iface.addPluginToMenu(
                 self.menu,
-                action)
+                action,
+            )
+
+        if submenu is not None:
+            submenu.addAction(action)
 
         self.actions.append(action)
 
@@ -215,30 +233,56 @@ class FieldDataCapture:
         icon_path = ':/plugins/field_data_capture/icon.png'
         self.add_action(
             icon_path,
+            text=self.tr(u'Setup Project'),
+            callback=self.full_project_setup,
+            parent=self.iface.mainWindow(),
+        )
+
+        # Setup dev submenu button
+        # We still create a QAction, but we set it's menu with a new QMenu
+        dev_submenu_action = self.add_action(
+            icon_path,
+            text=self.tr(u'Developer Tools'),
+            callback=None,
+            parent=self.iface.mainWindow(),
+        )
+        dev_submenu = QMenu()
+        dev_submenu_action.setMenu(dev_submenu)
+
+        self.add_action(
+            icon_path,
             text=self.tr(u'Add GeoPackage to Project'),
             callback=self.add_gpkg_to_project,
+            add_to_menu=False,
             parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
         )
 
         self.add_action(
             icon_path,
             text=self.tr(u'Add GeoPackage Layers to Project'),
             callback=self.add_gpkg_layers_to_project,
+            add_to_menu=False,
             parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
         )
 
         self.add_action(
             icon_path,
             text=self.tr(u'Add Project'),
             callback=lambda: self.open_layer_form(layer_name="project"),
+            add_to_menu=False,
             parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
         )
 
         self.add_action(
             icon_path,
             text=self.tr(u'Add Test Data to Project'),
             callback=self.add_test_data_to_project,
+            add_to_menu=False,
             parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
         )
 
         # will be set False in run()
@@ -271,38 +315,58 @@ class FieldDataCapture:
             return False
 
 
-    def add_gpkg_to_project(self) -> None:
+    def full_project_setup(self) -> bool:
+        """
+        Run all functions required to setup a new project.
+        Returns a boolean indicating success of the process.
+        """
+        functions = [
+            self.add_gpkg_to_project,
+            self.add_gpkg_layers_to_project,
+            lambda: self.open_layer_form(layer_name="project"),
+        ]
+        for function_ in functions:
+            return_ = function_()
+            # We don't want to continue through the setup if a process fails
+            if return_ is False:
+                return False
+
+        return True
+
+
+    def add_gpkg_to_project(self) -> bool:
         """
         Add the GeoPackage file to the current project.
+        Returns a boolean indicating success of the process.
         """
         # Check that we have an open project
         if not self.project_is_active():
-            return None
+            return False
 
-        run = True
         if self.db_file.exists():
             result = QMessageBox.question(
                 None, "File Already Exists",
                 f"The file already exists, would you like to overwrite the file?\n\n{self.db_file}",
             )
             if result == QMessageBox.No:
-                run = False
+                return False
 
-        if run:
-            QMessageBox.information(None, "Information", f"Created GeoPackage:\n\n{self.db_file}")
-            gpkg_from_sql(db_file=self.db_file)
+        gpkg_from_sql(db_file=self.db_file)
+        QMessageBox.information(None, "Information", f"Created GeoPackage:\n\n{self.db_file}")
+        return True
 
 
-    def add_gpkg_layers_to_project(self) -> None:
+    def add_gpkg_layers_to_project(self) -> bool:
         """
         Add the GeoPackage layers to the current project.
+        Returns a boolean indicating success of the process.
         """
         # Check that we have an open project and a geopackage
         if not self.project_is_active():
-            return None
+            return False
         if not self.db_file.exists():
             QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-            return None
+            return False
 
         # Get layers root
         root = QgsProject.instance().layerTreeRoot()
@@ -344,9 +408,13 @@ class FieldDataCapture:
         self.apply_qml_styles(vector_layers)
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
-        QMessageBox.warning(None, "Warning", "Now add a project OR test data to allow you to begin adding locality data.")
+        QMessageBox.warning(
+            None, "Warning",
+            "Now add a project OR test data to allow you to begin adding locality data.",
+        )
+        return True
 
-    def refresh_relation_reference_widgets(self, layer: QgsVectorLayer):
+    def refresh_relation_reference_widgets(self, layer: QgsVectorLayer) -> None:
         """
         Recreate the relation reference widgets ensuring that they use the
         layer id that corresponds to the current project relationships.
@@ -371,7 +439,7 @@ class FieldDataCapture:
                 layer.setEditorWidgetSetup(idx, new_widget)
 
     @staticmethod
-    def editor_widget_metadata(layer: QgsVectorLayer):
+    def editor_widget_metadata(layer: QgsVectorLayer) -> dict[str, dict[str, Any]]:
         widgets = {}
 
         for field in layer.fields():
@@ -383,7 +451,7 @@ class FieldDataCapture:
 
         return widgets
 
-    def log_active_layer_widgets(self):
+    def log_active_layer_widgets(self) -> None:
         layer = self.iface.activeLayer()
         logger.debug("Layer ID: %s", layer.id())
 
@@ -474,18 +542,19 @@ class FieldDataCapture:
             relation_manager.addRelation(relation)
 
 
-    def open_layer_form(self, layer_name: str) -> None:
+    def open_layer_form(self, layer_name: str) -> bool:
         """
         Open the attribute form for the given layer.
+        Returns a boolean indicating success of the process.
         """
         if not self.project_is_active():
-            return None
+            return False
         if not self.db_file.exists():
             QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-            return None
+            return False
         if not self.check_layer_exists(layer_name):
             QMessageBox.information(None, "Information", f"Could not find layer: {layer_name}")
-            return None
+            return False
         layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
         # Ensure the layer is editable
@@ -501,20 +570,23 @@ class FieldDataCapture:
         # Only save if the user confirms the new feature
         if keep_feature:
             layer.commitChanges()
+            return True
         else:
             layer.rollBack()
+            return False
 
 
-    def add_test_data_to_project(self) -> None:
+    def add_test_data_to_project(self) -> bool:
         """
         Add the test data set to the current project.
+        Returns a boolean indicating success of the process.
         """
         # Check that we have an open project and a geopackage
         if not self.project_is_active():
-            return None
+            return False
         if not self.db_file.exists():
             QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-            return None
+            return False
 
         with sqlite3.connect(self.db_file) as conn:
             conn.enable_load_extension(True)
@@ -524,6 +596,7 @@ class FieldDataCapture:
         self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest="photos")
         self.repaint_fdc_layers()
         QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
+        return True
 
 
     def repaint_fdc_layers(self) -> None:

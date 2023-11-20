@@ -1,162 +1,171 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
 <qgis version="3.28.11-Firenze" styleCategories="Symbology|Labeling|Fields|Forms">
   <fieldConfiguration>
-    <field name="fid" configurationFlags="None">
+    <field configurationFlags="None" name="fid">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="objectid" configurationFlags="None">
+    <field configurationFlags="None" name="objectid">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="uuid" configurationFlags="None">
+    <field configurationFlags="None" name="uuid">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="short_name" configurationFlags="None">
+    <field configurationFlags="None" name="short_name">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="false"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option type="bool" value="false" name="IsMultiline"/>
+            <Option type="bool" value="false" name="UseHtml"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="title" configurationFlags="None">
+    <field configurationFlags="None" name="title">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="false"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option type="bool" value="false" name="IsMultiline"/>
+            <Option type="bool" value="false" name="UseHtml"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="description" configurationFlags="None">
+    <field configurationFlags="None" name="description">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="true"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option type="bool" value="true" name="IsMultiline"/>
+            <Option type="bool" value="false" name="UseHtml"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="responsible_person_id" configurationFlags="None">
+    <field configurationFlags="None" name="responsible_person_id">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="false"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option type="bool" value="false" name="IsMultiline"/>
+            <Option type="bool" value="false" name="UseHtml"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="status_code" configurationFlags="None">
+    <field configurationFlags="None" name="status_code">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="false"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option type="bool" value="false" name="IsMultiline"/>
+            <Option type="bool" value="false" name="UseHtml"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="start_date" configurationFlags="None">
+    <field configurationFlags="None" name="start_date">
       <editWidget type="DateTime">
         <config>
           <Option type="Map">
-            <Option type="bool" name="allow_null" value="true"/>
-            <Option type="bool" name="calendar_popup" value="true"/>
-            <Option type="QString" name="display_format" value="yyyy-MM-dd"/>
-            <Option type="QString" name="field_format" value="yyyy-MM-dd"/>
-            <Option type="bool" name="field_iso_format" value="false"/>
+            <Option type="bool" value="true" name="allow_null"/>
+            <Option type="bool" value="true" name="calendar_popup"/>
+            <Option type="QString" value="yyyy-MM-dd" name="display_format"/>
+            <Option type="QString" value="yyyy-MM-dd" name="field_format"/>
+            <Option type="bool" value="false" name="field_iso_format"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="end_date" configurationFlags="None">
+    <field configurationFlags="None" name="end_date">
       <editWidget type="DateTime">
         <config>
           <Option type="Map">
-            <Option type="bool" name="allow_null" value="true"/>
-            <Option type="bool" name="calendar_popup" value="true"/>
-            <Option type="QString" name="display_format" value="yyyy-MM-dd"/>
-            <Option type="QString" name="field_format" value="yyyy-MM-dd"/>
-            <Option type="bool" name="field_iso_format" value="false"/>
+            <Option type="bool" value="true" name="allow_null"/>
+            <Option type="bool" value="true" name="calendar_popup"/>
+            <Option type="QString" value="yyyy-MM-dd" name="display_format"/>
+            <Option type="QString" value="yyyy-MM-dd" name="field_format"/>
+            <Option type="bool" value="false" name="field_iso_format"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="project_type" configurationFlags="None">
+    <field configurationFlags="None" name="project_type">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option type="bool" name="AllowAddFeatures" value="false"/>
-            <Option type="bool" name="AllowNULL" value="false"/>
-            <Option type="bool" name="MapIdentification" value="false"/>
-            <Option type="bool" name="OrderByValue" value="false"/>
-            <Option type="bool" name="ReadOnly" value="false"/>
-            <Option type="QString" name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/data-model-v2.1/field-data-capture.gpkg|layername=dic_project_type"/>
-            <Option type="QString" name="ReferencedLayerId" value="dic_project_type_c1a93252_0aca_461f_9aba_7ff3cf1e3400"/>
-            <Option type="QString" name="ReferencedLayerName" value="dic_project_type"/>
-            <Option type="QString" name="ReferencedLayerProviderKey" value="ogr"/>
-            <Option type="QString" name="Relation" value="dic_project_type_project"/>
-            <Option type="bool" name="ShowForm" value="false"/>
-            <Option type="bool" name="ShowOpenFormButton" value="true"/>
+            <Option type="bool" value="false" name="AllowAddFeatures"/>
+            <Option type="bool" value="true" name="AllowNULL"/>
+            <Option type="bool" value="false" name="MapIdentification"/>
+            <Option type="bool" value="false" name="OrderByValue"/>
+            <Option type="bool" value="false" name="ReadOnly"/>
+            <Option type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_project_type" name="ReferencedLayerDataSource"/>
+            <Option type="QString" value="dic_project_type_7eceea9f_ce95_438d_aa04_cd9f81cb20b8" name="ReferencedLayerId"/>
+            <Option type="QString" value="dic_project_type" name="ReferencedLayerName"/>
+            <Option type="QString" value="ogr" name="ReferencedLayerProviderKey"/>
+            <Option type="QString" value="dic_project_type_project" name="Relation"/>
+            <Option type="bool" value="false" name="ShowForm"/>
+            <Option type="bool" value="true" name="ShowOpenFormButton"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="local_epsg" configurationFlags="None">
-      <editWidget type="TextEdit">
+    <field configurationFlags="None" name="local_epsg">
+      <editWidget type="ValueMap">
         <config>
-          <Option/>
+          <Option type="Map">
+            <Option type="List" name="map">
+              <Option type="Map">
+                <Option type="QString" value="27700" name="British National Grid (EPSG:27700)"/>
+              </Option>
+              <Option type="Map">
+                <Option type="QString" value="4326" name="WGS84 (EPSG:4326)"/>
+              </Option>
+            </Option>
+          </Option>
         </config>
       </editWidget>
     </field>
-    <field name="comment" configurationFlags="None">
+    <field configurationFlags="None" name="comment">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="true"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option type="bool" value="true" name="IsMultiline"/>
+            <Option type="bool" value="false" name="UseHtml"/>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="user_entered" configurationFlags="None">
+    <field configurationFlags="None" name="user_entered">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_entered" configurationFlags="None">
+    <field configurationFlags="None" name="date_entered">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="user_updated" configurationFlags="None">
+    <field configurationFlags="None" name="user_updated">
       <editWidget type="Hidden">
         <config>
           <Option/>
         </config>
       </editWidget>
     </field>
-    <field name="date_updated" configurationFlags="None">
+    <field configurationFlags="None" name="date_updated">
       <editWidget type="Hidden">
         <config>
           <Option/>
@@ -165,80 +174,80 @@
     </field>
   </fieldConfiguration>
   <aliases>
-    <alias name="" field="fid" index="0"/>
-    <alias name="" field="objectid" index="1"/>
-    <alias name="" field="uuid" index="2"/>
-    <alias name="" field="short_name" index="3"/>
-    <alias name="" field="title" index="4"/>
-    <alias name="" field="description" index="5"/>
-    <alias name="" field="responsible_person_id" index="6"/>
-    <alias name="" field="status_code" index="7"/>
-    <alias name="" field="start_date" index="8"/>
-    <alias name="" field="end_date" index="9"/>
-    <alias name="" field="project_type" index="10"/>
-    <alias name="" field="local_epsg" index="11"/>
-    <alias name="" field="comment" index="12"/>
-    <alias name="" field="user_entered" index="13"/>
-    <alias name="" field="date_entered" index="14"/>
-    <alias name="" field="user_updated" index="15"/>
-    <alias name="" field="date_updated" index="16"/>
+    <alias name="" index="0" field="fid"/>
+    <alias name="" index="1" field="objectid"/>
+    <alias name="" index="2" field="uuid"/>
+    <alias name="" index="3" field="short_name"/>
+    <alias name="" index="4" field="title"/>
+    <alias name="" index="5" field="description"/>
+    <alias name="" index="6" field="responsible_person_id"/>
+    <alias name="" index="7" field="status_code"/>
+    <alias name="" index="8" field="start_date"/>
+    <alias name="" index="9" field="end_date"/>
+    <alias name="" index="10" field="project_type"/>
+    <alias name="" index="11" field="local_epsg"/>
+    <alias name="" index="12" field="comment"/>
+    <alias name="" index="13" field="user_entered"/>
+    <alias name="" index="14" field="date_entered"/>
+    <alias name="" index="15" field="user_updated"/>
+    <alias name="" index="16" field="date_updated"/>
   </aliases>
   <defaults>
-    <default field="fid" expression="" applyOnUpdate="0"/>
-    <default field="objectid" expression="" applyOnUpdate="0"/>
-    <default field="uuid" expression="uuid()" applyOnUpdate="0"/>
-    <default field="short_name" expression="" applyOnUpdate="0"/>
-    <default field="title" expression="" applyOnUpdate="0"/>
-    <default field="description" expression="" applyOnUpdate="0"/>
-    <default field="responsible_person_id" expression="" applyOnUpdate="0"/>
-    <default field="status_code" expression="" applyOnUpdate="0"/>
-    <default field="start_date" expression="" applyOnUpdate="0"/>
-    <default field="end_date" expression="" applyOnUpdate="0"/>
-    <default field="project_type" expression="" applyOnUpdate="0"/>
-    <default field="local_epsg" expression="" applyOnUpdate="0"/>
-    <default field="comment" expression="" applyOnUpdate="0"/>
-    <default field="user_entered" expression="@user_account_name" applyOnUpdate="0"/>
-    <default field="date_entered" expression="now()" applyOnUpdate="0"/>
-    <default field="user_updated" expression="@user_account_name" applyOnUpdate="1"/>
-    <default field="date_updated" expression="now()" applyOnUpdate="1"/>
+    <default expression="" field="fid" applyOnUpdate="0"/>
+    <default expression="" field="objectid" applyOnUpdate="0"/>
+    <default expression="uuid()" field="uuid" applyOnUpdate="0"/>
+    <default expression="" field="short_name" applyOnUpdate="0"/>
+    <default expression="" field="title" applyOnUpdate="0"/>
+    <default expression="" field="description" applyOnUpdate="0"/>
+    <default expression="" field="responsible_person_id" applyOnUpdate="0"/>
+    <default expression="" field="status_code" applyOnUpdate="0"/>
+    <default expression="" field="start_date" applyOnUpdate="0"/>
+    <default expression="" field="end_date" applyOnUpdate="0"/>
+    <default expression="" field="project_type" applyOnUpdate="0"/>
+    <default expression="" field="local_epsg" applyOnUpdate="0"/>
+    <default expression="" field="comment" applyOnUpdate="0"/>
+    <default expression="@user_account_name" field="user_entered" applyOnUpdate="0"/>
+    <default expression="now()" field="date_entered" applyOnUpdate="0"/>
+    <default expression="@user_account_name" field="user_updated" applyOnUpdate="1"/>
+    <default expression="now()" field="date_updated" applyOnUpdate="1"/>
   </defaults>
   <constraints>
-    <constraint constraints="3" field="fid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="2" field="objectid" notnull_strength="0" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="3" field="uuid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="3" field="short_name" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="0" field="title" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="description" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="responsible_person_id" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="status_code" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="start_date" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="end_date" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="project_type" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="local_epsg" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="comment" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="user_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="date_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="user_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="date_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
+    <constraint unique_strength="1" constraints="3" notnull_strength="1" exp_strength="0" field="fid"/>
+    <constraint unique_strength="1" constraints="2" notnull_strength="0" exp_strength="0" field="objectid"/>
+    <constraint unique_strength="1" constraints="3" notnull_strength="1" exp_strength="0" field="uuid"/>
+    <constraint unique_strength="1" constraints="3" notnull_strength="1" exp_strength="0" field="short_name"/>
+    <constraint unique_strength="0" constraints="0" notnull_strength="0" exp_strength="0" field="title"/>
+    <constraint unique_strength="0" constraints="0" notnull_strength="0" exp_strength="0" field="description"/>
+    <constraint unique_strength="0" constraints="0" notnull_strength="0" exp_strength="0" field="responsible_person_id"/>
+    <constraint unique_strength="0" constraints="0" notnull_strength="0" exp_strength="0" field="status_code"/>
+    <constraint unique_strength="0" constraints="0" notnull_strength="0" exp_strength="0" field="start_date"/>
+    <constraint unique_strength="0" constraints="0" notnull_strength="0" exp_strength="0" field="end_date"/>
+    <constraint unique_strength="0" constraints="1" notnull_strength="1" exp_strength="0" field="project_type"/>
+    <constraint unique_strength="0" constraints="1" notnull_strength="1" exp_strength="0" field="local_epsg"/>
+    <constraint unique_strength="0" constraints="0" notnull_strength="0" exp_strength="0" field="comment"/>
+    <constraint unique_strength="0" constraints="1" notnull_strength="1" exp_strength="0" field="user_entered"/>
+    <constraint unique_strength="0" constraints="1" notnull_strength="1" exp_strength="0" field="date_entered"/>
+    <constraint unique_strength="0" constraints="0" notnull_strength="0" exp_strength="0" field="user_updated"/>
+    <constraint unique_strength="0" constraints="0" notnull_strength="0" exp_strength="0" field="date_updated"/>
   </constraints>
   <constraintExpressions>
-    <constraint desc="" field="fid" exp=""/>
-    <constraint desc="" field="objectid" exp=""/>
-    <constraint desc="" field="uuid" exp=""/>
-    <constraint desc="" field="short_name" exp=""/>
-    <constraint desc="" field="title" exp=""/>
-    <constraint desc="" field="description" exp=""/>
-    <constraint desc="" field="responsible_person_id" exp=""/>
-    <constraint desc="" field="status_code" exp=""/>
-    <constraint desc="" field="start_date" exp=""/>
-    <constraint desc="" field="end_date" exp=""/>
-    <constraint desc="" field="project_type" exp=""/>
-    <constraint desc="" field="local_epsg" exp=""/>
-    <constraint desc="" field="comment" exp=""/>
-    <constraint desc="" field="user_entered" exp=""/>
-    <constraint desc="" field="date_entered" exp=""/>
-    <constraint desc="" field="user_updated" exp=""/>
-    <constraint desc="" field="date_updated" exp=""/>
+    <constraint exp="" desc="" field="fid"/>
+    <constraint exp="" desc="" field="objectid"/>
+    <constraint exp="" desc="" field="uuid"/>
+    <constraint exp="" desc="" field="short_name"/>
+    <constraint exp="" desc="" field="title"/>
+    <constraint exp="" desc="" field="description"/>
+    <constraint exp="" desc="" field="responsible_person_id"/>
+    <constraint exp="" desc="" field="status_code"/>
+    <constraint exp="" desc="" field="start_date"/>
+    <constraint exp="" desc="" field="end_date"/>
+    <constraint exp="" desc="" field="project_type"/>
+    <constraint exp="" desc="" field="local_epsg"/>
+    <constraint exp="" desc="" field="comment"/>
+    <constraint exp="" desc="" field="user_entered"/>
+    <constraint exp="" desc="" field="date_entered"/>
+    <constraint exp="" desc="" field="user_updated"/>
+    <constraint exp="" desc="" field="date_updated"/>
   </constraintExpressions>
   <expressionfields/>
   <editform tolerant="1"></editform>
@@ -266,56 +275,56 @@ def my_form_open(dialog, layer, feature):
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
     <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-      <labelFont description="Sans Serif,9,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+      <labelFont strikethrough="0" italic="0" bold="0" description="Sans Serif,9,-1,5,50,0,0,0,0,0" style="" underline="0"/>
     </labelStyle>
-    <attributeEditorField showLabel="1" name="short_name" index="3">
+    <attributeEditorField name="short_name" index="3" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-        <labelFont description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+        <labelFont strikethrough="0" italic="0" bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style="" underline="0"/>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField showLabel="1" name="title" index="4">
+    <attributeEditorField name="title" index="4" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-        <labelFont description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+        <labelFont strikethrough="0" italic="0" bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style="" underline="0"/>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField showLabel="1" name="description" index="5">
+    <attributeEditorField name="description" index="5" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-        <labelFont description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+        <labelFont strikethrough="0" italic="0" bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style="" underline="0"/>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField showLabel="1" name="responsible_person_id" index="6">
+    <attributeEditorField name="responsible_person_id" index="6" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-        <labelFont description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+        <labelFont strikethrough="0" italic="0" bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style="" underline="0"/>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField showLabel="1" name="status_code" index="7">
+    <attributeEditorField name="status_code" index="7" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-        <labelFont description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+        <labelFont strikethrough="0" italic="0" bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style="" underline="0"/>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField showLabel="1" name="start_date" index="8">
+    <attributeEditorField name="start_date" index="8" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-        <labelFont description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+        <labelFont strikethrough="0" italic="0" bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style="" underline="0"/>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField showLabel="1" name="end_date" index="9">
+    <attributeEditorField name="end_date" index="9" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-        <labelFont description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+        <labelFont strikethrough="0" italic="0" bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style="" underline="0"/>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField showLabel="1" name="project_type" index="10">
+    <attributeEditorField name="project_type" index="10" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-        <labelFont description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+        <labelFont strikethrough="0" italic="0" bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" style="" underline="0"/>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField showLabel="1" name="local_epsg" index="11">
+    <attributeEditorField name="local_epsg" index="11" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-        <labelFont description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+        <labelFont strikethrough="0" italic="0" bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" style="" underline="0"/>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField showLabel="1" name="comment" index="12">
+    <attributeEditorField name="comment" index="12" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelFont="0" overrideLabelColor="0">
-        <labelFont description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" style="" underline="0" strikethrough="0" bold="0"/>
+        <labelFont strikethrough="0" italic="0" bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" style="" underline="0"/>
       </labelStyle>
     </attributeEditorField>
   </attributeEditorForm>
@@ -339,23 +348,23 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="uuid"/>
   </editable>
   <labelOnTop>
-    <field name="comment" labelOnTop="0"/>
-    <field name="date_entered" labelOnTop="0"/>
-    <field name="date_updated" labelOnTop="0"/>
-    <field name="description" labelOnTop="0"/>
-    <field name="end_date" labelOnTop="0"/>
-    <field name="fid" labelOnTop="0"/>
-    <field name="local_epsg" labelOnTop="0"/>
-    <field name="objectid" labelOnTop="0"/>
-    <field name="project_type" labelOnTop="0"/>
-    <field name="responsible_person_id" labelOnTop="0"/>
-    <field name="short_name" labelOnTop="0"/>
-    <field name="start_date" labelOnTop="0"/>
-    <field name="status_code" labelOnTop="0"/>
-    <field name="title" labelOnTop="0"/>
-    <field name="user_entered" labelOnTop="0"/>
-    <field name="user_updated" labelOnTop="0"/>
-    <field name="uuid" labelOnTop="0"/>
+    <field labelOnTop="0" name="comment"/>
+    <field labelOnTop="0" name="date_entered"/>
+    <field labelOnTop="0" name="date_updated"/>
+    <field labelOnTop="0" name="description"/>
+    <field labelOnTop="0" name="end_date"/>
+    <field labelOnTop="0" name="fid"/>
+    <field labelOnTop="0" name="local_epsg"/>
+    <field labelOnTop="0" name="objectid"/>
+    <field labelOnTop="0" name="project_type"/>
+    <field labelOnTop="0" name="responsible_person_id"/>
+    <field labelOnTop="0" name="short_name"/>
+    <field labelOnTop="0" name="start_date"/>
+    <field labelOnTop="0" name="status_code"/>
+    <field labelOnTop="0" name="title"/>
+    <field labelOnTop="0" name="user_entered"/>
+    <field labelOnTop="0" name="user_updated"/>
+    <field labelOnTop="0" name="uuid"/>
   </labelOnTop>
   <reuseLastValue>
     <field name="comment" reuseLastValue="0"/>
