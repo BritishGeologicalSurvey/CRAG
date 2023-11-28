@@ -6,6 +6,9 @@ TABLES = {
     "features": [
         "locality_point",
         "bedrock_line",
+        "superficial_line",
+        "artificial_line",
+        "mass_move_line",
         # Views
         "view_structural_measurement",
         "view_lithology"
