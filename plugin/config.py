@@ -5,6 +5,7 @@ Shared global variables used within the plugin.
 TABLES = {
     "features": [
         "locality_point",
+        "bedrock_line",
         # Views
         "view_structural_measurement",
         "view_lithology"
