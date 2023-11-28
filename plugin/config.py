@@ -21,7 +21,7 @@ TABLES = {
         "dic_line_type_superficial",
         "dic_manmade_code",
         "dic_media",
-        "dic_min_vein",
+        "dic_mineral_vein",
         "dic_mineral",
         "dic_project_type",
         "dic_rock_all",
