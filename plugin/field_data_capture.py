@@ -31,10 +31,14 @@ from typing import (
     Callable,
     Optional,
 )
+from xml.dom import minidom
+from xml.etree.ElementTree import canonicalize
 
 from qgis.core import (
+    Qgis,
     QgsDataProvider,
     QgsEditorWidgetSetup,
+    QgsMapLayer,
     QgsProject,
     QgsVectorLayer,
     QgsVectorLayerUtils,
@@ -122,6 +126,14 @@ class FieldDataCapture:
         Get the db file path from the current project.
         """
         return self.project_dir / self.gpkg_filename
+
+
+    @property
+    def styles_dir(self) -> Path:
+        """
+        Get the styles directory path from the current project.
+        """
+        return self.project_dir / "styles"
 
 
     # noinspection PyMethodMayBeStatic
@@ -285,6 +297,15 @@ class FieldDataCapture:
             submenu=dev_submenu,
         )
 
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Export Styles to QML'),
+            callback=self.export_qml_styles,
+            add_to_menu=False,
+            parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
+        )
+
         # will be set False in run()
         self.first_start = True
 
@@ -300,6 +321,9 @@ class FieldDataCapture:
 
     @staticmethod
     def project_is_active() -> bool:
+        """
+        Check if a saved project is currently open.
+        """
         if QgsProject.instance().fileName() != '':
             return True
         else:
@@ -309,7 +333,26 @@ class FieldDataCapture:
 
     @staticmethod
     def check_layer_exists(layer_name: str) -> bool:
+        """
+        Check if a given layer name exists in the list of current layers.
+        """
         if len(QgsProject.instance().mapLayersByName(layer_name)) > 0:
+            return True
+        else:
+            return False
+
+
+    @staticmethod
+    def check_fdc_layers_exist() -> bool:
+        """
+        Check if the Field Data Capture layers exist in the current layers.
+        """
+        missing_layers = [
+            table_name
+            for table_name in TABLE_LIST
+            if not FieldDataCapture.check_layer_exists(table_name)
+        ]
+        if len(missing_layers) == 0:
             return True
         else:
             return False
@@ -525,7 +568,7 @@ class FieldDataCapture:
         }
         self.copy_plugin_files_to_project(plugin_src="styles", project_dest="styles")
 
-        for qml_file in (self.project_dir / "styles").glob("*"):
+        for qml_file in self.styles_dir.glob("*"):
             if qml_file.stem in vector_layer_names:
                 # Apply the new style
                 vector_layer_names[qml_file.stem].loadNamedStyle(str(qml_file))
@@ -619,3 +662,64 @@ class FieldDataCapture:
         for src_file in plugin_src_dir.glob("*"):
             dest_file = project_dest_dir / src_file.name
             dest_file.write_bytes(src_file.read_bytes())
+
+
+    def export_qml_styles(self) -> bool:
+        """
+        Export the QML styles for layers which belong to the Field Data Capture project.
+        These are saved into the current project's styles directory.
+        Returns a boolean indicating success of the process.
+        """
+        # Check that we have an open project and a geopackage with the correct layers
+        if not self.project_is_active():
+            return False
+        if not self.db_file.exists():
+            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+            return False
+        if not self.check_fdc_layers_exist():
+            QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
+            return False
+
+        # Compare the QGIS version in the existing styles to the current QGIS version
+        # Get the first existing QML style and parse it's XML
+        existing_xml_style = minidom.parse(str(list(self.styles_dir.glob("*.qml"))[0]))
+        existing_version = existing_xml_style.getElementsByTagName("qgis")[0].attributes["version"].value
+        current_version = Qgis.version()
+        if existing_version != current_version:
+            result = QMessageBox.question(
+                None, "Conflicting QGIS Versions",
+                (
+                    f"The existing QML files are from QGIS '{existing_version}', "
+                    f"but you are using QGIS '{current_version}'. "
+                    "Continuting will cause bad style diffs.\n\nDo you want to continue?"
+                ),
+            )
+            if result == QMessageBox.No:
+                return False
+
+        # Export the current styles
+        exported_styles = 0
+        for table_name in TABLE_LIST:
+            layer_style_path = self.styles_dir / (table_name + ".qml")
+            # If the layer exists and a style file has already been saved for it
+            if self.check_layer_exists(table_name) and layer_style_path.exists():
+                exported_styles += 1
+
+                # Save the style of the current layer
+                layer = QgsProject.instance().mapLayersByName(table_name)[0]
+                layer.saveNamedStyle(
+                    str(layer_style_path),
+                    categories=QgsMapLayer.Symbology | QgsMapLayer.Labeling | QgsMapLayer.Fields | QgsMapLayer.Forms,
+                )
+
+                # Read the newly created XML file
+                raw_xml = layer_style_path.read_text()
+                # Canonicalize the XML data and save back to the same file
+                with open(layer_style_path, "w") as qml_file:
+                    canonicalize(xml_data=raw_xml, out=qml_file)
+
+        QMessageBox.information(
+            None, "Information",
+            f"{exported_styles} Field Data Capture styles have been exported to:\n\n{self.styles_dir}",
+        )
+        return True
