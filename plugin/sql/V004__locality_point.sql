@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
     "project_fuid" TEXT NOT NULL,
     "name" TEXT NOT NULL UNIQUE,
     "description" TEXT,
-    "geological_note" TEXT,
+    "map_face_note" TEXT,
     "comment" TEXT,
     "user_entered" TEXT NOT NULL,
     "date_entered" DATETIME NOT NULL,
