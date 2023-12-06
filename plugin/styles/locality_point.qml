@@ -202,7 +202,7 @@
       </rule>
       <rule description="geological note" key="{994be50d-c92e-4131-9372-8b7656a673f8}">
         <settings calloutType="balloon">
-          <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="geological_note" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="9" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
+          <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="map_face_note" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="9" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
             <families></families>
             <text-buffer bufferBlendMode="0" bufferColor="250,250,250,255" bufferDraw="0" bufferJoinStyle="128" bufferNoFill="1" bufferOpacity="1" bufferSize="1" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSizeUnits="MM"></text-buffer>
             <text-mask maskEnabled="0" maskJoinStyle="128" maskOpacity="1" maskSize="0" maskSizeMapUnitScale="3x:0,0,0,0,0,0" maskSizeUnits="MM" maskType="0" maskedSymbolLayers=""></text-mask>
@@ -391,7 +391,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="geological_note">
+    <field configurationFlags="None" name="map_face_note">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -456,7 +456,7 @@
     <alias field="project_fuid" index="3" name="Project Name"></alias>
     <alias field="name" index="4" name="Name"></alias>
     <alias field="description" index="5" name="Locality Description"></alias>
-    <alias field="geological_note" index="6" name="Geological Map Face Note"></alias>
+    <alias field="map_face_note" index="6" name="Geological Map Face Note"></alias>
     <alias field="comment" index="7" name="Detailed Comment"></alias>
     <alias field="user_entered" index="8" name=""></alias>
     <alias field="date_entered" index="9" name=""></alias>
@@ -470,7 +470,7 @@
     <default applyOnUpdate="0" expression="" field="project_fuid"></default>
     <default applyOnUpdate="0" expression="coalesce (&#xA;-- Case 1, use mergin_username from view_next_locality_id&#xA;&#x9;attribute(&#xA;&#x9;&#x9;get_feature(&#xA;&#x9;&#x9;&#x9;'view_next_locality_id',&#xA;&#x9;&#x9;&#x9;'username' ,&#xA;&#x9;&#x9;&#x9;@mergin_username&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'next_locality_id'&#xA;&#x9;),&#xA;&#xA;-- Case 2, use user_account_name from view_next_locality_id&#xA;&#x9;attribute(&#xA;&#x9;&#x9;get_feature(&#xA;&#x9;&#x9;&#x9;'view_next_locality_id',&#xA;&#x9;&#x9;&#x9;'username' ,&#xA;&#x9;&#x9;&#x9;@user_account_name&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'next_locality_id'&#xA;&#x9;),&#xA;&#xA;-- Case 3 and 4, creating the first point with '_001'&#xA;&#x9;concat(&#xA;&#x9;&#x9;coalesce(&#xA;&#x9;&#x9;&#x9;-- Case 3 use mergin_username&#xA;&#x9;&#x9;&#x9;@mergin_username,&#xA;&#x9;&#x9;&#x9;-- Case 4, use user_account_name&#xA;&#x9;&#x9;&#x9;@user_account_name&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'_001'&#xA;&#x9;)&#xA;&#xA;)&#xA;" field="name"></default>
     <default applyOnUpdate="0" expression="" field="description"></default>
-    <default applyOnUpdate="0" expression="" field="geological_note"></default>
+    <default applyOnUpdate="0" expression="" field="map_face_note"></default>
     <default applyOnUpdate="0" expression="" field="comment"></default>
     <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
@@ -484,7 +484,7 @@
     <constraint constraints="1" exp_strength="0" field="project_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="3" exp_strength="0" field="name" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="0" exp_strength="0" field="description" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="geological_note" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="map_face_note" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
@@ -498,7 +498,7 @@
     <constraint desc="" exp="" field="project_fuid"></constraint>
     <constraint desc="" exp="" field="name"></constraint>
     <constraint desc="" exp="" field="description"></constraint>
-    <constraint desc="" exp="" field="geological_note"></constraint>
+    <constraint desc="" exp="" field="map_face_note"></constraint>
     <constraint desc="" exp="" field="comment"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
@@ -562,7 +562,7 @@ def my_form_open(dialog, layer, feature):
           <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField index="6" name="geological_note" showLabel="1">
+      <attributeEditorField index="6" name="map_face_note" showLabel="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
@@ -686,7 +686,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="description"></field>
     <field editable="1" name="epsg_code"></field>
     <field editable="0" name="fid"></field>
-    <field editable="1" name="geological_note"></field>
+    <field editable="1" name="map_face_note"></field>
     <field editable="0" name="name"></field>
     <field editable="0" name="objectid"></field>
     <field editable="1" name="project_fuid"></field>
@@ -701,7 +701,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="description"></field>
     <field labelOnTop="0" name="epsg_code"></field>
     <field labelOnTop="0" name="fid"></field>
-    <field labelOnTop="0" name="geological_note"></field>
+    <field labelOnTop="0" name="map_face_note"></field>
     <field labelOnTop="0" name="name"></field>
     <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="project_fuid"></field>
@@ -716,7 +716,7 @@ def my_form_open(dialog, layer, feature):
     <field name="description" reuseLastValue="0"></field>
     <field name="epsg_code" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
-    <field name="geological_note" reuseLastValue="0"></field>
+    <field name="map_face_note" reuseLastValue="0"></field>
     <field name="name" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
     <field name="project_fuid" reuseLastValue="0"></field>
