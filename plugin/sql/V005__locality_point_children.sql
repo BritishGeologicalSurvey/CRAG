@@ -48,7 +48,7 @@ INSERT INTO gpkg_contents
 VALUES('manmade_landform','attributes','manmade_landform','Man-made landforms data, e.g. quarries.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
-CREATE TABLE IF NOT EXISTS "exposure"(
+CREATE TABLE IF NOT EXISTS "lithology"(
   "fid" INTEGER NOT NULL,
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS "exposure"(
 ;
 
 INSERT INTO gpkg_contents
-VALUES('exposure','attributes','exposure','Rock type at the surface','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+VALUES('lithology','attributes','lithology','Rock type at the surface','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
 CREATE TABLE IF NOT EXISTS "media" (
@@ -171,10 +171,10 @@ CREATE TRIGGER "manmade_landform_clear_updated"
       WHERE fid = NEW."fid"; END;
 
 
-CREATE TRIGGER "exposure_clear_updated"
-  AFTER INSERT ON "exposure" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
+CREATE TRIGGER "lithology_clear_updated"
+  AFTER INSERT ON "lithology" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
     BEGIN
-      UPDATE "exposure" SET user_updated = NULL, date_updated = NULL
+      UPDATE "lithology" SET user_updated = NULL, date_updated = NULL
       WHERE fid = NEW."fid"; END;
 
 
