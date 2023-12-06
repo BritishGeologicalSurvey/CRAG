@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
     "fid" INTEGER NOT NULL,
     "objectid" INTEGER UNIQUE,
     "uuid" TEXT NOT NULL UNIQUE,
-    "project_fuid" TEXT NOT NULL,
+    "field_project_fuid" TEXT NOT NULL,
     "name" TEXT NOT NULL UNIQUE,
     "description" TEXT,
     "map_face_note" TEXT,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
     "user_updated" TEXT,
     "date_updated" DATETIME,
     "geometry" POINT,
-    FOREIGN KEY("project_fuid") REFERENCES "project"("uuid"),
+    FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
