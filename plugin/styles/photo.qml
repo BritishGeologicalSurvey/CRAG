@@ -1,169 +1,168 @@
-<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="3.28.11-Firenze" styleCategories="Symbology|Labeling|Fields|Forms">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.28.11-Firenze">
   <fieldConfiguration>
-    <field name="fid" configurationFlags="None">
+    <field configurationFlags="None" name="fid">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field name="objectid" configurationFlags="None">
+    <field configurationFlags="None" name="objectid">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field name="uuid" configurationFlags="None">
+    <field configurationFlags="None" name="uuid">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field name="locality_fuid" configurationFlags="None">
+    <field configurationFlags="None" name="locality_fuid">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option type="bool" name="AllowAddFeatures" value="false"/>
-            <Option type="bool" name="AllowNULL" value="false"/>
-            <Option type="bool" name="MapIdentification" value="false"/>
-            <Option type="bool" name="OrderByValue" value="false"/>
-            <Option type="bool" name="ReadOnly" value="false"/>
-            <Option type="QString" name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"/>
-            <Option type="QString" name="ReferencedLayerId" value="locality_point_b5d4a64c_6865_4086_866f_ff25c1aea696"/>
-            <Option type="QString" name="ReferencedLayerName" value="locality_point"/>
-            <Option type="QString" name="ReferencedLayerProviderKey" value="ogr"/>
-            <Option type="QString" name="Relation" value="locality_point_photo"/>
-            <Option type="bool" name="ShowForm" value="false"/>
-            <Option type="bool" name="ShowOpenFormButton" value="true"/>
+            <Option name="AllowAddFeatures" type="bool" value="false"></Option>
+            <Option name="AllowNULL" type="bool" value="false"></Option>
+            <Option name="MapIdentification" type="bool" value="false"></Option>
+            <Option name="OrderByValue" type="bool" value="false"></Option>
+            <Option name="ReadOnly" type="bool" value="false"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_d722a305_c34e_4ced_9262_1e7f6ccc3598"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
+            <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
+            <Option name="Relation" type="QString" value="locality_point_photo"></Option>
+            <Option name="ShowForm" type="bool" value="false"></Option>
+            <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="photo_file" configurationFlags="None">
+    <field configurationFlags="None" name="photo_file">
       <editWidget type="ExternalResource">
         <config>
           <Option type="Map">
-            <Option type="int" name="DocumentViewer" value="1"/>
-            <Option type="int" name="DocumentViewerHeight" value="0"/>
-            <Option type="int" name="DocumentViewerWidth" value="600"/>
-            <Option type="bool" name="FileWidget" value="true"/>
-            <Option type="bool" name="FileWidgetButton" value="true"/>
-            <Option type="QString" name="FileWidgetFilter" value=""/>
-            <Option type="Map" name="PropertyCollection">
-              <Option type="QString" name="name" value=""/>
-              <Option type="Map" name="properties">
-                <Option type="Map" name="propertyRootPath">
-                  <Option type="bool" name="active" value="true"/>
-                  <Option type="QString" name="expression" value="@project_folder + '/photos'"/>
-                  <Option type="int" name="type" value="3"/>
+            <Option name="DocumentViewer" type="int" value="1"></Option>
+            <Option name="DocumentViewerHeight" type="int" value="0"></Option>
+            <Option name="DocumentViewerWidth" type="int" value="600"></Option>
+            <Option name="FileWidget" type="bool" value="true"></Option>
+            <Option name="FileWidgetButton" type="bool" value="true"></Option>
+            <Option name="FileWidgetFilter" type="QString" value=""></Option>
+            <Option name="PropertyCollection" type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties" type="Map">
+                <Option name="propertyRootPath" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="expression" type="QString" value="@project_folder + '/photos'"></Option>
+                  <Option name="type" type="int" value="3"></Option>
                 </Option>
               </Option>
-              <Option type="QString" name="type" value="collection"/>
+              <Option name="type" type="QString" value="collection"></Option>
             </Option>
-            <Option type="int" name="RelativeStorage" value="2"/>
-            <Option type="QString" name="StorageAuthConfigId" value=""/>
-            <Option type="int" name="StorageMode" value="0"/>
-            <Option type="QString" name="StorageType" value=""/>
+            <Option name="RelativeStorage" type="int" value="2"></Option>
+            <Option name="StorageAuthConfigId" type="QString" value=""></Option>
+            <Option name="StorageMode" type="int" value="0"></Option>
+            <Option name="StorageType" type="QString" value=""></Option>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="comment" configurationFlags="None">
+    <field configurationFlags="None" name="comment">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="true"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option name="IsMultiline" type="bool" value="true"></Option>
+            <Option name="UseHtml" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
     </field>
-    <field name="user_entered" configurationFlags="None">
+    <field configurationFlags="None" name="user_entered">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field name="date_entered" configurationFlags="None">
+    <field configurationFlags="None" name="date_entered">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field name="user_updated" configurationFlags="None">
+    <field configurationFlags="None" name="user_updated">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field name="date_updated" configurationFlags="None">
+    <field configurationFlags="None" name="date_updated">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
   </fieldConfiguration>
   <aliases>
-    <alias name="" field="fid" index="0"/>
-    <alias name="" field="objectid" index="1"/>
-    <alias name="" field="uuid" index="2"/>
-    <alias name="" field="locality_fuid" index="3"/>
-    <alias name="" field="photo_file" index="4"/>
-    <alias name="" field="comment" index="5"/>
-    <alias name="" field="user_entered" index="6"/>
-    <alias name="" field="date_entered" index="7"/>
-    <alias name="" field="user_updated" index="8"/>
-    <alias name="" field="date_updated" index="9"/>
+    <alias field="fid" index="0" name=""></alias>
+    <alias field="objectid" index="1" name=""></alias>
+    <alias field="uuid" index="2" name=""></alias>
+    <alias field="locality_fuid" index="3" name=""></alias>
+    <alias field="photo_file" index="4" name=""></alias>
+    <alias field="comment" index="5" name=""></alias>
+    <alias field="user_entered" index="6" name=""></alias>
+    <alias field="date_entered" index="7" name=""></alias>
+    <alias field="user_updated" index="8" name=""></alias>
+    <alias field="date_updated" index="9" name=""></alias>
   </aliases>
   <defaults>
-    <default field="fid" expression="" applyOnUpdate="0"/>
-    <default field="objectid" expression="" applyOnUpdate="0"/>
-    <default field="uuid" expression="uuid()" applyOnUpdate="0"/>
-    <default field="locality_fuid" expression="" applyOnUpdate="0"/>
-    <default field="photo_file" expression="" applyOnUpdate="0"/>
-    <default field="comment" expression="" applyOnUpdate="0"/>
-    <default field="user_entered" expression="@user_account_name" applyOnUpdate="0"/>
-    <default field="date_entered" expression="now()" applyOnUpdate="0"/>
-    <default field="user_updated" expression="@user_account_name" applyOnUpdate="1"/>
-    <default field="date_updated" expression="now()" applyOnUpdate="1"/>
+    <default applyOnUpdate="0" expression="" field="fid"></default>
+    <default applyOnUpdate="0" expression="" field="objectid"></default>
+    <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
+    <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
+    <default applyOnUpdate="0" expression="" field="photo_file"></default>
+    <default applyOnUpdate="0" expression="" field="comment"></default>
+    <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
+    <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
+    <default applyOnUpdate="1" expression="@user_account_name" field="user_updated"></default>
+    <default applyOnUpdate="1" expression="now()" field="date_updated"></default>
   </defaults>
   <constraints>
-    <constraint constraints="3" field="fid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="2" field="objectid" notnull_strength="0" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="3" field="uuid" notnull_strength="1" exp_strength="0" unique_strength="1"/>
-    <constraint constraints="1" field="locality_fuid" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="photo_file" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="comment" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="user_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="1" field="date_entered" notnull_strength="1" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="user_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
-    <constraint constraints="0" field="date_updated" notnull_strength="0" exp_strength="0" unique_strength="0"/>
+    <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
+    <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="photo_file" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
-    <constraint desc="" field="fid" exp=""/>
-    <constraint desc="" field="objectid" exp=""/>
-    <constraint desc="" field="uuid" exp=""/>
-    <constraint desc="" field="locality_fuid" exp=""/>
-    <constraint desc="" field="photo_file" exp=""/>
-    <constraint desc="" field="comment" exp=""/>
-    <constraint desc="" field="user_entered" exp=""/>
-    <constraint desc="" field="date_entered" exp=""/>
-    <constraint desc="" field="user_updated" exp=""/>
-    <constraint desc="" field="date_updated" exp=""/>
+    <constraint desc="" exp="" field="fid"></constraint>
+    <constraint desc="" exp="" field="objectid"></constraint>
+    <constraint desc="" exp="" field="uuid"></constraint>
+    <constraint desc="" exp="" field="locality_fuid"></constraint>
+    <constraint desc="" exp="" field="photo_file"></constraint>
+    <constraint desc="" exp="" field="comment"></constraint>
+    <constraint desc="" exp="" field="user_entered"></constraint>
+    <constraint desc="" exp="" field="date_entered"></constraint>
+    <constraint desc="" exp="" field="user_updated"></constraint>
+    <constraint desc="" exp="" field="date_updated"></constraint>
   </constraintExpressions>
-  <expressionfields/>
+  <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
-  <editforminit/>
+  <editforminit></editforminit>
   <editforminitcodesource>0</editforminitcodesource>
   <editforminitfilepath></editforminitfilepath>
-  <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
+  <editforminitcode># -*- coding: utf-8 -*-
 """
 QGIS forms can have a Python function that is called when the form is
 opened.
@@ -179,46 +178,46 @@ from qgis.PyQt.QtWidgets import QWidget
 def my_form_open(dialog, layer, feature):
     geom = feature.geometry()
     control = dialog.findChild(QWidget, "MyLineEdit")
-]]></editforminitcode>
+</editforminitcode>
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
-    <field editable="1" name="comment"/>
-    <field editable="1" name="date_entered"/>
-    <field editable="1" name="date_updated"/>
-    <field editable="1" name="fid"/>
-    <field editable="1" name="locality_fuid"/>
-    <field editable="1" name="objectid"/>
-    <field editable="1" name="photo_file"/>
-    <field editable="1" name="user_entered"/>
-    <field editable="1" name="user_updated"/>
-    <field editable="1" name="uuid"/>
+    <field editable="1" name="comment"></field>
+    <field editable="1" name="date_entered"></field>
+    <field editable="1" name="date_updated"></field>
+    <field editable="1" name="fid"></field>
+    <field editable="1" name="locality_fuid"></field>
+    <field editable="1" name="objectid"></field>
+    <field editable="1" name="photo_file"></field>
+    <field editable="1" name="user_entered"></field>
+    <field editable="1" name="user_updated"></field>
+    <field editable="1" name="uuid"></field>
   </editable>
   <labelOnTop>
-    <field name="comment" labelOnTop="0"/>
-    <field name="date_entered" labelOnTop="0"/>
-    <field name="date_updated" labelOnTop="0"/>
-    <field name="fid" labelOnTop="0"/>
-    <field name="locality_fuid" labelOnTop="0"/>
-    <field name="objectid" labelOnTop="0"/>
-    <field name="photo_file" labelOnTop="0"/>
-    <field name="user_entered" labelOnTop="0"/>
-    <field name="user_updated" labelOnTop="0"/>
-    <field name="uuid" labelOnTop="0"/>
+    <field labelOnTop="0" name="comment"></field>
+    <field labelOnTop="0" name="date_entered"></field>
+    <field labelOnTop="0" name="date_updated"></field>
+    <field labelOnTop="0" name="fid"></field>
+    <field labelOnTop="0" name="locality_fuid"></field>
+    <field labelOnTop="0" name="objectid"></field>
+    <field labelOnTop="0" name="photo_file"></field>
+    <field labelOnTop="0" name="user_entered"></field>
+    <field labelOnTop="0" name="user_updated"></field>
+    <field labelOnTop="0" name="uuid"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="comment" reuseLastValue="0"/>
-    <field name="date_entered" reuseLastValue="0"/>
-    <field name="date_updated" reuseLastValue="0"/>
-    <field name="fid" reuseLastValue="0"/>
-    <field name="locality_fuid" reuseLastValue="0"/>
-    <field name="objectid" reuseLastValue="0"/>
-    <field name="photo_file" reuseLastValue="0"/>
-    <field name="user_entered" reuseLastValue="0"/>
-    <field name="user_updated" reuseLastValue="0"/>
-    <field name="uuid" reuseLastValue="0"/>
+    <field name="comment" reuseLastValue="0"></field>
+    <field name="date_entered" reuseLastValue="0"></field>
+    <field name="date_updated" reuseLastValue="0"></field>
+    <field name="fid" reuseLastValue="0"></field>
+    <field name="locality_fuid" reuseLastValue="0"></field>
+    <field name="objectid" reuseLastValue="0"></field>
+    <field name="photo_file" reuseLastValue="0"></field>
+    <field name="user_entered" reuseLastValue="0"></field>
+    <field name="user_updated" reuseLastValue="0"></field>
+    <field name="uuid" reuseLastValue="0"></field>
   </reuseLastValue>
-  <dataDefinedFieldProperties/>
-  <widgets/>
+  <dataDefinedFieldProperties></dataDefinedFieldProperties>
+  <widgets></widgets>
   <layerGeometryType>4</layerGeometryType>
 </qgis>
