@@ -603,11 +603,11 @@ def my_form_open(dialog, layer, feature):
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" name="Exposure" showLabel="1" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" name="Lithology" showLabel="1" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-      <attributeEditorRelation forceSuppressFormPopup="0" label="Exposure" name="locality_point_exposure" nmRelationId="" relation="locality_point_exposure" relationWidgetTypeId="relation_editor" showLabel="1">
+      <attributeEditorRelation forceSuppressFormPopup="0" label="Lithology" name="locality_point_lithology" nmRelationId="" relation="locality_point_lithology" relationWidgetTypeId="relation_editor" showLabel="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>

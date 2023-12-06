@@ -34,7 +34,7 @@
             <Option name="ReferencedLayerId" type="QString" value="locality_point_d722a305_c34e_4ced_9262_1e7f6ccc3598"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="locality_point_exposure"></Option>
+            <Option name="Relation" type="QString" value="locality_point_lithology"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
           </Option>
@@ -54,7 +54,7 @@
             <Option name="ReferencedLayerId" type="QString" value="dic_exposure_type_fe2e649f_3fc5_4871_93d4_ab26e0d2a1e0"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_exposure_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="dic_exposure_type_exposure_3"></Option>
+            <Option name="Relation" type="QString" value="dic_exposure_type_lithology_3"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
@@ -79,7 +79,7 @@
             <Option name="ReferencedLayerId" type="QString" value="dic_rock_all_eb287176_2b7c_4bed_ad42_3b45ebc36089"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_rock_all"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="dic_rock_all_exposure_2"></Option>
+            <Option name="Relation" type="QString" value="dic_rock_all_lithology_2"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>

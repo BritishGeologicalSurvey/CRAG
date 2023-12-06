@@ -558,7 +558,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="exposure_uuid">
+    <field configurationFlags="None" name="lithology_uuid">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -584,7 +584,7 @@
     <alias field="lithology" index="7" name=""></alias>
     <alias field="description" index="8" name=""></alias>
     <alias field="comment" index="9" name=""></alias>
-    <alias field="exposure_uuid" index="10" name=""></alias>
+    <alias field="lithology_uuid" index="10" name=""></alias>
     <alias field="locality_uuid" index="11" name=""></alias>
   </aliases>
   <defaults>
@@ -598,7 +598,7 @@
     <default applyOnUpdate="0" expression="" field="lithology"></default>
     <default applyOnUpdate="0" expression="" field="description"></default>
     <default applyOnUpdate="0" expression="" field="comment"></default>
-    <default applyOnUpdate="0" expression="" field="exposure_uuid"></default>
+    <default applyOnUpdate="0" expression="" field="lithology_uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
   </defaults>
   <constraints>
@@ -612,7 +612,7 @@
     <constraint constraints="0" exp_strength="0" field="lithology" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="exposure_uuid" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="lithology_uuid" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
@@ -626,7 +626,7 @@
     <constraint desc="" exp="" field="lithology"></constraint>
     <constraint desc="" exp="" field="description"></constraint>
     <constraint desc="" exp="" field="comment"></constraint>
-    <constraint desc="" exp="" field="exposure_uuid"></constraint>
+    <constraint desc="" exp="" field="lithology_uuid"></constraint>
     <constraint desc="" exp="" field="locality_uuid"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
@@ -657,7 +657,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="comment"></field>
     <field editable="1" name="description"></field>
     <field editable="1" name="exposure_type"></field>
-    <field editable="1" name="exposure_uuid"></field>
+    <field editable="1" name="lithology_uuid"></field>
     <field editable="1" name="lat"></field>
     <field editable="1" name="lithology"></field>
     <field editable="1" name="lithology_code"></field>
@@ -673,7 +673,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="comment"></field>
     <field labelOnTop="0" name="description"></field>
     <field labelOnTop="0" name="exposure_type"></field>
-    <field labelOnTop="0" name="exposure_uuid"></field>
+    <field labelOnTop="0" name="lithology_uuid"></field>
     <field labelOnTop="0" name="lat"></field>
     <field labelOnTop="0" name="lithology"></field>
     <field labelOnTop="0" name="lithology_code"></field>
@@ -689,7 +689,7 @@ def my_form_open(dialog, layer, feature):
     <field name="comment" reuseLastValue="0"></field>
     <field name="description" reuseLastValue="0"></field>
     <field name="exposure_type" reuseLastValue="0"></field>
-    <field name="exposure_uuid" reuseLastValue="0"></field>
+    <field name="lithology_uuid" reuseLastValue="0"></field>
     <field name="lat" reuseLastValue="0"></field>
     <field name="lithology" reuseLastValue="0"></field>
     <field name="lithology_code" reuseLastValue="0"></field>
