@@ -488,7 +488,7 @@
   <blendMode>0</blendMode>
   <featureBlendMode>0</featureBlendMode>
   <fieldConfiguration>
-    <field configurationFlags="None" name="project">
+    <field configurationFlags="None" name="field_project">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -574,7 +574,7 @@
     </field>
   </fieldConfiguration>
   <aliases>
-    <alias field="project" index="0" name=""></alias>
+    <alias field="field_project" index="0" name=""></alias>
     <alias field="locality_point" index="1" name=""></alias>
     <alias field="x" index="2" name=""></alias>
     <alias field="y" index="3" name=""></alias>
@@ -588,7 +588,7 @@
     <alias field="locality_uuid" index="11" name=""></alias>
   </aliases>
   <defaults>
-    <default applyOnUpdate="0" expression="" field="project"></default>
+    <default applyOnUpdate="0" expression="" field="field_project"></default>
     <default applyOnUpdate="0" expression="" field="locality_point"></default>
     <default applyOnUpdate="0" expression="" field="x"></default>
     <default applyOnUpdate="0" expression="" field="y"></default>
@@ -602,7 +602,7 @@
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
   </defaults>
   <constraints>
-    <constraint constraints="0" exp_strength="0" field="project" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="field_project" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_point" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="x" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="y" notnull_strength="0" unique_strength="0"></constraint>
@@ -616,7 +616,7 @@
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
-    <constraint desc="" exp="" field="project"></constraint>
+    <constraint desc="" exp="" field="field_project"></constraint>
     <constraint desc="" exp="" field="locality_point"></constraint>
     <constraint desc="" exp="" field="x"></constraint>
     <constraint desc="" exp="" field="y"></constraint>
@@ -665,7 +665,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="locality_point"></field>
     <field editable="1" name="locality_uuid"></field>
     <field editable="1" name="lon"></field>
-    <field editable="1" name="project"></field>
+    <field editable="1" name="field_project"></field>
     <field editable="1" name="x"></field>
     <field editable="1" name="y"></field>
   </editable>
@@ -681,7 +681,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="locality_point"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
     <field labelOnTop="0" name="lon"></field>
-    <field labelOnTop="0" name="project"></field>
+    <field labelOnTop="0" name="field_project"></field>
     <field labelOnTop="0" name="x"></field>
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
@@ -697,7 +697,7 @@ def my_form_open(dialog, layer, feature):
     <field name="locality_point" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
     <field name="lon" reuseLastValue="0"></field>
-    <field name="project" reuseLastValue="0"></field>
+    <field name="field_project" reuseLastValue="0"></field>
     <field name="x" reuseLastValue="0"></field>
     <field name="y" reuseLastValue="0"></field>
   </reuseLastValue>

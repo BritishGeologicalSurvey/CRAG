@@ -351,7 +351,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="project_fuid">
+    <field configurationFlags="None" name="field_project_fuid">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -360,11 +360,11 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=project"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="project_c6e6afa4_1e8a_4291_92c0_64ba28913abb"></Option>
-            <Option name="ReferencedLayerName" type="QString" value="project"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=field_project"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_c6e6afa4_1e8a_4291_92c0_64ba28913abb"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="project_locality_point"></Option>
+            <Option name="Relation" type="QString" value="field_project_locality_point"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
           </Option>
@@ -453,7 +453,7 @@
     <alias field="fid" index="0" name=""></alias>
     <alias field="objectid" index="1" name=""></alias>
     <alias field="uuid" index="2" name=""></alias>
-    <alias field="project_fuid" index="3" name="Project Name"></alias>
+    <alias field="field_project_fuid" index="3" name="Project Name"></alias>
     <alias field="name" index="4" name="Name"></alias>
     <alias field="description" index="5" name="Locality Description"></alias>
     <alias field="map_face_note" index="6" name="Geological Map Face Note"></alias>
@@ -467,7 +467,7 @@
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
-    <default applyOnUpdate="0" expression="" field="project_fuid"></default>
+    <default applyOnUpdate="0" expression="" field="field_project_fuid"></default>
     <default applyOnUpdate="0" expression="coalesce (&#xA;-- Case 1, use mergin_username from view_next_locality_id&#xA;&#x9;attribute(&#xA;&#x9;&#x9;get_feature(&#xA;&#x9;&#x9;&#x9;'view_next_locality_id',&#xA;&#x9;&#x9;&#x9;'username' ,&#xA;&#x9;&#x9;&#x9;@mergin_username&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'next_locality_id'&#xA;&#x9;),&#xA;&#xA;-- Case 2, use user_account_name from view_next_locality_id&#xA;&#x9;attribute(&#xA;&#x9;&#x9;get_feature(&#xA;&#x9;&#x9;&#x9;'view_next_locality_id',&#xA;&#x9;&#x9;&#x9;'username' ,&#xA;&#x9;&#x9;&#x9;@user_account_name&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'next_locality_id'&#xA;&#x9;),&#xA;&#xA;-- Case 3 and 4, creating the first point with '_001'&#xA;&#x9;concat(&#xA;&#x9;&#x9;coalesce(&#xA;&#x9;&#x9;&#x9;-- Case 3 use mergin_username&#xA;&#x9;&#x9;&#x9;@mergin_username,&#xA;&#x9;&#x9;&#x9;-- Case 4, use user_account_name&#xA;&#x9;&#x9;&#x9;@user_account_name&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'_001'&#xA;&#x9;)&#xA;&#xA;)&#xA;" field="name"></default>
     <default applyOnUpdate="0" expression="" field="description"></default>
     <default applyOnUpdate="0" expression="" field="map_face_note"></default>
@@ -481,7 +481,7 @@
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="1" exp_strength="0" field="project_fuid" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="field_project_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="3" exp_strength="0" field="name" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="0" exp_strength="0" field="description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="map_face_note" notnull_strength="0" unique_strength="0"></constraint>
@@ -495,7 +495,7 @@
     <constraint desc="" exp="" field="fid"></constraint>
     <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
-    <constraint desc="" exp="" field="project_fuid"></constraint>
+    <constraint desc="" exp="" field="field_project_fuid"></constraint>
     <constraint desc="" exp="" field="name"></constraint>
     <constraint desc="" exp="" field="description"></constraint>
     <constraint desc="" exp="" field="map_face_note"></constraint>
@@ -552,7 +552,7 @@ def my_form_open(dialog, layer, feature):
           <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField index="3" name="project_fuid" showLabel="1">
+      <attributeEditorField index="3" name="field_project_fuid" showLabel="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
@@ -689,7 +689,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="map_face_note"></field>
     <field editable="0" name="name"></field>
     <field editable="0" name="objectid"></field>
-    <field editable="1" name="project_fuid"></field>
+    <field editable="1" name="field_project_fuid"></field>
     <field editable="0" name="user_entered"></field>
     <field editable="1" name="user_updated"></field>
     <field editable="0" name="uuid"></field>
@@ -704,7 +704,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="map_face_note"></field>
     <field labelOnTop="0" name="name"></field>
     <field labelOnTop="0" name="objectid"></field>
-    <field labelOnTop="0" name="project_fuid"></field>
+    <field labelOnTop="0" name="field_project_fuid"></field>
     <field labelOnTop="0" name="user_entered"></field>
     <field labelOnTop="0" name="user_updated"></field>
     <field labelOnTop="0" name="uuid"></field>
@@ -719,7 +719,7 @@ def my_form_open(dialog, layer, feature):
     <field name="map_face_note" reuseLastValue="0"></field>
     <field name="name" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
-    <field name="project_fuid" reuseLastValue="0"></field>
+    <field name="field_project_fuid" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>

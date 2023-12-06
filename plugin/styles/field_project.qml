@@ -97,7 +97,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="project_type">
+    <field configurationFlags="None" name="field_project_type">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -106,11 +106,11 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_project_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_project_type_092e7003_f642_4e00_8d1f_25953a1f0abe"></Option>
-            <Option name="ReferencedLayerName" type="QString" value="dic_project_type"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_field_project_type"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_092e7003_f642_4e00_8d1f_25953a1f0abe"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="dic_field_project_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="dic_project_type_project"></Option>
+            <Option name="Relation" type="QString" value="dic_field_project_type_field_project"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
           </Option>
@@ -183,7 +183,7 @@
     <alias field="status_code" index="7" name=""></alias>
     <alias field="start_date" index="8" name=""></alias>
     <alias field="end_date" index="9" name=""></alias>
-    <alias field="project_type" index="10" name=""></alias>
+    <alias field="field_project_type" index="10" name=""></alias>
     <alias field="local_epsg" index="11" name=""></alias>
     <alias field="comment" index="12" name=""></alias>
     <alias field="user_entered" index="13" name=""></alias>
@@ -202,7 +202,7 @@
     <default applyOnUpdate="0" expression="" field="status_code"></default>
     <default applyOnUpdate="0" expression="" field="start_date"></default>
     <default applyOnUpdate="0" expression="" field="end_date"></default>
-    <default applyOnUpdate="0" expression="" field="project_type"></default>
+    <default applyOnUpdate="0" expression="" field="field_project_type"></default>
     <default applyOnUpdate="0" expression="" field="local_epsg"></default>
     <default applyOnUpdate="0" expression="" field="comment"></default>
     <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
@@ -221,7 +221,7 @@
     <constraint constraints="0" exp_strength="0" field="status_code" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="start_date" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="end_date" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="project_type" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="field_project_type" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="local_epsg" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
@@ -240,7 +240,7 @@
     <constraint desc="" exp="" field="status_code"></constraint>
     <constraint desc="" exp="" field="start_date"></constraint>
     <constraint desc="" exp="" field="end_date"></constraint>
-    <constraint desc="" exp="" field="project_type"></constraint>
+    <constraint desc="" exp="" field="field_project_type"></constraint>
     <constraint desc="" exp="" field="local_epsg"></constraint>
     <constraint desc="" exp="" field="comment"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
@@ -311,7 +311,7 @@ def my_form_open(dialog, layer, feature):
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField index="10" name="project_type" showLabel="1">
+    <attributeEditorField index="10" name="field_project_type" showLabel="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -336,7 +336,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="fid"></field>
     <field editable="1" name="local_epsg"></field>
     <field editable="1" name="objectid"></field>
-    <field editable="1" name="project_type"></field>
+    <field editable="1" name="field_project_type"></field>
     <field editable="1" name="responsible_person_id"></field>
     <field editable="1" name="short_name"></field>
     <field editable="1" name="start_date"></field>
@@ -355,7 +355,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="local_epsg"></field>
     <field labelOnTop="0" name="objectid"></field>
-    <field labelOnTop="0" name="project_type"></field>
+    <field labelOnTop="0" name="field_project_type"></field>
     <field labelOnTop="0" name="responsible_person_id"></field>
     <field labelOnTop="0" name="short_name"></field>
     <field labelOnTop="0" name="start_date"></field>
@@ -374,7 +374,7 @@ def my_form_open(dialog, layer, feature):
     <field name="fid" reuseLastValue="0"></field>
     <field name="local_epsg" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
-    <field name="project_type" reuseLastValue="0"></field>
+    <field name="field_project_type" reuseLastValue="0"></field>
     <field name="responsible_person_id" reuseLastValue="0"></field>
     <field name="short_name" reuseLastValue="0"></field>
     <field name="start_date" reuseLastValue="0"></field>
