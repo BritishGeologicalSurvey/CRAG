@@ -174,7 +174,7 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
     fdc.add_gpkg_to_project()
     fdc.add_gpkg_layers_to_project()
     expected_row_counts = {
-        "project": 1,
+        "field_project": 1,
         "locality_point": 2,
         "structural_measurement": 2,
         "lithology": 3,

@@ -366,7 +366,7 @@ class FieldDataCapture:
         functions = [
             self.add_gpkg_to_project,
             self.add_gpkg_layers_to_project,
-            lambda: self.open_layer_form(layer_name="project"),
+            lambda: self.open_layer_form(layer_name="field_project"),
         ]
         for function_ in functions:
             return_ = function_()
@@ -551,7 +551,7 @@ class FieldDataCapture:
             layer_tree_structure[group_name] = table_list
 
         # Move the project layer
-        project_name = "project"
+        project_name = "field_project"
         layer_tree_structure["locality_data"].remove(project_name)
         layer_tree_structure["metadata"].insert(0, project_name)
 

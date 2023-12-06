@@ -187,7 +187,7 @@ def test_views(
     # Check that required columns are in the view
     view_info = etl.table_info(table=view, conn=data_model_gpkg)
     all_col_names = {col.name for col in view_info}
-    required_cols = {"project", "locality_point", "locality_uuid", "x", "y"}
+    required_cols = {"field_project", "locality_point", "locality_uuid", "x", "y"}
     assert required_cols.issubset(all_col_names)
 
 
