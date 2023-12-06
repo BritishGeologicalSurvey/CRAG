@@ -177,7 +177,7 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
         "project": 1,
         "locality_point": 2,
         "structural_measurement": 2,
-        "exposure": 3,
+        "lithology": 3,
         "media": 2,
         "photo": 2,
         "sample": 2,

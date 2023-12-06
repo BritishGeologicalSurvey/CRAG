@@ -7,7 +7,7 @@ TABLES = {
         "locality_point",
         # Views
         "view_structural_measurement",
-        "view_exposure"
+        "view_lithology"
     ],
     "attributes": [
         # Dictionaries
@@ -22,7 +22,7 @@ TABLES = {
         "dic_superficial_category",
         "dic_superficial_code",
         # Attributes
-        "exposure",
+        "lithology",
         "manmade_landform",
         "media",
         "photo",
