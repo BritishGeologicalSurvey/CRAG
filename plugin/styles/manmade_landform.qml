@@ -1,24 +1,23 @@
-<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="3.28.11-Firenze" styleCategories="Symbology|Labeling|Fields|Forms">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.28.11-Firenze">
   <fieldConfiguration>
     <field configurationFlags="None" name="fid">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
     <field configurationFlags="None" name="objectid">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
     <field configurationFlags="None" name="uuid">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
@@ -26,18 +25,18 @@
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option type="bool" name="AllowAddFeatures" value="false"/>
-            <Option type="bool" name="AllowNULL" value="false"/>
-            <Option type="bool" name="MapIdentification" value="false"/>
-            <Option type="bool" name="OrderByValue" value="false"/>
-            <Option type="bool" name="ReadOnly" value="false"/>
-            <Option type="QString" name="ReferencedLayerDataSource" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"/>
-            <Option type="QString" name="ReferencedLayerId" value="locality_point_09acf2b3_5030_4514_8ed2_1a8cbd935a84"/>
-            <Option type="QString" name="ReferencedLayerName" value="locality_point"/>
-            <Option type="QString" name="ReferencedLayerProviderKey" value="ogr"/>
-            <Option type="QString" name="Relation" value="locality_point_manmade_landform"/>
-            <Option type="bool" name="ShowForm" value="false"/>
-            <Option type="bool" name="ShowOpenFormButton" value="true"/>
+            <Option name="AllowAddFeatures" type="bool" value="false"></Option>
+            <Option name="AllowNULL" type="bool" value="false"></Option>
+            <Option name="MapIdentification" type="bool" value="false"></Option>
+            <Option name="OrderByValue" type="bool" value="false"></Option>
+            <Option name="ReadOnly" type="bool" value="false"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_d722a305_c34e_4ced_9262_1e7f6ccc3598"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
+            <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
+            <Option name="Relation" type="QString" value="locality_point_manmade_landform"></Option>
+            <Option name="ShowForm" type="bool" value="false"></Option>
+            <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
           </Option>
         </config>
       </editWidget>
@@ -46,18 +45,18 @@
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option type="bool" name="AllowAddFeatures" value="false"/>
-            <Option type="bool" name="AllowNULL" value="true"/>
-            <Option type="bool" name="MapIdentification" value="false"/>
-            <Option type="bool" name="OrderByValue" value="false"/>
-            <Option type="bool" name="ReadOnly" value="false"/>
-            <Option type="QString" name="ReferencedLayerDataSource" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_manmade_code"/>
-            <Option type="QString" name="ReferencedLayerId" value="dic_manmade_code_b575ac67_b140_4ca8_bcd9_5a5683b65cb4"/>
-            <Option type="QString" name="ReferencedLayerName" value="dic_manmade_code"/>
-            <Option type="QString" name="ReferencedLayerProviderKey" value="ogr"/>
-            <Option type="QString" name="Relation" value="dic_manmade_code_manmade_landform_2"/>
-            <Option type="bool" name="ShowForm" value="false"/>
-            <Option type="bool" name="ShowOpenFormButton" value="true"/>
+            <Option name="AllowAddFeatures" type="bool" value="false"></Option>
+            <Option name="AllowNULL" type="bool" value="true"></Option>
+            <Option name="MapIdentification" type="bool" value="false"></Option>
+            <Option name="OrderByValue" type="bool" value="false"></Option>
+            <Option name="ReadOnly" type="bool" value="false"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_manmade_code"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_manmade_code_cfd92b1c_8808_478f_871f_598c33954f3a"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="dic_manmade_code"></Option>
+            <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
+            <Option name="Relation" type="QString" value="dic_manmade_code_manmade_landform_2"></Option>
+            <Option name="ShowForm" type="bool" value="false"></Option>
+            <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
           </Option>
         </config>
       </editWidget>
@@ -66,8 +65,8 @@
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="false"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option name="IsMultiline" type="bool" value="false"></Option>
+            <Option name="UseHtml" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
@@ -75,7 +74,7 @@
     <field configurationFlags="None" name="dip_direction">
       <editWidget type="TextEdit">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
@@ -83,8 +82,8 @@
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="false"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option name="IsMultiline" type="bool" value="false"></Option>
+            <Option name="UseHtml" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
@@ -93,8 +92,8 @@
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="false"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option name="IsMultiline" type="bool" value="false"></Option>
+            <Option name="UseHtml" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
@@ -103,8 +102,8 @@
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option type="bool" name="IsMultiline" value="true"/>
-            <Option type="bool" name="UseHtml" value="false"/>
+            <Option name="IsMultiline" type="bool" value="true"></Option>
+            <Option name="UseHtml" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
@@ -112,102 +111,102 @@
     <field configurationFlags="None" name="user_entered">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
     <field configurationFlags="None" name="date_entered">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
     <field configurationFlags="None" name="user_updated">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
     <field configurationFlags="None" name="date_updated">
       <editWidget type="Hidden">
         <config>
-          <Option/>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
   </fieldConfiguration>
   <aliases>
-    <alias name="" field="fid" index="0"/>
-    <alias name="" field="objectid" index="1"/>
-    <alias name="" field="uuid" index="2"/>
-    <alias name="" field="locality_fuid" index="3"/>
-    <alias name="" field="manmade_type_code" index="4"/>
-    <alias name="" field="dip" index="5"/>
-    <alias name="" field="dip_direction" index="6"/>
-    <alias name="" field="length" index="7"/>
-    <alias name="" field="width" index="8"/>
-    <alias name="" field="comment" index="9"/>
-    <alias name="" field="user_entered" index="10"/>
-    <alias name="" field="date_entered" index="11"/>
-    <alias name="" field="user_updated" index="12"/>
-    <alias name="" field="date_updated" index="13"/>
+    <alias field="fid" index="0" name=""></alias>
+    <alias field="objectid" index="1" name=""></alias>
+    <alias field="uuid" index="2" name=""></alias>
+    <alias field="locality_fuid" index="3" name=""></alias>
+    <alias field="manmade_type_code" index="4" name=""></alias>
+    <alias field="dip" index="5" name=""></alias>
+    <alias field="dip_direction" index="6" name=""></alias>
+    <alias field="length" index="7" name=""></alias>
+    <alias field="width" index="8" name=""></alias>
+    <alias field="comment" index="9" name=""></alias>
+    <alias field="user_entered" index="10" name=""></alias>
+    <alias field="date_entered" index="11" name=""></alias>
+    <alias field="user_updated" index="12" name=""></alias>
+    <alias field="date_updated" index="13" name=""></alias>
   </aliases>
   <defaults>
-    <default applyOnUpdate="0" field="fid" expression=""/>
-    <default applyOnUpdate="0" field="objectid" expression=""/>
-    <default applyOnUpdate="0" field="uuid" expression="uuid()"/>
-    <default applyOnUpdate="0" field="locality_fuid" expression=""/>
-    <default applyOnUpdate="0" field="manmade_type_code" expression=""/>
-    <default applyOnUpdate="0" field="dip" expression=""/>
-    <default applyOnUpdate="0" field="dip_direction" expression=""/>
-    <default applyOnUpdate="0" field="length" expression=""/>
-    <default applyOnUpdate="0" field="width" expression=""/>
-    <default applyOnUpdate="0" field="comment" expression=""/>
-    <default applyOnUpdate="0" field="user_entered" expression="@user_account_name"/>
-    <default applyOnUpdate="0" field="date_entered" expression="now()"/>
-    <default applyOnUpdate="1" field="user_updated" expression="@user_account_name"/>
-    <default applyOnUpdate="1" field="date_updated" expression="now()"/>
+    <default applyOnUpdate="0" expression="" field="fid"></default>
+    <default applyOnUpdate="0" expression="" field="objectid"></default>
+    <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
+    <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
+    <default applyOnUpdate="0" expression="" field="manmade_type_code"></default>
+    <default applyOnUpdate="0" expression="" field="dip"></default>
+    <default applyOnUpdate="0" expression="" field="dip_direction"></default>
+    <default applyOnUpdate="0" expression="" field="length"></default>
+    <default applyOnUpdate="0" expression="" field="width"></default>
+    <default applyOnUpdate="0" expression="" field="comment"></default>
+    <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
+    <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
+    <default applyOnUpdate="1" expression="@user_account_name" field="user_updated"></default>
+    <default applyOnUpdate="1" expression="now()" field="date_updated"></default>
   </defaults>
   <constraints>
-    <constraint exp_strength="0" field="fid" constraints="3" unique_strength="1" notnull_strength="1"/>
-    <constraint exp_strength="0" field="objectid" constraints="2" unique_strength="1" notnull_strength="0"/>
-    <constraint exp_strength="0" field="uuid" constraints="3" unique_strength="1" notnull_strength="1"/>
-    <constraint exp_strength="0" field="locality_fuid" constraints="1" unique_strength="0" notnull_strength="1"/>
-    <constraint exp_strength="0" field="manmade_type_code" constraints="1" unique_strength="0" notnull_strength="1"/>
-    <constraint exp_strength="0" field="dip" constraints="0" unique_strength="0" notnull_strength="0"/>
-    <constraint exp_strength="0" field="dip_direction" constraints="0" unique_strength="0" notnull_strength="0"/>
-    <constraint exp_strength="0" field="length" constraints="0" unique_strength="0" notnull_strength="0"/>
-    <constraint exp_strength="0" field="width" constraints="0" unique_strength="0" notnull_strength="0"/>
-    <constraint exp_strength="0" field="comment" constraints="0" unique_strength="0" notnull_strength="0"/>
-    <constraint exp_strength="0" field="user_entered" constraints="1" unique_strength="0" notnull_strength="1"/>
-    <constraint exp_strength="0" field="date_entered" constraints="1" unique_strength="0" notnull_strength="1"/>
-    <constraint exp_strength="0" field="user_updated" constraints="0" unique_strength="0" notnull_strength="0"/>
-    <constraint exp_strength="0" field="date_updated" constraints="0" unique_strength="0" notnull_strength="0"/>
+    <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
+    <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="manmade_type_code" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="dip" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="dip_direction" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="length" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="width" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
-    <constraint desc="" field="fid" exp=""/>
-    <constraint desc="" field="objectid" exp=""/>
-    <constraint desc="" field="uuid" exp=""/>
-    <constraint desc="" field="locality_fuid" exp=""/>
-    <constraint desc="" field="manmade_type_code" exp=""/>
-    <constraint desc="" field="dip" exp=""/>
-    <constraint desc="" field="dip_direction" exp=""/>
-    <constraint desc="" field="length" exp=""/>
-    <constraint desc="" field="width" exp=""/>
-    <constraint desc="" field="comment" exp=""/>
-    <constraint desc="" field="user_entered" exp=""/>
-    <constraint desc="" field="date_entered" exp=""/>
-    <constraint desc="" field="user_updated" exp=""/>
-    <constraint desc="" field="date_updated" exp=""/>
+    <constraint desc="" exp="" field="fid"></constraint>
+    <constraint desc="" exp="" field="objectid"></constraint>
+    <constraint desc="" exp="" field="uuid"></constraint>
+    <constraint desc="" exp="" field="locality_fuid"></constraint>
+    <constraint desc="" exp="" field="manmade_type_code"></constraint>
+    <constraint desc="" exp="" field="dip"></constraint>
+    <constraint desc="" exp="" field="dip_direction"></constraint>
+    <constraint desc="" exp="" field="length"></constraint>
+    <constraint desc="" exp="" field="width"></constraint>
+    <constraint desc="" exp="" field="comment"></constraint>
+    <constraint desc="" exp="" field="user_entered"></constraint>
+    <constraint desc="" exp="" field="date_entered"></constraint>
+    <constraint desc="" exp="" field="user_updated"></constraint>
+    <constraint desc="" exp="" field="date_updated"></constraint>
   </constraintExpressions>
-  <expressionfields/>
+  <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
-  <editforminit/>
+  <editforminit></editforminit>
   <editforminitcodesource>0</editforminitcodesource>
   <editforminitfilepath></editforminitfilepath>
-  <editforminitcode><![CDATA[# -*- coding: utf-8 -*-
+  <editforminitcode># -*- coding: utf-8 -*-
 """
 QGIS forms can have a Python function that is called when the form is
 opened.
@@ -223,61 +222,61 @@ from qgis.PyQt.QtWidgets import QWidget
 def my_form_open(dialog, layer, feature):
     geom = feature.geometry()
     control = dialog.findChild(QWidget, "MyLineEdit")
-]]></editforminitcode>
+</editforminitcode>
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
-    <field name="comment" editable="1"/>
-    <field name="date_entered" editable="1"/>
-    <field name="date_updated" editable="1"/>
-    <field name="dip" editable="1"/>
-    <field name="dip_dir" editable="1"/>
-    <field name="dip_direction" editable="1"/>
-    <field name="fid" editable="1"/>
-    <field name="length" editable="1"/>
-    <field name="locality_fuid" editable="1"/>
-    <field name="manmade_type_code" editable="1"/>
-    <field name="objectid" editable="1"/>
-    <field name="user_entered" editable="1"/>
-    <field name="user_updated" editable="1"/>
-    <field name="uuid" editable="1"/>
-    <field name="width" editable="1"/>
+    <field editable="1" name="comment"></field>
+    <field editable="1" name="date_entered"></field>
+    <field editable="1" name="date_updated"></field>
+    <field editable="1" name="dip"></field>
+    <field editable="1" name="dip_dir"></field>
+    <field editable="1" name="dip_direction"></field>
+    <field editable="1" name="fid"></field>
+    <field editable="1" name="length"></field>
+    <field editable="1" name="locality_fuid"></field>
+    <field editable="1" name="manmade_type_code"></field>
+    <field editable="1" name="objectid"></field>
+    <field editable="1" name="user_entered"></field>
+    <field editable="1" name="user_updated"></field>
+    <field editable="1" name="uuid"></field>
+    <field editable="1" name="width"></field>
   </editable>
   <labelOnTop>
-    <field name="comment" labelOnTop="0"/>
-    <field name="date_entered" labelOnTop="0"/>
-    <field name="date_updated" labelOnTop="0"/>
-    <field name="dip" labelOnTop="0"/>
-    <field name="dip_dir" labelOnTop="0"/>
-    <field name="dip_direction" labelOnTop="0"/>
-    <field name="fid" labelOnTop="0"/>
-    <field name="length" labelOnTop="0"/>
-    <field name="locality_fuid" labelOnTop="0"/>
-    <field name="manmade_type_code" labelOnTop="0"/>
-    <field name="objectid" labelOnTop="0"/>
-    <field name="user_entered" labelOnTop="0"/>
-    <field name="user_updated" labelOnTop="0"/>
-    <field name="uuid" labelOnTop="0"/>
-    <field name="width" labelOnTop="0"/>
+    <field labelOnTop="0" name="comment"></field>
+    <field labelOnTop="0" name="date_entered"></field>
+    <field labelOnTop="0" name="date_updated"></field>
+    <field labelOnTop="0" name="dip"></field>
+    <field labelOnTop="0" name="dip_dir"></field>
+    <field labelOnTop="0" name="dip_direction"></field>
+    <field labelOnTop="0" name="fid"></field>
+    <field labelOnTop="0" name="length"></field>
+    <field labelOnTop="0" name="locality_fuid"></field>
+    <field labelOnTop="0" name="manmade_type_code"></field>
+    <field labelOnTop="0" name="objectid"></field>
+    <field labelOnTop="0" name="user_entered"></field>
+    <field labelOnTop="0" name="user_updated"></field>
+    <field labelOnTop="0" name="uuid"></field>
+    <field labelOnTop="0" name="width"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="comment" reuseLastValue="0"/>
-    <field name="date_entered" reuseLastValue="0"/>
-    <field name="date_updated" reuseLastValue="0"/>
-    <field name="dip" reuseLastValue="0"/>
-    <field name="dip_dir" reuseLastValue="0"/>
-    <field name="dip_direction" reuseLastValue="0"/>
-    <field name="fid" reuseLastValue="0"/>
-    <field name="length" reuseLastValue="0"/>
-    <field name="locality_fuid" reuseLastValue="0"/>
-    <field name="manmade_type_code" reuseLastValue="0"/>
-    <field name="objectid" reuseLastValue="0"/>
-    <field name="user_entered" reuseLastValue="0"/>
-    <field name="user_updated" reuseLastValue="0"/>
-    <field name="uuid" reuseLastValue="0"/>
-    <field name="width" reuseLastValue="0"/>
+    <field name="comment" reuseLastValue="0"></field>
+    <field name="date_entered" reuseLastValue="0"></field>
+    <field name="date_updated" reuseLastValue="0"></field>
+    <field name="dip" reuseLastValue="0"></field>
+    <field name="dip_dir" reuseLastValue="0"></field>
+    <field name="dip_direction" reuseLastValue="0"></field>
+    <field name="fid" reuseLastValue="0"></field>
+    <field name="length" reuseLastValue="0"></field>
+    <field name="locality_fuid" reuseLastValue="0"></field>
+    <field name="manmade_type_code" reuseLastValue="0"></field>
+    <field name="objectid" reuseLastValue="0"></field>
+    <field name="user_entered" reuseLastValue="0"></field>
+    <field name="user_updated" reuseLastValue="0"></field>
+    <field name="uuid" reuseLastValue="0"></field>
+    <field name="width" reuseLastValue="0"></field>
   </reuseLastValue>
-  <dataDefinedFieldProperties/>
-  <widgets/>
+  <dataDefinedFieldProperties></dataDefinedFieldProperties>
+  <widgets></widgets>
   <layerGeometryType>4</layerGeometryType>
 </qgis>

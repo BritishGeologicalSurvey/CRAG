@@ -3,6 +3,7 @@ These are tests for the plugin which depend on a running QGIS version which is s
 """
 from pathlib import Path
 from unittest.mock import Mock
+from xml.dom import minidom
 
 import pytest
 import etlhelper as etl
@@ -33,12 +34,15 @@ def test_project_fixture(fdc: FieldDataCapture, qgs_project: Path):
 
 def test_validation_good(fdc: FieldDataCapture, qgs_project: Path):
     fdc.add_gpkg_to_project()
+    fdc.add_gpkg_layers_to_project()
     assert fdc.project_is_active()
     assert fdc.db_file.exists()
+    assert fdc.check_fdc_layers_exist()
 
 
 def test_validation_bad(fdc: FieldDataCapture):
     assert not fdc.project_is_active()
+    assert not fdc.check_fdc_layers_exist()
 
 
 def test_setup_project_logic_good(
@@ -157,7 +161,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     actual_qml_files = [
         # Make the actual path relative to the plugin root
         Path(qml_file.parent.name) / qml_file.name
-        for qml_file in Path(fdc.project_dir / "styles").glob("*.qml")
+        for qml_file in fdc.styles_dir.glob("*.qml")
     ]
     assert expected_qml_files == actual_qml_files
 
@@ -198,3 +202,55 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
         for widget in widgets.values():
             if widget["type"] == "RelationReference":
                 assert widget["config"]["ReferencedLayerId"] in map_layers
+
+
+def test_export_qml_styles(fdc: FieldDataCapture, qgs_project: Path):
+    # Arrange
+    expected_categories = {
+        "Symbology",
+        "Labeling",
+        "Fields",
+        "Forms",
+    }
+    fdc.add_gpkg_to_project()
+    fdc.add_gpkg_layers_to_project()
+    # Get a dictionary of filepaths as keys and modified timestamps as values
+    existing_qml_files = {
+        str(qml_filepath): qml_filepath.stat().st_mtime
+        for qml_filepath in fdc.styles_dir.glob("*.qml")
+    }
+
+    # Act
+    function_return = fdc.export_qml_styles()
+
+    # Assert
+    assert function_return
+    for qml_filepath in fdc.styles_dir.glob("*.qml"):
+
+        # Ensure the previously existing timestamp is smaller than the current file timestamp
+        # this essentially means that the file has been changed
+        assert existing_qml_files[str(qml_filepath)] < qml_filepath.stat().st_mtime
+
+        # Ensure that the correct categories have been exported in the XML data
+        xml_data = minidom.parse(str(qml_filepath))
+        categories_str = xml_data.getElementsByTagName("qgis")[0].attributes["styleCategories"].value
+        categories_set = set(categories_str.split("|"))
+        assert categories_set == expected_categories
+
+
+def test_export_qml_styles_no_layers(
+    fdc: FieldDataCapture,
+    qgs_project: Path,
+):
+    # Arrange
+    fdc.add_gpkg_to_project()
+
+    # Act
+    # No current style files exist because the layers have not been loaded
+    # Therefore this should make no change
+    function_return = fdc.export_qml_styles()
+
+    # Assert
+    assert not function_return
+    # Ensure the styles directory does not exist
+    assert not fdc.styles_dir.exists()
