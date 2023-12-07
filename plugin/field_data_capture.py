@@ -280,6 +280,17 @@ class FieldDataCapture:
 
         self.add_action(
             icon_path,
+            text=self.tr(u'Export Styles to QML'),
+            callback=self.export_qml_styles,
+            add_to_menu=False,
+            parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
+        )
+
+        dev_submenu.addSeparator()
+
+        self.add_action(
+            icon_path,
             text=self.tr(u'Add GeoPackage to Project'),
             callback=self.add_gpkg_to_project,
             add_to_menu=False,
@@ -309,15 +320,6 @@ class FieldDataCapture:
             icon_path,
             text=self.tr(u'Add Test Data to Project'),
             callback=self.add_test_data_to_project,
-            add_to_menu=False,
-            parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Export Styles to QML'),
-            callback=self.export_qml_styles,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
