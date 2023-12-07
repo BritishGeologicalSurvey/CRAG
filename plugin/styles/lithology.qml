@@ -31,7 +31,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_58f3eab6_b2f6_4d76_84e5_ca775fcff7fd"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_8374736d_046b_4ff2_8219_b99e00d11a45"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_lithology"></Option>
@@ -56,7 +56,7 @@
             <Option name="OrderByValue" type="bool" value="true"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_rock_all"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_rock_all_b2dbd90a_d809_4f4a_8381_e59d81259da2"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_rock_all_8a8302a7_e4f7_4452_ac63_b2a4a9a5fbb7"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_rock_all"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_rock_all_lithology_2"></Option>

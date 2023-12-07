@@ -31,13 +31,20 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_58f3eab6_b2f6_4d76_84e5_ca775fcff7fd"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_8374736d_046b_4ff2_8219_b99e00d11a45"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_sample_2"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
           </Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="None" name="sample_id">
+      <editWidget type="">
+        <config>
+          <Option></Option>
         </config>
       </editWidget>
     </field>
@@ -51,7 +58,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_sample"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_sample_cd60b6aa_0466_499b_8e64_8d591e118640"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_sample_98f91987_6af9_4cec_927d_4bcb37e0ba3e"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_sample"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_sample_sample"></Option>
@@ -115,19 +122,21 @@
     <alias field="objectid" index="1" name=""></alias>
     <alias field="uuid" index="2" name=""></alias>
     <alias field="locality_fuid" index="3" name=""></alias>
-    <alias field="sample_type_code" index="4" name=""></alias>
-    <alias field="sample_description" index="5" name=""></alias>
-    <alias field="comment" index="6" name=""></alias>
-    <alias field="user_entered" index="7" name=""></alias>
-    <alias field="date_entered" index="8" name=""></alias>
-    <alias field="user_updated" index="9" name=""></alias>
-    <alias field="date_updated" index="10" name=""></alias>
+    <alias field="sample_id" index="4" name=""></alias>
+    <alias field="sample_type_code" index="5" name=""></alias>
+    <alias field="sample_description" index="6" name=""></alias>
+    <alias field="comment" index="7" name=""></alias>
+    <alias field="user_entered" index="8" name=""></alias>
+    <alias field="date_entered" index="9" name=""></alias>
+    <alias field="user_updated" index="10" name=""></alias>
+    <alias field="date_updated" index="11" name=""></alias>
   </aliases>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
+    <default applyOnUpdate="0" expression="" field="sample_id"></default>
     <default applyOnUpdate="0" expression="" field="sample_type_code"></default>
     <default applyOnUpdate="0" expression="" field="sample_description"></default>
     <default applyOnUpdate="0" expression="" field="comment"></default>
@@ -141,6 +150,7 @@
     <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="sample_id" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="sample_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="sample_description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
@@ -154,6 +164,7 @@
     <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
+    <constraint desc="" exp="" field="sample_id"></constraint>
     <constraint desc="" exp="" field="sample_type_code"></constraint>
     <constraint desc="" exp="" field="sample_description"></constraint>
     <constraint desc="" exp="" field="comment"></constraint>

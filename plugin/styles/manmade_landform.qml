@@ -31,7 +31,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_58f3eab6_b2f6_4d76_84e5_ca775fcff7fd"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_8374736d_046b_4ff2_8219_b99e00d11a45"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_manmade_landform"></Option>
@@ -51,7 +51,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_manmade_code"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_manmade_code_7136af55_7b43_4dad_a002_60b8dcac1c33"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_manmade_code_5ef4057b_0fe8_45cb_a45d_a4ca1464d16e"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_manmade_code"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_manmade_code_manmade_landform_2"></Option>

@@ -107,7 +107,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_field_project_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_8ed2b83e_4ee5_4337_9680_c0ccd9e75b26"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_d54e98b5_f3ee_4f23_8560_1be70c1a81b3"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_field_project_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_field_project_type_field_project"></Option>
