@@ -31,7 +31,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_c011990a_42ee_4220_9807_5d0531f29441"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_58f3eab6_b2f6_4d76_84e5_ca775fcff7fd"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_sample_2"></Option>
@@ -51,7 +51,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_sample"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_sample_f18a36ba_aa89_4fae_b719_e6449e6db5dd"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_sample_cd60b6aa_0466_499b_8e64_8d591e118640"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_sample"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_sample_sample"></Option>
