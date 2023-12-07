@@ -47,7 +47,7 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
     lp.geometry as geometry
   FROM lithology lith
     LEFT JOIN locality_point lp on lith.locality_fuid = lp.uuid
-    LEFT JOIN dic_exposure_type type on lith.exposure_type_code = type.code
+    LEFT JOIN dic_exposure_type type on lp.exposure_type_code = type.code
 	LEFT JOIN dic_rock_all rock on lith.lithology_code = rock.code
     LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;

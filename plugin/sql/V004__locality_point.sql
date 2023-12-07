@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
     "uuid" TEXT NOT NULL UNIQUE,
     "field_project_fuid" TEXT NOT NULL,
     "name" TEXT NOT NULL UNIQUE,
+    "exposure_type_code"  TEXT NOT NULL,
     "description" TEXT,
     "map_face_note" TEXT,
     "comment" TEXT,
@@ -27,6 +28,7 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
     "user_updated" TEXT,
     "date_updated" DATETIME,
     "geometry" POINT,
+    FOREIGN KEY("exposure_type_code") REFERENCES "dic_exposure_type"("code"),
     FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );

@@ -53,7 +53,6 @@ CREATE TABLE IF NOT EXISTS "lithology"(
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
-  "exposure_type_code"  TEXT NOT NULL,
   "lithology_code" TEXT,
   "description" TEXT,
   "comment" TEXT,
@@ -61,7 +60,6 @@ CREATE TABLE IF NOT EXISTS "lithology"(
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
-  FOREIGN KEY("exposure_type_code") REFERENCES "dic_exposure_type"("code"),
   FOREIGN KEY("lithology_code") REFERENCES "dic_rock_all"("code"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
