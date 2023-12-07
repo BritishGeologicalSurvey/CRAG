@@ -68,7 +68,11 @@ def test_setup_project_logic_good(
 
     # Act
     # A saved QGIS project is open so this should work and call all functions once
-    fdc.full_project_setup()
+    fdc.run_function_list(functions=[
+        fdc.add_gpkg_to_project,
+        fdc.add_gpkg_layers_to_project,
+        lambda: fdc.open_layer_form(layer_name="field_project"),
+    ])
 
     # Assert
     for mock_function in check_functions.values():
@@ -94,7 +98,11 @@ def test_setup_project_logic_bad(
 
     # Act
     # No QGIS project is open, so only the first function should be called once
-    fdc.full_project_setup()
+    fdc.run_function_list(functions=[
+        fdc.add_gpkg_to_project,
+        fdc.add_gpkg_layers_to_project,
+        lambda: fdc.open_layer_form(layer_name="field_project"),
+    ])
 
     # Assert
     # Check that the first function was called once
