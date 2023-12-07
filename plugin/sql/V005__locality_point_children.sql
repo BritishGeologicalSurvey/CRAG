@@ -113,6 +113,7 @@ CREATE TABLE IF NOT EXISTS "sample" (
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
+  "sample_id" TEXT NOT NULL,
   "sample_type_code" TEXT NOT NULL,
   "sample_description" TEXT,
   "comment" TEXT,
