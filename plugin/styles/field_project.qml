@@ -107,7 +107,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_field_project_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_092e7003_f642_4e00_8d1f_25953a1f0abe"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_c9077d5a_41b0_40ef_ad04_1e2f189a5472"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_field_project_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_field_project_type_field_project"></Option>
@@ -334,9 +334,9 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="description"></field>
     <field editable="1" name="end_date"></field>
     <field editable="1" name="fid"></field>
+    <field editable="1" name="field_project_type"></field>
     <field editable="1" name="local_epsg"></field>
     <field editable="1" name="objectid"></field>
-    <field editable="1" name="field_project_type"></field>
     <field editable="1" name="responsible_person_id"></field>
     <field editable="1" name="short_name"></field>
     <field editable="1" name="start_date"></field>
@@ -353,9 +353,9 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="description"></field>
     <field labelOnTop="0" name="end_date"></field>
     <field labelOnTop="0" name="fid"></field>
+    <field labelOnTop="0" name="field_project_type"></field>
     <field labelOnTop="0" name="local_epsg"></field>
     <field labelOnTop="0" name="objectid"></field>
-    <field labelOnTop="0" name="field_project_type"></field>
     <field labelOnTop="0" name="responsible_person_id"></field>
     <field labelOnTop="0" name="short_name"></field>
     <field labelOnTop="0" name="start_date"></field>
@@ -372,9 +372,9 @@ def my_form_open(dialog, layer, feature):
     <field name="description" reuseLastValue="0"></field>
     <field name="end_date" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
+    <field name="field_project_type" reuseLastValue="0"></field>
     <field name="local_epsg" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
-    <field name="field_project_type" reuseLastValue="0"></field>
     <field name="responsible_person_id" reuseLastValue="0"></field>
     <field name="short_name" reuseLastValue="0"></field>
     <field name="start_date" reuseLastValue="0"></field>

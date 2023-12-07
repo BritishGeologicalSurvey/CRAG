@@ -31,7 +31,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_d722a305_c34e_4ced_9262_1e7f6ccc3598"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_c011990a_42ee_4220_9807_5d0531f29441"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_lithology"></Option>
@@ -51,7 +51,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_exposure_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_exposure_type_fe2e649f_3fc5_4871_93d4_ab26e0d2a1e0"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_exposure_type_58778022_6e4b_4b9d_ae72_4070b8d17ef3"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_exposure_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_exposure_type_lithology_3"></Option>
@@ -76,7 +76,7 @@
             <Option name="OrderByValue" type="bool" value="true"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_rock_all"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_rock_all_eb287176_2b7c_4bed_ad42_3b45ebc36089"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_rock_all_620bbb64_ed44_45ea_b75f_6a2ce7250895"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_rock_all"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_rock_all_lithology_2"></Option>

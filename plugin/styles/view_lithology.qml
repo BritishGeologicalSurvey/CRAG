@@ -657,15 +657,15 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="comment"></field>
     <field editable="1" name="description"></field>
     <field editable="1" name="exposure_type"></field>
-    <field editable="1" name="lithology_uuid"></field>
+    <field editable="1" name="field_project"></field>
     <field editable="1" name="lat"></field>
     <field editable="1" name="lithology"></field>
     <field editable="1" name="lithology_code"></field>
+    <field editable="1" name="lithology_uuid"></field>
     <field editable="1" name="local_epsg"></field>
     <field editable="1" name="locality_point"></field>
     <field editable="1" name="locality_uuid"></field>
     <field editable="1" name="lon"></field>
-    <field editable="1" name="field_project"></field>
     <field editable="1" name="x"></field>
     <field editable="1" name="y"></field>
   </editable>
@@ -673,15 +673,15 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="comment"></field>
     <field labelOnTop="0" name="description"></field>
     <field labelOnTop="0" name="exposure_type"></field>
-    <field labelOnTop="0" name="lithology_uuid"></field>
+    <field labelOnTop="0" name="field_project"></field>
     <field labelOnTop="0" name="lat"></field>
     <field labelOnTop="0" name="lithology"></field>
     <field labelOnTop="0" name="lithology_code"></field>
+    <field labelOnTop="0" name="lithology_uuid"></field>
     <field labelOnTop="0" name="local_epsg"></field>
     <field labelOnTop="0" name="locality_point"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
     <field labelOnTop="0" name="lon"></field>
-    <field labelOnTop="0" name="field_project"></field>
     <field labelOnTop="0" name="x"></field>
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
@@ -689,15 +689,15 @@ def my_form_open(dialog, layer, feature):
     <field name="comment" reuseLastValue="0"></field>
     <field name="description" reuseLastValue="0"></field>
     <field name="exposure_type" reuseLastValue="0"></field>
-    <field name="lithology_uuid" reuseLastValue="0"></field>
+    <field name="field_project" reuseLastValue="0"></field>
     <field name="lat" reuseLastValue="0"></field>
     <field name="lithology" reuseLastValue="0"></field>
     <field name="lithology_code" reuseLastValue="0"></field>
+    <field name="lithology_uuid" reuseLastValue="0"></field>
     <field name="local_epsg" reuseLastValue="0"></field>
     <field name="locality_point" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
     <field name="lon" reuseLastValue="0"></field>
-    <field name="field_project" reuseLastValue="0"></field>
     <field name="x" reuseLastValue="0"></field>
     <field name="y" reuseLastValue="0"></field>
   </reuseLastValue>
