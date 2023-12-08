@@ -31,15 +31,17 @@ TABLES = {
         "superficial_landform",
         # Metadata
         "project",
+        "view_next_locality_id",
     ]
 }
 
-VIEWS = {table for table in TABLES['features']
+VIEWS = {table for table in TABLES['features'] + TABLES['attributes']
          if table.startswith('view_')}
 FEATURE_TABLES = {table for table in TABLES['features']}.difference(VIEWS)
 
 DICTIONARIES = {table for table in TABLES['attributes']
                 if table.startswith('dic_')}
-ATTRIBUTE_TABLES = {table for table in TABLES['attributes']}.difference(DICTIONARIES)
+ATTRIBUTE_TABLES = {table for table in TABLES['attributes']
+                    if not table.startswith("view")}.difference(DICTIONARIES)
 
 TABLE_LIST = sorted(TABLES["features"] + TABLES["attributes"])
