@@ -58,4 +58,43 @@ VALUES('view_exposure','features','view_exposure','View with exposure results at
 INSERT INTO gpkg_geometry_columns
 VALUES('view_exposure','geometry','POINT',4326,1,0);
 
+
+CREATE VIEW IF NOT EXISTS "view_next_locality_id" AS
+  -- Using nested SELECT statements as it allows us to build reusable variables
+  SELECT
+    username,
+    -- Concatenating the individual elements together to form the next id value as a string
+    -- The methods within the printf statement are adding the required padding for the next_int_id value
+    locality_prefix || printf("%03d", next_int_id) AS next_locality_id
+  FROM
+    (
+      SELECT
+        -- Keep the locality_prefix for building the final string
+        locality_prefix,
+        -- Get the username without the split suffix for easy querying later
+        SUBSTR(locality_prefix, 0, LENGTH(locality_prefix)) AS username,
+        -- Calculate the next integer id, by getting the current max for each name + 1
+        -- The replace transforms "leorud_001" into "001", by replacing "leorud_" with ""
+        MAX(REPLACE(locality_name, locality_prefix, "")) + 1 AS next_int_id
+      FROM
+        (
+          SELECT
+            -- Keep the original locality_name for further calculations
+            -- Get the name with the split character ONLY, ignoring the dynamic integer id
+            -- by chopping off the 3 digit integer suffix
+            name AS locality_name,
+            SUBSTR(name, 0, LENGTH(name) - 2) AS locality_prefix
+          FROM
+            locality_point
+        )
+      -- Grouping so that we only get 1 next_int_id for each username based on the current MAX
+      GROUP BY
+        locality_prefix
+    )
+;
+
+INSERT INTO gpkg_contents
+VALUES('view_next_locality_id','attributes','view_next_locality_id','List of next locality_point ID values based on existing locality_point data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
+
 COMMIT;
