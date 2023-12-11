@@ -482,7 +482,7 @@
     <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="project_fuid" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="name" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="3" exp_strength="0" field="name" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="0" exp_strength="0" field="description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="geological_note" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
@@ -687,7 +687,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="epsg_code"></field>
     <field editable="0" name="fid"></field>
     <field editable="1" name="geological_note"></field>
-    <field editable="1" name="name"></field>
+    <field editable="0" name="name"></field>
     <field editable="0" name="objectid"></field>
     <field editable="1" name="project_fuid"></field>
     <field editable="0" name="user_entered"></field>
