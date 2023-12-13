@@ -83,6 +83,8 @@ Create a virtual environment (Python 3.9) and install dependencies:
 conda env create -f environment.yml
 ```
 
+It is beneficial to install the `libmamba` solver for Anaconda when creating the environment. It can speed up the process and avoid issues. You can find instructions for installing this solver here: https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community
+
 The `environment_unversioned.yml` file was created with `conda env export --from-history`. Creating a new environment from this file will use the most up-to-date dependencies.
 
 There is a dependency version issue in the environment with QGIS 3.28 and Python 3.9.5.  This can be fixed by symlinking the installed version of libgsl to the required one.
