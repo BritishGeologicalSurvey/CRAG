@@ -468,7 +468,7 @@
     <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="project_fuid"></default>
-    <default applyOnUpdate="0" expression="" field="name"></default>
+    <default applyOnUpdate="0" expression="coalesce (&#xA;-- Case 1, use mergin_username from view_next_locality_id&#xA;&#x9;attribute(&#xA;&#x9;&#x9;get_feature(&#xA;&#x9;&#x9;&#x9;'view_next_locality_id',&#xA;&#x9;&#x9;&#x9;'username' ,&#xA;&#x9;&#x9;&#x9;@mergin_username&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'next_locality_id'&#xA;&#x9;),&#xA;&#xA;-- Case 2, use user_account_name from view_next_locality_id&#xA;&#x9;attribute(&#xA;&#x9;&#x9;get_feature(&#xA;&#x9;&#x9;&#x9;'view_next_locality_id',&#xA;&#x9;&#x9;&#x9;'username' ,&#xA;&#x9;&#x9;&#x9;@user_account_name&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'next_locality_id'&#xA;&#x9;),&#xA;&#xA;-- Case 3 and 4, creating the first point with '_001'&#xA;&#x9;concat(&#xA;&#x9;&#x9;coalesce(&#xA;&#x9;&#x9;&#x9;-- Case 3 use mergin_username&#xA;&#x9;&#x9;&#x9;@mergin_username,&#xA;&#x9;&#x9;&#x9;-- Case 4, use user_account_name&#xA;&#x9;&#x9;&#x9;@user_account_name&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'_001'&#xA;&#x9;)&#xA;&#xA;)&#xA;" field="name"></default>
     <default applyOnUpdate="0" expression="" field="description"></default>
     <default applyOnUpdate="0" expression="" field="geological_note"></default>
     <default applyOnUpdate="0" expression="" field="comment"></default>
@@ -482,7 +482,7 @@
     <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="project_fuid" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="name" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="3" exp_strength="0" field="name" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="0" exp_strength="0" field="description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="geological_note" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
@@ -687,7 +687,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="epsg_code"></field>
     <field editable="0" name="fid"></field>
     <field editable="1" name="geological_note"></field>
-    <field editable="1" name="name"></field>
+    <field editable="0" name="name"></field>
     <field editable="0" name="objectid"></field>
     <field editable="1" name="project_fuid"></field>
     <field editable="0" name="user_entered"></field>

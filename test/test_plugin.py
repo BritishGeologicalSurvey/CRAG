@@ -1,6 +1,8 @@
 """
 These are tests for the plugin which depend on a running QGIS version which is supplied by the 'fdc' fixture.
 """
+import os
+import pwd
 from pathlib import Path
 from unittest.mock import Mock
 from xml.dom import minidom
@@ -10,6 +12,7 @@ import etlhelper as etl
 from qgis.core import (
     QgsLayerTreeGroup,
     QgsProject,
+    QgsVectorLayerUtils,
 )
 
 from conftest import setup_db_conn
@@ -254,3 +257,33 @@ def test_export_qml_styles_no_layers(
     assert not function_return
     # Ensure the styles directory does not exist
     assert not fdc.styles_dir.exists()
+
+
+def test_auto_increment_locality_point_name(
+    fdc: FieldDataCapture,
+    qgs_project: Path,
+):
+    # Arrange
+    fdc.add_gpkg_to_project()
+    fdc.add_gpkg_layers_to_project()
+    fdc.add_test_data_to_project()
+    # This is the username which the tests will use for default values, as there is no mergin name
+    username = pwd.getpwuid(os.getuid()).pw_name
+    # Generate a list of expected locality point names based on the current username
+    expected_locality_point_names = [
+        f"{username}_00{idx}"
+        for idx in range(1, 3)
+    ]
+
+    # Act
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    for expected_name in expected_locality_point_names:
+        layer.startEditing()
+        feature = QgsVectorLayerUtils.createFeature(layer)
+        # Set the project_fuid to be the uuid of the project from the test data set
+        feature.setAttribute(feature.fieldNameIndex("project_fuid"), "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
+        layer.addFeature(feature)
+        layer.commitChanges()
+
+        # Assert
+        assert feature.attribute("name") == expected_name

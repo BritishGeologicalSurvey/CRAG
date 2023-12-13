@@ -555,6 +555,11 @@ class FieldDataCapture:
         layer_tree_structure["locality_data"].remove(project_name)
         layer_tree_structure["metadata"].insert(0, project_name)
 
+        # Move the view_next_locality_id
+        next_id_name = "view_next_locality_id"
+        layer_tree_structure["views"].remove(next_id_name)
+        layer_tree_structure["metadata"].append(next_id_name)
+
         return layer_tree_structure
 
 
