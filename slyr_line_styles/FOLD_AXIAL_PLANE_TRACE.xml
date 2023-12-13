@@ -48,7 +48,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Fold_Anticline" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fold_anticline" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -120,7 +120,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Anticline@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_anticline@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -160,7 +160,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fold_Anticline_Syncline_pair" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fold_anticline_syncline_pair" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -270,7 +270,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Anticline_Syncline_pair@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_anticline_syncline_pair@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -335,7 +335,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Anticline_Syncline_pair@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_anticline_syncline_pair@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -375,7 +375,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fold_Antiform" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fold_antiform" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -447,7 +447,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Antiform@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_antiform@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -487,7 +487,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fold_Antiform_Synform_pair" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fold_antiform_synform_pair" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -597,7 +597,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Antiform_Synform_pair@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_antiform_synform_pair@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -662,7 +662,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Antiform_Synform_pair@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_antiform_synform_pair@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -702,7 +702,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fold_Monocline_lower" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fold_monocline_lower" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -774,7 +774,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Monocline_lower@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_monocline_lower@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -840,7 +840,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Monocline_lower@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_monocline_lower@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -881,7 +881,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fold_Monocline_upper" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fold_monocline_upper" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -953,7 +953,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Monocline_upper@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_monocline_upper@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1018,7 +1018,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Monocline_upper@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_monocline_upper@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1058,7 +1058,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fold_Syncline" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fold_syncline" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1130,7 +1130,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Syncline@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_syncline@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1170,7 +1170,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fold_Synform" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fold_synform" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1242,7 +1242,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fold_Synform@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fold_synform@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>

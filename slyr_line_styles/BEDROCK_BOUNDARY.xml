@@ -48,7 +48,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="BedRock_Geology_boundary_Conj" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="bedrock_geology_boundary_conj" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -95,7 +95,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="BedRock_Geology_boundary_Grad" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="bedrock_geology_boundary_grad" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -129,7 +129,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@BedRock_Geology_boundary_Grad@0" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@bedrock_geology_boundary_grad@0" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -170,7 +170,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="BedRock_Geology_boundary_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="bedrock_geology_boundary_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -217,7 +217,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="BedRock_Geology_boundary_Int_from_GD" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="bedrock_geology_boundary_int_from_gd" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -264,7 +264,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="BedRock_Geology_boundary_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="bedrock_geology_boundary_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -311,7 +311,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="BedRock_polygon_closure" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="bedrock_polygon_closure" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -358,7 +358,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Igneous_cutting_margin_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="igneous_cutting_margin_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -434,7 +434,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Igneous_cutting_margin_Inf@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@igneous_cutting_margin_inf@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -512,7 +512,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Igneous_cutting_margin_Inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@igneous_cutting_margin_inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -590,7 +590,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Igneous_cutting_margin_Inf@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@igneous_cutting_margin_inf@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -639,7 +639,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Igneous_cutting_margin_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="igneous_cutting_margin_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -715,7 +715,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Igneous_cutting_margin_Obs@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@igneous_cutting_margin_obs@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -764,7 +764,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Limit_Igneous_intrusion_Int_from_GD" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="limit_igneous_intrusion_int_from_gd" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -836,7 +836,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Limit_Igneous_intrusion_Int_from_GD@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@limit_igneous_intrusion_int_from_gd@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -902,7 +902,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Limit_Igneous_intrusion_Int_from_GD@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@limit_igneous_intrusion_int_from_gd@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>

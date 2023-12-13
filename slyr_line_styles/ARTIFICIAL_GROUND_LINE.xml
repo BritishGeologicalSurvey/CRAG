@@ -48,7 +48,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Cliffline_quarry" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="cliffline_quarry" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -124,7 +124,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Cliffline_quarry@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@cliffline_quarry@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -249,7 +249,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Small_quarry_or_pit" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="small_quarry_or_pit" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -325,7 +325,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Small_quarry_or_pit@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@small_quarry_or_pit@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>

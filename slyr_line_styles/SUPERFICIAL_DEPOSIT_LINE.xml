@@ -48,7 +48,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Superficial_Thin_Bed_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="superficial_thin_bed_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -95,7 +95,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Superficial_Thin_Bed_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="superficial_thin_bed_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>

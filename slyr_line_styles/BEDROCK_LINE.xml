@@ -48,7 +48,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Algal_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="algal_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -120,7 +120,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Algal_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@algal_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -160,7 +160,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Base_of_lava_flow" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="base_of_lava_flow" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -232,7 +232,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Base_of_lava_flow@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@base_of_lava_flow@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -273,7 +273,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Bone_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="bone_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -345,7 +345,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Bone_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@bone_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -385,7 +385,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Brachiopod_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="brachiopod_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -457,7 +457,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Brachiopod_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@brachiopod_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -497,7 +497,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Cementstone_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="cementstone_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -569,7 +569,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Cementstone_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@cementstone_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -634,7 +634,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Cementstone_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@cementstone_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -674,7 +674,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Coal_seam_Conj" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="coal_seam_conj" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -721,7 +721,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Coal_seam_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="coal_seam_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -768,7 +768,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Coal_seam_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="coal_seam_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -815,7 +815,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Coral_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="coral_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -887,7 +887,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Coral_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@coral_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -927,7 +927,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Dyke_linear_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="dyke_linear_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1012,7 +1012,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Dyke_linear_Inf_Int_from_GD" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="dyke_linear_inf_int_from_gd" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1097,7 +1097,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Dyke_linear_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="dyke_linear_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1182,7 +1182,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Euestheria_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="euestheria_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1254,7 +1254,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Euestheria_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@euestheria_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1294,7 +1294,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fish_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fish_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1366,7 +1366,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fish_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fish_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1406,7 +1406,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Goniatite_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="goniatite_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1478,7 +1478,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Goniatite_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@goniatite_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1518,7 +1518,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Gypsum_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="gypsum_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1590,7 +1590,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Gypsum_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@gypsum_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1655,7 +1655,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Gypsum_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@gypsum_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1695,7 +1695,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Ironstone_bed_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="ironstone_bed_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1767,7 +1767,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Ironstone_bed_Inf@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@ironstone_bed_inf@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1832,7 +1832,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Ironstone_bed_Inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@ironstone_bed_inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1872,7 +1872,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Ironstone_bed_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="ironstone_bed_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1944,7 +1944,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Ironstone_bed_Obs@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@ironstone_bed_obs@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2009,7 +2009,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Ironstone_bed_Obs@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@ironstone_bed_obs@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2049,7 +2049,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Limestone_nodule_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="limestone_nodule_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -2121,7 +2121,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Limestone_nodule_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@limestone_nodule_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2186,7 +2186,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Limestone_nodule_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@limestone_nodule_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2226,7 +2226,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Lingula_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="lingula_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -2298,7 +2298,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Lingula_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@lingula_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2338,7 +2338,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Lithostrat_line_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="lithostrat_line_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -2385,7 +2385,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Lithostrat_line_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="lithostrat_line_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -2432,7 +2432,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Magnetic_layer" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="magnetic_layer" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -2504,7 +2504,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Magnetic_layer@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@magnetic_layer@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2570,7 +2570,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Magnetic_layer@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@magnetic_layer@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2636,7 +2636,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Magnetic_layer@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@magnetic_layer@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2701,7 +2701,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Magnetic_layer@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@magnetic_layer@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2741,7 +2741,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Manganese_bed_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="manganese_bed_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -2813,7 +2813,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Manganese_bed_Inf@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@manganese_bed_inf@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2878,7 +2878,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Manganese_bed_Inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@manganese_bed_inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2918,7 +2918,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Manganese_bed_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="manganese_bed_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -2990,7 +2990,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Manganese_bed_Obs@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@manganese_bed_obs@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3055,7 +3055,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Manganese_bed_Obs@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@manganese_bed_obs@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3095,7 +3095,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Marine_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="marine_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -3167,7 +3167,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Marine_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@marine_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3207,7 +3207,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Mussel_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="mussel_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -3279,7 +3279,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Mussel_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@mussel_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3319,7 +3319,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Oil_shale_bed_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="oil_shale_bed_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -3391,7 +3391,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Oil_shale_bed_Inf@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@oil_shale_bed_inf@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3456,7 +3456,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Oil_shale_bed_Inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@oil_shale_bed_inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3496,7 +3496,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Oil_shale_bed_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="oil_shale_bed_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -3568,7 +3568,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Oil_shale_bed_Obs@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@oil_shale_bed_obs@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3633,7 +3633,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Oil_shale_bed_Obs@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@oil_shale_bed_obs@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3673,7 +3673,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Pebble_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="pebble_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -3745,7 +3745,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Pebble_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@pebble_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3810,7 +3810,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Pebble_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@pebble_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3850,7 +3850,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Planolites_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="planolites_band" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -3922,7 +3922,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Planolites_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@planolites_band@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3962,7 +3962,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Sandstone_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="sandstone_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -4034,7 +4034,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Sandstone_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@sandstone_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4099,7 +4099,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Sandstone_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@sandstone_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4139,7 +4139,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Split_coal_seam" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="split_coal_seam" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -4215,7 +4215,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Split_coal_seam@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@split_coal_seam@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4289,7 +4289,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Split_coal_seam@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@split_coal_seam@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4330,7 +4330,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Tonstein_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="tonstein_bed" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -4402,7 +4402,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Tonstein_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@tonstein_bed@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4467,7 +4467,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Tonstein_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@tonstein_bed@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
