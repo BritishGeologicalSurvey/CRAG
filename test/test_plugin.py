@@ -288,8 +288,9 @@ def test_auto_increment_locality_point_name(
     for expected_name in expected_locality_point_names:
         layer.startEditing()
         feature = QgsVectorLayerUtils.createFeature(layer)
-        # Set the project_fuid to be the uuid of the project from the test data set
-        feature.setAttribute(feature.fieldNameIndex("project_fuid"), "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
+        # Set the field_project_fuid to be the uuid of the field project from the test data set
+        feature.setAttribute(feature.fieldNameIndex("field_project_fuid"), "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
+        feature.setAttribute(feature.fieldNameIndex("exposure_type_code"), "AUGER_BOREHOLE")
         layer.addFeature(feature)
         layer.commitChanges()
 
