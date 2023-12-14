@@ -220,7 +220,6 @@ def test_view_next_locality_id(test_data_gpkg: sqlite3.Connection):
     assert result_3 == expected_3
 
 
-@pytest.mark.xfail(reason="No test data for lines yet")
 @pytest.mark.parametrize('table', FEATURE_TABLES | ATTRIBUTE_TABLES)
 def test_clear_update_field_on_insert_trigger(test_data_gpkg: sqlite3.Connection, table: str):
     # The script that loads test data inserts values for the user_updated and date_updated fields.
