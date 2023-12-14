@@ -52,6 +52,9 @@ VIEWS = {table for table in TABLES['features'] + TABLES['attributes']
          if table.startswith('view_')}
 FEATURE_TABLES = {table for table in TABLES['features']}.difference(VIEWS)
 
+FEATURE_TABLES_LINES = {table for table in FEATURE_TABLES
+                        if table.endswith("_line")}
+
 DICTIONARIES = {table for table in TABLES['attributes']
                 if table.startswith('dic_')}
 ATTRIBUTE_TABLES = {table for table in TABLES['attributes']
