@@ -714,7 +714,7 @@ class FieldDataCapture:
                 (
                     f"The existing QML files are from QGIS '{existing_version}', "
                     f"but you are using QGIS '{current_version}'. "
-                    "Continuting will cause bad style diffs.\n\nDo you want to continue?"
+                    "Continuing will cause bad style diffs.\n\nDo you want to continue?"
                 ),
             )
             if result == QMessageBox.No:
