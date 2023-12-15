@@ -27,7 +27,6 @@ TABLES = {
         "dic_media",
         "dic_mineral_vein",
         "dic_mineral",
-        "dic_project_type",
         "dic_rock_all",
         "dic_sample",
         "dic_structure_category",
