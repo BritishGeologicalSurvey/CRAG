@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS "bedrock_line" (
   "fid" INTEGER NOT NULL,
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
-  "project_fuid" TEXT NOT NULL,
+  "field_project_fuid" TEXT NOT NULL,
   "line_type_code" TEXT NOT NULL,
   "comment" TEXT,
   "user_entered" TEXT NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS "bedrock_line" (
   "user_updated" TEXT,
   "date_updated" DATETIME,
   "geometry" LINESTRING,
-  FOREIGN KEY("project_fuid") REFERENCES "project"("uuid"),
+  FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_bedrock"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
   );
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS "superficial_line" (
   "fid" INTEGER NOT NULL,
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
-  "project_fuid" TEXT NOT NULL,
+  "field_project_fuid" TEXT NOT NULL,
   "line_type_code" TEXT NOT NULL,
   "comment" TEXT,
   "user_entered" TEXT NOT NULL,
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS "superficial_line" (
   "user_updated" TEXT,
   "date_updated" DATETIME,
   "geometry" LINESTRING,
-  FOREIGN KEY("project_fuid") REFERENCES "project"("uuid"),
+  FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_superficial"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
   );
@@ -264,7 +264,7 @@ CREATE TABLE IF NOT EXISTS "artificial_line" (
   "fid" INTEGER NOT NULL,
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
-  "project_fuid" TEXT NOT NULL,
+  "field_project_fuid" TEXT NOT NULL,
   "line_type_code" TEXT NOT NULL,
   "comment" TEXT,
   "user_entered" TEXT NOT NULL,
@@ -272,7 +272,7 @@ CREATE TABLE IF NOT EXISTS "artificial_line" (
   "user_updated" TEXT,
   "date_updated" DATETIME,
   "geometry" LINESTRING,
-  FOREIGN KEY("project_fuid") REFERENCES "project"("uuid"),
+  FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_artificial"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
   );
@@ -387,7 +387,7 @@ CREATE TABLE IF NOT EXISTS "mass_move_line" (
   "fid" INTEGER NOT NULL,
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
-  "project_fuid" TEXT NOT NULL,
+  "field_project_fuid" TEXT NOT NULL,
   "line_type_code" TEXT NOT NULL,
   "comment" TEXT,
   "user_entered" TEXT NOT NULL,
@@ -395,7 +395,7 @@ CREATE TABLE IF NOT EXISTS "mass_move_line" (
   "user_updated" TEXT,
   "date_updated" DATETIME,
   "geometry" LINESTRING,
-  FOREIGN KEY("project_fuid") REFERENCES "project"("uuid"),
+  FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_mass_move"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
   );
