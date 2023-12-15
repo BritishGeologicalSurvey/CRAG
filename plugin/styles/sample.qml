@@ -1,27 +1,27 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.28.11-Firenze">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
   <fieldConfiguration>
-    <field configurationFlags="None" name="fid">
+    <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="objectid">
+    <field configurationFlags="NoFlag" name="objectid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="uuid">
+    <field configurationFlags="NoFlag" name="uuid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="locality_fuid">
+    <field configurationFlags="NoFlag" name="locality_fuid">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -31,7 +31,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_8374736d_046b_4ff2_8219_b99e00d11a45"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_9e5bb036_b159_46f0_a2c7_9e655d35ef1c"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_sample_2"></Option>
@@ -41,14 +41,14 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="sample_id">
+    <field configurationFlags="NoFlag" name="sample_id">
       <editWidget type="">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="sample_type_code">
+    <field configurationFlags="NoFlag" name="sample_type_code">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -58,7 +58,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_sample"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_sample_98f91987_6af9_4cec_927d_4bcb37e0ba3e"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_sample_823213e0_a007_4cfc_b852_8ca5448767a5"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_sample"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_sample_sample"></Option>
@@ -68,7 +68,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="sample_description">
+    <field configurationFlags="NoFlag" name="sample_description">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -78,7 +78,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="comment">
+    <field configurationFlags="NoFlag" name="comment">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -88,28 +88,28 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="user_entered">
+    <field configurationFlags="NoFlag" name="user_entered">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="date_entered">
+    <field configurationFlags="NoFlag" name="date_entered">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="user_updated">
+    <field configurationFlags="NoFlag" name="user_updated">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="date_updated">
+    <field configurationFlags="NoFlag" name="date_updated">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
@@ -131,6 +131,20 @@
     <alias field="user_updated" index="10" name=""></alias>
     <alias field="date_updated" index="11" name=""></alias>
   </aliases>
+  <splitPolicies>
+    <policy field="fid" policy="Duplicate"></policy>
+    <policy field="objectid" policy="Duplicate"></policy>
+    <policy field="uuid" policy="Duplicate"></policy>
+    <policy field="locality_fuid" policy="Duplicate"></policy>
+    <policy field="sample_id" policy="Duplicate"></policy>
+    <policy field="sample_type_code" policy="Duplicate"></policy>
+    <policy field="sample_description" policy="Duplicate"></policy>
+    <policy field="comment" policy="Duplicate"></policy>
+    <policy field="user_entered" policy="Duplicate"></policy>
+    <policy field="date_entered" policy="Duplicate"></policy>
+    <policy field="user_updated" policy="Duplicate"></policy>
+    <policy field="date_updated" policy="Duplicate"></policy>
+  </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="objectid"></default>

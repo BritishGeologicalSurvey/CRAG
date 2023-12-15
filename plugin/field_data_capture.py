@@ -59,6 +59,7 @@ from .config import (
     ATTRIBUTE_TABLES,
     DICTIONARIES,
     FEATURE_TABLES,
+    FEATURE_TABLES_LINES,
     VIEWS,
     TABLE_LIST,
 )
@@ -554,7 +555,8 @@ class FieldDataCapture:
         """
         # Create inital structure
         layer_tree_structure = {
-            None: FEATURE_TABLES,
+            None: FEATURE_TABLES.difference(FEATURE_TABLES_LINES),
+            "lines": FEATURE_TABLES_LINES,
             "views": VIEWS,
             "locality_data": ATTRIBUTE_TABLES,
             "metadata": DICTIONARIES,
@@ -712,7 +714,7 @@ class FieldDataCapture:
                 (
                     f"The existing QML files are from QGIS '{existing_version}', "
                     f"but you are using QGIS '{current_version}'. "
-                    "Continuting will cause bad style diffs.\n\nDo you want to continue?"
+                    "Continuing will cause bad style diffs.\n\nDo you want to continue?"
                 ),
             )
             if result == QMessageBox.No:

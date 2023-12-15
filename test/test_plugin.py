@@ -135,7 +135,13 @@ def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
 def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Arrange
     fdc.add_gpkg_to_project()
-    expected_root_names = ["locality_point", "views", "locality_data", "metadata"]
+    expected_root_names = [
+        "locality_point",
+        "lines",
+        "views",
+        "locality_data",
+        "metadata",
+    ]
     expected_qml_files = [
         # Make the expected path relative to the project root
         Path(qml_file.parent.name) / qml_file.name

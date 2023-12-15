@@ -48,7 +48,7 @@
         </data_defined_properties>
       </layer>
     </symbol>
-    <symbol name="Fault_Conj" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_conj" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -158,7 +158,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Conj@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_conj@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -223,7 +223,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Conj@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_conj@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -288,7 +288,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Conj@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_conj@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -357,7 +357,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Conj@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_conj@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -406,7 +406,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Dextral_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_dextral_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -516,7 +516,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Dextral_Inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_dextral_inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -581,7 +581,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Dextral_Inf@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_dextral_inf@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -646,7 +646,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Dextral_Inf@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_dextral_inf@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -715,7 +715,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Dextral_Inf@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_dextral_inf@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -764,7 +764,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Dextral_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_dextral_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -874,7 +874,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Dextral_Obs@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_dextral_obs@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -939,7 +939,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Dextral_Obs@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_dextral_obs@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1004,7 +1004,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Dextral_Obs@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_dextral_obs@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1073,7 +1073,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Dextral_Obs@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_dextral_obs@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1122,7 +1122,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Inf_Crossmark_on_downthrow_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_inf_crossmark_on_downthrow_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1232,7 +1232,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Inf_Crossmark_on_downthrow_side@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_inf_crossmark_on_downthrow_side@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1297,7 +1297,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Inf_Crossmark_on_downthrow_side@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_inf_crossmark_on_downthrow_side@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1362,7 +1362,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Inf_Crossmark_on_downthrow_side@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_inf_crossmark_on_downthrow_side@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1431,7 +1431,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Inf_Crossmark_on_downthrow_side@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_inf_crossmark_on_downthrow_side@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1480,7 +1480,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Inf_Downthrow_unspecified" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_inf_downthrow_unspecified" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1590,7 +1590,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Inf_Downthrow_unspecified@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_inf_downthrow_unspecified@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1655,7 +1655,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Inf_Downthrow_unspecified@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_inf_downthrow_unspecified@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1720,7 +1720,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Inf_Downthrow_unspecified@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_inf_downthrow_unspecified@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1789,7 +1789,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Inf_Downthrow_unspecified@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_inf_downthrow_unspecified@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -1838,7 +1838,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Normal_Inf_Crossmark_on_downthrow_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_normal_inf_crossmark_on_downthrow_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -1948,7 +1948,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Normal_Inf_Crossmark_on_downthrow_side@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_normal_inf_crossmark_on_downthrow_side@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2013,7 +2013,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Normal_Inf_Crossmark_on_downthrow_side@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_normal_inf_crossmark_on_downthrow_side@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2078,7 +2078,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Normal_Inf_Crossmark_on_downthrow_side@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_normal_inf_crossmark_on_downthrow_side@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2147,7 +2147,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Normal_Inf_Crossmark_on_downthrow_side@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_normal_inf_crossmark_on_downthrow_side@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2221,7 +2221,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Normal_Inf_Crossmark_on_downthrow_side@6" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_normal_inf_crossmark_on_downthrow_side@6" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2262,7 +2262,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Normal_Obs_Crossmark_on_downthrow_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_normal_obs_crossmark_on_downthrow_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -2372,7 +2372,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Normal_Obs_Crossmark_on_downthrow_side@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_normal_obs_crossmark_on_downthrow_side@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2437,7 +2437,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Normal_Obs_Crossmark_on_downthrow_side@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_normal_obs_crossmark_on_downthrow_side@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2502,7 +2502,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Normal_Obs_Crossmark_on_downthrow_side@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_normal_obs_crossmark_on_downthrow_side@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2571,7 +2571,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Normal_Obs_Crossmark_on_downthrow_side@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_normal_obs_crossmark_on_downthrow_side@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2645,7 +2645,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Normal_Obs_Crossmark_on_downthrow_side@6" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_normal_obs_crossmark_on_downthrow_side@6" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2686,7 +2686,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Obs_Crossmark_on_downthrow_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_obs_crossmark_on_downthrow_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -2796,7 +2796,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Obs_Crossmark_on_downthrow_side@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_obs_crossmark_on_downthrow_side@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2861,7 +2861,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Obs_Crossmark_on_downthrow_side@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_obs_crossmark_on_downthrow_side@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2926,7 +2926,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Obs_Crossmark_on_downthrow_side@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_obs_crossmark_on_downthrow_side@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -2995,7 +2995,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Obs_Crossmark_on_downthrow_side@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_obs_crossmark_on_downthrow_side@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3044,7 +3044,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Obs_Downthrow_unspecified" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_obs_downthrow_unspecified" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -3154,7 +3154,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Obs_Downthrow_unspecified@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_obs_downthrow_unspecified@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3219,7 +3219,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Obs_Downthrow_unspecified@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_obs_downthrow_unspecified@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3284,7 +3284,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Obs_Downthrow_unspecified@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_obs_downthrow_unspecified@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3353,7 +3353,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Obs_Downthrow_unspecified@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_obs_downthrow_unspecified@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3402,7 +3402,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Sinistral_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_sinistral_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -3512,7 +3512,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Sinistral_Inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_sinistral_inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3577,7 +3577,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Sinistral_Inf@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_sinistral_inf@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3642,7 +3642,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Sinistral_Inf@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_sinistral_inf@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3711,7 +3711,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Sinistral_Inf@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_sinistral_inf@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3760,7 +3760,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Sinistral_Obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_sinistral_obs" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -3870,7 +3870,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Sinistral_Obs@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_sinistral_obs@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -3935,7 +3935,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Sinistral_Obs@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_sinistral_obs@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4000,7 +4000,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Sinistral_Obs@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_sinistral_obs@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4069,7 +4069,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Sinistral_Obs@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_sinistral_obs@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4118,7 +4118,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Syn-sedimentary_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_syn-sedimentary_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -4228,7 +4228,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Syn-sedimentary_Inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_syn-sedimentary_inf@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4293,7 +4293,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Syn-sedimentary_Inf@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_syn-sedimentary_inf@3" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4358,7 +4358,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Syn-sedimentary_Inf@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_syn-sedimentary_inf@4" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4427,7 +4427,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Syn-sedimentary_Inf@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+        <symbol name="@fault_syn-sedimentary_inf@5" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4501,7 +4501,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Syn-sedimentary_Inf@6" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_syn-sedimentary_inf@6" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4541,7 +4541,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Thrust_Inf_Triangle_on_hangingwall_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_thrust_inf_triangle_on_hangingwall_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -4613,7 +4613,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Thrust_Inf_Triangle_on_hangingwall_side@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_thrust_inf_triangle_on_hangingwall_side@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4654,7 +4654,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Thrust_Ob_Triangle_on_hangingwall_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_thrust_ob_triangle_on_hangingwall_side" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
@@ -4726,7 +4726,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Thrust_Ob_Triangle_on_hangingwall_side@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_thrust_ob_triangle_on_hangingwall_side@1" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4792,7 +4792,7 @@
             <Option name="type" value="collection" type="QString"/>
           </Option>
         </data_defined_properties>
-        <symbol name="@Fault_Thrust_Ob_Triangle_on_hangingwall_side@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
+        <symbol name="@fault_thrust_ob_triangle_on_hangingwall_side@2" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="marker">
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" value="" type="QString"/>
@@ -4833,7 +4833,7 @@
         </symbol>
       </layer>
     </symbol>
-    <symbol name="Fault_Undifferentiated_Inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
+    <symbol name="fault_undifferentiated_inf" is_animated="0" alpha="1" force_rhr="0" frame_rate="10" clip_to_extent="1" type="line">
       <data_defined_properties>
         <Option type="Map">
           <Option name="name" value="" type="QString"/>
