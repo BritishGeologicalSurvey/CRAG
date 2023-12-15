@@ -246,7 +246,11 @@ class FieldDataCapture:
         self.add_action(
             icon_path,
             text=self.tr(u'Setup Project'),
-            callback=self.full_project_setup,
+            callback=lambda: self.run_function_list(functions=[
+                self.add_gpkg_to_project,
+                self.add_gpkg_layers_to_project,
+                lambda: self.open_layer_form(layer_name="field_project"),
+            ]),
             parent=self.iface.mainWindow(),
         )
 
@@ -260,6 +264,30 @@ class FieldDataCapture:
         )
         dev_submenu = QMenu()
         dev_submenu_action.setMenu(dev_submenu)
+
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Setup Test Project'),
+            callback=lambda: self.run_function_list(functions=[
+                self.add_gpkg_to_project,
+                self.add_gpkg_layers_to_project,
+                self.add_test_data_to_project,
+            ]),
+            add_to_menu=False,
+            parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
+        )
+
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Export Styles to QML'),
+            callback=self.export_qml_styles,
+            add_to_menu=False,
+            parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
+        )
+
+        dev_submenu.addSeparator()
 
         self.add_action(
             icon_path,
@@ -292,15 +320,6 @@ class FieldDataCapture:
             icon_path,
             text=self.tr(u'Add Test Data to Project'),
             callback=self.add_test_data_to_project,
-            add_to_menu=False,
-            parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Export Styles to QML'),
-            callback=self.export_qml_styles,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
@@ -358,16 +377,13 @@ class FieldDataCapture:
             return False
 
 
-    def full_project_setup(self) -> bool:
+    def run_function_list(self, functions: list[Callable]) -> bool:
         """
-        Run all functions required to setup a new project.
+        Run all the given functions in order.
+        Each function must return a boolean indicating it's success.
+        If a function returns False, function execution will end.
         Returns a boolean indicating success of the process.
         """
-        functions = [
-            self.add_gpkg_to_project,
-            self.add_gpkg_layers_to_project,
-            lambda: self.open_layer_form(layer_name="project"),
-        ]
         for function_ in functions:
             return_ = function_()
             # We don't want to continue through the setup if a process fails
@@ -551,7 +567,7 @@ class FieldDataCapture:
             layer_tree_structure[group_name] = table_list
 
         # Move the project layer
-        project_name = "project"
+        project_name = "field_project"
         layer_tree_structure["locality_data"].remove(project_name)
         layer_tree_structure["metadata"].insert(0, project_name)
 

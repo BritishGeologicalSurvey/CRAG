@@ -4,11 +4,11 @@ BEGIN TRANSACTION;
 
 CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
   SELECT
-    p.short_name as project,
+    fp.short_name as field_project,
     lp.name as locality_point,
-    ST_X(ST_Transform(lp.geometry, p.local_epsg)) AS x,
-    ST_Y(ST_Transform(lp.geometry, p.local_epsg)) AS y,
-    p.local_epsg,
+    ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
+    ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
+    fp.local_epsg,
     st.category AS structure_category,
     st.description AS structure_type,
     sm.dip,
@@ -20,7 +20,7 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
   FROM structural_measurement sm
     LEFT JOIN locality_point lp on sm.locality_fuid = lp.uuid
     LEFT JOIN dic_structure_code st on sm.structure_type_code = st.code
-    LEFT JOIN project p on lp.project_fuid = p.uuid
+    LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 
 INSERT INTO gpkg_contents
@@ -30,33 +30,33 @@ INSERT INTO gpkg_geometry_columns
 VALUES('view_structural_measurement','geometry','POINT',4326,1,0);
 
 
-CREATE VIEW IF NOT EXISTS "view_exposure" AS
+CREATE VIEW IF NOT EXISTS "view_lithology" AS
  SELECT
-    p.short_name as project,
+    fp.short_name as field_project,
     lp.name as locality_point,
-    ST_X(ST_Transform(lp.geometry, p.local_epsg)) AS x,
-    ST_Y(ST_Transform(lp.geometry, p.local_epsg)) AS y,
-    p.local_epsg,
+    ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
+    ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
+    fp.local_epsg,
     type.translation as exposure_type,
-	exp.lithology_code,
-	rock.translation as lithology,
-    exp.description,
-    exp.comment,
-    exp.uuid AS exposure_uuid,
+	  lith.lithology_code,
+	  rock.translation as lithology,
+    lith.description,
+    lith.comment,
+    lith.uuid AS lithology_uuid,
     lp.uuid AS locality_uuid,
     lp.geometry as geometry
-  FROM exposure exp
-    LEFT JOIN locality_point lp on exp.locality_fuid = lp.uuid
-    LEFT JOIN dic_exposure_type type on exp.exposure_type_code = type.code
-	LEFT JOIN dic_rock_all rock on exp.lithology_code = rock.code
-    LEFT JOIN project p on lp.project_fuid = p.uuid
+  FROM lithology lith
+    LEFT JOIN locality_point lp on lith.locality_fuid = lp.uuid
+    LEFT JOIN dic_exposure_type type on lp.exposure_type_code = type.code
+	LEFT JOIN dic_rock_all rock on lith.lithology_code = rock.code
+    LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 
 INSERT INTO gpkg_contents
-VALUES('view_exposure','features','view_exposure','View with exposure results at locality positions','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,4326);
+VALUES('view_lithology','features','view_lithology','View with lithology results at locality positions','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,4326);
 
 INSERT INTO gpkg_geometry_columns
-VALUES('view_exposure','geometry','POINT',4326,1,0);
+VALUES('view_lithology','geometry','POINT',4326,1,0);
 
 
 CREATE VIEW IF NOT EXISTS "view_next_locality_id" AS

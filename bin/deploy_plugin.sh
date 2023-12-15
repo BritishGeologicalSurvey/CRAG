@@ -2,5 +2,6 @@
 
 cd plugin
 # -q does quick deployment, avoiding issues with HTML help pages.
-pbt deploy -y -q --user-profile default
+# UPDATE: -q does not delete the existing plugin files, which means deleted files are not removed
+pbt deploy -y --user-profile default
 cd -

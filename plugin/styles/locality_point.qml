@@ -75,8 +75,8 @@
     <sizescale></sizescale>
   </renderer-v2>
   <labeling type="rule-based">
-    <rules key="{32bdca21-14c7-43a3-af1b-0bae66871742}">
-      <rule key="{ec872c5d-6fe2-4bd1-95b4-c980d6d7dafe}">
+    <rules key="{af72cd74-10c8-4afd-bd9d-8e8f12bd62a7}">
+      <rule key="{94677002-83b4-453e-b5f1-2d96e49a6451}">
         <settings calloutType="simple">
           <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="name" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="9" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
             <families></families>
@@ -186,7 +186,7 @@
               <Option name="drawToAllParts" type="bool" value="false"></Option>
               <Option name="enabled" type="QString" value="0"></Option>
               <Option name="labelAnchorPoint" type="QString" value="point_on_exterior"></Option>
-              <Option name="lineSymbol" type="QString" value="&lt;symbol clip_to_extent=&quot;1&quot; alpha=&quot;1&quot; is_animated=&quot;0&quot; force_rhr=&quot;0&quot; frame_rate=&quot;10&quot; name=&quot;symbol&quot; type=&quot;line&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; name=&quot;name&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; name=&quot;type&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer locked=&quot;0&quot; pass=&quot;0&quot; class=&quot;SimpleLine&quot; enabled=&quot;1&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;0&quot; name=&quot;align_dash_pattern&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;square&quot; name=&quot;capstyle&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;5;2&quot; name=&quot;customdash&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;customdash_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;customdash_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;dash_pattern_offset&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;dash_pattern_offset_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;dash_pattern_offset_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;draw_inside_polygon&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;bevel&quot; name=&quot;joinstyle&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;60,60,60,255&quot; name=&quot;line_color&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;solid&quot; name=&quot;line_style&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0.3&quot; name=&quot;line_width&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;line_width_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;offset&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;offset_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;offset_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;ring_filter&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;trim_distance_end&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;trim_distance_end_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;trim_distance_end_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;trim_distance_start&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;trim_distance_start_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;trim_distance_start_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;tweak_dash_pattern_on_corners&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;use_custom_dash&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;width_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; name=&quot;name&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; name=&quot;type&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
+              <Option name="lineSymbol" type="QString" value="&lt;symbol alpha=&quot;1&quot; clip_to_extent=&quot;1&quot; type=&quot;line&quot; is_animated=&quot;0&quot; name=&quot;symbol&quot; frame_rate=&quot;10&quot; force_rhr=&quot;0&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; type=&quot;QString&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; type=&quot;QString&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer enabled=&quot;1&quot; locked=&quot;0&quot; pass=&quot;0&quot; class=&quot;SimpleLine&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;align_dash_pattern&quot;/>&lt;Option value=&quot;square&quot; type=&quot;QString&quot; name=&quot;capstyle&quot;/>&lt;Option value=&quot;5;2&quot; type=&quot;QString&quot; name=&quot;customdash&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;customdash_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;customdash_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;dash_pattern_offset&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;dash_pattern_offset_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;dash_pattern_offset_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;draw_inside_polygon&quot;/>&lt;Option value=&quot;bevel&quot; type=&quot;QString&quot; name=&quot;joinstyle&quot;/>&lt;Option value=&quot;60,60,60,255&quot; type=&quot;QString&quot; name=&quot;line_color&quot;/>&lt;Option value=&quot;solid&quot; type=&quot;QString&quot; name=&quot;line_style&quot;/>&lt;Option value=&quot;0.3&quot; type=&quot;QString&quot; name=&quot;line_width&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;line_width_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;offset&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;offset_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;offset_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;ring_filter&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;trim_distance_end&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;trim_distance_end_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;trim_distance_end_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;trim_distance_start&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;trim_distance_start_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;trim_distance_start_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;tweak_dash_pattern_on_corners&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;use_custom_dash&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;width_map_unit_scale&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; type=&quot;QString&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; type=&quot;QString&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
               <Option name="minLength" type="double" value="0"></Option>
               <Option name="minLengthMapUnitScale" type="QString" value="3x:0,0,0,0,0,0"></Option>
               <Option name="minLengthUnit" type="QString" value="MM"></Option>
@@ -200,9 +200,9 @@
           </callout>
         </settings>
       </rule>
-      <rule description="geological note" key="{994be50d-c92e-4131-9372-8b7656a673f8}">
+      <rule description="geological note" key="{d35df9a3-695d-4dd7-bf1c-c1758cb32055}">
         <settings calloutType="balloon">
-          <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="geological_note" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="9" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
+          <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="map_face_note" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="9" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
             <families></families>
             <text-buffer bufferBlendMode="0" bufferColor="250,250,250,255" bufferDraw="0" bufferJoinStyle="128" bufferNoFill="1" bufferOpacity="1" bufferSize="1" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSizeUnits="MM"></text-buffer>
             <text-mask maskEnabled="0" maskJoinStyle="128" maskOpacity="1" maskSize="0" maskSizeMapUnitScale="3x:0,0,0,0,0,0" maskSizeUnits="MM" maskType="0" maskedSymbolLayers=""></text-mask>
@@ -311,7 +311,7 @@
                 <Option name="type" type="QString" value="collection"></Option>
               </Option>
               <Option name="enabled" type="QString" value="1"></Option>
-              <Option name="fillSymbol" type="QString" value="&lt;symbol clip_to_extent=&quot;1&quot; alpha=&quot;0.62&quot; is_animated=&quot;0&quot; force_rhr=&quot;0&quot; frame_rate=&quot;10&quot; name=&quot;symbol&quot; type=&quot;fill&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; name=&quot;name&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; name=&quot;type&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer locked=&quot;0&quot; pass=&quot;0&quot; class=&quot;SimpleFill&quot; enabled=&quot;1&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;border_width_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;255,255,255,255&quot; name=&quot;color&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;bevel&quot; name=&quot;joinstyle&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0,0&quot; name=&quot;offset&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;offset_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;offset_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;35,35,35,255&quot; name=&quot;outline_color&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;solid&quot; name=&quot;outline_style&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0.26&quot; name=&quot;outline_width&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;outline_width_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;solid&quot; name=&quot;style&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; name=&quot;name&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; name=&quot;type&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
+              <Option name="fillSymbol" type="QString" value="&lt;symbol alpha=&quot;0.62&quot; clip_to_extent=&quot;1&quot; type=&quot;fill&quot; is_animated=&quot;0&quot; name=&quot;symbol&quot; frame_rate=&quot;10&quot; force_rhr=&quot;0&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; type=&quot;QString&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; type=&quot;QString&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer enabled=&quot;1&quot; locked=&quot;0&quot; pass=&quot;0&quot; class=&quot;SimpleFill&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;border_width_map_unit_scale&quot;/>&lt;Option value=&quot;255,255,255,255&quot; type=&quot;QString&quot; name=&quot;color&quot;/>&lt;Option value=&quot;bevel&quot; type=&quot;QString&quot; name=&quot;joinstyle&quot;/>&lt;Option value=&quot;0,0&quot; type=&quot;QString&quot; name=&quot;offset&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;offset_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;offset_unit&quot;/>&lt;Option value=&quot;35,35,35,255&quot; type=&quot;QString&quot; name=&quot;outline_color&quot;/>&lt;Option value=&quot;solid&quot; type=&quot;QString&quot; name=&quot;outline_style&quot;/>&lt;Option value=&quot;0.26&quot; type=&quot;QString&quot; name=&quot;outline_width&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;outline_width_unit&quot;/>&lt;Option value=&quot;solid&quot; type=&quot;QString&quot; name=&quot;style&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; type=&quot;QString&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; type=&quot;QString&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
               <Option name="labelAnchorPoint" type="QString" value="point_on_exterior"></Option>
               <Option name="margins" type="QString" value="1,1,1,1"></Option>
               <Option name="marginsUnit" type="QString" value="MM"></Option>
@@ -351,7 +351,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="project_fuid">
+    <field configurationFlags="None" name="field_project_fuid">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -360,11 +360,11 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=project"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="project_c6e6afa4_1e8a_4291_92c0_64ba28913abb"></Option>
-            <Option name="ReferencedLayerName" type="QString" value="project"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=field_project"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_127d19dd_ab0c_4790_be07_5bead65da88a"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="project_locality_point"></Option>
+            <Option name="Relation" type="QString" value="field_project_locality_point"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
           </Option>
@@ -381,6 +381,26 @@
         </config>
       </editWidget>
     </field>
+    <field configurationFlags="None" name="exposure_type_code">
+      <editWidget type="RelationReference">
+        <config>
+          <Option type="Map">
+            <Option name="AllowAddFeatures" type="bool" value="false"></Option>
+            <Option name="AllowNULL" type="bool" value="true"></Option>
+            <Option name="MapIdentification" type="bool" value="false"></Option>
+            <Option name="OrderByValue" type="bool" value="false"></Option>
+            <Option name="ReadOnly" type="bool" value="false"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_exposure_type"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_exposure_type_cd31403a_cbbd_4a89_8d17_45084689a6c1"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="dic_exposure_type"></Option>
+            <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
+            <Option name="Relation" type="QString" value="dic_exposure_type_locality_point_2"></Option>
+            <Option name="ShowForm" type="bool" value="false"></Option>
+            <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
+          </Option>
+        </config>
+      </editWidget>
+    </field>
     <field configurationFlags="None" name="description">
       <editWidget type="TextEdit">
         <config>
@@ -391,7 +411,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="geological_note">
+    <field configurationFlags="None" name="map_face_note">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -453,24 +473,26 @@
     <alias field="fid" index="0" name=""></alias>
     <alias field="objectid" index="1" name=""></alias>
     <alias field="uuid" index="2" name=""></alias>
-    <alias field="project_fuid" index="3" name="Project Name"></alias>
-    <alias field="name" index="4" name="Name"></alias>
-    <alias field="description" index="5" name="Locality Description"></alias>
-    <alias field="geological_note" index="6" name="Geological Map Face Note"></alias>
-    <alias field="comment" index="7" name="Detailed Comment"></alias>
-    <alias field="user_entered" index="8" name=""></alias>
-    <alias field="date_entered" index="9" name=""></alias>
-    <alias field="user_updated" index="10" name=""></alias>
-    <alias field="date_updated" index="11" name=""></alias>
+    <alias field="field_project_fuid" index="3" name=""></alias>
+    <alias field="name" index="4" name=""></alias>
+    <alias field="exposure_type_code" index="5" name=""></alias>
+    <alias field="description" index="6" name=""></alias>
+    <alias field="map_face_note" index="7" name=""></alias>
+    <alias field="comment" index="8" name=""></alias>
+    <alias field="user_entered" index="9" name=""></alias>
+    <alias field="date_entered" index="10" name=""></alias>
+    <alias field="user_updated" index="11" name=""></alias>
+    <alias field="date_updated" index="12" name=""></alias>
   </aliases>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
-    <default applyOnUpdate="0" expression="" field="project_fuid"></default>
+    <default applyOnUpdate="0" expression="" field="field_project_fuid"></default>
     <default applyOnUpdate="0" expression="coalesce (&#xA;-- Case 1, use mergin_username from view_next_locality_id&#xA;&#x9;attribute(&#xA;&#x9;&#x9;get_feature(&#xA;&#x9;&#x9;&#x9;'view_next_locality_id',&#xA;&#x9;&#x9;&#x9;'username' ,&#xA;&#x9;&#x9;&#x9;@mergin_username&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'next_locality_id'&#xA;&#x9;),&#xA;&#xA;-- Case 2, use user_account_name from view_next_locality_id&#xA;&#x9;attribute(&#xA;&#x9;&#x9;get_feature(&#xA;&#x9;&#x9;&#x9;'view_next_locality_id',&#xA;&#x9;&#x9;&#x9;'username' ,&#xA;&#x9;&#x9;&#x9;@user_account_name&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'next_locality_id'&#xA;&#x9;),&#xA;&#xA;-- Case 3 and 4, creating the first point with '_001'&#xA;&#x9;concat(&#xA;&#x9;&#x9;coalesce(&#xA;&#x9;&#x9;&#x9;-- Case 3 use mergin_username&#xA;&#x9;&#x9;&#x9;@mergin_username,&#xA;&#x9;&#x9;&#x9;-- Case 4, use user_account_name&#xA;&#x9;&#x9;&#x9;@user_account_name&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'_001'&#xA;&#x9;)&#xA;&#xA;)&#xA;" field="name"></default>
+    <default applyOnUpdate="0" expression="" field="exposure_type_code"></default>
     <default applyOnUpdate="0" expression="" field="description"></default>
-    <default applyOnUpdate="0" expression="" field="geological_note"></default>
+    <default applyOnUpdate="0" expression="" field="map_face_note"></default>
     <default applyOnUpdate="0" expression="" field="comment"></default>
     <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
@@ -481,10 +503,11 @@
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="1" exp_strength="0" field="project_fuid" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="field_project_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="3" exp_strength="0" field="name" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="1" exp_strength="0" field="exposure_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="description" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="geological_note" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="map_face_note" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
@@ -495,10 +518,11 @@
     <constraint desc="" exp="" field="fid"></constraint>
     <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
-    <constraint desc="" exp="" field="project_fuid"></constraint>
+    <constraint desc="" exp="" field="field_project_fuid"></constraint>
     <constraint desc="" exp="" field="name"></constraint>
+    <constraint desc="" exp="" field="exposure_type_code"></constraint>
     <constraint desc="" exp="" field="description"></constraint>
-    <constraint desc="" exp="" field="geological_note"></constraint>
+    <constraint desc="" exp="" field="map_face_note"></constraint>
     <constraint desc="" exp="" field="comment"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
@@ -552,22 +576,27 @@ def my_form_open(dialog, layer, feature):
           <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField index="3" name="project_fuid" showLabel="1">
+      <attributeEditorField index="3" name="field_project_fuid" showLabel="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField index="5" name="description" showLabel="1">
+      <attributeEditorField index="5" name="exposure_type_code" showLabel="1">
+        <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+          <labelFont bold="0" description="Sans Serif,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+        </labelStyle>
+      </attributeEditorField>
+      <attributeEditorField index="6" name="description" showLabel="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField index="6" name="geological_note" showLabel="1">
+      <attributeEditorField index="7" name="map_face_note" showLabel="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField index="7" name="comment" showLabel="1">
+      <attributeEditorField index="8" name="comment" showLabel="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
@@ -603,11 +632,11 @@ def my_form_open(dialog, layer, feature):
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" name="Exposure" showLabel="1" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" name="Lithology" showLabel="1" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-      <attributeEditorRelation forceSuppressFormPopup="0" label="Exposure" name="locality_point_exposure" nmRelationId="" relation="locality_point_exposure" relationWidgetTypeId="relation_editor" showLabel="1">
+      <attributeEditorRelation forceSuppressFormPopup="0" label="Lithology" name="locality_point_lithology" nmRelationId="" relation="locality_point_lithology" relationWidgetTypeId="relation_editor" showLabel="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
@@ -685,11 +714,12 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="date_updated"></field>
     <field editable="1" name="description"></field>
     <field editable="1" name="epsg_code"></field>
+    <field editable="1" name="exposure_type_code"></field>
     <field editable="0" name="fid"></field>
-    <field editable="1" name="geological_note"></field>
+    <field editable="1" name="field_project_fuid"></field>
+    <field editable="1" name="map_face_note"></field>
     <field editable="0" name="name"></field>
     <field editable="0" name="objectid"></field>
-    <field editable="1" name="project_fuid"></field>
     <field editable="0" name="user_entered"></field>
     <field editable="1" name="user_updated"></field>
     <field editable="0" name="uuid"></field>
@@ -700,11 +730,12 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="date_updated"></field>
     <field labelOnTop="0" name="description"></field>
     <field labelOnTop="0" name="epsg_code"></field>
+    <field labelOnTop="0" name="exposure_type_code"></field>
     <field labelOnTop="0" name="fid"></field>
-    <field labelOnTop="0" name="geological_note"></field>
+    <field labelOnTop="0" name="field_project_fuid"></field>
+    <field labelOnTop="0" name="map_face_note"></field>
     <field labelOnTop="0" name="name"></field>
     <field labelOnTop="0" name="objectid"></field>
-    <field labelOnTop="0" name="project_fuid"></field>
     <field labelOnTop="0" name="user_entered"></field>
     <field labelOnTop="0" name="user_updated"></field>
     <field labelOnTop="0" name="uuid"></field>
@@ -715,11 +746,12 @@ def my_form_open(dialog, layer, feature):
     <field name="date_updated" reuseLastValue="0"></field>
     <field name="description" reuseLastValue="0"></field>
     <field name="epsg_code" reuseLastValue="0"></field>
+    <field name="exposure_type_code" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
-    <field name="geological_note" reuseLastValue="0"></field>
+    <field name="field_project_fuid" reuseLastValue="0"></field>
+    <field name="map_face_note" reuseLastValue="0"></field>
     <field name="name" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
-    <field name="project_fuid" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>

@@ -68,7 +68,11 @@ def test_setup_project_logic_good(
 
     # Act
     # A saved QGIS project is open so this should work and call all functions once
-    fdc.full_project_setup()
+    fdc.run_function_list(functions=[
+        fdc.add_gpkg_to_project,
+        fdc.add_gpkg_layers_to_project,
+        lambda: fdc.open_layer_form(layer_name="field_project"),
+    ])
 
     # Assert
     for mock_function in check_functions.values():
@@ -94,7 +98,11 @@ def test_setup_project_logic_bad(
 
     # Act
     # No QGIS project is open, so only the first function should be called once
-    fdc.full_project_setup()
+    fdc.run_function_list(functions=[
+        fdc.add_gpkg_to_project,
+        fdc.add_gpkg_layers_to_project,
+        lambda: fdc.open_layer_form(layer_name="field_project"),
+    ])
 
     # Assert
     # Check that the first function was called once
@@ -174,10 +182,10 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
     fdc.add_gpkg_to_project()
     fdc.add_gpkg_layers_to_project()
     expected_row_counts = {
-        "project": 1,
+        "field_project": 1,
         "locality_point": 2,
         "structural_measurement": 2,
-        "exposure": 3,
+        "lithology": 3,
         "media": 2,
         "photo": 2,
         "sample": 2,
@@ -280,8 +288,9 @@ def test_auto_increment_locality_point_name(
     for expected_name in expected_locality_point_names:
         layer.startEditing()
         feature = QgsVectorLayerUtils.createFeature(layer)
-        # Set the project_fuid to be the uuid of the project from the test data set
-        feature.setAttribute(feature.fieldNameIndex("project_fuid"), "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
+        # Set the field_project_fuid to be the uuid of the field project from the test data set
+        feature.setAttribute(feature.fieldNameIndex("field_project_fuid"), "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
+        feature.setAttribute(feature.fieldNameIndex("exposure_type_code"), "AUGER_BOREHOLE")
         layer.addFeature(feature)
         layer.commitChanges()
 

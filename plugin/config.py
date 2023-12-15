@@ -7,13 +7,13 @@ TABLES = {
         "locality_point",
         # Views
         "view_structural_measurement",
-        "view_exposure"
+        "view_lithology"
     ],
     "attributes": [
         # Dictionaries
         "dic_exposure_type",
         "dic_rock_all",
-        "dic_project_type",
+        "dic_field_project_type",
         "dic_manmade_code",
         "dic_media",
         "dic_sample",
@@ -22,7 +22,7 @@ TABLES = {
         "dic_superficial_category",
         "dic_superficial_code",
         # Attributes
-        "exposure",
+        "lithology",
         "manmade_landform",
         "media",
         "photo",
@@ -30,7 +30,7 @@ TABLES = {
         "structural_measurement",
         "superficial_landform",
         # Metadata
-        "project",
+        "field_project",
         "view_next_locality_id",
     ]
 }
