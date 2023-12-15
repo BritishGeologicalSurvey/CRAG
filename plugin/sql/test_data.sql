@@ -1,6 +1,5 @@
 BEGIN TRANSACTION;
 SELECT load_extension("mod_spatialite");
-<<<<<<< HEAD
 INSERT INTO field_project VALUES(NULL, NULL,'{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}','test_field_project','test field project title','test field project description','test_user','active','2023-01-01','2023-12-31','DESK',27700,'test field project comment','colb','2023-10-31T16:20:11.012','colb','2023-10-31T16:20:11.012');
 INSERT INTO locality_point VALUES(NULL,NULL,'{abc43098-fe9b-4da0-b008-7518694466bb}','{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}','test_point_001','AUGER_BOREHOLE','Lyell Centre','test_point_001 note','test_point_001 comment','colb','2023-10-31T16:24:14.088','colb','2023-10-31T16:24:14.088',X'0001000000007F98EFA67C840AC038F6ECB9CCF44B407F98EFA67C840AC038F6ECB9CCF44B407C010000007F98EFA67C840AC038F6ECB9CCF44B40FE');
 INSERT INTO locality_point VALUES(NULL,NULL,'{b5bf63bb-0811-4074-99bc-422a78aa5b52}','{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}','test_point_002','OUTCROP','William Smith building','test_point_002 note','test_point_002 comment','colb','2023-10-31T16:25:36.038','colb','2023-10-31T16:25:36.038',X'0001000000007628758F8D3CF1BFD6D09BC47F704A407628758F8D3CF1BFD6D09BC47F704A407C010000007628758F8D3CF1BFD6D09BC47F704A40FE');
