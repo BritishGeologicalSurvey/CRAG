@@ -909,7 +909,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=field_project"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="field_project_374277e1_6fcf_47e9_b313_9421237f6102"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_8f8370d4_db99_4829_939d_b24886025115"></Option>
             <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="field_project_mass_move_line_2"></Option>
@@ -935,7 +935,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_line_type_mass_move"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_line_type_mass_move_3a93c874_dbc2_4b11_8b1d_2c7e96eef61b"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_line_type_mass_move_eb3245c6_dbfb_4987_89e2_e9375ae299e1"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_line_type_mass_move"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_line_type_mass_move_mass_move_line"></Option>
@@ -1085,7 +1085,7 @@ def my_form_open(dialog, layer, feature):
     <attributeEditorTextElement horizontalStretch="0" name="suggested attributes" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-      </labelStyle>[% attribute(get_feature('dic_line_type_mass_move', 'code', current_value('line_type_code') ), 'sec_attrib_list')&#xD;
+      </labelStyle>[% attribute(get_feature('dic_line_type_mass_move', 'code', current_value('line_type_code') ), 'sec_attrib_list')&#xD;&#xD;&#xD;
  %]</attributeEditorTextElement>
     <attributeEditorField horizontalStretch="0" index="5" name="comment" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">

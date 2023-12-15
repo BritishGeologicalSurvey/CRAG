@@ -1,27 +1,27 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.28.11-Firenze">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
   <fieldConfiguration>
-    <field configurationFlags="None" name="fid">
+    <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="objectid">
+    <field configurationFlags="NoFlag" name="objectid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="uuid">
+    <field configurationFlags="NoFlag" name="uuid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="short_name">
+    <field configurationFlags="NoFlag" name="short_name">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -31,7 +31,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="title">
+    <field configurationFlags="NoFlag" name="title">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -41,7 +41,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="description">
+    <field configurationFlags="NoFlag" name="description">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -51,7 +51,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="responsible_person_id">
+    <field configurationFlags="NoFlag" name="responsible_person_id">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -61,7 +61,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="status_code">
+    <field configurationFlags="NoFlag" name="status_code">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -71,7 +71,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="start_date">
+    <field configurationFlags="NoFlag" name="start_date">
       <editWidget type="DateTime">
         <config>
           <Option type="Map">
@@ -84,7 +84,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="end_date">
+    <field configurationFlags="NoFlag" name="end_date">
       <editWidget type="DateTime">
         <config>
           <Option type="Map">
@@ -97,7 +97,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="field_project_type">
+    <field configurationFlags="NoFlag" name="field_project_type">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -107,7 +107,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_field_project_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_d54e98b5_f3ee_4f23_8560_1be70c1a81b3"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_b283058d_8d89_45a4_add0_e0c0ff1d76d9"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_field_project_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_field_project_type_field_project"></Option>
@@ -117,7 +117,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="local_epsg">
+    <field configurationFlags="NoFlag" name="local_epsg">
       <editWidget type="ValueMap">
         <config>
           <Option type="Map">
@@ -133,7 +133,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="comment">
+    <field configurationFlags="NoFlag" name="comment">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -143,28 +143,28 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="user_entered">
+    <field configurationFlags="NoFlag" name="user_entered">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="date_entered">
+    <field configurationFlags="NoFlag" name="date_entered">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="user_updated">
+    <field configurationFlags="NoFlag" name="user_updated">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="date_updated">
+    <field configurationFlags="NoFlag" name="date_updated">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
@@ -191,6 +191,25 @@
     <alias field="user_updated" index="15" name=""></alias>
     <alias field="date_updated" index="16" name=""></alias>
   </aliases>
+  <splitPolicies>
+    <policy field="fid" policy="Duplicate"></policy>
+    <policy field="objectid" policy="Duplicate"></policy>
+    <policy field="uuid" policy="Duplicate"></policy>
+    <policy field="short_name" policy="Duplicate"></policy>
+    <policy field="title" policy="Duplicate"></policy>
+    <policy field="description" policy="Duplicate"></policy>
+    <policy field="responsible_person_id" policy="Duplicate"></policy>
+    <policy field="status_code" policy="Duplicate"></policy>
+    <policy field="start_date" policy="Duplicate"></policy>
+    <policy field="end_date" policy="Duplicate"></policy>
+    <policy field="field_project_type" policy="Duplicate"></policy>
+    <policy field="local_epsg" policy="Duplicate"></policy>
+    <policy field="comment" policy="Duplicate"></policy>
+    <policy field="user_entered" policy="Duplicate"></policy>
+    <policy field="date_entered" policy="Duplicate"></policy>
+    <policy field="user_updated" policy="Duplicate"></policy>
+    <policy field="date_updated" policy="Duplicate"></policy>
+  </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="objectid"></default>
@@ -274,54 +293,54 @@ def my_form_open(dialog, layer, feature):
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
     <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-      <labelFont bold="0" description="Sans Serif,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
-    <attributeEditorField index="3" name="short_name" showLabel="1">
+    <attributeEditorField horizontalStretch="0" index="3" name="short_name" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField index="4" name="title" showLabel="1">
+    <attributeEditorField horizontalStretch="0" index="4" name="title" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField index="5" name="description" showLabel="1">
+    <attributeEditorField horizontalStretch="0" index="5" name="description" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField index="6" name="responsible_person_id" showLabel="1">
+    <attributeEditorField horizontalStretch="0" index="6" name="responsible_person_id" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField index="7" name="status_code" showLabel="1">
+    <attributeEditorField horizontalStretch="0" index="7" name="status_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField index="8" name="start_date" showLabel="1">
+    <attributeEditorField horizontalStretch="0" index="8" name="start_date" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField index="9" name="end_date" showLabel="1">
+    <attributeEditorField horizontalStretch="0" index="9" name="end_date" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField index="10" name="field_project_type" showLabel="1">
+    <attributeEditorField horizontalStretch="0" index="10" name="field_project_type" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField index="11" name="local_epsg" showLabel="1">
+    <attributeEditorField horizontalStretch="0" index="11" name="local_epsg" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField index="12" name="comment" showLabel="1">
+    <attributeEditorField horizontalStretch="0" index="12" name="comment" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
