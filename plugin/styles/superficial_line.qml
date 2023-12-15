@@ -7178,7 +7178,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="project_fuid">
+    <field configurationFlags="NoFlag" name="field_project_fuid">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -7188,11 +7188,11 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\Users\jostev\mergin\line-styles\field-data-capture.gpkg|layername=project"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="project_5dce0a0f_2c7b_48dc_9685_526decced7af"></Option>
-            <Option name="ReferencedLayerName" type="QString" value="project"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=field_project"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_45ff1974_6d37_464a_be9e_2cf812c737c6"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="project_superficial_line_2"></Option>
+            <Option name="Relation" type="QString" value="field_project_superficial_line_2"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
           </Option>
@@ -7209,13 +7209,13 @@
             <Option name="FetchLimitActive" type="bool" value="true"></Option>
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="FilterExpression" type="QString" value=""></Option>
-            <Option name="FilterFields" type="List">
+            <Option name="FilterFields" type="StringList">
               <Option type="QString" value="category"></Option>
             </Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\Users\jostev\mergin\line-styles\field-data-capture.gpkg|layername=dic_line_type_superficial"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_line_type_superficial_3e0a5312_546a_480b_96fb_7c382c9a4c49"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_line_type_superficial"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_line_type_superficial_5c7027fd_27d9_47a7_ac17_18f71dbb02be"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_line_type_superficial"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_line_type_superficial_superficial_line"></Option>
@@ -7268,7 +7268,7 @@
     <alias field="fid" index="0" name=""></alias>
     <alias field="objectid" index="1" name=""></alias>
     <alias field="uuid" index="2" name=""></alias>
-    <alias field="project_fuid" index="3" name=""></alias>
+    <alias field="field_project_fuid" index="3" name=""></alias>
     <alias field="line_type_code" index="4" name=""></alias>
     <alias field="comment" index="5" name=""></alias>
     <alias field="user_entered" index="6" name=""></alias>
@@ -7280,7 +7280,7 @@
     <policy field="fid" policy="Duplicate"></policy>
     <policy field="objectid" policy="Duplicate"></policy>
     <policy field="uuid" policy="Duplicate"></policy>
-    <policy field="project_fuid" policy="Duplicate"></policy>
+    <policy field="field_project_fuid" policy="Duplicate"></policy>
     <policy field="line_type_code" policy="Duplicate"></policy>
     <policy field="comment" policy="Duplicate"></policy>
     <policy field="user_entered" policy="Duplicate"></policy>
@@ -7292,7 +7292,7 @@
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
-    <default applyOnUpdate="0" expression="" field="project_fuid"></default>
+    <default applyOnUpdate="0" expression="" field="field_project_fuid"></default>
     <default applyOnUpdate="0" expression="" field="line_type_code"></default>
     <default applyOnUpdate="0" expression="" field="comment"></default>
     <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
@@ -7304,7 +7304,7 @@
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="1" exp_strength="0" field="project_fuid" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="field_project_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="line_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
@@ -7316,7 +7316,7 @@
     <constraint desc="" exp="" field="fid"></constraint>
     <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
-    <constraint desc="" exp="" field="project_fuid"></constraint>
+    <constraint desc="" exp="" field="field_project_fuid"></constraint>
     <constraint desc="" exp="" field="line_type_code"></constraint>
     <constraint desc="" exp="" field="comment"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
@@ -7353,6 +7353,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="date_entered"></field>
     <field editable="1" name="date_updated"></field>
     <field editable="1" name="fid"></field>
+    <field editable="1" name="field_project_fuid"></field>
     <field editable="1" name="line_type_code"></field>
     <field editable="1" name="objectid"></field>
     <field editable="1" name="project_fuid"></field>
@@ -7365,6 +7366,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="date_entered"></field>
     <field labelOnTop="0" name="date_updated"></field>
     <field labelOnTop="0" name="fid"></field>
+    <field labelOnTop="0" name="field_project_fuid"></field>
     <field labelOnTop="0" name="line_type_code"></field>
     <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="project_fuid"></field>
@@ -7377,7 +7379,8 @@ def my_form_open(dialog, layer, feature):
     <field name="date_entered" reuseLastValue="0"></field>
     <field name="date_updated" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
-    <field name="line_type_code" reuseLastValue="0"></field>
+    <field name="field_project_fuid" reuseLastValue="0"></field>
+    <field name="line_type_code" reuseLastValue="1"></field>
     <field name="objectid" reuseLastValue="0"></field>
     <field name="project_fuid" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
