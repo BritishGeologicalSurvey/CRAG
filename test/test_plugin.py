@@ -221,7 +221,11 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
                 assert widget["config"]["ReferencedLayerId"] in map_layers
 
 
-def test_export_qml_styles(fdc: FieldDataCapture, qgs_project: Path):
+def test_export_qml_styles(
+    fdc: FieldDataCapture,
+    qgs_project: Path,
+    monkeypatch_qmsgbox_question_yes,
+):
     # Arrange
     expected_categories = {
         "Symbology",
