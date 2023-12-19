@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS "field_project" (
 	"field_project_type"	TEXT NOT NULL,
 	"local_epsg"  INTEGER NOT NULL,
 	"comment"	TEXT,
+	"mapped_scale"	INTEGER NOT NULL,
 	"user_entered"	TEXT NOT NULL,
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
