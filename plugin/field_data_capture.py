@@ -326,6 +326,15 @@ class FieldDataCapture:
             submenu=dev_submenu,
         )
 
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Add Locality Point'),
+            callback=self.add_locality_point,
+            add_to_menu=False,
+            parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
+        )
+
         # will be set False in run()
         self.first_start = True
 
@@ -747,3 +756,66 @@ class FieldDataCapture:
             f"{exported_styles} Field Data Capture styles have been exported to:\n\n{self.styles_dir}",
         )
         return True
+
+
+    def add_locality_point(self):
+        """
+        Prepare the locality_point layer for editing and adding new features.
+        """
+        self.prepare_add_new_feature(layer_name="locality_point")
+        # Trigger the "Add Point Feature" button
+        self.iface.actionAddFeature().trigger()
+
+
+    def prepare_add_new_feature(self, layer_name: str) -> None:
+        """
+        Prepare the given layer programmatically for editing and adding new features easily.
+        """
+        # Get the user selected layers before changing anything first
+        user_selected_layers = self.iface.layerTreeView().selectedLayers()
+
+        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        # Ensure the layer is editable
+        if not layer.isEditable():
+            layer.startEditing()
+
+        # Select the layer
+        self.iface.setActiveLayer(layer)
+
+        # Create a slot function which takes a feature 'fid'
+        # but uses the current layer and passes the function itself through
+        # this is so we can reference the function later to disconnect the signal
+        def slot_function(fid: int) -> None:
+            self.save_layer_changes(fid, layer, slot_function)
+        # This is the signal for when a new feature is added to the layer
+        layer.featureAdded.connect(slot_function)
+
+
+    def save_layer_changes(self, fid: int, layer: QgsVectorLayer, slot_function: Callable) -> None:
+        """
+        The featureAdded signal from a QgsVectorLayer triggers twice when a new feature is added through a form.
+        This appears to be because the unsaved feature is added first to the layer in a temporary state, for viewing
+        in the attribute table. This means that from the front end, it's 'fid' value is 'AutoGenerate', whilst
+        from the back end, it's 'fid' is a negative integer.
+
+        Once the layer changes are saved, this temporary new feature is removed, and
+        the actual new feature with a real 'fid' value is added.
+        However, this actual new feature then triggers the featureAdded signal again.
+
+        We need to save the changes when the new temporary feature exists, so that QGIS can use it
+        to create the actual new feature.
+
+        Because the temporary features have a negative 'fid' value, we can use that to check when we
+        need to save the layer changes.
+
+        Then, we also take an argument of the slot_function, which is the function which will be called
+        by the featureAdded signal. We need the slot_function so we can disconnect it from the same signal,
+        as otherwise the signal would trigger the slot_function when a user is just normally editing data
+        manually.
+        """
+        if fid < 0:
+            # We only commit the changes for the inital temporary feature
+            layer.commitChanges()
+            # We only need to disconnect the signal once
+            # so we do it when the temporary feature is added
+            layer.featureAdded.disconnect(slot_function)
