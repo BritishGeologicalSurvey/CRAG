@@ -9,6 +9,7 @@ TABLES = {
         "superficial_line",
         "artificial_line",
         "mass_move_line",
+        "terrain_line",
         # Views
         "view_structural_measurement",
         "view_lithology"
