@@ -1,0 +1,7 @@
+"fid","code","DESCRIPTION","TRANSLATION","STATUS","USER_ENTERED","DATE_ENTERED","USER_UPDATED","DATE_UPDATED"
+"2","10K","mapped to 1:10000 scale","1:10000","C","BGS",9/2/2000 12:39:27,,
+"1","5K","mapped to 1:5000 scale","1:5000","C","BGS",9/2/2000 12:39:36,,
+"6","Other","mapped to other scale","other","C","BGS",9/2/2000 12:39:43,,
+"3","25K","mapped to 1:25000 scale","1:25000","C","BGS",9/2/2000 12:40:03,"TMCM",27/8/2009 15:59:04
+"4","50K","mapped to 1:50000 scale","1:50000","C","BGS",9/2/2000 12:40:33,"TMCM",27/8/2009 15:59:42
+"5","1M","mapped to 1:1000000 scale","1:1000000","C","BGS",9/2/2000 12:40:52,,

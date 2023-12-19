@@ -1,0 +1,10 @@
+"fid","line_type","category","description","translation","sec_attrib_list","comments","status","user_entered","date_entered","user_updated","date_updated"
+,"gull","MASS_MOVEMENT_LINE",,,,,"C","KIGL",26/11/2023 12:12:31,,
+,"landslide_back_scar_Top","MASS_MOVEMENT_LINE",,,"asymmetry perendicular","barbs point into landslide","C","KIGL",26/11/2023 12:12:31,,
+,"landslide_lower_or_side_limit","MASS_MOVEMENT_LINE",,,,,"C","KIGL",26/11/2023 12:12:31,,
+,"landslide_minor_scarps","MASS_MOVEMENT_LINE",,,,,"C","KIGL",26/11/2023 12:12:31,,
+,"mass_move_geology_boundary","MASS_MOVEMENT_DEPOSIT_BOUNDARY",,,,,"C","KIGL",26/11/2023 12:12:31,,
+,"mass_move_polygon_closure","MASS_MOVEMENT_DEPOSIT_BOUNDARY",,,,,"C","KIGL",26/11/2023 12:12:31,,
+,"open_tension_crack_crossmark","MASS_MOVEMENT_LINE",,,,,"C","KIGL",26/11/2023 12:12:31,,
+,"open_tension_crack_undiff","MASS_MOVEMENT_LINE",,,,,"C","KIGL",26/11/2023 12:12:31,,
+,"valley_bulge_axis_Inf","MASS_MOVEMENT_LINE",,,,,"C","KIGL",26/11/2023 12:12:31,,
