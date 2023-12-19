@@ -17,17 +17,19 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
     "fid" INTEGER NOT NULL,
     "objectid" INTEGER UNIQUE,
     "uuid" TEXT NOT NULL UNIQUE,
-    "project_fuid" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
+    "field_project_fuid" TEXT NOT NULL,
+    "name" TEXT NOT NULL UNIQUE,
+    "exposure_type_code"  TEXT NOT NULL,
     "description" TEXT,
-    "geological_note" TEXT,
+    "map_face_note" TEXT,
     "comment" TEXT,
     "user_entered" TEXT NOT NULL,
     "date_entered" DATETIME NOT NULL,
     "user_updated" TEXT,
     "date_updated" DATETIME,
     "geometry" POINT,
-    FOREIGN KEY("project_fuid") REFERENCES "project"("uuid"),
+    FOREIGN KEY("exposure_type_code") REFERENCES "dic_exposure_type"("code"),
+    FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 

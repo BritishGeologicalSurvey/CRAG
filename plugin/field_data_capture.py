@@ -59,6 +59,7 @@ from .config import (
     ATTRIBUTE_TABLES,
     DICTIONARIES,
     FEATURE_TABLES,
+    FEATURE_TABLES_LINES,
     VIEWS,
     TABLE_LIST,
 )
@@ -246,7 +247,11 @@ class FieldDataCapture:
         self.add_action(
             icon_path,
             text=self.tr(u'Setup Project'),
-            callback=self.full_project_setup,
+            callback=lambda: self.run_function_list(functions=[
+                self.add_gpkg_to_project,
+                self.add_gpkg_layers_to_project,
+                lambda: self.open_layer_form(layer_name="field_project"),
+            ]),
             parent=self.iface.mainWindow(),
         )
 
@@ -260,6 +265,30 @@ class FieldDataCapture:
         )
         dev_submenu = QMenu()
         dev_submenu_action.setMenu(dev_submenu)
+
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Setup Test Project'),
+            callback=lambda: self.run_function_list(functions=[
+                self.add_gpkg_to_project,
+                self.add_gpkg_layers_to_project,
+                self.add_test_data_to_project,
+            ]),
+            add_to_menu=False,
+            parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
+        )
+
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Export Styles to QML'),
+            callback=self.export_qml_styles,
+            add_to_menu=False,
+            parent=self.iface.mainWindow(),
+            submenu=dev_submenu,
+        )
+
+        dev_submenu.addSeparator()
 
         self.add_action(
             icon_path,
@@ -292,15 +321,6 @@ class FieldDataCapture:
             icon_path,
             text=self.tr(u'Add Test Data to Project'),
             callback=self.add_test_data_to_project,
-            add_to_menu=False,
-            parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Export Styles to QML'),
-            callback=self.export_qml_styles,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
@@ -358,16 +378,13 @@ class FieldDataCapture:
             return False
 
 
-    def full_project_setup(self) -> bool:
+    def run_function_list(self, functions: list[Callable]) -> bool:
         """
-        Run all functions required to setup a new project.
+        Run all the given functions in order.
+        Each function must return a boolean indicating it's success.
+        If a function returns False, function execution will end.
         Returns a boolean indicating success of the process.
         """
-        functions = [
-            self.add_gpkg_to_project,
-            self.add_gpkg_layers_to_project,
-            lambda: self.open_layer_form(layer_name="project"),
-        ]
         for function_ in functions:
             return_ = function_()
             # We don't want to continue through the setup if a process fails
@@ -538,7 +555,8 @@ class FieldDataCapture:
         """
         # Create inital structure
         layer_tree_structure = {
-            None: FEATURE_TABLES,
+            None: FEATURE_TABLES.difference(FEATURE_TABLES_LINES),
+            "lines": FEATURE_TABLES_LINES,
             "views": VIEWS,
             "locality_data": ATTRIBUTE_TABLES,
             "metadata": DICTIONARIES,
@@ -551,9 +569,14 @@ class FieldDataCapture:
             layer_tree_structure[group_name] = table_list
 
         # Move the project layer
-        project_name = "project"
+        project_name = "field_project"
         layer_tree_structure["locality_data"].remove(project_name)
         layer_tree_structure["metadata"].insert(0, project_name)
+
+        # Move the view_next_locality_id
+        next_id_name = "view_next_locality_id"
+        layer_tree_structure["views"].remove(next_id_name)
+        layer_tree_structure["metadata"].append(next_id_name)
 
         return layer_tree_structure
 
@@ -691,7 +714,7 @@ class FieldDataCapture:
                 (
                     f"The existing QML files are from QGIS '{existing_version}', "
                     f"but you are using QGIS '{current_version}'. "
-                    "Continuting will cause bad style diffs.\n\nDo you want to continue?"
+                    "Continuing will cause bad style diffs.\n\nDo you want to continue?"
                 ),
             )
             if result == QMessageBox.No:

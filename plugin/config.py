@@ -5,24 +5,36 @@ Shared global variables used within the plugin.
 TABLES = {
     "features": [
         "locality_point",
+        "bedrock_line",
+        "superficial_line",
+        "artificial_line",
+        "mass_move_line",
         # Views
         "view_structural_measurement",
-        "view_exposure"
+        "view_lithology"
     ],
     "attributes": [
         # Dictionaries
         "dic_exposure_type",
         "dic_rock_all",
-        "dic_project_type",
+        "dic_field_project_type",
+        "dic_line_theme_cat",
+        "dic_line_type_artificial",
+        "dic_line_type_bedrock",
+        "dic_line_type_mass_move",
+        "dic_line_type_superficial",
         "dic_manmade_code",
         "dic_media",
+        "dic_mineral_vein",
+        "dic_mineral",
+        "dic_rock_all",
         "dic_sample",
         "dic_structure_category",
         "dic_structure_code",
         "dic_superficial_category",
         "dic_superficial_code",
         # Attributes
-        "exposure",
+        "lithology",
         "manmade_landform",
         "media",
         "photo",
@@ -30,16 +42,21 @@ TABLES = {
         "structural_measurement",
         "superficial_landform",
         # Metadata
-        "project",
+        "field_project",
+        "view_next_locality_id",
     ]
 }
 
-VIEWS = {table for table in TABLES['features']
+VIEWS = {table for table in TABLES['features'] + TABLES['attributes']
          if table.startswith('view_')}
 FEATURE_TABLES = {table for table in TABLES['features']}.difference(VIEWS)
 
+FEATURE_TABLES_LINES = {table for table in FEATURE_TABLES
+                        if table.endswith("_line")}
+
 DICTIONARIES = {table for table in TABLES['attributes']
                 if table.startswith('dic_')}
-ATTRIBUTE_TABLES = {table for table in TABLES['attributes']}.difference(DICTIONARIES)
+ATTRIBUTE_TABLES = {table for table in TABLES['attributes']
+                    if not table.startswith("view")}.difference(DICTIONARIES)
 
 TABLE_LIST = sorted(TABLES["features"] + TABLES["attributes"])

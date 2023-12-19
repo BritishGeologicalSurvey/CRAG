@@ -1,27 +1,27 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.28.11-Firenze">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
   <fieldConfiguration>
-    <field configurationFlags="None" name="fid">
+    <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="objectid">
+    <field configurationFlags="NoFlag" name="objectid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="uuid">
+    <field configurationFlags="NoFlag" name="uuid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="locality_fuid">
+    <field configurationFlags="NoFlag" name="locality_fuid">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -31,7 +31,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_d722a305_c34e_4ced_9262_1e7f6ccc3598"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_9e5bb036_b159_46f0_a2c7_9e655d35ef1c"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_sample_2"></Option>
@@ -41,7 +41,14 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="sample_type_code">
+    <field configurationFlags="NoFlag" name="sample_id">
+      <editWidget type="">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="sample_type_code">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -51,7 +58,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_sample"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_sample_7439269a_d9cf_4172_ba04_5ae639d71625"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_sample_823213e0_a007_4cfc_b852_8ca5448767a5"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_sample"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_sample_sample"></Option>
@@ -61,7 +68,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="sample_description">
+    <field configurationFlags="NoFlag" name="sample_description">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -71,7 +78,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="comment">
+    <field configurationFlags="NoFlag" name="comment">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -81,28 +88,28 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="user_entered">
+    <field configurationFlags="NoFlag" name="user_entered">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="date_entered">
+    <field configurationFlags="NoFlag" name="date_entered">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="user_updated">
+    <field configurationFlags="NoFlag" name="user_updated">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="date_updated">
+    <field configurationFlags="NoFlag" name="date_updated">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
@@ -115,19 +122,35 @@
     <alias field="objectid" index="1" name=""></alias>
     <alias field="uuid" index="2" name=""></alias>
     <alias field="locality_fuid" index="3" name=""></alias>
-    <alias field="sample_type_code" index="4" name=""></alias>
-    <alias field="sample_description" index="5" name=""></alias>
-    <alias field="comment" index="6" name=""></alias>
-    <alias field="user_entered" index="7" name=""></alias>
-    <alias field="date_entered" index="8" name=""></alias>
-    <alias field="user_updated" index="9" name=""></alias>
-    <alias field="date_updated" index="10" name=""></alias>
+    <alias field="sample_id" index="4" name=""></alias>
+    <alias field="sample_type_code" index="5" name=""></alias>
+    <alias field="sample_description" index="6" name=""></alias>
+    <alias field="comment" index="7" name=""></alias>
+    <alias field="user_entered" index="8" name=""></alias>
+    <alias field="date_entered" index="9" name=""></alias>
+    <alias field="user_updated" index="10" name=""></alias>
+    <alias field="date_updated" index="11" name=""></alias>
   </aliases>
+  <splitPolicies>
+    <policy field="fid" policy="Duplicate"></policy>
+    <policy field="objectid" policy="Duplicate"></policy>
+    <policy field="uuid" policy="Duplicate"></policy>
+    <policy field="locality_fuid" policy="Duplicate"></policy>
+    <policy field="sample_id" policy="Duplicate"></policy>
+    <policy field="sample_type_code" policy="Duplicate"></policy>
+    <policy field="sample_description" policy="Duplicate"></policy>
+    <policy field="comment" policy="Duplicate"></policy>
+    <policy field="user_entered" policy="Duplicate"></policy>
+    <policy field="date_entered" policy="Duplicate"></policy>
+    <policy field="user_updated" policy="Duplicate"></policy>
+    <policy field="date_updated" policy="Duplicate"></policy>
+  </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
+    <default applyOnUpdate="0" expression="" field="sample_id"></default>
     <default applyOnUpdate="0" expression="" field="sample_type_code"></default>
     <default applyOnUpdate="0" expression="" field="sample_description"></default>
     <default applyOnUpdate="0" expression="" field="comment"></default>
@@ -141,6 +164,7 @@
     <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="sample_id" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="sample_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="sample_description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
@@ -154,6 +178,7 @@
     <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
+    <constraint desc="" exp="" field="sample_id"></constraint>
     <constraint desc="" exp="" field="sample_type_code"></constraint>
     <constraint desc="" exp="" field="sample_description"></constraint>
     <constraint desc="" exp="" field="comment"></constraint>

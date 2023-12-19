@@ -146,8 +146,9 @@ def test_data_model_columns_constraints(
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     # Arrange
     expected_contents = [(table, "features") for table in FEATURE_TABLES]
-    expected_contents += [(table, "features") for table in VIEWS]
-    expected_contents += [(table, "attributes") for table in ATTRIBUTE_TABLES]
+    expected_contents += [(table, "features") for table in VIEWS
+                          if table != "view_next_locality_id"]
+    expected_contents += [(table, "attributes") for table in ATTRIBUTE_TABLES | {"view_next_locality_id"}]
     expected_contents += [(table, "attributes") for table in DICTIONARIES]
 
     # Act
@@ -168,7 +169,7 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     assert sorted(actual_contents) == sorted(expected_contents)
 
 
-@pytest.mark.parametrize("view", VIEWS)
+@pytest.mark.parametrize("view", [view for view in VIEWS if view != "view_next_locality_id"])
 def test_views(
     data_model_gpkg: sqlite3.Connection,
     view: str
@@ -186,8 +187,37 @@ def test_views(
     # Check that required columns are in the view
     view_info = etl.table_info(table=view, conn=data_model_gpkg)
     all_col_names = {col.name for col in view_info}
-    required_cols = {"project", "locality_point", "locality_uuid", "x", "y"}
+    required_cols = {"field_project", "locality_point", "locality_uuid", "x", "y"}
     assert required_cols.issubset(all_col_names)
+
+
+def test_view_next_locality_id(test_data_gpkg: sqlite3.Connection):
+    # Arrange
+    expected_1 = [("test_point", "test_point_003")]
+    expected_2 = [("test_point", "test_point_003")]
+    expected_3 = []
+
+    # Act
+    query = "SELECT * FROM view_next_locality_id"
+
+    # Act 1
+    result_1 = etl.fetchall(query, conn=test_data_gpkg, row_factory=etl.row_factories.tuple_row_factory)
+    # Assert 1
+    assert result_1 == expected_1
+
+    # Act 2
+    # Delete 'test_point_001', the next ID increment should remain the same because 'test_point_002' is the max
+    etl.execute("DELETE FROM locality_point WHERE name = 'test_point_001'", conn=test_data_gpkg)
+    result_2 = etl.fetchall(query, conn=test_data_gpkg, row_factory=etl.row_factories.tuple_row_factory)
+    # Assert 2
+    assert result_2 == expected_2
+
+    # Act 3
+    # Delete 'test_point_002', now there should be no next ID increment because there are no points left
+    etl.execute("DELETE FROM locality_point WHERE name = 'test_point_002'", conn=test_data_gpkg)
+    result_3 = etl.fetchall(query, conn=test_data_gpkg, row_factory=etl.row_factories.tuple_row_factory)
+    # Assert 3
+    assert result_3 == expected_3
 
 
 @pytest.mark.parametrize('table', FEATURE_TABLES | ATTRIBUTE_TABLES)

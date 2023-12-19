@@ -1,27 +1,27 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.28.11-Firenze">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
   <fieldConfiguration>
-    <field configurationFlags="None" name="fid">
+    <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="objectid">
+    <field configurationFlags="NoFlag" name="objectid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="uuid">
+    <field configurationFlags="NoFlag" name="uuid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="locality_fuid">
+    <field configurationFlags="NoFlag" name="locality_fuid">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -31,7 +31,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_d722a305_c34e_4ced_9262_1e7f6ccc3598"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_9e5bb036_b159_46f0_a2c7_9e655d35ef1c"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_structural_measurement"></Option>
@@ -41,7 +41,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="structure_type_category">
+    <field configurationFlags="NoFlag" name="structure_type_category">
       <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
@@ -62,7 +62,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="structure_type_code">
+    <field configurationFlags="NoFlag" name="structure_type_code">
       <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
@@ -83,7 +83,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="dip">
+    <field configurationFlags="NoFlag" name="dip">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -93,7 +93,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="dip_direction">
+    <field configurationFlags="NoFlag" name="dip_direction">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -103,7 +103,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="comment">
+    <field configurationFlags="NoFlag" name="comment">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -113,28 +113,28 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="user_entered">
+    <field configurationFlags="NoFlag" name="user_entered">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="date_entered">
+    <field configurationFlags="NoFlag" name="date_entered">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="user_updated">
+    <field configurationFlags="NoFlag" name="user_updated">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="None" name="date_updated">
+    <field configurationFlags="NoFlag" name="date_updated">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
@@ -157,6 +157,21 @@
     <alias field="user_updated" index="11" name=""></alias>
     <alias field="date_updated" index="12" name=""></alias>
   </aliases>
+  <splitPolicies>
+    <policy field="fid" policy="Duplicate"></policy>
+    <policy field="objectid" policy="Duplicate"></policy>
+    <policy field="uuid" policy="Duplicate"></policy>
+    <policy field="locality_fuid" policy="Duplicate"></policy>
+    <policy field="structure_type_category" policy="Duplicate"></policy>
+    <policy field="structure_type_code" policy="Duplicate"></policy>
+    <policy field="dip" policy="Duplicate"></policy>
+    <policy field="dip_direction" policy="Duplicate"></policy>
+    <policy field="comment" policy="Duplicate"></policy>
+    <policy field="user_entered" policy="Duplicate"></policy>
+    <policy field="date_entered" policy="Duplicate"></policy>
+    <policy field="user_updated" policy="Duplicate"></policy>
+    <policy field="date_updated" policy="Duplicate"></policy>
+  </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="objectid"></default>

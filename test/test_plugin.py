@@ -1,6 +1,8 @@
 """
 These are tests for the plugin which depend on a running QGIS version which is supplied by the 'fdc' fixture.
 """
+import os
+import pwd
 from pathlib import Path
 from unittest.mock import Mock
 from xml.dom import minidom
@@ -10,6 +12,7 @@ import etlhelper as etl
 from qgis.core import (
     QgsLayerTreeGroup,
     QgsProject,
+    QgsVectorLayerUtils,
 )
 
 from conftest import setup_db_conn
@@ -65,7 +68,11 @@ def test_setup_project_logic_good(
 
     # Act
     # A saved QGIS project is open so this should work and call all functions once
-    fdc.full_project_setup()
+    fdc.run_function_list(functions=[
+        fdc.add_gpkg_to_project,
+        fdc.add_gpkg_layers_to_project,
+        lambda: fdc.open_layer_form(layer_name="field_project"),
+    ])
 
     # Assert
     for mock_function in check_functions.values():
@@ -91,7 +98,11 @@ def test_setup_project_logic_bad(
 
     # Act
     # No QGIS project is open, so only the first function should be called once
-    fdc.full_project_setup()
+    fdc.run_function_list(functions=[
+        fdc.add_gpkg_to_project,
+        fdc.add_gpkg_layers_to_project,
+        lambda: fdc.open_layer_form(layer_name="field_project"),
+    ])
 
     # Assert
     # Check that the first function was called once
@@ -124,7 +135,13 @@ def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
 def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Arrange
     fdc.add_gpkg_to_project()
-    expected_root_names = ["locality_point", "views", "locality_data", "metadata"]
+    expected_root_names = [
+        "locality_point",
+        "lines",
+        "views",
+        "locality_data",
+        "metadata",
+    ]
     expected_qml_files = [
         # Make the expected path relative to the project root
         Path(qml_file.parent.name) / qml_file.name
@@ -171,10 +188,10 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
     fdc.add_gpkg_to_project()
     fdc.add_gpkg_layers_to_project()
     expected_row_counts = {
-        "project": 1,
+        "field_project": 1,
         "locality_point": 2,
         "structural_measurement": 2,
-        "exposure": 3,
+        "lithology": 3,
         "media": 2,
         "photo": 2,
         "sample": 2,
@@ -204,7 +221,11 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
                 assert widget["config"]["ReferencedLayerId"] in map_layers
 
 
-def test_export_qml_styles(fdc: FieldDataCapture, qgs_project: Path):
+def test_export_qml_styles(
+    fdc: FieldDataCapture,
+    qgs_project: Path,
+    monkeypatch_qmsgbox_question_yes,
+):
     # Arrange
     expected_categories = {
         "Symbology",
@@ -254,3 +275,34 @@ def test_export_qml_styles_no_layers(
     assert not function_return
     # Ensure the styles directory does not exist
     assert not fdc.styles_dir.exists()
+
+
+def test_auto_increment_locality_point_name(
+    fdc: FieldDataCapture,
+    qgs_project: Path,
+):
+    # Arrange
+    fdc.add_gpkg_to_project()
+    fdc.add_gpkg_layers_to_project()
+    fdc.add_test_data_to_project()
+    # This is the username which the tests will use for default values, as there is no mergin name
+    username = pwd.getpwuid(os.getuid()).pw_name
+    # Generate a list of expected locality point names based on the current username
+    expected_locality_point_names = [
+        f"{username}_00{idx}"
+        for idx in range(1, 3)
+    ]
+
+    # Act
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    for expected_name in expected_locality_point_names:
+        layer.startEditing()
+        feature = QgsVectorLayerUtils.createFeature(layer)
+        # Set the field_project_fuid to be the uuid of the field project from the test data set
+        feature.setAttribute(feature.fieldNameIndex("field_project_fuid"), "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
+        feature.setAttribute(feature.fieldNameIndex("exposure_type_code"), "AUGER_BOREHOLE")
+        layer.addFeature(feature)
+        layer.commitChanges()
+
+        # Assert
+        assert feature.attribute("name") == expected_name

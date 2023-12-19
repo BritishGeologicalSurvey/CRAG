@@ -6,7 +6,7 @@ dependencies:
   # Correspond to current long-term support versions in Windows
   - python=3.9
   - pip=23.2
-  - qgis=3.28
+  - qgis=3.34
   - pip:
       - eralchemy2
       - etlhelper
