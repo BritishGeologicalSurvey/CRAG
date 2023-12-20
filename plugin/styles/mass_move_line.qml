@@ -1,4 +1,4 @@
-<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
+<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.1-Prizren">
   <renderer-v2 attr="line_type_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="gull" render="true" symbol="0" type="string" uuid="{d719e6bc-c859-4f6e-b37a-4bf8cc33acd3}" value="gull"></category>
@@ -909,7 +909,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/jostev-minimal2/field-data-capture.gpkg|layername=field_project"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="field_project_60f01c45_f144_49a1_b113_cfc8bba8db0e"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_0c8cb9a3_e6ae_4097_aa45_497791ae3d60"></Option>
             <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="field_project_mass_move_line_2"></Option>
@@ -929,8 +929,8 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/jostev-minimal2/field-data-capture.gpkg|layername=dic_line_type_mass_move"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_line_type_mass_move_e6839541_9b17_4405_9b95_7e976c77fb68"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="/home/colin/mergin/lines-test-4/field-data-capture.gpkg|layername=dic_line_type_mass_move"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_line_type_mass_move_6d22a146_394e_4d05_be5e_14dfd9d122a8"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_line_type_mass_move"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_line_type_mass_move_mass_move_line"></Option>
@@ -1095,7 +1095,7 @@ def my_form_open(dialog, layer, feature):
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
     <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-      <labelFont bold="0" description="MS Shell Dlg 2,5.5,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      <labelFont bold="0" description="Sans Serif,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
     <attributeEditorField horizontalStretch="0" index="3" name="field_project_fuid" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
@@ -1104,7 +1104,7 @@ def my_form_open(dialog, layer, feature):
     </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="4" name="line_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,5.5,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+        <labelFont bold="0" description="Noto Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="5" name="map_face_note" showLabel="1" verticalStretch="0">
@@ -1157,7 +1157,7 @@ def my_form_open(dialog, layer, feature):
     <field name="date_updated" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="field_project_fuid" reuseLastValue="0"></field>
-    <field name="line_type_code" reuseLastValue="0"></field>
+    <field name="line_type_code" reuseLastValue="1"></field>
     <field name="map_face_note" reuseLastValue="0"></field>
     <field name="mapped_scale" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
