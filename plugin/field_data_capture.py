@@ -763,15 +763,26 @@ class FieldDataCapture:
         """
         Prepare the locality_point layer for editing and adding new features.
         """
-        self.prepare_add_new_feature(layer_name="locality_point")
-        # Trigger the "Add Point Feature" button
-        self.iface.actionAddFeature().trigger()
+        if self.prepare_add_new_feature(layer_name="locality_point"):
+            # Trigger the "Add Point Feature" button
+            self.iface.actionAddFeature().trigger()
 
 
-    def prepare_add_new_feature(self, layer_name: str) -> None:
+    def prepare_add_new_feature(self, layer_name: str) -> bool:
         """
-        Prepare the given layer programmatically for editing and adding new features easily.
+        Prepare the given layer programmatically for editing and adding new features easily.#
+        Returns a boolean indicating success of the process.
         """
+        # Check that we have an open project and a geopackage with the correct layers
+        if not self.project_is_active():
+            return False
+        if not self.db_file.exists():
+            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+            return False
+        if not self.check_fdc_layers_exist():
+            QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
+            return False
+
         # Get the user selected layers before changing anything first
         user_selected_layers = self.iface.layerTreeView().selectedLayers()
 
@@ -790,6 +801,8 @@ class FieldDataCapture:
             self.save_layer_changes(fid, layer, slot_function)
         # This is the signal for when a new feature is added to the layer
         layer.featureAdded.connect(slot_function)
+
+        return True
 
 
     def save_layer_changes(self, fid: int, layer: QgsVectorLayer, slot_function: Callable) -> None:
