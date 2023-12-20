@@ -925,8 +925,13 @@
           <Option type="Map">
             <Option name="AllowAddFeatures" type="bool" value="false"></Option>
             <Option name="AllowNULL" type="bool" value="false"></Option>
+            <Option name="ChainFilters" type="bool" value="false"></Option>
             <Option name="FetchLimitActive" type="bool" value="true"></Option>
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
+            <Option name="FilterExpression" type="QString" value=""></Option>
+            <Option name="FilterFields" type="StringList">
+              <Option type="QString" value="category"></Option>
+            </Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/colin/mergin/lines-test-4/field-data-capture.gpkg|layername=dic_line_type_mass_move"></Option>
