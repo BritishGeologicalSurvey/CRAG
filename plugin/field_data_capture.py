@@ -160,7 +160,7 @@ class FieldDataCapture:
         callback: Callable,
         enabled_flag: bool = True,
         add_to_menu: bool = True,
-        add_to_toolbar: bool = True,
+        add_to_toolbar: bool = False,
         status_tip: Optional[str] = None,
         whats_this: Optional[str] = None,
         parent: Optional[QWidget] = None,
@@ -187,7 +187,7 @@ class FieldDataCapture:
         :type add_to_menu: bool
 
         :param add_to_toolbar: Flag indicating whether the action should also
-            be added to the toolbar. Defaults to True.
+            be added to the toolbar. Defaults to False.
         :type add_to_toolbar: bool
 
         :param status_tip: Optional text to show in a popup when mouse pointer
@@ -331,6 +331,7 @@ class FieldDataCapture:
             text=self.tr(u'Add Locality Point'),
             callback=self.add_locality_point,
             add_to_menu=False,
+            add_to_toolbar=True,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
         )
