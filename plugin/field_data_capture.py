@@ -328,8 +328,8 @@ class FieldDataCapture:
 
         self.add_action(
             icon_path,
-            text=self.tr(u'Add Locality Point'),
-            callback=self.add_locality_point,
+            text=self.tr(u'Quick Locality Point'),
+            callback=self.quick_locality_point,
             add_to_menu=False,
             add_to_toolbar=True,
             parent=self.iface.mainWindow(),
@@ -759,7 +759,7 @@ class FieldDataCapture:
         return True
 
 
-    def add_locality_point(self):
+    def quick_locality_point(self):
         """
         Prepare the locality_point layer for editing and adding new features.
         """
