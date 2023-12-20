@@ -10313,10 +10313,11 @@
       </editWidget>
     </field>
     <field configurationFlags="NoFlag" name="map_face_note">
-      <editWidget type="ValueMap">
+      <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option name="map" type="invalid"></Option>
+            <Option name="IsMultiline" type="bool" value="false"></Option>
+            <Option name="UseHtml" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
