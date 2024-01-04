@@ -207,9 +207,6 @@
           </layer>
         </symbol>
       </source-symbol>
-      <colorramp name="[source]" type="randomcolors">
-        <Option></Option>
-      </colorramp>
       <rotation></rotation>
       <sizescale></sizescale>
     </renderer-v2>
