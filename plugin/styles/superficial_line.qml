@@ -6768,6 +6768,19 @@ def my_form_open(dialog, layer, feature):
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>Created by: [% "user_entered" %]&#xD;
 Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
+      <attributeEditorTextElement horizontalStretch="0" name="line stats" showLabel="0" verticalStretch="0">
+        <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+        </labelStyle>length: [% format_number($length, 2) + 'm' %]&#xD;
+azimuth: [% format_number(&#xD;
+	degrees(&#xD;
+		azimuth(&#xD;
+			start_point(@geometry),&#xD;
+			end_point(@geometry)&#xD;
+		)&#xD;
+	),&#xD;
+	2&#xD;
+) + '°' %]</attributeEditorTextElement>
     </attributeEditorContainer>
     <attributeEditorField horizontalStretch="0" index="3" name="field_project_fuid" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
