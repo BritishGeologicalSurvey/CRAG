@@ -119,8 +119,8 @@
     </selectionSymbol>
   </selection>
   <labeling type="rule-based">
-    <rules key="{5e8a0a21-eb90-46b2-8e13-9a2663a6e7ef}">
-      <rule key="{75b1a4e1-2166-4ff3-bfa3-8542666777c5}">
+    <rules key="{bac67891-af3f-4f8a-a34e-c360df798c6f}">
+      <rule key="{687078c6-cf13-4301-83a2-7cfc4d1e35a0}">
         <settings calloutType="simple">
           <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="name" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="9" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
             <families></families>
@@ -244,7 +244,7 @@
           </callout>
         </settings>
       </rule>
-      <rule description="geological note" key="{54cb82dd-08a6-4999-8aeb-a65820ed0298}">
+      <rule description="geological note" key="{157d0d90-1616-450e-957e-619e00ddb2cb}">
         <settings calloutType="balloon">
           <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="map_face_note" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="9" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
             <families></families>
@@ -405,7 +405,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=field_project"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="field_project_9549693a_b9f0_4174_89f5_c83597f28e62"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_9ec77ca5_8181_4b68_bd34_81dd856d85ed"></Option>
             <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="field_project_locality_point"></Option>
@@ -435,7 +435,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_exposure_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_exposure_type_c1207026_1e0d_4d23_9f07_e0967ec6a402"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_exposure_type_953d670b_6c69_47a8_819a_b8b9f39fc981"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_exposure_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_exposure_type_locality_point_2"></Option>
@@ -533,7 +533,7 @@
     <policy field="objectid" policy="Duplicate"></policy>
     <policy field="uuid" policy="Duplicate"></policy>
     <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="name" policy="Duplicate"></policy>
+    <policy field="name" policy="DefaultValue"></policy>
     <policy field="exposure_type_code" policy="Duplicate"></policy>
     <policy field="description" policy="Duplicate"></policy>
     <policy field="map_face_note" policy="Duplicate"></policy>
@@ -620,19 +620,97 @@ def my_form_open(dialog, layer, feature):
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-      <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="metadata" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is True" visibilityExpressionEnabled="1">
+      <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="metadata editing" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is True" visibilityExpressionEnabled="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-          <labelFont bold="0" description="MS Shell Dlg 2,5.5,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
+        <attributeEditorTextElement horizontalStretch="0" name="created" showLabel="0" verticalStretch="0">
+          <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+            <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          </labelStyle>Created by: [% "user_entered" %]&#xD;
+Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
       </attributeEditorContainer>
-      <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="metadata" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+      <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="metadata saved" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-          <labelFont bold="0" description="MS Shell Dlg 2,5.5,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
+        <attributeEditorTextElement horizontalStretch="0" name="coordinates" showLabel="0" verticalStretch="0">
+          <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+            <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          </labelStyle>Coordinates: [% round(&#xD;
+  x(&#xD;
+    transform( $geometry, 'EPSG:4326',&#xD;
+               concat('EPSG:',&#xD;
+                      attribute( get_feature( 'project', 'uuid', attribute('project_fuid') ),&#xD;
+                                'local_epsg' )&#xD;
+                     )&#xD;
+             )&#xD;
+   ), 0&#xD;
+) %], [% round(&#xD;
+  y(&#xD;
+    transform( $geometry, 'EPSG:4326',&#xD;
+               concat('EPSG:',&#xD;
+                      attribute( get_feature( 'project', 'uuid', attribute('project_fuid') ),&#xD;
+                                'local_epsg' )&#xD;
+                     )&#xD;
+             )&#xD;
+   ), 0&#xD;
+) %]  ([% round( x( $geometry ), 4) %] °E, [% round( y( $geometry ), 4) %] °N)&#xD;
+</attributeEditorTextElement>
+        <attributeEditorTextElement horizontalStretch="0" name="created" showLabel="0" verticalStretch="0">
+          <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+            <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          </labelStyle>Created by: [% "user_entered" %]&#xD;
+Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
+        <attributeEditorTextElement horizontalStretch="0" name="counts" showLabel="0" verticalStretch="0">
+          <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+            <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          </labelStyle>lithology: [% aggregate(&#xD;
+	'lithology',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+manmade_landform: [% aggregate(&#xD;
+	'manmade_landform',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+media: [% aggregate(&#xD;
+	'media',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+photo: [% aggregate(&#xD;
+	'photo',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+sample: [% aggregate(&#xD;
+	'sample',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+structural_measurement: [% aggregate(&#xD;
+	'structural_measurement',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+superficial_landform: [% aggregate(&#xD;
+	'superficial_landform',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]</attributeEditorTextElement>
       </attributeEditorContainer>
       <attributeEditorField horizontalStretch="0" index="4" name="name" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-          <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
       <attributeEditorField horizontalStretch="0" index="3" name="field_project_fuid" showLabel="1" verticalStretch="0">
