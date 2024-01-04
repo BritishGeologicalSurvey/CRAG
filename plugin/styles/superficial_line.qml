@@ -6759,6 +6759,16 @@ def my_form_open(dialog, layer, feature):
     <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
       <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="metadata" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression="" visibilityExpressionEnabled="0">
+      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+        <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      </labelStyle>
+      <attributeEditorTextElement horizontalStretch="0" name="created" showLabel="0" verticalStretch="0">
+        <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+        </labelStyle>Created by: [% "user_entered" %]&#xD;
+Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
+    </attributeEditorContainer>
     <attributeEditorField horizontalStretch="0" index="3" name="field_project_fuid" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,5.5,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
