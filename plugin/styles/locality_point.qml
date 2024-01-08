@@ -119,8 +119,8 @@
     </selectionSymbol>
   </selection>
   <labeling type="rule-based">
-    <rules key="{5e8a0a21-eb90-46b2-8e13-9a2663a6e7ef}">
-      <rule key="{75b1a4e1-2166-4ff3-bfa3-8542666777c5}">
+    <rules key="{bac67891-af3f-4f8a-a34e-c360df798c6f}">
+      <rule key="{687078c6-cf13-4301-83a2-7cfc4d1e35a0}">
         <settings calloutType="simple">
           <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="name" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="9" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
             <families></families>
@@ -230,7 +230,7 @@
               <Option name="drawToAllParts" type="bool" value="false"></Option>
               <Option name="enabled" type="QString" value="0"></Option>
               <Option name="labelAnchorPoint" type="QString" value="point_on_exterior"></Option>
-              <Option name="lineSymbol" type="QString" value="&lt;symbol type=&quot;line&quot; clip_to_extent=&quot;1&quot; is_animated=&quot;0&quot; frame_rate=&quot;10&quot; name=&quot;symbol&quot; force_rhr=&quot;0&quot; alpha=&quot;1&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; value=&quot;&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;collection&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer enabled=&quot;1&quot; pass=&quot;0&quot; class=&quot;SimpleLine&quot; id=&quot;{2915651c-4bab-4fdb-9d0e-820b88495c0a}&quot; locked=&quot;0&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; value=&quot;0&quot; name=&quot;align_dash_pattern&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;square&quot; name=&quot;capstyle&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;5;2&quot; name=&quot;customdash&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;customdash_map_unit_scale&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;MM&quot; name=&quot;customdash_unit&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0&quot; name=&quot;dash_pattern_offset&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;dash_pattern_offset_map_unit_scale&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;MM&quot; name=&quot;dash_pattern_offset_unit&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0&quot; name=&quot;draw_inside_polygon&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;bevel&quot; name=&quot;joinstyle&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;60,60,60,255&quot; name=&quot;line_color&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;solid&quot; name=&quot;line_style&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0.3&quot; name=&quot;line_width&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;MM&quot; name=&quot;line_width_unit&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0&quot; name=&quot;offset&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;offset_map_unit_scale&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;MM&quot; name=&quot;offset_unit&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0&quot; name=&quot;ring_filter&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0&quot; name=&quot;trim_distance_end&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;trim_distance_end_map_unit_scale&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;MM&quot; name=&quot;trim_distance_end_unit&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0&quot; name=&quot;trim_distance_start&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;trim_distance_start_map_unit_scale&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;MM&quot; name=&quot;trim_distance_start_unit&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0&quot; name=&quot;tweak_dash_pattern_on_corners&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0&quot; name=&quot;use_custom_dash&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;width_map_unit_scale&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; value=&quot;&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;collection&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
+              <Option name="lineSymbol" type="QString" value="&lt;symbol clip_to_extent=&quot;1&quot; is_animated=&quot;0&quot; force_rhr=&quot;0&quot; type=&quot;line&quot; name=&quot;symbol&quot; frame_rate=&quot;10&quot; alpha=&quot;1&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; type=&quot;QString&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; type=&quot;QString&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer id=&quot;{2915651c-4bab-4fdb-9d0e-820b88495c0a}&quot; enabled=&quot;1&quot; class=&quot;SimpleLine&quot; pass=&quot;0&quot; locked=&quot;0&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;align_dash_pattern&quot;/>&lt;Option value=&quot;square&quot; type=&quot;QString&quot; name=&quot;capstyle&quot;/>&lt;Option value=&quot;5;2&quot; type=&quot;QString&quot; name=&quot;customdash&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;customdash_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;customdash_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;dash_pattern_offset&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;dash_pattern_offset_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;dash_pattern_offset_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;draw_inside_polygon&quot;/>&lt;Option value=&quot;bevel&quot; type=&quot;QString&quot; name=&quot;joinstyle&quot;/>&lt;Option value=&quot;60,60,60,255&quot; type=&quot;QString&quot; name=&quot;line_color&quot;/>&lt;Option value=&quot;solid&quot; type=&quot;QString&quot; name=&quot;line_style&quot;/>&lt;Option value=&quot;0.3&quot; type=&quot;QString&quot; name=&quot;line_width&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;line_width_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;offset&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;offset_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;offset_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;ring_filter&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;trim_distance_end&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;trim_distance_end_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;trim_distance_end_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;trim_distance_start&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;trim_distance_start_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;trim_distance_start_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;tweak_dash_pattern_on_corners&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;use_custom_dash&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;width_map_unit_scale&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; type=&quot;QString&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; type=&quot;QString&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
               <Option name="minLength" type="double" value="0"></Option>
               <Option name="minLengthMapUnitScale" type="QString" value="3x:0,0,0,0,0,0"></Option>
               <Option name="minLengthUnit" type="QString" value="MM"></Option>
@@ -244,7 +244,7 @@
           </callout>
         </settings>
       </rule>
-      <rule description="geological note" key="{54cb82dd-08a6-4999-8aeb-a65820ed0298}">
+      <rule description="geological note" key="{157d0d90-1616-450e-957e-619e00ddb2cb}">
         <settings calloutType="balloon">
           <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="map_face_note" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="9" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
             <families></families>
@@ -355,7 +355,7 @@
                 <Option name="type" type="QString" value="collection"></Option>
               </Option>
               <Option name="enabled" type="QString" value="1"></Option>
-              <Option name="fillSymbol" type="QString" value="&lt;symbol type=&quot;fill&quot; clip_to_extent=&quot;1&quot; is_animated=&quot;0&quot; frame_rate=&quot;10&quot; name=&quot;symbol&quot; force_rhr=&quot;0&quot; alpha=&quot;0.62&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; value=&quot;&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;collection&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer enabled=&quot;1&quot; pass=&quot;0&quot; class=&quot;SimpleFill&quot; id=&quot;{20be0d58-517c-4c22-8584-04c3457a2cfe}&quot; locked=&quot;0&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;border_width_map_unit_scale&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;255,255,255,255&quot; name=&quot;color&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;bevel&quot; name=&quot;joinstyle&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0,0&quot; name=&quot;offset&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;offset_map_unit_scale&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;MM&quot; name=&quot;offset_unit&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;35,35,35,255&quot; name=&quot;outline_color&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;solid&quot; name=&quot;outline_style&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;0.26&quot; name=&quot;outline_width&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;MM&quot; name=&quot;outline_width_unit&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;solid&quot; name=&quot;style&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; value=&quot;&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option type=&quot;QString&quot; value=&quot;collection&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
+              <Option name="fillSymbol" type="QString" value="&lt;symbol clip_to_extent=&quot;1&quot; is_animated=&quot;0&quot; force_rhr=&quot;0&quot; type=&quot;fill&quot; name=&quot;symbol&quot; frame_rate=&quot;10&quot; alpha=&quot;0.62&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; type=&quot;QString&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; type=&quot;QString&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer id=&quot;{20be0d58-517c-4c22-8584-04c3457a2cfe}&quot; enabled=&quot;1&quot; class=&quot;SimpleFill&quot; pass=&quot;0&quot; locked=&quot;0&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;border_width_map_unit_scale&quot;/>&lt;Option value=&quot;255,255,255,255&quot; type=&quot;QString&quot; name=&quot;color&quot;/>&lt;Option value=&quot;bevel&quot; type=&quot;QString&quot; name=&quot;joinstyle&quot;/>&lt;Option value=&quot;0,0&quot; type=&quot;QString&quot; name=&quot;offset&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;offset_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;offset_unit&quot;/>&lt;Option value=&quot;35,35,35,255&quot; type=&quot;QString&quot; name=&quot;outline_color&quot;/>&lt;Option value=&quot;solid&quot; type=&quot;QString&quot; name=&quot;outline_style&quot;/>&lt;Option value=&quot;0.26&quot; type=&quot;QString&quot; name=&quot;outline_width&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;outline_width_unit&quot;/>&lt;Option value=&quot;solid&quot; type=&quot;QString&quot; name=&quot;style&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; type=&quot;QString&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; type=&quot;QString&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
               <Option name="labelAnchorPoint" type="QString" value="point_on_exterior"></Option>
               <Option name="margins" type="QString" value="1,1,1,1"></Option>
               <Option name="marginsUnit" type="QString" value="MM"></Option>
@@ -405,7 +405,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=field_project"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="field_project_8f8370d4_db99_4829_939d_b24886025115"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_9ec77ca5_8181_4b68_bd34_81dd856d85ed"></Option>
             <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="field_project_locality_point"></Option>
@@ -435,7 +435,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_exposure_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_exposure_type_729e41d1_5786_4f93_84fd_23d9614c849c"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_exposure_type_953d670b_6c69_47a8_819a_b8b9f39fc981"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_exposure_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_exposure_type_locality_point_2"></Option>
@@ -533,7 +533,7 @@
     <policy field="objectid" policy="Duplicate"></policy>
     <policy field="uuid" policy="Duplicate"></policy>
     <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="name" policy="Duplicate"></policy>
+    <policy field="name" policy="DefaultValue"></policy>
     <policy field="exposure_type_code" policy="Duplicate"></policy>
     <policy field="description" policy="Duplicate"></policy>
     <policy field="map_face_note" policy="Duplicate"></policy>
@@ -620,19 +620,97 @@ def my_form_open(dialog, layer, feature):
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-      <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="metadata" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is True" visibilityExpressionEnabled="1">
+      <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="metadata editing" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is True" visibilityExpressionEnabled="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-          <labelFont bold="0" description="MS Shell Dlg 2,5.5,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
+        <attributeEditorTextElement horizontalStretch="0" name="created" showLabel="0" verticalStretch="0">
+          <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+            <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          </labelStyle>Created by: [% "user_entered" %]&#xD;
+Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
       </attributeEditorContainer>
-      <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="metadata" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+      <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="metadata saved" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-          <labelFont bold="0" description="MS Shell Dlg 2,5.5,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
+        <attributeEditorTextElement horizontalStretch="0" name="coordinates" showLabel="0" verticalStretch="0">
+          <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+            <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          </labelStyle>Coordinates: [% round(&#xD;
+  x(&#xD;
+    transform( $geometry, 'EPSG:4326',&#xD;
+               concat('EPSG:',&#xD;
+                      attribute( get_feature( 'project', 'uuid', attribute('project_fuid') ),&#xD;
+                                'local_epsg' )&#xD;
+                     )&#xD;
+             )&#xD;
+   ), 0&#xD;
+) %], [% round(&#xD;
+  y(&#xD;
+    transform( $geometry, 'EPSG:4326',&#xD;
+               concat('EPSG:',&#xD;
+                      attribute( get_feature( 'project', 'uuid', attribute('project_fuid') ),&#xD;
+                                'local_epsg' )&#xD;
+                     )&#xD;
+             )&#xD;
+   ), 0&#xD;
+) %]  ([% round( x( $geometry ), 4) %] °E, [% round( y( $geometry ), 4) %] °N)&#xD;
+</attributeEditorTextElement>
+        <attributeEditorTextElement horizontalStretch="0" name="created" showLabel="0" verticalStretch="0">
+          <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+            <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          </labelStyle>Created by: [% "user_entered" %]&#xD;
+Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
+        <attributeEditorTextElement horizontalStretch="0" name="counts" showLabel="0" verticalStretch="0">
+          <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+            <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          </labelStyle>lithology: [% aggregate(&#xD;
+	'lithology',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+manmade_landform: [% aggregate(&#xD;
+	'manmade_landform',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+media: [% aggregate(&#xD;
+	'media',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+photo: [% aggregate(&#xD;
+	'photo',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+sample: [% aggregate(&#xD;
+	'sample',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+structural_measurement: [% aggregate(&#xD;
+	'structural_measurement',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]&#xD;
+superficial_landform: [% aggregate(&#xD;
+	'superficial_landform',&#xD;
+	'count',&#xD;
+	"fid",&#xD;
+	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
+) %]</attributeEditorTextElement>
       </attributeEditorContainer>
       <attributeEditorField horizontalStretch="0" index="4" name="name" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-          <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
       <attributeEditorField horizontalStretch="0" index="3" name="field_project_fuid" showLabel="1" verticalStretch="0">

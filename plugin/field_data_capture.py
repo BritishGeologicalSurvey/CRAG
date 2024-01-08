@@ -738,7 +738,8 @@ class FieldDataCapture:
                 # Read the newly created XML file
                 raw_xml = layer_style_path.read_text()
                 # Canonicalize the XML data and save back to the same file
-                with open(layer_style_path, "w") as qml_file:
+                # Set the newline manually to force LF line endings
+                with open(layer_style_path, "w", newline="\n") as qml_file:
                     canonicalize(xml_data=raw_xml, out=qml_file)
 
         QMessageBox.information(

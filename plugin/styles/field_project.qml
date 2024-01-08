@@ -108,7 +108,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/jostev-minimal2/field-data-capture.gpkg|layername=dic_field_project_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_a9dff776_5cf2_4721_abfd_40fdce75eb2b"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_0d287293_7091_48c6_a579_7eeb051e52a3"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_field_project_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_field_project_type_field_project"></Option>
@@ -308,7 +308,7 @@ def my_form_open(dialog, layer, feature):
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
     <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-      <labelFont bold="0" description="MS Shell Dlg 2,5.5,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
     <attributeEditorField horizontalStretch="0" index="3" name="short_name" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
