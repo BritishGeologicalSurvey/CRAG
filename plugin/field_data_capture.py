@@ -763,12 +763,41 @@ class FieldDataCapture:
         """
         Prepare the locality_point layer for editing and adding new features.
         """
-        if self.prepare_add_new_feature(layer_name="locality_point"):
+        result = self.prepare_add_new_feature(
+            layer_name="locality_point",
+            post_save_function=self.post_quick_locality_point,
+        )
+        if result:
             # Trigger the "Add Point Feature" button
             self.iface.actionAddFeature().trigger()
 
 
-    def prepare_add_new_feature(self, layer_name: str) -> bool:
+    def post_quick_locality_point(
+        self,
+        layer: QgsVectorLayer,
+        uuid: str,
+    ) -> None:
+        """
+        Open the attribute form for the newly saved locality point after creation.
+        This allows users to quickly see the child tabs on the form.
+        """
+        features = [
+            feature
+            for feature in layer.getFeatures()
+            if feature.attribute("uuid") == uuid
+        ]
+
+        if len(features) > 0:
+            new_feature = features[0]
+
+        self.iface.openFeatureForm(layer, new_feature)
+
+
+    def prepare_add_new_feature(
+        self,
+        layer_name: str,
+        post_save_function: Optional[Callable[[QgsVectorLayer, str], Any]] = None,
+    ) -> bool:
         """
         Prepare the given layer programmatically for editing and adding new features easily.#
         Returns a boolean indicating success of the process.
@@ -798,14 +827,25 @@ class FieldDataCapture:
         # but uses the current layer and passes the function itself through
         # this is so we can reference the function later to disconnect the signal
         def slot_function(fid: int) -> None:
-            self.save_layer_changes(fid, layer, slot_function)
+            uuid = self.save_layer_changes(fid, layer, slot_function)
+            if uuid is not None:
+
+                # The post_save_function is used to perform custom additional actions after saving
+                if post_save_function is not None:
+                    post_save_function(layer, uuid)
+
         # This is the signal for when a new feature is added to the layer
         layer.featureAdded.connect(slot_function)
 
         return True
 
 
-    def save_layer_changes(self, fid: int, layer: QgsVectorLayer, slot_function: Callable) -> None:
+    def save_layer_changes(
+        self,
+        fid: int,
+        layer: QgsVectorLayer,
+        slot_function: Callable,
+    ) -> Optional[str]:
         """
         The featureAdded signal from a QgsVectorLayer triggers twice when a new feature is added through a form.
         This appears to be because the unsaved feature is added first to the layer in a temporary state, for viewing
@@ -826,10 +866,18 @@ class FieldDataCapture:
         by the featureAdded signal. We need the slot_function so we can disconnect it from the same signal,
         as otherwise the signal would trigger the slot_function when a user is just normally editing data
         manually.
+
+        Returns the uuid of the new feature if saved.
         """
         if fid < 0:
+            # Get the uuid of the new feature before it is saved because saving updates the fid again
+            feature = layer.getFeature(fid)
+            uuid = feature.attribute("uuid")
+
             # We only commit the changes for the inital temporary feature
             layer.commitChanges()
             # We only need to disconnect the signal once
             # so we do it when the temporary feature is added
             layer.featureAdded.disconnect(slot_function)
+
+            return uuid
