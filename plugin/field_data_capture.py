@@ -48,8 +48,10 @@ from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import (
     QAction,
+    QDialog,
     QMenu,
     QMessageBox,
+    QPushButton,
     QWidget,
 )
 
@@ -879,7 +881,61 @@ class FieldDataCapture:
         self.layer_slots[layer.name()] = slot_function
 
 
-    def teardown_quick_feature(self, layer: QgsVectorLayer):
+    def modify_attribute_form(self, layer: QgsVectorLayer) -> None:
+        """
+        Add a new slot to the currently open attribute form dialog for the given layer.
+        The slot will connect to the Cancel button and will run the teardown_quick_feature function.
+
+        To modify the dialog window, we first have to get a programmatic hook on it.
+        All dialogs are children of the QgisApp object in C++. This was found based on the QGIS C++ code
+        on GitHub, specifically within this function:
+        https://github.com/qgis/QGIS/blob/master/src/app/qgsfeatureaction.cpp#L111
+        Here, they use the findChildren method within Qt to obtain the dialog from the QgisApp object.
+
+        However, based on the PyQgis documenation, it seems we only have accessed to a limited
+        version of the QgisApp object in Python, through a QgisInterface object. See here:
+        https://qgis.org/pyqgis/3.2/gui/other/QgisInterface.html
+
+        The QgisInterface object we have access to is the iface variable the plugin is given.
+        However, this is not the parent of the dialog windows, as it is not QMainWindow object.
+        We can obtain this from the iface by calling iface.mainWindow().
+
+        Then, using the resulting QMainWindow object, we can find all of the dialogs.
+
+        In the C++ functionality, QGIS assigns a custom ID string to each dialog, so it can be found again.
+        However, because the Python functionality is limited, I believe we cannot get access to the dialog's
+        assigned ID string. Therefore, we check the title of the dialog window to check if it is the one we want.
+        """
+        # Get the attribute dialog from the list of all dialogs
+        attribute_dialog_title = f"{layer.name()} - Feature Attributes"
+        dialogs = [
+            child
+            for child in self.iface.mainWindow().findChildren(QDialog)
+            if attribute_dialog_title in child.windowTitle()
+        ]
+        if len(dialogs) == 1:
+            attribute_dialog = dialogs[0]
+
+            # Get the cancel button from the list of all buttons in the attribute dialog
+            buttons = [
+                button
+                for button in attribute_dialog.findChildren(QPushButton)
+                if button.text() == "Cancel"
+            ]
+            if len(buttons) == 1:
+                cancel_button = buttons[0]
+
+                # Create a slot_function for when a user cancels a quick feature
+                def slot_function() -> None:
+                    layer.rollBack()
+                    self.teardown_quick_feature(layer)
+
+                # Connect the new slot_function to the cancel button
+                # We do not need to remove the slot afterwards as the dialog will be removed
+                cancel_button.clicked.connect(slot_function)
+
+
+    def teardown_quick_feature(self, layer: QgsVectorLayer) -> None:
         """
         The slot_function is the function which will be called by the featureAdded signal.
         We need the slot_function so we can disconnect it from the same signal, as otherwise
