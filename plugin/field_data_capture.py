@@ -43,6 +43,7 @@ from qgis.core import (
     QgsVectorLayer,
     QgsVectorLayerUtils,
 )
+from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import (
@@ -77,7 +78,7 @@ logging.basicConfig(level=logging.DEBUG)
 class FieldDataCapture:
     """QGIS Plugin Implementation."""
 
-    def __init__(self, iface):
+    def __init__(self, iface: QgisInterface):
         """Constructor.
 
         :param iface: An interface instance that will be passed to this class
@@ -86,7 +87,7 @@ class FieldDataCapture:
         :type iface: QgsInterface
         """
         # Save reference to the QGIS interface
-        self.iface = iface
+        self.iface: QgisInterface = iface
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
@@ -110,6 +111,10 @@ class FieldDataCapture:
         self.first_start = None
 
         self.gpkg_filename = Path("field-data-capture.gpkg")
+
+        # Store temporary slots with layer_name: slot_function
+        # This is only used for slots on confirming quick features
+        self.layer_slots = {}
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -763,7 +768,7 @@ class FieldDataCapture:
         """
         Prepare the locality_point layer for editing and adding new features.
         """
-        result = self.prepare_add_new_feature(
+        result = self.prepare_quick_feature(
             layer_name="locality_point",
             post_save_function=self.post_quick_locality_point,
         )
@@ -793,13 +798,13 @@ class FieldDataCapture:
         self.iface.openFeatureForm(layer, new_feature)
 
 
-    def prepare_add_new_feature(
+    def prepare_quick_feature(
         self,
         layer_name: str,
         post_save_function: Optional[Callable[[QgsVectorLayer, str], Any]] = None,
     ) -> bool:
         """
-        Prepare the given layer programmatically for editing and adding new features easily.#
+        Prepare the given layer programmatically for adding a quick feature with minimal button clicks.
         Returns a boolean indicating success of the process.
         """
         # Check that we have an open project and a geopackage with the correct layers
@@ -823,30 +828,21 @@ class FieldDataCapture:
         # Select the layer
         self.iface.setActiveLayer(layer)
 
-        # Create a slot function which takes a feature 'fid'
-        # but uses the current layer and passes the function itself through
-        # this is so we can reference the function later to disconnect the signal
-        def slot_function(fid: int) -> None:
-            uuid = self.save_layer_changes(fid, layer, slot_function)
-            if uuid is not None:
-
-                # The post_save_function is used to perform custom additional actions after saving
-                if post_save_function is not None:
-                    post_save_function(layer, uuid)
-
-        # This is the signal for when a new feature is added to the layer
-        layer.featureAdded.connect(slot_function)
+        self.create_confirm_slot_function(layer, post_save_function)
 
         return True
 
 
-    def save_layer_changes(
+    def create_confirm_slot_function(
         self,
-        fid: int,
         layer: QgsVectorLayer,
-        slot_function: Callable,
-    ) -> Optional[str]:
+        post_save_function: Optional[Callable[[QgsVectorLayer, str], Any]] = None,
+    ) -> None:
         """
+        Create a slot_function for when the user confirms their quick feature.
+        The slot_function takes a feature 'fid' from the PyQt signal featureAdded.
+        The slot_function is saved so that it can be disconnected later.
+
         The featureAdded signal from a QgsVectorLayer triggers twice when a new feature is added through a form.
         This appears to be because the unsaved feature is added first to the layer in a temporary state, for viewing
         in the attribute table. This means that from the front end, it's 'fid' value is 'AutoGenerate', whilst
@@ -861,23 +857,34 @@ class FieldDataCapture:
 
         Because the temporary features have a negative 'fid' value, we can use that to check when we
         need to save the layer changes.
-
-        Then, we also take an argument of the slot_function, which is the function which will be called
-        by the featureAdded signal. We need the slot_function so we can disconnect it from the same signal,
-        as otherwise the signal would trigger the slot_function when a user is just normally editing data
-        manually.
-
-        Returns the uuid of the new feature if saved.
         """
-        if fid < 0:
-            # Get the uuid of the new feature before it is saved because saving updates the fid again
-            feature = layer.getFeature(fid)
-            uuid = feature.attribute("uuid")
+        def slot_function(fid: int) -> None:
+            if fid < 0:
+                # Get the uuid of the new feature before it is saved because saving updates the fid again
+                feature = layer.getFeature(fid)
+                uuid = feature.attribute("uuid")
 
-            # We only commit the changes for the inital temporary feature
-            layer.commitChanges()
-            # We only need to disconnect the signal once
-            # so we do it when the temporary feature is added
-            layer.featureAdded.disconnect(slot_function)
+                # We only commit the changes for the inital temporary feature
+                layer.commitChanges()
 
-            return uuid
+                # The post_save_function is used to perform custom additional actions after saving
+                if post_save_function is not None:
+                    post_save_function(layer, uuid)
+
+                self.teardown_quick_feature(layer)
+
+        layer.featureAdded.connect(slot_function)
+
+        # Save the slot_function so we can disconnect it later
+        self.layer_slots[layer.name()] = slot_function
+
+
+    def teardown_quick_feature(self, layer: QgsVectorLayer):
+        """
+        The slot_function is the function which will be called by the featureAdded signal.
+        We need the slot_function so we can disconnect it from the same signal, as otherwise
+        the signal would trigger the slot_function when a user is just normally editing data
+        manually.
+        """
+        slot_function = self.layer_slots[layer.name()]
+        layer.featureAdded.disconnect(slot_function)
