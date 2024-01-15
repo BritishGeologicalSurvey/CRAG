@@ -5,7 +5,10 @@ from typing import Generator
 import pytest
 import etlhelper as etl
 from qgis.core import QgsProject
-from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt.QtWidgets import (
+    QMessageBox,
+    QPushButton,
+)
 from qgis.testing.mocked import get_iface
 
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
@@ -87,6 +90,10 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
         # result = QMessageBox.warning(parent, title, message)
         # The monkeypatched version swallows the arguments and always returns QMessageBox.Ok
         monkeypatch.setattr(QMessageBox, message_type, lambda *args: QMessageBox.Ok)
+
+    # Apply monkeypatch for QPushButton toggle quick locality point
+    field_data_capture.quick_locality_point_button = QPushButton()
+    monkeypatch.setattr(field_data_capture.quick_locality_point_button, "isChecked", lambda: True)
 
     yield field_data_capture
     # Reset the QGIS interface
