@@ -44,14 +44,15 @@ from qgis.core import (
     QgsVectorLayerUtils,
 )
 from qgis.gui import QgisInterface
-from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import (
+    pyqtSignal,
+    QCoreApplication,
+)
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import (
     QAction,
-    QDialog,
     QMenu,
     QMessageBox,
-    QPushButton,
     QWidget,
 )
 
@@ -114,9 +115,10 @@ class FieldDataCapture:
 
         self.gpkg_filename = Path("field-data-capture.gpkg")
 
-        # Store temporary slots with layer_name: slot_function
-        # This is only used for slots on confirming quick features
-        self.layer_slots = {}
+        # Store temporary locality_point slots with tuple pairs containing the signal and function
+        self.locality_point_slots: list[tuple[pyqtSignal, Callable]] = []
+        self.quick_locality_point_mode = False
+        self.quick_locality_point_fid: Optional[int] = None
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -172,6 +174,7 @@ class FieldDataCapture:
         whats_this: Optional[str] = None,
         parent: Optional[QWidget] = None,
         submenu: Optional[QMenu] = None,
+        checkable: bool = False,
     ) -> QAction:
         """Add a toolbar icon to the toolbar.
 
@@ -241,6 +244,9 @@ class FieldDataCapture:
 
         if submenu is not None:
             submenu.addAction(action)
+
+        if checkable:
+            action.setCheckable(True)
 
         self.actions.append(action)
 
@@ -333,14 +339,15 @@ class FieldDataCapture:
             submenu=dev_submenu,
         )
 
-        self.add_action(
+        self.quick_locality_point_button = self.add_action(
             icon_path,
             text=self.tr(u'Quick Locality Point'),
-            callback=self.quick_locality_point,
+            callback=self.toggle_quick_locality_point_mode,
             add_to_menu=False,
             add_to_toolbar=True,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
+            checkable=True,
         )
 
         # will be set False in run()
@@ -766,48 +773,9 @@ class FieldDataCapture:
         return True
 
 
-    def quick_locality_point(self):
+    def toggle_quick_locality_point_mode(self) -> bool:
         """
-        Prepare the locality_point layer for editing and adding new features.
-        """
-        result = self.prepare_quick_feature(
-            layer_name="locality_point",
-            post_save_function=self.post_quick_locality_point,
-        )
-        if result:
-            # Trigger the "Add Point Feature" button
-            self.iface.actionAddFeature().trigger()
-
-
-    def post_quick_locality_point(
-        self,
-        layer: QgsVectorLayer,
-        uuid: str,
-    ) -> None:
-        """
-        Open the attribute form for the newly saved locality point after creation.
-        This allows users to quickly see the child tabs on the form.
-        """
-        features = [
-            feature
-            for feature in layer.getFeatures()
-            if feature.attribute("uuid") == uuid
-        ]
-
-        if len(features) > 0:
-            new_feature = features[0]
-
-        self.iface.openFeatureForm(layer, new_feature)
-
-
-    def prepare_quick_feature(
-        self,
-        layer_name: str,
-        post_save_function: Optional[Callable[[QgsVectorLayer, str], Any]] = None,
-    ) -> bool:
-        """
-        Prepare the given layer programmatically for adding a quick feature with minimal button clicks.
-        Returns a boolean indicating success of the process.
+        Toggle the mode used for creating quick locality points.
         """
         # Check that we have an open project and a geopackage with the correct layers
         if not self.project_is_active():
@@ -819,128 +787,115 @@ class FieldDataCapture:
             QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
             return False
 
-        # Get the user selected layers before changing anything first
-        user_selected_layers = self.iface.layerTreeView().selectedLayers()
+        layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
-        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        # Disable quick locality point mode
+        if self.quick_locality_point_mode:
+            self.teardown_quick_feature(layer)
+
+        # Enable quick locality point mode
+        else:
+            self.prepare_quick_locality_point(layer)
+
+
+    def prepare_quick_locality_point(
+        self,
+        layer: QgsVectorLayer,
+        slots: bool = True,
+    ) -> bool:
+        """
+        Enable the quick locality point mode. This allows users to quickly add locality_point
+        feature with minimal button clicks.
+        Returns a boolean indicating success of the process.
+        """
         # Ensure the layer is editable
         if not layer.isEditable():
             layer.startEditing()
 
-        # Select the layer
         self.iface.setActiveLayer(layer)
 
-        self.create_confirm_slot_function(layer, post_save_function)
+        if slots:
+            self.create_slot_functions(layer)
+
+        # Trigger the "Add Point Feature" button
+        self.iface.actionAddFeature().trigger()
+
+        self.quick_locality_point_mode = True
 
         return True
 
 
-    def create_confirm_slot_function(
+    def create_slot_functions(self, layer: QgsVectorLayer) -> None:
+        """
+        Create the temporary slot functions for the quick locality point mode.
+        The first slot will save the 'fid' of the new locality_point feature.
+        The second slot will open the form for the new locality_point feature, and
+        re-enable the quick locality point mode.
+        """
+        def feature_added_slot(fid: int) -> None:
+            """
+            The featureAdded signal from a QgsVectorLayer triggers twice when a new feature is added through a form.
+            This appears to be because the unsaved feature is added first to the layer in a temporary state, for viewing
+            in the attribute table. This means that from the front end, it's 'fid' value is 'AutoGenerate', whilst
+            from the back end, it's 'fid' is a negative integer.
+
+            Once the layer changes are saved, this temporary new feature is removed, and
+            the actual new feature with a real 'fid' value is added.
+            However, this actual new feature then triggers the featureAdded signal again.
+
+            Therefore, we only want to act on the signal when the 'fid' value is positive, as that will be
+            the real new feature that we want.
+            """
+            if fid > 0:
+                # Save the 'fid' of the new feature for use later
+                self.quick_locality_point_fid = fid
+
+        def edit_command_ended_slot(*args) -> None:
+            """
+            The layer changes must be saved before we can get the new locality_point feature and open it's form.
+            This is because before the changes are saved, the newest feature will be the temporary one,
+            and we do not save that temporary 'fid' value.
+
+            After the form has been opened, we re-enable the quick locality point mode without the slots.
+            This is because the slots still exist from the button toggle when it was first enabled,
+            and so we do not need to set them up again.
+            """
+            # Save the layer changes
+            layer.commitChanges()
+            # Open the new feature's form
+            new_feature = layer.getFeature(self.quick_locality_point_fid)
+            self.iface.openFeatureForm(layer, new_feature)
+            # Re-enable the quick locality point mode
+            self.prepare_quick_locality_point(layer, slots=False)
+
+        # Connect the signals and slots
+        layer.featureAdded.connect(feature_added_slot)
+        layer.editCommandEnded.connect(edit_command_ended_slot)
+
+        # Save the slot functions so we can disconnect them later
+        self.locality_point_slots.append((layer.featureAdded, feature_added_slot))
+        self.locality_point_slots.append((layer.editCommandEnded, edit_command_ended_slot))
+
+
+    def teardown_quick_feature(
         self,
         layer: QgsVectorLayer,
-        post_save_function: Optional[Callable[[QgsVectorLayer, str], Any]] = None,
     ) -> None:
         """
-        Create a slot_function for when the user confirms their quick feature.
-        The slot_function takes a feature 'fid' from the PyQt signal featureAdded.
-        The slot_function is saved so that it can be disconnected later.
-
-        The featureAdded signal from a QgsVectorLayer triggers twice when a new feature is added through a form.
-        This appears to be because the unsaved feature is added first to the layer in a temporary state, for viewing
-        in the attribute table. This means that from the front end, it's 'fid' value is 'AutoGenerate', whilst
-        from the back end, it's 'fid' is a negative integer.
-
-        Once the layer changes are saved, this temporary new feature is removed, and
-        the actual new feature with a real 'fid' value is added.
-        However, this actual new feature then triggers the featureAdded signal again.
-
-        We need to save the changes when the new temporary feature exists, so that QGIS can use it
-        to create the actual new feature.
-
-        Because the temporary features have a negative 'fid' value, we can use that to check when we
-        need to save the layer changes.
+        Disable the quick locality point mode and remove any temporary slots.
         """
-        def slot_function(fid: int) -> None:
-            if fid < 0:
-                # Get the uuid of the new feature before it is saved because saving updates the fid again
-                feature = layer.getFeature(fid)
-                uuid = feature.attribute("uuid")
+        # Stop editing the layer
+        # New points are automatically saved, so this should not remove any changes
+        if layer.isEditable():
+            layer.rollBack()
 
-                # We only commit the changes for the inital temporary feature
-                layer.commitChanges()
+        # Disconnect the slots
+        for signal, slot_function in self.locality_point_slots:
+            signal.disconnect(slot_function)
+        self.locality_point_slots = []
 
-                # The post_save_function is used to perform custom additional actions after saving
-                if post_save_function is not None:
-                    post_save_function(layer, uuid)
-
-                self.teardown_quick_feature(layer)
-
-        layer.featureAdded.connect(slot_function)
-
-        # Save the slot_function so we can disconnect it later
-        self.layer_slots[layer.name()] = slot_function
-
-
-    def modify_attribute_form(self, layer: QgsVectorLayer) -> None:
-        """
-        Add a new slot to the currently open attribute form dialog for the given layer.
-        The slot will connect to the Cancel button and will run the teardown_quick_feature function.
-
-        To modify the dialog window, we first have to get a programmatic hook on it.
-        All dialogs are children of the QgisApp object in C++. This was found based on the QGIS C++ code
-        on GitHub, specifically within this function:
-        https://github.com/qgis/QGIS/blob/master/src/app/qgsfeatureaction.cpp#L111
-        Here, they use the findChildren method within Qt to obtain the dialog from the QgisApp object.
-
-        However, based on the PyQgis documenation, it seems we only have accessed to a limited
-        version of the QgisApp object in Python, through a QgisInterface object. See here:
-        https://qgis.org/pyqgis/3.2/gui/other/QgisInterface.html
-
-        The QgisInterface object we have access to is the iface variable the plugin is given.
-        However, this is not the parent of the dialog windows, as it is not QMainWindow object.
-        We can obtain this from the iface by calling iface.mainWindow().
-
-        Then, using the resulting QMainWindow object, we can find all of the dialogs.
-
-        In the C++ functionality, QGIS assigns a custom ID string to each dialog, so it can be found again.
-        However, because the Python functionality is limited, I believe we cannot get access to the dialog's
-        assigned ID string. Therefore, we check the title of the dialog window to check if it is the one we want.
-        """
-        # Get the attribute dialog from the list of all dialogs
-        attribute_dialog_title = f"{layer.name()} - Feature Attributes"
-        dialogs = [
-            child
-            for child in self.iface.mainWindow().findChildren(QDialog)
-            if attribute_dialog_title in child.windowTitle()
-        ]
-        if len(dialogs) == 1:
-            attribute_dialog = dialogs[0]
-
-            # Get the cancel button from the list of all buttons in the attribute dialog
-            buttons = [
-                button
-                for button in attribute_dialog.findChildren(QPushButton)
-                if button.text() == "Cancel"
-            ]
-            if len(buttons) == 1:
-                cancel_button = buttons[0]
-
-                # Create a slot_function for when a user cancels a quick feature
-                def slot_function() -> None:
-                    layer.rollBack()
-                    self.teardown_quick_feature(layer)
-
-                # Connect the new slot_function to the cancel button
-                # We do not need to remove the slot afterwards as the dialog will be removed
-                cancel_button.clicked.connect(slot_function)
-
-
-    def teardown_quick_feature(self, layer: QgsVectorLayer) -> None:
-        """
-        The slot_function is the function which will be called by the featureAdded signal.
-        We need the slot_function so we can disconnect it from the same signal, as otherwise
-        the signal would trigger the slot_function when a user is just normally editing data
-        manually.
-        """
-        slot_function = self.layer_slots[layer.name()]
-        layer.featureAdded.disconnect(slot_function)
+        # Disable quick locality point mode
+        self.quick_locality_point_mode = False
+        self.quick_locality_point_fid = None
+        if self.quick_locality_point_button.isChecked():
+            self.quick_locality_point_button.toggle()
