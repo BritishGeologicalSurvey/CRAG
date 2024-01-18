@@ -4,13 +4,17 @@ These are tests for the plugin which depend on a running QGIS version which is s
 import os
 import pwd
 from pathlib import Path
-from typing import Callable
+from typing import (
+    Callable,
+    Optional,
+)
 from unittest.mock import Mock
 from xml.dom import minidom
 
 import pytest
 import etlhelper as etl
 from qgis.core import (
+    QgsAttributeEditorContainer,
     QgsLayerTreeGroup,
     QgsProject,
     QgsVectorLayerUtils,
@@ -419,3 +423,79 @@ def test_quick_locality_point_add(
     assert fdc.locality_point_slots == []
     assert not fdc.quick_locality_point_mode
     assert fdc.quick_locality_point_fid is None
+
+
+def test_attribute_form_widgets(
+    fdc: FieldDataCapture,
+    qgs_project: Path,
+):
+    # Arrange
+    fdc.add_gpkg_to_project()
+    fdc.add_gpkg_layers_to_project()
+    fdc.add_test_data_to_project()
+    hidden_widgets = {
+        "fid",
+        "objectid",
+        "uuid",
+        "user_entered",
+        "date_entered",
+        "user_updated",
+        "date_updated",
+    }
+    apply_on_update_widgets = {
+        "user_updated",
+        "date_updated",
+    }
+    expected_expressions = {
+        "uuid": "uuid()",
+        "user_entered": "@user_account_name",
+        "date_entered": "now()",
+        "user_updated": "@user_account_name",
+        "date_updated": "now()",
+    }
+
+    # Assert
+    # Check the layer fields directly
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    for field_idx, field_name in enumerate(layer.fields().names()):
+
+        # Get the default config
+        default = layer.defaultValueDefinition(field_idx)
+
+        if field_name in apply_on_update_widgets:
+            assert default.applyOnUpdate()
+
+        if field_name in expected_expressions:
+            assert default.expression() == expected_expressions[field_name]
+
+    # Check the layer form structure
+    # We get the root widget of form from the drag and drop design layout
+    form_root = layer.editFormConfig().invisibleRootContainer()
+    # Then we use a recursive search method to find all child widgets which exist in the form
+    all_form_widgets = recursive_search_form(parent_widget=form_root)
+    form_widget_names = {widget.name() for widget in all_form_widgets}
+
+    # Check that the hidden widget names are not in the list of actual widget names
+    assert form_widget_names.intersection(hidden_widgets) == set()
+
+
+def recursive_search_form(
+    parent_widget: QgsAttributeEditorContainer,
+    form_elements: Optional[list[QgsAttributeEditorContainer]] = None,
+) -> list[QgsAttributeEditorContainer]:
+    """
+    Recursively search for form tabs from the root object of the form.
+    """
+    if form_elements is None:
+        form_elements = []
+
+    # Add the new parent widget to the list of elements
+    form_elements.append(parent_widget)
+
+    # If the parent widget has a method to access further child elements
+    if hasattr(parent_widget, "children"):
+        children = parent_widget.children()
+        for form_element in children:
+            form_elements = recursive_search_form(form_element, form_elements)
+
+    return form_elements
