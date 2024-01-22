@@ -736,7 +736,7 @@ superficial_landform: [% aggregate(&#xD;
         </labelStyle>
       </attributeEditorField>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Photos" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Photos" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -751,7 +751,7 @@ superficial_landform: [% aggregate(&#xD;
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Structural" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False and @qgis_os_name not in ('android', 'ios')" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Structural" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -766,7 +766,7 @@ superficial_landform: [% aggregate(&#xD;
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Lithology" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Lithology" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -781,7 +781,7 @@ superficial_landform: [% aggregate(&#xD;
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Samples" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Samples" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -796,7 +796,7 @@ superficial_landform: [% aggregate(&#xD;
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Superficial landforms" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression="layer_property( 'locality_point', 'is_editable') is False and @qgis_os_name not in ('android', 'ios')" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Superficial landforms" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -811,7 +811,7 @@ superficial_landform: [% aggregate(&#xD;
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Manmade landforms" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression="layer_property( 'locality_point', 'is_editable') is False and @qgis_os_name not in ('android', 'ios')" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Manmade landforms" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -826,7 +826,7 @@ superficial_landform: [% aggregate(&#xD;
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Media" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Media" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
