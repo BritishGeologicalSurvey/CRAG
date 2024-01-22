@@ -22,7 +22,11 @@ from qgis.core import (
 from qgis.PyQt.QtCore import pyqtBoundSignal
 
 from conftest import setup_db_conn
-from plugin.config import TABLE_LIST
+from plugin.config import (
+    ATTRIBUTE_TABLES,
+    FEATURE_TABLES,
+    TABLE_LIST,
+)
 from plugin.field_data_capture import FieldDataCapture
 from plugin.utils import ipdb_breakpoint  # noqa
 
@@ -431,10 +435,13 @@ def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
     }
 
     # Assert
+    hidden_type_widgets = set()
     # Check the layer fields directly
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     for field_idx, field_name in enumerate(layer.fields().names()):
 
+        # Get the widget config
+        widget = layer.editorWidgetSetup(field_idx)
         # Get the default config
         default = layer.defaultValueDefinition(field_idx)
 
@@ -444,15 +451,22 @@ def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
         if field_name in expected_expressions:
             assert default.expression() == expected_expressions[field_name]
 
-    # Check the layer form structure
+        # Create a set of hidden widgets which have the type 'Hidden' (for default forms)
+        # We don't assert this because drag and drop forms may not have this set
+        if field_name in hidden_widgets and widget.type() == "Hidden":
+            hidden_type_widgets.add(field_name)
+
+    # Check the layer form structure (required for drag and drop forms)
     # We get the root widget of form from the drag and drop design layout
     form_root = layer.editFormConfig().invisibleRootContainer()
     # Then we use a recursive search method to find all child widgets which exist in the form
     all_form_widgets = recursive_search_form(parent_widget=form_root)
     form_widget_names = {widget.name() for widget in all_form_widgets}
 
-    # Check that the hidden widget names are not in the list of actual widget names
-    assert form_widget_names.intersection(hidden_widgets) == set()
+    # Check that the hidden widget names are not in the list of actual widget names (for drag and drop forms)
+    # OR
+    # that the hidden widgets have the type 'Hidden' (for default forms)
+    assert form_widget_names.intersection(hidden_widgets) == set() or hidden_widgets == hidden_type_widgets
 
 
 def recursive_search_form(
