@@ -5,10 +5,7 @@ from typing import Generator
 import pytest
 import etlhelper as etl
 from qgis.core import QgsProject
-from qgis.PyQt.QtWidgets import (
-    QMessageBox,
-    QPushButton,
-)
+from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.testing.mocked import get_iface
 
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
@@ -91,10 +88,6 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
         # The monkeypatched version swallows the arguments and always returns QMessageBox.Ok
         monkeypatch.setattr(QMessageBox, message_type, lambda *args: QMessageBox.Ok)
 
-    # Apply monkeypatch for QPushButton toggle quick locality point
-    field_data_capture.quick_locality_point_button = QPushButton()
-    monkeypatch.setattr(field_data_capture.quick_locality_point_button, "isChecked", lambda: True)
-
     yield field_data_capture
     # Reset the QGIS interface
     iface.reset_mock()
@@ -131,3 +124,16 @@ def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
     Instead, calls to it will return QMessageBox.No.
     """
     monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.No)
+
+
+@pytest.fixture()
+def fdc_project(fdc: FieldDataCapture, qgs_project: Path):
+    """
+    Setup an Field Data Capture project for use in tests.
+    Also runs fdc.initGui for button testing.
+    """
+    fdc.add_gpkg_to_project()
+    fdc.add_gpkg_layers_to_project()
+    fdc.add_test_data_to_project()
+    fdc.initGui()
+    return fdc

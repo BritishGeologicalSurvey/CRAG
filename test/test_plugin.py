@@ -283,14 +283,8 @@ def test_export_qml_styles_no_layers(
     assert not fdc.styles_dir.exists()
 
 
-def test_auto_increment_locality_point_name(
-    fdc: FieldDataCapture,
-    qgs_project: Path,
-):
+def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
     # Arrange
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
-    fdc.add_test_data_to_project()
     # This is the username which the tests will use for default values, as there is no mergin name
     username = pwd.getpwuid(os.getuid()).pw_name
     # Generate a list of expected locality point names based on the current username
@@ -315,68 +309,52 @@ def test_auto_increment_locality_point_name(
         assert feature.attribute("name") == expected_name
 
 
-def test_quick_locality_point_enable(
-    fdc: FieldDataCapture,
-    qgs_project: Path,
-):
+def test_quick_locality_point_enable(fdc_project: FieldDataCapture):
     # Arrange
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
-    fdc.add_test_data_to_project()
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
     # Act
     # Enable quick locality point mode
-    fdc.toggle_quick_locality_point_mode()
+    fdc_project.toggle_quick_locality_point_mode()
 
     # Assert
     # We cannot check the active layer as it is not a working function in the mocked iface
     assert layer.isEditable()
-    assert len(fdc.locality_point_slots) == 2
-    for signal, slot in fdc.locality_point_slots:
+    assert len(fdc_project.locality_point_slots) == 2
+    for signal, slot in fdc_project.locality_point_slots:
         assert isinstance(signal, pyqtBoundSignal)
         assert isinstance(slot, Callable)
-    assert fdc.quick_locality_point_mode
+    assert fdc_project.quick_locality_point_mode
 
 
-def test_quick_locality_point_disable(
-    fdc: FieldDataCapture,
-    qgs_project: Path,
-):
+def test_quick_locality_point_disable(fdc_project: FieldDataCapture):
     # Arrange
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
-    fdc.add_test_data_to_project()
     # Enable quick locality point mode
-    fdc.toggle_quick_locality_point_mode()
+    fdc_project.toggle_quick_locality_point_mode()
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
     # Act
     # Disable quick locality point mode
-    fdc.toggle_quick_locality_point_mode()
+    fdc_project.toggle_quick_locality_point_mode()
 
     # Assert
     assert not layer.isEditable()
-    assert fdc.locality_point_slots == []
-    assert not fdc.quick_locality_point_mode
+    assert fdc_project.locality_point_slots == []
+    assert not fdc_project.quick_locality_point_mode
 
 
 def test_quick_locality_point_add(
-    fdc: FieldDataCapture,
-    qgs_project: Path,
+    fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
-    fdc.add_test_data_to_project()
     # Enable quick locality point mode
-    fdc.toggle_quick_locality_point_mode()
+    fdc_project.toggle_quick_locality_point_mode()
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
     # Monkeypatch the iface.openFeatureForm function to ensure it was called
     mock_function = Mock()
-    monkeypatch.setattr(fdc.iface, "openFeatureForm", mock_function)
+    monkeypatch.setattr(fdc_project.iface, "openFeatureForm", mock_function)
 
     # Act 1
     # Add a new locality_point feature
@@ -393,7 +371,7 @@ def test_quick_locality_point_add(
     expected_fid_1 = 3
     new_feature_1 = list(layer.getFeatures())[-1]
     assert new_feature_1.attribute("fid") == expected_fid_1
-    assert fdc.quick_locality_point_fid == expected_fid_1
+    assert fdc_project.quick_locality_point_fid == expected_fid_1
     mock_function.assert_called_with(layer, new_feature_1)
 
     # Act 2
@@ -411,28 +389,26 @@ def test_quick_locality_point_add(
     expected_fid_2 = 4
     new_feature_2 = list(layer.getFeatures())[-1]
     assert new_feature_2.attribute("fid") == expected_fid_2
-    assert fdc.quick_locality_point_fid == expected_fid_2
+    assert fdc_project.quick_locality_point_fid == expected_fid_2
     mock_function.assert_called_with(layer, new_feature_2)
 
     # Act 3
     # Disable quick locality point mode
-    fdc.toggle_quick_locality_point_mode()
+    fdc_project.toggle_quick_locality_point_mode()
 
     # Assert 3
     assert not layer.isEditable()
-    assert fdc.locality_point_slots == []
-    assert not fdc.quick_locality_point_mode
-    assert fdc.quick_locality_point_fid is None
+    assert fdc_project.locality_point_slots == []
+    assert not fdc_project.quick_locality_point_mode
+    assert fdc_project.quick_locality_point_fid is None
 
 
-def test_attribute_form_widgets(
-    fdc: FieldDataCapture,
-    qgs_project: Path,
-):
+@pytest.mark.parametrize(
+    "layer_name",
+    ATTRIBUTE_TABLES.union(FEATURE_TABLES),
+)
+def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
     # Arrange
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
-    fdc.add_test_data_to_project()
     hidden_widgets = {
         "fid",
         "objectid",
