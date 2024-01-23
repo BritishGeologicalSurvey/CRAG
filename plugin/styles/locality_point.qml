@@ -627,10 +627,9 @@ def my_form_open(dialog, layer, feature):
         <attributeEditorTextElement horizontalStretch="0" name="created" showLabel="0" verticalStretch="0">
           <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
             <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-          </labelStyle>Created by: [% "user_entered" %]&#xD;
-Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
+          </labelStyle>Created by [% "user_entered" %] on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
       </attributeEditorContainer>
-      <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="metadata saved" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+      <attributeEditorContainer collapsed="1" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="Metadata" showLabel="1" type="GroupBox" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
@@ -641,7 +640,7 @@ Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attrib
   x(&#xD;
     transform( $geometry, 'EPSG:4326',&#xD;
                concat('EPSG:',&#xD;
-                      attribute( get_feature( 'project', 'uuid', attribute('project_fuid') ),&#xD;
+                      attribute( get_feature( 'field_project', 'uuid', attribute('field_project_fuid') ),&#xD;
                                 'local_epsg' )&#xD;
                      )&#xD;
              )&#xD;
@@ -650,18 +649,16 @@ Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attrib
   y(&#xD;
     transform( $geometry, 'EPSG:4326',&#xD;
                concat('EPSG:',&#xD;
-                      attribute( get_feature( 'project', 'uuid', attribute('project_fuid') ),&#xD;
+                      attribute( get_feature( 'field_project', 'uuid', attribute('field_project_fuid') ),&#xD;
                                 'local_epsg' )&#xD;
                      )&#xD;
              )&#xD;
    ), 0&#xD;
-) %]  ([% round( x( $geometry ), 4) %] °E, [% round( y( $geometry ), 4) %] °N)&#xD;
-</attributeEditorTextElement>
+) %]  ([% round( x( $geometry ), 4) %] °E, [% round( y( $geometry ), 4) %] °N)</attributeEditorTextElement>
         <attributeEditorTextElement horizontalStretch="0" name="created" showLabel="0" verticalStretch="0">
           <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
             <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-          </labelStyle>Created by: [% "user_entered" %]&#xD;
-Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
+          </labelStyle>Created by [% "user_entered" %] on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
         <attributeEditorTextElement horizontalStretch="0" name="counts" showLabel="0" verticalStretch="0">
           <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
             <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
@@ -739,7 +736,7 @@ superficial_landform: [% aggregate(&#xD;
         </labelStyle>
       </attributeEditorField>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Photos" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Photos" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -754,7 +751,7 @@ superficial_landform: [% aggregate(&#xD;
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Structural" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False and @qgis_os_name not in ('android', 'ios')" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Structural" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -764,12 +761,12 @@ superficial_landform: [% aggregate(&#xD;
         </labelStyle>
         <editor_configuration type="Map">
           <Option name="allow_add_child_feature_with_no_geometry" type="bool" value="false"></Option>
-          <Option name="buttons" type="QString" value="AllButtons"></Option>
+          <Option name="buttons" type="QString" value="SaveChildEdits|AddChildFeature|DuplicateChildFeature|DeleteChildFeature"></Option>
           <Option name="show_first_feature" type="bool" value="true"></Option>
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Lithology" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Lithology" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -784,7 +781,7 @@ superficial_landform: [% aggregate(&#xD;
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Samples" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Samples" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -799,7 +796,7 @@ superficial_landform: [% aggregate(&#xD;
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Superficial landforms" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression="layer_property( 'locality_point', 'is_editable') is False and @qgis_os_name not in ('android', 'ios')" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Superficial landforms" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -809,12 +806,12 @@ superficial_landform: [% aggregate(&#xD;
         </labelStyle>
         <editor_configuration type="Map">
           <Option name="allow_add_child_feature_with_no_geometry" type="bool" value="false"></Option>
-          <Option name="buttons" type="QString" value="AllButtons"></Option>
+          <Option name="buttons" type="QString" value="SaveChildEdits|AddChildFeature|DuplicateChildFeature|DeleteChildFeature"></Option>
           <Option name="show_first_feature" type="bool" value="true"></Option>
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Manmade landforms" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression="layer_property( 'locality_point', 'is_editable') is False and @qgis_os_name not in ('android', 'ios')" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Manmade landforms" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="DejaVu Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -824,12 +821,12 @@ superficial_landform: [% aggregate(&#xD;
         </labelStyle>
         <editor_configuration type="Map">
           <Option name="allow_add_child_feature_with_no_geometry" type="bool" value="false"></Option>
-          <Option name="buttons" type="QString" value="AllButtons"></Option>
+          <Option name="buttons" type="QString" value="SaveChildEdits|AddChildFeature|DuplicateChildFeature|DeleteChildFeature"></Option>
           <Option name="show_first_feature" type="bool" value="true"></Option>
         </editor_configuration>
       </attributeEditorRelation>
     </attributeEditorContainer>
-    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Media" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" layer_property( 'locality_point', 'is_editable') is False" visibilityExpressionEnabled="1">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="Media" showLabel="1" type="Tab" verticalStretch="0" visibilityExpression=" &quot;fid&quot; != 'Autogenerate'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>

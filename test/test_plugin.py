@@ -4,19 +4,29 @@ These are tests for the plugin which depend on a running QGIS version which is s
 import os
 import pwd
 from pathlib import Path
+from typing import (
+    Callable,
+    Optional,
+)
 from unittest.mock import Mock
 from xml.dom import minidom
 
 import pytest
 import etlhelper as etl
 from qgis.core import (
+    QgsAttributeEditorContainer,
     QgsLayerTreeGroup,
     QgsProject,
     QgsVectorLayerUtils,
 )
+from qgis.PyQt.QtCore import pyqtBoundSignal
 
 from conftest import setup_db_conn
-from plugin.config import TABLE_LIST
+from plugin.config import (
+    ATTRIBUTE_TABLES,
+    FEATURE_TABLES,
+    TABLE_LIST,
+)
 from plugin.field_data_capture import FieldDataCapture
 from plugin.utils import ipdb_breakpoint  # noqa
 
@@ -277,14 +287,8 @@ def test_export_qml_styles_no_layers(
     assert not fdc.styles_dir.exists()
 
 
-def test_auto_increment_locality_point_name(
-    fdc: FieldDataCapture,
-    qgs_project: Path,
-):
+def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
     # Arrange
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
-    fdc.add_test_data_to_project()
     # This is the username which the tests will use for default values, as there is no mergin name
     username = pwd.getpwuid(os.getuid()).pw_name
     # Generate a list of expected locality point names based on the current username
@@ -297,12 +301,191 @@ def test_auto_increment_locality_point_name(
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
     for expected_name in expected_locality_point_names:
         layer.startEditing()
+        # Create a new feature with automatically generated values from the layer
         feature = QgsVectorLayerUtils.createFeature(layer)
         # Set the field_project_fuid to be the uuid of the field project from the test data set
-        feature.setAttribute(feature.fieldNameIndex("field_project_fuid"), "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
-        feature.setAttribute(feature.fieldNameIndex("exposure_type_code"), "AUGER_BOREHOLE")
+        feature.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
+        feature.setAttribute("exposure_type_code", "AUGER_BOREHOLE")
         layer.addFeature(feature)
         layer.commitChanges()
 
         # Assert
         assert feature.attribute("name") == expected_name
+
+
+def test_quick_locality_point_enable(fdc_project: FieldDataCapture):
+    # Arrange
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+
+    # Act
+    # Enable quick locality point mode
+    fdc_project.toggle_quick_locality_point_mode()
+
+    # Assert
+    # We cannot check the active layer as it is not a working function in the mocked iface
+    assert layer.isEditable()
+    assert len(fdc_project.locality_point_slots) == 2
+    for signal, slot in fdc_project.locality_point_slots:
+        assert isinstance(signal, pyqtBoundSignal)
+        assert isinstance(slot, Callable)
+    assert fdc_project.quick_locality_point_mode
+
+
+def test_quick_locality_point_disable(fdc_project: FieldDataCapture):
+    # Arrange
+    # Enable quick locality point mode
+    fdc_project.toggle_quick_locality_point_mode()
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+
+    # Act
+    # Disable quick locality point mode
+    fdc_project.toggle_quick_locality_point_mode()
+
+    # Assert
+    assert not layer.isEditable()
+    assert fdc_project.locality_point_slots == []
+    assert not fdc_project.quick_locality_point_mode
+
+
+def test_quick_locality_point_add(
+    fdc_project: FieldDataCapture,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    # Arrange
+    # Enable quick locality point mode
+    fdc_project.toggle_quick_locality_point_mode()
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+
+    # Monkeypatch the iface.openFeatureForm function to ensure it was called
+    mock_function = Mock()
+    monkeypatch.setattr(fdc_project.iface, "openFeatureForm", mock_function)
+
+    # Act 1
+    # Add a new locality_point feature
+    # Create a new feature with automatically generated values from the layer
+    feature_1 = QgsVectorLayerUtils.createFeature(layer)
+    # Set the field_project_fuid to be the uuid of the field project from the test data set
+    feature_1.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
+    feature_1.setAttribute("exposure_type_code", "AUGER_BOREHOLE")
+    layer.addFeature(feature_1)
+    # Emit the GUI signal that triggers the auto save of the new feature
+    layer.editCommandEnded.emit()
+
+    # Assert 1
+    expected_fid_1 = 3
+    new_feature_1 = list(layer.getFeatures())[-1]
+    assert new_feature_1.attribute("fid") == expected_fid_1
+    assert fdc_project.quick_locality_point_fid == expected_fid_1
+    mock_function.assert_called_with(layer, new_feature_1)
+
+    # Act 2
+    # Add another new locality_point feature
+    # Create a new feature with automatically generated values from the layer
+    feature_2 = QgsVectorLayerUtils.createFeature(layer)
+    # Set the field_project_fuid to be the uuid of the field project from the test data set
+    feature_2.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
+    feature_2.setAttribute("exposure_type_code", "AUGER_BOREHOLE")
+    layer.addFeature(feature_2)
+    # Emit the GUI signal that triggers the auto save of the new feature
+    layer.editCommandEnded.emit()
+
+    # Assert 2
+    expected_fid_2 = 4
+    new_feature_2 = list(layer.getFeatures())[-1]
+    assert new_feature_2.attribute("fid") == expected_fid_2
+    assert fdc_project.quick_locality_point_fid == expected_fid_2
+    mock_function.assert_called_with(layer, new_feature_2)
+
+    # Act 3
+    # Disable quick locality point mode
+    fdc_project.toggle_quick_locality_point_mode()
+
+    # Assert 3
+    assert not layer.isEditable()
+    assert fdc_project.locality_point_slots == []
+    assert not fdc_project.quick_locality_point_mode
+    assert fdc_project.quick_locality_point_fid is None
+
+
+@pytest.mark.parametrize(
+    "layer_name",
+    ATTRIBUTE_TABLES.union(FEATURE_TABLES),
+)
+def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
+    # Arrange
+    hidden_widgets = {
+        "fid",
+        "objectid",
+        "uuid",
+        "user_entered",
+        "date_entered",
+        "user_updated",
+        "date_updated",
+    }
+    apply_on_update_widgets = {
+        "user_updated",
+        "date_updated",
+    }
+    expected_expressions = {
+        "uuid": "uuid()",
+        "user_entered": "@user_account_name",
+        "date_entered": "now()",
+        "user_updated": "@user_account_name",
+        "date_updated": "now()",
+    }
+
+    # Assert
+    hidden_type_widgets = set()
+    # Check the layer fields directly
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    for field_idx, field_name in enumerate(layer.fields().names()):
+
+        # Get the widget config
+        widget = layer.editorWidgetSetup(field_idx)
+        # Get the default config
+        default = layer.defaultValueDefinition(field_idx)
+
+        if field_name in apply_on_update_widgets:
+            assert default.applyOnUpdate()
+
+        if field_name in expected_expressions:
+            assert default.expression() == expected_expressions[field_name]
+
+        # Create a set of hidden widgets which have the type 'Hidden' (for default forms)
+        # We don't assert this because drag and drop forms may not have this set
+        if field_name in hidden_widgets and widget.type() == "Hidden":
+            hidden_type_widgets.add(field_name)
+
+    # Check the layer form structure (required for drag and drop forms)
+    # We get the root widget of form from the drag and drop design layout
+    form_root = layer.editFormConfig().invisibleRootContainer()
+    # Then we use a recursive search method to find all child widgets which exist in the form
+    all_form_widgets = recursive_search_form(parent_widget=form_root)
+    form_widget_names = {widget.name() for widget in all_form_widgets}
+
+    # Check that the hidden widget names are not in the list of actual widget names (for drag and drop forms)
+    # OR
+    # that the hidden widgets have the type 'Hidden' (for default forms)
+    assert form_widget_names.intersection(hidden_widgets) == set() or hidden_widgets == hidden_type_widgets
+
+
+def recursive_search_form(
+    parent_widget: QgsAttributeEditorContainer,
+    form_elements: Optional[list[QgsAttributeEditorContainer]] = None,
+) -> list[QgsAttributeEditorContainer]:
+    """
+    Recursively search for form tabs from the root object of the form.
+    """
+    if form_elements is None:
+        form_elements = []
+
+    # Add the new parent widget to the list of elements
+    form_elements.append(parent_widget)
+
+    # If the parent widget has a method to access further child elements
+    if hasattr(parent_widget, "children"):
+        children = parent_widget.children()
+        for form_element in children:
+            form_elements = recursive_search_form(form_element, form_elements)
+
+    return form_elements

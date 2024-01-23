@@ -124,3 +124,16 @@ def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
     Instead, calls to it will return QMessageBox.No.
     """
     monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.No)
+
+
+@pytest.fixture()
+def fdc_project(fdc: FieldDataCapture, qgs_project: Path):
+    """
+    Setup an Field Data Capture project for use in tests.
+    Also runs fdc.initGui for button testing.
+    """
+    fdc.add_gpkg_to_project()
+    fdc.add_gpkg_layers_to_project()
+    fdc.add_test_data_to_project()
+    fdc.initGui()
+    return fdc
