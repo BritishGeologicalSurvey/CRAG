@@ -789,19 +789,17 @@ class FieldDataCapture:
 
         layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
-        # Disable quick locality point mode
         if self.quick_locality_point_mode:
-            self.teardown_quick_feature(layer)
+            self.disable_quick_locality_point(layer)
 
-        # Enable quick locality point mode
         else:
-            self.prepare_quick_locality_point(layer)
+            self.enable_quick_locality_point(layer)
 
 
-    def prepare_quick_locality_point(
+    def enable_quick_locality_point(
         self,
         layer: QgsVectorLayer,
-        slots: bool = True,
+        connect_slots: bool = True,
     ) -> bool:
         """
         Enable the quick locality point mode. This allows users to quickly add locality_point
@@ -814,8 +812,8 @@ class FieldDataCapture:
 
         self.iface.setActiveLayer(layer)
 
-        if slots:
-            self.create_slot_functions(layer)
+        if connect_slots:
+            self.connect_post_new_point_functions(layer)
 
         # Trigger the "Add Point Feature" button
         self.iface.actionAddFeature().trigger()
@@ -825,14 +823,14 @@ class FieldDataCapture:
         return True
 
 
-    def create_slot_functions(self, layer: QgsVectorLayer) -> None:
+    def connect_post_new_point_functions(self, layer: QgsVectorLayer) -> None:
         """
-        Create the temporary slot functions for the quick locality point mode.
+        Create and connect the temporary slot functions for the quick locality point mode.
         The first slot will save the 'fid' of the new locality_point feature.
         The second slot will open the form for the new locality_point feature, and
         re-enable the quick locality point mode.
         """
-        def feature_added_slot(fid: int) -> None:
+        def store_quick_locality_point_fid(fid: int) -> None:
             """
             The featureAdded signal from a QgsVectorLayer triggers twice when a new feature is added through a form.
             This appears to be because the unsaved feature is added first to the layer in a temporary state, for viewing
@@ -850,7 +848,7 @@ class FieldDataCapture:
                 # Save the 'fid' of the new feature for use later
                 self.quick_locality_point_fid = fid
 
-        def edit_command_ended_slot(*args) -> None:
+        def commit_changes_and_reopen_form(*args) -> None:
             """
             The layer changes must be saved before we can get the new locality_point feature and open it's form.
             This is because before the changes are saved, the newest feature will be the temporary one,
@@ -866,18 +864,18 @@ class FieldDataCapture:
             new_feature = layer.getFeature(self.quick_locality_point_fid)
             self.iface.openFeatureForm(layer, new_feature)
             # Re-enable the quick locality point mode
-            self.prepare_quick_locality_point(layer, slots=False)
+            self.enable_quick_locality_point(layer, connect_slots=False)
 
         # Connect the signals and slots
-        layer.featureAdded.connect(feature_added_slot)
-        layer.editCommandEnded.connect(edit_command_ended_slot)
+        layer.featureAdded.connect(store_quick_locality_point_fid)
+        layer.editCommandEnded.connect(commit_changes_and_reopen_form)
 
         # Save the slot functions so we can disconnect them later
-        self.locality_point_slots.append((layer.featureAdded, feature_added_slot))
-        self.locality_point_slots.append((layer.editCommandEnded, edit_command_ended_slot))
+        self.locality_point_slots.append((layer.featureAdded, store_quick_locality_point_fid))
+        self.locality_point_slots.append((layer.editCommandEnded, commit_changes_and_reopen_form))
 
 
-    def teardown_quick_feature(
+    def disable_quick_locality_point(
         self,
         layer: QgsVectorLayer,
     ) -> None:
