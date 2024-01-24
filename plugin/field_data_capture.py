@@ -64,6 +64,7 @@ from .config import (
     DICTIONARIES,
     FEATURE_TABLES,
     FEATURE_TABLES_LINES,
+    LOCALITY_POINT_CHILDREN,
     VIEWS,
     TABLE_LIST,
 )
@@ -876,6 +877,10 @@ class FieldDataCapture:
                 # Open the new feature's form
                 new_feature = layer.getFeature(self.quick_locality_point_fid)
                 self.iface.openFeatureForm(layer, new_feature)
+            
+            # Otherwise, the user has just completed an edit on an existing locality_point feature
+            else:
+                self.warn_unsaved_locality_children()
 
             # Re-enable the quick locality point mode
             self.enable_quick_locality_point(layer, connect_slots=False)
@@ -929,3 +934,32 @@ class FieldDataCapture:
         self.quick_locality_point_fid = None
         if self.quick_locality_point_button.isChecked():
             self.quick_locality_point_button.toggle()
+
+        self.warn_unsaved_locality_children()
+
+
+    def warn_unsaved_locality_children(self) -> None:
+        """
+        Check if any of the locality_point child layers have unsaved changes.
+        If they do, a warning message is shown to the user in the form of a QMessageBox.
+        """
+        unsaved_layers = []
+        for layer_name in LOCALITY_POINT_CHILDREN:
+            layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+            if layer.isModified():
+                unsaved_layers.append(layer_name)
+
+        if unsaved_layers:
+            # Create the list of unsaved layer names to display in the QMessageBox
+            joined_names = "\n".join(unsaved_layers)
+            # Manually build the QMessageBox so we can change the icon
+            message_box = QMessageBox()
+            message_box.setWindowTitle("Warning")
+            message_box.setText(f"There are unsaved edits on the following layer(s):\n\n{joined_names}")
+            message_box.setStandardButtons(QMessageBox.Ok)
+            # Get the 'Current Edits' red pencils icon as a pixmap the size of the default QMessageBox icons
+            red_pencils_pixmap = self.iface.actionAllEdits().icon().pixmap(48, 48)
+            # Set the icon using the pixmap
+            message_box.setIconPixmap(red_pencils_pixmap)
+            # Open the message box
+            message_box.exec_()
