@@ -49,38 +49,6 @@ CREATE TABLE IF NOT EXISTS "dic_field_project_type" (
 INSERT INTO gpkg_contents
 VALUES('dic_field_project_type','attributes','dic_field_project_type','Field project type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
-CREATE TABLE IF NOT EXISTS "dic_structure_category" (
-	"fid"	INTEGER NOT NULL,
-	"code"	TEXT NOT NULL UNIQUE,
-	"description"	TEXT,
-	"translation"	TEXT,
-	"status"	TEXT,
-	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATETIME NOT NULL,
-	"user_updated"	TEXT,
-	"date_updated"	DATETIME,
-	PRIMARY KEY("fid" AUTOINCREMENT)
-);
-
-INSERT INTO gpkg_contents
-VALUES('dic_structure_category','attributes','dic_structure_category','Dictionary of structure categories.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
-
-CREATE TABLE IF NOT EXISTS "dic_superficial_category" (
-	"fid"	INTEGER NOT NULL,
-	"code"	TEXT NOT NULL UNIQUE,
-	"description"	TEXT,
-	"translation"	TEXT,
-	"status"	TEXT,
-	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATETIME NOT NULL,
-	"user_updated"	TEXT,
-	"date_updated"	DATETIME,
-	PRIMARY KEY("fid" AUTOINCREMENT)
-);
-
-insert into gpkg_contents
-values('dic_superficial_category','attributes','dic_superficial_category','Dictionary of superficial categories.','2023-09-15t13:21:52.679z',null,null,null,null,null);
-
 CREATE TABLE IF NOT EXISTS "dic_manmade_code" (
 	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
@@ -147,8 +115,7 @@ CREATE TABLE IF NOT EXISTS "dic_structure_code" (
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	PRIMARY KEY("fid" AUTOINCREMENT),
-	FOREIGN KEY("category") REFERENCES "dic_structure_category"("code")
+	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 insert into gpkg_contents
@@ -166,8 +133,7 @@ CREATE TABLE IF NOT EXISTS "dic_superficial_code" (
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	PRIMARY KEY("fid" AUTOINCREMENT),
-	FOREIGN KEY("category") REFERENCES "dic_superficial_category"("code")
+	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 insert into gpkg_contents
@@ -189,23 +155,6 @@ INSERT INTO "dic_field_project_type" ("fid","code","description","translation","
 INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'ARCHIVE','Archive upload','archive_upload','C','jbow','04/09/2023',NULL,NULL);
 INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'LAB','Lab study','lab_study','C','jbow','04/09/2023',NULL,NULL);
 INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'PAPER','Derived from a paper map or fieldslip','derived_from_paper','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'Bedding','Bedding','bedding','C','jbow','23/08/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'Fault','Fault','fault','C','jbow','23/08/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'Younging','Younging','younging','C','jbow','23/08/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'Vergence','Vergence','vergence','C','jbow','23/08/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'Mineral_Vein','Mineral vein','mineral_vein','C','jbow','23/08/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'Axial_Plane','Axial plane','axial_plane','C','jbow','23/08/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'Fold_Axis','Fold axis','fold_axis','C','jbow','23/08/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (8,'Foliation','Foliation','foliation','C','jbow','23/08/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (9,'Lineation','Lineation','lineation','C','jbow','23/08/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (10,'Igneous','Igneous','igneous','C','jbow','23/08/2023',NULL,NULL);
-INSERT INTO "dic_structure_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (11,'Facing','Facing','facing','C','jbow','05/09/2023',NULL,NULL);
-INSERT INTO "dic_superficial_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'ERRATIC','Erratic','erratic','C','jbow','04/09/2023','','');
-INSERT INTO "dic_superficial_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'GLACIAL','Glacial','glacial','C','jbow','04/09/2023','','');
-INSERT INTO "dic_superficial_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'GLACIOTECTONIC','Glaciotectonic','glaciotectonic','C','jbow','04/09/2023','','');
-INSERT INTO "dic_superficial_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'PERIGLACIAL','Periglacial','periglacial','C','jbow','04/09/2023','','');
-INSERT INTO "dic_superficial_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'TOPOGRAPHIC_FEATURE','Topographic feature','topographic_feature','C','jbow','04/09/2023','','');
-INSERT INTO "dic_superficial_category" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'KARST','Karst','karst','C','jbow','04/09/2023',NULL,NULL);
 INSERT INTO "dic_manmade_code" ("fid","code","description","translation","status","archived_code","user_entered","date_entered","user_updated","date_updated") VALUES (12,'MM_WASTE','Waste disposal site','waste_disposal_site','C',NULL,'kigl','01/01/2012','jbow','13/09/2023');
 INSERT INTO "dic_manmade_code" ("fid","code","description","translation","status","archived_code","user_entered","date_entered","user_updated","date_updated") VALUES (1,'MM_ADIT','Adit','adit','C','AD','kigl','01/01/2012','jbow','13/09/2023');
 INSERT INTO "dic_manmade_code" ("fid","code","description","translation","status","archived_code","user_entered","date_entered","user_updated","date_updated") VALUES (2,'MM_ADIT_A','Adit abandoned','adit_abandoned','C','ADA','kigl','01/01/2012','jbow','13/09/2023');

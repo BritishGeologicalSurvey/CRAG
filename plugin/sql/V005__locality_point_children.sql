@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS "structural_measurement" (
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
-  "structure_type_category" TEXT NOT NULL,
   "structure_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),
   "dip_direction" INTEGER CHECK("dip_direction" >= 0 AND "dip_direction" < 360),
@@ -15,7 +14,6 @@ CREATE TABLE IF NOT EXISTS "structural_measurement" (
   "user_updated" TEXT,
   "date_updated" DATETIME,
   FOREIGN KEY("structure_type_code") REFERENCES "dic_structure_code"("code"),
-  FOREIGN KEY("structure_type_category") REFERENCES "dic_structure_category"("code"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
@@ -135,7 +133,6 @@ CREATE TABLE IF NOT EXISTS "superficial_landform" (
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
-  "superficial_type_category" TEXT NOT NULL,
   "superficial_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),
   "length" INTEGER,
@@ -147,7 +144,6 @@ CREATE TABLE IF NOT EXISTS "superficial_landform" (
   "user_updated" TEXT,
   "date_updated" DATETIME,
   FOREIGN KEY("superficial_type_code") REFERENCES "dic_superficial_code"("code"),
-  FOREIGN KEY("superficial_type_category") REFERENCES "dic_superficial_category"("code"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
