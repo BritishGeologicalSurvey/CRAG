@@ -402,6 +402,39 @@ class FieldDataCapture:
             return False
 
 
+    def validate_qgis_state(
+        self,
+        project_active: bool = False,
+        db_file_exists: bool = False,
+        fdc_layers_exist: bool = False,
+        layer_name_exists: Optional[str] = None,
+    ) -> bool:
+        """
+        Validate that the given options are currently OK in QGIS.
+        Returns a boolean indicating the validity of the current state of QGIS.
+        """
+        # If we need to check project_active and the project is not active
+        if project_active and not self.project_is_active():
+            return False
+
+        # If we need to check the db_file_exists and the db file does not exist
+        if db_file_exists and not self.db_file.exists():
+            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+            return False
+
+        # If we need to check the fdc_layers_exist and the fdc layers do not exist
+        if fdc_layers_exist and not self.check_fdc_layers_exist():
+            QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
+            return False
+
+        # If we need to check that a given layer_name_exists and the given layer name does not exist
+        if layer_name_exists is not None and not self.check_layer_exists(layer_name_exists):
+            QMessageBox.information(None, "Information", f"Could not find layer: {layer_name_exists}")
+            return False
+
+        return True
+
+
     def run_function_list(self, functions: list[Callable]) -> bool:
         """
         Run all the given functions in order.
@@ -423,8 +456,7 @@ class FieldDataCapture:
         Add the GeoPackage file to the current project.
         Returns a boolean indicating success of the process.
         """
-        # Check that we have an open project
-        if not self.project_is_active():
+        if not self.validate_qgis_state(project_active=True):
             return False
 
         if self.db_file.exists():
@@ -445,11 +477,7 @@ class FieldDataCapture:
         Add the GeoPackage layers to the current project.
         Returns a boolean indicating success of the process.
         """
-        # Check that we have an open project and a geopackage
-        if not self.project_is_active():
-            return False
-        if not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True):
             return False
 
         # Get layers root
@@ -637,14 +665,9 @@ class FieldDataCapture:
         Open the attribute form for the given layer.
         Returns a boolean indicating success of the process.
         """
-        if not self.project_is_active():
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, layer_name_exists=layer_name):
             return False
-        if not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-            return False
-        if not self.check_layer_exists(layer_name):
-            QMessageBox.information(None, "Information", f"Could not find layer: {layer_name}")
-            return False
+
         layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
         # Ensure the layer is editable
@@ -671,11 +694,7 @@ class FieldDataCapture:
         Add the test data set to the current project.
         Returns a boolean indicating success of the process.
         """
-        # Check that we have an open project and a geopackage
-        if not self.project_is_active():
-            return False
-        if not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True):
             return False
 
         with sqlite3.connect(self.db_file) as conn:
@@ -717,14 +736,7 @@ class FieldDataCapture:
         These are saved into the current project's styles directory.
         Returns a boolean indicating success of the process.
         """
-        # Check that we have an open project and a geopackage with the correct layers
-        if not self.project_is_active():
-            return False
-        if not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-            return False
-        if not self.check_fdc_layers_exist():
-            QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
             return False
 
         # Compare the QGIS version in the existing styles to the current QGIS version
@@ -777,14 +789,10 @@ class FieldDataCapture:
         """
         Toggle the mode used for creating quick locality points.
         """
-        # Check that we have an open project and a geopackage with the correct layers
-        if not self.project_is_active():
-            return False
-        if not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-            return False
-        if not self.check_fdc_layers_exist():
-            QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
+            # Ensure the button is not left toggled
+            if self.quick_locality_point_button.isChecked():
+                self.quick_locality_point_button.toggle()
             return False
 
         layer = QgsProject.instance().mapLayersByName("locality_point")[0]
