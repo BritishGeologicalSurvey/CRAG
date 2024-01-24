@@ -147,6 +147,14 @@ class FieldDataCapture:
         return self.project_dir / "styles"
 
 
+    @property
+    def icons_dir(self) -> Path:
+        """
+        Get the icons directory path from the plugin folder.
+        """
+        return WORKDIR / "icons"
+
+
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
@@ -341,7 +349,7 @@ class FieldDataCapture:
         )
 
         self.quick_locality_point_button = self.add_action(
-            icon_path,
+            str(self.icons_dir / "quick_locality_point_button.png"),
             text=self.tr(u'Quick Locality Point'),
             callback=self.toggle_quick_locality_point_mode,
             add_to_menu=False,
