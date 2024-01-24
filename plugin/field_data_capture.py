@@ -822,6 +822,7 @@ class FieldDataCapture:
 
         if connect_slots:
             self.connect_post_new_point_functions(layer)
+            self.connect_close_project_function(layer)
 
         # Trigger the "Add Point Feature" button
         self.iface.actionAddFeature().trigger()
@@ -888,6 +889,22 @@ class FieldDataCapture:
         # Save the slot functions so we can disconnect them later
         self.locality_point_slots.append((layer.featureAdded, store_quick_locality_point_fid))
         self.locality_point_slots.append((layer.editCommandEnded, commit_changes_and_reopen_form))
+
+
+    def connect_close_project_function(self, layer: QgsVectorLayer) -> None:
+        """
+        Create and connect a slot function which will be run when the current QGIS project is about to be closed.
+        This is a new signal as of QGIS 3.34, previously we would have to use QgsProject.cleared.
+        This allows us to disable the quick locality point mode in the background without causing issues.
+        """
+        qgs_project = QgsProject.instance()
+
+        def disable_on_close() -> None:
+            self.disable_quick_locality_point(layer)
+            # The function then disconnects itself from the slot to ensure nothing about QGIS is left modified
+            qgs_project.aboutToBeCleared.disconnect(disable_on_close)
+
+        qgs_project.aboutToBeCleared.connect(disable_on_close)
 
 
     def disable_quick_locality_point(
