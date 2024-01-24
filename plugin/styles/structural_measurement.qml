@@ -63,22 +63,27 @@
       </editWidget>
     </field>
     <field configurationFlags="NoFlag" name="structure_type_code">
-      <editWidget type="ValueRelation">
+      <editWidget type="RelationReference">
         <config>
           <Option type="Map">
-            <Option name="AllowMulti" type="bool" value="false"></Option>
-            <Option name="AllowNull" type="bool" value="true"></Option>
-            <Option name="Description" type="QString" value=""></Option>
-            <Option name="FilterExpression" type="QString" value="&quot;category&quot; = current_value('structure_type_category')"></Option>
-            <Option name="Key" type="QString" value="code"></Option>
-            <Option name="Layer" type="QString" value="dic_structure_code_36352766_3eb4_4f7b_8be4_de0ecc4d3c9c"></Option>
-            <Option name="LayerName" type="QString" value="dic_structure_code"></Option>
-            <Option name="LayerProviderName" type="QString" value="ogr"></Option>
-            <Option name="LayerSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_structure_code"></Option>
-            <Option name="NofColumns" type="int" value="1"></Option>
-            <Option name="OrderByValue" type="bool" value="false"></Option>
-            <Option name="UseCompleter" type="bool" value="false"></Option>
-            <Option name="Value" type="QString" value="code"></Option>
+            <Option name="AllowAddFeatures" type="bool" value="false"></Option>
+            <Option name="AllowNULL" type="bool" value="true"></Option>
+            <Option name="ChainFilters" type="bool" value="false"></Option>
+            <Option name="FetchLimitActive" type="bool" value="true"></Option>
+            <Option name="FetchLimitNumber" type="int" value="100"></Option>
+            <Option name="FilterExpression" type="QString" value=""></Option>
+            <Option name="FilterFields" type="StringList">
+              <Option type="QString" value="category"></Option>
+            </Option>
+            <Option name="MapIdentification" type="bool" value="false"></Option>
+            <Option name="ReadOnly" type="bool" value="false"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="C:\Users\colb\Mergin\jan-24-02\field-data-capture.gpkg|layername=dic_structure_code"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_structure_code_4a8f5ed4_72bc_420d_a1dc_636a6766857a"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="dic_structure_code"></Option>
+            <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
+            <Option name="Relation" type="QString" value="dic_structure_code_structural_measurement_3"></Option>
+            <Option name="ShowForm" type="bool" value="false"></Option>
+            <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
@@ -162,8 +167,8 @@
     <policy field="objectid" policy="Duplicate"></policy>
     <policy field="uuid" policy="Duplicate"></policy>
     <policy field="locality_fuid" policy="Duplicate"></policy>
-    <policy field="structure_type_category" policy="Duplicate"></policy>
-    <policy field="structure_type_code" policy="Duplicate"></policy>
+    <policy field="structure_type_category" policy="DefaultValue"></policy>
+    <policy field="structure_type_code" policy="DefaultValue"></policy>
     <policy field="dip" policy="Duplicate"></policy>
     <policy field="dip_direction" policy="Duplicate"></policy>
     <policy field="comment" policy="Duplicate"></policy>
