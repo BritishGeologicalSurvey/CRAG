@@ -860,11 +860,18 @@ class FieldDataCapture:
             """
             # Save the layer changes
             layer.commitChanges()
-            # Open the new feature's form
-            new_feature = layer.getFeature(self.quick_locality_point_fid)
-            self.iface.openFeatureForm(layer, new_feature)
+
+            # Only re-open the feature form if the editCommandEnded signal triggers due to a new point
+            # If it is a new point, it's 'fid' will have been saved by the featureAdded signal
+            if self.quick_locality_point_fid is not None:
+                # Open the new feature's form
+                new_feature = layer.getFeature(self.quick_locality_point_fid)
+                self.iface.openFeatureForm(layer, new_feature)
+
             # Re-enable the quick locality point mode
             self.enable_quick_locality_point(layer, connect_slots=False)
+            # Remove the saved 'fid' so that we know we have dealt with the new point
+            self.quick_locality_point_fid = None
 
         # Connect the signals and slots
         layer.featureAdded.connect(store_quick_locality_point_fid)
