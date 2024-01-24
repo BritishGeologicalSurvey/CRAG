@@ -375,7 +375,7 @@ def test_quick_locality_point_add(
     expected_fid_1 = 3
     new_feature_1 = list(layer.getFeatures())[-1]
     assert new_feature_1.attribute("fid") == expected_fid_1
-    assert fdc_project.quick_locality_point_fid == expected_fid_1
+    assert fdc_project.quick_locality_point_fid is None
     mock_function.assert_called_with(layer, new_feature_1)
 
     # Act 2
@@ -393,7 +393,7 @@ def test_quick_locality_point_add(
     expected_fid_2 = 4
     new_feature_2 = list(layer.getFeatures())[-1]
     assert new_feature_2.attribute("fid") == expected_fid_2
-    assert fdc_project.quick_locality_point_fid == expected_fid_2
+    assert fdc_project.quick_locality_point_fid is None
     mock_function.assert_called_with(layer, new_feature_2)
 
     # Act 3
@@ -404,6 +404,33 @@ def test_quick_locality_point_add(
     assert not layer.isEditable()
     assert fdc_project.locality_point_slots == []
     assert not fdc_project.quick_locality_point_mode
+    assert fdc_project.quick_locality_point_fid is None
+
+
+def test_quick_locality_point_edit_point(fdc_project: FieldDataCapture):
+    # Arrange
+    point_fid = 1
+    edited_field = "description"
+    new_value = "new description"
+    # Enable quick locality point mode
+    fdc_project.toggle_quick_locality_point_mode()
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    description_index = [field.name() for field in layer.fields()].index(edited_field)
+
+    # Act
+    # Edit one of the test points
+    layer.changeAttributeValue(fid=point_fid, field=description_index, newValue=new_value)
+    # Emit the GUI signal that triggers the auto save
+    layer.editCommandEnded.emit()
+
+    # Assert
+    # Check that the layer is saved
+    assert not layer.isModified()
+    # Check that the layer has re-enabled editing mode
+    assert layer.isEditable()
+    # Check that the edit has been saved correctly
+    assert layer.getFeature(point_fid).attribute(edited_field) == new_value
+    # Check that the 'fid' of the point was not saved because it is not a new point
     assert fdc_project.quick_locality_point_fid is None
 
 
