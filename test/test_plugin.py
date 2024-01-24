@@ -345,6 +345,7 @@ def test_quick_locality_point_disable(fdc_project: FieldDataCapture):
     assert not layer.isEditable()
     assert fdc_project.locality_point_slots == []
     assert not fdc_project.quick_locality_point_mode
+    assert fdc_project.quick_locality_point_fid is None
 
 
 def test_quick_locality_point_add(
@@ -375,6 +376,8 @@ def test_quick_locality_point_add(
     expected_fid_1 = 3
     new_feature_1 = list(layer.getFeatures())[-1]
     assert new_feature_1.attribute("fid") == expected_fid_1
+    # The 'fid' is only stored until the form is re-opened
+    # Therefore, when we come to check the 'fid' it should have been discarded
     assert fdc_project.quick_locality_point_fid is None
     mock_function.assert_called_with(layer, new_feature_1)
 
@@ -393,6 +396,8 @@ def test_quick_locality_point_add(
     expected_fid_2 = 4
     new_feature_2 = list(layer.getFeatures())[-1]
     assert new_feature_2.attribute("fid") == expected_fid_2
+    # The 'fid' is only stored until the form is re-opened
+    # Therefore, when we come to check the 'fid' it should have been discarded
     assert fdc_project.quick_locality_point_fid is None
     mock_function.assert_called_with(layer, new_feature_2)
 
@@ -431,6 +436,22 @@ def test_quick_locality_point_edit_point(fdc_project: FieldDataCapture):
     # Check that the edit has been saved correctly
     assert layer.getFeature(point_fid).attribute(edited_field) == new_value
     # Check that the 'fid' of the point was not saved because it is not a new point
+    assert fdc_project.quick_locality_point_fid is None
+
+
+def test_quick_locality_point_close_project(fdc_project: FieldDataCapture):
+    # Arrange
+    # Enable quick locality point mode
+    fdc_project.toggle_quick_locality_point_mode()
+
+    # Act
+    # Close the test project
+    QgsProject.instance().clear()
+
+    # Assert
+    # We don't check if the layer is editable because it will not exist anymore
+    assert fdc_project.locality_point_slots == []
+    assert not fdc_project.quick_locality_point_mode
     assert fdc_project.quick_locality_point_fid is None
 
 
