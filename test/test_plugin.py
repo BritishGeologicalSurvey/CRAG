@@ -51,11 +51,13 @@ def test_validation_good(fdc: FieldDataCapture, qgs_project: Path):
     assert fdc.project_is_active()
     assert fdc.db_file.exists()
     assert fdc.check_fdc_layers_exist()
+    assert fdc.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True)
 
 
 def test_validation_bad(fdc: FieldDataCapture):
     assert not fdc.project_is_active()
     assert not fdc.check_fdc_layers_exist()
+    assert not fdc.validate_qgis_state(project_active=True, fdc_layers_exist=True)
 
 
 def test_setup_project_logic_good(
