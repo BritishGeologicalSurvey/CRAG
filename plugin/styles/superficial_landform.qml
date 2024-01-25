@@ -41,27 +41,6 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="superficial_type_category">
-      <editWidget type="ValueRelation">
-        <config>
-          <Option type="Map">
-            <Option name="AllowMulti" type="bool" value="false"></Option>
-            <Option name="AllowNull" type="bool" value="true"></Option>
-            <Option name="Description" type="QString" value=""></Option>
-            <Option name="FilterExpression" type="QString" value=""></Option>
-            <Option name="Key" type="QString" value="code"></Option>
-            <Option name="Layer" type="QString" value="dic_superficial_category_cb188d00_d38d_41bb_89af_d08d2abf2c24"></Option>
-            <Option name="LayerName" type="QString" value="dic_superficial_category"></Option>
-            <Option name="LayerProviderName" type="QString" value="ogr"></Option>
-            <Option name="LayerSource" type="QString" value="/home/leorud/personal/qgis_testing/fdc-plugin/field-data-capture.gpkg|layername=dic_superficial_category"></Option>
-            <Option name="NofColumns" type="int" value="1"></Option>
-            <Option name="OrderByValue" type="bool" value="false"></Option>
-            <Option name="UseCompleter" type="bool" value="false"></Option>
-            <Option name="Value" type="QString" value="code"></Option>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
     <field configurationFlags="NoFlag" name="superficial_type_code">
       <editWidget type="RelationReference">
         <config>
@@ -81,7 +60,7 @@
             <Option name="ReferencedLayerId" type="QString" value="dic_superficial_code_3f6ae912_0cc8_409e_8fce_dfec27644e3a"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_superficial_code"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="dic_superficial_code_superficial_landform_3"></Option>
+            <Option name="Relation" type="QString" value="dic_superficial_code_superficial_landform_2"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
@@ -163,24 +142,22 @@
     <alias field="objectid" index="1" name=""></alias>
     <alias field="uuid" index="2" name=""></alias>
     <alias field="locality_fuid" index="3" name=""></alias>
-    <alias field="superficial_type_category" index="4" name=""></alias>
-    <alias field="superficial_type_code" index="5" name=""></alias>
-    <alias field="dip" index="6" name=""></alias>
-    <alias field="length" index="7" name=""></alias>
-    <alias field="width" index="8" name=""></alias>
-    <alias field="height_depth" index="9" name=""></alias>
-    <alias field="comment" index="10" name=""></alias>
-    <alias field="user_entered" index="11" name=""></alias>
-    <alias field="date_entered" index="12" name=""></alias>
-    <alias field="user_updated" index="13" name=""></alias>
-    <alias field="date_updated" index="14" name=""></alias>
+    <alias field="superficial_type_code" index="4" name=""></alias>
+    <alias field="dip" index="5" name=""></alias>
+    <alias field="length" index="6" name=""></alias>
+    <alias field="width" index="7" name=""></alias>
+    <alias field="height_depth" index="8" name=""></alias>
+    <alias field="comment" index="9" name=""></alias>
+    <alias field="user_entered" index="10" name=""></alias>
+    <alias field="date_entered" index="11" name=""></alias>
+    <alias field="user_updated" index="12" name=""></alias>
+    <alias field="date_updated" index="13" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
     <policy field="objectid" policy="Duplicate"></policy>
     <policy field="uuid" policy="Duplicate"></policy>
     <policy field="locality_fuid" policy="Duplicate"></policy>
-    <policy field="superficial_type_category" policy="DefaultValue"></policy>
     <policy field="superficial_type_code" policy="DefaultValue"></policy>
     <policy field="dip" policy="Duplicate"></policy>
     <policy field="length" policy="Duplicate"></policy>
@@ -197,7 +174,6 @@
     <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
-    <default applyOnUpdate="0" expression="" field="superficial_type_category"></default>
     <default applyOnUpdate="0" expression="" field="superficial_type_code"></default>
     <default applyOnUpdate="0" expression="" field="dip"></default>
     <default applyOnUpdate="0" expression="" field="length"></default>
@@ -214,7 +190,6 @@
     <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="superficial_type_category" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="superficial_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="dip" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="length" notnull_strength="0" unique_strength="0"></constraint>
@@ -231,7 +206,6 @@
     <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
-    <constraint desc="" exp="" field="superficial_type_category"></constraint>
     <constraint desc="" exp="" field="superficial_type_code"></constraint>
     <constraint desc="" exp="" field="dip"></constraint>
     <constraint desc="" exp="" field="length"></constraint>
