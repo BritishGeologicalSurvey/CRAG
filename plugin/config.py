@@ -14,6 +14,7 @@ TABLES = {
         "view_structural_measurement",
         "view_lithology",
         "view_superficial_landform",
+        "view_manmade_landform",
     ],
     "attributes": [
         # Dictionaries

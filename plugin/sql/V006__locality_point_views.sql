@@ -89,6 +89,35 @@ INSERT INTO gpkg_geometry_columns
 VALUES('view_superficial_landform','geometry','POINT',4326,1,0);
 
 
+CREATE VIEW IF NOT EXISTS "view_manmade_landform" AS
+  SELECT
+    fp.short_name as field_project,
+    lp.name as locality_point,
+    ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
+    ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
+    fp.local_epsg,
+    mc.description AS manmade_type,
+    ml.dip,
+    ml.dip_direction,
+    ml.length,
+    ml.width,
+    ml.comment,
+    ml.uuid AS manmade_uuid,
+    lp.uuid AS locality_uuid,
+    lp.geometry as geometry
+  FROM manmade_landform ml
+    LEFT JOIN locality_point lp on ml.locality_fuid = lp.uuid
+    LEFT JOIN dic_manmade_code mc on ml.manmade_type_code = mc.code
+    LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
+;
+
+INSERT INTO gpkg_contents
+VALUES('view_manmade_landform','features','view_manmade_landform','View with manmade landforms at locality positions','2024-01-25T16:55:45.000Z',NULL,NULL,NULL,NULL,4326);
+
+INSERT INTO gpkg_geometry_columns
+VALUES('view_manmade_landform','geometry','POINT',4326,1,0);
+
+
 CREATE VIEW IF NOT EXISTS "view_next_locality_id" AS
   -- Using nested SELECT statements as it allows us to build reusable variables
   SELECT
