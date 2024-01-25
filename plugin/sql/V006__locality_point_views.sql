@@ -31,7 +31,7 @@ VALUES('view_structural_measurement','geometry','POINT',4326,1,0);
 
 
 CREATE VIEW IF NOT EXISTS "view_lithology" AS
- SELECT
+  SELECT
     fp.short_name as field_project,
     lp.name as locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
@@ -48,7 +48,7 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
   FROM lithology lith
     LEFT JOIN locality_point lp on lith.locality_fuid = lp.uuid
     LEFT JOIN dic_exposure_type type on lp.exposure_type_code = type.code
-	LEFT JOIN dic_rock_all rock on lith.lithology_code = rock.code
+    LEFT JOIN dic_rock_all rock on lith.lithology_code = rock.code
     LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 
