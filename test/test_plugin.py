@@ -51,11 +51,13 @@ def test_validation_good(fdc: FieldDataCapture, qgs_project: Path):
     assert fdc.project_is_active()
     assert fdc.db_file.exists()
     assert fdc.check_fdc_layers_exist()
+    assert fdc.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True)
 
 
 def test_validation_bad(fdc: FieldDataCapture):
     assert not fdc.project_is_active()
     assert not fdc.check_fdc_layers_exist()
+    assert not fdc.validate_qgis_state(project_active=True, fdc_layers_exist=True)
 
 
 def test_setup_project_logic_good(
@@ -345,6 +347,7 @@ def test_quick_locality_point_disable(fdc_project: FieldDataCapture):
     assert not layer.isEditable()
     assert fdc_project.locality_point_slots == []
     assert not fdc_project.quick_locality_point_mode
+    assert fdc_project.quick_locality_point_fid is None
 
 
 def test_quick_locality_point_add(
@@ -375,7 +378,9 @@ def test_quick_locality_point_add(
     expected_fid_1 = 3
     new_feature_1 = list(layer.getFeatures())[-1]
     assert new_feature_1.attribute("fid") == expected_fid_1
-    assert fdc_project.quick_locality_point_fid == expected_fid_1
+    # The 'fid' is only stored until the form is re-opened
+    # Therefore, when we come to check the 'fid' it should have been discarded
+    assert fdc_project.quick_locality_point_fid is None
     mock_function.assert_called_with(layer, new_feature_1)
 
     # Act 2
@@ -393,7 +398,9 @@ def test_quick_locality_point_add(
     expected_fid_2 = 4
     new_feature_2 = list(layer.getFeatures())[-1]
     assert new_feature_2.attribute("fid") == expected_fid_2
-    assert fdc_project.quick_locality_point_fid == expected_fid_2
+    # The 'fid' is only stored until the form is re-opened
+    # Therefore, when we come to check the 'fid' it should have been discarded
+    assert fdc_project.quick_locality_point_fid is None
     mock_function.assert_called_with(layer, new_feature_2)
 
     # Act 3
@@ -402,6 +409,49 @@ def test_quick_locality_point_add(
 
     # Assert 3
     assert not layer.isEditable()
+    assert fdc_project.locality_point_slots == []
+    assert not fdc_project.quick_locality_point_mode
+    assert fdc_project.quick_locality_point_fid is None
+
+
+def test_quick_locality_point_edit_point(fdc_project: FieldDataCapture):
+    # Arrange
+    point_fid = 1
+    edited_field = "description"
+    new_value = "new description"
+    # Enable quick locality point mode
+    fdc_project.toggle_quick_locality_point_mode()
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    description_index = [field.name() for field in layer.fields()].index(edited_field)
+
+    # Act
+    # Edit one of the test points
+    layer.changeAttributeValue(fid=point_fid, field=description_index, newValue=new_value)
+    # Emit the GUI signal that triggers the auto save
+    layer.editCommandEnded.emit()
+
+    # Assert
+    # Check that the layer is saved
+    assert not layer.isModified()
+    # Check that the layer has re-enabled editing mode
+    assert layer.isEditable()
+    # Check that the edit has been saved correctly
+    assert layer.getFeature(point_fid).attribute(edited_field) == new_value
+    # Check that the 'fid' of the point was not saved because it is not a new point
+    assert fdc_project.quick_locality_point_fid is None
+
+
+def test_quick_locality_point_close_project(fdc_project: FieldDataCapture):
+    # Arrange
+    # Enable quick locality point mode
+    fdc_project.toggle_quick_locality_point_mode()
+
+    # Act
+    # Close the test project
+    QgsProject.instance().clear()
+
+    # Assert
+    # We don't check if the layer is editable because it will not exist anymore
     assert fdc_project.locality_point_slots == []
     assert not fdc_project.quick_locality_point_mode
     assert fdc_project.quick_locality_point_fid is None

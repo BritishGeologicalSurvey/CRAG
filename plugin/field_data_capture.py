@@ -64,6 +64,7 @@ from .config import (
     DICTIONARIES,
     FEATURE_TABLES,
     FEATURE_TABLES_LINES,
+    LOCALITY_POINT_CHILDREN,
     VIEWS,
     TABLE_LIST,
 )
@@ -144,6 +145,14 @@ class FieldDataCapture:
         Get the styles directory path from the current project.
         """
         return self.project_dir / "styles"
+
+
+    @property
+    def icons_dir(self) -> Path:
+        """
+        Get the icons directory path from the plugin folder.
+        """
+        return WORKDIR / "icons"
 
 
     # noinspection PyMethodMayBeStatic
@@ -340,7 +349,7 @@ class FieldDataCapture:
         )
 
         self.quick_locality_point_button = self.add_action(
-            icon_path,
+            str(self.icons_dir / "quick_locality_point_button.png"),
             text=self.tr(u'Quick Locality Point'),
             callback=self.toggle_quick_locality_point_mode,
             add_to_menu=False,
@@ -402,6 +411,39 @@ class FieldDataCapture:
             return False
 
 
+    def validate_qgis_state(
+        self,
+        project_active: bool = False,
+        db_file_exists: bool = False,
+        fdc_layers_exist: bool = False,
+        layer_name_exists: Optional[str] = None,
+    ) -> bool:
+        """
+        Validate that the given options are currently OK in QGIS.
+        Returns a boolean indicating the validity of the current state of QGIS.
+        """
+        # If we need to check project_active and the project is not active
+        if project_active and not self.project_is_active():
+            return False
+
+        # If we need to check the db_file_exists and the db file does not exist
+        if db_file_exists and not self.db_file.exists():
+            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+            return False
+
+        # If we need to check the fdc_layers_exist and the fdc layers do not exist
+        if fdc_layers_exist and not self.check_fdc_layers_exist():
+            QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
+            return False
+
+        # If we need to check that a given layer_name_exists and the given layer name does not exist
+        if layer_name_exists is not None and not self.check_layer_exists(layer_name_exists):
+            QMessageBox.information(None, "Information", f"Could not find layer: {layer_name_exists}")
+            return False
+
+        return True
+
+
     def run_function_list(self, functions: list[Callable]) -> bool:
         """
         Run all the given functions in order.
@@ -423,8 +465,7 @@ class FieldDataCapture:
         Add the GeoPackage file to the current project.
         Returns a boolean indicating success of the process.
         """
-        # Check that we have an open project
-        if not self.project_is_active():
+        if not self.validate_qgis_state(project_active=True):
             return False
 
         if self.db_file.exists():
@@ -445,11 +486,7 @@ class FieldDataCapture:
         Add the GeoPackage layers to the current project.
         Returns a boolean indicating success of the process.
         """
-        # Check that we have an open project and a geopackage
-        if not self.project_is_active():
-            return False
-        if not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True):
             return False
 
         # Get layers root
@@ -637,14 +674,9 @@ class FieldDataCapture:
         Open the attribute form for the given layer.
         Returns a boolean indicating success of the process.
         """
-        if not self.project_is_active():
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, layer_name_exists=layer_name):
             return False
-        if not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-            return False
-        if not self.check_layer_exists(layer_name):
-            QMessageBox.information(None, "Information", f"Could not find layer: {layer_name}")
-            return False
+
         layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
         # Ensure the layer is editable
@@ -671,11 +703,7 @@ class FieldDataCapture:
         Add the test data set to the current project.
         Returns a boolean indicating success of the process.
         """
-        # Check that we have an open project and a geopackage
-        if not self.project_is_active():
-            return False
-        if not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True):
             return False
 
         with sqlite3.connect(self.db_file) as conn:
@@ -717,14 +745,7 @@ class FieldDataCapture:
         These are saved into the current project's styles directory.
         Returns a boolean indicating success of the process.
         """
-        # Check that we have an open project and a geopackage with the correct layers
-        if not self.project_is_active():
-            return False
-        if not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-            return False
-        if not self.check_fdc_layers_exist():
-            QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
             return False
 
         # Compare the QGIS version in the existing styles to the current QGIS version
@@ -777,14 +798,10 @@ class FieldDataCapture:
         """
         Toggle the mode used for creating quick locality points.
         """
-        # Check that we have an open project and a geopackage with the correct layers
-        if not self.project_is_active():
-            return False
-        if not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
-            return False
-        if not self.check_fdc_layers_exist():
-            QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
+            # Ensure the button is not left toggled
+            if self.quick_locality_point_button.isChecked():
+                self.quick_locality_point_button.toggle()
             return False
 
         layer = QgsProject.instance().mapLayersByName("locality_point")[0]
@@ -814,6 +831,7 @@ class FieldDataCapture:
 
         if connect_slots:
             self.connect_post_new_point_functions(layer)
+            self.connect_close_project_function(layer)
 
         # Trigger the "Add Point Feature" button
         self.iface.actionAddFeature().trigger()
@@ -860,11 +878,22 @@ class FieldDataCapture:
             """
             # Save the layer changes
             layer.commitChanges()
-            # Open the new feature's form
-            new_feature = layer.getFeature(self.quick_locality_point_fid)
-            self.iface.openFeatureForm(layer, new_feature)
+
+            # Only re-open the feature form if the editCommandEnded signal triggers due to a new point
+            # If it is a new point, it's 'fid' will have been saved by the featureAdded signal
+            if self.quick_locality_point_fid is not None:
+                # Open the new feature's form
+                new_feature = layer.getFeature(self.quick_locality_point_fid)
+                self.iface.openFeatureForm(layer, new_feature)
+            
+            # Otherwise, the user has just completed an edit on an existing locality_point feature
+            else:
+                self.warn_unsaved_locality_children()
+
             # Re-enable the quick locality point mode
             self.enable_quick_locality_point(layer, connect_slots=False)
+            # Remove the saved 'fid' so that we know we have dealt with the new point
+            self.quick_locality_point_fid = None
 
         # Connect the signals and slots
         layer.featureAdded.connect(store_quick_locality_point_fid)
@@ -873,6 +902,22 @@ class FieldDataCapture:
         # Save the slot functions so we can disconnect them later
         self.locality_point_slots.append((layer.featureAdded, store_quick_locality_point_fid))
         self.locality_point_slots.append((layer.editCommandEnded, commit_changes_and_reopen_form))
+
+
+    def connect_close_project_function(self, layer: QgsVectorLayer) -> None:
+        """
+        Create and connect a slot function which will be run when the current QGIS project is about to be closed.
+        This is a new signal as of QGIS 3.34, previously we would have to use QgsProject.cleared.
+        This allows us to disable the quick locality point mode in the background without causing issues.
+        """
+        qgs_project = QgsProject.instance()
+
+        def disable_on_close() -> None:
+            self.disable_quick_locality_point(layer)
+            # The function then disconnects itself from the slot to ensure nothing about QGIS is left modified
+            qgs_project.aboutToBeCleared.disconnect(disable_on_close)
+
+        qgs_project.aboutToBeCleared.connect(disable_on_close)
 
 
     def disable_quick_locality_point(
@@ -897,3 +942,32 @@ class FieldDataCapture:
         self.quick_locality_point_fid = None
         if self.quick_locality_point_button.isChecked():
             self.quick_locality_point_button.toggle()
+
+        self.warn_unsaved_locality_children()
+
+
+    def warn_unsaved_locality_children(self) -> None:
+        """
+        Check if any of the locality_point child layers have unsaved changes.
+        If they do, a warning message is shown to the user in the form of a QMessageBox.
+        """
+        unsaved_layers = []
+        for layer_name in LOCALITY_POINT_CHILDREN:
+            layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+            if layer.isModified():
+                unsaved_layers.append(layer_name)
+
+        if unsaved_layers:
+            # Create the list of unsaved layer names to display in the QMessageBox
+            joined_names = "\n".join(unsaved_layers)
+            # Manually build the QMessageBox so we can change the icon
+            message_box = QMessageBox()
+            message_box.setWindowTitle("Warning")
+            message_box.setText(f"There are unsaved edits on the following layer(s):\n\n{joined_names}")
+            message_box.setStandardButtons(QMessageBox.Ok)
+            # Get the 'Current Edits' red pencils icon as a pixmap the size of the default QMessageBox icons
+            red_pencils_pixmap = self.iface.actionAllEdits().icon().pixmap(48, 48)
+            # Set the icon using the pixmap
+            message_box.setIconPixmap(red_pencils_pixmap)
+            # Open the message box
+            message_box.exec_()
