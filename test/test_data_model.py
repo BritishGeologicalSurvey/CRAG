@@ -18,6 +18,15 @@ COLUMN_CONSTRAINTS = {
     "uuid": "TEXT NOT NULL UNIQUE",
     "user_entered": "TEXT NOT NULL",
     "date_entered": "DATETIME NOT NULL",
+    # The following only appear in individual tables
+    "structure_type_code": "TEXT NOT NULL",
+    "manmade_type_code": "TEXT NOT NULL",
+    "lithology_code": "TEXT NOT NULL",
+    "media_type_code": "TEXT NOT NULL",
+    "photo_file": "TEXT NOT NULL",
+    "sample_id": "TEXT NOT NULL",
+    "sample_type_code": "TEXT NOT NULL",
+    "superficial_type_code": "TEXT NOT NULL",
 }
 
 
@@ -83,8 +92,10 @@ def assert_column_constraints(
         if table.startswith("dic_") and col_name in ["uuid", "objectid"]:
             continue
 
-        search_str = f'"{col_name}" {col_constraints}'
-        assert search_str in create_sql
+        # Only assert a constraint if the column name is in the table definition
+        if col_name in create_sql:
+            search_str = f'"{col_name}" {col_constraints}'
+            assert search_str in create_sql
 
     assert 'PRIMARY KEY("fid" AUTOINCREMENT)' in create_sql
 
