@@ -122,6 +122,11 @@ def assert_column_constraints(
         ("structural_measurement", "dip_direction", 359, None),
         ("structural_measurement", "dip_direction", -1, "CHECK constraint failed: dip_direction"),
         ("structural_measurement", "dip_direction", 360, "CHECK constraint failed: dip_direction"),
+        # Test NOT NULL constraint here, instead of with columns_constraints, because doesn't apply to all tables
+        ("structural_measurement", "dip", None,
+         "NOT NULL constraint failed: structural_measurement.dip"),
+        ("structural_measurement", "dip_direction", None,
+         "NOT NULL constraint failed: structural_measurement.dip_direction"),
 
         # Table: superficial_landform
         ("superficial_landform", "dip", 0, None),
@@ -139,16 +144,16 @@ def test_data_model_columns_constraints(
 ):
     # Arrange
     # Get the dict row fixture for the given table
-    update_sql = f'UPDATE {table} SET "{field}"={value} WHERE fid=1'
+    update_sql = f'UPDATE {table} SET {field}=? WHERE fid=1'
 
     # Act
     if error_message is None:
         # Inserting the row should not raise an error
-        etl.execute(update_sql, test_data_gpkg)
+        etl.execute(update_sql, test_data_gpkg, parameters=(value,))
     else:
         # Check that the correct error is raised
         with pytest.raises(etl.exceptions.ETLHelperQueryError) as excinfo:
-            etl.execute(update_sql, test_data_gpkg)
+            etl.execute(update_sql, test_data_gpkg, parameters=(value,))
 
         # Assert
         assert error_message in str(excinfo.value)
