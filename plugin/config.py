@@ -28,9 +28,7 @@ TABLES = {
         "dic_media",
         "dic_rock_all",
         "dic_sample",
-        "dic_structure_category",
         "dic_structure_code",
-        "dic_superficial_category",
         "dic_superficial_code",
         # Attributes
         "lithology",
