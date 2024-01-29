@@ -266,6 +266,16 @@ class FieldDataCapture:
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
         icon_path = ':/plugins/field_data_capture/icon.png'
+
+        self.quick_locality_point_button = self.add_action(
+            str(self.icons_dir / "quick_locality_point_button.png"),
+            text=self.tr(u'Quick Locality Point'),
+            callback=self.toggle_quick_locality_point_mode,
+            add_to_toolbar=True,
+            parent=self.iface.mainWindow(),
+            checkable=True,
+        )
+
         self.add_action(
             icon_path,
             text=self.tr(u'Setup Project'),
@@ -346,17 +356,6 @@ class FieldDataCapture:
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
-        )
-
-        self.quick_locality_point_button = self.add_action(
-            str(self.icons_dir / "quick_locality_point_button.png"),
-            text=self.tr(u'Quick Locality Point'),
-            callback=self.toggle_quick_locality_point_mode,
-            add_to_menu=False,
-            add_to_toolbar=True,
-            parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
-            checkable=True,
         )
 
         # will be set False in run()
