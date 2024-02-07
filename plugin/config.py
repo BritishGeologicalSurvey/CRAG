@@ -12,7 +12,9 @@ TABLES = {
         "terrain_line",
         # Views
         "view_structural_measurement",
-        "view_lithology"
+        "view_lithology",
+        "view_superficial_landform",
+        "view_manmade_landform",
     ],
     "attributes": [
         # Dictionaries
