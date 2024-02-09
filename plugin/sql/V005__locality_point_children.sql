@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS "photo" (
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
-  "photo_file" TEXT NOT NULL,
+  "photo_file" TEXT,
   "comment" TEXT,
   "user_entered" TEXT NOT NULL,
   "date_entered" DATETIME NOT NULL,

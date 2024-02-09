@@ -23,7 +23,6 @@ COLUMN_CONSTRAINTS = {
     "manmade_type_code": "TEXT NOT NULL",
     "lithology_code": "TEXT NOT NULL",
     "media_type_code": "TEXT NOT NULL",
-    "photo_file": "TEXT NOT NULL",
     "sample_id": "TEXT NOT NULL",
     "sample_type_code": "TEXT NOT NULL",
     "superficial_type_code": "TEXT NOT NULL",
