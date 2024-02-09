@@ -6414,7 +6414,7 @@
   </selection>
   <labeling type="simple">
     <settings calloutType="simple">
-      <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="map_face_note" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="10" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="Regular" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
+      <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="line_label" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="10" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="Regular" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
         <families></families>
         <text-buffer bufferBlendMode="0" bufferColor="250,250,250,255" bufferDraw="0" bufferJoinStyle="128" bufferNoFill="1" bufferOpacity="1" bufferSize="1" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSizeUnits="MM"></text-buffer>
         <text-mask maskEnabled="0" maskJoinStyle="128" maskOpacity="1" maskSize="0" maskSizeMapUnitScale="3x:0,0,0,0,0,0" maskSizeUnits="MM" maskType="0" maskedSymbolLayers=""></text-mask>
@@ -6602,7 +6602,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="map_face_note">
+    <field configurationFlags="NoFlag" name="line_label">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -6667,7 +6667,7 @@
     <alias field="uuid" index="2" name=""></alias>
     <alias field="field_project_fuid" index="3" name=""></alias>
     <alias field="line_type_code" index="4" name=""></alias>
-    <alias field="map_face_note" index="5" name=""></alias>
+    <alias field="line_label" index="5" name=""></alias>
     <alias field="comment" index="6" name=""></alias>
     <alias field="mapped_scale" index="7" name=""></alias>
     <alias field="user_entered" index="8" name=""></alias>
@@ -6681,7 +6681,7 @@
     <policy field="uuid" policy="Duplicate"></policy>
     <policy field="field_project_fuid" policy="Duplicate"></policy>
     <policy field="line_type_code" policy="Duplicate"></policy>
-    <policy field="map_face_note" policy="Duplicate"></policy>
+    <policy field="line_label" policy="Duplicate"></policy>
     <policy field="comment" policy="Duplicate"></policy>
     <policy field="mapped_scale" policy="Duplicate"></policy>
     <policy field="user_entered" policy="Duplicate"></policy>
@@ -6695,7 +6695,7 @@
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="field_project_fuid"></default>
     <default applyOnUpdate="0" expression="" field="line_type_code"></default>
-    <default applyOnUpdate="0" expression="" field="map_face_note"></default>
+    <default applyOnUpdate="0" expression="" field="line_label"></default>
     <default applyOnUpdate="0" expression="" field="comment"></default>
     <default applyOnUpdate="1" expression="attribute(get_feature('field_project', 'uuid', attribute(@feature, 'field_project_fuid')), 'mapped_scale')" field="mapped_scale"></default>
     <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
@@ -6709,7 +6709,7 @@
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="field_project_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="line_type_code" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="map_face_note" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="line_label" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="mapped_scale" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
@@ -6723,7 +6723,7 @@
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="field_project_fuid"></constraint>
     <constraint desc="" exp="" field="line_type_code"></constraint>
-    <constraint desc="" exp="" field="map_face_note"></constraint>
+    <constraint desc="" exp="" field="line_label"></constraint>
     <constraint desc="" exp="" field="comment"></constraint>
     <constraint desc="" exp="" field="mapped_scale"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
@@ -6792,7 +6792,7 @@ azimuth: [% format_number(&#xD;
         <labelFont bold="0" description="Noto Sans,9,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="map_face_note" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="5" name="line_label" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,5.5,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -6818,8 +6818,8 @@ azimuth: [% format_number(&#xD;
     <field editable="1" name="date_updated"></field>
     <field editable="1" name="fid"></field>
     <field editable="1" name="field_project_fuid"></field>
+    <field editable="1" name="line_label"></field>
     <field editable="1" name="line_type_code"></field>
-    <field editable="1" name="map_face_note"></field>
     <field editable="1" name="mapped_scale"></field>
     <field editable="1" name="objectid"></field>
     <field editable="1" name="user_entered"></field>
@@ -6832,8 +6832,8 @@ azimuth: [% format_number(&#xD;
     <field labelOnTop="0" name="date_updated"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="field_project_fuid"></field>
+    <field labelOnTop="0" name="line_label"></field>
     <field labelOnTop="0" name="line_type_code"></field>
-    <field labelOnTop="0" name="map_face_note"></field>
     <field labelOnTop="0" name="mapped_scale"></field>
     <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="user_entered"></field>
@@ -6846,8 +6846,8 @@ azimuth: [% format_number(&#xD;
     <field name="date_updated" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="field_project_fuid" reuseLastValue="0"></field>
+    <field name="line_label" reuseLastValue="0"></field>
     <field name="line_type_code" reuseLastValue="1"></field>
-    <field name="map_face_note" reuseLastValue="0"></field>
     <field name="mapped_scale" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
