@@ -5,6 +5,8 @@ plugin/help/build
 
 field-data-capture.gpkg
 er-diagram.png
+simple_lithology_parents.csv
+ttl-graph.png
 
 .vscode
 _LOCAL_*
