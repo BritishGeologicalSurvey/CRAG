@@ -10679,7 +10679,7 @@ azimuth: [% format_number(&#xD;
     <field name="date_entered" reuseLastValue="0"></field>
     <field name="date_updated" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
-    <field name="field_project_fuid" reuseLastValue="0"></field>
+    <field name="field_project_fuid" reuseLastValue="1"></field>
     <field name="line_label" reuseLastValue="0"></field>
     <field name="line_type_code" reuseLastValue="1"></field>
     <field name="mapped_scale" reuseLastValue="0"></field>
