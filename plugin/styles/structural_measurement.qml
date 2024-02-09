@@ -174,8 +174,8 @@
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="structure_type_code" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="dip" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="dip_direction" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="5" exp_strength="1" field="dip" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="5" exp_strength="1" field="dip_direction" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
@@ -188,8 +188,8 @@
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
     <constraint desc="" exp="" field="structure_type_code"></constraint>
-    <constraint desc="" exp="" field="dip"></constraint>
-    <constraint desc="" exp="" field="dip_direction"></constraint>
+    <constraint desc="0 &lt;= dip &lt;= 90" exp="&quot;dip&quot; >= 0 and &quot;dip&quot; &lt;= 90" field="dip"></constraint>
+    <constraint desc="0 &lt;= dip_direction &lt;= 360" exp="&quot;dip_direction&quot; >= 0 and &quot;dip_direction&quot; &lt;= 360" field="dip_direction"></constraint>
     <constraint desc="" exp="" field="comment"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
