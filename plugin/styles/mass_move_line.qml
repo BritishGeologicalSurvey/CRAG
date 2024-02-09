@@ -1233,8 +1233,7 @@ def my_form_open(dialog, layer, feature):
       <attributeEditorTextElement horizontalStretch="0" name="created" showLabel="0" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-        </labelStyle>Created by: [% "user_entered" %]&#xD;
-Created on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
+        </labelStyle>Created by [% "user_entered" %] on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
       <attributeEditorTextElement horizontalStretch="0" name="line stats" showLabel="0" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
