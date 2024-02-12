@@ -36,8 +36,9 @@ from xml.etree.ElementTree import canonicalize
 
 from qgis.core import (
     Qgis,
-    QgsDataProvider,
     QgsEditorWidgetSetup,
+    QgsLayerTree,
+    QgsLayerTreeGroup,
     QgsMapLayer,
     QgsProject,
     QgsVectorLayer,
@@ -488,40 +489,33 @@ class FieldDataCapture:
         if not self.validate_qgis_state(project_active=True, db_file_exists=True):
             return False
 
-        # Get layers root
+        # Get layer tree root
         root = QgsProject.instance().layerTreeRoot()
-        # Get db layers
-        db_root_layer = QgsVectorLayer(str(self.db_file), "", "ogr")
-        db_layers = db_root_layer.dataProvider().subLayers()
-        db_layer_names = [
-            layer.split(QgsDataProvider.SUBLAYER_SEPARATOR)[1]
-            for layer in db_layers
-        ]
 
         vector_layers = []
-        for group_name, group_layer_names in self.layer_tree_structure.items():
+        for idx, (group_name, group_layer_names) in enumerate(self.layer_tree_structure.items()):
+
             # Create the group if required
             add_to_legend = True
             if group_name is not None:
-                group = root.addGroup(group_name)
+                group = self.create_legend_group(root, group_name, idx)
                 add_to_legend = False
 
             for layer_name in group_layer_names:
-                # If the layer name in the dictionary is in the list of layers in the db file
-                if layer_name in db_layer_names:
+                # Create layer
+                uri = f"{self.db_file}|layername={layer_name}"
+                vector_layer = QgsVectorLayer(uri, layer_name, "ogr")
+                QgsProject.instance().addMapLayer(vector_layer, add_to_legend)
+                vector_layers.append(vector_layer)
 
-                    # Create layer
-                    uri = f"{self.db_file}|layername={layer_name}"
-                    vector_layer = QgsVectorLayer(uri, layer_name, "ogr")
-                    QgsProject.instance().addMapLayer(vector_layer, add_to_legend)
-                    vector_layers.append(vector_layer)
+                # Add layer to a group if required
+                if group_name is not None:
+                    tree_layer = group.addLayer(vector_layer)
+                    # Collapse all layers added to a group
+                    tree_layer.setExpanded(False)
 
-                    # Add layer to a group if required
-                    if group_name is not None:
-                        group.addLayer(vector_layer)
-
-                    if layer_name.startswith("dic"):
-                        vector_layer.setReadOnly()
+                if layer_name.startswith("dic"):
+                    vector_layer.setReadOnly()
 
         # We apply relationships and then styles after all layers are added to avoid conflicts
         self.find_create_relationships(vector_layers)
@@ -533,6 +527,27 @@ class FieldDataCapture:
             "Now add a project OR test data to allow you to begin adding locality data.",
         )
         return True
+
+
+    def create_legend_group(
+        self,
+        root: QgsLayerTree,
+        group_name: str,
+        idx: int,
+    ) -> QgsLayerTreeGroup:
+        """
+        Create a group with the given name.
+        Returns the new group.
+        """
+        # Insert a group into the layer tree at the given index
+        group = root.insertGroup(idx, group_name)
+        # If it is the lines group, expand it
+        if group_name == "lines":
+            group.setExpanded(True)
+        else:
+            group.setExpanded(False)
+        return group
+
 
     def refresh_relation_reference_widgets(self, layer: QgsVectorLayer) -> None:
         """
