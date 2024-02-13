@@ -492,10 +492,12 @@ class FieldDataCapture:
         # Get layer tree root
         root = QgsProject.instance().layerTreeRoot()
 
-        vector_layers = []
+        # Store the vector layers as keys, with it's corresponding group as the items
+        vector_layers = {}
         for idx, (group_name, group_layer_names) in enumerate(self.layer_tree_structure.items()):
 
             # Create the group if required
+            group = None
             add_to_legend = True
             if group_name is not None:
                 group = self.create_legend_group(root, group_name, idx)
@@ -506,22 +508,17 @@ class FieldDataCapture:
                 uri = f"{self.db_file}|layername={layer_name}"
                 vector_layer = QgsVectorLayer(uri, layer_name, "ogr")
                 QgsProject.instance().addMapLayer(vector_layer, add_to_legend)
-                vector_layers.append(vector_layer)
+                vector_layers[vector_layer] = group
 
-                # Add layer to a group if required
-                if group_name is not None:
-                    tree_layer = group.addLayer(vector_layer)
-                    # Collapse all layers added to a group
-                    tree_layer.setExpanded(False)
+        # Changes to layers are only done after all layers are added to avoid issues
+        # Create relationships first to ensure their corresponding styles/properties can be set
+        self.find_create_relationships(list(vector_layers.keys()))
+        self.apply_qml_styles(list(vector_layers.keys()))
+        self.set_vector_layer_properties(vector_layers)
 
-                if layer_name.startswith("dic"):
-                    vector_layer.setReadOnly()
-
-        # We apply relationships and then styles after all layers are added to avoid conflicts
-        self.find_create_relationships(vector_layers)
-        self.apply_qml_styles(vector_layers)
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
+
         QMessageBox.warning(
             None, "Warning",
             "Now add a project OR test data to allow you to begin adding locality data.",
@@ -547,6 +544,37 @@ class FieldDataCapture:
         else:
             group.setExpanded(False)
         return group
+
+
+    def set_vector_layer_properties(self, vector_layers: dict[QgsVectorLayer, Optional[QgsLayerTreeGroup]]) -> None:
+        """
+        Set the properties for the given vector layers.
+        This includes adding the layer to a group, setting read only, and setting display expressions.
+        """
+        for vector_layer, group in vector_layers.items():
+
+            # Add layer to a group if required
+            if group is not None:
+                tree_layer = group.addLayer(vector_layer)
+                # Collapse all layers added to a group
+                tree_layer.setExpanded(False)
+
+                # Set display expressions for locality point children
+                if group.name() == "locality_data":
+                    display_expressions = {
+                        "lithology": '''"lithology_code"''',
+                        "manmade_landform": '''"manmade_type_code"''',
+                        "media": '''"media_link" + ' | ' + "comment"''',
+                        "photo": '''"photo_file" + ' | ' + "comment"''',
+                        "sample": '''"sample_id"''',
+                        "structural_measurement": '''"structure_type_code"''',
+                        "superficial_landform": '''"superficial_type_code"''',
+                    }
+                    vector_layer.setDisplayExpression(display_expressions[vector_layer.name()])
+
+            # Set dictionary layers to read only
+            if vector_layer.name().startswith("dic"):
+                vector_layer.setReadOnly()
 
 
     def refresh_relation_reference_widgets(self, layer: QgsVectorLayer) -> None:
