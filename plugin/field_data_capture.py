@@ -76,7 +76,7 @@ from .create_gpkg_from_sql import (
     add_test_data,
     WORKDIR,
 )
-from .utils import ipdb_breakpoint
+from .utils import ipdb_breakpoint  # noqa
 
 logger = logging.getLogger('fdc')
 logging.basicConfig(level=logging.DEBUG)
@@ -731,6 +731,11 @@ class FieldDataCapture:
         relation_manager = QgsProject.instance().relationManager()
         relations = relation_manager.discoverRelations([], vector_layers)
         for relation in relations:
+            # Using the referencingLayer (child) creates other composition relations that are
+            # unnecessary here, so the referencedLayer (parent) needs to be checked
+            if relation.referencedLayer().name() == 'locality_point':
+                # For QGIS relations, 0 = association (default), 1 = composition
+                relation.setStrength(Qgis.RelationshipStrength(1))
             relation_manager.addRelation(relation)
 
 
@@ -951,6 +956,9 @@ class FieldDataCapture:
 
         def commit_changes_and_post(*args) -> None:
             """
+            Before anything else, if the current mode is delete, the child layers of locality_point are saved
+            to ensure the cascade delete works as expected.
+
             For all modes, the layer changes are saved when the signal editCommandEnded is triggered.
             Then, if the add mode is active, the form for the new feature is re-opened to display all tabs.
 
@@ -963,6 +971,13 @@ class FieldDataCapture:
             This is because the slots still exist from the button toggle when it was first enabled,
             and so we do not need to set them up again.
             """
+            # If we are in delete mode, we need to save the child layer changes first
+            if self.current_quick_locality_mode == "delete":
+                for child_layer_name in self.layer_tree_structure["locality_data"]:
+                    child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
+                    if child_layer.isModified():
+                        child_layer.commitChanges()
+
             # Always save the layer changes
             layer.commitChanges()
 
