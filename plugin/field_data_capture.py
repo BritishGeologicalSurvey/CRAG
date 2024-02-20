@@ -869,9 +869,13 @@ class FieldDataCapture:
         Toggle the given quick locality point mode.
         """
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
-            # Ensure the button is not left toggled
-            if self.quick_locality_buttons[mode].isChecked():
-                self.quick_locality_buttons[mode].toggle()
+            # Disable any current modes to prevent issues
+            self.disable_quick_locality_mode()
+
+            # Ensure all buttons are not left toggled
+            for quick_locality_button in self.quick_locality_buttons.values():
+                if quick_locality_button.isChecked():
+                    quick_locality_button.toggle()
             return False
 
         layer = QgsProject.instance().mapLayersByName("locality_point")[0]
@@ -1021,14 +1025,14 @@ class FieldDataCapture:
         def disable_on_close() -> None:
             self.disable_quick_locality_mode(layer)
             # The function then disconnects itself from the slot to ensure nothing about QGIS is left modified
-            qgs_project.aboutToBeCleared.disconnect(disable_on_close)
+            self.disconnect_slot(qgs_project.aboutToBeCleared, disable_on_close)
 
         qgs_project.aboutToBeCleared.connect(disable_on_close)
 
 
     def disable_quick_locality_mode(
         self,
-        layer: QgsVectorLayer,
+        layer: Optional[QgsVectorLayer] = None,
     ) -> str:
         """
         Disable the currently active quick locality point mode and remove any temporary slots.
@@ -1036,12 +1040,18 @@ class FieldDataCapture:
         """
         # Stop editing the layer
         # New points are automatically saved, so this should not remove any changes
-        if layer.isEditable():
-            layer.rollBack()
+        if layer is not None:
+            # We use a try except here because if the user fiddles with the layers
+            # then the signals can be stuck connected if the script errors
+            try:
+                if layer.isEditable():
+                    layer.rollBack()
+            except RuntimeError:
+                pass
 
         # Disconnect the slots
         for signal, slot_function in self.quick_locality_slots:
-            signal.disconnect(slot_function)
+            self.disconnect_slot(signal, slot_function)
         self.quick_locality_slots = []
 
         # Disable quick locality point mode
@@ -1055,6 +1065,19 @@ class FieldDataCapture:
                 quick_button.toggle()
 
         return disabled_mode
+
+
+    def disconnect_slot(self, signal: pyqtSignal, function_: Callable) -> None:
+        """
+        Disconnect the given slot if it is connected.
+        We cannot check that the signal is connected to the function, but a TypeError is raised
+        if we try to disconnect them when they are not already connected.
+        Therefore, we use a try except to ensure the slot is disconnected without raising an error.
+        """
+        try:
+            signal.disconnect(function_)
+        except TypeError:
+            pass
 
 
     def warn_unsaved_locality_children(self) -> None:
