@@ -281,8 +281,7 @@ class FieldDataCapture:
         )
 
         self.quick_locality_buttons["edit"] = self.add_action(
-            icon_path,
-            # str(self.icons_dir / "quick_locality_add.png"),
+            str(self.icons_dir / "quick_locality_edit.png"),
             text=self.tr(u'Quick Edit Locality Point'),
             callback=lambda: self.toggle_quick_locality_mode(mode="edit"),
             add_to_toolbar=True,
@@ -291,8 +290,7 @@ class FieldDataCapture:
         )
 
         self.quick_locality_buttons["delete"] = self.add_action(
-            icon_path,
-            # str(self.icons_dir / "quick_locality_add.png"),
+            str(self.icons_dir / "quick_locality_delete.png"),
             text=self.tr(u'Quick Delete Locality Point'),
             callback=lambda: self.toggle_quick_locality_mode(mode="delete"),
             add_to_toolbar=True,
