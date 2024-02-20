@@ -1036,14 +1036,19 @@ class FieldDataCapture:
         Disable the currently active quick locality point mode and remove any temporary slots.
         Returns the name of the mode which was disabled.
         """
-        # Stop editing the layer
-        # New points are automatically saved, so this should not remove any changes
         if layer is not None:
             # We use a try except here because if the user fiddles with the layers
             # then the signals can be stuck connected if the script errors
             try:
+
+                # Stop editing the layer
+                # New points are automatically saved, so this should not remove any changes
                 if layer.isEditable():
                     layer.rollBack()
+
+                # Deselect features of the layer
+                layer.removeSelection()
+
             except RuntimeError:
                 pass
 
@@ -1061,6 +1066,8 @@ class FieldDataCapture:
         for quick_button in self.quick_locality_buttons.values():
             if quick_button.isChecked():
                 quick_button.toggle()
+
+        self.iface.actionPan().trigger()
 
         return disabled_mode
 
