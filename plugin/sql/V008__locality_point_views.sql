@@ -32,24 +32,27 @@ VALUES('view_structural_measurement','geometry','POINT',4326,1,0);
 
 CREATE VIEW IF NOT EXISTS "view_lithology" AS
  SELECT
-    fp.short_name as field_project,
-    lp.name as locality_point,
+    fp.short_name AS field_project,
+    lp.name AS locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
-    type.code as exposure_type,
-	  lith.lithology_code,
-	  rock.code as lithology,
-    lith.description,
+    exp_type.code AS exposure_type,
+	  lith.description,
     lith.notes,
+    lith.lithology_code,
+	  sl.name as simple_lithology,
+	  rock.description AS type_description,
     lith.uuid AS lithology_uuid,
     lp.uuid AS locality_uuid,
-    lp.geometry as geometry
+	  sl.hex_colour,
+    lp.geometry AS geometry
   FROM lithology lith
-    LEFT JOIN locality_point lp on lith.locality_fuid = lp.uuid
-    LEFT JOIN dic_exposure_type type on lp.exposure_type_code = type.code
-	  LEFT JOIN dic_rock_field rock on lith.lithology_code = rock.code
-    LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
+    LEFT JOIN locality_point lp ON lith.locality_fuid = lp.uuid
+    LEFT JOIN dic_exposure_type exp_type ON lp.exposure_type_code = exp_type.code
+	  LEFT JOIN dic_rock_field rock ON lith.lithology_code = rock.code
+    LEFT JOIN field_project fp ON lp.field_project_fuid = fp.uuid
+	  LEFT JOIN _simple_lithology sl ON rock.simple_lithology = sl.name
 ;
 
 INSERT INTO gpkg_contents
