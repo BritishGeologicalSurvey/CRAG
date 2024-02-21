@@ -19,7 +19,7 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
     lp.geometry as geometry
   FROM structural_measurement sm
     LEFT JOIN locality_point lp on sm.locality_fuid = lp.uuid
-    LEFT JOIN dic_structure_code st on sm.structure_type_code = st.code
+    LEFT JOIN dic_structure st on sm.structure_type_code = st.code
     LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 
@@ -78,7 +78,7 @@ CREATE VIEW IF NOT EXISTS "view_superficial_landform" AS
     lp.geometry as geometry
   FROM superficial_landform sl
     LEFT JOIN locality_point lp on sl.locality_fuid = lp.uuid
-    LEFT JOIN dic_superficial_code sc on sl.superficial_type_code = sc.code
+    LEFT JOIN dic_superficial_landform sc on sl.superficial_type_code = sc.code
     LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 
@@ -107,7 +107,7 @@ CREATE VIEW IF NOT EXISTS "view_manmade_landform" AS
     lp.geometry as geometry
   FROM manmade_landform ml
     LEFT JOIN locality_point lp on ml.locality_fuid = lp.uuid
-    LEFT JOIN dic_manmade_code mc on ml.manmade_type_code = mc.code
+    LEFT JOIN dic_manmade_landform mc on ml.manmade_type_code = mc.code
     LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 

@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS "structural_measurement" (
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
-  "structure_type_category" TEXT NOT NULL,
   "structure_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),
   "azimuth" INTEGER CHECK("azimuth" >= 0 AND "azimuth" < 360),
@@ -14,8 +13,7 @@ CREATE TABLE IF NOT EXISTS "structural_measurement" (
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
-  FOREIGN KEY("structure_type_code") REFERENCES "dic_structure_code"("code"),
-  FOREIGN KEY("structure_type_category") REFERENCES "dic_structure_category"("code"),
+  FOREIGN KEY("structure_type_code") REFERENCES "dic_structure"("code"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
@@ -39,7 +37,7 @@ CREATE TABLE IF NOT EXISTS "manmade_landform" (
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
-  FOREIGN KEY("manmade_type_code") REFERENCES "dic_manmade_code"("code"),
+  FOREIGN KEY("manmade_type_code") REFERENCES "dic_manmade_landform"("code"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
@@ -135,7 +133,6 @@ CREATE TABLE IF NOT EXISTS "superficial_landform" (
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
-  "superficial_type_category" TEXT NOT NULL,
   "superficial_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),
   "azimuth" INTEGER CHECK("azimuth" >= 0 AND "azimuth" < 360),
@@ -147,8 +144,7 @@ CREATE TABLE IF NOT EXISTS "superficial_landform" (
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
-  FOREIGN KEY("superficial_type_code") REFERENCES "dic_superficial_code"("code"),
-  FOREIGN KEY("superficial_type_category") REFERENCES "dic_superficial_category"("code"),
+  FOREIGN KEY("superficial_type_code") REFERENCES "dic_superficial_landform"("code"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
