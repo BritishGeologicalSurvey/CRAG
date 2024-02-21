@@ -24,8 +24,8 @@ COLUMN_CONSTRAINTS = {
 
 
 def test_data_loading(test_data_gpkg):
-    # Testing that the fixutre works
-    assert True
+    # Testing that the fixture works
+    assert isinstance(test_data_gpkg, sqlite3.Connection)
 
 
 @pytest.mark.parametrize(
