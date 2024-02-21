@@ -1,3 +1,4 @@
+from collections import defaultdict
 import sqlite3
 from typing import Optional
 
@@ -8,6 +9,7 @@ from plugin.config import (
     ATTRIBUTE_TABLES,
     DICTIONARIES,
     FEATURE_TABLES,
+    INTERNAL_TABLES,
     VIEWS
 )
 
@@ -155,6 +157,9 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     expected_contents += [(table, "attributes") for table in ATTRIBUTE_TABLES | {"view_next_locality_id"}]
     expected_contents += [(table, "attributes") for table in DICTIONARIES]
 
+    # Note that in future we may not register the INTERNAL_TABLES in the geopackage
+    expected_contents += [(table, "attributes") for table in INTERNAL_TABLES]
+
     # Act
     query = """
         SELECT
@@ -251,3 +256,30 @@ def test_clear_update_field_on_insert_trigger(test_data_gpkg: sqlite3.Connection
     )
 
     assert update_result == ("leorud", "2023-11-31T16:20:11.012")
+
+
+def test_lnk_rock_project_trigger_fires_on_new_project(test_data_gpkg: sqlite3.Connection):
+    # Loading the test data creates a project, which should result in
+    # records being populated into the _lnk_rock_project table.
+
+    # Arrange data to check
+    test_project_uuid = etl.fetchone("SELECT uuid FROM field_project LIMIT 1",
+                                     test_data_gpkg).uuid
+
+    default_lithologies_sql = """
+        SELECT code
+        FROM dic_rock_field
+        WHERE is_default IS True"""
+    result = etl.fetchall(default_lithologies_sql, test_data_gpkg)
+    default_lithologies = {row.code for row in result}
+
+    rock_project_sql = """
+        SELECT rock_code, field_project_uuid
+        FROM _lnk_rock_project"""
+    rocks_by_project = defaultdict(set)
+    for row in etl.fetchall(rock_project_sql, test_data_gpkg):
+        rocks_by_project[row.field_project_uuid].add(row.rock_code)
+
+    # Assert
+    assert len(rocks_by_project) == 1
+    assert rocks_by_project[test_project_uuid] == default_lithologies

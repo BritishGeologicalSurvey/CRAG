@@ -34,4 +34,30 @@ CREATE TRIGGER "field_project_clear_updated"
       UPDATE "field_project" SET user_updated = NULL, date_updated = NULL
       WHERE fid = NEW."fid"; END;
 
+
+CREATE TABLE IF NOT EXISTS "_lnk_rock_project" (
+	"fid"	INTEGER NOT NULL,
+	"field_project_uuid" TEXT NOT NULL,
+	"rock_code"	TEXT NOT NULL,
+	FOREIGN KEY("rock_code") REFERENCES "dic_rock_all"("code"),
+	FOREIGN KEY("field_project_uuid") REFERENCES "field_project"("uuid"),
+	PRIMARY KEY("fid" AUTOINCREMENT)
+);
+
+-- TODO: register relationship in geopackage http://www.geopackage.org/guidance/extensions/related_tables.html
+insert into gpkg_contents
+values('_lnk_rock_project','attributes','_lnk_rock_project','Linking table to define project lithologies','2022-09-15t13:21:52.679z',null,null,null,null,null);
+
+
+CREATE TRIGGER add_new_project_lithologies
+AFTER INSERT ON field_project
+BEGIN
+  INSERT INTO _lnk_rock_project (field_project_uuid, rock_code)
+  SELECT
+     NEW.uuid as field_project_uuid,  -- new project ID
+     code as rock_code
+     FROM dic_rock_field
+     WHERE is_default IS True;
+END;
+
 COMMIT;
