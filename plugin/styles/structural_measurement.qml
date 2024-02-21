@@ -189,7 +189,7 @@
     <constraint desc="" exp="" field="locality_fuid"></constraint>
     <constraint desc="" exp="" field="structure_type_code"></constraint>
     <constraint desc="0 &lt;= dip &lt;= 90" exp="&quot;dip&quot; >= 0 and &quot;dip&quot; &lt;= 90" field="dip"></constraint>
-    <constraint desc="0 &lt;= dip_direction &lt;= 360" exp="&quot;dip_direction&quot; >= 0 and &quot;dip_direction&quot; &lt;= 360" field="dip_direction"></constraint>
+    <constraint desc="0 &lt;= dip_direction &lt; 360" exp="&quot;dip_direction&quot; >= 0 and &quot;dip_direction&quot; &lt; 360" field="dip_direction"></constraint>
     <constraint desc="" exp="" field="comment"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
