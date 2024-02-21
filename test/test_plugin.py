@@ -17,6 +17,7 @@ from qgis.core import (
     QgsAttributeEditorContainer,
     QgsLayerTreeGroup,
     QgsProject,
+    QgsVectorLayer,
     QgsVectorLayerUtils,
 )
 from qgis.PyQt.QtCore import pyqtBoundSignal
@@ -315,48 +316,90 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
         assert feature.attribute("name") == expected_name
 
 
-def test_quick_locality_point_enable(fdc_project: FieldDataCapture):
+@pytest.mark.parametrize(
+    ["mode", "number_of_slots"],
+    (
+        ("add", 2),
+        ("edit", 1),
+        ("delete", 1),
+    ),
+)
+def test_quick_locality_enable(
+    fdc_project: FieldDataCapture,
+    mode: str,
+    number_of_slots: int,
+):
     # Arrange
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
     # Act
     # Enable quick locality point mode
-    fdc_project.toggle_quick_locality_point_mode()
+    fdc_project.toggle_quick_locality_mode(mode=mode)
 
     # Assert
     # We cannot check the active layer as it is not a working function in the mocked iface
     assert layer.isEditable()
-    assert len(fdc_project.locality_point_slots) == 2
-    for signal, slot in fdc_project.locality_point_slots:
+    assert len(fdc_project.quick_locality_slots) == number_of_slots
+    for signal, slot in fdc_project.quick_locality_slots:
         assert isinstance(signal, pyqtBoundSignal)
         assert isinstance(slot, Callable)
-    assert fdc_project.quick_locality_point_mode
+    assert fdc_project.current_quick_locality_mode == mode
 
 
-def test_quick_locality_point_disable(fdc_project: FieldDataCapture):
+@pytest.mark.parametrize(
+    "mode",
+    ("add", "edit", "delete"),
+)
+def test_quick_locality_disable(fdc_project: FieldDataCapture, mode: str):
     # Arrange
     # Enable quick locality point mode
-    fdc_project.toggle_quick_locality_point_mode()
+    fdc_project.toggle_quick_locality_mode(mode=mode)
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
     # Act
     # Disable quick locality point mode
-    fdc_project.toggle_quick_locality_point_mode()
+    fdc_project.toggle_quick_locality_mode(mode=mode)
 
     # Assert
     assert not layer.isEditable()
-    assert fdc_project.locality_point_slots == []
-    assert not fdc_project.quick_locality_point_mode
-    assert fdc_project.quick_locality_point_fid is None
+    assert fdc_project.quick_locality_slots == []
+    assert not fdc_project.current_quick_locality_mode
+    assert fdc_project.quick_locality_fid is None
 
 
-def test_quick_locality_point_add(
+@pytest.mark.parametrize(
+    "new_mode",
+    ("edit", "delete"),
+)
+def test_quick_locality_switch_mode(
+    fdc_project: FieldDataCapture,
+    new_mode: str,
+):
+    # Arrange
+    # Enable add quick locality point mode
+    fdc_project.toggle_quick_locality_mode(mode="add")
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+
+    # Act
+    fdc_project.toggle_quick_locality_mode(mode=new_mode)
+
+    # Assert
+    assert layer.isEditable()
+    # Both the edit and delete mode only use 1 slot
+    assert len(fdc_project.quick_locality_slots) == 1
+    for signal, slot in fdc_project.quick_locality_slots:
+        assert isinstance(signal, pyqtBoundSignal)
+        assert isinstance(slot, Callable)
+    assert fdc_project.current_quick_locality_mode == new_mode
+
+
+def test_quick_locality_add(
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
-    # Enable quick locality point mode
-    fdc_project.toggle_quick_locality_point_mode()
+    # Enable add quick locality point mode
+    fdc_project.toggle_quick_locality_mode("add")
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
     # Monkeypatch the iface.openFeatureForm function to ensure it was called
@@ -375,12 +418,16 @@ def test_quick_locality_point_add(
     layer.editCommandEnded.emit()
 
     # Assert 1
+    # Check that the layer is saved
+    assert not layer.isModified()
+    # Check that the layer has re-enabled editing mode
+    assert layer.isEditable()
     expected_fid_1 = 3
     new_feature_1 = list(layer.getFeatures())[-1]
     assert new_feature_1.attribute("fid") == expected_fid_1
     # The 'fid' is only stored until the form is re-opened
     # Therefore, when we come to check the 'fid' it should have been discarded
-    assert fdc_project.quick_locality_point_fid is None
+    assert fdc_project.quick_locality_fid is None
     mock_function.assert_called_with(layer, new_feature_1)
 
     # Act 2
@@ -400,27 +447,27 @@ def test_quick_locality_point_add(
     assert new_feature_2.attribute("fid") == expected_fid_2
     # The 'fid' is only stored until the form is re-opened
     # Therefore, when we come to check the 'fid' it should have been discarded
-    assert fdc_project.quick_locality_point_fid is None
+    assert fdc_project.quick_locality_fid is None
     mock_function.assert_called_with(layer, new_feature_2)
 
     # Act 3
-    # Disable quick locality point mode
-    fdc_project.toggle_quick_locality_point_mode()
+    # Disable add quick locality point mode
+    fdc_project.toggle_quick_locality_mode(mode="add")
 
     # Assert 3
     assert not layer.isEditable()
-    assert fdc_project.locality_point_slots == []
-    assert not fdc_project.quick_locality_point_mode
-    assert fdc_project.quick_locality_point_fid is None
+    assert fdc_project.quick_locality_slots == []
+    assert not fdc_project.current_quick_locality_mode
+    assert fdc_project.quick_locality_fid is None
 
 
-def test_quick_locality_point_edit_point(fdc_project: FieldDataCapture):
+def test_quick_locality_edit(fdc_project: FieldDataCapture):
     # Arrange
     point_fid = 1
     edited_field = "description"
     new_value = "new description"
-    # Enable quick locality point mode
-    fdc_project.toggle_quick_locality_point_mode()
+    # Enable edit quick locality point mode
+    fdc_project.toggle_quick_locality_mode(mode="edit")
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
     description_index = [field.name() for field in layer.fields()].index(edited_field)
 
@@ -438,13 +485,55 @@ def test_quick_locality_point_edit_point(fdc_project: FieldDataCapture):
     # Check that the edit has been saved correctly
     assert layer.getFeature(point_fid).attribute(edited_field) == new_value
     # Check that the 'fid' of the point was not saved because it is not a new point
-    assert fdc_project.quick_locality_point_fid is None
+    assert fdc_project.quick_locality_fid is None
 
 
-def test_quick_locality_point_close_project(fdc_project: FieldDataCapture):
+def test_quick_locality_delete(fdc_project: FieldDataCapture):
+    # Arrange
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    # Enable delete quick locality point mode
+    fdc_project.toggle_quick_locality_mode(mode="delete")
+    delete_fid = 1
+
+    # Act
+    # Delete one of the test points
+    # We have to setup a new DeleteContext object which is used to perform a cascade delete programmatically
+    # The DeleteContext object also requires the project instance
+    context = QgsVectorLayer.DeleteContext(cascade=True, project=QgsProject.instance())
+    layer.deleteFeature(fid=delete_fid, context=context)
+    # Emit the GUI signal that triggers the auto save
+    layer.editCommandEnded.emit()
+
+    # Assert
+    # Check that the layer is saved
+    assert not layer.isModified()
+    # Check that the layer has re-enabled editing mode
+    assert layer.isEditable()
+    features = list(layer.getFeatures())
+    # Check that there is only 1 feature remaining
+    assert len(features) == 1
+    # Check that it's fid value is not the one we deleted
+    assert features[0].attribute("fid") != delete_fid
+
+    # Check that the deleted feature children do not exist
+    for child_layer_name in fdc_project.layer_tree_structure["locality_data"]:
+        child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
+        # The child layer should have been autosaved
+        assert not child_layer.isEditable()
+        assert not child_layer.isModified()
+        # For each of the features in the child layer, check the locality_fuid does not match the deleted fid
+        for child_feature in child_layer.getFeatures():
+            assert child_feature.attribute("locality_fuid") != delete_fid
+
+
+@pytest.mark.parametrize(
+    "mode",
+    ("add", "edit", "delete"),
+)
+def test_quick_locality_close_project(fdc_project: FieldDataCapture, mode: str):
     # Arrange
     # Enable quick locality point mode
-    fdc_project.toggle_quick_locality_point_mode()
+    fdc_project.toggle_quick_locality_mode(mode=mode)
 
     # Act
     # Close the test project
@@ -452,9 +541,9 @@ def test_quick_locality_point_close_project(fdc_project: FieldDataCapture):
 
     # Assert
     # We don't check if the layer is editable because it will not exist anymore
-    assert fdc_project.locality_point_slots == []
-    assert not fdc_project.quick_locality_point_mode
-    assert fdc_project.quick_locality_point_fid is None
+    assert fdc_project.quick_locality_slots == []
+    assert not fdc_project.current_quick_locality_mode
+    assert fdc_project.quick_locality_fid is None
 
 
 @pytest.mark.parametrize(
