@@ -941,15 +941,15 @@ class FieldDataCapture:
     def toggle_quick_locality_mode(self, mode: str) -> bool:
         """
         Toggle the given quick locality point mode.
+        Returns a boolean indicating the success of the process.
         """
-        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
+        if any((
+            not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True),
+            self.warn_unsaved_locality_children(parent=True)
+        )):
             # Disable any current modes to prevent issues
             self.disable_quick_locality_mode()
-
-            # Ensure all buttons are not left toggled
-            for quick_locality_button in self.quick_locality_buttons.values():
-                if quick_locality_button.isChecked():
-                    quick_locality_button.toggle()
+            self.untoggle_quick_locality_buttons()
             return False
 
         layer = QgsProject.instance().mapLayersByName("locality_point")[0]
@@ -970,6 +970,17 @@ class FieldDataCapture:
         # Else, no mode is active and we need to enable it
         else:
             self.enable_quick_locality(layer, mode=mode)
+
+        return True
+
+
+    def untoggle_quick_locality_buttons(self) -> None:
+        """
+        Ensure all of the quick locality buttons are not toggled.
+        """
+        for quick_locality_button in self.quick_locality_buttons.values():
+            if quick_locality_button.isChecked():
+                quick_locality_button.toggle()
 
 
     def enable_quick_locality(
@@ -1138,10 +1149,7 @@ class FieldDataCapture:
         self.current_quick_locality_mode = False
         self.quick_locality_fid = None
 
-        # Ensure all quick locality buttons are toggled off
-        for quick_button in self.quick_locality_buttons.values():
-            if quick_button.isChecked():
-                quick_button.toggle()
+        self.untoggle_quick_locality_buttons()
 
         self.iface.actionPan().trigger()
 
@@ -1161,12 +1169,22 @@ class FieldDataCapture:
             pass
 
 
-    def warn_unsaved_locality_children(self) -> None:
+    def warn_unsaved_locality_children(self, parent: bool = False) -> bool:
         """
         Check if any of the locality_point child layers have unsaved changes.
+        Also gives the option to check if the parent layer has unsaved changes.
         If they do, a warning message is shown to the user in the form of a QMessageBox.
+        Returns a boolean indicating if unsaved layers were found.
         """
         unsaved_layers = []
+
+        # Check the parent layer
+        parent_layer_name = "locality_point"
+        parent_layer = QgsProject.instance().mapLayersByName(parent_layer_name)[0]
+        if parent_layer.isModified():
+            unsaved_layers.append(parent_layer_name)
+
+        # Check the child layers
         for layer_name in LOCALITY_POINT_CHILDREN:
             layer = QgsProject.instance().mapLayersByName(layer_name)[0]
             if layer.isModified():
@@ -1186,3 +1204,6 @@ class FieldDataCapture:
             message_box.setIconPixmap(red_pencils_pixmap)
             # Open the message box
             message_box.exec_()
+            return True
+
+        return False
