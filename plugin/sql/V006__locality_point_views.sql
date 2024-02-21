@@ -37,9 +37,9 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
-    type.display_text as exposure_type,
+    type.code as exposure_type,
 	  lith.lithology_code,
-	  rock.display_text as lithology,
+	  rock.code as lithology,
     lith.description,
     lith.notes,
     lith.uuid AS lithology_uuid,
@@ -48,7 +48,7 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
   FROM lithology lith
     LEFT JOIN locality_point lp on lith.locality_fuid = lp.uuid
     LEFT JOIN dic_exposure_type type on lp.exposure_type_code = type.code
-	LEFT JOIN dic_rock_all rock on lith.lithology_code = rock.code
+	  LEFT JOIN dic_rock_all rock on lith.lithology_code = rock.code
     LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 
