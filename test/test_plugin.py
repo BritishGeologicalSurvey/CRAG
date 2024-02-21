@@ -313,6 +313,34 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
 
 
 @pytest.mark.parametrize(
+    "layer_name",
+    (
+        "locality_point",
+        "lithology",
+        "manmade_landform",
+        "media",
+        "photo",
+        "sample",
+        "structural_measurement",
+        "superficial_landform",
+    ),
+)
+def test_warn_unsaved_locality_point_edits(fdc_project: FieldDataCapture, layer_name: str):
+    # Arrange
+    # Manually make an edit
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer.startEditing()
+    user_updated_index = [field.name() for field in layer.fields()].index("user_updated")
+    layer.changeAttributeValue(fid=1, field=user_updated_index, newValue="dummy_user")
+
+    # Act
+    unsaved_edits = fdc_project.warn_unsaved_locality_children(parent=True)
+
+    # Assert
+    assert unsaved_edits
+
+
+@pytest.mark.parametrize(
     ["mode", "number_of_slots"],
     (
         ("add", 2),
@@ -387,6 +415,31 @@ def test_quick_locality_switch_mode(
         assert isinstance(signal, pyqtBoundSignal)
         assert isinstance(slot, Callable)
     assert fdc_project.current_quick_locality_mode == new_mode
+
+
+@pytest.mark.parametrize(
+    "mode",
+    ("add", "edit", "delete"),
+)
+def test_quick_locality_warn_edits(fdc_project: FieldDataCapture, mode: str):
+    # Arrange
+    # Manually make an edit without the quick locality mode and do not save it
+    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    layer.startEditing()
+    description_index = [field.name() for field in layer.fields()].index("description")
+    layer.changeAttributeValue(fid=1, field=description_index, newValue="new description")
+
+    # Act
+    # Try to enable quick locality point mode
+    process_result = fdc_project.toggle_quick_locality_mode(mode=mode)
+
+    # Assert
+    # Check that the process did not complete
+    assert not process_result
+    # Check that no quick locality point modes were enabled
+    assert fdc_project.quick_locality_slots == []
+    assert not fdc_project.current_quick_locality_mode
+    assert fdc_project.quick_locality_fid is None
 
 
 def test_quick_locality_add(
