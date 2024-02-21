@@ -107,7 +107,7 @@ insert into gpkg_contents
 values('dic_rock_all','attributes','dic_rock_all','Dictionary of rock types','2023-09-15t13:21:52.679z',null,null,null,null,null);
 
 CREATE TABLE IF NOT EXISTS "dic_structure" (
-	"fid"	INTEGER NOT NULL UNIQUE,
+	"fid"	INTEGER NOT NULL,
 	"category"	TEXT NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
@@ -119,10 +119,10 @@ CREATE TABLE IF NOT EXISTS "dic_structure" (
 	"secondary_attribute"	TEXT,
 	"third_attribute"	TEXT,
 	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATE NOT NULL,
+	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
-	"date_updated"	DATE,
-	PRIMARY KEY("code")
+	"date_updated"	DATETIME,
+	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 insert into gpkg_contents

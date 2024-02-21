@@ -40,7 +40,7 @@ def test_data_loading(test_data_gpkg):
         ),
         (   # Dictionary tables
             DICTIONARIES,
-            {"fid", "code", "description", "display_text"},
+            {"fid", "code", "description", "translation"},
         ),
     ],
 )
