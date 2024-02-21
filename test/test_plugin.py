@@ -532,7 +532,7 @@ def test_quick_locality_delete(fdc_project: FieldDataCapture):
 )
 def test_quick_locality_close_project(fdc_project: FieldDataCapture, mode: str):
     # Arrange
-    # Enable add quick locality point mode
+    # Enable quick locality point mode
     fdc_project.toggle_quick_locality_mode(mode=mode)
 
     # Act
