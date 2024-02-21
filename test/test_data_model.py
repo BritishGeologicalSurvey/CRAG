@@ -18,14 +18,6 @@ COLUMN_CONSTRAINTS = {
     "uuid": "TEXT NOT NULL UNIQUE",
     "user_entered": "TEXT NOT NULL",
     "date_entered": "DATETIME NOT NULL",
-    # The following only appear in individual tables
-    "structure_type_code": "TEXT NOT NULL",
-    "manmade_type_code": "TEXT NOT NULL",
-    "lithology_code": "TEXT NOT NULL",
-    "media_type_code": "TEXT NOT NULL",
-    "sample_id": "TEXT NOT NULL",
-    "sample_type_code": "TEXT NOT NULL",
-    "superficial_type_code": "TEXT NOT NULL",
 }
 
 
@@ -39,16 +31,16 @@ def test_data_loading(test_data_gpkg):
     [
         (   # Spatial (feature) tables
             FEATURE_TABLES,
-            {"fid", "objectid", "uuid", "geometry", "comment", "user_entered", "date_entered", "user_updated",
+            {"fid", "objectid", "uuid", "geometry", "notes", "user_entered", "date_entered", "user_updated",
              "date_updated"},
         ),
         (   # Non-spatial (attribute) tables
             ATTRIBUTE_TABLES,
-            {"fid", "objectid", "uuid", "comment", "user_entered", "date_entered", "user_updated", "date_updated"},
+            {"fid", "objectid", "uuid", "notes", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
             DICTIONARIES,
-            {"fid", "code", "description", "translation"},
+            {"fid", "code", "description", "display_text"},
         ),
     ],
 )
@@ -91,10 +83,8 @@ def assert_column_constraints(
         if table.startswith("dic_") and col_name in ["uuid", "objectid"]:
             continue
 
-        # Only assert a constraint if the column name is in the table definition
-        if col_name in create_sql:
-            search_str = f'"{col_name}" {col_constraints}'
-            assert search_str in create_sql
+        search_str = f'"{col_name}" {col_constraints}'
+        assert search_str in create_sql
 
     assert 'PRIMARY KEY("fid" AUTOINCREMENT)' in create_sql
 
@@ -107,31 +97,30 @@ def assert_column_constraints(
         ("manmade_landform", "dip", 90, None),
         ("manmade_landform", "dip", -1, "CHECK constraint failed: dip"),
         ("manmade_landform", "dip", 91, "CHECK constraint failed: dip"),
-        ("manmade_landform", "dip_direction", 0, None),
-        ("manmade_landform", "dip_direction", 359, None),
-        ("manmade_landform", "dip_direction", -1, "CHECK constraint failed: dip_direction"),
-        ("manmade_landform", "dip_direction", 360, "CHECK constraint failed: dip_direction"),
+        ("manmade_landform", "azimuth", 0, None),
+        ("manmade_landform", "azimuth", 359, None),
+        ("manmade_landform", "azimuth", -1, "CHECK constraint failed: azimuth"),
+        ("manmade_landform", "azimuth", 360, "CHECK constraint failed: azimuth"),
 
         # Table: structural_measurement
         ("structural_measurement", "dip", 0, None),
         ("structural_measurement", "dip", 90, None),
         ("structural_measurement", "dip", -1, "CHECK constraint failed: dip"),
         ("structural_measurement", "dip", 91, "CHECK constraint failed: dip"),
-        ("structural_measurement", "dip_direction", 0, None),
-        ("structural_measurement", "dip_direction", 359, None),
-        ("structural_measurement", "dip_direction", -1, "CHECK constraint failed: dip_direction"),
-        ("structural_measurement", "dip_direction", 360, "CHECK constraint failed: dip_direction"),
-        # Test NOT NULL constraint here, instead of with columns_constraints, because doesn't apply to all tables
-        ("structural_measurement", "dip", None,
-         "NOT NULL constraint failed: structural_measurement.dip"),
-        ("structural_measurement", "dip_direction", None,
-         "NOT NULL constraint failed: structural_measurement.dip_direction"),
+        ("structural_measurement", "azimuth", 0, None),
+        ("structural_measurement", "azimuth", 359, None),
+        ("structural_measurement", "azimuth", -1, "CHECK constraint failed: azimuth"),
+        ("structural_measurement", "azimuth", 360, "CHECK constraint failed: azimuth"),
 
         # Table: superficial_landform
         ("superficial_landform", "dip", 0, None),
         ("superficial_landform", "dip", 90, None),
         ("superficial_landform", "dip", -1, "CHECK constraint failed: dip"),
         ("superficial_landform", "dip", 91, "CHECK constraint failed: dip"),
+        ("structural_measurement", "azimuth", 0, None),
+        ("structural_measurement", "azimuth", 359, None),
+        ("structural_measurement", "azimuth", -1, "CHECK constraint failed: azimuth"),
+        ("structural_measurement", "azimuth", 360, "CHECK constraint failed: azimuth"),
     ],
 )
 def test_data_model_columns_constraints(
@@ -143,16 +132,16 @@ def test_data_model_columns_constraints(
 ):
     # Arrange
     # Get the dict row fixture for the given table
-    update_sql = f'UPDATE {table} SET {field}=? WHERE fid=1'
+    update_sql = f'UPDATE {table} SET "{field}"={value} WHERE fid=1'
 
     # Act
     if error_message is None:
         # Inserting the row should not raise an error
-        etl.execute(update_sql, test_data_gpkg, parameters=(value,))
+        etl.execute(update_sql, test_data_gpkg)
     else:
         # Check that the correct error is raised
         with pytest.raises(etl.exceptions.ETLHelperQueryError) as excinfo:
-            etl.execute(update_sql, test_data_gpkg, parameters=(value,))
+            etl.execute(update_sql, test_data_gpkg)
 
         # Assert
         assert error_message in str(excinfo.value)

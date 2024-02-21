@@ -12,8 +12,8 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
     st.category AS structure_category,
     st.description AS structure_type,
     sm.dip,
-    sm.dip_direction,
-    sm.comment,
+    sm.azimuth,
+    sm.notes,
     sm.uuid AS structure_uuid,
     lp.uuid AS locality_uuid,
     lp.geometry as geometry
@@ -31,24 +31,24 @@ VALUES('view_structural_measurement','geometry','POINT',4326,1,0);
 
 
 CREATE VIEW IF NOT EXISTS "view_lithology" AS
-  SELECT
+ SELECT
     fp.short_name as field_project,
     lp.name as locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
-    type.translation as exposure_type,
+    type.display_text as exposure_type,
 	  lith.lithology_code,
-	  rock.translation as lithology,
+	  rock.display_text as lithology,
     lith.description,
-    lith.comment,
+    lith.notes,
     lith.uuid AS lithology_uuid,
     lp.uuid AS locality_uuid,
     lp.geometry as geometry
   FROM lithology lith
     LEFT JOIN locality_point lp on lith.locality_fuid = lp.uuid
     LEFT JOIN dic_exposure_type type on lp.exposure_type_code = type.code
-    LEFT JOIN dic_rock_all rock on lith.lithology_code = rock.code
+	LEFT JOIN dic_rock_all rock on lith.lithology_code = rock.code
     LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 
@@ -57,65 +57,6 @@ VALUES('view_lithology','features','view_lithology','View with lithology results
 
 INSERT INTO gpkg_geometry_columns
 VALUES('view_lithology','geometry','POINT',4326,1,0);
-
-
-CREATE VIEW IF NOT EXISTS "view_superficial_landform" AS
-  SELECT
-    fp.short_name as field_project,
-    lp.name as locality_point,
-    ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
-    ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
-    fp.local_epsg,
-    sc.category AS superficial_category,
-    sc.description AS superficial_type,
-    sl.dip,
-    sl.length,
-    sl.width,
-    sl.height_depth,
-    sl.comment,
-    sl.uuid AS superficial_uuid,
-    lp.uuid AS locality_uuid,
-    lp.geometry as geometry
-  FROM superficial_landform sl
-    LEFT JOIN locality_point lp on sl.locality_fuid = lp.uuid
-    LEFT JOIN dic_superficial_code sc on sl.superficial_type_code = sc.code
-    LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
-;
-
-INSERT INTO gpkg_contents
-VALUES('view_superficial_landform','features','view_superficial_landform','View with superficial landforms at locality positions','2024-01-25T16:55:45.000Z',NULL,NULL,NULL,NULL,4326);
-
-INSERT INTO gpkg_geometry_columns
-VALUES('view_superficial_landform','geometry','POINT',4326,1,0);
-
-
-CREATE VIEW IF NOT EXISTS "view_manmade_landform" AS
-  SELECT
-    fp.short_name as field_project,
-    lp.name as locality_point,
-    ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
-    ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
-    fp.local_epsg,
-    mc.description AS manmade_type,
-    ml.dip,
-    ml.dip_direction,
-    ml.length,
-    ml.width,
-    ml.comment,
-    ml.uuid AS manmade_uuid,
-    lp.uuid AS locality_uuid,
-    lp.geometry as geometry
-  FROM manmade_landform ml
-    LEFT JOIN locality_point lp on ml.locality_fuid = lp.uuid
-    LEFT JOIN dic_manmade_code mc on ml.manmade_type_code = mc.code
-    LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
-;
-
-INSERT INTO gpkg_contents
-VALUES('view_manmade_landform','features','view_manmade_landform','View with manmade landforms at locality positions','2024-01-25T16:55:45.000Z',NULL,NULL,NULL,NULL,4326);
-
-INSERT INTO gpkg_geometry_columns
-VALUES('view_manmade_landform','geometry','POINT',4326,1,0);
 
 
 CREATE VIEW IF NOT EXISTS "view_next_locality_id" AS
