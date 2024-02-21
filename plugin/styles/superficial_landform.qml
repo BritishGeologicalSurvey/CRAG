@@ -191,7 +191,7 @@
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="superficial_type_code" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="dip" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="dip" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="length" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="width" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="height_depth" notnull_strength="0" unique_strength="0"></constraint>
@@ -207,7 +207,7 @@
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
     <constraint desc="" exp="" field="superficial_type_code"></constraint>
-    <constraint desc="" exp="" field="dip"></constraint>
+    <constraint desc="0 &lt;= dip &lt;= 90" exp="&quot;dip&quot; >= 0 and &quot;dip&quot; &lt;= 90" field="dip"></constraint>
     <constraint desc="" exp="" field="length"></constraint>
     <constraint desc="" exp="" field="width"></constraint>
     <constraint desc="" exp="" field="height_depth"></constraint>
