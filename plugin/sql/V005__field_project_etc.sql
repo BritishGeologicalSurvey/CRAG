@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS "_lnk_rock_project" (
 	"fid"	INTEGER NOT NULL,
 	"field_project_uuid" TEXT NOT NULL,
 	"rock_code"	TEXT NOT NULL,
-	FOREIGN KEY("rock_code") REFERENCES "dic_rock_all"("code"),
+	FOREIGN KEY("rock_code") REFERENCES "dic_rock_field"("code"),
 	FOREIGN KEY("field_project_uuid") REFERENCES "field_project"("uuid"),
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );

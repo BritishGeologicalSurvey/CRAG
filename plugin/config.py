@@ -19,7 +19,6 @@ TABLES = {
     "attributes": [
         # Dictionaries
         "dic_exposure_type",
-        "dic_rock_all",
         "dic_field_project_type",
         "dic_line_type_artificial",
         "dic_line_type_bedrock",
@@ -28,7 +27,6 @@ TABLES = {
         "dic_line_type_terrain",
         "dic_manmade_landform",
         "dic_media",
-        "dic_rock_all",
         "dic_rock_field",
         "dic_sample",
         "dic_structure",
