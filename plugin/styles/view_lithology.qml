@@ -339,20 +339,6 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="lithology_code">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="lithology">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
     <field configurationFlags="NoFlag" name="description">
       <editWidget type="TextEdit">
         <config>
@@ -360,7 +346,28 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="comment">
+    <field configurationFlags="NoFlag" name="notes">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="lithology_code">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="simple_lithology">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="type_description">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -381,6 +388,13 @@
         </config>
       </editWidget>
     </field>
+    <field configurationFlags="NoFlag" name="hex_colour">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
   </fieldConfiguration>
   <aliases>
     <alias field="field_project" index="0" name=""></alias>
@@ -389,12 +403,14 @@
     <alias field="y" index="3" name=""></alias>
     <alias field="local_epsg" index="4" name=""></alias>
     <alias field="exposure_type" index="5" name=""></alias>
-    <alias field="lithology_code" index="6" name=""></alias>
-    <alias field="lithology" index="7" name=""></alias>
-    <alias field="description" index="8" name=""></alias>
-    <alias field="comment" index="9" name=""></alias>
-    <alias field="lithology_uuid" index="10" name=""></alias>
-    <alias field="locality_uuid" index="11" name=""></alias>
+    <alias field="description" index="6" name=""></alias>
+    <alias field="notes" index="7" name=""></alias>
+    <alias field="lithology_code" index="8" name=""></alias>
+    <alias field="simple_lithology" index="9" name=""></alias>
+    <alias field="type_description" index="10" name=""></alias>
+    <alias field="lithology_uuid" index="11" name=""></alias>
+    <alias field="locality_uuid" index="12" name=""></alias>
+    <alias field="hex_colour" index="13" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="field_project" policy="Duplicate"></policy>
@@ -403,12 +419,14 @@
     <policy field="y" policy="Duplicate"></policy>
     <policy field="local_epsg" policy="Duplicate"></policy>
     <policy field="exposure_type" policy="Duplicate"></policy>
-    <policy field="lithology_code" policy="Duplicate"></policy>
-    <policy field="lithology" policy="Duplicate"></policy>
     <policy field="description" policy="Duplicate"></policy>
-    <policy field="comment" policy="Duplicate"></policy>
+    <policy field="notes" policy="Duplicate"></policy>
+    <policy field="lithology_code" policy="Duplicate"></policy>
+    <policy field="simple_lithology" policy="Duplicate"></policy>
+    <policy field="type_description" policy="Duplicate"></policy>
     <policy field="lithology_uuid" policy="Duplicate"></policy>
     <policy field="locality_uuid" policy="Duplicate"></policy>
+    <policy field="hex_colour" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="field_project"></default>
@@ -417,12 +435,14 @@
     <default applyOnUpdate="0" expression="" field="y"></default>
     <default applyOnUpdate="0" expression="" field="local_epsg"></default>
     <default applyOnUpdate="0" expression="" field="exposure_type"></default>
-    <default applyOnUpdate="0" expression="" field="lithology_code"></default>
-    <default applyOnUpdate="0" expression="" field="lithology"></default>
     <default applyOnUpdate="0" expression="" field="description"></default>
-    <default applyOnUpdate="0" expression="" field="comment"></default>
+    <default applyOnUpdate="0" expression="" field="notes"></default>
+    <default applyOnUpdate="0" expression="" field="lithology_code"></default>
+    <default applyOnUpdate="0" expression="" field="simple_lithology"></default>
+    <default applyOnUpdate="0" expression="" field="type_description"></default>
     <default applyOnUpdate="0" expression="" field="lithology_uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
+    <default applyOnUpdate="0" expression="" field="hex_colour"></default>
   </defaults>
   <constraints>
     <constraint constraints="0" exp_strength="0" field="field_project" notnull_strength="0" unique_strength="0"></constraint>
@@ -431,12 +451,14 @@
     <constraint constraints="0" exp_strength="0" field="y" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="local_epsg" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="exposure_type" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="lithology_code" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="lithology" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="description" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="comment" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="lithology_code" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="simple_lithology" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="type_description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="lithology_uuid" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="hex_colour" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="field_project"></constraint>
@@ -445,12 +467,14 @@
     <constraint desc="" exp="" field="y"></constraint>
     <constraint desc="" exp="" field="local_epsg"></constraint>
     <constraint desc="" exp="" field="exposure_type"></constraint>
-    <constraint desc="" exp="" field="lithology_code"></constraint>
-    <constraint desc="" exp="" field="lithology"></constraint>
     <constraint desc="" exp="" field="description"></constraint>
-    <constraint desc="" exp="" field="comment"></constraint>
+    <constraint desc="" exp="" field="notes"></constraint>
+    <constraint desc="" exp="" field="lithology_code"></constraint>
+    <constraint desc="" exp="" field="simple_lithology"></constraint>
+    <constraint desc="" exp="" field="type_description"></constraint>
     <constraint desc="" exp="" field="lithology_uuid"></constraint>
     <constraint desc="" exp="" field="locality_uuid"></constraint>
+    <constraint desc="" exp="" field="hex_colour"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
@@ -477,50 +501,50 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
-    <field editable="1" name="comment"></field>
     <field editable="1" name="description"></field>
     <field editable="1" name="exposure_type"></field>
     <field editable="1" name="field_project"></field>
-    <field editable="1" name="lat"></field>
-    <field editable="1" name="lithology"></field>
+    <field editable="1" name="hex_colour"></field>
     <field editable="1" name="lithology_code"></field>
     <field editable="1" name="lithology_uuid"></field>
     <field editable="1" name="local_epsg"></field>
     <field editable="1" name="locality_point"></field>
     <field editable="1" name="locality_uuid"></field>
-    <field editable="1" name="lon"></field>
+    <field editable="1" name="notes"></field>
+    <field editable="1" name="simple_lithology"></field>
+    <field editable="1" name="type_description"></field>
     <field editable="1" name="x"></field>
     <field editable="1" name="y"></field>
   </editable>
   <labelOnTop>
-    <field labelOnTop="0" name="comment"></field>
     <field labelOnTop="0" name="description"></field>
     <field labelOnTop="0" name="exposure_type"></field>
     <field labelOnTop="0" name="field_project"></field>
-    <field labelOnTop="0" name="lat"></field>
-    <field labelOnTop="0" name="lithology"></field>
+    <field labelOnTop="0" name="hex_colour"></field>
     <field labelOnTop="0" name="lithology_code"></field>
     <field labelOnTop="0" name="lithology_uuid"></field>
     <field labelOnTop="0" name="local_epsg"></field>
     <field labelOnTop="0" name="locality_point"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
-    <field labelOnTop="0" name="lon"></field>
+    <field labelOnTop="0" name="notes"></field>
+    <field labelOnTop="0" name="simple_lithology"></field>
+    <field labelOnTop="0" name="type_description"></field>
     <field labelOnTop="0" name="x"></field>
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="comment" reuseLastValue="0"></field>
     <field name="description" reuseLastValue="0"></field>
     <field name="exposure_type" reuseLastValue="0"></field>
     <field name="field_project" reuseLastValue="0"></field>
-    <field name="lat" reuseLastValue="0"></field>
-    <field name="lithology" reuseLastValue="0"></field>
+    <field name="hex_colour" reuseLastValue="0"></field>
     <field name="lithology_code" reuseLastValue="0"></field>
     <field name="lithology_uuid" reuseLastValue="0"></field>
     <field name="local_epsg" reuseLastValue="0"></field>
     <field name="locality_point" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
-    <field name="lon" reuseLastValue="0"></field>
+    <field name="notes" reuseLastValue="0"></field>
+    <field name="simple_lithology" reuseLastValue="0"></field>
+    <field name="type_description" reuseLastValue="0"></field>
     <field name="x" reuseLastValue="0"></field>
     <field name="y" reuseLastValue="0"></field>
   </reuseLastValue>
