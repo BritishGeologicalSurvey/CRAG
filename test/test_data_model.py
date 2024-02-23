@@ -152,9 +152,8 @@ def test_data_model_columns_constraints(
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     # Arrange
     expected_contents = [(table, "features") for table in FEATURE_TABLES]
-    expected_contents += [(table, "features") for table in VIEWS
-                          if table != "view_next_locality_id"]
-    expected_contents += [(table, "attributes") for table in ATTRIBUTE_TABLES | {"view_next_locality_id"}]
+    expected_contents += [(table, "features") for table in VIEWS]
+    expected_contents += [(table, "attributes") for table in ATTRIBUTE_TABLES]
     expected_contents += [(table, "attributes") for table in DICTIONARIES]
 
     # Note that in future we may not register the INTERNAL_TABLES in the geopackage
@@ -178,7 +177,7 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     assert sorted(actual_contents) == sorted(expected_contents)
 
 
-@pytest.mark.parametrize("view", [view for view in VIEWS if view != "view_next_locality_id"])
+@pytest.mark.parametrize("view", VIEWS)
 def test_views(
     data_model_gpkg: sqlite3.Connection,
     view: str
@@ -207,7 +206,7 @@ def test_view_next_locality_id(test_data_gpkg: sqlite3.Connection):
     expected_3 = []
 
     # Act
-    query = "SELECT * FROM view_next_locality_id"
+    query = "SELECT * FROM _view_next_locality_id"
 
     # Act 1
     result_1 = etl.fetchall(query, conn=test_data_gpkg, row_factory=etl.row_factories.tuple_row_factory)
