@@ -7,11 +7,10 @@ commands first:
 export ORACLE_PASSWORD=<BGS Oracle reader password>
 source $(setup_oracle_client)
 """
-from pathlib import Path
 import sqlite3
+from pathlib import Path
 
 import etlhelper as etl
-import pandas as pd
 
 DB = Path('dic_rock_etc.sqlite')
 OUTPUT_FILE = Path('dic_rock_etc.dump')
