@@ -60,7 +60,7 @@ from qgis.PyQt.QtWidgets import (
 )
 
 # Initialize Qt resources from file resources.py
-from .resources import *
+from .resources import *  # noqa
 
 from .config import (
     ATTRIBUTE_TABLES,
@@ -160,11 +160,12 @@ class FieldDataCapture:
         return WORKDIR / "icons"
 
 
-    # noinspection PyMethodMayBeStatic
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
 
         We implement this ourselves since we do not inherit QObject.
+
+        noinspection PyMethodMayBeStatic
 
         :param message: String for translation.
         :type message: str, QString
