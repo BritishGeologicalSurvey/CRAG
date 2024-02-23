@@ -121,7 +121,7 @@ INSERT INTO gpkg_geometry_columns
 VALUES('view_manmade_landform','geometry','POINT',4326,1,0);
 
 
-CREATE VIEW IF NOT EXISTS "view_next_locality_id" AS
+CREATE VIEW IF NOT EXISTS "_view_next_locality_id" AS
   -- Using nested SELECT statements as it allows us to build reusable variables
   SELECT
     username,
@@ -156,7 +156,7 @@ CREATE VIEW IF NOT EXISTS "view_next_locality_id" AS
 ;
 
 INSERT INTO gpkg_contents
-VALUES('view_next_locality_id','attributes','view_next_locality_id','List of next locality_point ID values based on existing locality_point data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+VALUES('_view_next_locality_id','attributes','_view_next_locality_id','List of next locality_point ID values based on existing locality_point data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
 COMMIT;
