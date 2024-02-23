@@ -67,9 +67,10 @@ from .config import (
     DICTIONARIES,
     FEATURE_TABLES,
     FEATURE_TABLES_LINES,
+    INTERNAL_TABLES,
     LOCALITY_POINT_CHILDREN,
-    VIEWS,
     TABLE_LIST,
+    VIEWS,
 )
 from .create_gpkg_from_sql import main as gpkg_from_sql
 from .create_gpkg_from_sql import (
@@ -683,7 +684,7 @@ class FieldDataCapture:
             "lines": FEATURE_TABLES_LINES,
             "views": VIEWS,
             "locality_data": ATTRIBUTE_TABLES,
-            "metadata": DICTIONARIES,
+            "metadata": DICTIONARIES.union(INTERNAL_TABLES),
         }
 
         # Sort the lists
@@ -696,11 +697,6 @@ class FieldDataCapture:
         project_name = "field_project"
         layer_tree_structure["locality_data"].remove(project_name)
         layer_tree_structure["metadata"].insert(0, project_name)
-
-        # Move the view_next_locality_id
-        next_id_name = "view_next_locality_id"
-        layer_tree_structure["views"].remove(next_id_name)
-        layer_tree_structure["metadata"].append(next_id_name)
 
         return layer_tree_structure
 

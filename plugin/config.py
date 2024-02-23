@@ -41,9 +41,9 @@ TABLES = {
         "superficial_landform",
         # Metadata
         "field_project",
-        "view_next_locality_id",
         # Internal
-        "_lnk_rock_project"
+        "_lnk_rock_project",
+        "_view_next_locality_id",
     ]
 }
 
