@@ -46,6 +46,7 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
     lith.uuid AS lithology_uuid,
     lp.uuid AS locality_uuid,
 	  sl.hex_colour,
+    sl.simple_lithology_uri as representativeLithology_uri,
     lp.geometry AS geometry
   FROM lithology lith
     LEFT JOIN locality_point lp ON lith.locality_fuid = lp.uuid
