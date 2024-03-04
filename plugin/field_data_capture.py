@@ -366,8 +366,8 @@ class FieldDataCapture:
 
         self.add_action(
             icon_path,
-            text=self.tr(u'Add Project'),
-            callback=lambda: self.open_layer_form(layer_name="project"),
+            text=self.tr(u'Add Field Project'),
+            callback=lambda: self.open_layer_form(layer_name="field_project"),
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
