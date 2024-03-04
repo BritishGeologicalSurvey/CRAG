@@ -51,8 +51,8 @@
             <Option name="ChainFilters" type="bool" value="false"></Option>
             <Option name="FetchLimitActive" type="bool" value="true"></Option>
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
-            <Option name="FilterExpression" type="QString" value=""></Option>
-            <Option name="FilterFields" type="List">
+            <Option name="FilterExpression" type="QString" value="array_contains(&#xA;&#x9;string_to_array(&#xA;&#x9;&#x9;aggregate(&#xA;&#x9;&#x9;&#x9;'_lnk_rock_project',&#xA;&#x9;&#x9;&#x9;aggregate:='concatenate',&#xA;&#x9;&#x9;&#x9;expression:=&quot;rock_code&quot;,&#xA;&#x9;&#x9;&#x9;concatenator:=','&#xA;&#x9;&#x9;)&#xA;&#x9;),&#xA;&#x9;&quot;code&quot;&#xA;)"></Option>
+            <Option name="FilterFields" type="StringList">
               <Option type="QString" value="category"></Option>
             </Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
