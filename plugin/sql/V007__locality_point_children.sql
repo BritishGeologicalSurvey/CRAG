@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS "lithology"(
   "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
-  "lithology_code" TEXT,
+  "lithology_code" TEXT NOT NULL,
   "description" TEXT,
   "notes" TEXT,
   "user_entered" TEXT NOT NULL,
