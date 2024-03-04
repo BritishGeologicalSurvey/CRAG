@@ -7,31 +7,164 @@ commands first:
 export ORACLE_PASSWORD=<BGS Oracle reader password>
 source $(setup_oracle_client)
 """
-import sqlite3
+import csv
+import logging
 from pathlib import Path
+import sqlite3
+from typing import Iterable
 
 import etlhelper as etl
 
+logger = logging.getLogger(__name__)
 DB = Path('dic_rock_etc.sqlite')
 OUTPUT_FILE = Path('dic_rock_etc.dump')
+GEOL_UNIT_CSV = Path(__file__).parent / "GEOL_UNIT_COMP_PART_202403042239.csv"
+BGSPROD = etl.DbParams(
+    dbtype='ORACLE',
+    host='kwxdb-prod.ad.nerc.ac.uk',
+    port=1521,
+    dbname='bgsprod',
+    user='reader')
 
 
 def main():
     if DB.exists():
+        logging.info("Deleting existing database")
         DB.unlink()
 
     with sqlite3.connect(DB) as conn:
+        logging.info("Creating tables")
         create_tables(conn)
+
+        logging.info("Importing data from dic_rock_all")
+        import_dic_rock_all(conn)
+        logging.info("Importing data from geol_unit_comp_part")
+        import_geol_unit_comp_part(conn)
+
+        logging.info("Dumping SQL file")
         dump_sql(conn)
 
 
 def create_tables(conn: sqlite3.Connection):
     dic_rock_all_sql = """
-        CREATE TABLE test (
-            id INT PRIMARY KEY
-        )
+        CREATE TABLE IF NOT EXISTS "_dic_rock_all" (
+            "fid"	INTEGER NOT NULL,
+            "code"	TEXT NOT NULL UNIQUE,
+            "description"	TEXT,
+            "translation"	TEXT,
+            "status"	TEXT,
+            "rcs_status"  TEXT,
+            "user_entered"	TEXT NOT NULL,
+            "date_entered"	DATETIME NOT NULL,
+            "user_updated"	TEXT,
+            "date_updated"	DATETIME,
+            PRIMARY KEY("fid" AUTOINCREMENT)
+        );
     """
+
+    dic_rock_field_sql = """
+        CREATE TABLE IF NOT EXISTS "dic_rock_field" (
+            "fid"	INTEGER NOT NULL,
+            "category"	TEXT,
+            "code"	TEXT NOT NULL UNIQUE,
+            "is_default"	BOOLEAN NOT NULL DEFAULT 0,
+            "simple_lithology"	TEXT,
+            "label" TEXT,
+            "description"	TEXT,
+            "translation"	TEXT,
+            "composite"	TEXT,
+            "user_entered"	TEXT NOT NULL,
+            "date_entered"	DATETIME NOT NULL,
+            "user_updated"	TEXT,
+            "date_updated"	DATETIME,
+            FOREIGN KEY("code") REFERENCES "_dic_rock_all"("code"),
+            PRIMARY KEY("fid" AUTOINCREMENT)
+        );
+    """
+
+    geol_unit_comp_part_sql = """
+        CREATE TABLE IF NOT EXISTS "geol_unit_comp_part" (
+            "fid" INTEGER NOT NULL,
+            "rcs" TEXT NOT NULL,
+            "cgi_lithology_label" TEXT,
+            "cgi_lithology_uri" TEXT,
+            "inspire_lithology_label" TEXT,
+            "inspire_lithology_uri" TEXT,
+            PRIMARY KEY("fid" AUTOINCREMENT)
+        );
+        """
+
     etl.execute(dic_rock_all_sql, conn)
+    etl.execute(dic_rock_field_sql, conn)
+    etl.execute(geol_unit_comp_part_sql, conn)
+
+
+def import_dic_rock_all(conn: sqlite3.Connection):
+    select_sql = """
+        SELECT 
+          CODE,
+          DESCRIPTION,
+          TRANSLATION,
+          STATUS,
+          RCS_STATUS,
+          USER_ENTERED,
+          DATE_ENTERED,
+          USER_UPDATED,
+          DATE_UPDATED
+        FROM BGS.DIC_ROCK_ALL
+    """
+    def transform(chunk: list[dict]):
+        for row in chunk:
+            # Convert keys to lower case
+            key_list = list(row.keys())
+
+            for key in key_list:
+                row[key.lower()] = row.pop(key)
+
+            yield row
+    
+    with BGSPROD.connect("ORACLE_PASSWORD") as oracle_conn:
+        rows = etl.iter_rows(select_sql, oracle_conn,
+                             row_factory=etl.row_factories.dict_row_factory,
+                             transform=transform)
+        etl.load('_dic_rock_all', conn, rows)
+
+
+def import_geol_unit_comp_part(conn: sqlite3.Connection):
+    """
+    This function was meant to pull the data from Oracle directly, but
+    didn't work.  There is an issue with permissions or schema search
+    paths.  It's strange, though, because the same query works in DBeaver
+    when executed with the same credentials.  Instead, I just saved those
+    results as the CSV that you see here.  The table isn't likely to change
+    soon.
+
+        SELECT 
+          RCS,
+          CGI_LITHOLOGY_URI,
+          CGI_LITHOLOGY_LABEL,
+          INSP_LITHOLOGY_URI,
+          INSP_LITHOLOGY_LABEL
+        FROM OGC.GEOL_UNIT_COMP_PART
+    """
+
+    def transform(chunk: Iterable[dict]) -> Iterable[dict]:
+        for row in chunk:
+            # Convert keys to lower case
+            key_list = list(row.keys())
+
+            for key in key_list:
+                row[key.lower()] = row.pop(key)
+            
+            # Rename rows
+            row['inspire_lithology_uri'] = row.pop('insp_lithology_uri')
+            row['inspire_lithology_label'] = row.pop('insp_lithology_label')
+
+            yield row
+    
+    with open(GEOL_UNIT_CSV, 'rt') as in_file:
+        reader = csv.DictReader(in_file)
+        etl.load('geol_unit_comp_part', conn, transform(reader))
 
 
 def dump_sql(conn: sqlite3.Connection, output=OUTPUT_FILE):
@@ -42,4 +175,8 @@ def dump_sql(conn: sqlite3.Connection, output=OUTPUT_FILE):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s: %(message)s"
+    )
     main()

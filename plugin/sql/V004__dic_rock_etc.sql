@@ -11,12 +11,10 @@ BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "_dic_rock_all" (
 	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
-	"rock_grouping" TEXT,
 	"description"	TEXT,
 	"translation"	TEXT,
-	"favourite" BOOLEAN,
-	"field_determinable" BOOLEAN,
 	"status"	TEXT,
+	"rcs_status"  TEXT,
 	"user_entered"	TEXT NOT NULL,
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
@@ -26,22 +24,19 @@ CREATE TABLE IF NOT EXISTS "_dic_rock_all" (
 
 CREATE TABLE IF NOT EXISTS "dic_rock_field" (
 	"fid"	INTEGER NOT NULL,
-	"code"	TEXT NOT NULL UNIQUE,
 	"category"	TEXT,
+	"code"	TEXT NOT NULL UNIQUE,
+	"is_default"	BOOLEAN NOT NULL DEFAULT 0,
+	"simple_lithology"	TEXT,
+	"label" TEXT,
 	"description"	TEXT,
 	"translation"	TEXT,
 	"composite"	TEXT,
-	"rank01_desc"	TEXT,
-	"rank02_desc"	TEXT,
-	"is_default"	BOOLEAN NOT NULL DEFAULT 0,
-	"simple_lithology"	TEXT,
-	"simple_lithology_parents"	TEXT,
-	"hex_colour"	TEXT,
 	"user_entered"	TEXT NOT NULL,
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	--FOREIGN KEY("code") REFERENCES "_dic_rock_all"("code"),
+	FOREIGN KEY("code") REFERENCES "_dic_rock_all"("code"),
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
