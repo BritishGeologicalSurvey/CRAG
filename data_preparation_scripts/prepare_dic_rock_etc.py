@@ -8,6 +8,7 @@ export ORACLE_PASSWORD=<BGS Oracle reader password>
 source $(setup_oracle_client)
 """
 import csv
+import datetime as dt
 import logging
 from pathlib import Path
 import sqlite3
@@ -19,6 +20,8 @@ logger = logging.getLogger(__name__)
 DB = Path('dic_rock_etc.sqlite')
 OUTPUT_FILE = Path('dic_rock_etc.dump')
 GEOL_UNIT_CSV = Path(__file__).parent / "GEOL_UNIT_COMP_PART_202403042239.csv"
+DIC_ROCK_FIELD_CSV = Path(__file__).parent / "Dic_Rock_Field_RCS__Subset_MK240124.csv"
+
 BGSPROD = etl.DbParams(
     dbtype='ORACLE',
     host='kwxdb-prod.ad.nerc.ac.uk',
@@ -40,6 +43,8 @@ def main():
         import_dic_rock_all(conn)
         logging.info("Importing data from geol_unit_comp_part")
         import_geol_unit_comp_part(conn)
+        logging.info("Importing data from Dic_Rock_Field_RCS")
+        import_dic_rock_field_rcs(conn)
 
         logging.info("Dumping SQL file")
         dump_sql(conn)
@@ -162,16 +167,61 @@ def import_geol_unit_comp_part(conn: sqlite3.Connection):
 
             yield row
     
-    with open(GEOL_UNIT_CSV, 'rt') as in_file:
+    with open(GEOL_UNIT_CSV, 'rt', encoding='iso-8859-1') as in_file:
         reader = csv.DictReader(in_file)
         etl.load('geol_unit_comp_part', conn, transform(reader))
+
+
+def import_dic_rock_field_rcs(conn: sqlite3.Connection):
+    """
+    This imports a CSV file created by selecting columns from the spreadsheet
+    of the same name (See https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/issues/87#note_126309)
+    and exporting them.  There was also a special character after Lamprophyre
+    the broke the character encoding and was deleted.
+    """
+
+    def transform(chunk: Iterable[dict]) -> Iterable[dict]:
+        all_codes = set()  # We will assume all records are in one chunk
+
+        for row in chunk:
+            # Remove unwanted columns and convert keys to lower case
+            rows_to_keep = {"RCS_code", "CATEGORY_MERGIN", "Composite",
+                            "RCS_TRANSLATION_LOWERCASE"}
+            key_list = list(row.keys())
+
+            for key in key_list:
+                if key in rows_to_keep:
+                    row[key.lower()] = row.pop(key)
+                else:
+                    row.pop(key)
+            
+            # Rename column
+            row['code'] = row.pop('rcs_code')
+            row['category'] = row.pop('category_mergin')
+            row['label'] = row.pop('rcs_translation_lowercase')
+            row['user_entered'] = 'jostev'
+            row['date_entered'] = dt.datetime(2024, 3, 5, 9, 0, 0)
+
+            # Drop duplicate rows
+            if row['code'] in all_codes:
+                logger.info("Dropping row with duplicate code: %s (%s)",
+                             row['code'], row['label'])
+                continue
+
+            all_codes.add(row['code'])
+
+            yield row
+    
+    with open(DIC_ROCK_FIELD_CSV, 'rt') as in_file:
+        reader = csv.DictReader(in_file)
+        etl.load('dic_rock_field', conn, transform(reader))
 
 
 def dump_sql(conn: sqlite3.Connection, output=OUTPUT_FILE):
     with open(output, 'wt') as outfile:
         for line in conn.iterdump():
             outfile.write(line + '\n')
-            print(line)
+            logging.debug(line)
 
 
 if __name__ == "__main__":
