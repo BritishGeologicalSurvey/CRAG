@@ -11,6 +11,7 @@ import csv
 import datetime as dt
 import logging
 from pathlib import Path
+import pickle
 import sqlite3
 from typing import Iterable
 
@@ -24,6 +25,7 @@ OUTPUT_FILE = Path('dic_rock_etc.dump')
 GEOL_UNIT_CSV = Path(__file__).parent / "GEOL_UNIT_COMP_PART_202403042239.csv"
 DIC_ROCK_FIELD_CSV = Path(__file__).parent / "Dic_Rock_Field_RCS__Subset_MK240124.csv"
 SIMPLE_LITHOLOGY_SQL = Path(__file__).parent.parent / "plugin" / "sql" / "V003__simple_lithology.sql"
+DIC_ROCK_ALL_CACHE = Path(__file__).parent / "dic_rock_all.pickle"
 
 BGSPROD = etl.DbParams(
     dbtype='ORACLE',
@@ -114,6 +116,13 @@ def create_tables(conn: sqlite3.Connection):
 
 
 def import_dic_rock_all(conn: sqlite3.Connection):
+    """
+    Import dic_rock_all from Oracle.
+
+    A .pickle cache is used to speed up execution on repeated runs and
+    facilitate offline use.  It would be better to have used JSON, but
+    it doesn't handle datetimes.
+    """
     select_sql = """
         SELECT
           CODE,
@@ -139,10 +148,19 @@ def import_dic_rock_all(conn: sqlite3.Connection):
             yield row
 
     with BGSPROD.connect("ORACLE_PASSWORD") as oracle_conn:
-        rows = etl.iter_rows(select_sql, oracle_conn,
-                             row_factory=etl.row_factories.dict_row_factory,
-                             transform=transform)
+        if DIC_ROCK_ALL_CACHE.exists():
+            logger.info("Loading from cache")
+            rows = pickle.loads(DIC_ROCK_ALL_CACHE.read_bytes())
+        else:
+            # Use fetchall instead of iter_rows so that we can use them again
+            rows = etl.fetchall(select_sql, oracle_conn,
+                                row_factory=etl.row_factories.dict_row_factory,
+                                transform=transform)
         etl.load('_dic_rock_all', conn, rows)
+
+    if not DIC_ROCK_ALL_CACHE.exists():
+        logger.debug("Writing to cache")
+        DIC_ROCK_ALL_CACHE.write_bytes(pickle.dumps(rows))
 
 
 def import_geol_unit_comp_part(conn: sqlite3.Connection):
