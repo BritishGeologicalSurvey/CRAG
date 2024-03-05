@@ -23,6 +23,7 @@ DB = Path('dic_rock_etc.sqlite')
 OUTPUT_FILE = Path('dic_rock_etc.dump')
 GEOL_UNIT_CSV = Path(__file__).parent / "GEOL_UNIT_COMP_PART_202403042239.csv"
 DIC_ROCK_FIELD_CSV = Path(__file__).parent / "Dic_Rock_Field_RCS__Subset_MK240124.csv"
+SIMPLE_LITHOLOGY_SQL = Path(__file__).parent.parent / "plugin" / "sql" / "V003__simple_lithology.sql"
 
 BGSPROD = etl.DbParams(
     dbtype='ORACLE',
@@ -47,6 +48,8 @@ def main():
         import_geol_unit_comp_part(conn)
         logging.info("Importing data from Dic_Rock_Field_RCS")
         import_dic_rock_field_rcs(conn)
+        logging.info("Importing data from %s", SIMPLE_LITHOLOGY_SQL.name)
+        import_simple_lithology(conn)
         logging.info("Extending dic_rock_field with _dic_rock_all")
         extend_dic_rock_field(conn)
 
@@ -224,6 +227,13 @@ def import_dic_rock_field_rcs(conn: sqlite3.Connection):
     with open(DIC_ROCK_FIELD_CSV, 'rt') as in_file:
         reader = csv.DictReader(in_file)
         etl.load('dic_rock_field', conn, transform(reader))
+
+
+def import_simple_lithology(conn: sqlite3.Connection) -> None:
+    """
+    Import the simple_lithology table from the plugin SQL files.
+    """
+    conn.executescript(SIMPLE_LITHOLOGY_SQL.read_text())
 
 
 def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
