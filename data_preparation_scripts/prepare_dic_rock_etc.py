@@ -273,8 +273,10 @@ def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
         WHERE
             status = 'C'
     """
-    dic_rock_all_rows = etl.fetchall(dic_rock_all_select_sql, conn, row_factory=etl.row_factories.dict_row_factory)
 
+    dic_rock_all_rows = etl.fetchall(dic_rock_all_select_sql,
+                                     conn,
+                                     row_factory=etl.row_factories.dict_row_factory)
 
     dic_rock_field_upsert_sql = """
         INSERT INTO dic_rock_field
@@ -289,13 +291,15 @@ def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
                 description = :description
             WHERE
                 code = :code
-    """
+        """
+
     for dic_rock_all_row in dic_rock_all_rows:
         # Add user and date entered
+        # Dictionaries are updated in place
         dic_rock_all_row["user_entered"] = "leorud"
         dic_rock_all_row["date_entered"] = dt.datetime(2024, 3, 5, 16, 0, 0)
 
-        etl.execute(dic_rock_field_upsert_sql, conn, parameters=dic_rock_all_row)
+    etl.executemany(dic_rock_field_upsert_sql, conn, dic_rock_all_rows)
 
 
 def populate_simple_lithology(conn: sqlite3.Connection) -> None:
