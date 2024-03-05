@@ -16,6 +16,8 @@ from typing import Iterable
 
 import etlhelper as etl
 
+from plugin.utils import ipdb_breakpoint  # noqa
+
 logger = logging.getLogger(__name__)
 DB = Path('dic_rock_etc.sqlite')
 OUTPUT_FILE = Path('dic_rock_etc.dump')
@@ -202,6 +204,8 @@ def import_dic_rock_field_rcs(conn: sqlite3.Connection):
             row['label'] = row.pop('rcs_translation_lowercase')
             row['user_entered'] = 'jostev'
             row['date_entered'] = dt.datetime(2024, 3, 5, 9, 0, 0)
+            # Set these rows to be the default lithologies
+            row['is_default'] = 1
 
             # Drop duplicate rows
             if row['code'] in all_codes:
