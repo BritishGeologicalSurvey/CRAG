@@ -47,6 +47,8 @@ def main():
         import_geol_unit_comp_part(conn)
         logging.info("Importing data from Dic_Rock_Field_RCS")
         import_dic_rock_field_rcs(conn)
+        logging.info("Extending dic_rock_field with _dic_rock_all")
+        extend_dic_rock_field(conn)
 
         logging.info("Dumping SQL file")
         dump_sql(conn)
@@ -222,6 +224,48 @@ def import_dic_rock_field_rcs(conn: sqlite3.Connection):
     with open(DIC_ROCK_FIELD_CSV, 'rt') as in_file:
         reader = csv.DictReader(in_file)
         etl.load('dic_rock_field', conn, transform(reader))
+
+
+def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
+    """
+    Copy rows from _dic_rock_all into dic_rock_field by matching the 'code' attribute.
+    Uses UPSERT so that codes which already exist are updated instead of replaced:
+    https://www.sqlite.org/lang_upsert.html
+    """
+    # Get _dic_rock_all rows
+    dic_rock_all_select_sql = """
+        SELECT
+            code,
+            description,
+            translation
+        FROM
+            _dic_rock_all
+        WHERE
+            status = 'C'
+    """
+    dic_rock_all_rows = etl.fetchall(dic_rock_all_select_sql, conn, row_factory=etl.row_factories.dict_row_factory)
+
+
+    dic_rock_field_upsert_sql = """
+        INSERT INTO dic_rock_field
+            (code, label, description, user_entered, date_entered)
+        VALUES
+            (:code, :translation, :description, :user_entered, :date_entered)
+        ON CONFLICT
+            (code)
+        DO
+            UPDATE SET
+                label = :translation,
+                description = :description
+            WHERE
+                code = :code
+    """
+    for dic_rock_all_row in dic_rock_all_rows:
+        # Add user and date entered
+        dic_rock_all_row["user_entered"] = "leorud"
+        dic_rock_all_row["date_entered"] = dt.datetime(2024, 3, 5, 16, 0, 0)
+
+        etl.execute(dic_rock_field_upsert_sql, conn, parameters=dic_rock_all_row)
 
 
 def dump_sql(conn: sqlite3.Connection, output=OUTPUT_FILE):
