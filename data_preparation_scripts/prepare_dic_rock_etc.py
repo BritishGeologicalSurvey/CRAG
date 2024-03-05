@@ -52,6 +52,8 @@ def main():
         import_simple_lithology(conn)
         logging.info("Extending dic_rock_field with _dic_rock_all")
         extend_dic_rock_field(conn)
+        logging.info("Populating simple_lithology column in dic_rock_field")
+        populate_simple_lithology(conn)
 
         logging.info("Dumping SQL file")
         dump_sql(conn)
@@ -276,6 +278,27 @@ def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
         dic_rock_all_row["date_entered"] = dt.datetime(2024, 3, 5, 16, 0, 0)
 
         etl.execute(dic_rock_field_upsert_sql, conn, parameters=dic_rock_all_row)
+
+
+def populate_simple_lithology(conn: sqlite3.Connection) -> None:
+    """
+    Populate the simple_lithology column in the dic_rock_field table.
+    This process uses the geol_unit_comp_part table to match the simple_lithology URIs
+    to RCS codes which then match the codes found in _dic_rock_all.
+    """
+    # Using a combination of DISTINCT and GROUP BY to prevent duplication
+    join_sl_gucp_query = """
+        SELECT DISTINCT
+            sl.simple_lithology_uri,
+            sl.name AS simple_lithology_name,
+            gucp.rcs
+        FROM
+            _simple_lithology AS sl
+        LEFT JOIN
+            geol_unit_comp_part AS gucp ON gucp.cgi_lithology_uri = sl.simple_lithology_uri
+        GROUP BY
+            sl.name
+    """
 
 
 def dump_sql(conn: sqlite3.Connection, output=OUTPUT_FILE):
