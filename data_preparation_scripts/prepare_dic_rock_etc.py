@@ -106,7 +106,7 @@ def create_tables(conn: sqlite3.Connection):
 
 def import_dic_rock_all(conn: sqlite3.Connection):
     select_sql = """
-        SELECT 
+        SELECT
           CODE,
           DESCRIPTION,
           TRANSLATION,
@@ -118,6 +118,7 @@ def import_dic_rock_all(conn: sqlite3.Connection):
           DATE_UPDATED
         FROM BGS.DIC_ROCK_ALL
     """
+
     def transform(chunk: list[dict]):
         for row in chunk:
             # Convert keys to lower case
@@ -127,7 +128,7 @@ def import_dic_rock_all(conn: sqlite3.Connection):
                 row[key.lower()] = row.pop(key)
 
             yield row
-    
+
     with BGSPROD.connect("ORACLE_PASSWORD") as oracle_conn:
         rows = etl.iter_rows(select_sql, oracle_conn,
                              row_factory=etl.row_factories.dict_row_factory,
@@ -144,7 +145,7 @@ def import_geol_unit_comp_part(conn: sqlite3.Connection):
     results as the CSV that you see here.  The table isn't likely to change
     soon.
 
-        SELECT 
+        SELECT
           RCS,
           CGI_LITHOLOGY_URI,
           CGI_LITHOLOGY_LABEL,
@@ -160,13 +161,13 @@ def import_geol_unit_comp_part(conn: sqlite3.Connection):
 
             for key in key_list:
                 row[key.lower()] = row.pop(key)
-            
+
             # Rename rows
             row['inspire_lithology_uri'] = row.pop('insp_lithology_uri')
             row['inspire_lithology_label'] = row.pop('insp_lithology_label')
 
             yield row
-    
+
     with open(GEOL_UNIT_CSV, 'rt', encoding='iso-8859-1') as in_file:
         reader = csv.DictReader(in_file)
         etl.load('geol_unit_comp_part', conn, transform(reader))
@@ -194,7 +195,7 @@ def import_dic_rock_field_rcs(conn: sqlite3.Connection):
                     row[key.lower()] = row.pop(key)
                 else:
                     row.pop(key)
-            
+
             # Rename column
             row['code'] = row.pop('rcs_code')
             row['category'] = row.pop('category_mergin')
@@ -204,14 +205,16 @@ def import_dic_rock_field_rcs(conn: sqlite3.Connection):
 
             # Drop duplicate rows
             if row['code'] in all_codes:
-                logger.info("Dropping row with duplicate code: %s (%s)",
-                             row['code'], row['label'])
+                logger.info(
+                    "Dropping row with duplicate code: %s (%s)",
+                    row['code'], row['label'],
+                )
                 continue
 
             all_codes.add(row['code'])
 
             yield row
-    
+
     with open(DIC_ROCK_FIELD_CSV, 'rt') as in_file:
         reader = csv.DictReader(in_file)
         etl.load('dic_rock_field', conn, transform(reader))
