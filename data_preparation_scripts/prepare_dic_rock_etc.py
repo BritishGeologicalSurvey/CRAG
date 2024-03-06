@@ -311,7 +311,7 @@ def transform_inspire_to_cgi(chunk: Iterable[dict]) -> Iterable[dict]:
         "dolomite": "dolostone",
         "gypsumOrAnhydrite": "rock_gypsum_or_anhydrite",
         # Typo
-        "phonolite": "phonolilte",
+        "phonolilte": "phonolite",
         # There are other examples such as 'clastic_sediment' in cgi, but 'sediment' is not included in inspire
         "conglomerate": "clastic_conglomerate",
         "mudstone": "clastic_mudstone",
@@ -421,10 +421,10 @@ def populate_category(conn: sqlite3.Connection) -> None:
         SET
             -- Match the new category value to the type found in the parents list
             category = CASE
-                WHEN sl.parents LIKE('%pyroclastic%') THEN 'IGNEOUS-VOLCANIC'
-                WHEN sl.parents LIKE('%igneous%') THEN 'IGNEOUS'
-                WHEN sl.parents LIKE('%sedimentary%') THEN 'SEDIMENTARY'
-                WHEN sl.parents LIKE('%metamorphic%') THEN 'METAMORPHIC'
+                WHEN sl.parents LIKE('%pyroclastic%') THEN 'IGNEOUS-VOLCANIC ROCK'
+                WHEN sl.parents LIKE('%igneous%') THEN 'IGNEOUS ROCK'
+                WHEN sl.parents LIKE('%sedimentary%') THEN 'SEDIMENTARY ROCK'
+                WHEN sl.parents LIKE('%metamorphic%') THEN 'METAMORPHIC ROCK'
                 ELSE NULL
             END
         FROM

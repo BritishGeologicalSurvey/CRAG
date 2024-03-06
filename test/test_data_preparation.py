@@ -15,8 +15,8 @@ from data_preparation_scripts.prepare_dic_rock_etc import transform_inspire_to_c
             {"cgi_lithology_uri": "http://resource.geosciml.org/classifier/cgi/lithology/rock_gypsum_or_anhydrite"},
         ),
         (
-            {"inspire_lithology_uri": "http://inspire.ec.europa.eu/codelist/LithologyValue/phonolite"},
-            {"cgi_lithology_uri": "http://resource.geosciml.org/classifier/cgi/lithology/phonolilte"},
+            {"inspire_lithology_uri": "http://inspire.ec.europa.eu/codelist/LithologyValue/phonolilte"},
+            {"cgi_lithology_uri": "http://resource.geosciml.org/classifier/cgi/lithology/phonolite"},
         ),
         (
             {"inspire_lithology_uri": "http://inspire.ec.europa.eu/codelist/LithologyValue/conglomerate"},
