@@ -27,6 +27,7 @@ GEOL_UNIT_CSV = Path(__file__).parent / "GEOL_UNIT_COMP_PART_202403042239.csv"
 DIC_ROCK_FIELD_CSV = Path(__file__).parent / "Dic_Rock_Field_RCS__Subset_MK240124.csv"
 SIMPLE_LITHOLOGY_SQL = Path(__file__).parent.parent / "plugin" / "sql" / "V003__simple_lithology.sql"
 DIC_ROCK_ALL_CACHE = Path(__file__).parent / "dic_rock_all.pickle"
+CGI_BASE_URL = "http://resource.geosciml.org/classifier/cgi/lithology/"
 
 BGSPROD = etl.DbParams(
     dbtype='ORACLE',
@@ -292,35 +293,39 @@ def update_cgi_uris_from_inspire(conn):
             cgi_lithology_uri IS ''
     """
 
-    cgi_base_url = "http://resource.geosciml.org/classifier/cgi/lithology/"
-
-    def transform(chunk: Iterable[dict]) -> Iterable[dict]:
-        pattern = re.compile(r'(?<!^)(?=[A-Z])')
-        inspire_to_cgi_conversions = {
-            "dolomite": "dolostone",
-            "gypsumOrAnhydrite": "rock_gypsum_or_anhydrite",
-            # Typo
-            "phonolite": "phonolilte",
-            # There are other examples such as 'clastic_sediment' in cgi, but 'sediment' is not included in inspire
-            "conglomerate": "clastic_conglomerate",
-            "mudstone": "clastic_mudstone",
-            "sandstone": "clastic_sandstone",
-        }
-
-        for row in chunk:
-            inspire_name = row.pop('inspire_lithology_uri').split('/')[-1]
-
-            if inspire_name in inspire_to_cgi_conversions:
-                cgi_name = inspire_to_cgi_conversions[inspire_name]
-            else:
-                cgi_name = re.sub(pattern, '_', inspire_name).lower()
-
-            row['cgi_lithology_uri'] = cgi_base_url + cgi_name
-            yield row
-
-    rows = etl.iter_rows(select_sql, conn, transform=transform,
+    rows = etl.iter_rows(select_sql, conn, transform=transform_inspire_to_cgi,
                          row_factory=etl.row_factories.dict_row_factory)
     etl.executemany(update_sql, conn, rows)
+
+
+def transform_inspire_to_cgi(chunk: Iterable[dict]) -> Iterable[dict]:
+    """
+    Transform inspire lithology URIs into CGI lithology URIs.
+    This mainly consists of converting snake case to camel case,
+    but there are a couple of unique differences too.
+    """
+    pattern = re.compile(r'(?<!^)(?=[A-Z])')
+    inspire_to_cgi_conversions = {
+        "dolomite": "dolostone",
+        "gypsumOrAnhydrite": "rock_gypsum_or_anhydrite",
+        # Typo
+        "phonolite": "phonolilte",
+        # There are other examples such as 'clastic_sediment' in cgi, but 'sediment' is not included in inspire
+        "conglomerate": "clastic_conglomerate",
+        "mudstone": "clastic_mudstone",
+        "sandstone": "clastic_sandstone",
+    }
+
+    for row in chunk:
+        inspire_name = row.pop('inspire_lithology_uri').split('/')[-1]
+
+        if inspire_name in inspire_to_cgi_conversions:
+            cgi_name = inspire_to_cgi_conversions[inspire_name]
+        else:
+            cgi_name = re.sub(pattern, '_', inspire_name).lower()
+
+        row['cgi_lithology_uri'] = CGI_BASE_URL + cgi_name
+        yield row
 
 
 def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
