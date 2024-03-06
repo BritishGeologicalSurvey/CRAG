@@ -12,6 +12,7 @@ import datetime as dt
 import logging
 from pathlib import Path
 import pickle
+import re
 import sqlite3
 from typing import Iterable
 
@@ -52,6 +53,8 @@ def main():
         import_dic_rock_field_rcs(conn)
         logging.info("Importing data from %s", SIMPLE_LITHOLOGY_SQL.name)
         import_simple_lithology(conn)
+        logging.info("Updating CGI uris from Inspire")
+        update_cgi_uris_from_inspire(conn)
         logging.info("Extending dic_rock_field with _dic_rock_all")
         extend_dic_rock_field(conn)
         logging.info("Populating simple_lithology column in dic_rock_field")
@@ -254,6 +257,43 @@ def import_simple_lithology(conn: sqlite3.Connection) -> None:
     Import the simple_lithology table from the plugin SQL files.
     """
     conn.executescript(SIMPLE_LITHOLOGY_SQL.read_text())
+
+
+def update_cgi_uris_from_inspire(conn):
+    """
+    Update the geol_unit_comp_part table to fill in missing CGI URIs by converting
+    the Inspire URIs from camelCase to snake_case.
+
+    Code for case conversion from Stack Overflow CC BY-SA 4.0
+    https://stackoverflow.com/a/1176023/3508733
+    """
+    select_sql = """
+        SELECT rcs, inspire_lithology_uri
+        FROM geol_unit_comp_part
+        WHERE cgi_lithology_uri IS ''
+        """
+
+    update_sql = """
+        UPDATE geol_unit_comp_part
+        SET cgi_lithology_uri = :cgi_lithology_uri
+        WHERE rcs = :rcs
+        """
+
+    cgi_base_url = "http://resource.geosciml.org/classifier/cgi/lithology/"
+
+    def transform(chunk: Iterable[dict]) -> Iterable[dict]:
+        pattern = re.compile(r'(?<!^)(?=[A-Z])')
+
+        for row in chunk:
+            inspire_name = row.pop('inspire_lithology_uri').split('/')[-1]
+            cgi_name = re.sub(pattern, '_', inspire_name).lower()
+            row['cgi_lithology_uri'] = cgi_base_url + cgi_name
+            yield row
+
+    rows = etl.iter_rows(select_sql, conn, transform=transform,
+                         row_factory=etl.row_factories.dict_row_factory)
+    etl.executemany(update_sql, conn, rows)
+
 
 
 def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
