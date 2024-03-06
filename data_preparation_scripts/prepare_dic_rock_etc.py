@@ -386,12 +386,13 @@ def populate_simple_lithology(conn: sqlite3.Connection) -> None:
         UPDATE
             dic_rock_field AS drf
         SET
-            simple_lithology = gucp_dra.cgi_lithology_uri
+            simple_lithology = gucp_dra.simple_lithology
         FROM (
             SELECT
                 gucp.rcs,
                 gucp.cgi_lithology_label,
-                gucp.cgi_lithology_uri
+                gucp.cgi_lithology_uri,
+                sl.name as simple_lithology
             FROM
                 geol_unit_comp_part AS gucp
             -- Inner join on _dic_rock_all so that the RCS codes are valid
@@ -399,6 +400,9 @@ def populate_simple_lithology(conn: sqlite3.Connection) -> None:
             -- dic_rock_field because _dic_rock_all has not been modified
             INNER JOIN
                 _dic_rock_all AS dra ON gucp.rcs = dra.code
+            -- Use _simple_lithology to get user-friendly names
+            LEFT JOIN
+                _simple_lithology AS sl ON gucp.cgi_lithology_uri = sl.simple_lithology_uri
             -- Group by _dic_rock_all RCS codes to prevent duplication
             GROUP BY
                 dra.code
@@ -430,7 +434,7 @@ def populate_category(conn: sqlite3.Connection) -> None:
         FROM
             _simple_lithology AS sl
         WHERE
-            drf.simple_lithology = sl.simple_lithology_uri
+            drf.simple_lithology = sl.name
         -- Only update the category where it is empty
         AND
             drf.category IS NULL
