@@ -60,6 +60,8 @@ def main():
         extend_dic_rock_field(conn)
         logging.info("Populating simple_lithology column in dic_rock_field")
         populate_simple_lithology(conn)
+        logging.info("Populating category column in dic_rock_field")
+        populate_category(conn)
 
         logging.info("Dumping SQL file")
         dump_sql(conn)
@@ -380,11 +382,11 @@ def populate_simple_lithology(conn: sqlite3.Connection) -> None:
     This process uses the geol_unit_comp_part table to match the simple_lithology URIs
     to RCS codes.
     """
-    gucp_sl_update = """
+    gucp_dra_update_drf = """
         UPDATE
             dic_rock_field AS drf
         SET
-            simple_lithology = gucp_sl.cgi_lithology_uri
+            simple_lithology = gucp_dra.cgi_lithology_uri
         FROM (
             SELECT
                 gucp.rcs,
@@ -400,12 +402,40 @@ def populate_simple_lithology(conn: sqlite3.Connection) -> None:
             -- Group by _dic_rock_all RCS codes to prevent duplication
             GROUP BY
                 dra.code
-        ) AS gucp_sl
+        ) AS gucp_dra
         WHERE
-            drf.code = gucp_sl.rcs
+            drf.code = gucp_dra.rcs
     """
+    etl.execute(gucp_dra_update_drf, conn)
 
-    etl.execute(gucp_sl_update, conn)
+
+def populate_category(conn: sqlite3.Connection) -> None:
+    """
+    Populate the category column in the dic_rock_field table where it is currently empty.
+    This process uses the simple_lithology table, specifically the parents list to retrieve
+    the category for each rock type.
+    """
+    sl_update_drf = """
+        UPDATE
+            dic_rock_field AS drf
+        SET
+            -- Match the new category value to the type found in the parents list
+            category = CASE
+                WHEN sl.parents LIKE('%pyroclastic%') THEN 'IGNEOUS-VOLCANIC'
+                WHEN sl.parents LIKE('%igneous%') THEN 'IGNEOUS'
+                WHEN sl.parents LIKE('%sedimentary%') THEN 'SEDIMENTARY'
+                WHEN sl.parents LIKE('%metamorphic%') THEN 'METAMORPHIC'
+                ELSE NULL
+            END
+        FROM
+            _simple_lithology AS sl
+        WHERE
+            drf.simple_lithology = sl.simple_lithology_uri
+        -- Only update the category where it is empty
+        AND
+            drf.category IS NULL
+    """
+    etl.execute(sl_update_drf, conn)
 
 
 def dump_sql(conn: sqlite3.Connection, output=OUTPUT_FILE):
