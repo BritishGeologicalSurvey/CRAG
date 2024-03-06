@@ -268,6 +268,7 @@ def update_cgi_uris_from_inspire(conn):
     https://stackoverflow.com/a/1176023/3508733
     """
     # Some RCS values are UKNOWN... ? hmm
+    # The better way to remove unknown/voided values is that the inspire lithology = '/N'
     select_sql = """
         SELECT
             rcs,
@@ -277,7 +278,7 @@ def update_cgi_uris_from_inspire(conn):
         WHERE
             cgi_lithology_uri IS ''
         AND
-            rcs != 'UKNOWN'
+            inspire_lithology_uri != '/N'
     """
 
     update_sql = """
@@ -295,10 +296,25 @@ def update_cgi_uris_from_inspire(conn):
 
     def transform(chunk: Iterable[dict]) -> Iterable[dict]:
         pattern = re.compile(r'(?<!^)(?=[A-Z])')
+        inspire_to_cgi_conversions = {
+            "dolomite": "dolostone",
+            "gypsumOrAnhydrite": "rock_gypsum_or_anhydrite",
+            # Typo
+            "phonolite": "phonolilte",
+            # There are other examples such as 'clastic_sediment' in cgi, but 'sediment' is not included in inspire
+            "conglomerate": "clastic_conglomerate",
+            "mudstone": "clastic_mudstone",
+            "sandstone": "clastic_sandstone",
+        }
 
         for row in chunk:
             inspire_name = row.pop('inspire_lithology_uri').split('/')[-1]
-            cgi_name = re.sub(pattern, '_', inspire_name).lower()
+
+            if inspire_name in inspire_to_cgi_conversions:
+                cgi_name = inspire_to_cgi_conversions[inspire_name]
+            else:
+                cgi_name = re.sub(pattern, '_', inspire_name).lower()
+
             row['cgi_lithology_uri'] = cgi_base_url + cgi_name
             yield row
 
