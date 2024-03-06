@@ -378,21 +378,34 @@ def populate_simple_lithology(conn: sqlite3.Connection) -> None:
     """
     Populate the simple_lithology column in the dic_rock_field table.
     This process uses the geol_unit_comp_part table to match the simple_lithology URIs
-    to RCS codes which then match the codes found in _dic_rock_all.
+    to RCS codes.
     """
-    # Using a combination of DISTINCT and GROUP BY to prevent duplication
-    join_sl_gucp_query = """
-        SELECT DISTINCT
-            sl.simple_lithology_uri,
-            sl.name AS simple_lithology_name,
-            gucp.rcs
-        FROM
-            _simple_lithology AS sl
-        LEFT JOIN
-            geol_unit_comp_part AS gucp ON gucp.cgi_lithology_uri = sl.simple_lithology_uri
-        GROUP BY
-            sl.name
+    gucp_sl_update = """
+        UPDATE
+            dic_rock_field AS drf
+        SET
+            simple_lithology = gucp_sl.cgi_lithology_uri
+        FROM (
+            SELECT
+                gucp.rcs,
+                gucp.cgi_lithology_label,
+                gucp.cgi_lithology_uri
+            FROM
+                geol_unit_comp_part AS gucp
+            -- Inner join on _dic_rock_all so that the RCS codes are valid
+            -- It is also safer to join on _dic_rock_all rather than
+            -- dic_rock_field because _dic_rock_all has not been modified
+            INNER JOIN
+                _dic_rock_all AS dra ON gucp.rcs = dra.code
+            -- Group by _dic_rock_all RCS codes to prevent duplication
+            GROUP BY
+                dra.code
+        ) AS gucp_sl
+        WHERE
+            drf.code = gucp_sl.rcs
     """
+
+    etl.execute(gucp_sl_update, conn)
 
 
 def dump_sql(conn: sqlite3.Connection, output=OUTPUT_FILE):
