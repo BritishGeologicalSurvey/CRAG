@@ -60,6 +60,8 @@ def main():
         extend_dic_rock_field(conn)
         logging.info("Populating simple_lithology column in dic_rock_field")
         populate_simple_lithology(conn)
+        logging.info("Filling missing colours and lithologies")
+        fill_missing_colours_and_lithologies(conn)
         logging.info("Populating category column in dic_rock_field")
         populate_category(conn)
 
@@ -411,6 +413,80 @@ def populate_simple_lithology(conn: sqlite3.Connection) -> None:
             drf.code = gucp_dra.rcs
     """
     etl.execute(gucp_dra_update_drf, conn)
+
+
+def fill_missing_colours_and_lithologies(conn):
+    # Dictionary stores hex code for lithologies where there isn't one defined
+    # based on other rocks in the same category.
+    missing_colours = {
+        "anthracite": "#6E4900",  # coal
+        "ash breccia bomb or block tephra": "#C84100",  # tephra
+        "ash tuff lapillistone and lapilli tuff": "#FFEDBF",  # pyroclastic rock
+        "tuff breccia agglomerate or pyroclastic breccia": "#FFEDBF", # pyroclastic rock
+        "breccia gouge series": "#F4FFD5",  # cataclasite series
+        "fault related material": "#F4FFD5",  # cataclasite series
+        "kalsilitic and melilitic rocks": "#FF6F91",  # exotic composition igneous rock
+        "non clastic siliceous sediment": "#9696B9",  # siliceous ooze
+        "non clastic siliceous sedimentary material": "#9696B9",  # siliceous ooze
+        "non clastic siliceous sedimentary rock": "#F7F3A1",  # biogenic silica sedimentary rock
+    }
+    missing_colours = [dict(name=key, hex_colour=value)
+                       for key, value in missing_colours.items()]
+
+    update_sql = """
+        UPDATE
+            _simple_lithology
+        SET
+            hex_colour = :hex_colour
+        WHERE
+            name = :name
+    """
+
+    etl.executemany(update_sql, conn, missing_colours)
+
+    # For now we only do the lithologies from Maarten's list
+    missing_lithologies = {
+        "Fault-breccia": "breccia gouge series",
+        "Lapillistone": "ash tuff lapillistone and lapilli tuff",
+        "Tephra": "tephra",
+        "Basalt tuff": "ash tuff lapillistone and lapilli tuff",
+        "Meta-igneous rock": "metamorphic rock",  # there is nothing more precise
+        "Metarhyolite": "metamorphic rock",
+        "Coal and mudstone": "coal",
+        "Duricrust": "duricrust",
+        "Ferricrete": "duricrust",
+        "Gypsum": "gypsum or anhydrite",
+        "Halite-stone": "rock salt",
+        "Seat-earth": "duricrust",
+        "Silcrete": "duricrust",
+        "Sandy siltstone": "siltstone",
+        "Cobbles [UDCS]": "clastic sedimentary material",  # broader category, specific sizes only go to gravel
+        # All the vein rocks are classified as chemical sedimentary material as
+        # there is no way to subdivide them further based on composition.
+        "Baryte (vein)": "chemical sedimentary material",
+        "Copper (vein)": "chemical sedimentary material",
+        "Hematite (vein)": "chemical sedimentary material",
+        "Iron (vein)": "chemical sedimentary material",
+        "Lead (vein)": "chemical sedimentary material",
+        "Lead-zinc (vein)": "chemical sedimentary material",
+        "Pyrite (vein)": "chemical sedimentary material",
+        "Uranium (vein)": "chemical sedimentary material",
+        "Vein rock": "chemical sedimentary material",
+        "Zinc (vein)": "chemical sedimentary material",
+    }
+    missing_lithologies = [dict(label=key, lithology=value)
+                       for key, value in missing_lithologies.items()]
+
+    update_sql = """
+        UPDATE
+            dic_rock_field
+        SET
+            simple_lithology = :lithology
+        WHERE
+            label = :label
+    """
+
+    etl.executemany(update_sql, conn, missing_lithologies)
 
 
 def populate_category(conn: sqlite3.Connection) -> None:
