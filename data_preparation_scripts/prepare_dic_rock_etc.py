@@ -267,17 +267,29 @@ def update_cgi_uris_from_inspire(conn):
     Code for case conversion from Stack Overflow CC BY-SA 4.0
     https://stackoverflow.com/a/1176023/3508733
     """
+    # Some RCS values are UKNOWN... ? hmm
     select_sql = """
-        SELECT rcs, inspire_lithology_uri
-        FROM geol_unit_comp_part
-        WHERE cgi_lithology_uri IS ''
-        """
+        SELECT
+            rcs,
+            inspire_lithology_uri
+        FROM
+            geol_unit_comp_part
+        WHERE
+            cgi_lithology_uri IS ''
+        AND
+            rcs != 'UKNOWN'
+    """
 
     update_sql = """
-        UPDATE geol_unit_comp_part
-        SET cgi_lithology_uri = :cgi_lithology_uri
-        WHERE rcs = :rcs
-        """
+        UPDATE
+            geol_unit_comp_part
+        SET
+            cgi_lithology_uri = :cgi_lithology_uri
+        WHERE
+            rcs = :rcs
+        AND
+            cgi_lithology_uri IS ''
+    """
 
     cgi_base_url = "http://resource.geosciml.org/classifier/cgi/lithology/"
 
@@ -293,7 +305,6 @@ def update_cgi_uris_from_inspire(conn):
     rows = etl.iter_rows(select_sql, conn, transform=transform,
                          row_factory=etl.row_factories.dict_row_factory)
     etl.executemany(update_sql, conn, rows)
-
 
 
 def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
