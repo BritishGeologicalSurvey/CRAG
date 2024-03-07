@@ -38,22 +38,19 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
     exp_type.code AS exposure_type,
+	  rock.label AS lithology,
+    lith.lithology_code,
+	  rock.simple_lithology,
 	  lith.description,
     lith.notes,
-    lith.lithology_code,
-	  sl.name as simple_lithology,
-	  rock.description AS type_description,
     lith.uuid AS lithology_uuid,
     lp.uuid AS locality_uuid,
-	  sl.hex_colour,
-    sl.simple_lithology_uri as representativeLithology_uri,
     lp.geometry AS geometry
   FROM lithology lith
     LEFT JOIN locality_point lp ON lith.locality_fuid = lp.uuid
     LEFT JOIN dic_exposure_type exp_type ON lp.exposure_type_code = exp_type.code
 	  LEFT JOIN dic_rock_field rock ON lith.lithology_code = rock.code
     LEFT JOIN field_project fp ON lp.field_project_fuid = fp.uuid
-	  LEFT JOIN _simple_lithology sl ON rock.simple_lithology = sl.name
 ;
 
 INSERT INTO gpkg_contents
