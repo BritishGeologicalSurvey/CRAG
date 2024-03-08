@@ -2,65 +2,64 @@
   <renderer-v2 circleColor="125,125,125,255" circleRadiusAddition="0" circleWidth="0.4" enableorderby="0" forceraster="0" labelAttributeName="" labelColor="0,0,0,255" labelDistanceFactor="0.5" maxLabelScaleDenominator="0" placement="0" referencescale="-1" symbollevels="0" tolerance="3" toleranceUnit="MM" toleranceUnitScale="3x:0,0,0,0,0,0" type="pointDisplacement">
     <labelFontProperties bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFontProperties>
     <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
-      <rules key="{73b0e382-4b60-4a2b-a736-04d599da14a8}">
-        <rule filter="simple_lithology IN ('acidic igneous material', 'acidic igneous rock', 'quartz rich igneous rock')" key="{727d96d3-cd94-444e-b458-b9dd73dd79fb}" label="acidic igneous rock" symbol="0"></rule>
-        <rule filter="simple_lithology IN ('amphibolite')" key="{84bfd7d5-2551-4e55-8093-62adffefa3b7}" label="amphibolite" symbol="1"></rule>
-        <rule filter="simple_lithology IN ('andesite', 'boninite')" key="{a61a07d4-910f-4e7b-9997-4d1e1d9d06e6}" label="andesite" symbol="2"></rule>
-        <rule filter="simple_lithology IN ('anorthosite', 'anorthositic rock', 'foid bearing anorthosite', 'quartz anorthosite')" key="{6b5de4bb-56a7-4cb0-ba8f-203f81f73173}" label="anorthositic rock" symbol="3"></rule>
-        <rule filter="simple_lithology IN ('anthropogenic material', 'anthropogenic unconsolidated material')" key="{4d0212a8-c68a-4b3d-8680-8526904274dd}" label="anthropogenic material" symbol="4"></rule>
-        <rule filter="simple_lithology IN ('alkali olivine basalt', 'basalt', 'tholeiitic basalt')" key="{2353f66b-abac-4db6-9f1c-6ccd8b9d1a4a}" label="basalt" symbol="5"></rule>
-        <rule filter="simple_lithology IN ('basic igneous material', 'basic igneous rock')" key="{dc9bbd63-db14-4f14-9fed-7823a7346bcc}" label="basic igneous rock" symbol="6"></rule>
-        <rule filter="simple_lithology IN ('biogenic sediment', 'ooze', 'siliceous ooze')" key="{ac1bbfc8-fd39-4ce7-8b9d-0f48bd096a92}" label="biogenic sediment" symbol="7"></rule>
-        <rule filter="simple_lithology IN ('breccia')" key="{4c7384d4-ef29-4629-bfd8-517e47183e7a}" label="breccia" symbol="8"></rule>
-        <rule filter="simple_lithology IN ('calcareous carbonate sediment', 'calcareous carbonate sedimentary material', 'carbonate mud', 'carbonate ooze', 'carbonate sediment', 'carbonate sedimentary material', 'dolomitic or magnesian sedimentary material', 'dolomitic sediment', 'impure calcareous carbonate sediment', 'impure carbonate sediment', 'impure dolomitic sediment', 'pure calcareous carbonate sediment', 'pure carbonate sediment', 'pure dolomitic sediment')" key="{bb35bd62-2dfb-4c1b-aab9-af637b7667e1}" label="carbonate sedimentary material" symbol="9"></rule>
-        <rule filter="simple_lithology IN ('boundstone', 'calcareous carbonate sedimentary rock', 'carbonate sedimentary rock', 'carbonate wackestone', 'chalk', 'crystalline carbonate', 'framestone', 'grainstone', 'impure carbonate sedimentary rock', 'impure limestone', 'limestone', 'packstone', 'pure carbonate mudstone', 'pure carbonate sedimentary rock', 'travertine')" key="{daaba1b5-5e5b-4711-9000-2334f2a11074}" label="carbonate sedimentary rock" symbol="10"></rule>
-        <rule filter="simple_lithology IN ('chemical sedimentary material', 'evaporite', 'exotic evaporite', 'gypsum or anhydrite', 'iron rich sediment', 'iron rich sedimentary material', 'rock salt')" key="{f0d852cc-95a4-4974-a0c5-589b0d6760a0}" label="chemical sedimentary material" symbol="11"></rule>
-        <rule filter="simple_lithology IN ('chlorite actinolite epidote metamorphic rock')" key="{31d210db-c26a-4c64-bfee-58c41048d67d}" label="chlorite actinolite epidote metamorphic rock" symbol="12"></rule>
-        <rule filter="simple_lithology IN ('clastic sediment', 'clastic sedimentary material', 'clay', 'diamicton', 'gravel', 'mud', 'sand', 'silt')" key="{9068445d-0a89-4676-be79-a72b37b85bd6}" label="clastic sedimentary material" symbol="13"></rule>
-        <rule filter="simple_lithology IN ('clastic sedimentary rock', 'diamictite')" key="{d5bcb65a-8c22-4460-aa5b-711710b78a71}" label="clastic sedimentary rock" symbol="14"></rule>
-        <rule filter="simple_lithology IN ('composite genesis material', 'composite genesis rock')" key="{f9fdffcc-19a9-4328-8cf1-545419fa85b6}" label="composite genesis material" symbol="15"></rule>
-        <rule filter="simple_lithology IN ('compound material')" key="{94c55b0b-9fc8-4e6c-b4d1-49adb9b842ba}" label="compound material" symbol="16"></rule>
-        <rule filter="simple_lithology IN ('diorite', 'dioritic rock', 'dioritoid', 'foid bearing diorite', 'foid bearing monzodiorite', 'foid diorite', 'foid dioritoid', 'foid monzodiorite', 'monzodiorite', 'monzodioritic rock', 'quartz diorite', 'quartz monzodiorite')" key="{ce4f09a8-73fa-491c-8103-482f78d66b79}" label="dioritoid" symbol="17"></rule>
-        <rule filter="simple_lithology IN ('dolomite', 'dolomitic or magnesian sedimentary rock', 'impure dolomite')" key="{cb79bd4e-e77c-4225-906c-5be8cd83b2b6}" label="dolomitic or magnesian sedimentary rock" symbol="18"></rule>
-        <rule filter="simple_lithology IN ('eclogite')" key="{64d696ba-868b-414a-a949-27d3545312e7}" label="eclogite" symbol="19"></rule>
-        <rule filter="simple_lithology IN ('carbonatite', 'exotic alkaline rock', 'exotic composition igneous rock', 'kalsilitic and melilitic rocks')" key="{a6a52968-ef68-4ee4-8fca-ec6367df8e53}" label="exotic composition igneous rock" symbol="20"></rule>
-        <rule filter="simple_lithology IN ('breccia gouge series', 'cataclasite series', 'fault related material', 'mylonitic rock', 'phyllonite')" key="{70fd177e-4238-421f-9f05-609d83931057}" label="fault related material" symbol="21"></rule>
-        <rule filter="simple_lithology IN ('alkali feldspar trachyte', 'alkali feldspar trachytic rock', 'basanite', 'basanitic foidite', 'dacite', 'fine grained igneous rock', 'foid bearing alkali feldspar trachyte', 'foid bearing latite', 'foid bearing trachyte', 'foidite', 'foiditoid', 'high magnesium fine grained igneous rock', 'latite', 'latitic rock', 'phonolite', 'phonolitic basanite', 'phonolitic foidite', 'phonolitic tephrite', 'phonolitoid', 'quartz alkali feldspar trachyte', 'quartz latite', 'quartz trachyte', 'tephrite', 'tephritic foidite', 'tephritic phonolite', 'tephritoid', 'trachyte', 'trachytic rock', 'trachytoid')" key="{2c9f5f67-34c2-498d-84c5-30a81391eabb}" label="fine grained igneous rock" symbol="22"></rule>
-        <rule filter="simple_lithology IN ('foliated metamorphic rock')" key="{4e132f4c-7fff-4dd8-9f21-bd3bc288ebf0}" label="foliated metamorphic rock" symbol="23"></rule>
-        <rule filter="simple_lithology IN ('foid bearing gabbro', 'foid bearing monzogabbro', 'foid gabbro', 'foid gabbroid', 'foid monzogabbro', 'gabbro', 'gabbroic rock', 'gabbroid', 'monzogabbro', 'monzogabbroic rock', 'quartz gabbro', 'quartz monzogabbro')" key="{c7a4dcab-f3b5-46ed-9593-f2b4af7484fe}" label="gabbroid" symbol="24"></rule>
-        <rule filter="simple_lithology IN ('conglomerate', 'generic conglomerate')" key="{a25dd2b7-3b3e-4094-a00e-dd1e14d579d9}" label="generic conglomerate" symbol="25"></rule>
-        <rule filter="simple_lithology IN ('carbonate mudstone', 'carbonate rich mudstone', 'claystone', 'generic mudstone', 'mudstone', 'organic bearing mudstone', 'shale', 'silicate mudstone', 'siltstone')" key="{5c4f35f5-03a7-4499-904d-7fd9b3cf1246}" label="generic mudstone" symbol="26"></rule>
-        <rule filter="simple_lithology IN ('arenite', 'generic sandstone', 'sandstone', 'wacke')" key="{cc4320d2-8d6b-413f-9593-a47484dd21e5}" label="generic sandstone" symbol="27"></rule>
-        <rule filter="simple_lithology IN ('glaucophane lawsonite epidote metamorphic rock')" key="{879e40cb-2490-49b7-8fdc-ac48e09eb225}" label="glaucophane lawsonite epidote metamorphic rock" symbol="28"></rule>
-        <rule filter="simple_lithology IN ('gneiss', 'orthogneiss', 'paragneiss')" key="{65c08f97-f167-4890-9bb7-a381ac44ca60}" label="gneiss" symbol="29"></rule>
-        <rule filter="simple_lithology IN ('alkali feldspar granite', 'granite', 'granitoid', 'granodiorite', 'monzogranite', 'syenogranite', 'tonalite')" key="{15ca5d2d-707b-4ddf-a48b-d08256392b45}" label="granitoid" symbol="30"></rule>
-        <rule filter="simple_lithology IN ('granofels', 'hornfels')" key="{90cf9506-174c-47a8-823a-ba93756addc5}" label="granofels" symbol="31"></rule>
-        <rule filter="simple_lithology IN ('granulite')" key="{7f736b7f-6586-44b7-b24e-e3eed02848f1}" label="granulite" symbol="32"></rule>
-        <rule filter="simple_lithology IN ('doleritic rock', 'glass rich igneous rock', 'glassy igneous rock', 'igneous material', 'igneous rock', 'porphyry')" key="{16365600-f382-411d-a6e1-8d9511b71d97}" label="igneous rock" symbol="33"></rule>
-        <rule filter="simple_lithology IN ('impact generated material')" key="{cebbe0c7-bdda-4814-82bf-a80b2bde209f}" label="impact generated material" symbol="34"></rule>
-        <rule filter="simple_lithology IN ('intermediate composition igneous material', 'intermediate composition igneous rock')" key="{2562e5a5-5b16-49cc-8a7d-f8010cb31ae6}" label="intermediate composition igneous rock" symbol="35"></rule>
-        <rule filter="simple_lithology IN ('marble')" key="{92bddb12-a66f-4520-8101-b94688621ed1}" label="marble" symbol="36"></rule>
-        <rule filter="simple_lithology IN ('bauxite', 'duricrust', 'material formed in surficial environment', 'residual material')" key="{eeee7ec8-a25d-4530-b861-d94b9d5f85bc}" label="material formed in surficial environment" symbol="37"></rule>
-        <rule filter="simple_lithology IN ('metamorphic rock')" key="{5c8cf2f9-8ead-484a-886e-f8b6d43bdfc4}" label="metamorphic rock" symbol="38"></rule>
-        <rule filter="simple_lithology IN ('metasomatic rock', 'skarn', 'spilite')" key="{3c492378-c425-4d9e-ad44-28d4460bb624}" label="metasomatic rock" symbol="39"></rule>
-        <rule filter="simple_lithology IN ('migmatite')" key="{95598136-7793-41e0-b409-58716c75267b}" label="migmatite" symbol="40"></rule>
-        <rule filter="simple_lithology IN ('natural unconsolidated material')" key="{64abcacc-313b-4764-a474-66c8bc7e422e}" label="natural unconsolidated material" symbol="41"></rule>
-        <rule filter="simple_lithology IN ('organic rich sediment', 'organic rich sedimentary material', 'peat', 'sapropel')" key="{e1dd66df-66d0-4a0c-8edb-d0dc244fe947}" label="organic rich sedimentary material" symbol="42"></rule>
-        <rule filter="simple_lithology IN ('anthracite', 'bituminous coal', 'coal', 'lignite', 'organic rich sedimentary rock')" key="{1db7e563-7e19-455a-bd47-08cc7f6dad82}" label="organic rich sedimentary rock" symbol="43"></rule>
-        <rule filter="simple_lithology IN ('aplite', 'foidolite', 'pegmatite', 'phaneritic igneous rock')" key="{e8e44458-6771-4baa-bb76-0c668a6b6f93}" label="phaneritic igneous rock" symbol="44"></rule>
-        <rule filter="simple_lithology IN ('phyllite')" key="{b44cffef-89b7-4c14-8510-7a0abe0d77fd}" label="phyllite" symbol="45"></rule>
-        <rule filter="simple_lithology IN ('ash and lapilli', 'ash breccia bomb or block tephra', 'ash tuff lapillistone and lapilli tuff', 'fragmental igneous material', 'fragmental igneous rock', 'pyroclastic material', 'pyroclastic rock', 'tephra', 'tuff breccia agglomerate or pyroclastic breccia', 'tuffite')" key="{a81dc873-4980-485e-9e66-db7cb5b249b0}" label="pyroclastic material" symbol="46"></rule>
-        <rule filter="simple_lithology IN ('quartzite')" key="{4ecfc68f-faaa-420d-a83b-fb933c3182a8}" label="quartzite" symbol="47"></rule>
-        <rule filter="simple_lithology IN ('alkali feldspar rhyolite', 'rhyolite', 'rhyolitoid')" key="{ceba47a1-4ed4-4286-9e93-88a03ba2d777}" label="rhyolitoid" symbol="48"></rule>
-        <rule filter="simple_lithology IN ('aphanite', 'rock')" key="{e13995db-0811-4584-81f0-5cddbc7c059e}" label="rock" symbol="49"></rule>
-        <rule filter="simple_lithology IN ('mica schist', 'schist')" key="{a22e309a-04dd-4801-95a0-b7b276b5236c}" label="schist" symbol="50"></rule>
-        <rule filter="simple_lithology IN ('boulder gravel size sediment', 'carbonate rich mud', 'cobble gravel size sediment', 'gravel size sediment', 'hybrid sediment', 'mud size sediment', 'non clastic siliceous sediment', 'non clastic siliceous sedimentary material', 'pebble gravel size sediment', 'phosphate rich sediment', 'phosphate rich sedimentary material', 'sand size sediment', 'sediment', 'sedimentary material', 'silicate mud')" key="{1b41b5a6-da68-4347-8b33-d1e87ba2fffd}" label="sedimentary material" symbol="51"></rule>
-        <rule filter="simple_lithology IN ('biogenic silica sedimentary rock', 'hybrid sedimentary rock', 'iron rich sedimentary rock', 'non clastic siliceous sedimentary rock', 'phosphorite', 'sedimentary rock')" key="{fe4e5cd7-0c30-423d-a747-29d4751037ac}" label="sedimentary rock" symbol="52"></rule>
-        <rule filter="simple_lithology IN ('serpentinite')" key="{63823086-5d96-4202-85bc-d4397eed60a3}" label="serpentinite" symbol="53"></rule>
-        <rule filter="simple_lithology IN ('slate')" key="{c1cd0a14-32aa-4ad9-8268-1101234d12f0}" label="slate" symbol="54"></rule>
-        <rule filter="simple_lithology IN ('alkali feldspar syenite', 'alkali feldspar syenitic rock', 'foid bearing alkali feldspar syenite', 'foid bearing monzonite', 'foid bearing syenite', 'foid monzosyenite', 'foid syenite', 'foid syenitoid', 'monzonite', 'monzonitic rock', 'quartz alkali feldspar syenite', 'quartz monzonite', 'quartz syenite', 'syenite', 'syenitic rock', 'syenitoid')" key="{3ddfcee0-dc55-469e-b2be-6e7fb961a99d}" label="syenitoid" symbol="55"></rule>
-        <rule filter="simple_lithology IN ('hornblendite', 'komatiitic rock', 'peridotite', 'pyroxenite', 'ultrabasic igneous rock', 'ultramafic igneous rock')" key="{d5a41cef-a19e-4f09-9978-b4f2582c9233}" label="ultramafic igneous rock" symbol="56"></rule>
-        <rule filter="simple_lithology IN ('unconsolidated material')" key="{e95ea93c-04c6-48df-9326-e2d4e69292b4}" label="unconsolidated material" symbol="57"></rule>
+      <rules key="{2c5d8ccd-29cb-4d99-bbca-d2b8b8cba71d}">
+        <rule filter="simple_lithology IN ('biogenic silica sedimentary rock','hybrid sedimentary rock','iron rich sedimentary rock','non clastic siliceous sedimentary rock','phosphorite','sedimentary rock')" key="{5a731b97-8300-4330-976a-b4317b9f8176}" label="sedimentary rock" symbol="0"></rule>
+        <rule filter="simple_lithology IN ('clastic sedimentary rock','diamictite')" key="{a262b1a7-bc64-4f23-a3cf-5bb616a30ce1}" label="clastic sedimentary rock" symbol="1"></rule>
+        <rule filter="simple_lithology IN ('carbonate mudstone','carbonate rich mudstone','claystone','generic mudstone','mudstone','organic bearing mudstone','shale','silicate mudstone','siltstone')" key="{55e3024a-5352-4eb3-932d-5adfd0e4dfae}" label="generic mudstone" symbol="2"></rule>
+        <rule filter="simple_lithology IN ('arenite','generic sandstone','sandstone','wacke')" key="{74b96449-04c1-4d2e-ad5d-1be2405ac0e2}" label="generic sandstone" symbol="3"></rule>
+        <rule filter="simple_lithology IN ('conglomerate','generic conglomerate')" key="{9deb1a40-2ac9-4f57-94eb-fcbaf38d62e2}" label="generic conglomerate" symbol="4"></rule>
+        <rule filter="simple_lithology IN ('boundstone','calcareous carbonate sedimentary rock','carbonate sedimentary rock','carbonate wackestone','crystalline carbonate','framestone','grainstone','impure carbonate sedimentary rock','impure limestone','limestone','packstone','pure carbonate mudstone','pure carbonate sedimentary rock','travertine')" key="{b450983f-1e02-4d7a-8656-25ab98a633ba}" label="carbonate sedimentary rock" symbol="5"></rule>
+        <rule filter="simple_lithology IN ('chalk')" key="{dae52599-d124-4409-8a4e-9a1c47a5010f}" label="chalk" symbol="6"></rule>
+        <rule filter="simple_lithology IN ('dolomite','dolomitic or magnesian sedimentary rock','impure dolomite')" key="{95e199a9-f7c3-4d29-8d17-ee5a7013658f}" label="dolomitic or magnesian sedimentary rock" symbol="7"></rule>
+        <rule filter="simple_lithology IN ('anthracite','bituminous coal','coal','lignite','organic rich sedimentary rock')" key="{9ccad476-36a2-48fb-aa3d-005935070bad}" label="organic rich sedimentary rock" symbol="8"></rule>
+        <rule filter="simple_lithology IN ('bauxite','duricrust','material formed in surficial environment','residual material')" key="{d8d552a2-c978-4d4e-9428-6bcc7d8d0d45}" label="material formed in surficial environment" symbol="9"></rule>
+        <rule filter="simple_lithology IN ('doleritic rock','glass rich igneous rock','glassy igneous rock','igneous material','igneous rock','porphyry')" key="{6f744e8d-3aca-4b06-b1b7-502510a02f19}" label="igneous rock" symbol="10"></rule>
+        <rule filter="simple_lithology IN ('basic igneous material','basic igneous rock')" key="{fae756b3-d11c-47f4-9d12-ebccea707f6b}" label="basic igneous rock" symbol="11"></rule>
+        <rule filter="simple_lithology IN ('alkali olivine basalt','basalt','tholeiitic basalt')" key="{1be95b59-657d-41c4-96cf-931faa302dc5}" label="basalt" symbol="12"></rule>
+        <rule filter="simple_lithology IN ('foid bearing gabbro','foid bearing monzogabbro','foid gabbro','foid gabbroid','foid monzogabbro','gabbro','gabbroic rock','gabbroid','monzogabbro','monzogabbroic rock','quartz gabbro','quartz monzogabbro')" key="{17eade83-d944-46c3-a0e2-cda0e40e92e5}" label="gabbroid" symbol="13"></rule>
+        <rule filter="simple_lithology IN ('intermediate composition igneous material','intermediate composition igneous rock')" key="{0a017c3b-d563-4d2e-a659-1ac78233c75e}" label="intermediate composition igneous rock" symbol="14"></rule>
+        <rule filter="simple_lithology IN ('andesite','boninite')" key="{8b001604-510e-4992-a55b-20e0a080dd57}" label="andesite" symbol="15"></rule>
+        <rule filter="simple_lithology IN ('diorite','dioritic rock','dioritoid','foid bearing diorite','foid bearing monzodiorite','foid diorite','foid dioritoid','foid monzodiorite','monzodiorite','monzodioritic rock','quartz diorite','quartz monzodiorite')" key="{c5a142e8-c20e-4045-8f7c-9ec53fd760b8}" label="dioritoid" symbol="16"></rule>
+        <rule filter="simple_lithology IN ('acidic igneous material','acidic igneous rock','quartz rich igneous rock')" key="{ab64bbbb-6361-4a6c-b2f4-1501cf29f39c}" label="acidic igneous rock" symbol="17"></rule>
+        <rule filter="simple_lithology IN ('alkali feldspar rhyolite','rhyolite','rhyolitoid')" key="{503060ff-0c49-45fc-8ef5-285cb6f6180c}" label="rhyolitoid" symbol="18"></rule>
+        <rule filter="simple_lithology IN ('alkali feldspar granite','granite','granitoid','granodiorite','monzogranite','syenogranite','tonalite')" key="{0ab70e53-3d38-4754-838f-5f787bf10963}" label="granitoid" symbol="19"></rule>
+        <rule filter="simple_lithology IN ('alkali feldspar syenite','alkali feldspar syenitic rock','foid bearing alkali feldspar syenite','foid bearing monzonite','foid bearing syenite','foid monzosyenite','foid syenite','foid syenitoid','monzonite','monzonitic rock','quartz alkali feldspar syenite','quartz monzonite','quartz syenite','syenite','syenitic rock','syenitoid')" key="{ee835188-2799-4fae-a3bd-ab1c06db5a76}" label="syenitoid" symbol="20"></rule>
+        <rule filter="simple_lithology IN ('hornblendite','komatiitic rock','peridotite','pyroxenite','ultrabasic igneous rock','ultramafic igneous rock')" key="{7a686a5f-007d-4447-aebe-dd32532d3b5d}" label="ultramafic igneous rock" symbol="21"></rule>
+        <rule filter="simple_lithology IN ('carbonatite','exotic alkaline rock','exotic composition igneous rock','kalsilitic and melilitic rocks')" key="{2aec0643-6245-4e32-acf8-1a1238f63c30}" label="exotic composition igneous rock" symbol="22"></rule>
+        <rule filter="simple_lithology IN ('alkali feldspar trachyte','alkali feldspar trachytic rock','basanite','basanitic foidite','dacite','fine grained igneous rock','foid bearing alkali feldspar trachyte','foid bearing latite','foid bearing trachyte','foidite','foiditoid','high magnesium fine grained igneous rock','latite','latitic rock','phonolite','phonolitic basanite','phonolitic foidite','phonolitic tephrite','phonolitoid','quartz alkali feldspar trachyte','quartz latite','quartz trachyte','tephrite','tephritic foidite','tephritic phonolite','tephritoid','trachyte','trachytic rock','trachytoid')" key="{93fddd1f-e743-4211-8ba6-8d2b1501da26}" label="fine grained igneous rock" symbol="23"></rule>
+        <rule filter="simple_lithology IN ('anorthosite','anorthositic rock','aplite','foid bearing anorthosite','foidolite','pegmatite','phaneritic igneous rock','quartz anorthosite')" key="{af4bc284-9183-4053-a840-8034efb4df93}" label="phaneritic igneous rock" symbol="24"></rule>
+        <rule filter="simple_lithology IN ('ash and lapilli','ash breccia bomb or block tephra','ash tuff lapillistone and lapilli tuff','fragmental igneous material','fragmental igneous rock','pyroclastic material','pyroclastic rock','tephra','tuff breccia agglomerate or pyroclastic breccia','tuffite')" key="{577af55e-6443-48a5-95f9-6982d4ed686c}" label="pyroclastic material" symbol="25"></rule>
+        <rule filter="simple_lithology IN ('composite genesis material','composite genesis rock')" key="{a95a3222-52a7-4793-ae8c-971f3c0c5b90}" label="composite genesis material" symbol="26"></rule>
+        <rule filter="simple_lithology IN ('breccia gouge series','cataclasite series','fault related material','mylonitic rock','phyllonite')" key="{d20b6ee9-4dbf-4afc-93fc-f2bf5eb28daf}" label="fault related material" symbol="27"></rule>
+        <rule filter="simple_lithology IN ('granofels','hornfels')" key="{d9e266f8-b4bc-4bd0-b458-230bc9a716a2}" label="granofels" symbol="28"></rule>
+        <rule filter="simple_lithology IN ('metamorphic rock')" key="{8e0ee4ef-4671-4273-9ebb-242a0fda916b}" label="metamorphic rock" symbol="29"></rule>
+        <rule filter="simple_lithology IN ('foliated metamorphic rock')" key="{032af231-03fb-4150-9a1c-9d156a70e213}" label="foliated metamorphic rock" symbol="30"></rule>
+        <rule filter="simple_lithology IN ('slate')" key="{90ea50df-0076-4f4a-939c-2fab9c77d5d5}" label="slate" symbol="31"></rule>
+        <rule filter="simple_lithology IN ('phyllite')" key="{87c29f8c-3a3e-4b53-8a1b-6f1ad3410736}" label="phyllite" symbol="32"></rule>
+        <rule filter="simple_lithology IN ('mica schist','schist')" key="{68585b8d-ee05-4b91-8d65-91eda735fc98}" label="schist" symbol="33"></rule>
+        <rule filter="simple_lithology IN ('gneiss','orthogneiss','paragneiss')" key="{172e9e34-8438-48d2-b2fc-56899363d564}" label="gneiss" symbol="34"></rule>
+        <rule filter="simple_lithology IN ('marble')" key="{38adcf52-0cd1-458e-8fa9-e1a1d3c53393}" label="marble" symbol="35"></rule>
+        <rule filter="simple_lithology IN ('quartzite')" key="{211dcbc3-2410-4c65-84e8-057dfda28d19}" label="quartzite" symbol="36"></rule>
+        <rule filter="simple_lithology IN ('serpentinite')" key="{d78a95c3-bade-4433-97e4-2362610cf22c}" label="serpentinite" symbol="37"></rule>
+        <rule filter="simple_lithology IN ('chlorite actinolite epidote metamorphic rock')" key="{95bedfad-4b2f-41f3-962d-ba601e580568}" label="chlorite actinolite epidote metamorphic rock" symbol="38"></rule>
+        <rule filter="simple_lithology IN ('glaucophane lawsonite epidote metamorphic rock')" key="{c3f0bba7-3386-4022-ba58-72bfe8129a19}" label="glaucophane lawsonite epidote metamorphic rock" symbol="39"></rule>
+        <rule filter="simple_lithology IN ('amphibolite')" key="{e5f3fb7e-5340-4462-885c-17c1ce34ee14}" label="amphibolite" symbol="40"></rule>
+        <rule filter="simple_lithology IN ('eclogite')" key="{0133d42c-e48e-4893-a03f-6c968356941e}" label="eclogite" symbol="41"></rule>
+        <rule filter="simple_lithology IN ('granulite')" key="{55604ff5-c792-40a6-b571-fb7879f831a9}" label="granulite" symbol="42"></rule>
+        <rule filter="simple_lithology IN ('migmatite')" key="{7f52aeb8-2db6-4d01-8cd8-20a4aa6dd2b4}" label="migmatite" symbol="43"></rule>
+        <rule filter="simple_lithology IN ('metasomatic rock','skarn','spilite')" key="{ac634c90-b8dc-4f3f-8401-cf0b659829cf}" label="metasomatic rock" symbol="44"></rule>
+        <rule filter="simple_lithology IN ('boulder gravel size sediment','carbonate rich mud','cobble gravel size sediment','gravel size sediment','hybrid sediment','mud size sediment','non clastic siliceous sediment','non clastic siliceous sedimentary material','pebble gravel size sediment','phosphate rich sediment','phosphate rich sedimentary material','sand size sediment','sediment','sedimentary material','silicate mud')" key="{dc169aa8-47d9-4809-913e-81f74191aebd}" label="sedimentary material" symbol="45"></rule>
+        <rule filter="simple_lithology IN ('clastic sediment','clastic sedimentary material','clay','diamicton','gravel','mud','sand','silt')" key="{bbeccc51-3efa-4363-a725-de30226b393c}" label="clastic sedimentary material" symbol="46"></rule>
+        <rule filter="simple_lithology IN ('calcareous carbonate sediment','calcareous carbonate sedimentary material','carbonate mud','carbonate ooze','carbonate sediment','carbonate sedimentary material','dolomitic or magnesian sedimentary material','dolomitic sediment','impure calcareous carbonate sediment','impure carbonate sediment','impure dolomitic sediment','pure calcareous carbonate sediment','pure carbonate sediment','pure dolomitic sediment')" key="{06cb24e6-2aa1-4013-8064-a76c388e14ca}" label="carbonate sedimentary material" symbol="47"></rule>
+        <rule filter="simple_lithology IN ('biogenic sediment','ooze','siliceous ooze')" key="{86fe0f31-f062-4494-b768-525154e39944}" label="biogenic sediment" symbol="48"></rule>
+        <rule filter="simple_lithology IN ('organic rich sediment','organic rich sedimentary material','peat','sapropel')" key="{e091561f-ea49-4e06-91f3-4e1d59445f7d}" label="organic rich sedimentary material" symbol="49"></rule>
+        <rule filter="simple_lithology IN ('chemical sedimentary material','evaporite','exotic evaporite','gypsum or anhydrite','iron rich sediment','iron rich sedimentary material','rock salt')" key="{adad4fc9-9cc0-4ecd-a530-f39cbad59f69}" label="chemical sedimentary material" symbol="50"></rule>
+        <rule filter="simple_lithology IN ('unconsolidated material','natural unconsolidated material')" key="{e181e0f8-24bf-49a7-8725-7b3da1292884}" label="unconsolidated material" symbol="51"></rule>
+        <rule filter="simple_lithology IN ('breccia')" key="{d3620023-e1e1-4077-a638-7d6b5c01ddb5}" label="breccia" symbol="52"></rule>
+        <rule filter="simple_lithology IN ('anthropogenic material','anthropogenic unconsolidated material')" key="{a39d4cb7-5944-4d16-9765-0095f9e249ae}" label="anthropogenic material" symbol="53"></rule>
+        <rule filter="simple_lithology IN ('impact generated material')" key="{b1bc88bd-3895-4786-befa-3549522f2ecc}" label="impact generated material" symbol="54"></rule>
+        <rule filter="simple_lithology IN ('aphanite','rock')" key="{a59aab18-c09a-4899-997b-1b2b5cf5c5cb}" label="rock" symbol="55"></rule>
+        <rule filter="simple_lithology IN ('compound material')" key="{340c5135-0139-48fe-bda9-10c7ca3f8f4a}" label="compound material" symbol="56"></rule>
       </rules>
       <symbols>
         <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="marker">
@@ -71,11 +70,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="254,205,178,255"></Option>
+              <Option name="color" type="QString" value="207,239,223,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -110,11 +109,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="172,127,80,255"></Option>
+              <Option name="color" type="QString" value="89,125,110,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -149,11 +148,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="1,156,205,255"></Option>
+              <Option name="color" type="QString" value="255,255,232,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -188,11 +187,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="205,222,255,255"></Option>
+              <Option name="color" type="QString" value="230,153,0,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -227,11 +226,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="230,205,255,255"></Option>
+              <Option name="color" type="QString" value="221,179,151,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -266,11 +265,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="217,253,211,255"></Option>
+              <Option name="color" type="QString" value="255,129,159,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -305,11 +304,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="217,253,211,255"></Option>
+              <Option name="color" type="QString" value="255,230,153,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -344,11 +343,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="106,0,106,255"></Option>
+              <Option name="color" type="QString" value="177,72,1,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -383,11 +382,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="192,192,192,255"></Option>
+              <Option name="color" type="QString" value="255,204,197,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -422,11 +421,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="223,200,200,255"></Option>
+              <Option name="color" type="QString" value="248,77,77,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -461,11 +460,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="191,191,255,255"></Option>
+              <Option name="color" type="QString" value="254,215,104,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -500,11 +499,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="255,79,255,255"></Option>
+              <Option name="color" type="QString" value="255,111,107,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -539,11 +538,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="177,72,1,255"></Option>
+              <Option name="color" type="QString" value="214,254,154,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -578,11 +577,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="255,111,145,255"></Option>
+              <Option name="color" type="QString" value="205,50,120,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -617,11 +616,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="244,255,213,255"></Option>
+              <Option name="color" type="QString" value="204,0,0,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -656,11 +655,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="255,0,255,255"></Option>
+              <Option name="color" type="QString" value="255,111,145,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -695,11 +694,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="238,124,232,255"></Option>
+              <Option name="color" type="QString" value="254,160,96,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -734,11 +733,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="255,91,91,255"></Option>
+              <Option name="color" type="QString" value="255,163,185,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -773,11 +772,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="183,217,204,255"></Option>
+              <Option name="color" type="QString" value="255,239,217,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -812,11 +811,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="172,228,200,255"></Option>
+              <Option name="color" type="QString" value="95,0,95,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -851,11 +850,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="205,255,217,255"></Option>
+              <Option name="color" type="QString" value="51,153,102,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -890,11 +889,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="0,0,0,255"></Option>
+              <Option name="color" type="QString" value="234,175,255,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -929,11 +928,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="159,0,202,255"></Option>
+              <Option name="color" type="QString" value="230,205,255,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -968,11 +967,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="255,163,185,255"></Option>
+              <Option name="color" type="QString" value="189,219,241,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1007,11 +1006,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="238,104,166,255"></Option>
+              <Option name="color" type="QString" value="238,124,232,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1046,11 +1045,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="163,55,223,255"></Option>
+              <Option name="color" type="QString" value="167,167,255,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1085,11 +1084,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="106,0,106,255"></Option>
+              <Option name="color" type="QString" value="237,237,243,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1124,11 +1123,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="248,77,77,255"></Option>
+              <Option name="color" type="QString" value="219,219,231,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1163,11 +1162,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="144,99,255,255"></Option>
+              <Option name="color" type="QString" value="45,182,179,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1202,11 +1201,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="255,230,153,255"></Option>
+              <Option name="color" type="QString" value="0,0,255,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1241,11 +1240,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="0,0,255,255"></Option>
+              <Option name="color" type="QString" value="159,255,159,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1280,11 +1279,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="255,162,82,255"></Option>
+              <Option name="color" type="QString" value="0,92,0,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1319,7 +1318,7 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
@@ -1358,11 +1357,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="230,205,255,255"></Option>
+              <Option name="color" type="QString" value="0,0,0,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1397,11 +1396,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="192,192,192,255"></Option>
+              <Option name="color" type="QString" value="183,217,204,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1436,11 +1435,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="172,0,0,255"></Option>
+              <Option name="color" type="QString" value="172,127,80,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1475,11 +1474,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="253,244,63,255"></Option>
+              <Option name="color" type="QString" value="255,79,255,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1514,11 +1513,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="66,65,60,255"></Option>
+              <Option name="color" type="QString" value="106,0,106,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1553,11 +1552,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="66,65,60,255"></Option>
+              <Option name="color" type="QString" value="172,0,0,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1592,11 +1591,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="255,112,181,255"></Option>
+              <Option name="color" type="QString" value="254,0,0,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1631,11 +1630,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="237,237,243,255"></Option>
+              <Option name="color" type="QString" value="255,255,0,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1670,11 +1669,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="255,237,191,255"></Option>
+              <Option name="color" type="QString" value="254,211,69,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1709,11 +1708,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="159,255,159,255"></Option>
+              <Option name="color" type="QString" value="191,191,255,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1748,11 +1747,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="254,215,104,255"></Option>
+              <Option name="color" type="QString" value="150,150,185,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1787,11 +1786,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="255,0,0,255"></Option>
+              <Option name="color" type="QString" value="150,150,185,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1826,11 +1825,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="221,179,151,255"></Option>
+              <Option name="color" type="QString" value="20,158,248,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1865,11 +1864,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="219,219,231,255"></Option>
+              <Option name="color" type="QString" value="197,213,233,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1904,11 +1903,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="245,245,0,255"></Option>
+              <Option name="color" type="QString" value="253,244,63,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1943,11 +1942,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="207,239,223,255"></Option>
+              <Option name="color" type="QString" value="215,167,173,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -1982,11 +1981,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="0,92,0,255"></Option>
+              <Option name="color" type="QString" value="200,200,200,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -2021,11 +2020,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="167,167,255,255"></Option>
+              <Option name="color" type="QString" value="144,99,255,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -2060,11 +2059,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="205,50,120,255"></Option>
+              <Option name="color" type="QString" value="255,0,0,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -2099,50 +2098,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="204,0,0,255"></Option>
-              <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-              <Option name="joinstyle" type="QString" value="bevel"></Option>
-              <Option name="name" type="QString" value="circle"></Option>
-              <Option name="offset" type="QString" value="0,0"></Option>
-              <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-              <Option name="offset_unit" type="QString" value="MM"></Option>
-              <Option name="outline_color" type="QString" value="35,35,35,255"></Option>
-              <Option name="outline_style" type="QString" value="solid"></Option>
-              <Option name="outline_width" type="QString" value="0"></Option>
-              <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-              <Option name="outline_width_unit" type="QString" value="MM"></Option>
-              <Option name="scale_method" type="QString" value="diameter"></Option>
-              <Option name="size" type="QString" value="5"></Option>
-              <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-              <Option name="size_unit" type="QString" value="MM"></Option>
-              <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-            </Option>
-            <data_defined_properties>
-              <Option type="Map">
-                <Option name="name" type="QString" value=""></Option>
-                <Option name="properties"></Option>
-                <Option name="type" type="QString" value="collection"></Option>
-              </Option>
-            </data_defined_properties>
-          </layer>
-        </symbol>
-        <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="57" type="marker">
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
-            <Option type="Map">
-              <Option name="angle" type="QString" value="0"></Option>
-              <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="168,115,51,255"></Option>
+              <Option name="color" type="QString" value="192,192,192,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -2177,11 +2137,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="230,153,0,255"></Option>
+              <Option name="color" type="QString" value="222,239,254,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -2216,11 +2176,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="247,243,161,255"></Option>
+              <Option name="color" type="QString" value="191,191,255,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -2255,11 +2215,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="215,167,173,255"></Option>
+              <Option name="color" type="QString" value="66,65,60,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -2294,11 +2254,11 @@
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
-          <layer class="SimpleMarker" enabled="1" id="{991facf3-ec04-44a5-bb85-fbf54fa8e806}" locked="0" pass="0">
+          <layer class="SimpleMarker" enabled="1" id="{85109500-d474-4aa1-8846-fb3a0d5e5352}" locked="0" pass="0">
             <Option type="Map">
               <Option name="angle" type="QString" value="0"></Option>
               <Option name="cap_style" type="QString" value="square"></Option>
-              <Option name="color" type="QString" value="46,175,210,255"></Option>
+              <Option name="color" type="QString" value="254,227,137,255"></Option>
               <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
               <Option name="joinstyle" type="QString" value="bevel"></Option>
               <Option name="name" type="QString" value="circle"></Option>
@@ -2335,7 +2295,7 @@
           <Option name="type" type="QString" value="collection"></Option>
         </Option>
       </data_defined_properties>
-      <layer class="SimpleMarker" enabled="1" id="{7ac27801-25dd-4474-a460-306e70170928}" locked="0" pass="0">
+      <layer class="SimpleMarker" enabled="1" id="{6535fb57-6981-4cde-88a2-34996dec532b}" locked="0" pass="0">
         <Option type="Map">
           <Option name="angle" type="QString" value="0"></Option>
           <Option name="cap_style" type="QString" value="square"></Option>
@@ -2456,14 +2416,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="description">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="notes">
+    <field configurationFlags="NoFlag" name="lithology">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -2484,7 +2437,14 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="type_description">
+    <field configurationFlags="NoFlag" name="description">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="notes">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -2505,20 +2465,6 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="hex_colour">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="representativeLithology_uri">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
   </fieldConfiguration>
   <aliases>
     <alias field="field_project" index="0" name=""></alias>
@@ -2527,15 +2473,13 @@
     <alias field="y" index="3" name=""></alias>
     <alias field="local_epsg" index="4" name=""></alias>
     <alias field="exposure_type" index="5" name=""></alias>
-    <alias field="description" index="6" name=""></alias>
-    <alias field="notes" index="7" name=""></alias>
-    <alias field="lithology_code" index="8" name=""></alias>
-    <alias field="simple_lithology" index="9" name=""></alias>
-    <alias field="type_description" index="10" name=""></alias>
+    <alias field="lithology" index="6" name=""></alias>
+    <alias field="lithology_code" index="7" name=""></alias>
+    <alias field="simple_lithology" index="8" name=""></alias>
+    <alias field="description" index="9" name=""></alias>
+    <alias field="notes" index="10" name=""></alias>
     <alias field="lithology_uuid" index="11" name=""></alias>
     <alias field="locality_uuid" index="12" name=""></alias>
-    <alias field="hex_colour" index="13" name=""></alias>
-    <alias field="representativeLithology_uri" index="14" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="field_project" policy="Duplicate"></policy>
@@ -2544,15 +2488,13 @@
     <policy field="y" policy="Duplicate"></policy>
     <policy field="local_epsg" policy="Duplicate"></policy>
     <policy field="exposure_type" policy="Duplicate"></policy>
-    <policy field="description" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
+    <policy field="lithology" policy="Duplicate"></policy>
     <policy field="lithology_code" policy="Duplicate"></policy>
     <policy field="simple_lithology" policy="Duplicate"></policy>
-    <policy field="type_description" policy="Duplicate"></policy>
+    <policy field="description" policy="Duplicate"></policy>
+    <policy field="notes" policy="Duplicate"></policy>
     <policy field="lithology_uuid" policy="Duplicate"></policy>
     <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="hex_colour" policy="Duplicate"></policy>
-    <policy field="representativeLithology_uri" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="field_project"></default>
@@ -2561,15 +2503,13 @@
     <default applyOnUpdate="0" expression="" field="y"></default>
     <default applyOnUpdate="0" expression="" field="local_epsg"></default>
     <default applyOnUpdate="0" expression="" field="exposure_type"></default>
-    <default applyOnUpdate="0" expression="" field="description"></default>
-    <default applyOnUpdate="0" expression="" field="notes"></default>
+    <default applyOnUpdate="0" expression="" field="lithology"></default>
     <default applyOnUpdate="0" expression="" field="lithology_code"></default>
     <default applyOnUpdate="0" expression="" field="simple_lithology"></default>
-    <default applyOnUpdate="0" expression="" field="type_description"></default>
+    <default applyOnUpdate="0" expression="" field="description"></default>
+    <default applyOnUpdate="0" expression="" field="notes"></default>
     <default applyOnUpdate="0" expression="" field="lithology_uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
-    <default applyOnUpdate="0" expression="" field="hex_colour"></default>
-    <default applyOnUpdate="0" expression="" field="representativeLithology_uri"></default>
   </defaults>
   <constraints>
     <constraint constraints="0" exp_strength="0" field="field_project" notnull_strength="0" unique_strength="0"></constraint>
@@ -2578,15 +2518,13 @@
     <constraint constraints="0" exp_strength="0" field="y" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="local_epsg" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="exposure_type" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="description" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="lithology" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="lithology_code" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="simple_lithology" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="type_description" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="description" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="lithology_uuid" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="hex_colour" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="representativeLithology_uri" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="field_project"></constraint>
@@ -2595,15 +2533,13 @@
     <constraint desc="" exp="" field="y"></constraint>
     <constraint desc="" exp="" field="local_epsg"></constraint>
     <constraint desc="" exp="" field="exposure_type"></constraint>
-    <constraint desc="" exp="" field="description"></constraint>
-    <constraint desc="" exp="" field="notes"></constraint>
+    <constraint desc="" exp="" field="lithology"></constraint>
     <constraint desc="" exp="" field="lithology_code"></constraint>
     <constraint desc="" exp="" field="simple_lithology"></constraint>
-    <constraint desc="" exp="" field="type_description"></constraint>
+    <constraint desc="" exp="" field="description"></constraint>
+    <constraint desc="" exp="" field="notes"></constraint>
     <constraint desc="" exp="" field="lithology_uuid"></constraint>
     <constraint desc="" exp="" field="locality_uuid"></constraint>
-    <constraint desc="" exp="" field="hex_colour"></constraint>
-    <constraint desc="" exp="" field="representativeLithology_uri"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
@@ -2634,6 +2570,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="exposure_type"></field>
     <field editable="1" name="field_project"></field>
     <field editable="1" name="hex_colour"></field>
+    <field editable="1" name="lithology"></field>
     <field editable="1" name="lithology_code"></field>
     <field editable="1" name="lithology_uuid"></field>
     <field editable="1" name="local_epsg"></field>
@@ -2651,6 +2588,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="exposure_type"></field>
     <field labelOnTop="0" name="field_project"></field>
     <field labelOnTop="0" name="hex_colour"></field>
+    <field labelOnTop="0" name="lithology"></field>
     <field labelOnTop="0" name="lithology_code"></field>
     <field labelOnTop="0" name="lithology_uuid"></field>
     <field labelOnTop="0" name="local_epsg"></field>
@@ -2668,6 +2606,7 @@ def my_form_open(dialog, layer, feature):
     <field name="exposure_type" reuseLastValue="0"></field>
     <field name="field_project" reuseLastValue="0"></field>
     <field name="hex_colour" reuseLastValue="0"></field>
+    <field name="lithology" reuseLastValue="0"></field>
     <field name="lithology_code" reuseLastValue="0"></field>
     <field name="lithology_uuid" reuseLastValue="0"></field>
     <field name="local_epsg" reuseLastValue="0"></field>

@@ -25,6 +25,7 @@ import logging
 import os.path
 import pprint
 import sqlite3
+from collections import defaultdict
 from copy import deepcopy
 from pathlib import Path
 from typing import (
@@ -43,6 +44,8 @@ from qgis.core import (
     QgsLayerTreeGroup,
     QgsMapLayer,
     QgsProject,
+    QgsRuleBasedRenderer,
+    QgsSymbol,
     QgsVectorLayer,
     QgsVectorLayerUtils,
 )
@@ -51,7 +54,10 @@ from qgis.PyQt.QtCore import (
     pyqtSignal,
     QCoreApplication,
 )
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtGui import (
+    QColor,
+    QIcon,
+)
 from qgis.PyQt.QtWidgets import (
     QAction,
     QMenu,
@@ -538,6 +544,7 @@ class FieldDataCapture:
         self.find_create_relationships(list(vector_layers.keys()))
         self.apply_qml_styles(list(vector_layers.keys()))
         self.set_vector_layer_properties(vector_layers)
+        # self.set_view_lithology_rules()
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
@@ -732,6 +739,76 @@ class FieldDataCapture:
                 # For QGIS relations, 0 = association (default), 1 = composition
                 relation.setStrength(Qgis.RelationshipStrength(1))
             relation_manager.addRelation(relation)
+
+
+    def set_view_lithology_rules(self) -> None:
+        """
+        Set the rules for the renderer so that the hex colours are used.
+        See this stackexchange post for solution details:
+        https://gis.stackexchange.com/questions/435463/rule-based-renderer-in-pyqgis?noredirect=1&lq=1
+        """
+        view_lithology_layer = QgsProject.instance().mapLayersByName("view_lithology")[0]
+
+        symbol = QgsSymbol.defaultSymbol(view_lithology_layer.geometryType())
+        renderer = QgsRuleBasedRenderer(symbol)
+        root_rule = renderer.rootRule()
+
+        simple_lithology_categories, simple_lithology_colours = self.get_lithology_categories_and_colours()
+
+        for category, simple_lithology_list in simple_lithology_categories.items():
+            hex_colour = simple_lithology_colours[category]
+
+            expression = f"simple_lithology IN ({simple_lithology_list})"
+
+            # Create the rule
+            rule = root_rule.children()[0].clone()
+            rule.setLabel(category)
+            rule.setFilterExpression(expression)
+            rule.symbol().setColor(QColor(hex_colour))
+            rule.symbol().setSize(5)
+
+            # Add the rule to the list of rules
+            root_rule.appendChild(rule)
+
+        # Delete the default rule
+        root_rule.removeChildAt(0)
+        view_lithology_layer.setRenderer(renderer)
+        view_lithology_layer.triggerRepaint()
+
+
+    def get_lithology_categories_and_colours(self) -> tuple[dict[str, str], dict[str, str]]:
+        """
+        Generate the lithology categories and colours from the _simple_lithology_categories table
+        and the _simple_lithology table.
+        The values in the categories dictionary are the list of simple lithologies in a comma separated string.
+        """
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                    SELECT
+                        slc.simple_lithology_category,
+                        slc.simple_lithology,
+                        sl.hex_colour
+                    FROM
+                        _simple_lithology_categories AS slc
+                    LEFT JOIN
+                        _simple_lithology AS sl ON slc.simple_lithology = sl.name
+                    """
+            )
+            rows = cursor.fetchall()
+
+        simple_lithology_categories = defaultdict(list)
+        simple_lithology_colours = {}
+        for category, lithology, hex_colour in rows:
+            simple_lithology_categories[category].append(lithology)
+            simple_lithology_colours[category] = hex_colour
+
+        for category, lithology_list in simple_lithology_categories.items():
+            str_list = ",".join(f"'{lithology}'" for lithology in lithology_list)
+            simple_lithology_categories[category] = str_list
+
+        return simple_lithology_categories, simple_lithology_colours
 
 
     def open_layer_form(self, layer_name: str) -> bool:
