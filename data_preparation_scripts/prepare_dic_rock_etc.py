@@ -422,7 +422,7 @@ def fill_missing_colours_and_lithologies(conn):
         "anthracite": "#6E4900",  # coal
         "ash breccia bomb or block tephra": "#C84100",  # tephra
         "ash tuff lapillistone and lapilli tuff": "#FFEDBF",  # pyroclastic rock
-        "tuff breccia agglomerate or pyroclastic breccia": "#FFEDBF", # pyroclastic rock
+        "tuff breccia agglomerate or pyroclastic breccia": "#FFEDBF",  # pyroclastic rock
         "breccia gouge series": "#F4FFD5",  # cataclasite series
         "fault related material": "#F4FFD5",  # cataclasite series
         "kalsilitic and melilitic rocks": "#FF6F91",  # exotic composition igneous rock
@@ -430,8 +430,10 @@ def fill_missing_colours_and_lithologies(conn):
         "non clastic siliceous sedimentary material": "#9696B9",  # siliceous ooze
         "non clastic siliceous sedimentary rock": "#F7F3A1",  # biogenic silica sedimentary rock
     }
-    missing_colours = [dict(name=key, hex_colour=value)
-                       for key, value in missing_colours.items()]
+    missing_colours = [
+        dict(name=key, hex_colour=value)
+        for key, value in missing_colours.items()
+    ]
 
     update_sql = """
         UPDATE
@@ -474,8 +476,10 @@ def fill_missing_colours_and_lithologies(conn):
         "Vein rock": "chemical sedimentary material",
         "Zinc (vein)": "chemical sedimentary material",
     }
-    missing_lithologies = [dict(label=key, lithology=value)
-                       for key, value in missing_lithologies.items()]
+    missing_lithologies = [
+        dict(label=key, lithology=value)
+        for key, value in missing_lithologies.items()
+    ]
 
     update_sql = """
         UPDATE
