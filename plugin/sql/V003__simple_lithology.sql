@@ -1,3 +1,24 @@
+/*
+This file adds tables based on the Commission for the Management and Application
+of Geoscience Information (CGI)'s public vocabulary for Simple Lithology.
+
+The lithologies and their relationships are used to categorise and colour the
+many BGS lithologies in a standards-based way.  See scripts in the
+data_preparation_scripts/ folder for how they were created.
+
+The original source of the Simple Lithology vocabulary data was:
+https://raw.githubusercontent.com/CGI-IUGS/cgi-vocabs/master/vocabularies/geosciml/simplelithology.ttl 
+
+It is made available under a Creative Commons Attribution 4.0 licence:
+https://github.com/CGI-IUGS/cgi-vocabs/blob/master/LICENSE
+
+The vocabulary can be interactively explored by passing the URL into SKOS Play!
+https://skos-play.sparna.fr/play/upload
+
+The hex colours were derived from the One Geology project SLD file at:
+http://ogc.bgs.ac.uk/sld/CGI-inspire-lithologyTextURI.sld
+*/
+
 BEGIN TRANSACTION;
 
 CREATE TABLE IF NOT EXISTS "_simple_lithology" (
