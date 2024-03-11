@@ -96,7 +96,6 @@ def create_tables(conn: sqlite3.Connection):
             "label" TEXT,
             "description"	TEXT,
             "translation"	TEXT,
-            "composite"	TEXT,
             "user_entered"	TEXT NOT NULL,
             "date_entered"	DATETIME NOT NULL,
             "user_updated"	TEXT,
@@ -221,7 +220,7 @@ def import_dic_rock_field_rcs(conn: sqlite3.Connection):
 
         for row in chunk:
             # Remove unwanted columns and convert keys to lower case
-            rows_to_keep = {"RCS_code", "CATEGORY_MERGIN", "Composite",
+            rows_to_keep = {"RCS_code", "CATEGORY_MERGIN",
                             "RCS_TRANSLATION_LOWERCASE"}
             key_list = list(row.keys())
 
@@ -233,7 +232,7 @@ def import_dic_rock_field_rcs(conn: sqlite3.Connection):
 
             # Rename column
             row['code'] = row.pop('rcs_code')
-            row['category'] = row.pop('category_mergin')
+            row['category'] = row.pop('category_mergin').lower()
             row['label'] = row.pop('rcs_translation_lowercase')
             row['user_entered'] = 'jostev'
             row['date_entered'] = dt.datetime(2024, 3, 5, 9, 0, 0)
@@ -463,18 +462,20 @@ def fill_missing_colours_and_lithologies(conn):
         "Silcrete": "duricrust",
         "Sandy siltstone": "siltstone",
         "Cobbles [UDCS]": "clastic sedimentary material",  # broader category, specific sizes only go to gravel
-        # All the vein rocks are classified as chemical sedimentary material as
-        # there is no way to subdivide them further based on composition.
-        "Baryte (vein)": "chemical sedimentary material",
-        "Copper (vein)": "chemical sedimentary material",
-        "Hematite (vein)": "chemical sedimentary material",
-        "Iron (vein)": "chemical sedimentary material",
-        "Lead (vein)": "chemical sedimentary material",
-        "Lead-zinc (vein)": "chemical sedimentary material",
-        "Pyrite (vein)": "chemical sedimentary material",
-        "Uranium (vein)": "chemical sedimentary material",
-        "Vein rock": "chemical sedimentary material",
-        "Zinc (vein)": "chemical sedimentary material",
+        # All the vein rocks are classified as metasomatic as they are
+        # derived from fluid flow, but not all metasomatic rocks are vein
+        # rocks.  There is no way to subdivide them further based on 
+        # composition.
+        "Baryte (vein)": "metasomatic rock",
+        "Copper (vein)": "metasomatic rock",
+        "Hematite (vein)": "metasomatic rock",
+        "Iron (vein)": "metasomatic rock",
+        "Lead (vein)": "metasomatic rock",
+        "Lead-zinc (vein)": "metasomatic rock",
+        "Pyrite (vein)": "metasomatic rock",
+        "Uranium (vein)": "metasomatic rock",
+        "Vein rock": "metasomatic rock",
+        "Zinc (vein)": "metasomatic rock",
     }
     missing_lithologies = [
         dict(label=key, lithology=value)
@@ -505,10 +506,10 @@ def populate_category(conn: sqlite3.Connection) -> None:
         SET
             -- Match the new category value to the type found in the parents list
             category = CASE
-                WHEN sl.parents LIKE('%pyroclastic%') THEN 'IGNEOUS-VOLCANIC ROCK'
-                WHEN sl.parents LIKE('%igneous%') THEN 'IGNEOUS ROCK'
-                WHEN sl.parents LIKE('%sedimentary%') THEN 'SEDIMENTARY ROCK'
-                WHEN sl.parents LIKE('%metamorphic%') THEN 'METAMORPHIC ROCK'
+                WHEN sl.parents LIKE('%pyroclastic%') THEN 'igneous-volcanic rock'
+                WHEN sl.parents LIKE('%igneous%') THEN 'igneous rock'
+                WHEN sl.parents LIKE('%sedimentary%') THEN 'sedimentary rock'
+                WHEN sl.parents LIKE('%metamorphic%') THEN 'metamorphic rock'
                 ELSE NULL
             END
         FROM
