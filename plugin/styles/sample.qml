@@ -31,7 +31,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_acda2da5_77f6_43e1_ab7e_7ac409577fc7"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_fc063a78_7397_4042_97b4_367493564648"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_sample_2"></Option>
@@ -62,22 +62,12 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_sample"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_sample_f3abea08_11b0_43d9_aa08_a80795b2d6f2"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_sample_635e7f92_f696_4033_9376_efbe3daaaec9"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_sample"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_sample_sample"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="sample_description">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="true"></Option>
-            <Option name="UseHtml" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
@@ -128,12 +118,11 @@
     <alias field="locality_fuid" index="3" name=""></alias>
     <alias field="sample_id" index="4" name=""></alias>
     <alias field="sample_type_code" index="5" name=""></alias>
-    <alias field="sample_description" index="6" name=""></alias>
-    <alias field="notes" index="7" name=""></alias>
-    <alias field="user_entered" index="8" name=""></alias>
-    <alias field="date_entered" index="9" name=""></alias>
-    <alias field="user_updated" index="10" name=""></alias>
-    <alias field="date_updated" index="11" name=""></alias>
+    <alias field="notes" index="6" name=""></alias>
+    <alias field="user_entered" index="7" name=""></alias>
+    <alias field="date_entered" index="8" name=""></alias>
+    <alias field="user_updated" index="9" name=""></alias>
+    <alias field="date_updated" index="10" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -142,7 +131,6 @@
     <policy field="locality_fuid" policy="Duplicate"></policy>
     <policy field="sample_id" policy="DefaultValue"></policy>
     <policy field="sample_type_code" policy="DefaultValue"></policy>
-    <policy field="sample_description" policy="DefaultValue"></policy>
     <policy field="notes" policy="DefaultValue"></policy>
     <policy field="user_entered" policy="Duplicate"></policy>
     <policy field="date_entered" policy="Duplicate"></policy>
@@ -156,7 +144,6 @@
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
     <default applyOnUpdate="0" expression="" field="sample_id"></default>
     <default applyOnUpdate="0" expression="" field="sample_type_code"></default>
-    <default applyOnUpdate="0" expression="" field="sample_description"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
     <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
@@ -170,7 +157,6 @@
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="sample_id" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="sample_type_code" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="sample_description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
@@ -184,7 +170,6 @@
     <constraint desc="" exp="" field="locality_fuid"></constraint>
     <constraint desc="" exp="" field="sample_id"></constraint>
     <constraint desc="" exp="" field="sample_type_code"></constraint>
-    <constraint desc="" exp="" field="sample_description"></constraint>
     <constraint desc="" exp="" field="notes"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
@@ -222,7 +207,6 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="locality_fuid"></field>
     <field editable="1" name="notes"></field>
     <field editable="1" name="objectid"></field>
-    <field editable="1" name="sample_description"></field>
     <field editable="1" name="sample_id"></field>
     <field editable="1" name="sample_type_code"></field>
     <field editable="1" name="user_entered"></field>
@@ -236,7 +220,6 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="locality_fuid"></field>
     <field labelOnTop="0" name="notes"></field>
     <field labelOnTop="0" name="objectid"></field>
-    <field labelOnTop="0" name="sample_description"></field>
     <field labelOnTop="0" name="sample_id"></field>
     <field labelOnTop="0" name="sample_type_code"></field>
     <field labelOnTop="0" name="user_entered"></field>
@@ -250,7 +233,6 @@ def my_form_open(dialog, layer, feature):
     <field name="locality_fuid" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
-    <field name="sample_description" reuseLastValue="0"></field>
     <field name="sample_id" reuseLastValue="0"></field>
     <field name="sample_type_code" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>

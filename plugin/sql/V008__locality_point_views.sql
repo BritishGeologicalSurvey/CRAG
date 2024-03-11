@@ -41,7 +41,6 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
 	  rock.label AS lithology,
     lith.lithology_code,
 	  rock.simple_lithology,
-	  lith.description,
     lith.notes,
     lith.uuid AS lithology_uuid,
     lp.uuid AS locality_uuid,
