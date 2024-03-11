@@ -60,6 +60,9 @@ def main(
     url = url_line[4:-2]
     os.remove(md_filepath)
 
+    # Set background colour for png file
+    url += '?bgColor=!LemonChiffon'
+
     response = requests.get(url)
     with open(png_filepath, "wb") as png_file:
         png_file.write(response.content)
