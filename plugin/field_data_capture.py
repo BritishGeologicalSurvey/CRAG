@@ -589,18 +589,19 @@ class FieldDataCapture:
                 # Collapse all layers added to a group
                 tree_layer.setExpanded(False)
 
-                # Set display expressions for locality point children
-                if group.name() == "locality_data":
-                    display_expressions = {
-                        "lithology": '''"lithology_code" + ' | ' + attribute(
-                            get_feature('dic_rock_field', 'code', "lithology_code"), 'label')''',
-                        "manmade_landform": '''"manmade_type_code"''',
-                        "media": '''"media_link" + ' | ' + "notes"''',
-                        "photo": '''"photo_file" + ' | ' + "notes"''',
-                        "sample": '''"sample_id"''',
-                        "structural_measurement": '''"structure_type_code"''',
-                        "superficial_landform": '''"superficial_type_code"''',
-                    }
+                # Set display expressions for certain layers
+                display_expressions = {
+                    "lithology": """attribute(get_feature('dic_rock_field', 'code', "lithology_code"), 'label')
+                        + ' (' + "lithology_code" + ')'""",
+                    "manmade_landform": '''"manmade_type_code"''',
+                    "media": '''"media_link" + ' | ' + "notes"''',
+                    "photo": '''"photo_file" + ' | ' + "notes"''',
+                    "sample": '''"sample_id"''',
+                    "structural_measurement": '''"structure_type_code"''',
+                    "superficial_landform": '''"superficial_type_code"''',
+                    "dic_rock_field": """"label" + ' (' + "code" + ')'""",
+                }
+                if vector_layer.name() in display_expressions:
                     vector_layer.setDisplayExpression(display_expressions[vector_layer.name()])
 
             # Set dictionary layers to read only
