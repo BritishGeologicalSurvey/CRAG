@@ -921,7 +921,7 @@ class FieldDataCapture:
                 layer = QgsProject.instance().mapLayersByName(table_name)[0]
                 layer.saveNamedStyle(
                     str(layer_style_path),
-                    categories=QgsMapLayer.Symbology | QgsMapLayer.Labeling | QgsMapLayer.Fields | QgsMapLayer.Forms | QgsMapLayer.MapTips,
+                    categories=QgsMapLayer.Symbology | QgsMapLayer.Labeling | QgsMapLayer.Fields | QgsMapLayer.Forms | QgsMapLayer.MapTips,  # noqa
                 )
 
                 # Read the newly created XML file
