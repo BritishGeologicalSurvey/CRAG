@@ -592,7 +592,8 @@ class FieldDataCapture:
                 # Set display expressions for locality point children
                 if group.name() == "locality_data":
                     display_expressions = {
-                        "lithology": '''"lithology_code"''',
+                        "lithology": '''"lithology_code" + ' | ' + attribute(
+                            get_feature('dic_rock_field', 'code', "lithology_code"), 'label')''',
                         "manmade_landform": '''"manmade_type_code"''',
                         "media": '''"media_link" + ' | ' + "notes"''',
                         "photo": '''"photo_file" + ' | ' + "notes"''',
