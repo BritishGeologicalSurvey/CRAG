@@ -240,6 +240,7 @@ def test_export_qml_styles(
         "Labeling",
         "Fields",
         "Forms",
+        "MapTips",
     }
     fdc.add_gpkg_to_project()
     fdc.add_gpkg_layers_to_project()
