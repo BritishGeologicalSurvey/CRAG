@@ -91,6 +91,7 @@ There is a dependency version issue in the environment with QGIS 3.28 and Python
 
 ```bash
 ln -s ${CONDA_PREFIX}/lib/libgsl.so.27  ${CONDA_PREFIX}/lib/libgsl.so.25
+ln -s ${CONDA_PREFIX}/lib/libdraco.so.8  ${CONDA_PREFIX}/lib/libdraco.so.9
 ```
 
 The repository also contains a `bin` directory with useful scripts.  The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.

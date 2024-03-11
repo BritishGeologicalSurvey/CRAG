@@ -1,8 +1,8 @@
 FROM continuumio/miniconda3:23.5.2-0
 
 # Install operating system dependencies
-RUN apt-get update -y && \
-    apt-get install -y \
+RUN apt-get update -y \
+    && apt-get install -y \
       build-essential \
       # graphviz is required to render ER diagrams
       graphviz \
@@ -12,7 +12,8 @@ RUN apt-get update -y && \
       libsqlite3-mod-spatialite \
       # xvfb provides a headless X server for testing gui apps
       xvfb \
-      zip
+      zip \
+    && apt-get clean
 
 COPY environment.yml /environment.yml
 

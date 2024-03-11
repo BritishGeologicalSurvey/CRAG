@@ -25,6 +25,7 @@ import logging
 import os.path
 import pprint
 import sqlite3
+from collections import defaultdict
 from copy import deepcopy
 from pathlib import Path
 from typing import (
@@ -43,6 +44,8 @@ from qgis.core import (
     QgsLayerTreeGroup,
     QgsMapLayer,
     QgsProject,
+    QgsRuleBasedRenderer,
+    QgsSymbol,
     QgsVectorLayer,
     QgsVectorLayerUtils,
 )
@@ -51,7 +54,10 @@ from qgis.PyQt.QtCore import (
     pyqtSignal,
     QCoreApplication,
 )
-from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtGui import (
+    QColor,
+    QIcon,
+)
 from qgis.PyQt.QtWidgets import (
     QAction,
     QMenu,
@@ -60,16 +66,17 @@ from qgis.PyQt.QtWidgets import (
 )
 
 # Initialize Qt resources from file resources.py
-from .resources import *
+from .resources import *  # noqa
 
 from .config import (
     ATTRIBUTE_TABLES,
     DICTIONARIES,
     FEATURE_TABLES,
     FEATURE_TABLES_LINES,
+    INTERNAL_TABLES,
     LOCALITY_POINT_CHILDREN,
-    VIEWS,
     TABLE_LIST,
+    VIEWS,
 )
 from .create_gpkg_from_sql import main as gpkg_from_sql
 from .create_gpkg_from_sql import (
@@ -159,11 +166,12 @@ class FieldDataCapture:
         return WORKDIR / "icons"
 
 
-    # noinspection PyMethodMayBeStatic
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
 
         We implement this ourselves since we do not inherit QObject.
+
+        noinspection PyMethodMayBeStatic
 
         :param message: String for translation.
         :type message: str, QString
@@ -364,8 +372,8 @@ class FieldDataCapture:
 
         self.add_action(
             icon_path,
-            text=self.tr(u'Add Project'),
-            callback=lambda: self.open_layer_form(layer_name="project"),
+            text=self.tr(u'Add Field Project'),
+            callback=lambda: self.open_layer_form(layer_name="field_project"),
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
@@ -536,6 +544,7 @@ class FieldDataCapture:
         self.find_create_relationships(list(vector_layers.keys()))
         self.apply_qml_styles(list(vector_layers.keys()))
         self.set_vector_layer_properties(vector_layers)
+        # self.set_view_lithology_rules()
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
@@ -580,17 +589,19 @@ class FieldDataCapture:
                 # Collapse all layers added to a group
                 tree_layer.setExpanded(False)
 
-                # Set display expressions for locality point children
-                if group.name() == "locality_data":
-                    display_expressions = {
-                        "lithology": '''"lithology_code"''',
-                        "manmade_landform": '''"manmade_type_code"''',
-                        "media": '''"media_link" + ' | ' + "comment"''',
-                        "photo": '''"photo_file" + ' | ' + "comment"''',
-                        "sample": '''"sample_id"''',
-                        "structural_measurement": '''"structure_type_code"''',
-                        "superficial_landform": '''"superficial_type_code"''',
-                    }
+                # Set display expressions for certain layers
+                display_expressions = {
+                    "lithology": """attribute(get_feature('dic_rock_field', 'code', "lithology_code"), 'label')
+                        + ' (' + "lithology_code" + ')'""",
+                    "manmade_landform": '''"manmade_type_code"''',
+                    "media": '''"media_link" + ' | ' + "notes"''',
+                    "photo": '''"photo_file" + ' | ' + "notes"''',
+                    "sample": '''"sample_id"''',
+                    "structural_measurement": '''"structure_type_code"''',
+                    "superficial_landform": '''"superficial_type_code"''',
+                    "dic_rock_field": """"label" + ' (' + "code" + ')'""",
+                }
+                if vector_layer.name() in display_expressions:
                     vector_layer.setDisplayExpression(display_expressions[vector_layer.name()])
 
             # Set dictionary layers to read only
@@ -683,7 +694,7 @@ class FieldDataCapture:
             "lines": FEATURE_TABLES_LINES,
             "views": VIEWS,
             "locality_data": ATTRIBUTE_TABLES,
-            "metadata": DICTIONARIES,
+            "metadata": DICTIONARIES.union(INTERNAL_TABLES),
         }
 
         # Sort the lists
@@ -696,11 +707,6 @@ class FieldDataCapture:
         project_name = "field_project"
         layer_tree_structure["locality_data"].remove(project_name)
         layer_tree_structure["metadata"].insert(0, project_name)
-
-        # Move the view_next_locality_id
-        next_id_name = "view_next_locality_id"
-        layer_tree_structure["views"].remove(next_id_name)
-        layer_tree_structure["metadata"].append(next_id_name)
 
         return layer_tree_structure
 
@@ -735,6 +741,76 @@ class FieldDataCapture:
                 # For QGIS relations, 0 = association (default), 1 = composition
                 relation.setStrength(Qgis.RelationshipStrength(1))
             relation_manager.addRelation(relation)
+
+
+    def set_view_lithology_rules(self) -> None:
+        """
+        Set the rules for the renderer so that the hex colours are used.
+        See this stackexchange post for solution details:
+        https://gis.stackexchange.com/questions/435463/rule-based-renderer-in-pyqgis?noredirect=1&lq=1
+        """
+        view_lithology_layer = QgsProject.instance().mapLayersByName("view_lithology")[0]
+
+        symbol = QgsSymbol.defaultSymbol(view_lithology_layer.geometryType())
+        renderer = QgsRuleBasedRenderer(symbol)
+        root_rule = renderer.rootRule()
+
+        simple_lithology_categories, simple_lithology_colours = self.get_lithology_categories_and_colours()
+
+        for category, simple_lithology_list in simple_lithology_categories.items():
+            hex_colour = simple_lithology_colours[category]
+
+            expression = f"simple_lithology IN ({simple_lithology_list})"
+
+            # Create the rule
+            rule = root_rule.children()[0].clone()
+            rule.setLabel(category)
+            rule.setFilterExpression(expression)
+            rule.symbol().setColor(QColor(hex_colour))
+            rule.symbol().setSize(5)
+
+            # Add the rule to the list of rules
+            root_rule.appendChild(rule)
+
+        # Delete the default rule
+        root_rule.removeChildAt(0)
+        view_lithology_layer.setRenderer(renderer)
+        view_lithology_layer.triggerRepaint()
+
+
+    def get_lithology_categories_and_colours(self) -> tuple[dict[str, str], dict[str, str]]:
+        """
+        Generate the lithology categories and colours from the _simple_lithology_categories table
+        and the _simple_lithology table.
+        The values in the categories dictionary are the list of simple lithologies in a comma separated string.
+        """
+        with sqlite3.connect(self.db_file) as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                    SELECT
+                        slc.simple_lithology_category,
+                        slc.simple_lithology,
+                        sl.hex_colour
+                    FROM
+                        _simple_lithology_categories AS slc
+                    LEFT JOIN
+                        _simple_lithology AS sl ON slc.simple_lithology = sl.name
+                    """
+            )
+            rows = cursor.fetchall()
+
+        simple_lithology_categories = defaultdict(list)
+        simple_lithology_colours = {}
+        for category, lithology, hex_colour in rows:
+            simple_lithology_categories[category].append(lithology)
+            simple_lithology_colours[category] = hex_colour
+
+        for category, lithology_list in simple_lithology_categories.items():
+            str_list = ",".join(f"'{lithology}'" for lithology in lithology_list)
+            simple_lithology_categories[category] = str_list
+
+        return simple_lithology_categories, simple_lithology_colours
 
 
     def open_layer_form(self, layer_name: str) -> bool:
@@ -845,7 +921,7 @@ class FieldDataCapture:
                 layer = QgsProject.instance().mapLayersByName(table_name)[0]
                 layer.saveNamedStyle(
                     str(layer_style_path),
-                    categories=QgsMapLayer.Symbology | QgsMapLayer.Labeling | QgsMapLayer.Fields | QgsMapLayer.Forms,
+                    categories=QgsMapLayer.Symbology | QgsMapLayer.Labeling | QgsMapLayer.Fields | QgsMapLayer.Forms | QgsMapLayer.MapTips,  # noqa
                 )
 
                 # Read the newly created XML file

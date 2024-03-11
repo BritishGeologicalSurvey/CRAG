@@ -1,4 +1,26 @@
+/*
+This file adds tables based on the Commission for the Management and Application
+of Geoscience Information (CGI)'s public vocabulary for Simple Lithology.
+
+The lithologies and their relationships are used to categorise and colour the
+many BGS lithologies in a standards-based way.  See scripts in the
+data_preparation_scripts/ folder for how they were created.
+
+The original source of the Simple Lithology vocabulary data was:
+https://raw.githubusercontent.com/CGI-IUGS/cgi-vocabs/master/vocabularies/geosciml/simplelithology.ttl 
+
+It is made available under a Creative Commons Attribution 4.0 licence:
+https://github.com/CGI-IUGS/cgi-vocabs/blob/master/LICENSE
+
+The vocabulary can be interactively explored by passing the URL into SKOS Play!
+https://skos-play.sparna.fr/play/upload
+
+The hex colours were derived from the One Geology project SLD file at:
+http://ogc.bgs.ac.uk/sld/CGI-inspire-lithologyTextURI.sld
+*/
+
 BEGIN TRANSACTION;
+
 CREATE TABLE IF NOT EXISTS "_simple_lithology" (
 	"simple_lithology_uri"	TEXT,
 	"name"	TEXT,
@@ -6,6 +28,7 @@ CREATE TABLE IF NOT EXISTS "_simple_lithology" (
 	"hex_colour"	TEXT,
 	PRIMARY KEY("simple_lithology_uri")
 );
+
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/acidic_igneous_material','acidic igneous material','["acidic igneous material", "compound material", "igneous material"]','#FFCCB3');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/acidic_igneous_rock','acidic igneous rock','["acidic igneous material", "acidic igneous rock", "compound material", "igneous material", "igneous rock", "rock"]','#FECDB2');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/alkali_feldspar_granite','alkali feldspar granite','["acidic igneous material", "acidic igneous rock", "alkali feldspar granite", "compound material", "granitoid", "igneous material", "igneous rock", "phaneritic igneous rock", "rock"]','#FED1DC');
@@ -19,15 +42,15 @@ INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_co
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/andesite','andesite','["andesite", "compound material", "fine grained igneous rock", "igneous material", "igneous rock", "intermediate composition igneous material", "intermediate composition igneous rock", "rock"]','#B14801');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/anorthosite','anorthosite','["anorthosite", "anorthositic rock", "compound material", "igneous material", "igneous rock", "phaneritic igneous rock", "rock"]','#FFA3B9');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/anorthositic_rock','anorthositic rock','["anorthositic rock", "compound material", "igneous material", "igneous rock", "phaneritic igneous rock", "rock"]','#FFA3B9');
-INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/anthracite_coal','anthracite','["anthracite", "coal", "compound material", "organic rich sedimentary material", "organic rich sedimentary rock", "rock", "sedimentary material", "sedimentary rock"]','');
+INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/anthracite_coal','anthracite','["anthracite", "coal", "compound material", "organic rich sedimentary material", "organic rich sedimentary rock", "rock", "sedimentary material", "sedimentary rock"]','#6E4900');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/anthropogenic_material','anthropogenic material','["anthropogenic material", "compound material"]','#C0C0C0');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/anthropogenic_unconsolidated_material','anthropogenic unconsolidated material','["anthropogenic material", "anthropogenic unconsolidated material", "compound material", "unconsolidated material"]','#C8C8C8');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/aphanite','aphanite','["aphanite", "compound material", "rock"]','#CDCDCD');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/aplite','aplite','["aplite", "compound material", "igneous material", "igneous rock", "phaneritic igneous rock", "rock"]','#FFC8BF');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/arenite','arenite','["arenite", "clastic sedimentary material", "clastic sedimentary rock", "compound material", "generic sandstone", "rock", "sandstone", "sedimentary material", "sedimentary rock"]','#CBEFCE');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/ash_and_lapilli','ash and lapilli','["ash and lapilli", "compound material", "fragmental igneous material", "igneous material", "natural unconsolidated material", "pyroclastic material", "tephra", "unconsolidated material"]','#FFC8C3');
-INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/ash_breccia_bomb_or_block_tephra','ash breccia bomb or block tephra','["ash breccia bomb or block tephra", "compound material", "fragmental igneous material", "igneous material", "natural unconsolidated material", "pyroclastic material", "tephra", "unconsolidated material"]','');
-INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/ash_tuff_lapillistone_and_lapilli_tuff','ash tuff lapillistone and lapilli tuff','["ash tuff lapillistone and lapilli tuff", "compound material", "fragmental igneous material", "fragmental igneous rock", "igneous material", "igneous rock", "pyroclastic material", "pyroclastic rock", "rock"]','');
+INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/ash_breccia_bomb_or_block_tephra','ash breccia bomb or block tephra','["ash breccia bomb or block tephra", "compound material", "fragmental igneous material", "igneous material", "natural unconsolidated material", "pyroclastic material", "tephra", "unconsolidated material"]','#C84100');
+INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/ash_tuff_lapillistone_and_lapilli_tuff','ash tuff lapillistone and lapilli tuff','["ash tuff lapillistone and lapilli tuff", "compound material", "fragmental igneous material", "fragmental igneous rock", "igneous material", "igneous rock", "pyroclastic material", "pyroclastic rock", "rock"]','#FFEDBF');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/basalt','basalt','["basalt", "basic igneous material", "basic igneous rock", "compound material", "fine grained igneous rock", "igneous material", "igneous rock", "rock"]','#DDB397');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/basanite','basanite','["basanite", "compound material", "fine grained igneous rock", "igneous material", "igneous rock", "rock", "tephritoid"]','#C24100');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/basanitic_foidite','basanitic foidite','["basanitic foidite", "compound material", "fine grained igneous rock", "foiditoid", "igneous material", "igneous rock", "rock"]','#FF7357');
@@ -41,7 +64,7 @@ INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_co
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/boulder_gravel_size_sediment','boulder gravel size sediment','["boulder gravel size sediment", "compound material", "gravel size sediment", "natural unconsolidated material", "sediment", "sedimentary material", "unconsolidated material"]','#CCAD21');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/boundstone','boundstone','["boundstone", "carbonate sedimentary material", "carbonate sedimentary rock", "compound material", "rock", "sedimentary material", "sedimentary rock"]','#E7F6F1');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/breccia','breccia','["breccia", "compound material"]','#D7A7AD');
-INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/breccia_gouge_series','breccia gouge series','["breccia gouge series", "composite genesis material", "compound material", "fault related material"]','');
+INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/breccia_gouge_series','breccia gouge series','["breccia gouge series", "composite genesis material", "compound material", "fault related material"]','#F4FFD5');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/calcareous_carbonate_sediment','calcareous carbonate sediment','["calcareous carbonate sediment", "calcareous carbonate sedimentary material", "carbonate sediment", "carbonate sedimentary material", "compound material", "natural unconsolidated material", "sediment", "sedimentary material", "unconsolidated material"]','#DEEFFE');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/calcareous_carbonate_sedimentary_material','calcareous carbonate sedimentary material','["calcareous carbonate sedimentary material", "carbonate sedimentary material", "compound material", "sedimentary material"]','#C8E7FA');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/calcareous_carbonate_sedimentary_rock','calcareous carbonate sedimentary rock','["calcareous carbonate sedimentary material", "calcareous carbonate sedimentary rock", "carbonate sedimentary material", "carbonate sedimentary rock", "compound material", "rock", "sedimentary material", "sedimentary rock"]','#B2DFF5');
@@ -88,7 +111,7 @@ INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_co
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/exotic_alkaline_rock','exotic alkaline rock','["compound material", "exotic alkaline rock", "exotic composition igneous rock", "igneous material", "igneous rock", "rock"]','#FFD1DC');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/exotic_composition_igneous_rock','exotic composition igneous rock','["compound material", "exotic composition igneous rock", "igneous material", "igneous rock", "rock"]','#FF6F91');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/exotic_evaporite','exotic evaporite','["chemical sedimentary material", "compound material", "evaporite", "exotic evaporite", "sedimentary material"]','#9ACEFE');
-INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/fault_related_material','fault related material','["composite genesis material", "compound material", "fault related material"]','');
+INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/fault_related_material','fault related material','["composite genesis material", "compound material", "fault related material"]','#F4FFD5');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/fine_grained_igneous_rock','fine grained igneous rock','["compound material", "fine grained igneous rock", "igneous material", "igneous rock", "rock"]','#FF00FF');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/foid_bearing_alkali_feldspar_syenite','foid bearing alkali feldspar syenite','["alkali feldspar syenitic rock", "compound material", "foid bearing alkali feldspar syenite", "igneous material", "igneous rock", "phaneritic igneous rock", "rock", "syenitoid"]','#FF9EBE');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/foid_bearing_alkali_feldspar_trachyte','foid bearing alkali feldspar trachyte','["alkali feldspar trachytic rock", "compound material", "fine grained igneous rock", "foid bearing alkali feldspar trachyte", "igneous material", "igneous rock", "rock", "trachytoid"]','#FEA060');
@@ -155,7 +178,7 @@ INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_co
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/iron_rich_sediment','iron rich sediment','["chemical sedimentary material", "compound material", "iron rich sediment", "iron rich sedimentary material", "natural unconsolidated material", "sediment", "sedimentary material", "unconsolidated material"]','#B99598');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/iron_rich_sedimentary_material','iron rich sedimentary material','["chemical sedimentary material", "compound material", "iron rich sedimentary material", "sedimentary material"]','#B99598');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/iron_rich_sedimentary_rock','iron rich sedimentary rock','["chemical sedimentary material", "compound material", "iron rich sedimentary material", "iron rich sedimentary rock", "rock", "sedimentary material", "sedimentary rock"]','#B99598');
-INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/kalsilitic_and_melilitic_rock','kalsilitic and melilitic rocks','["compound material", "exotic composition igneous rock", "igneous material", "igneous rock", "kalsilitic and melilitic rocks", "rock"]','');
+INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/kalsilitic_and_melilitic_rock','kalsilitic and melilitic rocks','["compound material", "exotic composition igneous rock", "igneous material", "igneous rock", "kalsilitic and melilitic rocks", "rock"]','#FF6F91');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/komatiitic_rock','komatiitic rock','["compound material", "fine grained igneous rock", "high magnesium fine grained igneous rock", "igneous material", "igneous rock", "komatiitic rock", "rock", "ultramafic igneous rock"]','#B33000');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/latite','latite','["compound material", "fine grained igneous rock", "igneous material", "igneous rock", "latite", "latitic rock", "rock", "trachytoid"]','#ECD5C6');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/latitic_rock','latitic rock','["compound material", "fine grained igneous rock", "igneous material", "igneous rock", "latitic rock", "rock", "trachytoid"]','#ECD5C6');
@@ -179,9 +202,9 @@ INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_co
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/clastic_mudstone','mudstone','["clastic sedimentary material", "clastic sedimentary rock", "compound material", "generic mudstone", "mudstone", "rock", "sedimentary material", "sedimentary rock"]','#ACE4C8');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/mylonitic_rock','mylonitic rock','["composite genesis material", "composite genesis rock", "compound material", "fault related material", "foliated metamorphic rock", "metamorphic rock", "mylonitic rock", "rock"]','#D0CBB0');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/natural_unconsolidated_material','natural unconsolidated material','["compound material", "natural unconsolidated material", "unconsolidated material"]','#FDF43F');
-INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/non_clastic_siliceous_sediment','non clastic siliceous sediment','["compound material", "natural unconsolidated material", "non clastic siliceous sediment", "non clastic siliceous sedimentary material", "sediment", "sedimentary material", "unconsolidated material"]','');
-INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/non_clastic_siliceous_sedimentary_material','non clastic siliceous sedimentary material','["compound material", "non clastic siliceous sedimentary material", "sedimentary material"]','');
-INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/non_clastic_siliceous_sedimentary_rock','non clastic siliceous sedimentary rock','["compound material", "non clastic siliceous sedimentary material", "non clastic siliceous sedimentary rock", "rock", "sedimentary material", "sedimentary rock"]','');
+INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/non_clastic_siliceous_sediment','non clastic siliceous sediment','["compound material", "natural unconsolidated material", "non clastic siliceous sediment", "non clastic siliceous sedimentary material", "sediment", "sedimentary material", "unconsolidated material"]','#9696B9');
+INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/non_clastic_siliceous_sedimentary_material','non clastic siliceous sedimentary material','["compound material", "non clastic siliceous sedimentary material", "sedimentary material"]','#9696B9');
+INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/non_clastic_siliceous_sedimentary_rock','non clastic siliceous sedimentary rock','["compound material", "non clastic siliceous sedimentary material", "non clastic siliceous sedimentary rock", "rock", "sedimentary material", "sedimentary rock"]','#F7F3A1');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/ooze','ooze','["biogenic sediment", "compound material", "mud size sediment", "natural unconsolidated material", "ooze", "sediment", "sedimentary material", "unconsolidated material"]','#9696B9');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/organic_bearing_mudstone','organic bearing mudstone','["compound material", "generic mudstone", "organic bearing mudstone", "rock", "sedimentary material", "sedimentary rock"]','#B2E4B0');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/organic_rich_sediment','organic rich sediment','["biogenic sediment", "compound material", "natural unconsolidated material", "organic rich sediment", "organic rich sedimentary material", "sediment", "sedimentary material", "unconsolidated material"]','#42413C');
@@ -265,10 +288,281 @@ INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_co
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/trachytic_rock','trachytic rock','["compound material", "fine grained igneous rock", "igneous material", "igneous rock", "rock", "trachytic rock", "trachytoid"]','#FEA060');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/trachytoid','trachytoid','["compound material", "fine grained igneous rock", "igneous material", "igneous rock", "rock", "trachytoid"]','#FEA060');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/travertine','travertine','["calcareous carbonate sedimentary material", "calcareous carbonate sedimentary rock", "carbonate sedimentary material", "carbonate sedimentary rock", "chemical sedimentary material", "compound material", "limestone", "pure carbonate sedimentary rock", "rock", "sedimentary material", "sedimentary rock", "travertine"]','#149EF8');
-INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/tuff_breccia_agglomerate_or_pyroclastic_breccia','tuff breccia agglomerate or pyroclastic breccia','["compound material", "fragmental igneous material", "fragmental igneous rock", "igneous material", "igneous rock", "pyroclastic material", "pyroclastic rock", "rock", "tuff breccia agglomerate or pyroclastic breccia"]','');
+INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/tuff_breccia_agglomerate_or_pyroclastic_breccia','tuff breccia agglomerate or pyroclastic breccia','["compound material", "fragmental igneous material", "fragmental igneous rock", "igneous material", "igneous rock", "pyroclastic material", "pyroclastic rock", "rock", "tuff breccia agglomerate or pyroclastic breccia"]','#FFEDBF');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/tuffite','tuffite','["compound material", "rock", "tuffite"]','#FFEFD9');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/ultrabasic_igneous_rock','ultrabasic igneous rock','["compound material", "igneous material", "igneous rock", "rock", "ultrabasic igneous rock"]','#CC0000');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/ultramafic_igneous_rock','ultramafic igneous rock','["compound material", "igneous material", "igneous rock", "rock", "ultramafic igneous rock"]','#CC0000');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/unconsolidated_material','unconsolidated material','["compound material", "unconsolidated material"]','#A87333');
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/wacke','wacke','["clastic sedimentary material", "clastic sedimentary rock", "compound material", "generic sandstone", "rock", "sandstone", "sedimentary material", "sedimentary rock", "wacke"]','#BDDBF1');
+
+CREATE TABLE IF NOT EXISTS "_simple_lithology_categories" (
+	"simple_lithology_category"	TEXT,
+	"simple_lithology"	TEXT
+);
+
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary rock','biogenic silica sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary rock','hybrid sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary rock','iron rich sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary rock','non clastic siliceous sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary rock','phosphorite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary rock','sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('clastic sedimentary rock','clastic sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('clastic sedimentary rock','diamictite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic mudstone','carbonate mudstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic mudstone','carbonate rich mudstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic mudstone','claystone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic mudstone','generic mudstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic mudstone','mudstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic mudstone','organic bearing mudstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic mudstone','shale');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic mudstone','silicate mudstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic mudstone','siltstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic sandstone','arenite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic sandstone','generic sandstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic sandstone','sandstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic sandstone','wacke');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic conglomerate','conglomerate');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('generic conglomerate','generic conglomerate');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','boundstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','calcareous carbonate sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','carbonate sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','carbonate wackestone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','crystalline carbonate');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','framestone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','grainstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','impure carbonate sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','impure limestone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','limestone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','packstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','pure carbonate mudstone');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','pure carbonate sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary rock','travertine');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('chalk','chalk');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dolomitic or magnesian sedimentary rock','dolomite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dolomitic or magnesian sedimentary rock','dolomitic or magnesian sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dolomitic or magnesian sedimentary rock','impure dolomite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('organic rich sedimentary rock','anthracite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('organic rich sedimentary rock','bituminous coal');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('organic rich sedimentary rock','coal');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('organic rich sedimentary rock','lignite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('organic rich sedimentary rock','organic rich sedimentary rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('material formed in surficial environment','bauxite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('material formed in surficial environment','duricrust');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('material formed in surficial environment','material formed in surficial environment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('material formed in surficial environment','residual material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('igneous rock','doleritic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('igneous rock','glass rich igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('igneous rock','glassy igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('igneous rock','igneous material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('igneous rock','igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('igneous rock','porphyry');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('basic igneous rock','basic igneous material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('basic igneous rock','basic igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('basalt','alkali olivine basalt');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('basalt','basalt');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('basalt','tholeiitic basalt');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','foid bearing gabbro');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','foid bearing monzogabbro');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','foid gabbro');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','foid gabbroid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','foid monzogabbro');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','gabbro');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','gabbroic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','gabbroid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','monzogabbro');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','monzogabbroic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','quartz gabbro');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gabbroid','quartz monzogabbro');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('intermediate composition igneous rock','intermediate composition igneous material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('intermediate composition igneous rock','intermediate composition igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('andesite','andesite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('andesite','boninite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','diorite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','dioritic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','dioritoid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','foid bearing diorite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','foid bearing monzodiorite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','foid diorite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','foid dioritoid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','foid monzodiorite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','monzodiorite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','monzodioritic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','quartz diorite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('dioritoid','quartz monzodiorite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('acidic igneous rock','acidic igneous material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('acidic igneous rock','acidic igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('acidic igneous rock','quartz rich igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('rhyolitoid','alkali feldspar rhyolite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('rhyolitoid','rhyolite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('rhyolitoid','rhyolitoid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('granitoid','alkali feldspar granite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('granitoid','granite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('granitoid','granitoid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('granitoid','granodiorite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('granitoid','monzogranite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('granitoid','syenogranite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('granitoid','tonalite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','alkali feldspar syenite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','alkali feldspar syenitic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','foid bearing alkali feldspar syenite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','foid bearing monzonite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','foid bearing syenite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','foid monzosyenite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','foid syenite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','foid syenitoid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','monzonite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','monzonitic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','quartz alkali feldspar syenite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','quartz monzonite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','quartz syenite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','syenite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','syenitic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('syenitoid','syenitoid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('ultramafic igneous rock','hornblendite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('ultramafic igneous rock','komatiitic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('ultramafic igneous rock','peridotite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('ultramafic igneous rock','pyroxenite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('ultramafic igneous rock','ultrabasic igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('ultramafic igneous rock','ultramafic igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('exotic composition igneous rock','carbonatite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('exotic composition igneous rock','exotic alkaline rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('exotic composition igneous rock','exotic composition igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('exotic composition igneous rock','kalsilitic and melilitic rocks');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','alkali feldspar trachyte');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','alkali feldspar trachytic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','basanite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','basanitic foidite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','dacite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','fine grained igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','foid bearing alkali feldspar trachyte');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','foid bearing latite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','foid bearing trachyte');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','foidite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','foiditoid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','high magnesium fine grained igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','latite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','latitic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','phonolite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','phonolitic basanite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','phonolitic foidite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','phonolitic tephrite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','phonolitoid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','quartz alkali feldspar trachyte');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','quartz latite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','quartz trachyte');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','tephrite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','tephritic foidite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','tephritic phonolite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','tephritoid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','trachyte');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','trachytic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fine grained igneous rock','trachytoid');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('phaneritic igneous rock','anorthosite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('phaneritic igneous rock','anorthositic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('phaneritic igneous rock','aplite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('phaneritic igneous rock','foid bearing anorthosite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('phaneritic igneous rock','foidolite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('phaneritic igneous rock','pegmatite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('phaneritic igneous rock','phaneritic igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('phaneritic igneous rock','quartz anorthosite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('pyroclastic material','ash and lapilli');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('pyroclastic material','ash breccia bomb or block tephra');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('pyroclastic material','ash tuff lapillistone and lapilli tuff');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('pyroclastic material','fragmental igneous material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('pyroclastic material','fragmental igneous rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('pyroclastic material','pyroclastic material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('pyroclastic material','pyroclastic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('pyroclastic material','tephra');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('pyroclastic material','tuff breccia agglomerate or pyroclastic breccia');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('pyroclastic material','tuffite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('composite genesis material','composite genesis material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('composite genesis material','composite genesis rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fault related material','breccia gouge series');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fault related material','cataclasite series');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fault related material','fault related material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fault related material','mylonitic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('fault related material','phyllonite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('granofels','granofels');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('granofels','hornfels');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('metamorphic rock','metamorphic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('foliated metamorphic rock','foliated metamorphic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('slate','slate');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('phyllite','phyllite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('schist','mica schist');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('schist','schist');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gneiss','gneiss');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gneiss','orthogneiss');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('gneiss','paragneiss');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('marble','marble');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('quartzite','quartzite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('serpentinite','serpentinite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('chlorite actinolite epidote metamorphic rock','chlorite actinolite epidote metamorphic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('glaucophane lawsonite epidote metamorphic rock','glaucophane lawsonite epidote metamorphic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('amphibolite','amphibolite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('eclogite','eclogite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('granulite','granulite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('migmatite','migmatite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('metasomatic rock','metasomatic rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('metasomatic rock','skarn');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('metasomatic rock','spilite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','boulder gravel size sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','carbonate rich mud');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','cobble gravel size sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','gravel size sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','hybrid sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','mud size sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','non clastic siliceous sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','non clastic siliceous sedimentary material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','pebble gravel size sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','phosphate rich sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','phosphate rich sedimentary material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','sand size sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','sedimentary material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary material','silicate mud');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('clastic sedimentary material','clastic sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('clastic sedimentary material','clastic sedimentary material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('clastic sedimentary material','clay');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('clastic sedimentary material','diamicton');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('clastic sedimentary material','gravel');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('clastic sedimentary material','mud');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('clastic sedimentary material','sand');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('clastic sedimentary material','silt');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','calcareous carbonate sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','calcareous carbonate sedimentary material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','carbonate mud');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','carbonate ooze');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','carbonate sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','carbonate sedimentary material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','dolomitic or magnesian sedimentary material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','dolomitic sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','impure calcareous carbonate sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','impure carbonate sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','impure dolomitic sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','pure calcareous carbonate sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','pure carbonate sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('carbonate sedimentary material','pure dolomitic sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('biogenic sediment','biogenic sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('biogenic sediment','ooze');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('biogenic sediment','siliceous ooze');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('organic rich sedimentary material','organic rich sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('organic rich sedimentary material','organic rich sedimentary material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('organic rich sedimentary material','peat');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('organic rich sedimentary material','sapropel');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('chemical sedimentary material','chemical sedimentary material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('chemical sedimentary material','evaporite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('chemical sedimentary material','exotic evaporite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('chemical sedimentary material','gypsum or anhydrite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('chemical sedimentary material','iron rich sediment');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('chemical sedimentary material','iron rich sedimentary material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('chemical sedimentary material','rock salt');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('unconsolidated material','unconsolidated material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('unconsolidated material','natural unconsolidated material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('breccia','breccia');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('anthropogenic material','anthropogenic material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('anthropogenic material','anthropogenic unconsolidated material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('impact generated material','impact generated material');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('rock','aphanite');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('rock','rock');
+INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('compound material','compound material');
 COMMIT;

@@ -12,14 +12,14 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
     st.category AS structure_category,
     st.description AS structure_type,
     sm.dip,
-    sm.dip_direction,
-    sm.comment,
+    sm.azimuth,
+    sm.notes,
     sm.uuid AS structure_uuid,
     lp.uuid AS locality_uuid,
     lp.geometry as geometry
   FROM structural_measurement sm
     LEFT JOIN locality_point lp on sm.locality_fuid = lp.uuid
-    LEFT JOIN dic_structure_code st on sm.structure_type_code = st.code
+    LEFT JOIN dic_structure st on sm.structure_type_code = st.code
     LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 
@@ -31,25 +31,25 @@ VALUES('view_structural_measurement','geometry','POINT',4326,1,0);
 
 
 CREATE VIEW IF NOT EXISTS "view_lithology" AS
-  SELECT
-    fp.short_name as field_project,
-    lp.name as locality_point,
+ SELECT
+    fp.short_name AS field_project,
+    lp.name AS locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
-    type.translation as exposure_type,
-	  lith.lithology_code,
-	  rock.translation as lithology,
-    lith.description,
-    lith.comment,
+    exp_type.code AS exposure_type,
+	  rock.label AS lithology,
+    lith.lithology_code,
+	  rock.simple_lithology,
+    lith.notes,
     lith.uuid AS lithology_uuid,
     lp.uuid AS locality_uuid,
-    lp.geometry as geometry
+    lp.geometry AS geometry
   FROM lithology lith
-    LEFT JOIN locality_point lp on lith.locality_fuid = lp.uuid
-    LEFT JOIN dic_exposure_type type on lp.exposure_type_code = type.code
-    LEFT JOIN dic_rock_all rock on lith.lithology_code = rock.code
-    LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
+    LEFT JOIN locality_point lp ON lith.locality_fuid = lp.uuid
+    LEFT JOIN dic_exposure_type exp_type ON lp.exposure_type_code = exp_type.code
+	  LEFT JOIN dic_rock_field rock ON lith.lithology_code = rock.code
+    LEFT JOIN field_project fp ON lp.field_project_fuid = fp.uuid
 ;
 
 INSERT INTO gpkg_contents
@@ -72,13 +72,13 @@ CREATE VIEW IF NOT EXISTS "view_superficial_landform" AS
     sl.length,
     sl.width,
     sl.height_depth,
-    sl.comment,
+    sl.notes,
     sl.uuid AS superficial_uuid,
     lp.uuid AS locality_uuid,
     lp.geometry as geometry
   FROM superficial_landform sl
     LEFT JOIN locality_point lp on sl.locality_fuid = lp.uuid
-    LEFT JOIN dic_superficial_code sc on sl.superficial_type_code = sc.code
+    LEFT JOIN dic_superficial_landform sc on sl.superficial_type_code = sc.code
     LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 
@@ -98,16 +98,16 @@ CREATE VIEW IF NOT EXISTS "view_manmade_landform" AS
     fp.local_epsg,
     mc.description AS manmade_type,
     ml.dip,
-    ml.dip_direction,
+    ml.azimuth,
     ml.length,
     ml.width,
-    ml.comment,
+    ml.notes,
     ml.uuid AS manmade_uuid,
     lp.uuid AS locality_uuid,
     lp.geometry as geometry
   FROM manmade_landform ml
     LEFT JOIN locality_point lp on ml.locality_fuid = lp.uuid
-    LEFT JOIN dic_manmade_code mc on ml.manmade_type_code = mc.code
+    LEFT JOIN dic_manmade_landform mc on ml.manmade_type_code = mc.code
     LEFT JOIN field_project fp on lp.field_project_fuid = fp.uuid
 ;
 
@@ -118,7 +118,7 @@ INSERT INTO gpkg_geometry_columns
 VALUES('view_manmade_landform','geometry','POINT',4326,1,0);
 
 
-CREATE VIEW IF NOT EXISTS "view_next_locality_id" AS
+CREATE VIEW IF NOT EXISTS "_view_next_locality_id" AS
   -- Using nested SELECT statements as it allows us to build reusable variables
   SELECT
     username,
@@ -153,7 +153,7 @@ CREATE VIEW IF NOT EXISTS "view_next_locality_id" AS
 ;
 
 INSERT INTO gpkg_contents
-VALUES('view_next_locality_id','attributes','view_next_locality_id','List of next locality_point ID values based on existing locality_point data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+VALUES('_view_next_locality_id','attributes','_view_next_locality_id','List of next locality_point ID values based on existing locality_point data.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 
 COMMIT;

@@ -7,6 +7,10 @@ dependencies:
   - python=3.9
   - pip=23.2
   - qgis=3.34
+  - beautifulsoup4
+  - cx_oracle
+  - pandas
+  - rdflib
   - pip:
       - eralchemy2
       - etlhelper

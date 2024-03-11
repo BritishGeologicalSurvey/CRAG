@@ -1,3 +1,4 @@
+from collections import defaultdict
 import sqlite3
 from typing import Optional
 
@@ -8,6 +9,7 @@ from plugin.config import (
     ATTRIBUTE_TABLES,
     DICTIONARIES,
     FEATURE_TABLES,
+    INTERNAL_TABLES,
     VIEWS
 )
 
@@ -18,20 +20,12 @@ COLUMN_CONSTRAINTS = {
     "uuid": "TEXT NOT NULL UNIQUE",
     "user_entered": "TEXT NOT NULL",
     "date_entered": "DATETIME NOT NULL",
-    # The following only appear in individual tables
-    "structure_type_code": "TEXT NOT NULL",
-    "manmade_type_code": "TEXT NOT NULL",
-    "lithology_code": "TEXT NOT NULL",
-    "media_type_code": "TEXT NOT NULL",
-    "sample_id": "TEXT NOT NULL",
-    "sample_type_code": "TEXT NOT NULL",
-    "superficial_type_code": "TEXT NOT NULL",
 }
 
 
 def test_data_loading(test_data_gpkg):
-    # Testing that the fixutre works
-    assert True
+    # Testing that the fixture works
+    assert isinstance(test_data_gpkg, sqlite3.Connection)
 
 
 @pytest.mark.parametrize(
@@ -39,12 +33,12 @@ def test_data_loading(test_data_gpkg):
     [
         (   # Spatial (feature) tables
             FEATURE_TABLES,
-            {"fid", "objectid", "uuid", "geometry", "comment", "user_entered", "date_entered", "user_updated",
+            {"fid", "objectid", "uuid", "geometry", "notes", "user_entered", "date_entered", "user_updated",
              "date_updated"},
         ),
         (   # Non-spatial (attribute) tables
             ATTRIBUTE_TABLES,
-            {"fid", "objectid", "uuid", "comment", "user_entered", "date_entered", "user_updated", "date_updated"},
+            {"fid", "objectid", "uuid", "notes", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
             DICTIONARIES,
@@ -91,10 +85,8 @@ def assert_column_constraints(
         if table.startswith("dic_") and col_name in ["uuid", "objectid"]:
             continue
 
-        # Only assert a constraint if the column name is in the table definition
-        if col_name in create_sql:
-            search_str = f'"{col_name}" {col_constraints}'
-            assert search_str in create_sql
+        search_str = f'"{col_name}" {col_constraints}'
+        assert search_str in create_sql
 
     assert 'PRIMARY KEY("fid" AUTOINCREMENT)' in create_sql
 
@@ -107,31 +99,30 @@ def assert_column_constraints(
         ("manmade_landform", "dip", 90, None),
         ("manmade_landform", "dip", -1, "CHECK constraint failed: dip"),
         ("manmade_landform", "dip", 91, "CHECK constraint failed: dip"),
-        ("manmade_landform", "dip_direction", 0, None),
-        ("manmade_landform", "dip_direction", 359, None),
-        ("manmade_landform", "dip_direction", -1, "CHECK constraint failed: dip_direction"),
-        ("manmade_landform", "dip_direction", 360, "CHECK constraint failed: dip_direction"),
+        ("manmade_landform", "azimuth", 0, None),
+        ("manmade_landform", "azimuth", 359, None),
+        ("manmade_landform", "azimuth", -1, "CHECK constraint failed: azimuth"),
+        ("manmade_landform", "azimuth", 360, "CHECK constraint failed: azimuth"),
 
         # Table: structural_measurement
         ("structural_measurement", "dip", 0, None),
         ("structural_measurement", "dip", 90, None),
         ("structural_measurement", "dip", -1, "CHECK constraint failed: dip"),
         ("structural_measurement", "dip", 91, "CHECK constraint failed: dip"),
-        ("structural_measurement", "dip_direction", 0, None),
-        ("structural_measurement", "dip_direction", 359, None),
-        ("structural_measurement", "dip_direction", -1, "CHECK constraint failed: dip_direction"),
-        ("structural_measurement", "dip_direction", 360, "CHECK constraint failed: dip_direction"),
-        # Test NOT NULL constraint here, instead of with columns_constraints, because doesn't apply to all tables
-        ("structural_measurement", "dip", None,
-         "NOT NULL constraint failed: structural_measurement.dip"),
-        ("structural_measurement", "dip_direction", None,
-         "NOT NULL constraint failed: structural_measurement.dip_direction"),
+        ("structural_measurement", "azimuth", 0, None),
+        ("structural_measurement", "azimuth", 359, None),
+        ("structural_measurement", "azimuth", -1, "CHECK constraint failed: azimuth"),
+        ("structural_measurement", "azimuth", 360, "CHECK constraint failed: azimuth"),
 
         # Table: superficial_landform
         ("superficial_landform", "dip", 0, None),
         ("superficial_landform", "dip", 90, None),
         ("superficial_landform", "dip", -1, "CHECK constraint failed: dip"),
         ("superficial_landform", "dip", 91, "CHECK constraint failed: dip"),
+        ("structural_measurement", "azimuth", 0, None),
+        ("structural_measurement", "azimuth", 359, None),
+        ("structural_measurement", "azimuth", -1, "CHECK constraint failed: azimuth"),
+        ("structural_measurement", "azimuth", 360, "CHECK constraint failed: azimuth"),
     ],
 )
 def test_data_model_columns_constraints(
@@ -143,16 +134,16 @@ def test_data_model_columns_constraints(
 ):
     # Arrange
     # Get the dict row fixture for the given table
-    update_sql = f'UPDATE {table} SET {field}=? WHERE fid=1'
+    update_sql = f'UPDATE {table} SET "{field}"={value} WHERE fid=1'
 
     # Act
     if error_message is None:
         # Inserting the row should not raise an error
-        etl.execute(update_sql, test_data_gpkg, parameters=(value,))
+        etl.execute(update_sql, test_data_gpkg)
     else:
         # Check that the correct error is raised
         with pytest.raises(etl.exceptions.ETLHelperQueryError) as excinfo:
-            etl.execute(update_sql, test_data_gpkg, parameters=(value,))
+            etl.execute(update_sql, test_data_gpkg)
 
         # Assert
         assert error_message in str(excinfo.value)
@@ -161,10 +152,12 @@ def test_data_model_columns_constraints(
 def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     # Arrange
     expected_contents = [(table, "features") for table in FEATURE_TABLES]
-    expected_contents += [(table, "features") for table in VIEWS
-                          if table != "view_next_locality_id"]
-    expected_contents += [(table, "attributes") for table in ATTRIBUTE_TABLES | {"view_next_locality_id"}]
+    expected_contents += [(table, "features") for table in VIEWS]
+    expected_contents += [(table, "attributes") for table in ATTRIBUTE_TABLES]
     expected_contents += [(table, "attributes") for table in DICTIONARIES]
+
+    # Note that in future we may not register the INTERNAL_TABLES in the geopackage
+    expected_contents += [(table, "attributes") for table in INTERNAL_TABLES]
 
     # Act
     query = """
@@ -184,7 +177,7 @@ def test_gpkg_contents(data_model_gpkg: sqlite3.Connection):
     assert sorted(actual_contents) == sorted(expected_contents)
 
 
-@pytest.mark.parametrize("view", [view for view in VIEWS if view != "view_next_locality_id"])
+@pytest.mark.parametrize("view", VIEWS)
 def test_views(
     data_model_gpkg: sqlite3.Connection,
     view: str
@@ -213,7 +206,7 @@ def test_view_next_locality_id(test_data_gpkg: sqlite3.Connection):
     expected_3 = []
 
     # Act
-    query = "SELECT * FROM view_next_locality_id"
+    query = "SELECT * FROM _view_next_locality_id"
 
     # Act 1
     result_1 = etl.fetchall(query, conn=test_data_gpkg, row_factory=etl.row_factories.tuple_row_factory)
@@ -262,3 +255,30 @@ def test_clear_update_field_on_insert_trigger(test_data_gpkg: sqlite3.Connection
     )
 
     assert update_result == ("leorud", "2023-11-31T16:20:11.012")
+
+
+def test_lnk_rock_project_trigger_fires_on_new_project(test_data_gpkg: sqlite3.Connection):
+    # Loading the test data creates a project, which should result in
+    # records being populated into the _lnk_rock_project table.
+
+    # Arrange data to check
+    test_project_uuid = etl.fetchone("SELECT uuid FROM field_project LIMIT 1",
+                                     test_data_gpkg).uuid
+
+    default_lithologies_sql = """
+        SELECT code
+        FROM dic_rock_field
+        WHERE is_default IS True"""
+    result = etl.fetchall(default_lithologies_sql, test_data_gpkg)
+    default_lithologies = {row.code for row in result}
+
+    rock_project_sql = """
+        SELECT rock_code, field_project_uuid
+        FROM _lnk_rock_project"""
+    rocks_by_project = defaultdict(set)
+    for row in etl.fetchall(rock_project_sql, test_data_gpkg):
+        rocks_by_project[row.field_project_uuid].add(row.rock_code)
+
+    # Assert
+    assert len(rocks_by_project) == 1
+    assert rocks_by_project[test_project_uuid] == default_lithologies

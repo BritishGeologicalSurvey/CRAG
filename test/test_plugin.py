@@ -49,15 +49,10 @@ def test_project_fixture(fdc: FieldDataCapture, qgs_project: Path):
 def test_validation_good(fdc: FieldDataCapture, qgs_project: Path):
     fdc.add_gpkg_to_project()
     fdc.add_gpkg_layers_to_project()
-    assert fdc.project_is_active()
-    assert fdc.db_file.exists()
-    assert fdc.check_fdc_layers_exist()
     assert fdc.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True)
 
 
 def test_validation_bad(fdc: FieldDataCapture):
-    assert not fdc.project_is_active()
-    assert not fdc.check_fdc_layers_exist()
     assert not fdc.validate_qgis_state(project_active=True, fdc_layers_exist=True)
 
 
@@ -245,6 +240,7 @@ def test_export_qml_styles(
         "Labeling",
         "Fields",
         "Forms",
+        "MapTips",
     }
     fdc.add_gpkg_to_project()
     fdc.add_gpkg_layers_to_project()
@@ -308,7 +304,7 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
         feature = QgsVectorLayerUtils.createFeature(layer)
         # Set the field_project_fuid to be the uuid of the field project from the test data set
         feature.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
-        feature.setAttribute("exposure_type_code", "AUGER_BOREHOLE")
+        feature.setAttribute("exposure_type_code", "auger_borehole")
         layer.addFeature(feature)
         layer.commitChanges()
 
@@ -412,7 +408,7 @@ def test_quick_locality_add(
     feature_1 = QgsVectorLayerUtils.createFeature(layer)
     # Set the field_project_fuid to be the uuid of the field project from the test data set
     feature_1.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
-    feature_1.setAttribute("exposure_type_code", "AUGER_BOREHOLE")
+    feature_1.setAttribute("exposure_type_code", "auger_borehole")
     layer.addFeature(feature_1)
     # Emit the GUI signal that triggers the auto save of the new feature
     layer.editCommandEnded.emit()
@@ -436,7 +432,7 @@ def test_quick_locality_add(
     feature_2 = QgsVectorLayerUtils.createFeature(layer)
     # Set the field_project_fuid to be the uuid of the field project from the test data set
     feature_2.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
-    feature_2.setAttribute("exposure_type_code", "AUGER_BOREHOLE")
+    feature_2.setAttribute("exposure_type_code", "auger_borehole")
     layer.addFeature(feature_2)
     # Emit the GUI signal that triggers the auto save of the new feature
     layer.editCommandEnded.emit()
@@ -464,16 +460,16 @@ def test_quick_locality_add(
 def test_quick_locality_edit(fdc_project: FieldDataCapture):
     # Arrange
     point_fid = 1
-    edited_field = "description"
-    new_value = "new description"
+    edited_field = "locality_description"
+    new_value = "new value"
     # Enable edit quick locality point mode
     fdc_project.toggle_quick_locality_mode(mode="edit")
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
-    description_index = [field.name() for field in layer.fields()].index(edited_field)
+    field_index = [field.name() for field in layer.fields()].index(edited_field)
 
     # Act
     # Edit one of the test points
-    layer.changeAttributeValue(fid=point_fid, field=description_index, newValue=new_value)
+    layer.changeAttributeValue(fid=point_fid, field=field_index, newValue=new_value)
     # Emit the GUI signal that triggers the auto save
     layer.editCommandEnded.emit()
 

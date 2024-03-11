@@ -19,19 +19,18 @@ TABLES = {
     "attributes": [
         # Dictionaries
         "dic_exposure_type",
-        "dic_rock_all",
         "dic_field_project_type",
         "dic_line_type_artificial",
         "dic_line_type_bedrock",
         "dic_line_type_mass_move",
         "dic_line_type_superficial",
         "dic_line_type_terrain",
-        "dic_manmade_code",
+        "dic_manmade_landform",
         "dic_media",
-        "dic_rock_all",
+        "dic_rock_field",
         "dic_sample",
-        "dic_structure_code",
-        "dic_superficial_code",
+        "dic_structure",
+        "dic_superficial_landform",
         # Attributes
         "lithology",
         "manmade_landform",
@@ -42,7 +41,9 @@ TABLES = {
         "superficial_landform",
         # Metadata
         "field_project",
-        "view_next_locality_id",
+        # Internal
+        "_lnk_rock_project",
+        "_view_next_locality_id",
     ]
 }
 
@@ -55,8 +56,12 @@ FEATURE_TABLES_LINES = {table for table in FEATURE_TABLES
 
 DICTIONARIES = {table for table in TABLES['attributes']
                 if table.startswith('dic_')}
+
+INTERNAL_TABLES = {table for table in TABLES['attributes']
+                   if table.startswith('_')}
+
 ATTRIBUTE_TABLES = {table for table in TABLES['attributes']
-                    if not table.startswith("view")}.difference(DICTIONARIES)
+                    if not table.startswith("view")}.difference(DICTIONARIES, INTERNAL_TABLES)
 
 TABLE_LIST = sorted(TABLES["features"] + TABLES["attributes"])
 
