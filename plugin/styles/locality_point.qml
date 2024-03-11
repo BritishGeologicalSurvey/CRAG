@@ -461,7 +461,7 @@
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="true"></Option>
+            <Option name="IsMultiline" type="bool" value="false"></Option>
             <Option name="UseHtml" type="bool" value="false"></Option>
           </Option>
         </config>
