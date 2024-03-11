@@ -126,8 +126,7 @@ CREATE TABLE IF NOT EXISTS "dic_superficial_landform" (
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	PRIMARY KEY("fid" AUTOINCREMENT),
-	FOREIGN KEY("category") REFERENCES "dic_superficial_category_2"("code")
+	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 insert into gpkg_contents
