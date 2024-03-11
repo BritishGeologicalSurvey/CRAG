@@ -398,6 +398,24 @@ def test_quick_locality_enable(
     "mode",
     ("add", "edit", "delete"),
 )
+def test_quick_locality_enable_bad(fdc: FieldDataCapture, mode: str):
+    # This test uses fdc rather than fdc_project
+    # because it tests that the quick mode is not toggled when no project exists
+    # Act
+    # Enable quick locality point mode
+    fdc.toggle_quick_locality_mode(mode=mode)
+
+    # Assert
+    # Check that no quick modes were enabled
+    assert fdc.quick_locality_slots == []
+    assert not fdc.current_quick_locality_mode
+    assert fdc.quick_locality_fid is None
+
+
+@pytest.mark.parametrize(
+    "mode",
+    ("add", "edit", "delete"),
+)
 def test_quick_locality_disable(fdc_project: FieldDataCapture, mode: str):
     # Arrange
     # Enable quick locality point mode
