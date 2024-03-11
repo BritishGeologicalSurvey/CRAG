@@ -1,4 +1,4 @@
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
   <renderer-v2 attr="line_type_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="gull" render="true" symbol="0" type="string" uuid="{d719e6bc-c859-4f6e-b37a-4bf8cc33acd3}" value="gull"></category>
@@ -1319,5 +1319,6 @@ azimuth: [% format_number(&#xD;
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
+  <mapTip enabled="1"></mapTip>
   <layerGeometryType>1</layerGeometryType>
 </qgis>

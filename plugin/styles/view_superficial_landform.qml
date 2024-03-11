@@ -1,4 +1,4 @@
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
   <renderer-v2 attr="superficial_type" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="Cavity entrance natural" render="true" symbol="0" type="string" uuid="{1c136adf-44be-4052-a462-6c7353fef392}" value="Cavity entrance natural"></category>
@@ -1744,5 +1744,12 @@ def my_form_open(dialog, layer, feature):
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
+  <mapTip enabled="1">&lt;div style="white-space:pre"&gt;[% 'Superficial Category: ' + "superficial_category" %]&#xD;
+[% 'Superficial Type: ' + "superficial_type" %]&#xD;
+[% 'Dip: ' + to_string("dip") %]&#xD;
+[% 'Length: ' + to_string("length") %]&#xD;
+[% 'Width: ' + to_string("width") %]&#xD;
+[% 'Height Depth: ' + to_string("height_depth") %]&#xD;
+&lt;/div&gt;</mapTip>
   <layerGeometryType>0</layerGeometryType>
 </qgis>

@@ -1,4 +1,4 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -232,5 +232,6 @@ def my_form_open(dialog, layer, feature):
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
+  <mapTip enabled="1"></mapTip>
   <layerGeometryType>4</layerGeometryType>
 </qgis>

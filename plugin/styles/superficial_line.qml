@@ -1,4 +1,4 @@
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
   <renderer-v2 attr="line_type_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="axis_of_glacial_flute" render="true" symbol="0" type="string" uuid="{e356cc80-12a7-45fb-80a4-1231d55d7575}" value="axis_of_glacial_flute"></category>
@@ -6852,5 +6852,6 @@ azimuth: [% format_number(&#xD;
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
+  <mapTip enabled="1"></mapTip>
   <layerGeometryType>1</layerGeometryType>
 </qgis>

@@ -1,4 +1,4 @@
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
   <renderer-v2 attr="line_type_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="artificial_geology_boundary" render="true" symbol="0" type="string" uuid="{5a27bec9-0246-4390-b603-55446e2030da}" value="artificial_geology_boundary"></category>
@@ -1169,5 +1169,6 @@ azimuth: [% format_number(&#xD;
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
+  <mapTip enabled="1"></mapTip>
   <layerGeometryType>1</layerGeometryType>
 </qgis>

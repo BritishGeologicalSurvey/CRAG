@@ -1,4 +1,4 @@
-<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
+<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
   <renderer-v2 circleColor="125,125,125,255" circleRadiusAddition="0" circleWidth="0.4" enableorderby="0" forceraster="0" labelAttributeName="" labelColor="0,0,0,255" labelDistanceFactor="0.5" maxLabelScaleDenominator="0" placement="0" referencescale="-1" symbollevels="0" tolerance="3" toleranceUnit="MM" toleranceUnitScale="3x:0,0,0,0,0,0" type="pointDisplacement">
     <labelFontProperties bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFontProperties>
     <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
@@ -2603,5 +2603,9 @@ def my_form_open(dialog, layer, feature):
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
+  <mapTip enabled="1">&lt;div style="white-space:pre"&gt;[% 'Lithology: ' + "lithology" %]&#xD;
+[% 'Simple Lithology: ' + "simple_lithology" %]&#xD;
+[% 'Lithology Code: ' + "lithology_code" %]&#xD;
+&lt;/div&gt;</mapTip>
   <layerGeometryType>0</layerGeometryType>
 </qgis>

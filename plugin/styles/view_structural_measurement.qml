@@ -1,4 +1,4 @@
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms" version="3.34.0-Prizren">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
   <renderer-v2 attr="structure_category" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="Bedding" render="true" symbol="0" type="string" uuid="0" value="Bedding"></category>
@@ -573,5 +573,10 @@ def my_form_open(dialog, layer, feature):
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
+  <mapTip enabled="1">&lt;div style="white-space:pre"&gt;[% 'Structure Category: ' + "structure_category" %]&#xD;
+[% 'Structure Type: ' + "structure_type" %]&#xD;
+[% 'Dip: ' + to_string("dip") %]&#xD;
+[% 'Azimuth: ' + to_string("azimuth") %]&#xD;
+&lt;/div&gt;</mapTip>
   <layerGeometryType>0</layerGeometryType>
 </qgis>
