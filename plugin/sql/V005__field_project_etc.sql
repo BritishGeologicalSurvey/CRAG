@@ -39,6 +39,8 @@ CREATE TABLE IF NOT EXISTS "_lnk_rock_project" (
 	"fid"	INTEGER NOT NULL,
 	"field_project_uuid" TEXT NOT NULL,
 	"rock_code"	TEXT NOT NULL,
+	"category" TEXT,
+	"label" TEXT,
 	FOREIGN KEY("rock_code") REFERENCES "dic_rock_field"("code"),
 	FOREIGN KEY("field_project_uuid") REFERENCES "field_project"("uuid"),
 	PRIMARY KEY("fid" AUTOINCREMENT)
@@ -58,6 +60,25 @@ BEGIN
      code as rock_code
      FROM dic_rock_field
      WHERE is_default IS True;
+END;
+
+
+CREATE TRIGGER populate_label_and_category
+AFTER INSERT ON _lnk_rock_project
+BEGIN
+    UPDATE _lnk_rock_project
+	SET category = (
+		    SELECT category
+		    FROM dic_rock_field
+		    WHERE dic_rock_field.code = NEW.rock_code
+	    ),
+	    label = (
+			SELECT label
+			FROM dic_rock_field
+			WHERE dic_rock_field.code = NEW.rock_code
+		)
+	WHERE field_project_uuid = NEW.field_project_uuid
+	  AND rock_code = NEW.rock_code;
 END;
 
 COMMIT;
