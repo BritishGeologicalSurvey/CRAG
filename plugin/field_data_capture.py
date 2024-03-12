@@ -943,11 +943,7 @@ class FieldDataCapture:
         Toggle the given quick locality point mode.
         Returns a boolean indicating the success of the process.
         """
-        if (
-            not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True)
-            or
-            self.warn_unsaved_locality_children(parent=True)
-        ):
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True) or self.warn_unsaved_locality_children(parent=True):  # noqa
             # Disable any current modes to prevent issues
             self.disable_quick_locality_mode()
             self.untoggle_quick_locality_buttons()
