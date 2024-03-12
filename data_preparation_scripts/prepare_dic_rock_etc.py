@@ -464,7 +464,7 @@ def fill_missing_colours_and_lithologies(conn):
         "Cobbles [UDCS]": "clastic sedimentary material",  # broader category, specific sizes only go to gravel
         # All the vein rocks are classified as metasomatic as they are
         # derived from fluid flow, but not all metasomatic rocks are vein
-        # rocks.  There is no way to subdivide them further based on 
+        # rocks.  There is no way to subdivide them further based on
         # composition.
         "Baryte (vein)": "metasomatic rock",
         "Copper (vein)": "metasomatic rock",
