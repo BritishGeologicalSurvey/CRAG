@@ -21,6 +21,7 @@ from qgis.core import (
     QgsVectorLayerUtils,
 )
 from qgis.PyQt.QtCore import pyqtBoundSignal
+from qgis.PyQt.QtWidgets import QMessageBox
 
 from conftest import setup_db_conn
 from plugin.config import (
@@ -313,9 +314,8 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
 
 
 @pytest.mark.parametrize(
-    "layer_name",
+    "child_layer_name",
     (
-        "locality_point",
         "lithology",
         "manmade_landform",
         "media",
@@ -325,19 +325,43 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
         "superficial_landform",
     ),
 )
-def test_warn_unsaved_locality_point_edits(fdc_project: FieldDataCapture, layer_name: str):
+def test_warn_unsaved_locality_point_edits(
+    fdc_project: FieldDataCapture,
+    child_layer_name: str,
+    monkeypatch: pytest.MonkeyPatch,
+):
     # Arrange
-    # Manually make an edit
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-    layer.startEditing()
-    user_updated_index = [field.name() for field in layer.fields()].index("user_updated")
-    layer.changeAttributeValue(fid=1, field=user_updated_index, newValue="dummy_user")
+    point_fid = 1
+    point_edit_field = "map_face_note"
+    point_new_value = "dummy_value"
+    child_fid = 1
+    child_edit_field = "user_entered"  # Every table has user_entered with no on_update rules
+    child_new_value = "dummy_user"
+    unsaved_layers = ["locality_point", child_layer_name]
+
+    # Manually make an edit to the locality_point layer and do not save it
+    locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    locality_point_layer.startEditing()
+    point_edit_field_index = [field.name() for field in locality_point_layer.fields()].index(point_edit_field)
+    locality_point_layer.changeAttributeValue(fid=point_fid, field=point_edit_field_index, newValue=point_new_value)
+
+    # Manually make an edit to the given child layer and do not save it
+    child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
+    child_layer.startEditing()
+    child_edit_field_index = [field.name() for field in child_layer.fields()].index(child_edit_field)
+    child_layer.changeAttributeValue(fid=child_fid, field=child_edit_field_index, newValue=child_new_value)
+
+    # Monkeypatch the QMessageBox methods to check they are called with the correct values
+    mock_function = Mock()
+    monkeypatch.setattr(QMessageBox, "setText", mock_function)
 
     # Act
     unsaved_edits = fdc_project.warn_unsaved_locality_children(parent=True)
 
     # Assert
     assert unsaved_edits
+    mock_function.assert_called_once()
+    assert mock_function.call_args[0][0].endswith("\n".join(unsaved_layers))
 
 
 @pytest.mark.parametrize(
@@ -423,11 +447,14 @@ def test_quick_locality_switch_mode(
 )
 def test_quick_locality_warn_edits(fdc_project: FieldDataCapture, mode: str):
     # Arrange
+    point_fid = 1
+    edit_field = "map_face_note"
+    new_value = "dummy_value"
     # Manually make an edit without the quick locality mode and do not save it
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
     layer.startEditing()
-    description_index = [field.name() for field in layer.fields()].index("description")
-    layer.changeAttributeValue(fid=1, field=description_index, newValue="new description")
+    edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
+    layer.changeAttributeValue(fid=point_fid, field=edit_field_index, newValue=new_value)
 
     # Act
     # Try to enable quick locality point mode
@@ -440,6 +467,11 @@ def test_quick_locality_warn_edits(fdc_project: FieldDataCapture, mode: str):
     assert fdc_project.quick_locality_slots == []
     assert not fdc_project.current_quick_locality_mode
     assert fdc_project.quick_locality_fid is None
+    # Check that the layer is still editable
+    assert layer.isEditable()
+    # Check that the layer still has the manual changes
+    assert layer.isModified()
+    assert layer.getFeature(point_fid).attribute(edit_field) == new_value
 
 
 def test_quick_locality_add(
@@ -513,16 +545,16 @@ def test_quick_locality_add(
 def test_quick_locality_edit(fdc_project: FieldDataCapture):
     # Arrange
     point_fid = 1
-    edited_field = "locality_description"
-    new_value = "new value"
+    edit_field = "map_face_note"
+    new_value = "dummy_value"
     # Enable edit quick locality point mode
     fdc_project.toggle_quick_locality_mode(mode="edit")
     layer = QgsProject.instance().mapLayersByName("locality_point")[0]
-    field_index = [field.name() for field in layer.fields()].index(edited_field)
+    edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
 
     # Act
     # Edit one of the test points
-    layer.changeAttributeValue(fid=point_fid, field=field_index, newValue=new_value)
+    layer.changeAttributeValue(fid=point_fid, field=edit_field_index, newValue=new_value)
     # Emit the GUI signal that triggers the auto save
     layer.editCommandEnded.emit()
 
@@ -532,7 +564,7 @@ def test_quick_locality_edit(fdc_project: FieldDataCapture):
     # Check that the layer has re-enabled editing mode
     assert layer.isEditable()
     # Check that the edit has been saved correctly
-    assert layer.getFeature(point_fid).attribute(edited_field) == new_value
+    assert layer.getFeature(point_fid).attribute(edit_field) == new_value
     # Check that the 'fid' of the point was not saved because it is not a new point
     assert fdc_project.quick_locality_fid is None
 
