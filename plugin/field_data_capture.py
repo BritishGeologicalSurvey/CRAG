@@ -1074,10 +1074,8 @@ class FieldDataCapture:
                 new_feature = layer.getFeature(self.quick_locality_fid)
                 self.iface.openFeatureForm(layer, new_feature)
 
-            elif self.current_quick_locality_mode == "delete":
-                # Repaint the layers to ensure nothing is left behind from a deletion
-                self.repaint_fdc_layers()
-
+            # Always refresh the layers to ensure consistency on the canvas
+            self.repaint_fdc_layers()
             # Always warn of unsaved children
             self.warn_unsaved_locality_children()
 
