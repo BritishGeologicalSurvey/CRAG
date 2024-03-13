@@ -624,3 +624,20 @@ def recursive_search_form(
             form_elements = recursive_search_form(form_element, form_elements)
 
     return form_elements
+
+
+@pytest.mark.parametrize(
+    "layer_name",
+    FEATURE_TABLES,
+)
+def test_default_field_project_fuid_attribute(fdc_project: FieldDataCapture, layer_name: str):
+    # Arrange
+    expected_field_project_fuid = "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}"
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
+    # Act
+    # Create a new feature with the default values applied
+    feature = QgsVectorLayerUtils.createFeature(layer)
+
+    # Assert
+    assert expected_field_project_fuid == feature.attribute("field_project_fuid")
