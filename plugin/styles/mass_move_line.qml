@@ -1157,7 +1157,7 @@
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
-    <default applyOnUpdate="0" expression="" field="field_project_fuid"></default>
+    <default applyOnUpdate="0" expression="attribute(&#xD;&#xA;&#x9;get_feature(&#xD;&#xA;&#x9;&#x9;'field_project',&#xD;&#xA;&#x9;&#x9;'fid',&#xD;&#xA;&#x9;&#x9;-- Get the list of field_project fid values&#xD;&#xA;&#x9;&#x9;-- Then take the first one&#xD;&#xA;&#x9;&#x9;-- There should only be one, but this means&#xD;&#xA;&#x9;&#x9;-- that if the fid changes, this expression&#xD;&#xA;&#x9;&#x9;-- still works as expected&#xD;&#xA;&#x9;&#x9;aggregate(&#xD;&#xA;&#x9;&#x9;&#x9;'field_project',&#xD;&#xA;&#x9;&#x9;&#x9;'array_agg',&#xD;&#xA;&#x9;&#x9;&#x9;&quot;fid&quot;&#xD;&#xA;&#x9;&#x9;)[0]&#xD;&#xA;&#x9;),&#xD;&#xA;&#x9;'uuid'&#xD;&#xA;)" field="field_project_fuid"></default>
     <default applyOnUpdate="0" expression="" field="line_type_code"></default>
     <default applyOnUpdate="0" expression="" field="line_label"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
@@ -1245,11 +1245,6 @@ azimuth: [% format_number(&#xD;
 	2&#xD;
 ) + '°' %]</attributeEditorTextElement>
     </attributeEditorContainer>
-    <attributeEditorField horizontalStretch="0" index="3" name="field_project_fuid" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-      </labelStyle>
-    </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="4" name="line_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="Noto Sans,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>

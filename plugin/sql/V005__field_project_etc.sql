@@ -34,6 +34,11 @@ CREATE TRIGGER "field_project_clear_updated"
       UPDATE "field_project" SET user_updated = NULL, date_updated = NULL
       WHERE fid = NEW."fid"; END;
 
+CREATE TRIGGER "field_project_limit_1"
+	BEFORE INSERT ON "field_project" WHEN (SELECT COUNT(1) FROM "field_project") >= 1
+	BEGIN
+		SELECT RAISE(FAIL, "Only one Field Project is permitted per project."); END;
+
 
 CREATE TABLE IF NOT EXISTS "_lnk_rock_project" (
 	"fid"	INTEGER NOT NULL,

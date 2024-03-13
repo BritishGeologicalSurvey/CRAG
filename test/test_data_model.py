@@ -282,3 +282,33 @@ def test_lnk_rock_project_trigger_fires_on_new_project(test_data_gpkg: sqlite3.C
     # Assert
     assert len(rocks_by_project) == 1
     assert rocks_by_project[test_project_uuid] == default_lithologies
+
+
+def test_field_project_limit_1_trigger(test_data_gpkg: sqlite3.Connection):
+    # Loading the test data creates a Field Project
+    # Arrange
+    expected_error = "Only one Field Project is permitted per project."
+    new_field_project = {
+        "uuid": "{d57614a8-21bb-47a5-8cb6-82c0b009ec1b}",
+        "short_name": "extra_field_project",
+        "field_project_type": "DESK",
+        "local_epsg": 27700,
+        "mapped_scale": 25000,
+        "user_entered": "leorud",
+        "date_entered": "2024-03-13T10:16:12.011",
+    }
+
+    # Act
+    with pytest.raises(etl.exceptions.ETLHelperInsertError) as excinfo:
+        etl.load(table="field_project", conn=test_data_gpkg, rows=(new_field_project,))
+
+    # Assert
+    # Check that the correct error is raised
+    assert expected_error in str(excinfo.value)
+    # Check that the record was not inserted
+    number_of_field_projects = etl.fetchone(
+        "SELECT COUNT(1) FROM field_project",
+        conn=test_data_gpkg,
+        row_factory=etl.row_factories.tuple_row_factory,
+    )[0]
+    assert number_of_field_projects == 1
