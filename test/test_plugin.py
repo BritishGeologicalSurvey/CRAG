@@ -352,16 +352,16 @@ def test_warn_unsaved_locality_point_edits(
     child_layer.changeAttributeValue(fid=child_fid, field=child_edit_field_index, newValue=child_new_value)
 
     # Monkeypatch the QMessageBox methods to check they are called with the correct values
-    mock_function = Mock()
-    monkeypatch.setattr(QMessageBox, "setText", mock_function)
+    mock_message_box_set_text = Mock()
+    monkeypatch.setattr(QMessageBox, "setText", mock_message_box_set_text)
 
     # Act
     unsaved_edits = fdc_project.warn_unsaved_locality_children(parent=True)
 
     # Assert
     assert unsaved_edits
-    mock_function.assert_called_once()
-    assert mock_function.call_args[0][0].endswith("\n".join(unsaved_layers))
+    mock_message_box_set_text.assert_called_once()
+    assert mock_message_box_set_text.call_args[0][0].endswith("\n".join(unsaved_layers))
 
 
 @pytest.mark.parametrize(
