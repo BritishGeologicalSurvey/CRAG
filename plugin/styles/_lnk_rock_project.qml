@@ -23,7 +23,7 @@
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="field_project__lnk_rock_project"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
-            <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
+            <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>

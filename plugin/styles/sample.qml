@@ -36,7 +36,7 @@
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_sample_2"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
-            <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
+            <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
@@ -67,7 +67,7 @@
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_sample_sample"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
-            <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
+            <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>

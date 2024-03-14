@@ -411,7 +411,7 @@
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="field_project_locality_point"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
-            <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
+            <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
@@ -442,7 +442,7 @@
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_exposure_type_locality_point_2"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
-            <Option name="ShowOpenFormButton" type="bool" value="true"></Option>
+            <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
         </config>
       </editWidget>
