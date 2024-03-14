@@ -92,6 +92,10 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     monkeypatch.setattr(QMessageBox, "exec_", lambda *args: True)
     monkeypatch.setattr(QMessageBox, "setIconPixmap", lambda *args: True)
 
+    # Apply monkeypatch for ensure_auto_open_form_on_edit as it requires front end GUI widgets
+    # Which do not exist in tests
+    monkeypatch.setattr(FieldDataCapture, "ensure_auto_open_form_on_edit", lambda *args: True)
+
     yield field_data_capture
     # Reset the QGIS interface
     iface.reset_mock()
