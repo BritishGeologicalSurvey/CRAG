@@ -60,6 +60,7 @@ from qgis.PyQt.QtGui import (
 )
 from qgis.PyQt.QtWidgets import (
     QAction,
+    QDialog,
     QMenu,
     QMessageBox,
     QWidget,
@@ -1011,6 +1012,9 @@ class FieldDataCapture:
         }
         mode_tools[mode]().trigger()
 
+        if mode == "edit":
+            self.ensure_auto_open_form_on_edit()
+
         return True
 
 
@@ -1108,6 +1112,22 @@ class FieldDataCapture:
             self.disconnect_slot(qgs_project.aboutToBeCleared, disable_on_close)
 
         qgs_project.aboutToBeCleared.connect(disable_on_close)
+
+
+    def ensure_auto_open_form_on_edit(self) -> None:
+        """
+        Ensure that the 'Auto open form for single point results' option
+        in the information side bar is checked. This means that when the user is in
+        Quick Edit mode, the attribute form for a point they click on will always open.
+        """
+        # Find the widget through child widgets
+        QgsIdentifyResultsBase = self.iface.mainWindow().findChild(QDialog, "QgsIdentifyResultsBase")
+        possible_child_widgets = QgsIdentifyResultsBase.findChildren(QAction, "mActionAutoFeatureForm")
+        if len(possible_child_widgets) > 0:
+            auto_feature_form_action = possible_child_widgets[0]
+            # Ensure the "Auto open form for single point results" option is checked
+            if not auto_feature_form_action.isChecked():
+                auto_feature_form_action.trigger()
 
 
     def disable_quick_locality_mode(
