@@ -32,7 +32,6 @@ from typing import (
     Any,
     Callable,
     Optional,
-    Union,
 )
 from xml.dom import minidom
 from xml.etree.ElementTree import canonicalize
@@ -130,7 +129,7 @@ class FieldDataCapture:
         self.quick_locality_buttons: dict[str, QAction] = {}
         # Store temporary locality_point slots with tuple pairs containing the signal and function
         self.quick_locality_slots: list[tuple[pyqtSignal, Callable]] = []
-        self.current_quick_locality_mode: Union[bool, str] = False
+        self.current_quick_locality_mode: Optional[str] = None
         self.quick_locality_fid: Optional[int] = None
 
         logger.debug("Field Data Capture plugin initialised.")
@@ -1161,7 +1160,7 @@ class FieldDataCapture:
 
         # Disable quick locality point mode
         disabled_mode = deepcopy(self.current_quick_locality_mode)
-        self.current_quick_locality_mode = False
+        self.current_quick_locality_mode = None
         self.quick_locality_fid = None
 
         self.untoggle_quick_locality_buttons()
