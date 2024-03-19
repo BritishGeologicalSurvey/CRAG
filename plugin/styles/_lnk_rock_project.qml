@@ -59,7 +59,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="label">
+    <field configurationFlags="NoFlag" name="simple_lithology">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -75,35 +75,35 @@
     <alias field="field_project_uuid" index="1" name=""></alias>
     <alias field="rock_code" index="2" name=""></alias>
     <alias field="category" index="3" name=""></alias>
-    <alias field="label" index="4" name=""></alias>
+    <alias field="simple_lithology" index="4" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
     <policy field="field_project_uuid" policy="DefaultValue"></policy>
     <policy field="rock_code" policy="DefaultValue"></policy>
     <policy field="category" policy="DefaultValue"></policy>
-    <policy field="label" policy="DefaultValue"></policy>
+    <policy field="simple_lithology" policy="DefaultValue"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="field_project_uuid"></default>
     <default applyOnUpdate="0" expression="" field="rock_code"></default>
     <default applyOnUpdate="0" expression="" field="category"></default>
-    <default applyOnUpdate="0" expression="" field="label"></default>
+    <default applyOnUpdate="0" expression="" field="simple_lithology"></default>
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="field_project_uuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="rock_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="category" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="label" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="simple_lithology" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
     <constraint desc="" exp="" field="field_project_uuid"></constraint>
     <constraint desc="" exp="" field="rock_code"></constraint>
     <constraint desc="" exp="" field="category"></constraint>
-    <constraint desc="" exp="" field="label"></constraint>
+    <constraint desc="" exp="" field="simple_lithology"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
@@ -133,22 +133,22 @@ def my_form_open(dialog, layer, feature):
     <field editable="0" name="category"></field>
     <field editable="1" name="fid"></field>
     <field editable="1" name="field_project_uuid"></field>
-    <field editable="0" name="label"></field>
     <field editable="1" name="rock_code"></field>
+    <field editable="0" name="simple_lithology"></field>
   </editable>
   <labelOnTop>
     <field labelOnTop="0" name="category"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="field_project_uuid"></field>
-    <field labelOnTop="0" name="label"></field>
     <field labelOnTop="0" name="rock_code"></field>
+    <field labelOnTop="0" name="simple_lithology"></field>
   </labelOnTop>
   <reuseLastValue>
     <field name="category" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="field_project_uuid" reuseLastValue="0"></field>
-    <field name="label" reuseLastValue="0"></field>
     <field name="rock_code" reuseLastValue="0"></field>
+    <field name="simple_lithology" reuseLastValue="0"></field>
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
