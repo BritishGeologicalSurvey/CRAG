@@ -600,6 +600,27 @@ class FieldDataCapture:
                     "structural_measurement": '''"structure_type_code"''',
                     "superficial_landform": '''"superficial_type_code"''',
                     "dic_rock_field": """"label" + ' (' + "code" + ')'""",
+                    "_lnk_rock_project": """
+                                            attribute(
+                                                get_feature(
+                                                    'field_project',
+                                                    'uuid',
+                                                    "field_project_uuid"),
+                                                'short_name')
+
+                                            + ' - ' +
+
+                                            attribute(
+                                                get_feature(
+                                                    'dic_rock_field',
+                                                    'code',
+                                                    "rock_code"),
+                                                'label')
+
+                                            + ' - ' +
+
+                                            "rock_code"
+                                         """,
                 }
                 if vector_layer.name() in display_expressions:
                     vector_layer.setDisplayExpression(display_expressions[vector_layer.name()])
