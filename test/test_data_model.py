@@ -20,6 +20,8 @@ COLUMN_CONSTRAINTS = {
     "uuid": "TEXT NOT NULL UNIQUE",
     "user_entered": "TEXT NOT NULL",
     "date_entered": "DATETIME NOT NULL",
+    "user_updated": "TEXT",
+    "date_updated": "DATETIME",
 }
 
 
