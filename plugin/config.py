@@ -30,6 +30,8 @@ TABLES = {
         "dic_rock_field",
         "dic_sample",
         "dic_structure",
+        "dic_structure_secondary",
+        "dic_structure_third",
         "dic_superficial_landform",
         # Attributes
         "lithology",
