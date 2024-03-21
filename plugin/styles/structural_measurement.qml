@@ -35,7 +35,7 @@
             <Option name="ReferencedLayerId" type="QString" value="locality_point_acda2da5_77f6_43e1_ab7e_7ac409577fc7"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="locality_point_structural_measurement"></Option>
+            <Option name="Relation" type="QString" value="locality_point_structural_measurement_4"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
@@ -61,7 +61,7 @@
             <Option name="ReferencedLayerId" type="QString" value="dic_structure_876f248d_223e_499e_843f_b14d86b7aa7b"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_structure"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="dic_structure_structural_measurement_2"></Option>
+            <Option name="Relation" type="QString" value="dic_structure_structural_measurement_3"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
