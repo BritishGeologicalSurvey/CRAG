@@ -8,13 +8,17 @@ CREATE TABLE IF NOT EXISTS "structural_measurement" (
   "structure_type_code" TEXT NOT NULL,
   "dip" INTEGER CHECK("dip" >= 0 AND "dip" <= 90),
   "azimuth" INTEGER CHECK("azimuth" >= 0 AND "azimuth" < 360),
+  "secondary_attribute" TEXT,
+  "third_attribute" TEXT,
   "notes" TEXT,
   "user_entered" TEXT NOT NULL,
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
-  FOREIGN KEY("structure_type_code") REFERENCES "dic_structure"("code"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
+  FOREIGN KEY("structure_type_code") REFERENCES "dic_structure"("code"),
+  FOREIGN KEY("secondary_attribute") REFERENCES "dic_structure_secondary"("code"),
+  FOREIGN KEY("third_attribute") REFERENCES "dic_structure_third"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
