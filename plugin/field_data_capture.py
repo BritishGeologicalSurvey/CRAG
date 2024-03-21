@@ -42,6 +42,7 @@ from qgis.core import (
     QgsLayerTree,
     QgsLayerTreeGroup,
     QgsMapLayer,
+    QgsMapLayerDependency,
     QgsProject,
     QgsRuleBasedRenderer,
     QgsSymbol,
@@ -624,6 +625,18 @@ class FieldDataCapture:
                 }
                 if vector_layer.name() in display_expressions:
                     vector_layer.setDisplayExpression(display_expressions[vector_layer.name()])
+
+                # Set layer dependencies for views
+                layer_dependencies = {
+                    "view_lithology": "lithology",
+                    "view_manmade_landform": "manmade_landform",
+                    "view_structural_measurement": "structural_measurement",
+                    "view_superficial_landform": "superficial_landform",
+                }
+                if vector_layer.name() in layer_dependencies:
+                    dependent_layer = QgsProject.instance().mapLayersByName(layer_dependencies[vector_layer.name()])[0]
+                    dependency = QgsMapLayerDependency(layerId=dependent_layer.id())
+                    vector_layer.setDependencies([dependency])
 
             # Set dictionary layers to read only
             if vector_layer.name().startswith("dic"):
