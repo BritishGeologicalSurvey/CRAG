@@ -240,7 +240,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -269,7 +275,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -298,7 +310,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1174,14 +1192,14 @@
       </editWidget>
     </field>
     <field configurationFlags="NoFlag" name="category">
-      <editWidget type="">
+      <editWidget type="TextEdit">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
     <field configurationFlags="NoFlag" name="manmade_landform_code">
-      <editWidget type="">
+      <editWidget type="TextEdit">
         <config>
           <Option></Option>
         </config>
@@ -1355,12 +1373,14 @@ def my_form_open(dialog, layer, feature):
   <editorlayout>generatedlayout</editorlayout>
   <editable>
     <field editable="1" name="azimuth"></field>
+    <field editable="1" name="category"></field>
     <field editable="1" name="dip"></field>
     <field editable="1" name="field_project"></field>
     <field editable="1" name="length"></field>
     <field editable="1" name="local_epsg"></field>
     <field editable="1" name="locality_point"></field>
     <field editable="1" name="locality_uuid"></field>
+    <field editable="1" name="manmade_landform_code"></field>
     <field editable="1" name="manmade_type"></field>
     <field editable="1" name="manmade_uuid"></field>
     <field editable="1" name="notes"></field>
@@ -1370,12 +1390,14 @@ def my_form_open(dialog, layer, feature):
   </editable>
   <labelOnTop>
     <field labelOnTop="0" name="azimuth"></field>
+    <field labelOnTop="0" name="category"></field>
     <field labelOnTop="0" name="dip"></field>
     <field labelOnTop="0" name="field_project"></field>
     <field labelOnTop="0" name="length"></field>
     <field labelOnTop="0" name="local_epsg"></field>
     <field labelOnTop="0" name="locality_point"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
+    <field labelOnTop="0" name="manmade_landform_code"></field>
     <field labelOnTop="0" name="manmade_type"></field>
     <field labelOnTop="0" name="manmade_uuid"></field>
     <field labelOnTop="0" name="notes"></field>
@@ -1385,12 +1407,14 @@ def my_form_open(dialog, layer, feature):
   </labelOnTop>
   <reuseLastValue>
     <field name="azimuth" reuseLastValue="0"></field>
+    <field name="category" reuseLastValue="0"></field>
     <field name="dip" reuseLastValue="0"></field>
     <field name="field_project" reuseLastValue="0"></field>
     <field name="length" reuseLastValue="0"></field>
     <field name="local_epsg" reuseLastValue="0"></field>
     <field name="locality_point" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
+    <field name="manmade_landform_code" reuseLastValue="0"></field>
     <field name="manmade_type" reuseLastValue="0"></field>
     <field name="manmade_uuid" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>

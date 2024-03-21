@@ -70,6 +70,7 @@ CREATE VIEW IF NOT EXISTS "view_superficial_landform" AS
     sc.category AS superficial_category,
     sc.code AS superficial_landform_code,
     sc.description AS superficial_type,
+    sl.azimuth,
     sl.dip,
     sl.length,
     sl.width,

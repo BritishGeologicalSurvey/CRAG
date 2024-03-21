@@ -97,7 +97,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -126,7 +132,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -155,7 +167,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -193,7 +211,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -222,7 +246,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -251,7 +281,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -328,7 +364,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -357,7 +399,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -386,7 +434,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -424,7 +478,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -453,7 +513,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -482,7 +548,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -520,7 +592,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -549,7 +627,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -578,7 +662,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -616,7 +706,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -645,7 +741,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -674,7 +776,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -712,7 +820,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -741,7 +855,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -770,7 +890,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -808,7 +934,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -837,7 +969,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -866,7 +1004,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -943,7 +1087,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -972,7 +1122,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1001,7 +1157,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1039,7 +1201,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1068,7 +1236,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1097,7 +1271,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1135,7 +1315,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1164,7 +1350,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1193,7 +1385,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1270,7 +1468,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1299,7 +1503,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1328,7 +1538,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1366,7 +1582,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1395,7 +1617,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1424,7 +1652,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1462,7 +1696,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1491,7 +1731,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1520,7 +1766,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1792,7 +2044,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1821,7 +2079,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1850,7 +2114,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2044,7 +2314,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2073,7 +2349,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2102,7 +2384,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2140,7 +2428,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2169,7 +2463,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2198,7 +2498,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2236,7 +2542,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2265,7 +2577,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2294,7 +2612,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2332,7 +2656,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2361,7 +2691,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2390,7 +2726,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2428,7 +2770,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2457,7 +2805,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2486,7 +2840,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2524,7 +2884,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2553,7 +2919,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2582,7 +2954,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2620,7 +2998,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2649,7 +3033,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2678,7 +3068,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2716,7 +3112,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2745,7 +3147,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2774,7 +3182,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2812,7 +3226,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2841,7 +3261,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2870,7 +3296,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3082,7 +3514,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3111,7 +3549,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3140,7 +3584,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3178,7 +3628,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3207,7 +3663,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3236,7 +3698,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3352,7 +3820,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3381,7 +3855,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3410,7 +3890,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3448,7 +3934,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3477,7 +3969,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3506,7 +4004,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3544,7 +4048,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3573,7 +4083,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3602,7 +4118,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3640,7 +4162,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3669,7 +4197,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3698,7 +4232,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3775,7 +4315,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3804,7 +4350,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3833,7 +4385,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3871,7 +4429,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3900,7 +4464,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3929,7 +4499,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3967,7 +4543,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3996,7 +4578,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4025,7 +4613,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4063,7 +4657,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4092,7 +4692,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4121,7 +4727,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4159,7 +4771,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4188,7 +4806,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4217,7 +4841,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4255,7 +4885,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4284,7 +4920,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4313,7 +4955,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4351,7 +4999,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4380,7 +5034,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4409,7 +5069,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4486,7 +5152,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4515,7 +5187,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4544,7 +5222,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4660,7 +5344,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4689,7 +5379,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4718,7 +5414,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4756,7 +5458,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4785,7 +5493,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4814,7 +5528,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>

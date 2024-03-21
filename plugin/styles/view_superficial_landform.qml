@@ -592,7 +592,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -621,7 +627,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -650,7 +662,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -862,7 +880,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -891,7 +915,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -920,7 +950,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -997,7 +1033,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1026,7 +1068,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1055,7 +1103,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1597,7 +1651,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1626,7 +1686,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1655,7 +1721,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1693,7 +1765,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1722,7 +1800,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1751,7 +1835,13 @@
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2055,13 +2145,20 @@
       </editWidget>
     </field>
     <field configurationFlags="NoFlag" name="superficial_landform_code">
-      <editWidget type="">
+      <editWidget type="TextEdit">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
     <field configurationFlags="NoFlag" name="superficial_type">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="azimuth">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -2127,13 +2224,14 @@
     <alias field="superficial_category" index="5" name=""></alias>
     <alias field="superficial_landform_code" index="6" name=""></alias>
     <alias field="superficial_type" index="7" name=""></alias>
-    <alias field="dip" index="8" name=""></alias>
-    <alias field="length" index="9" name=""></alias>
-    <alias field="width" index="10" name=""></alias>
-    <alias field="height_depth" index="11" name=""></alias>
-    <alias field="notes" index="12" name=""></alias>
-    <alias field="superficial_uuid" index="13" name=""></alias>
-    <alias field="locality_uuid" index="14" name=""></alias>
+    <alias field="azimuth" index="8" name=""></alias>
+    <alias field="dip" index="9" name=""></alias>
+    <alias field="length" index="10" name=""></alias>
+    <alias field="width" index="11" name=""></alias>
+    <alias field="height_depth" index="12" name=""></alias>
+    <alias field="notes" index="13" name=""></alias>
+    <alias field="superficial_uuid" index="14" name=""></alias>
+    <alias field="locality_uuid" index="15" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="field_project" policy="Duplicate"></policy>
@@ -2144,6 +2242,7 @@
     <policy field="superficial_category" policy="Duplicate"></policy>
     <policy field="superficial_landform_code" policy="Duplicate"></policy>
     <policy field="superficial_type" policy="Duplicate"></policy>
+    <policy field="azimuth" policy="Duplicate"></policy>
     <policy field="dip" policy="Duplicate"></policy>
     <policy field="length" policy="Duplicate"></policy>
     <policy field="width" policy="Duplicate"></policy>
@@ -2161,6 +2260,7 @@
     <default applyOnUpdate="0" expression="" field="superficial_category"></default>
     <default applyOnUpdate="0" expression="" field="superficial_landform_code"></default>
     <default applyOnUpdate="0" expression="" field="superficial_type"></default>
+    <default applyOnUpdate="0" expression="" field="azimuth"></default>
     <default applyOnUpdate="0" expression="" field="dip"></default>
     <default applyOnUpdate="0" expression="" field="length"></default>
     <default applyOnUpdate="0" expression="" field="width"></default>
@@ -2178,6 +2278,7 @@
     <constraint constraints="0" exp_strength="0" field="superficial_category" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="superficial_landform_code" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="superficial_type" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="azimuth" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="dip" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="length" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="width" notnull_strength="0" unique_strength="0"></constraint>
@@ -2195,6 +2296,7 @@
     <constraint desc="" exp="" field="superficial_category"></constraint>
     <constraint desc="" exp="" field="superficial_landform_code"></constraint>
     <constraint desc="" exp="" field="superficial_type"></constraint>
+    <constraint desc="" exp="" field="azimuth"></constraint>
     <constraint desc="" exp="" field="dip"></constraint>
     <constraint desc="" exp="" field="length"></constraint>
     <constraint desc="" exp="" field="width"></constraint>
@@ -2228,6 +2330,7 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
+    <field editable="1" name="azimuth"></field>
     <field editable="1" name="dip"></field>
     <field editable="1" name="field_project"></field>
     <field editable="1" name="height_depth"></field>
@@ -2237,6 +2340,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="locality_uuid"></field>
     <field editable="1" name="notes"></field>
     <field editable="1" name="superficial_category"></field>
+    <field editable="1" name="superficial_landform_code"></field>
     <field editable="1" name="superficial_type"></field>
     <field editable="1" name="superficial_uuid"></field>
     <field editable="1" name="width"></field>
@@ -2244,6 +2348,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="y"></field>
   </editable>
   <labelOnTop>
+    <field labelOnTop="0" name="azimuth"></field>
     <field labelOnTop="0" name="dip"></field>
     <field labelOnTop="0" name="field_project"></field>
     <field labelOnTop="0" name="height_depth"></field>
@@ -2253,6 +2358,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="locality_uuid"></field>
     <field labelOnTop="0" name="notes"></field>
     <field labelOnTop="0" name="superficial_category"></field>
+    <field labelOnTop="0" name="superficial_landform_code"></field>
     <field labelOnTop="0" name="superficial_type"></field>
     <field labelOnTop="0" name="superficial_uuid"></field>
     <field labelOnTop="0" name="width"></field>
@@ -2260,6 +2366,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
   <reuseLastValue>
+    <field name="azimuth" reuseLastValue="0"></field>
     <field name="dip" reuseLastValue="0"></field>
     <field name="field_project" reuseLastValue="0"></field>
     <field name="height_depth" reuseLastValue="0"></field>
@@ -2269,6 +2376,7 @@ def my_form_open(dialog, layer, feature):
     <field name="locality_uuid" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>
     <field name="superficial_category" reuseLastValue="0"></field>
+    <field name="superficial_landform_code" reuseLastValue="0"></field>
     <field name="superficial_type" reuseLastValue="0"></field>
     <field name="superficial_uuid" reuseLastValue="0"></field>
     <field name="width" reuseLastValue="0"></field>
