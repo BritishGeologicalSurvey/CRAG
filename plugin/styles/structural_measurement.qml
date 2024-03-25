@@ -89,43 +89,43 @@
       </editWidget>
     </field>
     <field configurationFlags="NoFlag" name="secondary_attribute">
-      <editWidget type="RelationReference">
+      <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
-            <Option name="AllowAddFeatures" type="bool" value="false"></Option>
-            <Option name="AllowNULL" type="bool" value="true"></Option>
-            <Option name="FetchLimitActive" type="bool" value="false"></Option>
-            <Option name="FetchLimitNumber" type="int" value="100"></Option>
-            <Option name="MapIdentification" type="bool" value="false"></Option>
-            <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\Users\jostev\mergin\jostev-dev\field-data-capture.gpkg|layername=dic_structure_secondary"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_structure_secondary_f29f71ac_0993_4adc_9364_86b15887801a"></Option>
-            <Option name="ReferencedLayerName" type="QString" value="dic_structure_secondary"></Option>
-            <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="dic_structure_secondary_structural_measurement_2"></Option>
-            <Option name="ShowForm" type="bool" value="false"></Option>
-            <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
+            <Option name="AllowMulti" type="bool" value="false"></Option>
+            <Option name="AllowNull" type="bool" value="true"></Option>
+            <Option name="Description" type="QString" value="&quot;description&quot;"></Option>
+            <Option name="FilterExpression" type="QString" value="&quot;category&quot; = attribute(&#xA;    get_feature(&#xA;        'dic_structure',&#xA;        'code',&#xA;&#x9;&#x9;current_value('structure_type_code')&#xA;       ),&#xA;    'secondary_attr_category'&#xA;)"></Option>
+            <Option name="Key" type="QString" value="code"></Option>
+            <Option name="Layer" type="QString" value="dic_structure_secondary_f29f71ac_0993_4adc_9364_86b15887801a"></Option>
+            <Option name="LayerName" type="QString" value="dic_structure_secondary"></Option>
+            <Option name="LayerProviderName" type="QString" value="ogr"></Option>
+            <Option name="LayerSource" type="QString" value="C:\Users\jostev\mergin\jostev-dev\field-data-capture.gpkg|layername=dic_structure_secondary"></Option>
+            <Option name="NofColumns" type="int" value="1"></Option>
+            <Option name="OrderByValue" type="bool" value="false"></Option>
+            <Option name="UseCompleter" type="bool" value="false"></Option>
+            <Option name="Value" type="QString" value="description"></Option>
           </Option>
         </config>
       </editWidget>
     </field>
     <field configurationFlags="NoFlag" name="third_attribute">
-      <editWidget type="RelationReference">
+      <editWidget type="ValueRelation">
         <config>
           <Option type="Map">
-            <Option name="AllowAddFeatures" type="bool" value="false"></Option>
-            <Option name="AllowNULL" type="bool" value="true"></Option>
-            <Option name="FetchLimitActive" type="bool" value="false"></Option>
-            <Option name="FetchLimitNumber" type="int" value="100"></Option>
-            <Option name="MapIdentification" type="bool" value="false"></Option>
-            <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\Users\jostev\mergin\jostev-dev\field-data-capture.gpkg|layername=dic_structure_third"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_structure_third_6a0cb1a0_81ae_4ff5_8d24_6d83c4d52422"></Option>
-            <Option name="ReferencedLayerName" type="QString" value="dic_structure_third"></Option>
-            <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="dic_structure_third_structural_measurement"></Option>
-            <Option name="ShowForm" type="bool" value="false"></Option>
-            <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
+            <Option name="AllowMulti" type="bool" value="false"></Option>
+            <Option name="AllowNull" type="bool" value="true"></Option>
+            <Option name="Description" type="QString" value="&quot;description&quot;"></Option>
+            <Option name="FilterExpression" type="QString" value="&quot;category&quot; = attribute(&#xA;    get_feature(&#xA;        'dic_structure',&#xA;        'code',&#xA;&#x9;&#x9;current_value('structure_type_code')&#xA;       ),&#xA;    'third_attr_category'&#xA;)"></Option>
+            <Option name="Key" type="QString" value="code"></Option>
+            <Option name="Layer" type="QString" value="dic_structure_third_6a0cb1a0_81ae_4ff5_8d24_6d83c4d52422"></Option>
+            <Option name="LayerName" type="QString" value="dic_structure_third"></Option>
+            <Option name="LayerProviderName" type="QString" value="ogr"></Option>
+            <Option name="LayerSource" type="QString" value="C:\Users\jostev\mergin\jostev-dev\field-data-capture.gpkg|layername=dic_structure_third"></Option>
+            <Option name="NofColumns" type="int" value="1"></Option>
+            <Option name="OrderByValue" type="bool" value="false"></Option>
+            <Option name="UseCompleter" type="bool" value="false"></Option>
+            <Option name="Value" type="QString" value="description"></Option>
           </Option>
         </config>
       </editWidget>
@@ -292,17 +292,6 @@ def my_form_open(dialog, layer, feature):
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorTextElement horizontalStretch="0" name="secondary attribute type:" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-      </labelStyle>[% attribute(&#xD;
-    get_feature(&#xD;
-        'dic_structure',&#xD;
-        'code',&#xD;
-		current_value('structure_type_code')&#xD;
-       ),&#xD;
-    'secondary_attr_category'&#xD;
-) %]</attributeEditorTextElement>
     <attributeEditorField horizontalStretch="0" index="7" name="secondary_attribute" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
