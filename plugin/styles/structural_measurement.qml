@@ -292,6 +292,17 @@ def my_form_open(dialog, layer, feature):
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
+    <attributeEditorTextElement horizontalStretch="0" name="secondary attribute type:" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+        <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      </labelStyle>[% attribute(&#xD;
+    get_feature(&#xD;
+        'dic_structure',&#xD;
+        'code',&#xD;
+		current_value('structure_type_code')&#xD;
+       ),&#xD;
+    'secondary_attr_category'&#xD;
+) %]</attributeEditorTextElement>
     <attributeEditorField horizontalStretch="0" index="7" name="secondary_attribute" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
