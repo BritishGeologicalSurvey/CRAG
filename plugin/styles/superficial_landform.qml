@@ -42,16 +42,6 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="superficial_type_category">
-      <editWidget type="TextEdit">
-        <config>
-          <Option type="Map">
-            <Option name="IsMultiline" type="bool" value="false"></Option>
-            <Option name="UseHtml" type="bool" value="false"></Option>
-          </Option>
-        </config>
-      </editWidget>
-    </field>
     <field configurationFlags="NoFlag" name="superficial_type_code">
       <editWidget type="RelationReference">
         <config>
@@ -172,25 +162,23 @@
     <alias field="objectid" index="1" name=""></alias>
     <alias field="uuid" index="2" name=""></alias>
     <alias field="locality_fuid" index="3" name=""></alias>
-    <alias field="superficial_type_category" index="4" name=""></alias>
-    <alias field="superficial_type_code" index="5" name=""></alias>
-    <alias field="dip" index="6" name=""></alias>
-    <alias field="azimuth" index="7" name=""></alias>
-    <alias field="length" index="8" name=""></alias>
-    <alias field="width" index="9" name=""></alias>
-    <alias field="height_depth" index="10" name=""></alias>
-    <alias field="notes" index="11" name=""></alias>
-    <alias field="user_entered" index="12" name=""></alias>
-    <alias field="date_entered" index="13" name=""></alias>
-    <alias field="user_updated" index="14" name=""></alias>
-    <alias field="date_updated" index="15" name=""></alias>
+    <alias field="superficial_type_code" index="4" name=""></alias>
+    <alias field="dip" index="5" name=""></alias>
+    <alias field="azimuth" index="6" name=""></alias>
+    <alias field="length" index="7" name=""></alias>
+    <alias field="width" index="8" name=""></alias>
+    <alias field="height_depth" index="9" name=""></alias>
+    <alias field="notes" index="10" name=""></alias>
+    <alias field="user_entered" index="11" name=""></alias>
+    <alias field="date_entered" index="12" name=""></alias>
+    <alias field="user_updated" index="13" name=""></alias>
+    <alias field="date_updated" index="14" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
     <policy field="objectid" policy="DefaultValue"></policy>
     <policy field="uuid" policy="DefaultValue"></policy>
     <policy field="locality_fuid" policy="DefaultValue"></policy>
-    <policy field="superficial_type_category" policy="DefaultValue"></policy>
     <policy field="superficial_type_code" policy="DefaultValue"></policy>
     <policy field="dip" policy="DefaultValue"></policy>
     <policy field="azimuth" policy="DefaultValue"></policy>
@@ -208,7 +196,6 @@
     <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
-    <default applyOnUpdate="0" expression="" field="superficial_type_category"></default>
     <default applyOnUpdate="0" expression="" field="superficial_type_code"></default>
     <default applyOnUpdate="0" expression="" field="dip"></default>
     <default applyOnUpdate="0" expression="" field="azimuth"></default>
@@ -226,7 +213,6 @@
     <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="superficial_type_category" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="superficial_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="4" exp_strength="1" field="dip" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="4" exp_strength="1" field="azimuth" notnull_strength="0" unique_strength="0"></constraint>
@@ -244,10 +230,9 @@
     <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
-    <constraint desc="" exp="" field="superficial_type_category"></constraint>
     <constraint desc="" exp="" field="superficial_type_code"></constraint>
-    <constraint desc="0 &lt;= dip &lt;= 90" exp="&quot;dip&quot; >= 0 and &quot;dip&quot; &lt;= 90" field="dip"></constraint>
-    <constraint desc="0 &lt;= azimuth &lt; 360" exp="&quot;azimuth&quot; >= 0 and &quot;azimuth&quot; &lt; 360" field="azimuth"></constraint>
+    <constraint desc="0 &lt;= dip &lt;= 90" exp="(&quot;dip&quot; >= 0 and &quot;dip&quot; &lt;= 90) OR (&quot;dip&quot; IS NULL)" field="dip"></constraint>
+    <constraint desc="0 &lt;= azimuth &lt; 360" exp=" (&quot;azimuth&quot; >= 0 and &quot;azimuth&quot; &lt; 360) OR (&quot;azimuth&quot; IS NULL)" field="azimuth"></constraint>
     <constraint desc="" exp="" field="length"></constraint>
     <constraint desc="" exp="" field="width"></constraint>
     <constraint desc="" exp="" field="height_depth"></constraint>
@@ -283,44 +268,39 @@ def my_form_open(dialog, layer, feature):
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
     <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-      <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
-    <attributeEditorField horizontalStretch="0" index="4" name="superficial_type_category" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="4" name="superficial_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="superficial_type_code" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="5" name="dip" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+        <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      </labelStyle>
+    </attributeEditorField>
+    <attributeEditorField horizontalStretch="0" index="6" name="azimuth" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+        <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      </labelStyle>
+    </attributeEditorField>
+    <attributeEditorField horizontalStretch="0" index="7" name="length" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="6" name="dip" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="8" name="width" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="7" name="azimuth" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="9" name="height_depth" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="8" name="length" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-      </labelStyle>
-    </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="9" name="width" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-      </labelStyle>
-    </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="10" name="height_depth" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-      </labelStyle>
-    </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="11" name="notes" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="10" name="notes" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
