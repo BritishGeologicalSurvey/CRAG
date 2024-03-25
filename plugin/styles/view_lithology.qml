@@ -2416,14 +2416,14 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="lithology">
+    <field configurationFlags="NoFlag" name="lithology_code">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="lithology_code">
+    <field configurationFlags="NoFlag" name="lithology">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -2466,8 +2466,8 @@
     <alias field="y" index="3" name=""></alias>
     <alias field="local_epsg" index="4" name=""></alias>
     <alias field="exposure_type" index="5" name=""></alias>
-    <alias field="lithology" index="6" name=""></alias>
-    <alias field="lithology_code" index="7" name=""></alias>
+    <alias field="lithology_code" index="6" name=""></alias>
+    <alias field="lithology" index="7" name=""></alias>
     <alias field="simple_lithology" index="8" name=""></alias>
     <alias field="notes" index="9" name=""></alias>
     <alias field="lithology_uuid" index="10" name=""></alias>
@@ -2480,8 +2480,8 @@
     <policy field="y" policy="Duplicate"></policy>
     <policy field="local_epsg" policy="Duplicate"></policy>
     <policy field="exposure_type" policy="Duplicate"></policy>
-    <policy field="lithology" policy="Duplicate"></policy>
     <policy field="lithology_code" policy="Duplicate"></policy>
+    <policy field="lithology" policy="Duplicate"></policy>
     <policy field="simple_lithology" policy="Duplicate"></policy>
     <policy field="notes" policy="Duplicate"></policy>
     <policy field="lithology_uuid" policy="Duplicate"></policy>
@@ -2494,8 +2494,8 @@
     <default applyOnUpdate="0" expression="" field="y"></default>
     <default applyOnUpdate="0" expression="" field="local_epsg"></default>
     <default applyOnUpdate="0" expression="" field="exposure_type"></default>
-    <default applyOnUpdate="0" expression="" field="lithology"></default>
     <default applyOnUpdate="0" expression="" field="lithology_code"></default>
+    <default applyOnUpdate="0" expression="" field="lithology"></default>
     <default applyOnUpdate="0" expression="" field="simple_lithology"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
     <default applyOnUpdate="0" expression="" field="lithology_uuid"></default>
@@ -2508,8 +2508,8 @@
     <constraint constraints="0" exp_strength="0" field="y" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="local_epsg" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="exposure_type" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="lithology" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="lithology_code" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="lithology" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="simple_lithology" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="lithology_uuid" notnull_strength="0" unique_strength="0"></constraint>
@@ -2522,8 +2522,8 @@
     <constraint desc="" exp="" field="y"></constraint>
     <constraint desc="" exp="" field="local_epsg"></constraint>
     <constraint desc="" exp="" field="exposure_type"></constraint>
-    <constraint desc="" exp="" field="lithology"></constraint>
     <constraint desc="" exp="" field="lithology_code"></constraint>
+    <constraint desc="" exp="" field="lithology"></constraint>
     <constraint desc="" exp="" field="simple_lithology"></constraint>
     <constraint desc="" exp="" field="notes"></constraint>
     <constraint desc="" exp="" field="lithology_uuid"></constraint>

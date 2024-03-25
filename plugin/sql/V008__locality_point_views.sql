@@ -10,6 +10,7 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
     st.category AS structure_category,
+    st.code AS structure_code,
     st.description AS structure_type,
     sm.dip,
     sm.azimuth,
@@ -38,8 +39,8 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
     exp_type.code AS exposure_type,
-	  rock.label AS lithology,
     lith.lithology_code,
+	  rock.label AS lithology,
 	  rock.simple_lithology,
     lith.notes,
     lith.uuid AS lithology_uuid,
@@ -61,13 +62,15 @@ VALUES('view_lithology','geometry','POINT',4326,1,0);
 
 CREATE VIEW IF NOT EXISTS "view_superficial_landform" AS
   SELECT
-    fp.short_name as field_project,
-    lp.name as locality_point,
+    fp.short_name AS field_project,
+    lp.name AS locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
     sc.category AS superficial_category,
+    sc.code AS superficial_landform_code,
     sc.description AS superficial_type,
+    sl.azimuth,
     sl.dip,
     sl.length,
     sl.width,
@@ -91,11 +94,13 @@ VALUES('view_superficial_landform','geometry','POINT',4326,1,0);
 
 CREATE VIEW IF NOT EXISTS "view_manmade_landform" AS
   SELECT
-    fp.short_name as field_project,
-    lp.name as locality_point,
+    fp.short_name AS field_project,
+    lp.name AS locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
+    mc.category,
+    mc.code AS manmade_landform_code,
     mc.description AS manmade_type,
     ml.dip,
     ml.azimuth,

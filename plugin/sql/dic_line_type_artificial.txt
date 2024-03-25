@@ -1,8 +1,0 @@
-"fid","line_type","category","description","translation","sec_attrib_list","comments","status","user_entered","date_entered","user_updated","date_updated"
-,"artificial_geology_boundary","ARTIFICIAL_GROUND_BOUNDARY",,,"none yet",,"C","KIGL",26/11/2023 12:16:00,,
-,"artificial_polygon_closure","ARTIFICIAL_GROUND_BOUNDARY",,,"none yet",,"C","KIGL",26/11/2023 12:17:38,,
-,"cliffline_quarry","ARTIFICIAL_GROUND_LINE",,,"none yet",,"C","KIGL",26/11/2023 12:17:38,,
-,"limit_subsurface_mining","ARTIFICIAL_GROUND_LINE",,,"none yet",,"C","KIGL",26/11/2023 12:17:38,,
-,"mine_tunnel_drift_cross_measures","ARTIFICIAL_GROUND_LINE",,,"none yet",,"C","KIGL",26/11/2023 12:17:38,,
-,"mine_tunnel_road_in seam","ARTIFICIAL_GROUND_LINE",,,"none yet",,"C","KIGL",26/11/2023 12:17:38,,
-,"small_quarry_or_pit","ARTIFICIAL_GROUND_LINE",,,"none yet",,"C","KIGL",26/11/2023 12:17:38,,
