@@ -35,7 +35,7 @@
             <Option name="ReferencedLayerId" type="QString" value="locality_point_acda2da5_77f6_43e1_ab7e_7ac409577fc7"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="locality_point_structural_measurement"></Option>
+            <Option name="Relation" type="QString" value="locality_point_structural_measurement_4"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
@@ -61,7 +61,7 @@
             <Option name="ReferencedLayerId" type="QString" value="dic_structure_876f248d_223e_499e_843f_b14d86b7aa7b"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_structure"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="dic_structure_structural_measurement_2"></Option>
+            <Option name="Relation" type="QString" value="dic_structure_structural_measurement_3"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
@@ -84,6 +84,48 @@
           <Option type="Map">
             <Option name="IsMultiline" type="bool" value="false"></Option>
             <Option name="UseHtml" type="bool" value="false"></Option>
+          </Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="secondary_attribute">
+      <editWidget type="ValueRelation">
+        <config>
+          <Option type="Map">
+            <Option name="AllowMulti" type="bool" value="false"></Option>
+            <Option name="AllowNull" type="bool" value="true"></Option>
+            <Option name="Description" type="QString" value="&quot;description&quot;"></Option>
+            <Option name="FilterExpression" type="QString" value="&quot;category&quot; = attribute(&#xA;    get_feature(&#xA;        'dic_structure',&#xA;        'code',&#xA;&#x9;&#x9;current_value('structure_type_code')&#xA;       ),&#xA;    'secondary_attr_category'&#xA;)"></Option>
+            <Option name="Key" type="QString" value="code"></Option>
+            <Option name="Layer" type="QString" value="dic_structure_secondary_f29f71ac_0993_4adc_9364_86b15887801a"></Option>
+            <Option name="LayerName" type="QString" value="dic_structure_secondary"></Option>
+            <Option name="LayerProviderName" type="QString" value="ogr"></Option>
+            <Option name="LayerSource" type="QString" value="C:\Users\jostev\mergin\jostev-dev\field-data-capture.gpkg|layername=dic_structure_secondary"></Option>
+            <Option name="NofColumns" type="int" value="1"></Option>
+            <Option name="OrderByValue" type="bool" value="false"></Option>
+            <Option name="UseCompleter" type="bool" value="false"></Option>
+            <Option name="Value" type="QString" value="description"></Option>
+          </Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="third_attribute">
+      <editWidget type="ValueRelation">
+        <config>
+          <Option type="Map">
+            <Option name="AllowMulti" type="bool" value="false"></Option>
+            <Option name="AllowNull" type="bool" value="true"></Option>
+            <Option name="Description" type="QString" value="&quot;description&quot;"></Option>
+            <Option name="FilterExpression" type="QString" value="&quot;category&quot; = attribute(&#xA;    get_feature(&#xA;        'dic_structure',&#xA;        'code',&#xA;&#x9;&#x9;current_value('structure_type_code')&#xA;       ),&#xA;    'third_attr_category'&#xA;)"></Option>
+            <Option name="Key" type="QString" value="code"></Option>
+            <Option name="Layer" type="QString" value="dic_structure_third_6a0cb1a0_81ae_4ff5_8d24_6d83c4d52422"></Option>
+            <Option name="LayerName" type="QString" value="dic_structure_third"></Option>
+            <Option name="LayerProviderName" type="QString" value="ogr"></Option>
+            <Option name="LayerSource" type="QString" value="C:\Users\jostev\mergin\jostev-dev\field-data-capture.gpkg|layername=dic_structure_third"></Option>
+            <Option name="NofColumns" type="int" value="1"></Option>
+            <Option name="OrderByValue" type="bool" value="false"></Option>
+            <Option name="UseCompleter" type="bool" value="false"></Option>
+            <Option name="Value" type="QString" value="description"></Option>
           </Option>
         </config>
       </editWidget>
@@ -135,11 +177,13 @@
     <alias field="structure_type_code" index="4" name=""></alias>
     <alias field="dip" index="5" name=""></alias>
     <alias field="azimuth" index="6" name=""></alias>
-    <alias field="notes" index="7" name=""></alias>
-    <alias field="user_entered" index="8" name=""></alias>
-    <alias field="date_entered" index="9" name=""></alias>
-    <alias field="user_updated" index="10" name=""></alias>
-    <alias field="date_updated" index="11" name=""></alias>
+    <alias field="secondary_attribute" index="7" name=""></alias>
+    <alias field="third_attribute" index="8" name=""></alias>
+    <alias field="notes" index="9" name=""></alias>
+    <alias field="user_entered" index="10" name=""></alias>
+    <alias field="date_entered" index="11" name=""></alias>
+    <alias field="user_updated" index="12" name=""></alias>
+    <alias field="date_updated" index="13" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -149,6 +193,8 @@
     <policy field="structure_type_code" policy="DefaultValue"></policy>
     <policy field="dip" policy="DefaultValue"></policy>
     <policy field="azimuth" policy="DefaultValue"></policy>
+    <policy field="secondary_attribute" policy="DefaultValue"></policy>
+    <policy field="third_attribute" policy="DefaultValue"></policy>
     <policy field="notes" policy="DefaultValue"></policy>
     <policy field="user_entered" policy="Duplicate"></policy>
     <policy field="date_entered" policy="Duplicate"></policy>
@@ -163,6 +209,8 @@
     <default applyOnUpdate="0" expression="" field="structure_type_code"></default>
     <default applyOnUpdate="0" expression="" field="dip"></default>
     <default applyOnUpdate="0" expression="" field="azimuth"></default>
+    <default applyOnUpdate="0" expression="" field="secondary_attribute"></default>
+    <default applyOnUpdate="0" expression="" field="third_attribute"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
     <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
@@ -177,6 +225,8 @@
     <constraint constraints="1" exp_strength="0" field="structure_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="5" exp_strength="1" field="dip" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="4" exp_strength="1" field="azimuth" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="secondary_attribute" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="third_attribute" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
@@ -191,6 +241,8 @@
     <constraint desc="" exp="" field="structure_type_code"></constraint>
     <constraint desc="0 &lt;= dip &lt;= 90" exp="&quot;dip&quot; >= 0 and &quot;dip&quot; &lt;= 90" field="dip"></constraint>
     <constraint desc="0 &lt;= azimuth &lt; 360" exp="&quot;azimuth&quot; >= 0 and &quot;azimuth&quot; &lt; 360" field="azimuth"></constraint>
+    <constraint desc="" exp="" field="secondary_attribute"></constraint>
+    <constraint desc="" exp="" field="third_attribute"></constraint>
     <constraint desc="" exp="" field="notes"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
@@ -240,7 +292,17 @@ def my_form_open(dialog, layer, feature):
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="7" name="notes" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="7" name="secondary_attribute" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+        <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      </labelStyle>
+    </attributeEditorField>
+    <attributeEditorField horizontalStretch="0" index="8" name="third_attribute" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+        <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      </labelStyle>
+    </attributeEditorField>
+    <attributeEditorField horizontalStretch="0" index="9" name="notes" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -265,8 +327,10 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="locality_fuid"></field>
     <field editable="1" name="notes"></field>
     <field editable="0" name="objectid"></field>
+    <field editable="1" name="secondary_attribute"></field>
     <field editable="1" name="structure_type_category"></field>
     <field editable="1" name="structure_type_code"></field>
+    <field editable="1" name="third_attribute"></field>
     <field editable="1" name="user_entered"></field>
     <field editable="1" name="user_updated"></field>
     <field editable="0" name="uuid"></field>
@@ -280,8 +344,10 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="locality_fuid"></field>
     <field labelOnTop="0" name="notes"></field>
     <field labelOnTop="0" name="objectid"></field>
+    <field labelOnTop="0" name="secondary_attribute"></field>
     <field labelOnTop="0" name="structure_type_category"></field>
     <field labelOnTop="0" name="structure_type_code"></field>
+    <field labelOnTop="0" name="third_attribute"></field>
     <field labelOnTop="0" name="user_entered"></field>
     <field labelOnTop="0" name="user_updated"></field>
     <field labelOnTop="0" name="uuid"></field>
@@ -295,8 +361,10 @@ def my_form_open(dialog, layer, feature):
     <field name="locality_fuid" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
+    <field name="secondary_attribute" reuseLastValue="0"></field>
     <field name="structure_type_category" reuseLastValue="0"></field>
     <field name="structure_type_code" reuseLastValue="0"></field>
+    <field name="third_attribute" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>

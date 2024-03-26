@@ -752,7 +752,7 @@ superficial_landform: [% aggregate(&#xD;
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-      <attributeEditorRelation forceSuppressFormPopup="0" horizontalStretch="0" label="Structural Measurement" name="locality_point_structural_measurement" nmRelationId="" relation="locality_point_structural_measurement" relationWidgetTypeId="relation_editor" showLabel="1" verticalStretch="0">
+      <attributeEditorRelation forceSuppressFormPopup="0" horizontalStretch="0" label="Structural Measurement" name="locality_point_structural_measurement_4" nmRelationId="" relation="locality_point_structural_measurement_4" relationWidgetTypeId="relation_editor" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
@@ -901,7 +901,7 @@ superficial_landform: [% aggregate(&#xD;
         <Option name="nm-rel" type="invalid"></Option>
       </config>
     </widget>
-    <widget name="locality_point_structural_measurement">
+    <widget name="locality_point_structural_measurement_4">
       <config type="Map">
         <Option name="force-suppress-popup" type="bool" value="false"></Option>
         <Option name="nm-rel" type="invalid"></Option>

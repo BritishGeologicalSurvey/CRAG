@@ -18,6 +18,7 @@ COLUMN_CONSTRAINTS = {
     "fid": "INTEGER NOT NULL,",  # include the comma to ensure extra constraints aren't added
     "objectid": "INTEGER UNIQUE",
     "uuid": "TEXT NOT NULL UNIQUE",
+    "code": "TEXT NOT NULL UNIQUE",  # this only applies to dictionaries
     "user_entered": "TEXT NOT NULL",
     "date_entered": "DATETIME NOT NULL",
     "user_updated": "TEXT",
@@ -83,9 +84,14 @@ def assert_column_constraints(
 
     for col_name, col_constraints in COLUMN_CONSTRAINTS.items():
 
-        # Don't check the constraints for dic tables on uuid and objectid
-        if table.startswith("dic_") and col_name in ["uuid", "objectid"]:
-            continue
+        if table in DICTIONARIES:
+            # Don't check uuid or objectid for dictionaries
+            if col_name in ["uuid", "objectid"]:
+                continue
+        else:
+            # Don't check code for non-dictionaries
+            if col_name in ["code"]:
+                continue
 
         search_str = f'"{col_name}" {col_constraints}'
         assert search_str in create_sql

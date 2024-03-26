@@ -4,6 +4,8 @@ setup_env.sh
 plugin/help/build
 
 field-data-capture.gpkg
+*.gpkg-journal
+*.sqlite-journal
 er-diagram.png
 simple_lithology_parents.csv
 ttl-graph.png

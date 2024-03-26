@@ -14,6 +14,8 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
     st.description AS structure_type,
     sm.dip,
     sm.azimuth,
+    sm.secondary_attribute,
+    sm.third_attribute,
     sm.notes,
     sm.uuid AS structure_uuid,
     lp.uuid AS locality_uuid,

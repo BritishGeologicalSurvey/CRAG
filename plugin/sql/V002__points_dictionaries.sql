@@ -113,8 +113,8 @@ values('dic_structure','attributes','dic_structure','Dictionary of structure cod
 
 CREATE TABLE IF NOT EXISTS "dic_structure_secondary" (
 	"fid"	INTEGER NOT NULL,
-	"category"	TEXT,
-	"code"	TEXT,
+	"category"	TEXT NOT NULL,
+	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
 	"status"	TEXT,
 	"translation"	TEXT,
