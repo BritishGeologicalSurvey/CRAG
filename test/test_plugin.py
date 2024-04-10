@@ -325,7 +325,7 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
         "superficial_landform",
     ),
 )
-def test_warn_unsaved_locality_point_edits(
+def test_warn_unsaved_locality_data(
     fdc_project: FieldDataCapture,
     child_layer_name: str,
     monkeypatch: pytest.MonkeyPatch,
@@ -356,7 +356,7 @@ def test_warn_unsaved_locality_point_edits(
     monkeypatch.setattr(QMessageBox, "setText", mock_message_box_set_text)
 
     # Act
-    unsaved_edits = fdc_project.warn_unsaved_locality_children(parent=True)
+    unsaved_edits = fdc_project.warn_unsaved_locality_data()
 
     # Assert
     assert unsaved_edits
