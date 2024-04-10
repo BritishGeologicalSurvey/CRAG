@@ -972,17 +972,23 @@ class FieldDataCapture:
             self.untoggle_quick_map_tool_buttons()
 
         else:
-            toggled_tool_name = f"{layer_name}_{mode}"
+            toggled_quick_map_tool_name = f"{layer_name}_{mode}"
             layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
-            # If the current map tool is the toggled map tool, we need to disable it
-            current_map_tool = self.iface.mapCanvas().mapTool()
-            if current_map_tool is not None and current_map_tool.toolName() == toggled_tool_name:
+            # Get the current qgis map tool before changing any tools
+            current_qgis_map_tool_name = self.iface.mapCanvas().mapTool().toolName()
+
+            # We always need to disable the current quick map tool if there is one, because one of the following occurs:
+            # The user toggles the already active quick map tool, i.e. disables it
+            # The user toggles a different quick map tool, we need to disable a the current quick map tool first
+            if self.quick_map_tool is not None:
                 self.disable_current_quick_map_tool()
 
-            # Else a new map tool has been toggled
-            else:
-                self.untoggle_quick_map_tool_buttons(ignore_button=toggled_tool_name)
+            # If the current qgis map tool is different to the toggled quick map tool then
+            # enable the toggled quick map tool
+            # The current qgis map tool will have already been disabled above if it was a quick map tool
+            # Otherwise if it is a qgis map tool, then it is automatically disabled when we enable a new tool
+            if current_qgis_map_tool_name != toggled_quick_map_tool_name:
                 self.enable_quick_map_tool(layer, mode)
 
 
