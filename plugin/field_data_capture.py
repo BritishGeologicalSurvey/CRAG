@@ -976,7 +976,11 @@ class FieldDataCapture:
             layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
             # Get the current qgis map tool before changing any tools
-            current_qgis_map_tool_name = self.iface.mapCanvas().mapTool().toolName()
+            current_qgis_map_tool = self.iface.mapCanvas().mapTool()
+            if current_qgis_map_tool is None:
+                current_qgis_map_tool_name = ""
+            else:
+                current_qgis_map_tool_name = current_qgis_map_tool.toolName()
 
             # We always need to disable the current quick map tool if there is one, because one of the following occurs:
             # The user toggles the already active quick map tool, i.e. disables it
