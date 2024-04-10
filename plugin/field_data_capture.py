@@ -70,7 +70,6 @@ from qgis.PyQt.QtWidgets import (
 from .resources import *  # noqa
 
 from .config import (
-    ATTRIBUTE_TABLES,
     DICTIONARIES,
     FEATURE_TABLES,
     FEATURE_TABLES_LINES,
@@ -727,7 +726,7 @@ class FieldDataCapture:
             None: FEATURE_TABLES.difference(FEATURE_TABLES_LINES),
             "lines": FEATURE_TABLES_LINES,
             "views": VIEWS,
-            "locality_data": ATTRIBUTE_TABLES,
+            "locality_data": LOCALITY_POINT_CHILDREN,
             "metadata": DICTIONARIES.union(INTERNAL_TABLES),
         }
 
@@ -739,7 +738,6 @@ class FieldDataCapture:
 
         # Move the project layer
         project_name = "field_project"
-        layer_tree_structure["locality_data"].remove(project_name)
         layer_tree_structure["metadata"].insert(0, project_name)
 
         return layer_tree_structure
