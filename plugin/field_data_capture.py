@@ -888,18 +888,9 @@ class FieldDataCapture:
 
         # Copy test data media files across into current project
         self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest="photos")
-        self.repaint_fdc_layers()
+        self.iface.mapCanvas().refresh()
         QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
         return True
-
-
-    def repaint_fdc_layers(self) -> None:
-        """
-        Trigger a repaint for only the layers which come from the Field Data Capture plugin.
-        """
-        for layer in QgsProject.instance().mapLayers().values():
-            if layer.name() in set(TABLE_LIST):
-                layer.triggerRepaint()
 
 
     def copy_plugin_files_to_project(self, plugin_src: Path, project_dest: Path) -> None:
