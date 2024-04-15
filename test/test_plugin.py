@@ -13,6 +13,7 @@ import etlhelper as etl
 from qgis.core import (
     QgsAttributeEditorContainer,
     QgsFeature,
+    QgsGeometry,
     QgsLayerTreeGroup,
     QgsProject,
     QgsVectorLayer,
@@ -370,9 +371,7 @@ def test_warn_unsaved_locality_data(
 @pytest.mark.parametrize(
     ["layer_name", "mode", "expected_tool"],
     (
-        # Currently having issues testing the Add tool because it uses QgsMapToolDigitizeFeature which errors
-        # during initialisation in a test due to unexpected Mock objects
-        # ("locality_point", "add", QuickAddTool),
+        ("locality_point", "add", QuickAddTool),
         ("locality_point", "edit", QuickEditTool),
         ("locality_point", "delete", QuickDeleteTool),
     ),
@@ -433,9 +432,7 @@ def test_quick_map_tools_enable_bad(
 @pytest.mark.parametrize(
     ["layer_name", "mode", "expected_tool"],
     (
-        # Currently having issues testing the Add tool because it uses QgsMapToolDigitizeFeature which errors
-        # during initialisation in a test due to unexpected Mock objects
-        # ("locality_point", "add", QuickAddTool),
+        ("locality_point", "add", QuickAddTool),
         ("locality_point", "edit", QuickEditTool),
         ("locality_point", "delete", QuickDeleteTool),
     ),
@@ -461,13 +458,23 @@ def test_quick_map_tools_disable(
     assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
 
 
-def test_quick_map_tools_switch_tool(fdc_project: FieldDataCapture):
+@pytest.mark.parametrize(
+    ["layer_name", "new_mode", "expected_tool"],
+    (
+        ("locality_point", "edit", QuickEditTool),
+        ("locality_point", "delete", QuickDeleteTool),
+    ),
+)
+def test_quick_map_tools_switch_tool(
+    fdc_project: FieldDataCapture,
+    layer_name: str,
+    new_mode: str,
+    expected_tool: QgsMapTool,
+):
     # Arrange
-    layer_name = "locality_point"
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
-    new_mode = "delete"
-    # Enable quick edit tool
-    fdc_project.toggle_quick_map_tool(layer_name, mode="edit")
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    # Enable quick add tool
+    fdc_project.toggle_quick_map_tool(layer_name, mode="add")
 
     # Act
     # Enable quick delete tool
@@ -475,7 +482,7 @@ def test_quick_map_tools_switch_tool(fdc_project: FieldDataCapture):
 
     # Assert
     # Check that the plugin has created the tool
-    assert isinstance(fdc_project.quick_map_tool, QuickDeleteTool)
+    assert isinstance(fdc_project.quick_map_tool, expected_tool)
     # Check that the tool has been applied to the canvas
     assert fdc_project.iface.mapCanvas().mapTool() == fdc_project.quick_map_tool
     # Check the attributes of the tool
@@ -487,9 +494,7 @@ def test_quick_map_tools_switch_tool(fdc_project: FieldDataCapture):
 @pytest.mark.parametrize(
     ["mode", "expected_tool"],
     (
-        # Currently having issues testing the Add tool because it uses QgsMapToolDigitizeFeature which errors
-        # during initialisation in a test due to unexpected Mock objects
-        # ("add", QuickAddTool),
+        ("add", QuickAddTool),
         ("edit", QuickEditTool),
         ("delete", QuickDeleteTool),
     ),
@@ -524,126 +529,61 @@ def test_quick_map_tools_locality_warn_edits(fdc_project: FieldDataCapture, mode
     assert layer.getFeature(point_fid).attribute(edit_field) == new_value
 
 
-@pytest.mark.skip("Not working yet")
-@pytest.mark.parametrize(
-    ["mode", "expected_tool"],
-    (
-        # Currently having issues testing the Add tool because it uses QgsMapToolDigitizeFeature which errors
-        # during initialisation in a test due to unexpected Mock objects
-        # ("add", QuickAddTool),
-        ("edit", QuickEditTool),
-        ("delete", QuickDeleteTool),
-    ),
-)
-def test_quick_map_tools_change_layer(fdc_project: FieldDataCapture, mode: str, expected_tool: QgsMapTool):
-    # Arrange
-    # Enable quick locality point mode
-    fdc_project.toggle_quick_map_tool(layer_name="locality_point", mode=mode)
-
-    # Act
-    # Select a difference layer
-    new_layer = QgsProject.instance().mapLayersByName("bedrock_line")[0]
-    fdc_project.iface.setActiveLayer(new_layer)
-
-    # Assert
-    # We don't check if the layer is editable because it will not exist anymore
-    # Check that the tool is not applied to the canvas
-    assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
-
-
-@pytest.mark.skip("Not working yet")
-@pytest.mark.parametrize(
-    ["mode", "expected_tool"],
-    (
-        # Currently having issues testing the Add tool because it uses QgsMapToolDigitizeFeature which errors
-        # during initialisation in a test due to unexpected Mock objects
-        # ("add", QuickAddTool),
-        ("edit", QuickEditTool),
-        ("delete", QuickDeleteTool),
-    ),
-)
-def test_quick_map_tools_close_project(fdc_project: FieldDataCapture, mode: str, expected_tool: QgsMapTool):
-    # Arrange
-    # Enable quick locality point mode
-    fdc_project.toggle_quick_map_tool(layer_name="locality_point", mode=mode)
-
-    # Act
-    # Close the test project
-    QgsProject.instance().clear()
-
-    # Assert
-    # We don't check if the layer is editable because it will not exist anymore
-    # Check that the tool is not applied to the canvas
-    assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
-
-
-@pytest.mark.skip("Needs Refactoring for QuickMapTools but QuickAddTool does not yet work in tests")
-def test_quick_locality_add(
+def test_quick_map_tools_locality_add(
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
+    layer_name = "locality_point"
+    exposure_field = "exposure_type_code"
+    exposure_value = "auger_borehole"
     # Enable add quick locality point mode
-    fdc_project.toggle_quick_locality_mode("add")
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    fdc_project.toggle_quick_map_tool(layer_name, mode="add")
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    # Apply monkeypatch for openFeatureForm, which adds an exposure_type_code to the new feature like a user would
 
-    # Monkeypatch the iface.openFeatureForm function to ensure it was called
-    mock_function = Mock()
-    monkeypatch.setattr(fdc_project.iface, "openFeatureForm", mock_function)
+    def add_exposure(_layer: QgsVectorLayer, feature: QgsFeature, *args, **kwargs) -> bool:
+        """
+        Add an exposure_type_code to the given feature, as if a user were adding it in a form.
 
-    # Act 1
-    # Add a new locality_point feature
-    # Create a new feature with automatically generated values from the layer
-    feature_1 = QgsVectorLayerUtils.createFeature(layer)
-    # Set the field_project_fuid to be the uuid of the field project from the test data set
-    feature_1.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
-    feature_1.setAttribute("exposure_type_code", "auger_borehole")
-    layer.addFeature(feature_1)
-    # Emit the GUI signal that triggers the auto save of the new feature
-    layer.editCommandEnded.emit()
+        We cannot do this in the usual way, as a call to update the feature requires it's fid int value,
+        but at this stage it's fid is still 'Autogenerate'.
+        Therefore, instead we roll back the changes, but keep the feature object.
+        Then we can directly modify the feature object, before adding it back to the layer.
+        Then the tool can continue as normal.
+        """
+        # We use an if statement here because otherwise, when the code triggers the re-opening of the form
+        # this function would run again and try to make another duplicate edit
+        if feature.attribute(exposure_field) != exposure_value:
+            _layer.rollBack()
+            _layer.startEditing()
+            feature.setAttribute(exposure_field, exposure_value)
+            _layer.addFeature(feature)
+        return True
+    monkeypatch.setattr(fdc_project.iface, "openFeatureForm", add_exposure)
 
-    # Assert 1
+    # Act
+    # Make a new and empty feature with just a point geometry
+    geometry_wkt = "Point (-3 55)"
+    geometry = QgsGeometry.fromWkt(geometry_wkt)
+    geometry_feature = QgsFeature()
+    geometry_feature.setGeometry(geometry)
+    fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
+
+    # Assert
     # Check that the layer is saved
     assert not layer.isModified()
     # Check that the layer has re-enabled editing mode
     assert layer.isEditable()
-    expected_fid_1 = 3
-    new_feature_1 = list(layer.getFeatures())[-1]
-    assert new_feature_1.attribute("fid") == expected_fid_1
-    # The 'fid' is only stored until the form is re-opened
-    # Therefore, when we come to check the 'fid' it should have been discarded
-    assert fdc_project.quick_locality_fid is None
-    mock_function.assert_called_with(layer, new_feature_1)
-
-    # Act 2
-    # Add another new locality_point feature
-    # Create a new feature with automatically generated values from the layer
-    feature_2 = QgsVectorLayerUtils.createFeature(layer)
-    # Set the field_project_fuid to be the uuid of the field project from the test data set
-    feature_2.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
-    feature_2.setAttribute("exposure_type_code", "auger_borehole")
-    layer.addFeature(feature_2)
-    # Emit the GUI signal that triggers the auto save of the new feature
-    layer.editCommandEnded.emit()
-
-    # Assert 2
-    expected_fid_2 = 4
-    new_feature_2 = list(layer.getFeatures())[-1]
-    assert new_feature_2.attribute("fid") == expected_fid_2
-    # The 'fid' is only stored until the form is re-opened
-    # Therefore, when we come to check the 'fid' it should have been discarded
-    assert fdc_project.quick_locality_fid is None
-    mock_function.assert_called_with(layer, new_feature_2)
-
-    # Act 3
-    # Disable add quick locality point mode
-    fdc_project.toggle_quick_locality_mode(mode="add")
-
-    # Assert 3
-    assert not layer.isEditable()
-    assert fdc_project.quick_locality_slots == []
-    assert not fdc_project.current_quick_locality_mode
-    assert fdc_project.quick_locality_fid is None
+    # Check that the new feature has the correct attributes and geometry
+    expected_fid = 3
+    new_feature: QgsFeature = list(layer.getFeatures())[-1]
+    assert new_feature.attribute("fid") == expected_fid
+    assert new_feature.attribute("name") == f"{pwd.getpwuid(os.getuid()).pw_name}_001"
+    assert new_feature.attribute(exposure_field) == exposure_value
+    assert new_feature.geometry().asWkt() == geometry_wkt
+    # Check that the tool is still applied to the canvas
+    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickAddTool)
 
 
 def test_quick_map_tools_locality_edit(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):

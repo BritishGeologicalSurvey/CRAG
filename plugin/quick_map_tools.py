@@ -14,6 +14,7 @@ from qgis.PyQt.QtCore import pyqtSignal
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from .config import LOCALITY_POINT_CHILDREN
+from .utils import ipdb_breakpoint  # noqa
 
 
 class QuickMapToolBase:

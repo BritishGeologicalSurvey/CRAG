@@ -5,6 +5,7 @@ from typing import Generator
 import pytest
 import etlhelper as etl
 from qgis.core import QgsProject
+from qgis.gui import QgsAdvancedDigitizingDockWidget
 from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.testing.mocked import get_iface
 
@@ -91,6 +92,10 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     # Apply monkeypatch for unsaved edits message box because it is setup manually
     monkeypatch.setattr(QMessageBox, "exec_", lambda *args: True)
     monkeypatch.setattr(QMessageBox, "setIconPixmap", lambda *args: True)
+
+    # Apply monkeypatch for iface.cadDockWidget
+    cadDockWidget = QgsAdvancedDigitizingDockWidget(iface.mapCanvas())
+    monkeypatch.setattr(iface, "cadDockWidget", lambda *args: cadDockWidget)
 
     yield field_data_capture
     # Reset the QGIS interface
