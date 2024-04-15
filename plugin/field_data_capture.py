@@ -961,14 +961,16 @@ class FieldDataCapture:
         return True
 
 
-    def toggle_quick_map_tool(self, layer_name: str, mode: str) -> None:
+    def toggle_quick_map_tool(self, layer_name: str, mode: str) -> bool:
         """
         Toggle the required quick map tool for the given layer and mode.
         This will automatically disable any other quick map tools which are currently active.
+        Returns a boolean indicating if the given tool was toggled.
         """
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True) or self.warn_unsaved_locality_data():  # noqa
             # Untoggle buttons to ensure things are not left in a bad state
             self.untoggle_quick_map_tool_buttons()
+            return False
 
         else:
             toggled_quick_map_tool_name = f"{layer_name}_{mode}"
@@ -991,6 +993,8 @@ class FieldDataCapture:
             # disable it because qgis will call it's deactivate method automatically
             elif current_qgis_map_tool_name != toggled_quick_map_tool_name:
                 self.enable_quick_map_tool(layer, mode)
+
+            return True
 
 
     def enable_quick_map_tool(self, layer: QgsVectorLayer, mode: str) -> None:
