@@ -11,7 +11,10 @@ from qgis.gui import (
     QgsMapToolIdentifyFeature,
 )
 from qgis.PyQt.QtCore import pyqtSignal
-from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt.QtWidgets import (
+    QDesktopWidget,
+    QMessageBox,
+)
 
 from .config import LOCALITY_POINT_CHILDREN
 from .utils import ipdb_breakpoint  # noqa
@@ -43,7 +46,7 @@ class QuickMapToolBase:
         self.iface.layerTreeView().currentLayerChanged.connect(self.deactivate)
 
 
-    def open_modal_feature_form(self, feature: QgsFeature, reopen_form_on_add_locality: bool = True):
+    def open_feature_form(self, feature: QgsFeature, reopen_form_on_add_locality: bool = True):
         """
         Open the feature form for the given feature in a modal state.
         Also handles the auto saving of the layer if the user confirms the form.
@@ -51,8 +54,7 @@ class QuickMapToolBase:
         """
         self._in_process = True
 
-        # Show feature form
-        save = self.iface.openFeatureForm(self._layer, feature, showModal=True)
+        save = self.open_custom_feature_form(feature)
         # Get the uuid of the new feature so we can find the new feature again after saving
         # We can't use the fid as this will be set once it is saved
         new_feature_uuid = feature.attribute("uuid")
@@ -75,11 +77,39 @@ class QuickMapToolBase:
             # Reopen the form for a new point to show all tabs
             if save and self.quick_mode == "add" and reopen_form_on_add_locality:
                 # Set reopen_form to False to prevent an infinite loop
-                self.open_modal_feature_form(new_feature, reopen_form_on_add_locality=False)
+                self.open_feature_form(new_feature, reopen_form_on_add_locality=False)
             else:
                 self.warn_unsaved_locality_data.emit()
 
         self._in_process = False
+
+
+    def open_custom_feature_form(self, feature: QgsFeature) -> bool:
+        """
+        Open the required feature form the the given feature.
+        This will set the dialog to be modal and have a dynamic size according to the screen resolution.
+        Any changes to the given feature are made by this form.
+        Returns a boolean indicating True if the user pressed Ok or False if the user pressed Cancel.
+        """
+        # Get the dialog from the iface
+        # This ensures the dialog is setup properly for the given layer and feature
+        dialog = self.iface.getFeatureForm(self._layer, feature)
+        # Get the screen size of the primary screen
+        screen_size = QDesktopWidget().screenGeometry(1).size()
+        # Set the dialog size based on the screen size
+        size_modifier = 0.75
+        # We either use a modified dimension size based on the screen size
+        # or a set maximum size for the dimension, whichever is smaller
+        width = min(screen_size.width() * size_modifier, 1000)
+        height = min(screen_size.height() * size_modifier, 800)
+        dialog.setMinimumSize(width, height)
+
+        # Use exec so it is modal
+        result = dialog.exec()
+        # Update the feature with the attributes from the dialog's feature
+        feature.setAttributes(dialog.feature().attributes())
+
+        return result
 
 
     def deactivate(self) -> None:
@@ -136,7 +166,7 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
         # Create feature with the geometry from the new empty feature
         feature = QgsVectorLayerUtils.createFeature(layer=self._layer, geometry=geometry_feature.geometry())
         self._layer.addFeature(feature)
-        self.open_modal_feature_form(feature)
+        self.open_feature_form(feature)
 
 
 class QuickEditTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
@@ -161,7 +191,7 @@ class QuickEditTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
         Open the feature form for the given feature.
         This is triggered by the 'featureIdentified' signal which passes an identified feature.
         """
-        self.open_modal_feature_form(feature)
+        self.open_feature_form(feature)
 
 
 class QuickDeleteTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
