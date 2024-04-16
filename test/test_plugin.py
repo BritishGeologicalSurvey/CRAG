@@ -16,7 +16,6 @@ from qgis.core import (
     QgsGeometry,
     QgsLayerTreeGroup,
     QgsProject,
-    QgsVectorLayer,
     QgsVectorLayerUtils,
 )
 from qgis.gui import QgsMapTool
@@ -540,27 +539,14 @@ def test_quick_map_tools_locality_add(
     # Enable add quick locality point mode
     fdc_project.toggle_quick_map_tool(layer_name, mode="add")
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-    # Apply monkeypatch for openFeatureForm, which adds an exposure_type_code to the new feature like a user would
+    exposure_field_index = [field.name() for field in layer.fields()].index(exposure_field)
 
-    def add_exposure(_layer: QgsVectorLayer, feature: QgsFeature, *args, **kwargs) -> bool:
-        """
-        Add an exposure_type_code to the given feature, as if a user were adding it in a form.
-
-        We cannot do this in the usual way, as a call to update the feature requires it's fid int value,
-        but at this stage it's fid is still 'Autogenerate'.
-        Therefore, instead we roll back the changes, but keep the feature object.
-        Then we can directly modify the feature object, before adding it back to the layer.
-        Then the tool can continue as normal.
-        """
-        # We use an if statement here because otherwise, when the code triggers the re-opening of the form
-        # this function would run again and try to make another duplicate edit
-        if feature.attribute(exposure_field) != exposure_value:
-            _layer.rollBack()
-            _layer.startEditing()
-            feature.setAttribute(exposure_field, exposure_value)
-            _layer.addFeature(feature)
+    # Apply monkeypatch for open feature form, which adds an exposure_type_code to the new feature like a user would
+    def add_exposure(feature: QgsFeature) -> bool:
+        # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+        layer.changeAttributeValue(fid=feature.id(), field=exposure_field_index, newValue=exposure_value)
         return True
-    monkeypatch.setattr(fdc_project.iface, "openFeatureForm", add_exposure)
+    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", add_exposure)
 
     # Act
     # Make a new and empty feature with just a point geometry
@@ -596,12 +582,14 @@ def test_quick_map_tools_locality_edit(fdc_project: FieldDataCapture, monkeypatc
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
 
-    # Act
-    # Apply monkeypatch for openFeatureForm, which makes an edit to the map_face_note like a user would
-    def edit_point(_layer: QgsVectorLayer, feature: QgsFeature, *args, **kwargs) -> bool:
-        _layer.changeAttributeValue(fid=feature.attribute("fid"), field=edit_field_index, newValue=new_value)
+    # Apply monkeypatch for open feature form, which makes an edit to the map_face_note like a user would
+    def edit_feature(feature: QgsFeature) -> bool:
+        # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+        layer.changeAttributeValue(fid=feature.id(), field=edit_field_index, newValue=new_value)
         return True
-    monkeypatch.setattr(fdc_project.iface, "openFeatureForm", edit_point)
+    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", edit_feature)
+
+    # Act
     # Emit the signal which would open the form and auto save afterwards
     edit_feature_fid = 1
     feature_to_edit = layer.getFeature(edit_feature_fid)
