@@ -1020,7 +1020,7 @@ class FieldDataCapture:
         """
         # Only delete the tool if the current quick map tool matches
         # This is done because automatic deactivation signals can be triggered outside of a linear sequence
-        if self.quick_map_tool.toolName() == tool_name:
+        if self.quick_map_tool is not None and self.quick_map_tool.toolName() == tool_name:
             self.quick_map_tool = None
         if self.quick_map_tool_buttons[tool_name].isChecked():
             self.quick_map_tool_buttons[tool_name].toggle()
