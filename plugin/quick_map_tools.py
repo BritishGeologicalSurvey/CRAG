@@ -35,6 +35,8 @@ class QuickMapToolBase:
         self.setToolName(f"{layer.name()}_{self.quick_mode}")
         self.iface: QgisInterface = iface
         self._layer: QgsVectorLayer = layer
+        # Connect active layer changed signal to deactivate function
+        self.iface.layerTreeView().currentLayerChanged.connect(self.deactivate)
         # Prepare layer
         self.iface.setActiveLayer(layer)
         if not layer.isEditable():
