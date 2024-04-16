@@ -399,7 +399,7 @@ def test_quick_map_tools_enable(
     # Check the attributes of the tool
     assert fdc_project.quick_map_tool.quick_mode == mode
     assert fdc_project.quick_map_tool._layer == expected_layer
-    assert fdc_project.quick_map_tool.toolName() == f"{layer_name}_{mode}"
+    assert fdc_project.quick_map_tool.toolName() == f"fdc_{layer_name}_{mode}"
 
 
 @pytest.mark.parametrize(
@@ -488,7 +488,7 @@ def test_quick_map_tools_switch_tool(
     # Check the attributes of the tool
     assert fdc_project.quick_map_tool.quick_mode == new_mode
     assert fdc_project.quick_map_tool._layer == layer
-    assert fdc_project.quick_map_tool.toolName() == f"{layer_name}_{new_mode}"
+    assert fdc_project.quick_map_tool.toolName() == f"fdc_{layer_name}_{new_mode}"
 
 
 @pytest.mark.parametrize(

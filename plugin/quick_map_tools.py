@@ -24,7 +24,7 @@ class QuickMapToolBase:
     # This stores the mode of the quick map tool which is mainly used to name and identify the tool
     quick_mode: str
     warn_unsaved_locality_data = pyqtSignal()
-    deactivated = pyqtSignal(str)
+    deactivated = pyqtSignal()
 
     def __init__(self, iface: QgisInterface, layer: QgsVectorLayer):
         """
@@ -32,7 +32,7 @@ class QuickMapToolBase:
         """
         self._in_process = False
         # Setup map tool
-        self.setToolName(f"{layer.name()}_{self.quick_mode}")
+        self.setToolName(f"fdc_{layer.name()}_{self.quick_mode}")
         self.iface: QgisInterface = iface
         self._layer: QgsVectorLayer = layer
         # Prepare layer
@@ -92,8 +92,7 @@ class QuickMapToolBase:
         which will change the editing state, and then ignore the deactivate call it if this is True.
         """
         if not self._in_process:
-            # Emit the toolName so that we can ensure we are disabling the correct tool
-            self.deactivated.emit(self.toolName())
+            self.deactivated.emit()
 
 
 class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
