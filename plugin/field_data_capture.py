@@ -987,7 +987,9 @@ class FieldDataCapture:
             # This covers the case where a user wants to toggle the tool off
             # and where the user is switching to a different quick map tool
             if current_qgis_map_tool_name.startswith("fdc_"):
-                self.disable_current_quick_map_tool()
+                # When calling unsetMapTool, qgis will automatically call the deactivate method
+                # of the given tool, therefore we do not need to manually call our disable tool method
+                self.iface.mapCanvas().unsetMapTool(self.quick_map_tool)
 
             # If the current qgis map tool is different to the toggled quick map tool
             # then we need to enable the toggled map tool as the user is trying to enable it
@@ -1016,14 +1018,10 @@ class FieldDataCapture:
     def disable_current_quick_map_tool(self) -> None:
         """
         Disable the current quick map tool.
-        This will toggle the tools button to off, unset the tool and delete it.
+        This will ensure the tools button is off, and delete the current tool object.
         """
-        # Set the in_process attribute to True to avoid the deactivation function
-        # automatically triggering during teardown
-        self.quick_map_tool._in_process = True
         if self.quick_map_tool_buttons[self.quick_map_tool.toolName()].isChecked():
             self.quick_map_tool_buttons[self.quick_map_tool.toolName()].toggle()
-        self.iface.mapCanvas().unsetMapTool(self.quick_map_tool)
         self.quick_map_tool = None
 
 
