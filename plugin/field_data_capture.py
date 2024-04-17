@@ -741,6 +741,7 @@ class FieldDataCapture:
 
         # Move the project layer
         project_name = "field_project"
+        layer_tree_structure[None].remove(project_name)
         layer_tree_structure["metadata"].insert(0, project_name)
 
         return layer_tree_structure

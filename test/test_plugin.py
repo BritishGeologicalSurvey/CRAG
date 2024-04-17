@@ -306,8 +306,12 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
         layer.startEditing()
         # Create a new feature with automatically generated values from the layer
         feature = QgsVectorLayerUtils.createFeature(layer)
+        # Give the feature some geometry
+        geometry_wkt = "Point (-3 55)"
+        geometry = QgsGeometry.fromWkt(geometry_wkt)
+        feature.setGeometry(geometry)
         # Set the field_project_fuid to be the uuid of the field project from the test data set
-        feature.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
+        feature.setAttribute("field_project_fuid", "{85d48fd4-e66f-4436-833b-9e37691a7d4f}")
         feature.setAttribute("exposure_type_code", "auger_borehole")
         layer.addFeature(feature)
         layer.commitChanges()
@@ -915,11 +919,11 @@ def recursive_search_form(
 
 @pytest.mark.parametrize(
     "layer_name",
-    FEATURE_TABLES,
+    FEATURE_TABLES - {"field_project"},
 )
 def test_default_field_project_fuid_attribute(fdc_project: FieldDataCapture, layer_name: str):
     # Arrange
-    expected_field_project_fuid = "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}"
+    expected_field_project_fuid = "{85d48fd4-e66f-4436-833b-9e37691a7d4f}"
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
     # Act
