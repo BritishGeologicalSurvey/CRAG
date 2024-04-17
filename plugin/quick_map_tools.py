@@ -95,7 +95,7 @@ class QuickMapToolBase:
         # This ensures the dialog is setup properly for the given layer and feature
         dialog = self.iface.getFeatureForm(self._layer, feature)
         # Get the screen size of the primary screen
-        screen_size = QDesktopWidget().screenGeometry(1).size()
+        screen_size = QDesktopWidget().screenGeometry(0).size()
         # Set the dialog size based on the screen size
         size_modifier = 0.75
         # We either use a modified dimension size based on the screen size
