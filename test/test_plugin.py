@@ -459,9 +459,45 @@ def test_quick_map_tools_disable(
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    # Check that the plugin has not created the tool
+    # Check that the plugin has deleted the tool
     assert fdc_project.quick_map_tool is None
-    # Check that the tool has not been applied to the canvas
+    # Check that the tool is not applied to the canvas
+    assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
+    # Check that the button is not toggled
+    assert not fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+
+
+@pytest.mark.parametrize(
+    ["layer_name", "mode", "expected_tool"],
+    (
+        ("locality_point", "add", QuickAddTool),
+        ("locality_point", "edit", QuickEditTool),
+        ("locality_point", "delete", QuickDeleteTool),
+    ),
+)
+def test_quick_map_tools_disable_bad(
+    fdc_project: FieldDataCapture,
+    layer_name: str,
+    mode: str,
+    expected_tool: QgsMapTool,
+):
+    # Arrange
+    expected_tool_name = f"fdc_{layer_name}_{mode}"
+    # Enable quick tool
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+
+    # Act
+    # Remove the lithology layer so that the state is invalid for the plugin
+    lithology_layer = QgsProject.instance().mapLayersByName("lithology")[0]
+    QgsProject.instance().removeMapLayer(lithology_layer)
+    # Try to disable quick tool
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+
+    # Assert
+    # The tool should have been disabled properly even though the state is invalid
+    # Check that the plugin has deleted the tool
+    assert fdc_project.quick_map_tool is None
+    # Check that the tool is not applied to the canvas
     assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
     # Check that the button is not toggled
     assert not fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
