@@ -17,11 +17,11 @@
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255"></Option>
+            <Option name="outline_color" type="QString" value="183,72,75,255"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0.26"></Option>
+            <Option name="outline_width" type="QString" value="0.86"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
-            <Option name="style" type="QString" value="solid"></Option>
+            <Option name="style" type="QString" value="no"></Option>
           </Option>
           <data_defined_properties>
             <Option type="Map">
