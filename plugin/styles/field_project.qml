@@ -1,4 +1,79 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
+<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
+  <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="singleSymbol">
+    <symbols>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="fill">
+        <data_defined_properties>
+          <Option type="Map">
+            <Option name="name" type="QString" value=""></Option>
+            <Option name="properties"></Option>
+            <Option name="type" type="QString" value="collection"></Option>
+          </Option>
+        </data_defined_properties>
+        <layer class="SimpleFill" enabled="1" id="{9b282ba5-512f-4d18-87ac-b2f6378e9037}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="color" type="QString" value="183,72,75,255"></Option>
+            <Option name="joinstyle" type="QString" value="bevel"></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="MM"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255"></Option>
+            <Option name="outline_style" type="QString" value="solid"></Option>
+            <Option name="outline_width" type="QString" value="0.26"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+            <Option name="style" type="QString" value="solid"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+      </symbol>
+    </symbols>
+    <rotation></rotation>
+    <sizescale></sizescale>
+  </renderer-v2>
+  <selection mode="Default">
+    <selectionColor invalid="1"></selectionColor>
+    <selectionSymbol>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="fill">
+        <data_defined_properties>
+          <Option type="Map">
+            <Option name="name" type="QString" value=""></Option>
+            <Option name="properties"></Option>
+            <Option name="type" type="QString" value="collection"></Option>
+          </Option>
+        </data_defined_properties>
+        <layer class="SimpleFill" enabled="1" id="{5a2a39b2-1afe-4f2a-9da9-95d799b3060a}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="color" type="QString" value="0,0,255,255"></Option>
+            <Option name="joinstyle" type="QString" value="bevel"></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="MM"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255"></Option>
+            <Option name="outline_style" type="QString" value="solid"></Option>
+            <Option name="outline_width" type="QString" value="0.26"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+            <Option name="style" type="QString" value="solid"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+      </symbol>
+    </selectionSymbol>
+  </selection>
+  <blendMode>0</blendMode>
+  <featureBlendMode>0</featureBlendMode>
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -110,7 +185,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_field_project_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_dc8a17aa_8ca1_445b_b7ee_4b547f3b1b76"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_687f17fd_da94_4adb_b11b_6f89257b1f05"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_field_project_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_field_project_type_field_project"></Option>
@@ -208,17 +283,17 @@
     <policy field="fid" policy="Duplicate"></policy>
     <policy field="objectid" policy="Duplicate"></policy>
     <policy field="uuid" policy="Duplicate"></policy>
-    <policy field="short_name" policy="DefaultValue"></policy>
-    <policy field="title" policy="DefaultValue"></policy>
-    <policy field="description" policy="DefaultValue"></policy>
-    <policy field="project_lead" policy="DefaultValue"></policy>
-    <policy field="status_code" policy="DefaultValue"></policy>
-    <policy field="start_date" policy="DefaultValue"></policy>
-    <policy field="end_date" policy="DefaultValue"></policy>
-    <policy field="field_project_type" policy="DefaultValue"></policy>
-    <policy field="local_epsg" policy="DefaultValue"></policy>
-    <policy field="notes" policy="DefaultValue"></policy>
-    <policy field="mapped_scale" policy="DefaultValue"></policy>
+    <policy field="short_name" policy="Duplicate"></policy>
+    <policy field="title" policy="Duplicate"></policy>
+    <policy field="description" policy="Duplicate"></policy>
+    <policy field="project_lead" policy="Duplicate"></policy>
+    <policy field="status_code" policy="Duplicate"></policy>
+    <policy field="start_date" policy="Duplicate"></policy>
+    <policy field="end_date" policy="Duplicate"></policy>
+    <policy field="field_project_type" policy="Duplicate"></policy>
+    <policy field="local_epsg" policy="Duplicate"></policy>
+    <policy field="notes" policy="Duplicate"></policy>
+    <policy field="mapped_scale" policy="Duplicate"></policy>
     <policy field="user_entered" policy="Duplicate"></policy>
     <policy field="date_entered" policy="Duplicate"></policy>
     <policy field="user_updated" policy="Duplicate"></policy>
@@ -431,5 +506,5 @@ def my_form_open(dialog, layer, feature):
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
   <mapTip enabled="1"></mapTip>
-  <layerGeometryType>4</layerGeometryType>
+  <layerGeometryType>2</layerGeometryType>
 </qgis>
