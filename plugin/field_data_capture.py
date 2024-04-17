@@ -968,7 +968,9 @@ class FieldDataCapture:
         Returns a boolean indicating if the given tool was toggled.
         """
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True) or self.warn_unsaved_locality_data():  # noqa
-            # Untoggle buttons to ensure things are not left in a bad state
+            # Disable active tool if there is one and untoggle buttons to ensure things are not left in a bad state
+            if self.quick_map_tool is not None:
+                self.iface.mapCanvas().unsetMapTool(self.quick_map_tool)
             self.untoggle_quick_map_tool_buttons()
             return False
 
