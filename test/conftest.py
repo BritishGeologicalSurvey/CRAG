@@ -70,6 +70,7 @@ def test_data_gpkg(data_model_gpkg) -> sqlite3.Connection:
 def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, None]:
     """
     An instance of the FieldDataCapture plugin for tests, using a mock iface.
+    Also runs fdc.initGui for button testing.
     Also uses monkeypatch to prevent basic QMessageBox popups, including information and warning.
     QMessageBoxes just return QMessageBox.Ok by default.
     """
@@ -96,6 +97,8 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     # Apply monkeypatch for iface.cadDockWidget
     cadDockWidget = QgsAdvancedDigitizingDockWidget(iface.mapCanvas())
     monkeypatch.setattr(iface, "cadDockWidget", lambda *args: cadDockWidget)
+
+    field_data_capture.initGui()
 
     yield field_data_capture
 
@@ -144,10 +147,8 @@ def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
 def fdc_project(fdc: FieldDataCapture, qgs_project: Path):
     """
     Setup an Field Data Capture project for use in tests.
-    Also runs fdc.initGui for button testing.
     """
     fdc.add_gpkg_to_project()
     fdc.add_gpkg_layers_to_project()
     fdc.add_test_data_to_project()
-    fdc.initGui()
     return fdc
