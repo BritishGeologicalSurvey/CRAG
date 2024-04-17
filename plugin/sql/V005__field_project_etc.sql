@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS "field_project" (
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
 	"date_updated"	DATETIME,
-	"geometry"	POLYGON,
+	"geometry"	POLYGON NOT NULL,
 	FOREIGN KEY("field_project_type") REFERENCES "dic_field_project_type"("code"),
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );

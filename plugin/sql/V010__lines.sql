@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS "bedrock_line" (
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
-  "geometry" LINESTRING,
+  "geometry" LINESTRING NOT NULL,
   FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_bedrock"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
@@ -152,7 +152,7 @@ CREATE TABLE IF NOT EXISTS "superficial_line" (
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
-  "geometry" LINESTRING,
+  "geometry" LINESTRING NOT NULL,
   FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_superficial"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
@@ -277,7 +277,7 @@ CREATE TABLE IF NOT EXISTS "artificial_line" (
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
-  "geometry" LINESTRING,
+  "geometry" LINESTRING NOT NULL,
   FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_artificial"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
@@ -402,7 +402,7 @@ CREATE TABLE IF NOT EXISTS "mass_move_line" (
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
-  "geometry" LINESTRING,
+  "geometry" LINESTRING NOT NULL,
   FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_mass_move"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
@@ -527,7 +527,7 @@ CREATE TABLE IF NOT EXISTS "terrain_line" (
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
   "date_updated" DATETIME,
-  "geometry" LINESTRING,
+  "geometry" LINESTRING NOT NULL,
   FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_terrain"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
