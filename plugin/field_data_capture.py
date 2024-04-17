@@ -394,6 +394,10 @@ class FieldDataCapture:
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
+        # Disable the current QuickMapTool if there is one
+        if self.quick_map_tool is not None:
+            self.disable_current_quick_map_tool()
+
         for action in self.actions:
             self.iface.removePluginMenu(
                 self.tr(u'&Field Data Capture'),
