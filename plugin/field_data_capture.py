@@ -395,8 +395,7 @@ class FieldDataCapture:
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         # Disable the current QuickMapTool if there is one
-        if self.quick_map_tool is not None:
-            self.disable_current_quick_map_tool()
+        self.disable_current_quick_map_tool()
 
         for action in self.actions:
             self.iface.removePluginMenu(
@@ -973,72 +972,76 @@ class FieldDataCapture:
         """
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True) or self.warn_unsaved_locality_data():  # noqa
             # Disable active tool if there is one and untoggle buttons to ensure things are not left in a bad state
-            if self.quick_map_tool is not None:
-                self.iface.mapCanvas().unsetMapTool(self.quick_map_tool)
+            self.disable_current_quick_map_tool()
             self.untoggle_quick_map_tool_buttons()
             return False
 
-        else:
-            toggled_quick_map_tool_name = f"fdc_{layer_name}_{mode}"
-            layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        toggled_quick_map_tool_name = f"fdc_{layer_name}_{mode}"
+        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
-            # Get the current qgis map tool name
-            current_qgis_map_tool = self.iface.mapCanvas().mapTool()
-            if current_qgis_map_tool is None:
-                current_qgis_map_tool_name = ""
-            else:
-                current_qgis_map_tool_name = current_qgis_map_tool.toolName()
+        # Get the current map tool before changing anything
+        map_tool = self.iface.mapCanvas().mapTool()
 
-            # If the current qgis map tool of one of our quick map tools, disable it
-            # This covers the case where a user wants to toggle the tool off
-            # and where the user is switching to a different quick map tool
-            if current_qgis_map_tool_name.startswith("fdc_"):
-                # When calling unsetMapTool, qgis will automatically call the deactivate method
-                # of the given tool, therefore we do not need to manually call our disable tool method
-                self.iface.mapCanvas().unsetMapTool(self.quick_map_tool)
+        # If the current qgis map tool is one of our quick map tools, disable it
+        # This covers the case where a user wants to toggle the tool off
+        # and where the user is switching to a different quick map tool
+        self.disable_current_quick_map_tool()
 
-            # If the current qgis map tool is different to the toggled quick map tool
-            # then we need to enable the toggled map tool as the user is trying to enable it
-            if current_qgis_map_tool_name != toggled_quick_map_tool_name:
-                self.enable_quick_map_tool(layer, mode)
+        # If the current qgis map tool is different to the toggled quick map tool
+        # then we need to enable the toggled map tool as the user is trying to enable it
+        if map_tool is None or map_tool.toolName() != toggled_quick_map_tool_name:
+            self.enable_quick_map_tool(layer, mode)
 
-            return True
+        return True
 
 
     def enable_quick_map_tool(self, layer: QgsVectorLayer, mode: str) -> None:
         """
         Setup the required quick map tool for the given layer and mode.
         """
+        tool_name = f"fdc_{layer.name()}_{mode}"
         mode_tools = {
             "add": QuickAddTool,
             "edit": QuickEditTool,
             "delete": QuickDeleteTool,
         }
-        self.quick_map_tool = mode_tools[mode](self.iface, layer)
-        # Connect the signal from the tool to warn of unsaved locality data
+
+        # Get the tools associated action
+        if tool_name in self.quick_map_tool_buttons:
+            action = self.quick_map_tool_buttons[tool_name]
+        else:
+            action = None
+
+        self.quick_map_tool = mode_tools[mode](self.iface, layer, action)
+
+        # Connect the required signals
         self.quick_map_tool.warn_unsaved_locality_data.connect(self.warn_unsaved_locality_data)
-        self.quick_map_tool.deactivated.connect(self.disable_current_quick_map_tool)
+        self.quick_map_tool.to_deactivate.connect(self.disable_current_quick_map_tool)
+
         self.iface.mapCanvas().setMapTool(self.quick_map_tool)
 
 
     def disable_current_quick_map_tool(self) -> None:
         """
-        Disable the current quick map tool.
-        This will ensure the tools button is off, and delete the current tool object.
+        Disable the current map tool if it is one of our quick map tools.
         """
-        if self.quick_map_tool_buttons[self.quick_map_tool.toolName()].isChecked():
-            self.quick_map_tool_buttons[self.quick_map_tool.toolName()].toggle()
-        self.quick_map_tool = None
+        map_tool = self.iface.mapCanvas().mapTool()
+        # If it is one of our quick map tools
+        if map_tool is not None and map_tool.toolName().startswith("fdc_"):
+            # Untoggle the associated button
+            # QGIS should do this automatically using .action() through .deactivate()
+            # But so far I don't know whether to trust it
+            if map_tool.action() is not None:
+                map_tool.action().setChecked(False)
+            self.iface.mapCanvas().unsetMapTool(self.iface.mapCanvas().mapTool())
 
 
-    def untoggle_quick_map_tool_buttons(self, ignore_button: Optional[str] = None) -> None:
+    def untoggle_quick_map_tool_buttons(self) -> None:
         """
         Untoggle all of the quick map tool buttons.
-        Will ignore the name of the given button if specified.
         """
-        for button_name, action in self.quick_map_tool_buttons.items():
-            if button_name != ignore_button and action.isChecked():
-                action.toggle()
+        for action in self.quick_map_tool_buttons.values():
+            action.setChecked(False)
 
 
     def warn_unsaved_locality_data(self) -> bool:

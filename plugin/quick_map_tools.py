@@ -1,3 +1,5 @@
+from typing import Optional
+
 from qgis.core import (
     QgsApplication,
     QgsFeature,
@@ -12,6 +14,7 @@ from qgis.gui import (
 )
 from qgis.PyQt.QtCore import pyqtSignal
 from qgis.PyQt.QtWidgets import (
+    QAction,
     QDesktopWidget,
     QMessageBox,
 )
@@ -27,23 +30,25 @@ class QuickMapToolBase:
     # This stores the mode of the quick map tool which is mainly used to name and identify the tool
     quick_mode: str
     warn_unsaved_locality_data = pyqtSignal()
-    deactivated = pyqtSignal()
+    to_deactivate = pyqtSignal()
 
-    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer):
+    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer, action: Optional[QAction]):
         """
         Setup the QuickMapTool for fast editing.
         """
-        self._in_process = False
         # Setup map tool
         self.setToolName(f"fdc_{layer.name()}_{self.quick_mode}")
         self.iface: QgisInterface = iface
         self._layer: QgsVectorLayer = layer
+        if action is not None:
+            self.setAction(action)
+
         # Prepare layer
         self.iface.setActiveLayer(layer)
         if not layer.isEditable():
             layer.startEditing()
-        # Connect active layer changed signal to deactivate function
-        self.iface.layerTreeView().currentLayerChanged.connect(self.deactivate)
+        # Connect active layer changed signal to deactivate function in the plugin
+        self.iface.layerTreeView().currentLayerChanged.connect(self.to_deactivate)
 
 
     def open_feature_form(self, feature: QgsFeature, reopen_form_on_add_locality: bool = True):
@@ -52,8 +57,6 @@ class QuickMapToolBase:
         Also handles the auto saving of the layer if the user confirms the form.
         If the tool is locality_point_add, then the option to reopen the form can be used too.
         """
-        self._in_process = True
-
         save = self.open_custom_feature_form(feature)
         # Get the uuid of the new feature so we can find the new feature again after saving
         # We can't use the fid as this will be set once it is saved
@@ -73,6 +76,8 @@ class QuickMapToolBase:
 
         # Post digitization operations
         self.canvas().refresh()
+
+        # Special handling for locality_point
         if self._layer.name() == "locality_point":
             # Reopen the form for a new point to show all tabs
             if save and self.quick_mode == "add" and reopen_form_on_add_locality:
@@ -80,8 +85,6 @@ class QuickMapToolBase:
                 self.open_feature_form(new_feature, reopen_form_on_add_locality=False)
             else:
                 self.warn_unsaved_locality_data.emit()
-
-        self._in_process = False
 
 
     def open_custom_feature_form(self, feature: QgsFeature) -> bool:
@@ -112,19 +115,6 @@ class QuickMapToolBase:
         return result
 
 
-    def deactivate(self) -> None:
-        """
-        Emit the deactivated signal to the FieldDataCapture plugin class.
-
-        Since we are using the deactivate method to automatically disable the tool,
-        the tool is disabled when editing on the layer is disabled.
-        To prevent this, we keep track of if the tool is in the middle of a process
-        which will change the editing state, and then ignore the deactivate call it if this is True.
-        """
-        if not self._in_process:
-            self.deactivated.emit()
-
-
 class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
     """
     Custom QgsMapTool based on QgsMapToolDigitizeFeature with custom logic to reduce clicks
@@ -132,12 +122,12 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
     """
     quick_mode = "add"
 
-    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer):
+    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer, action: Optional[QAction]):
         QgsMapToolDigitizeFeature.__init__(
             self, iface.mapCanvas(), iface.cadDockWidget(),
             mode=self.capture_modes[layer.name()],
         )
-        QuickMapToolBase.__init__(self, iface, layer)
+        QuickMapToolBase.__init__(self, iface, layer, action)
 
         # Setup map tool
         self.setCursor(QgsApplication.getThemeCursor(QgsApplication.Cursor.CapturePoint))
@@ -176,9 +166,9 @@ class QuickEditTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
     """
     quick_mode = "edit"
 
-    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer):
+    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer, action: Optional[QAction]):
         QgsMapToolIdentifyFeature.__init__(self, iface.mapCanvas(), layer)
-        QuickMapToolBase.__init__(self, iface, layer)
+        QuickMapToolBase.__init__(self, iface, layer, action)
 
         # Setup map tool
         self.setCursor(QgsApplication.getThemeCursor(QgsApplication.Cursor.Identify))
@@ -201,9 +191,9 @@ class QuickDeleteTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
     """
     quick_mode = "delete"
 
-    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer):
+    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer, action: Optional[QAction]):
         QgsMapToolIdentifyFeature.__init__(self, iface.mapCanvas(), layer)
-        QuickMapToolBase.__init__(self, iface, layer)
+        QuickMapToolBase.__init__(self, iface, layer, action)
 
         # Setup map tool
         self.setCursor(QgsApplication.getThemeCursor(QgsApplication.Cursor.CrossHair))

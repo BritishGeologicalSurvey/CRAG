@@ -104,8 +104,7 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
 
     # We disable the quick map tool after the test to avoid the automatic deactivation of the tool
     # from qgis causing an error with deleted c++ objects during teardown
-    if field_data_capture.quick_map_tool is not None:
-        field_data_capture.disable_current_quick_map_tool()
+    field_data_capture.disable_current_quick_map_tool()
     # Reset the QGIS interface
     iface.reset_mock()
 

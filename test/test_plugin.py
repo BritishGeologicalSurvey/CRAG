@@ -392,14 +392,13 @@ def test_quick_map_tools_enable(
     # Assert
     # We cannot check the active layer as it is not a working function in the mocked iface
     assert expected_layer.isEditable()
-    # Check that the plugin has created the tool
-    assert isinstance(fdc_project.quick_map_tool, expected_tool)
     # Check that the tool has been applied to the canvas
-    assert fdc_project.iface.mapCanvas().mapTool() == fdc_project.quick_map_tool
+    map_tool = fdc_project.iface.mapCanvas().mapTool()
+    assert isinstance(map_tool, expected_tool)
     # Check the attributes of the tool
-    assert fdc_project.quick_map_tool.quick_mode == mode
-    assert fdc_project.quick_map_tool._layer == expected_layer
-    assert fdc_project.quick_map_tool.toolName() == expected_tool_name
+    assert map_tool.quick_mode == mode
+    assert map_tool._layer == expected_layer
+    assert map_tool.toolName() == expected_tool_name
     # Check that the button is toggled
     assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
@@ -427,8 +426,6 @@ def test_quick_map_tools_enable_bad(
     fdc.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    # Check that the plugin has not created the tool
-    assert fdc.quick_map_tool is None
     # Check that the tool has not been applied to the canvas
     assert not isinstance(fdc.iface.mapCanvas().mapTool(), expected_tool)
     # Check that the button is not toggled
@@ -459,8 +456,6 @@ def test_quick_map_tools_disable(
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    # Check that the plugin has deleted the tool
-    assert fdc_project.quick_map_tool is None
     # Check that the tool is not applied to the canvas
     assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
     # Check that the button is not toggled
@@ -495,8 +490,6 @@ def test_quick_map_tools_disable_bad(
 
     # Assert
     # The tool should have been disabled properly even though the state is invalid
-    # Check that the plugin has deleted the tool
-    assert fdc_project.quick_map_tool is None
     # Check that the tool is not applied to the canvas
     assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
     # Check that the button is not toggled
@@ -528,14 +521,13 @@ def test_quick_map_tools_switch_tool(
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    # Check that the plugin has created the tool
-    assert isinstance(fdc_project.quick_map_tool, expected_tool)
+    map_tool = fdc_project.iface.mapCanvas().mapTool()
     # Check that the tool has been applied to the canvas
-    assert fdc_project.iface.mapCanvas().mapTool() == fdc_project.quick_map_tool
+    assert isinstance(map_tool, expected_tool)
     # Check the attributes of the tool
-    assert fdc_project.quick_map_tool.quick_mode == new_mode
-    assert fdc_project.quick_map_tool._layer == layer
-    assert fdc_project.quick_map_tool.toolName() == expected_tool_name
+    assert map_tool.quick_mode == new_mode
+    assert map_tool._layer == layer
+    assert map_tool.toolName() == expected_tool_name
     # Check that the buttons are toggled correctly
     assert not fdc_project.quick_map_tool_buttons[old_tool_name].isChecked()
     assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
@@ -567,8 +559,6 @@ def test_quick_map_tools_locality_warn_edits(fdc_project: FieldDataCapture, mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    # Check that the plugin has not created the tool
-    assert fdc_project.quick_map_tool is None
     # Check that the button is not toggled
     assert not fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
     # Check that the tool has not been applied to the canvas
