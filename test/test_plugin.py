@@ -70,7 +70,7 @@ def test_setup_project_logic_good(
     check_functions: dict[str, Mock] = {
         "add_gpkg_to_project": None,
         "add_gpkg_layers_to_project": None,
-        "open_layer_form": None,
+        "open_create_field_project": None,
     }
     for function_name in check_functions.keys():
         # All functions will return True which should mean they are all called
@@ -83,7 +83,7 @@ def test_setup_project_logic_good(
     fdc.run_function_list(functions=[
         fdc.add_gpkg_to_project,
         fdc.add_gpkg_layers_to_project,
-        lambda: fdc.open_layer_form(layer_name="field_project"),
+        fdc.open_create_field_project,
     ])
 
     # Assert
@@ -100,7 +100,7 @@ def test_setup_project_logic_bad(
     check_functions: dict[str, Mock] = {
         "add_gpkg_to_project": None,
         "add_gpkg_layers_to_project": None,
-        "open_layer_form": None,
+        "open_create_field_project": None,
     }
     for function_name in check_functions.keys():
         # All functions return False which should mean only the first function is called
@@ -113,7 +113,7 @@ def test_setup_project_logic_bad(
     fdc.run_function_list(functions=[
         fdc.add_gpkg_to_project,
         fdc.add_gpkg_layers_to_project,
-        lambda: fdc.open_layer_form(layer_name="field_project"),
+        fdc.open_create_field_project,
     ])
 
     # Assert
@@ -572,6 +572,100 @@ def test_quick_map_tools_locality_warn_edits(fdc_project: FieldDataCapture, mode
     # Check that the layer still has the manual changes
     assert layer.isModified()
     assert layer.getFeature(point_fid).attribute(edit_field) == new_value
+
+
+def test_quick_map_tools_field_project_add_confirm(
+    fdc: FieldDataCapture,
+    qgs_project,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    # Arrange
+    layer_name = "field_project"
+    expected_tool_name = f"fdc_{layer_name}_add"
+    properties = {
+        "short_name": "test_field_project",
+        "field_project_type": "field_work",
+        "local_epsg": 27700,
+    }
+    # Prepare monkeypatch for open feature form, which adds project properties like a user would
+
+    def add_project_properties(feature: QgsFeature) -> bool:
+        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        for field_name, field_value in properties.items():
+            field_index = [field.name() for field in layer.fields()].index(field_name)
+            # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+            layer.changeAttributeValue(fid=feature.id(), field=field_index, newValue=field_value)
+        # Return True to confirm the change
+        return True
+
+    # Act 1
+    fdc.button_setup_project.trigger()
+    monkeypatch.setattr(fdc.quick_map_tool, "open_custom_feature_form", add_project_properties)
+
+    # Assert 1
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    # Check that the layer is not modified yet
+    assert not layer.isModified()
+    # Check that the layer has enabled editing mode
+    assert layer.isEditable()
+    # Check that the tool has been enabled
+    assert isinstance(fdc.iface.mapCanvas().mapTool(), QuickAddTool)
+    assert fdc.iface.mapCanvas().mapTool().toolName() == expected_tool_name
+
+    # Act 2
+    # Make a new and empty feature with just a polygon geometry
+    geometry_wkt = "Polygon ((-3.06646639970546664 56.02224055154277949, -0.86620852862676745 52.89687413861690857, -1.3338961920444623 52.75580097369699217, -3.55541259327851167 55.88561238892003047, -3.06646639970546664 56.02224055154277949))"  # noqa
+    geometry = QgsGeometry.fromWkt(geometry_wkt)
+    geometry_feature = QgsFeature()
+    geometry_feature.setGeometry(geometry)
+    fdc.quick_map_tool.digitizingCompleted.emit(geometry_feature)
+
+    # Assert 2
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    # Check that the layer is saved
+    assert not layer.isModified()
+    # Check that the layer has re-enabled editing mode
+    assert layer.isEditable()
+    # Check that the tool has been disabled
+    assert not isinstance(fdc.iface.mapCanvas().mapTool(), QuickAddTool)
+    # Check that the new feature has the correct attributes and geometry
+    expected_fid = 1
+    new_feature: QgsFeature = list(layer.getFeatures())[-1]
+    assert new_feature.attribute("fid") == expected_fid
+    for field_name, field_value in properties.items():
+        assert new_feature.attribute(field_name) == field_value
+    assert new_feature.geometry().asWkt() == geometry_wkt
+
+
+def test_quick_map_tools_field_project_add_cancel(
+    fdc: FieldDataCapture,
+    qgs_project,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    # Arrange
+    layer_name = "field_project"
+    expected_tool_name = f"fdc_{layer_name}_add"
+
+    # Act
+    fdc.button_setup_project.trigger()
+    # Apply monkeypatch for open feature form, which cancels the form like a user would
+    monkeypatch.setattr(fdc.quick_map_tool, "open_custom_feature_form", lambda *args: False)
+    # Make a new and empty feature with just a polygon geometry
+    geometry_wkt = "Polygon ((-3.06646639970546664 56.02224055154277949, -0.86620852862676745 52.89687413861690857, -1.3338961920444623 52.75580097369699217, -3.55541259327851167 55.88561238892003047, -3.06646639970546664 56.02224055154277949))"  # noqa
+    geometry = QgsGeometry.fromWkt(geometry_wkt)
+    geometry_feature = QgsFeature()
+    geometry_feature.setGeometry(geometry)
+    fdc.quick_map_tool.digitizingCompleted.emit(geometry_feature)
+
+    # Assert
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    # Check that the layer has been rolled back
+    assert not layer.isModified()
+    # Check that the layer has re-enabled editing mode
+    assert layer.isEditable()
+    # Check that the tool has been re-enabled
+    assert isinstance(fdc.iface.mapCanvas().mapTool(), QuickAddTool)
+    assert fdc.iface.mapCanvas().mapTool().toolName() == expected_tool_name
 
 
 def test_quick_map_tools_locality_add_confirm(
