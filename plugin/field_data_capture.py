@@ -46,7 +46,6 @@ from qgis.core import (
     QgsRuleBasedRenderer,
     QgsSymbol,
     QgsVectorLayer,
-    QgsVectorLayerUtils,
 )
 from qgis.gui import (
     QgisInterface,
@@ -306,13 +305,13 @@ class FieldDataCapture:
             checkable=True,
         )
 
-        self.add_action(
+        self.button_setup_project = self.add_action(
             icon_path,
             text=self.tr(u'Setup Project'),
             callback=lambda: self.run_function_list(functions=[
                 self.add_gpkg_to_project,
                 self.add_gpkg_layers_to_project,
-                lambda: self.open_layer_form(layer_name="field_project"),
+                self.open_create_field_project,
             ]),
             parent=self.iface.mainWindow(),
         )
@@ -373,7 +372,7 @@ class FieldDataCapture:
         self.add_action(
             icon_path,
             text=self.tr(u'Add Field Project'),
-            callback=lambda: self.open_layer_form(layer_name="field_project"),
+            callback=self.open_create_field_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
@@ -849,33 +848,16 @@ class FieldDataCapture:
         return simple_lithology_categories, simple_lithology_colours
 
 
-    def open_layer_form(self, layer_name: str) -> bool:
+    def open_create_field_project(self) -> bool:
         """
-        Open the attribute form for the given layer.
+        Enable the QuickMapTool for adding a new field_project.
+        The tool will automatically deactivate after a new feature is saved to the layer.
         Returns a boolean indicating success of the process.
         """
-        if not self.validate_qgis_state(project_active=True, db_file_exists=True, layer_name_exists=layer_name):
+        layer_name = "field_project"
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, layer_name_exists=layer_name) or not self.toggle_quick_map_tool(layer_name, mode="add"):  # noqa
             return False
-
-        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-
-        # Ensure the layer is editable
-        if not layer.isEditable():
-            layer.startEditing()
-
-        # Create a new feature with automatically generated values from the layer
-        feature = QgsVectorLayerUtils.createFeature(layer)
-        # We have to add the new feature to the layer before it can be opened in the form
-        layer.addFeature(feature)
-        keep_feature = self.iface.openFeatureForm(layer, feature)
-
-        # Only save if the user confirms the new feature
-        if keep_feature:
-            layer.commitChanges()
-            return True
-        else:
-            layer.rollBack()
-            return False
+        return True
 
 
     def add_test_data_to_project(self) -> bool:

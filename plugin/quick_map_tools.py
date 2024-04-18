@@ -86,6 +86,11 @@ class QuickMapToolBase:
             else:
                 self.warn_unsaved_locality_data.emit()
 
+        # Special handling for field_project
+        # Deactivate the tool after adding a new feature
+        if self._layer.name() == "field_project" and save and self.quick_mode == "add":
+            self.to_deactivate.emit()
+
 
     def open_custom_feature_form(self, feature: QgsFeature) -> bool:
         """
