@@ -58,12 +58,12 @@ class QuickMapToolBase:
         If the tool is locality_point_add, then the option to reopen the form can be used too.
         """
         save = self.open_custom_feature_form(feature)
-        # Get the uuid of the new feature so we can find the new feature again after saving
-        # We can't use the fid as this will be set once it is saved
-        new_feature_uuid = feature.attribute("uuid")
 
         # Handle saving or rollback
         if save:
+            # Get the uuid of the new feature so we can find the new feature again after saving
+            # We can't use the fid as this will be set once it is saved
+            new_feature_uuid = feature.attribute("uuid")
             self._layer.commitChanges(stopEditing=False)
             # Get the saved new feature
             new_feature = list(self._layer.getFeatures(expression=f""""uuid" = '{new_feature_uuid}'"""))[0]
