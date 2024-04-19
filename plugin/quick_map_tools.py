@@ -107,6 +107,11 @@ class QuickMapToolBase:
         height = min(screen_size.height() * size_modifier, 800)
         dialog.setMinimumSize(width, height)
 
+        # Remove the menu bar from the dialog
+        # Removing the widget from the layout does not actually remove it from display
+        # The simplest way to do this is to set the parent to None
+        dialog.layout().menuBar().setParent(None)
+
         # Use exec so it is modal
         result = dialog.exec()
         # Update the feature with the attributes from the dialog's feature
