@@ -4,10 +4,7 @@ These are tests for the plugin which depend on a running QGIS version which is s
 import os
 import pwd
 from pathlib import Path
-from typing import (
-    Callable,
-    Optional,
-)
+from typing import Optional
 from unittest.mock import Mock
 from xml.dom import minidom
 
@@ -15,12 +12,13 @@ import pytest
 import etlhelper as etl
 from qgis.core import (
     QgsAttributeEditorContainer,
+    QgsFeature,
+    QgsGeometry,
     QgsLayerTreeGroup,
     QgsProject,
-    QgsVectorLayer,
     QgsVectorLayerUtils,
 )
-from qgis.PyQt.QtCore import pyqtBoundSignal
+from qgis.gui import QgsMapTool
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from conftest import setup_db_conn
@@ -30,6 +28,11 @@ from plugin.config import (
     TABLE_LIST,
 )
 from plugin.field_data_capture import FieldDataCapture
+from plugin.quick_map_tools import (
+    QuickAddTool,
+    QuickEditTool,
+    QuickDeleteTool,
+)
 from plugin.utils import ipdb_breakpoint  # noqa
 
 
@@ -325,7 +328,7 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
         "superficial_landform",
     ),
 )
-def test_warn_unsaved_locality_point_edits(
+def test_warn_unsaved_locality_data(
     fdc_project: FieldDataCapture,
     child_layer_name: str,
     monkeypatch: pytest.MonkeyPatch,
@@ -356,7 +359,7 @@ def test_warn_unsaved_locality_point_edits(
     monkeypatch.setattr(QMessageBox, "setText", mock_message_box_set_text)
 
     # Act
-    unsaved_edits = fdc_project.warn_unsaved_locality_children(parent=True)
+    unsaved_edits = fdc_project.warn_unsaved_locality_data()
 
     # Assert
     assert unsaved_edits
@@ -365,126 +368,201 @@ def test_warn_unsaved_locality_point_edits(
 
 
 @pytest.mark.parametrize(
-    ["mode", "number_of_slots"],
+    ["layer_name", "mode", "expected_tool"],
     (
-        ("add", 2),
-        ("edit", 1),
-        ("delete", 1),
+        ("locality_point", "add", QuickAddTool),
+        ("locality_point", "edit", QuickEditTool),
+        ("locality_point", "delete", QuickDeleteTool),
     ),
 )
-def test_quick_locality_enable(
+def test_quick_map_tools_enable(
     fdc_project: FieldDataCapture,
+    layer_name: str,
     mode: str,
-    number_of_slots: int,
+    expected_tool: QgsMapTool,
 ):
     # Arrange
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    expected_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    expected_tool_name = f"fdc_{layer_name}_{mode}"
 
     # Act
-    # Enable quick locality point mode
-    fdc_project.toggle_quick_locality_mode(mode=mode)
+    # Enable quick tool
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
     # We cannot check the active layer as it is not a working function in the mocked iface
-    assert layer.isEditable()
-    assert len(fdc_project.quick_locality_slots) == number_of_slots
-    for signal, slot in fdc_project.quick_locality_slots:
-        assert isinstance(signal, pyqtBoundSignal)
-        assert isinstance(slot, Callable)
-    assert fdc_project.current_quick_locality_mode == mode
+    assert expected_layer.isEditable()
+    # Check that the tool has been applied to the canvas
+    map_tool = fdc_project.iface.mapCanvas().mapTool()
+    assert isinstance(map_tool, expected_tool)
+    # Check the attributes of the tool
+    assert map_tool.quick_mode == mode
+    assert map_tool._layer == expected_layer
+    assert map_tool.toolName() == expected_tool_name
+    # Check that the button is toggled
+    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
 @pytest.mark.parametrize(
-    "mode",
-    ("add", "edit", "delete"),
+    ["layer_name", "mode", "expected_tool"],
+    (
+        ("locality_point", "add", QuickAddTool),
+        ("locality_point", "edit", QuickEditTool),
+        ("locality_point", "delete", QuickDeleteTool),
+    ),
 )
-def test_quick_locality_enable_bad(fdc: FieldDataCapture, mode: str):
-    # This test uses fdc rather than fdc_project
-    # because it tests that the quick mode is not toggled when no project exists
-    # Act
-    # Enable quick locality point mode
-    fdc.toggle_quick_locality_mode(mode=mode)
-
-    # Assert
-    # Check that no quick modes were enabled
-    assert fdc.quick_locality_slots == []
-    assert not fdc.current_quick_locality_mode
-    assert fdc.quick_locality_fid is None
-
-
-@pytest.mark.parametrize(
-    "mode",
-    ("add", "edit", "delete"),
-)
-def test_quick_locality_disable(fdc_project: FieldDataCapture, mode: str):
-    # Arrange
-    # Enable quick locality point mode
-    fdc_project.toggle_quick_locality_mode(mode=mode)
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
-
-    # Act
-    # Disable quick locality point mode
-    fdc_project.toggle_quick_locality_mode(mode=mode)
-
-    # Assert
-    assert not layer.isEditable()
-    assert fdc_project.quick_locality_slots == []
-    assert not fdc_project.current_quick_locality_mode
-    assert fdc_project.quick_locality_fid is None
-
-
-@pytest.mark.parametrize(
-    "new_mode",
-    ("edit", "delete"),
-)
-def test_quick_locality_switch_mode(
-    fdc_project: FieldDataCapture,
-    new_mode: str,
+def test_quick_map_tools_enable_bad(
+    fdc: FieldDataCapture,
+    layer_name: str,
+    mode: str,
+    expected_tool: QgsMapTool,
 ):
     # Arrange
-    # Enable add quick locality point mode
-    fdc_project.toggle_quick_locality_mode(mode="add")
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
-
+    expected_tool_name = f"fdc_{layer_name}_{mode}"
+    # This test uses fdc rather than fdc_project
+    # because it tests that the quick tool is not toggled when no project exists
     # Act
-    fdc_project.toggle_quick_locality_mode(mode=new_mode)
+    # Enable quick tool
+    fdc.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    assert layer.isEditable()
-    # Both the edit and delete mode only use 1 slot
-    assert len(fdc_project.quick_locality_slots) == 1
-    for signal, slot in fdc_project.quick_locality_slots:
-        assert isinstance(signal, pyqtBoundSignal)
-        assert isinstance(slot, Callable)
-    assert fdc_project.current_quick_locality_mode == new_mode
+    # Check that the tool has not been applied to the canvas
+    assert not isinstance(fdc.iface.mapCanvas().mapTool(), expected_tool)
+    # Check that the button is not toggled
+    assert not fdc.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
 @pytest.mark.parametrize(
-    "mode",
-    ("add", "edit", "delete"),
+    ["layer_name", "mode", "expected_tool"],
+    (
+        ("locality_point", "add", QuickAddTool),
+        ("locality_point", "edit", QuickEditTool),
+        ("locality_point", "delete", QuickDeleteTool),
+    ),
 )
-def test_quick_locality_warn_edits(fdc_project: FieldDataCapture, mode: str):
+def test_quick_map_tools_disable(
+    fdc_project: FieldDataCapture,
+    layer_name: str,
+    mode: str,
+    expected_tool: QgsMapTool,
+):
     # Arrange
+    expected_tool_name = f"fdc_{layer_name}_{mode}"
+    # Enable quick tool
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+
+    # Act
+    # Disable quick tool
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+
+    # Assert
+    # Check that the tool is not applied to the canvas
+    assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
+    # Check that the button is not toggled
+    assert not fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+
+
+@pytest.mark.parametrize(
+    ["layer_name", "mode", "expected_tool"],
+    (
+        ("locality_point", "add", QuickAddTool),
+        ("locality_point", "edit", QuickEditTool),
+        ("locality_point", "delete", QuickDeleteTool),
+    ),
+)
+def test_quick_map_tools_disable_bad(
+    fdc_project: FieldDataCapture,
+    layer_name: str,
+    mode: str,
+    expected_tool: QgsMapTool,
+):
+    # Arrange
+    expected_tool_name = f"fdc_{layer_name}_{mode}"
+    # Enable quick tool
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+
+    # Act
+    # Remove the lithology layer so that the state is invalid for the plugin
+    lithology_layer = QgsProject.instance().mapLayersByName("lithology")[0]
+    QgsProject.instance().removeMapLayer(lithology_layer)
+    # Try to disable quick tool
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+
+    # Assert
+    # The tool should have been disabled properly even though the state is invalid
+    # Check that the tool is not applied to the canvas
+    assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
+    # Check that the button is not toggled
+    assert not fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+
+
+@pytest.mark.parametrize(
+    ["layer_name", "new_mode", "expected_tool"],
+    (
+        ("locality_point", "edit", QuickEditTool),
+        ("locality_point", "delete", QuickDeleteTool),
+    ),
+)
+def test_quick_map_tools_switch_tool(
+    fdc_project: FieldDataCapture,
+    layer_name: str,
+    new_mode: str,
+    expected_tool: QgsMapTool,
+):
+    # Arrange
+    old_tool_name = f"fdc_{layer_name}_add"
+    expected_tool_name = f"fdc_{layer_name}_{new_mode}"
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
+    # Act
+    # Enable quick add tool
+    fdc_project.quick_map_tool_buttons[old_tool_name].trigger()
+    # Enable quick delete tool
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+
+    # Assert
+    map_tool = fdc_project.iface.mapCanvas().mapTool()
+    # Check that the tool has been applied to the canvas
+    assert isinstance(map_tool, expected_tool)
+    # Check the attributes of the tool
+    assert map_tool.quick_mode == new_mode
+    assert map_tool._layer == layer
+    assert map_tool.toolName() == expected_tool_name
+    # Check that the buttons are toggled correctly
+    assert not fdc_project.quick_map_tool_buttons[old_tool_name].isChecked()
+    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+
+
+@pytest.mark.parametrize(
+    ["mode", "expected_tool"],
+    (
+        ("add", QuickAddTool),
+        ("edit", QuickEditTool),
+        ("delete", QuickDeleteTool),
+    ),
+)
+def test_quick_map_tools_locality_warn_edits(fdc_project: FieldDataCapture, mode: str, expected_tool: QgsMapTool):
+    # Arrange
+    layer_name = "locality_point"
     point_fid = 1
     edit_field = "map_face_note"
     new_value = "dummy_value"
-    # Manually make an edit without the quick locality mode and do not save it
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    expected_tool_name = f"fdc_{layer_name}_{mode}"
+    # Manually make an edit without any tools and do not save it
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     layer.startEditing()
     edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
     layer.changeAttributeValue(fid=point_fid, field=edit_field_index, newValue=new_value)
 
     # Act
     # Try to enable quick locality point mode
-    process_result = fdc_project.toggle_quick_locality_mode(mode=mode)
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    # Check that the process did not complete
-    assert not process_result
-    # Check that no quick locality point modes were enabled
-    assert fdc_project.quick_locality_slots == []
-    assert not fdc_project.current_quick_locality_mode
-    assert fdc_project.quick_locality_fid is None
+    # Check that the button is not toggled
+    assert not fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    # Check that the tool has not been applied to the canvas
+    assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
     # Check that the layer is still editable
     assert layer.isEditable()
     # Check that the layer still has the manual changes
@@ -492,89 +570,126 @@ def test_quick_locality_warn_edits(fdc_project: FieldDataCapture, mode: str):
     assert layer.getFeature(point_fid).attribute(edit_field) == new_value
 
 
-def test_quick_locality_add(
+def test_quick_map_tools_locality_add_confirm(
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
+    layer_name = "locality_point"
+    exposure_field = "exposure_type_code"
+    exposure_value = "auger_borehole"
+    expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick locality point mode
-    fdc_project.toggle_quick_locality_mode("add")
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    exposure_field_index = [field.name() for field in layer.fields()].index(exposure_field)
 
-    # Monkeypatch the iface.openFeatureForm function to ensure it was called
-    mock_function = Mock()
-    monkeypatch.setattr(fdc_project.iface, "openFeatureForm", mock_function)
+    # Apply monkeypatch for open feature form, which adds an exposure_type_code to the new feature like a user would
+    def add_exposure(feature: QgsFeature) -> bool:
+        # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+        layer.changeAttributeValue(fid=feature.id(), field=exposure_field_index, newValue=exposure_value)
+        # Return True to confirm the change
+        return True
+    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", add_exposure)
 
-    # Act 1
-    # Add a new locality_point feature
-    # Create a new feature with automatically generated values from the layer
-    feature_1 = QgsVectorLayerUtils.createFeature(layer)
-    # Set the field_project_fuid to be the uuid of the field project from the test data set
-    feature_1.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
-    feature_1.setAttribute("exposure_type_code", "auger_borehole")
-    layer.addFeature(feature_1)
-    # Emit the GUI signal that triggers the auto save of the new feature
-    layer.editCommandEnded.emit()
+    # Act
+    # Make a new and empty feature with just a point geometry
+    geometry_wkt = "Point (-3 55)"
+    geometry = QgsGeometry.fromWkt(geometry_wkt)
+    geometry_feature = QgsFeature()
+    geometry_feature.setGeometry(geometry)
+    fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
 
-    # Assert 1
+    # Assert
     # Check that the layer is saved
     assert not layer.isModified()
     # Check that the layer has re-enabled editing mode
     assert layer.isEditable()
-    expected_fid_1 = 3
-    new_feature_1 = list(layer.getFeatures())[-1]
-    assert new_feature_1.attribute("fid") == expected_fid_1
-    # The 'fid' is only stored until the form is re-opened
-    # Therefore, when we come to check the 'fid' it should have been discarded
-    assert fdc_project.quick_locality_fid is None
-    mock_function.assert_called_with(layer, new_feature_1)
-
-    # Act 2
-    # Add another new locality_point feature
-    # Create a new feature with automatically generated values from the layer
-    feature_2 = QgsVectorLayerUtils.createFeature(layer)
-    # Set the field_project_fuid to be the uuid of the field project from the test data set
-    feature_2.setAttribute("field_project_fuid", "{d57614a8-21ba-47a5-8cb6-82c0b009ec1b}")
-    feature_2.setAttribute("exposure_type_code", "auger_borehole")
-    layer.addFeature(feature_2)
-    # Emit the GUI signal that triggers the auto save of the new feature
-    layer.editCommandEnded.emit()
-
-    # Assert 2
-    expected_fid_2 = 4
-    new_feature_2 = list(layer.getFeatures())[-1]
-    assert new_feature_2.attribute("fid") == expected_fid_2
-    # The 'fid' is only stored until the form is re-opened
-    # Therefore, when we come to check the 'fid' it should have been discarded
-    assert fdc_project.quick_locality_fid is None
-    mock_function.assert_called_with(layer, new_feature_2)
-
-    # Act 3
-    # Disable add quick locality point mode
-    fdc_project.toggle_quick_locality_mode(mode="add")
-
-    # Assert 3
-    assert not layer.isEditable()
-    assert fdc_project.quick_locality_slots == []
-    assert not fdc_project.current_quick_locality_mode
-    assert fdc_project.quick_locality_fid is None
+    # Check that the new feature has the correct attributes and geometry
+    expected_fid = 3
+    new_feature: QgsFeature = list(layer.getFeatures())[-1]
+    assert new_feature.attribute("fid") == expected_fid
+    assert new_feature.attribute("name") == f"{pwd.getpwuid(os.getuid()).pw_name}_001"
+    assert new_feature.attribute(exposure_field) == exposure_value
+    assert new_feature.geometry().asWkt() == geometry_wkt
+    # Check that the tool is still enabled
+    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickAddTool)
+    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
+    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
-def test_quick_locality_edit(fdc_project: FieldDataCapture):
+def test_quick_map_tools_locality_add_cancel(
+    fdc_project: FieldDataCapture,
+    monkeypatch: pytest.MonkeyPatch,
+):
     # Arrange
-    point_fid = 1
-    edit_field = "map_face_note"
-    new_value = "dummy_value"
-    # Enable edit quick locality point mode
-    fdc_project.toggle_quick_locality_mode(mode="edit")
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
-    edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
+    layer_name = "locality_point"
+    exposure_field = "exposure_type_code"
+    exposure_value = "auger_borehole"
+    expected_tool_name = f"fdc_{layer_name}_add"
+    # Enable add quick locality point mode
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    exposure_field_index = [field.name() for field in layer.fields()].index(exposure_field)
+
+    # Apply monkeypatch for open feature form, which adds an exposure_type_code to the new feature like a user would
+    def add_exposure(feature: QgsFeature) -> bool:
+        # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+        layer.changeAttributeValue(fid=feature.id(), field=exposure_field_index, newValue=exposure_value)
+        # Return False to cancel the change
+        return False
+    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", add_exposure)
 
     # Act
-    # Edit one of the test points
-    layer.changeAttributeValue(fid=point_fid, field=edit_field_index, newValue=new_value)
-    # Emit the GUI signal that triggers the auto save
-    layer.editCommandEnded.emit()
+    # Make a new and empty feature with just a point geometry
+    geometry_wkt = "Point (-3 55)"
+    geometry = QgsGeometry.fromWkt(geometry_wkt)
+    geometry_feature = QgsFeature()
+    geometry_feature.setGeometry(geometry)
+    fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
+
+    # Assert
+    # Check that the layer is rolled back
+    assert not layer.isModified()
+    # Check that the layer has re-enabled editing mode
+    assert layer.isEditable()
+    # Check that there are only 2 features
+    features = list(layer.getFeatures())
+    assert len(features) == 2
+    # Check that the expected new fid is not in any features
+    expected_fid = 3
+    feature_fids = {feature.attribute("fid") for feature in features}
+    assert expected_fid not in feature_fids
+    # Check that the tool is still enabled
+    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickAddTool)
+    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
+    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+
+
+def test_quick_map_tools_locality_edit_confirm(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
+    # Arrange
+    layer_name = "locality_point"
+    edit_field = "map_face_note"
+    new_value = "dummy_value"
+    expected_tool_name = f"fdc_{layer_name}_edit"
+    # Enable edit quick locality point mode
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
+
+    # Apply monkeypatch for open feature form, which makes an edit to the map_face_note like a user would
+    def edit_feature(feature: QgsFeature) -> bool:
+        # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+        layer.changeAttributeValue(fid=feature.id(), field=edit_field_index, newValue=new_value)
+        # Return True to confirm the change
+        return True
+    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", edit_feature)
+
+    # Act
+    # Emit the signal which would open the form and auto save afterwards
+    edit_feature_fid = 1
+    feature_to_edit = layer.getFeature(edit_feature_fid)
+    fdc_project.quick_map_tool.featureIdentified.emit(feature_to_edit)
 
     # Assert
     # Check that the layer is saved
@@ -582,37 +697,78 @@ def test_quick_locality_edit(fdc_project: FieldDataCapture):
     # Check that the layer has re-enabled editing mode
     assert layer.isEditable()
     # Check that the edit has been saved correctly
-    assert layer.getFeature(point_fid).attribute(edit_field) == new_value
-    # Check that the 'fid' of the point was not saved because it is not a new point
-    assert fdc_project.quick_locality_fid is None
+    assert layer.getFeature(edit_feature_fid).attribute(edit_field) == new_value
+    # Check that the tool is still enabled
+    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickEditTool)
+    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
+    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
-def test_quick_locality_delete(fdc_project: FieldDataCapture):
+def test_quick_map_tools_locality_edit_cancel(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
     # Arrange
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    layer_name = "locality_point"
+    edit_field = "map_face_note"
+    new_value = "dummy_value"
+    old_value = "test_point_001 note"
+    expected_tool_name = f"fdc_{layer_name}_edit"
+    # Enable edit quick locality point mode
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
+
+    # Apply monkeypatch for open feature form, which makes an edit to the map_face_note like a user would
+    def edit_feature(feature: QgsFeature) -> bool:
+        # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+        layer.changeAttributeValue(fid=feature.id(), field=edit_field_index, newValue=new_value)
+        # Return False to cancel the change
+        return False
+    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", edit_feature)
+
+    # Act
+    # Emit the signal which would open the form and auto save afterwards
+    edit_feature_fid = 1
+    feature_to_edit = layer.getFeature(edit_feature_fid)
+    fdc_project.quick_map_tool.featureIdentified.emit(feature_to_edit)
+
+    # Assert
+    # Check that the layer is rolled back
+    assert not layer.isModified()
+    # Check that the layer has re-enabled editing mode
+    assert layer.isEditable()
+    # Check that the edit has not been saved
+    assert layer.getFeature(edit_feature_fid).attribute(edit_field) == old_value
+    # Check that the tool is still enabled
+    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickEditTool)
+    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
+    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+
+
+def test_quick_map_tools_locality_delete_confirm(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_yes):
+    # Arrange
+    layer_name = "locality_point"
+    expected_tool_name = f"fdc_{layer_name}_delete"
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     # Enable delete quick locality point mode
-    fdc_project.toggle_quick_locality_mode(mode="delete")
-    delete_fid = 1
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+    delete_feature_fid = 1
+    delete_locality_fuid = layer.getFeature(delete_feature_fid).attribute("uuid")
 
     # Act
     # Delete one of the test points
-    # We have to setup a new DeleteContext object which is used to perform a cascade delete programmatically
-    # The DeleteContext object also requires the project instance
-    context = QgsVectorLayer.DeleteContext(cascade=True, project=QgsProject.instance())
-    layer.deleteFeature(fid=delete_fid, context=context)
-    # Emit the GUI signal that triggers the auto save
-    layer.editCommandEnded.emit()
+    # Emit the signal which would delete an identified feature and save after confirmation
+    feature_to_delete = layer.getFeature(delete_feature_fid)
+    fdc_project.quick_map_tool.featureIdentified.emit(feature_to_delete)
 
     # Assert
     # Check that the layer is saved
     assert not layer.isModified()
     # Check that the layer has re-enabled editing mode
     assert layer.isEditable()
-    features = list(layer.getFeatures())
     # Check that there is only 1 feature remaining
+    features = list(layer.getFeatures())
     assert len(features) == 1
     # Check that it's fid value is not the one we deleted
-    assert features[0].attribute("fid") != delete_fid
+    assert features[0].attribute("fid") != delete_feature_fid
 
     # Check that the deleted feature children do not exist
     for child_layer_name in fdc_project.layer_tree_structure["locality_data"]:
@@ -622,27 +778,55 @@ def test_quick_locality_delete(fdc_project: FieldDataCapture):
         assert not child_layer.isModified()
         # For each of the features in the child layer, check the locality_fuid does not match the deleted fid
         for child_feature in child_layer.getFeatures():
-            assert child_feature.attribute("locality_fuid") != delete_fid
+            assert child_feature.attribute("locality_fuid") != delete_locality_fuid
+
+    # Check that the tool is still enabled
+    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickDeleteTool)
+    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
+    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
-@pytest.mark.parametrize(
-    "mode",
-    ("add", "edit", "delete"),
-)
-def test_quick_locality_close_project(fdc_project: FieldDataCapture, mode: str):
+def test_quick_map_tools_locality_delete_cancel(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_no):
     # Arrange
-    # Enable quick locality point mode
-    fdc_project.toggle_quick_locality_mode(mode=mode)
+    layer_name = "locality_point"
+    expected_tool_name = f"fdc_{layer_name}_delete"
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    # Enable delete quick locality point mode
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+    delete_feature_fid = 1
+    delete_locality_fuid = layer.getFeature(delete_feature_fid).attribute("uuid")
 
     # Act
-    # Close the test project
-    QgsProject.instance().clear()
+    # Delete one of the test points
+    # Emit the signal which would delete an identified feature and save after confirmation
+    feature_to_delete = layer.getFeature(delete_feature_fid)
+    fdc_project.quick_map_tool.featureIdentified.emit(feature_to_delete)
 
     # Assert
-    # We don't check if the layer is editable because it will not exist anymore
-    assert fdc_project.quick_locality_slots == []
-    assert not fdc_project.current_quick_locality_mode
-    assert fdc_project.quick_locality_fid is None
+    # Check that the layer is rolled back
+    assert not layer.isModified()
+    # Check that the layer has re-enabled editing mode
+    assert layer.isEditable()
+    # Check that there are still 2 features
+    features = list(layer.getFeatures())
+    assert len(features) == 2
+    # Check that it's fid value is not deleted
+    assert delete_feature_fid in {feature.attribute("fid") for feature in features}
+
+    # Check that the child features have not been deleted
+    for child_layer_name in fdc_project.layer_tree_structure["locality_data"]:
+        child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
+        # The child layer should not have been changed
+        assert not child_layer.isEditable()
+        assert not child_layer.isModified()
+        # For each of the features in the child layer, check the delete fid is in one of the locality_fuid values
+        child_locality_fuids = {child_feature.attribute("locality_fuid") for child_feature in child_layer.getFeatures()}
+        assert delete_locality_fuid in child_locality_fuids
+
+    # Check that the tool is still enabled
+    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickDeleteTool)
+    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
+    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
 @pytest.mark.parametrize(

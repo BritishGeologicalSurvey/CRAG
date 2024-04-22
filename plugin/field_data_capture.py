@@ -26,7 +26,6 @@ import os.path
 import pprint
 import sqlite3
 from collections import defaultdict
-from copy import deepcopy
 from pathlib import Path
 from typing import (
     Any,
@@ -49,18 +48,17 @@ from qgis.core import (
     QgsVectorLayer,
     QgsVectorLayerUtils,
 )
-from qgis.gui import QgisInterface
-from qgis.PyQt.QtCore import (
-    pyqtSignal,
-    QCoreApplication,
+from qgis.gui import (
+    QgisInterface,
+    QgsMapTool,
 )
+from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import (
     QColor,
     QIcon,
 )
 from qgis.PyQt.QtWidgets import (
     QAction,
-    QDialog,
     QMenu,
     QMessageBox,
     QWidget,
@@ -70,7 +68,6 @@ from qgis.PyQt.QtWidgets import (
 from .resources import *  # noqa
 
 from .config import (
-    ATTRIBUTE_TABLES,
     DICTIONARIES,
     FEATURE_TABLES,
     FEATURE_TABLES_LINES,
@@ -83,6 +80,11 @@ from .create_gpkg_from_sql import main as gpkg_from_sql
 from .create_gpkg_from_sql import (
     add_test_data,
     WORKDIR,
+)
+from .quick_map_tools import (
+    QuickAddTool,
+    QuickEditTool,
+    QuickDeleteTool,
 )
 from .utils import ipdb_breakpoint  # noqa
 
@@ -127,11 +129,8 @@ class FieldDataCapture:
 
         self.gpkg_filename = Path("field-data-capture.gpkg")
 
-        self.quick_locality_buttons: dict[str, QAction] = {}
-        # Store temporary locality_point slots with tuple pairs containing the signal and function
-        self.quick_locality_slots: list[tuple[pyqtSignal, Callable]] = []
-        self.current_quick_locality_mode: Optional[str] = None
-        self.quick_locality_fid: Optional[int] = None
+        self.quick_map_tool_buttons: dict[str, QAction] = {}
+        self.quick_map_tool: Optional[QgsMapTool] = None
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -280,28 +279,28 @@ class FieldDataCapture:
 
         icon_path = ':/plugins/field_data_capture/icon.png'
 
-        self.quick_locality_buttons["add"] = self.add_action(
+        self.quick_map_tool_buttons["fdc_locality_point_add"] = self.add_action(
             str(self.icons_dir / "quick_locality_add.png"),
             text=self.tr(u'Quick Add Locality Point'),
-            callback=lambda: self.toggle_quick_locality_mode(mode="add"),
+            callback=lambda: self.toggle_quick_map_tool(layer_name="locality_point", mode="add"),
             add_to_toolbar=True,
             parent=self.iface.mainWindow(),
             checkable=True,
         )
 
-        self.quick_locality_buttons["edit"] = self.add_action(
+        self.quick_map_tool_buttons["fdc_locality_point_edit"] = self.add_action(
             str(self.icons_dir / "quick_locality_edit.png"),
             text=self.tr(u'Quick Edit Locality Point'),
-            callback=lambda: self.toggle_quick_locality_mode(mode="edit"),
+            callback=lambda: self.toggle_quick_map_tool(layer_name="locality_point", mode="edit"),
             add_to_toolbar=True,
             parent=self.iface.mainWindow(),
             checkable=True,
         )
 
-        self.quick_locality_buttons["delete"] = self.add_action(
+        self.quick_map_tool_buttons["fdc_locality_point_delete"] = self.add_action(
             str(self.icons_dir / "quick_locality_delete.png"),
             text=self.tr(u'Quick Delete Locality Point'),
-            callback=lambda: self.toggle_quick_locality_mode(mode="delete"),
+            callback=lambda: self.toggle_quick_map_tool(layer_name="locality_point", mode="delete"),
             add_to_toolbar=True,
             parent=self.iface.mainWindow(),
             checkable=True,
@@ -395,6 +394,9 @@ class FieldDataCapture:
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
+        # Disable the current QuickMapTool if there is one
+        self.disable_current_quick_map_tool()
+
         for action in self.actions:
             self.iface.removePluginMenu(
                 self.tr(u'&Field Data Capture'),
@@ -727,7 +729,7 @@ class FieldDataCapture:
             None: FEATURE_TABLES.difference(FEATURE_TABLES_LINES),
             "lines": FEATURE_TABLES_LINES,
             "views": VIEWS,
-            "locality_data": ATTRIBUTE_TABLES,
+            "locality_data": LOCALITY_POINT_CHILDREN,
             "metadata": DICTIONARIES.union(INTERNAL_TABLES),
         }
 
@@ -739,7 +741,6 @@ class FieldDataCapture:
 
         # Move the project layer
         project_name = "field_project"
-        layer_tree_structure["locality_data"].remove(project_name)
         layer_tree_structure["metadata"].insert(0, project_name)
 
         return layer_tree_structure
@@ -890,18 +891,9 @@ class FieldDataCapture:
 
         # Copy test data media files across into current project
         self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest="photos")
-        self.repaint_fdc_layers()
+        self.iface.mapCanvas().refresh()
         QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
         return True
-
-
-    def repaint_fdc_layers(self) -> None:
-        """
-        Trigger a repaint for only the layers which come from the Field Data Capture plugin.
-        """
-        for layer in QgsProject.instance().mapLayers().values():
-            if layer.name() in set(TABLE_LIST):
-                layer.triggerRepaint()
 
 
     def copy_plugin_files_to_project(self, plugin_src: Path, project_dest: Path) -> None:
@@ -972,255 +964,90 @@ class FieldDataCapture:
         return True
 
 
-    def toggle_quick_locality_mode(self, mode: str) -> bool:
+    def toggle_quick_map_tool(self, layer_name: str, mode: str) -> bool:
         """
-        Toggle the given quick locality point mode.
-        Returns a boolean indicating the success of the process.
+        Toggle the required quick map tool for the given layer and mode.
+        This will automatically disable any other quick map tools which are currently active.
+        Returns a boolean indicating if the given tool was toggled.
         """
-        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True) or self.warn_unsaved_locality_children(parent=True):  # noqa
-            # Disable any current modes to prevent issues
-            self.disable_quick_locality_mode()
-            self.untoggle_quick_locality_buttons()
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True) or self.warn_unsaved_locality_data():  # noqa
+            # Disable active tool if there is one and untoggle buttons to ensure things are not left in a bad state
+            self.disable_current_quick_map_tool()
+            self.untoggle_quick_map_tool_buttons()
             return False
 
-        layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+        toggled_quick_map_tool_name = f"fdc_{layer_name}_{mode}"
+        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
-        # If a quick locality point mode is already active
-        if self.current_quick_locality_mode:
-            # In this instance, we always want to disable the current mode
-            # Because if the current mode is equal to the requested mode, we need to untoggle it by disabling it
-            # and, if the current mode is different to the requested mode, we need to disable the current mode first
-            disabled_mode = self.disable_quick_locality_mode(layer)
+        # Get the current map tool before changing anything
+        map_tool = self.iface.mapCanvas().mapTool()
 
-            # If the mode which was disabled is different to the requested mode
-            if disabled_mode != mode:
-                # Re-toggle the button in the GUI because it will have been untoggled by the disable method
-                self.quick_locality_buttons[mode].toggle()
-                self.enable_quick_locality(layer, mode=mode)
+        # If the current qgis map tool is one of our quick map tools, disable it
+        # This covers the case where a user wants to toggle the tool off
+        # and where the user is switching to a different quick map tool
+        self.disable_current_quick_map_tool()
 
-        # Else, no mode is active and we need to enable it
-        else:
-            self.enable_quick_locality(layer, mode=mode)
+        # If the current qgis map tool is different to the toggled quick map tool
+        # then we need to enable the toggled map tool as the user is trying to enable it
+        if map_tool is None or map_tool.toolName() != toggled_quick_map_tool_name:
+            self.enable_quick_map_tool(layer, mode)
 
         return True
 
 
-    def untoggle_quick_locality_buttons(self) -> None:
+    def enable_quick_map_tool(self, layer: QgsVectorLayer, mode: str) -> None:
         """
-        Ensure all of the quick locality buttons are not toggled.
+        Setup the required quick map tool for the given layer and mode.
         """
-        for quick_locality_button in self.quick_locality_buttons.values():
-            if quick_locality_button.isChecked():
-                quick_locality_button.toggle()
-
-
-    def enable_quick_locality(
-        self,
-        layer: QgsVectorLayer,
-        mode: str,
-        connect_slots: bool = True,
-    ) -> bool:
-        """
-        Enable the given quick locality point mode. This allows users to quickly add/edit/delete locality_point
-        features with minimal button clicks.
-        Returns a boolean indicating success of the process.
-        """
-        self.current_quick_locality_mode = mode
-
-        # Ensure the layer is editable
-        if not layer.isEditable():
-            layer.startEditing()
-
-        self.iface.setActiveLayer(layer)
-
-        if connect_slots:
-            self.connect_quick_locality_functions(layer)
-            self.connect_close_project_function(layer)
-
-        # Trigger the required tool for the quick mode
+        tool_name = f"fdc_{layer.name()}_{mode}"
         mode_tools = {
-            "add": self.iface.actionAddFeature,
-            "edit": self.iface.actionIdentify,
-            "delete": self.iface.actionSelect,
+            "add": QuickAddTool,
+            "edit": QuickEditTool,
+            "delete": QuickDeleteTool,
         }
-        mode_tools[mode]().trigger()
 
-        if mode == "edit":
-            self.ensure_auto_open_form_on_edit()
+        # Get the tools associated action
+        if tool_name in self.quick_map_tool_buttons:
+            action = self.quick_map_tool_buttons[tool_name]
+        else:
+            action = None
 
-        return True
+        self.quick_map_tool = mode_tools[mode](self.iface, layer, action)
+
+        # Connect the required signals
+        self.quick_map_tool.warn_unsaved_locality_data.connect(self.warn_unsaved_locality_data)
+        self.quick_map_tool.to_deactivate.connect(self.disable_current_quick_map_tool)
+
+        self.iface.mapCanvas().setMapTool(self.quick_map_tool)
 
 
-    def connect_quick_locality_functions(self, layer: QgsVectorLayer) -> None:
+    def disable_current_quick_map_tool(self) -> None:
         """
-        Create and connect the temporary slot functions for the quick locality point mode.
-        The first slot will save the 'fid' of the new locality_point feature if the mode is add.
-        The second slot will commit the changes for the locality_point layer and warn of unsaved children.
+        Disable the current map tool if it is one of our quick map tools.
         """
-        def store_quick_locality_fid(fid: int) -> None:
-            """
-            This is only used for the add mode of quick locality point.
-
-            The featureAdded signal from a QgsVectorLayer triggers twice when a new feature is added through a form.
-            This appears to be because the unsaved feature is added first to the layer in a temporary state, for viewing
-            in the attribute table. This means that from the front end, it's 'fid' value is 'AutoGenerate', whilst
-            from the back end, it's 'fid' is a negative integer.
-
-            Once the layer changes are saved, this temporary new feature is removed, and
-            the actual new feature with a real 'fid' value is added.
-            However, this actual new feature then triggers the featureAdded signal again.
-
-            Therefore, we only want to act on the signal when the 'fid' value is positive, as that will be
-            the real new feature that we want.
-            """
-            if fid > 0:
-                # Save the 'fid' of the new feature for use later
-                self.quick_locality_fid = fid
-
-        def commit_changes_and_post(*args) -> None:
-            """
-            Before anything else, if the current mode is delete, the child layers of locality_point are saved
-            to ensure the cascade delete works as expected.
-
-            For all modes, the layer changes are saved when the signal editCommandEnded is triggered.
-            Then, if the add mode is active, the form for the new feature is re-opened to display all tabs.
-
-            The layer changes must be saved before we can get the new locality_point feature and open it's form.
-            This is because before the changes are saved, the newest feature will be the temporary one,
-            and we do not save that temporary 'fid' value.
-
-            After this, we warn of any unsaved children, and then we re-enable
-            the current quick locality point mode without the slots.
-            This is because the slots still exist from the button toggle when it was first enabled,
-            and so we do not need to set them up again.
-            """
-            # If we are in delete mode, we need to save the child layer changes first
-            if self.current_quick_locality_mode == "delete":
-                for child_layer_name in self.layer_tree_structure["locality_data"]:
-                    child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
-                    if child_layer.isModified():
-                        child_layer.commitChanges()
-
-            # Always save the layer changes
-            layer.commitChanges()
-
-            # If the add mode is active
-            # and a locality fid has been saved from a new point
-            if self.current_quick_locality_mode == "add" and self.quick_locality_fid is not None:
-                # Open the new feature's form
-                new_feature = layer.getFeature(self.quick_locality_fid)
-                self.iface.openFeatureForm(layer, new_feature)
-
-            # Always refresh the layers to ensure consistency on the canvas
-            self.repaint_fdc_layers()
-            # Always warn of unsaved children
-            self.warn_unsaved_locality_children()
-
-            # Re-enable the quick locality point mode
-            self.enable_quick_locality(layer, mode=self.current_quick_locality_mode, connect_slots=False)
-            # Remove the saved 'fid' so that we know we have dealt with the point
-            self.quick_locality_fid = None
-
-        # Connect the signals and slots
-        # Save the slot functions so we can disconnect them later
-        layer.editCommandEnded.connect(commit_changes_and_post)
-        self.quick_locality_slots.append((layer.editCommandEnded, commit_changes_and_post))
-        # Only connect the feature added slot if the mode is add
-        if self.current_quick_locality_mode == "add":
-            layer.featureAdded.connect(store_quick_locality_fid)
-            self.quick_locality_slots.append((layer.featureAdded, store_quick_locality_fid))
+        map_tool = self.iface.mapCanvas().mapTool()
+        # If it is one of our quick map tools
+        if map_tool is not None and map_tool.toolName().startswith("fdc_"):
+            # Untoggle the associated button
+            # QGIS should do this automatically using .action() through .deactivate()
+            # But so far I don't know whether to trust it
+            if map_tool.action() is not None:
+                map_tool.action().setChecked(False)
+            self.iface.mapCanvas().unsetMapTool(self.iface.mapCanvas().mapTool())
 
 
-    def connect_close_project_function(self, layer: QgsVectorLayer) -> None:
+    def untoggle_quick_map_tool_buttons(self) -> None:
         """
-        Create and connect a slot function which will be run when the current QGIS project is about to be closed.
-        This is a new signal as of QGIS 3.34, previously we would have to use QgsProject.cleared.
-        This allows us to disable the quick locality point mode in the background without causing issues.
+        Untoggle all of the quick map tool buttons.
         """
-        qgs_project = QgsProject.instance()
-
-        def disable_on_close() -> None:
-            self.disable_quick_locality_mode(layer)
-            # The function then disconnects itself from the slot to ensure nothing about QGIS is left modified
-            self.disconnect_slot(qgs_project.aboutToBeCleared, disable_on_close)
-
-        qgs_project.aboutToBeCleared.connect(disable_on_close)
+        for action in self.quick_map_tool_buttons.values():
+            action.setChecked(False)
 
 
-    def ensure_auto_open_form_on_edit(self) -> None:
+    def warn_unsaved_locality_data(self) -> bool:
         """
-        Ensure that the 'Auto open form for single point results' option
-        in the information side bar is checked. This means that when the user is in
-        Quick Edit mode, the attribute form for a point they click on will always open.
-        """
-        # Find the widget through child widgets
-        QgsIdentifyResultsBase = self.iface.mainWindow().findChild(QDialog, "QgsIdentifyResultsBase")
-        possible_child_widgets = QgsIdentifyResultsBase.findChildren(QAction, "mActionAutoFeatureForm")
-        if len(possible_child_widgets) > 0:
-            auto_feature_form_action = possible_child_widgets[0]
-            # Ensure the "Auto open form for single point results" option is checked
-            if not auto_feature_form_action.isChecked():
-                auto_feature_form_action.trigger()
-
-
-    def disable_quick_locality_mode(
-        self,
-        layer: Optional[QgsVectorLayer] = None,
-    ) -> str:
-        """
-        Disable the currently active quick locality point mode and remove any temporary slots.
-        Returns the name of the mode which was disabled.
-        """
-        if layer is not None:
-            # We use a try except here because if the user fiddles with the layers
-            # then the signals can be stuck connected if the script errors
-            try:
-
-                # Stop editing the layer
-                # New points are automatically saved, so this should not remove any changes
-                if layer.isEditable():
-                    layer.rollBack()
-
-                # Deselect features of the layer
-                layer.removeSelection()
-
-            except RuntimeError:
-                pass
-
-        # Disconnect the slots
-        for signal, slot_function in self.quick_locality_slots:
-            self.disconnect_slot(signal, slot_function)
-        self.quick_locality_slots = []
-
-        # Disable quick locality point mode
-        disabled_mode = deepcopy(self.current_quick_locality_mode)
-        self.current_quick_locality_mode = None
-        self.quick_locality_fid = None
-
-        self.untoggle_quick_locality_buttons()
-
-        self.iface.actionPan().trigger()
-
-        return disabled_mode
-
-
-    def disconnect_slot(self, signal: pyqtSignal, function_: Callable) -> None:
-        """
-        Disconnect the given slot if it is connected.
-        We cannot check that the signal is connected to the function, but a TypeError is raised
-        if we try to disconnect them when they are not already connected.
-        Therefore, we use a try except to ensure the slot is disconnected without raising an error.
-        """
-        try:
-            signal.disconnect(function_)
-        except TypeError:
-            pass
-
-
-    def warn_unsaved_locality_children(self, parent: bool = False) -> bool:
-        """
-        Check if any of the locality_point child layers have unsaved changes.
-        Also gives the option to check if the parent layer has unsaved changes.
+        Check if any of the locality_point related layers have unsaved changes.
+        This includes both the parent locality_point layer, and all of its children.
         If they do, a warning message is shown to the user in the form of a QMessageBox.
         Returns a boolean indicating if unsaved layers were found.
         """
