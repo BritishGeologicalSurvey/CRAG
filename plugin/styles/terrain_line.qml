@@ -1,4 +1,4 @@
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
   <renderer-v2 attr="line_type_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="air_photo_lineament" render="true" symbol="0" type="string" uuid="{318620e7-a525-4090-aaea-6c1406b2e4c8}" value="air_photo_lineament"></category>
