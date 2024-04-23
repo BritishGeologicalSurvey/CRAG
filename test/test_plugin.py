@@ -187,6 +187,9 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     ]
     assert expected_qml_files == actual_qml_files
 
+    # Check that the photos directory has been created
+    assert fdc.photos_dir.exists()
+
 
 def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Arrange

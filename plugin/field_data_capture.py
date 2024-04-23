@@ -158,6 +158,14 @@ class FieldDataCapture:
 
 
     @property
+    def photos_dir(self) -> Path:
+        """
+        Get the photos directory path from the current project.
+        """
+        return self.project_dir / "photos"
+
+
+    @property
     def icons_dir(self) -> Path:
         """
         Get the icons directory path from the plugin folder.
@@ -547,6 +555,9 @@ class FieldDataCapture:
         self.apply_qml_styles(list(vector_layers.keys()))
         self.set_vector_layer_properties(vector_layers)
         # self.set_view_lithology_rules()
+
+        # Create empty photos directory
+        self.photos_dir.mkdir(parents=True, exist_ok=True)
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
