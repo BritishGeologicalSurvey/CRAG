@@ -258,6 +258,13 @@
         </config>
       </editWidget>
     </field>
+    <field configurationFlags="NoFlag" name="qgis_plugin_version">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
@@ -278,6 +285,7 @@
     <alias field="date_entered" index="15" name=""></alias>
     <alias field="user_updated" index="16" name=""></alias>
     <alias field="date_updated" index="17" name=""></alias>
+    <alias field="qgis_plugin_version" index="18" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -298,6 +306,7 @@
     <policy field="date_entered" policy="Duplicate"></policy>
     <policy field="user_updated" policy="Duplicate"></policy>
     <policy field="date_updated" policy="Duplicate"></policy>
+    <policy field="qgis_plugin_version" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
@@ -318,6 +327,7 @@
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
     <default applyOnUpdate="1" expression="@user_account_name" field="user_updated"></default>
     <default applyOnUpdate="1" expression="now()" field="date_updated"></default>
+    <default applyOnUpdate="0" expression="" field="qgis_plugin_version"></default>
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
@@ -338,6 +348,7 @@
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="qgis_plugin_version" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
@@ -358,6 +369,7 @@
     <constraint desc="" exp="" field="date_entered"></constraint>
     <constraint desc="" exp="" field="user_updated"></constraint>
     <constraint desc="" exp="" field="date_updated"></constraint>
+    <constraint desc="" exp="" field="qgis_plugin_version"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
@@ -455,6 +467,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="notes"></field>
     <field editable="1" name="objectid"></field>
     <field editable="1" name="project_lead"></field>
+    <field editable="1" name="qgis_plugin_version"></field>
     <field editable="1" name="short_name"></field>
     <field editable="1" name="start_date"></field>
     <field editable="1" name="status_code"></field>
@@ -475,6 +488,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="notes"></field>
     <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="project_lead"></field>
+    <field labelOnTop="0" name="qgis_plugin_version"></field>
     <field labelOnTop="0" name="short_name"></field>
     <field labelOnTop="0" name="start_date"></field>
     <field labelOnTop="0" name="status_code"></field>
@@ -495,6 +509,7 @@ def my_form_open(dialog, layer, feature):
     <field name="notes" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
     <field name="project_lead" reuseLastValue="0"></field>
+    <field name="qgis_plugin_version" reuseLastValue="0"></field>
     <field name="short_name" reuseLastValue="0"></field>
     <field name="start_date" reuseLastValue="0"></field>
     <field name="status_code" reuseLastValue="0"></field>

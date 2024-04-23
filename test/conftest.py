@@ -12,6 +12,7 @@ from qgis.testing.mocked import get_iface
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
 from plugin.create_gpkg_from_sql import add_test_data
 from plugin.field_data_capture import FieldDataCapture
+from plugin.quick_map_tools import QuickMapToolBase
 
 
 def setup_db_conn(db_file: Path) -> sqlite3.Connection:
@@ -97,6 +98,9 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     # Apply monkeypatch for iface.cadDockWidget
     cadDockWidget = QgsAdvancedDigitizingDockWidget(iface.mapCanvas())
     monkeypatch.setattr(iface, "cadDockWidget", lambda *args: cadDockWidget)
+
+    # Apply monkeypatch for getting plugin metadata in QuickMapTools
+    monkeypatch.setattr(QuickMapToolBase, "get_plugin_metadata", lambda *args: {"version_installed": "0.1"})
 
     field_data_capture.initGui()
 

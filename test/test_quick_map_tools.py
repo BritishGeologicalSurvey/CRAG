@@ -283,6 +283,7 @@ def test_quick_map_tools_field_project_add_confirm(
     expected_fid = 1
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
     assert new_feature.attribute("fid") == expected_fid
+    assert new_feature.attribute("qgis_plugin_version") == "0.1"
     for field_name, field_value in properties.items():
         assert new_feature.attribute(field_name) == field_value
     assert new_feature.geometry().asWkt() == geometry_wkt
