@@ -6,7 +6,7 @@
 name=Field Data Capture
 qgisMinimumVersion=3.0
 description=This plugin aids with field capture of geological data.
-version=0.1
+version=local_development
 author=BGS Informatics
 email=enquiries@bgs.ac.uk
 

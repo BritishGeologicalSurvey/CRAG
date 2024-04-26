@@ -100,7 +100,7 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     monkeypatch.setattr(iface, "cadDockWidget", lambda *args: cadDockWidget)
 
     # Apply monkeypatch for getting plugin metadata in QuickMapTools
-    monkeypatch.setattr(QuickMapToolBase, "get_plugin_metadata", lambda *args: {"version_installed": "0.1"})
+    monkeypatch.setattr(QuickMapToolBase, "get_plugin_metadata", lambda *args: {"version_installed": "fdc_test_fixture"})
 
     field_data_capture.initGui()
 
