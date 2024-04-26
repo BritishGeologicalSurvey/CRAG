@@ -253,6 +253,7 @@ def test_quick_map_tools_field_project_add_confirm(
         "field_project_type": "field_work",
         "local_epsg": 27700,
     }
+
     # Prepare monkeypatch for open feature form, which adds project properties like a user would
     def add_project_properties(feature: QgsFeature) -> bool:
         layer = QgsProject.instance().mapLayersByName(layer_name)[0]
