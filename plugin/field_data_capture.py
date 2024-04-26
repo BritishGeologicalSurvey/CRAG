@@ -419,7 +419,7 @@ class FieldDataCapture:
         if QgsProject.instance().fileName() != '':
             return True
         else:
-            QMessageBox.information(None, "Information", "Please open a saved project.")
+            QMessageBox.warning(None, "Warning", "Please open an existing saved project.")
             return False
 
 
@@ -467,17 +467,17 @@ class FieldDataCapture:
 
         # If we need to check the db_file_exists and the db file does not exist
         if db_file_exists and not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+            QMessageBox.warning(None, "Warning", f"Could not find file:\n\n{self.db_file}")
             return False
 
         # If we need to check the fdc_layers_exist and the fdc layers do not exist
         if fdc_layers_exist and not self.check_fdc_layers_exist():
-            QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
+            QMessageBox.warning(None, "Warning", "Could not find the required layers for Field Data Capture.")
             return False
 
         # If we need to check that a given layer_name_exists and the given layer name does not exist
         if layer_name_exists is not None and not self.check_layer_exists(layer_name_exists):
-            QMessageBox.information(None, "Information", f"Could not find layer: {layer_name_exists}")
+            QMessageBox.warning(None, "Warning", f"Could not find layer: {layer_name_exists}")
             return False
 
         return True
@@ -562,9 +562,9 @@ class FieldDataCapture:
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
 
-        QMessageBox.warning(
-            None, "Warning",
-            "Now add a project OR test data to allow you to begin adding locality data.",
+        QMessageBox.information(
+            None, "Information",
+            "GeoPackage layers loaded.\n\nNow set field project boundary polygon and metadata.",
         )
         return True
 
