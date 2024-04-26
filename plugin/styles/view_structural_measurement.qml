@@ -1,4 +1,4 @@
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
   <renderer-v2 attr="structure_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="anticline_axis" render="true" symbol="0" type="string" uuid="{2f6d0d47-4510-4e73-98b7-ff478f685ad1}" value="anticline_axis"></category>
@@ -5826,6 +5826,20 @@
         </config>
       </editWidget>
     </field>
+    <field configurationFlags="NoFlag" name="secondary_attribute">
+      <editWidget type="">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="third_attribute">
+      <editWidget type="">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
     <field configurationFlags="NoFlag" name="notes">
       <editWidget type="TextEdit">
         <config>
@@ -5859,9 +5873,11 @@
     <alias field="structure_type" index="7" name=""></alias>
     <alias field="dip" index="8" name=""></alias>
     <alias field="azimuth" index="9" name=""></alias>
-    <alias field="notes" index="10" name=""></alias>
-    <alias field="structure_uuid" index="11" name=""></alias>
-    <alias field="locality_uuid" index="12" name=""></alias>
+    <alias field="secondary_attribute" index="10" name=""></alias>
+    <alias field="third_attribute" index="11" name=""></alias>
+    <alias field="notes" index="12" name=""></alias>
+    <alias field="structure_uuid" index="13" name=""></alias>
+    <alias field="locality_uuid" index="14" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="field_project" policy="Duplicate"></policy>
@@ -5874,6 +5890,8 @@
     <policy field="structure_type" policy="Duplicate"></policy>
     <policy field="dip" policy="Duplicate"></policy>
     <policy field="azimuth" policy="Duplicate"></policy>
+    <policy field="secondary_attribute" policy="Duplicate"></policy>
+    <policy field="third_attribute" policy="Duplicate"></policy>
     <policy field="notes" policy="Duplicate"></policy>
     <policy field="structure_uuid" policy="Duplicate"></policy>
     <policy field="locality_uuid" policy="Duplicate"></policy>
@@ -5889,6 +5907,8 @@
     <default applyOnUpdate="0" expression="" field="structure_type"></default>
     <default applyOnUpdate="0" expression="" field="dip"></default>
     <default applyOnUpdate="0" expression="" field="azimuth"></default>
+    <default applyOnUpdate="0" expression="" field="secondary_attribute"></default>
+    <default applyOnUpdate="0" expression="" field="third_attribute"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
     <default applyOnUpdate="0" expression="" field="structure_uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
@@ -5904,6 +5924,8 @@
     <constraint constraints="0" exp_strength="0" field="structure_type" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="dip" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="azimuth" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="secondary_attribute" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="third_attribute" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="structure_uuid" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
@@ -5919,6 +5941,8 @@
     <constraint desc="" exp="" field="structure_type"></constraint>
     <constraint desc="" exp="" field="dip"></constraint>
     <constraint desc="" exp="" field="azimuth"></constraint>
+    <constraint desc="" exp="" field="secondary_attribute"></constraint>
+    <constraint desc="" exp="" field="third_attribute"></constraint>
     <constraint desc="" exp="" field="notes"></constraint>
     <constraint desc="" exp="" field="structure_uuid"></constraint>
     <constraint desc="" exp="" field="locality_uuid"></constraint>

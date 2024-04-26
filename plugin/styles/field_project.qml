@@ -1,4 +1,79 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
+<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
+  <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="singleSymbol">
+    <symbols>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="fill">
+        <data_defined_properties>
+          <Option type="Map">
+            <Option name="name" type="QString" value=""></Option>
+            <Option name="properties"></Option>
+            <Option name="type" type="QString" value="collection"></Option>
+          </Option>
+        </data_defined_properties>
+        <layer class="SimpleFill" enabled="1" id="{9b282ba5-512f-4d18-87ac-b2f6378e9037}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="color" type="QString" value="183,72,75,255"></Option>
+            <Option name="joinstyle" type="QString" value="bevel"></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="MM"></Option>
+            <Option name="outline_color" type="QString" value="183,72,75,255"></Option>
+            <Option name="outline_style" type="QString" value="solid"></Option>
+            <Option name="outline_width" type="QString" value="0.86"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+            <Option name="style" type="QString" value="no"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+      </symbol>
+    </symbols>
+    <rotation></rotation>
+    <sizescale></sizescale>
+  </renderer-v2>
+  <selection mode="Default">
+    <selectionColor invalid="1"></selectionColor>
+    <selectionSymbol>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="fill">
+        <data_defined_properties>
+          <Option type="Map">
+            <Option name="name" type="QString" value=""></Option>
+            <Option name="properties"></Option>
+            <Option name="type" type="QString" value="collection"></Option>
+          </Option>
+        </data_defined_properties>
+        <layer class="SimpleFill" enabled="1" id="{5a2a39b2-1afe-4f2a-9da9-95d799b3060a}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="color" type="QString" value="0,0,255,255"></Option>
+            <Option name="joinstyle" type="QString" value="bevel"></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="MM"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255"></Option>
+            <Option name="outline_style" type="QString" value="solid"></Option>
+            <Option name="outline_width" type="QString" value="0.26"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+            <Option name="style" type="QString" value="solid"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+      </symbol>
+    </selectionSymbol>
+  </selection>
+  <blendMode>0</blendMode>
+  <featureBlendMode>0</featureBlendMode>
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -110,7 +185,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_field_project_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_dc8a17aa_8ca1_445b_b7ee_4b547f3b1b76"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_field_project_type_687f17fd_da94_4adb_b11b_6f89257b1f05"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_field_project_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_field_project_type_field_project"></Option>
@@ -183,6 +258,13 @@
         </config>
       </editWidget>
     </field>
+    <field configurationFlags="NoFlag" name="qgis_plugin_version">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
@@ -203,26 +285,28 @@
     <alias field="date_entered" index="15" name=""></alias>
     <alias field="user_updated" index="16" name=""></alias>
     <alias field="date_updated" index="17" name=""></alias>
+    <alias field="qgis_plugin_version" index="18" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
     <policy field="objectid" policy="Duplicate"></policy>
     <policy field="uuid" policy="Duplicate"></policy>
-    <policy field="short_name" policy="DefaultValue"></policy>
-    <policy field="title" policy="DefaultValue"></policy>
-    <policy field="description" policy="DefaultValue"></policy>
-    <policy field="project_lead" policy="DefaultValue"></policy>
-    <policy field="status_code" policy="DefaultValue"></policy>
-    <policy field="start_date" policy="DefaultValue"></policy>
-    <policy field="end_date" policy="DefaultValue"></policy>
-    <policy field="field_project_type" policy="DefaultValue"></policy>
-    <policy field="local_epsg" policy="DefaultValue"></policy>
-    <policy field="notes" policy="DefaultValue"></policy>
-    <policy field="mapped_scale" policy="DefaultValue"></policy>
+    <policy field="short_name" policy="Duplicate"></policy>
+    <policy field="title" policy="Duplicate"></policy>
+    <policy field="description" policy="Duplicate"></policy>
+    <policy field="project_lead" policy="Duplicate"></policy>
+    <policy field="status_code" policy="Duplicate"></policy>
+    <policy field="start_date" policy="Duplicate"></policy>
+    <policy field="end_date" policy="Duplicate"></policy>
+    <policy field="field_project_type" policy="Duplicate"></policy>
+    <policy field="local_epsg" policy="Duplicate"></policy>
+    <policy field="notes" policy="Duplicate"></policy>
+    <policy field="mapped_scale" policy="Duplicate"></policy>
     <policy field="user_entered" policy="Duplicate"></policy>
     <policy field="date_entered" policy="Duplicate"></policy>
     <policy field="user_updated" policy="Duplicate"></policy>
     <policy field="date_updated" policy="Duplicate"></policy>
+    <policy field="qgis_plugin_version" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
@@ -243,6 +327,7 @@
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
     <default applyOnUpdate="1" expression="@user_account_name" field="user_updated"></default>
     <default applyOnUpdate="1" expression="now()" field="date_updated"></default>
+    <default applyOnUpdate="0" expression="" field="qgis_plugin_version"></default>
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
@@ -263,6 +348,7 @@
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="qgis_plugin_version" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
@@ -283,6 +369,7 @@
     <constraint desc="" exp="" field="date_entered"></constraint>
     <constraint desc="" exp="" field="user_updated"></constraint>
     <constraint desc="" exp="" field="date_updated"></constraint>
+    <constraint desc="" exp="" field="qgis_plugin_version"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
@@ -380,6 +467,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="notes"></field>
     <field editable="1" name="objectid"></field>
     <field editable="1" name="project_lead"></field>
+    <field editable="1" name="qgis_plugin_version"></field>
     <field editable="1" name="short_name"></field>
     <field editable="1" name="start_date"></field>
     <field editable="1" name="status_code"></field>
@@ -400,6 +488,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="notes"></field>
     <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="project_lead"></field>
+    <field labelOnTop="0" name="qgis_plugin_version"></field>
     <field labelOnTop="0" name="short_name"></field>
     <field labelOnTop="0" name="start_date"></field>
     <field labelOnTop="0" name="status_code"></field>
@@ -420,6 +509,7 @@ def my_form_open(dialog, layer, feature):
     <field name="notes" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
     <field name="project_lead" reuseLastValue="0"></field>
+    <field name="qgis_plugin_version" reuseLastValue="0"></field>
     <field name="short_name" reuseLastValue="0"></field>
     <field name="start_date" reuseLastValue="0"></field>
     <field name="status_code" reuseLastValue="0"></field>
@@ -431,5 +521,5 @@ def my_form_open(dialog, layer, feature):
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
   <mapTip enabled="1"></mapTip>
-  <layerGeometryType>4</layerGeometryType>
+  <layerGeometryType>2</layerGeometryType>
 </qgis>

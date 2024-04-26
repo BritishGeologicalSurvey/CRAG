@@ -46,7 +46,6 @@ from qgis.core import (
     QgsRuleBasedRenderer,
     QgsSymbol,
     QgsVectorLayer,
-    QgsVectorLayerUtils,
 )
 from qgis.gui import (
     QgisInterface,
@@ -156,6 +155,14 @@ class FieldDataCapture:
         Get the styles directory path from the current project.
         """
         return self.project_dir / "styles"
+
+
+    @property
+    def photos_dir(self) -> Path:
+        """
+        Get the photos directory path from the current project.
+        """
+        return self.project_dir / "photos"
 
 
     @property
@@ -306,13 +313,13 @@ class FieldDataCapture:
             checkable=True,
         )
 
-        self.add_action(
+        self.button_setup_project = self.add_action(
             icon_path,
             text=self.tr(u'Setup Project'),
             callback=lambda: self.run_function_list(functions=[
                 self.add_gpkg_to_project,
                 self.add_gpkg_layers_to_project,
-                lambda: self.open_layer_form(layer_name="field_project"),
+                self.open_create_field_project,
             ]),
             parent=self.iface.mainWindow(),
         )
@@ -373,7 +380,7 @@ class FieldDataCapture:
         self.add_action(
             icon_path,
             text=self.tr(u'Add Field Project'),
-            callback=lambda: self.open_layer_form(layer_name="field_project"),
+            callback=self.open_create_field_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
@@ -412,7 +419,7 @@ class FieldDataCapture:
         if QgsProject.instance().fileName() != '':
             return True
         else:
-            QMessageBox.information(None, "Information", "Please open a saved project.")
+            QMessageBox.warning(None, "Warning", "Please open an existing saved project.")
             return False
 
 
@@ -460,17 +467,17 @@ class FieldDataCapture:
 
         # If we need to check the db_file_exists and the db file does not exist
         if db_file_exists and not self.db_file.exists():
-            QMessageBox.information(None, "Information", f"Could not find file:\n\n{self.db_file}")
+            QMessageBox.warning(None, "Warning", f"Could not find file:\n\n{self.db_file}")
             return False
 
         # If we need to check the fdc_layers_exist and the fdc layers do not exist
         if fdc_layers_exist and not self.check_fdc_layers_exist():
-            QMessageBox.information(None, "Information", "Could not find the required layers for Field Data Capture.")
+            QMessageBox.warning(None, "Warning", "Could not find the required layers for Field Data Capture.")
             return False
 
         # If we need to check that a given layer_name_exists and the given layer name does not exist
         if layer_name_exists is not None and not self.check_layer_exists(layer_name_exists):
-            QMessageBox.information(None, "Information", f"Could not find layer: {layer_name_exists}")
+            QMessageBox.warning(None, "Warning", f"Could not find layer: {layer_name_exists}")
             return False
 
         return True
@@ -549,12 +556,15 @@ class FieldDataCapture:
         self.set_vector_layer_properties(vector_layers)
         # self.set_view_lithology_rules()
 
+        # Create empty photos directory
+        self.photos_dir.mkdir(parents=True, exist_ok=True)
+
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
 
-        QMessageBox.warning(
-            None, "Warning",
-            "Now add a project OR test data to allow you to begin adding locality data.",
+        QMessageBox.information(
+            None, "Information",
+            "GeoPackage layers loaded.\n\nNow set field project boundary polygon and metadata.",
         )
         return True
 
@@ -741,6 +751,7 @@ class FieldDataCapture:
 
         # Move the project layer
         project_name = "field_project"
+        layer_tree_structure[None].remove(project_name)
         layer_tree_structure["metadata"].insert(0, project_name)
 
         return layer_tree_structure
@@ -848,33 +859,16 @@ class FieldDataCapture:
         return simple_lithology_categories, simple_lithology_colours
 
 
-    def open_layer_form(self, layer_name: str) -> bool:
+    def open_create_field_project(self) -> bool:
         """
-        Open the attribute form for the given layer.
+        Enable the QuickMapTool for adding a new field_project.
+        The tool will automatically deactivate after a new feature is saved to the layer.
         Returns a boolean indicating success of the process.
         """
-        if not self.validate_qgis_state(project_active=True, db_file_exists=True, layer_name_exists=layer_name):
+        layer_name = "field_project"
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, layer_name_exists=layer_name) or not self.toggle_quick_map_tool(layer_name, mode="add"):  # noqa
             return False
-
-        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-
-        # Ensure the layer is editable
-        if not layer.isEditable():
-            layer.startEditing()
-
-        # Create a new feature with automatically generated values from the layer
-        feature = QgsVectorLayerUtils.createFeature(layer)
-        # We have to add the new feature to the layer before it can be opened in the form
-        layer.addFeature(feature)
-        keep_feature = self.iface.openFeatureForm(layer, feature)
-
-        # Only save if the user confirms the new feature
-        if keep_feature:
-            layer.commitChanges()
-            return True
-        else:
-            layer.rollBack()
-            return False
+        return True
 
 
     def add_test_data_to_project(self) -> bool:

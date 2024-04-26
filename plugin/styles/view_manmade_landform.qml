@@ -1,4 +1,4 @@
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
   <renderer-v2 attr="manmade_landform_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="adit" render="true" symbol="0" type="string" uuid="{87e1ef39-9cc1-4a8a-8a25-03ed73cfcde1}" value="adit"></category>

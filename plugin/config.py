@@ -4,6 +4,7 @@ Shared global variables used within the plugin.
 
 TABLES = {
     "features": [
+        "field_project",
         "locality_point",
         "bedrock_line",
         "superficial_line",
@@ -41,8 +42,6 @@ TABLES = {
         "sample",
         "structural_measurement",
         "superficial_landform",
-        # Metadata
-        "field_project",
         # Internal
         "_lnk_rock_project",
         "_view_next_locality_id",

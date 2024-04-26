@@ -1,4 +1,4 @@
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
   <renderer-v2 attr="line_type_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="gull" render="true" symbol="0" type="string" uuid="{61e10209-2aa7-4b14-8a65-84850139818a}" value="gull"></category>

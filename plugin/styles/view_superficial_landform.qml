@@ -1,4 +1,4 @@
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.0-Prizren">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
   <renderer-v2 attr="superficial_landform_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="cavity_entrance_natural" render="true" symbol="0" type="string" uuid="{9c61ae0e-772f-45e4-8438-a1e78e31b21a}" value="cavity_entrance_natural"></category>

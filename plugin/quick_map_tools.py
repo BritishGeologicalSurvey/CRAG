@@ -18,6 +18,7 @@ from qgis.PyQt.QtWidgets import (
     QDesktopWidget,
     QMessageBox,
 )
+import pyplugin_installer
 
 from .config import LOCALITY_POINT_CHILDREN
 from .utils import ipdb_breakpoint  # noqa
@@ -51,6 +52,17 @@ class QuickMapToolBase:
         self.iface.layerTreeView().currentLayerChanged.connect(self.to_deactivate)
 
 
+    def get_plugin_metadata(self) -> dict[str, str]:
+        """
+        Get the current metadata of the FieldDataCapture plugin from QGIS plugin manager.
+        This will reload the plugin manager's current plugin metadata.
+        """
+        # Update the current metadata for all plugins
+        # This will briefly open a dialog window for the plugin manager to be updated
+        pyplugin_installer.instance().reloadAndExportData()
+        return self.iface.pluginManagerInterface().pluginMetadata("field_data_capture")
+
+
     def open_feature_form(self, feature: QgsFeature, reopen_form_on_add_locality: bool = True):
         """
         Open the feature form for the given feature in a modal state.
@@ -58,15 +70,26 @@ class QuickMapToolBase:
         If the tool is locality_point_add, then the option to reopen the form can be used too.
         """
         save = self.open_custom_feature_form(feature)
-        # Get the uuid of the new feature so we can find the new feature again after saving
-        # We can't use the fid as this will be set once it is saved
-        new_feature_uuid = feature.attribute("uuid")
 
         # Handle saving or rollback
         if save:
+            # For field_project features, add the plugin version to the new feature
+            if self._layer.name() == "field_project" and self.quick_mode == "add":
+                field_index = [field.name() for field in self._layer.fields()].index("qgis_plugin_version")
+                # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+                self._layer.changeAttributeValue(
+                    fid=feature.id(),
+                    field=field_index,
+                    newValue=self.get_plugin_metadata()["version_installed"],
+                )
+
+            # Get the uuid of the new feature so we can find the new feature again after saving
+            # We can't use the fid as this will be set once it is saved
+            new_feature_uuid = feature.attribute("uuid")
             self._layer.commitChanges(stopEditing=False)
             # Get the saved new feature
             new_feature = list(self._layer.getFeatures(expression=f""""uuid" = '{new_feature_uuid}'"""))[0]
+
         else:
             self._layer.rollBack()
             # Re-enable editing and the current tool
@@ -85,6 +108,11 @@ class QuickMapToolBase:
                 self.open_feature_form(new_feature, reopen_form_on_add_locality=False)
             else:
                 self.warn_unsaved_locality_data.emit()
+
+        # Special handling for field_project
+        # Deactivate the tool after adding a new feature
+        if self._layer.name() == "field_project" and save and self.quick_mode == "add":
+            self.to_deactivate.emit()
 
 
     def open_custom_feature_form(self, feature: QgsFeature) -> bool:
