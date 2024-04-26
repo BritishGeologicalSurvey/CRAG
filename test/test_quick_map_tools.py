@@ -230,30 +230,14 @@ def test_quick_map_tools_field_project_add_confirm(
     qgs_project,
     monkeypatch: pytest.MonkeyPatch,
 ):
-    # Arrange
+    # Arrange 1
     layer_name = "field_project"
     expected_tool_name = f"fdc_{layer_name}_add"
-    properties = {
-        "short_name": "test_field_project",
-        "field_project_type": "field_work",
-        "local_epsg": 27700,
-    }
-    # Prepare monkeypatch for open feature form, which adds project properties like a user would
 
-    def add_project_properties(feature: QgsFeature) -> bool:
-        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-        for field_name, field_value in properties.items():
-            field_index = [field.name() for field in layer.fields()].index(field_name)
-            # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-            layer.changeAttributeValue(fid=feature.id(), field=field_index, newValue=field_value)
-        # Return True to confirm the change
-        return True
-
-    # Act 1
+    # Act 1 - enable the tool
     fdc.button_setup_project.trigger()
-    monkeypatch.setattr(fdc.quick_map_tool, "open_custom_feature_form", add_project_properties)
 
-    # Assert 1
+    # Assert 1 - confirm tool setup
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     # Check that the layer is not modified yet
     assert not layer.isModified()
@@ -263,7 +247,25 @@ def test_quick_map_tools_field_project_add_confirm(
     assert isinstance(fdc.iface.mapCanvas().mapTool(), QuickAddTool)
     assert fdc.iface.mapCanvas().mapTool().toolName() == expected_tool_name
 
-    # Act 2
+    # Arrange 2
+    properties = {
+        "short_name": "test_field_project",
+        "field_project_type": "field_work",
+        "local_epsg": 27700,
+    }
+    # Prepare monkeypatch for open feature form, which adds project properties like a user would
+    def add_project_properties(feature: QgsFeature) -> bool:
+        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        for field_name, field_value in properties.items():
+            field_index = [field.name() for field in layer.fields()].index(field_name)
+            # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+            layer.changeAttributeValue(fid=feature.id(), field=field_index, newValue=field_value)
+        # Return True to confirm the change
+        return True
+
+    monkeypatch.setattr(fdc.quick_map_tool, "open_custom_feature_form", add_project_properties)
+
+    # Act 2 - add a new project
     # Make a new and empty feature with just a polygon geometry
     geometry_wkt = "Polygon ((-3.06646639970546664 56.02224055154277949, -0.86620852862676745 52.89687413861690857, -1.3338961920444623 52.75580097369699217, -3.55541259327851167 55.88561238892003047, -3.06646639970546664 56.02224055154277949))"  # noqa
     geometry = QgsGeometry.fromWkt(geometry_wkt)
@@ -271,7 +273,7 @@ def test_quick_map_tools_field_project_add_confirm(
     geometry_feature.setGeometry(geometry)
     fdc.quick_map_tool.digitizingCompleted.emit(geometry_feature)
 
-    # Assert 2
+    # Assert 2 - confirm tool teardown and project creation
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     # Check that the layer is saved
     assert not layer.isModified()
