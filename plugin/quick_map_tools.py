@@ -131,8 +131,8 @@ class QuickMapToolBase:
         size_modifier = 0.75
         # We either use a modified dimension size based on the screen size
         # or a set maximum size for the dimension, whichever is smaller
-        width = min(screen_size.width() * size_modifier, 1000)
-        height = min(screen_size.height() * size_modifier, 800)
+        width = int(min(screen_size.width() * size_modifier, 1000))
+        height = int(min(screen_size.height() * size_modifier, 800))
         dialog.setMinimumSize(width, height)
 
         # Remove the menu bar from the dialog

@@ -4,7 +4,7 @@ channels:
   - https://nexus-internal.bgs.ac.uk/repository/conda-forge
 dependencies:
   # Correspond to current long-term support versions in Windows
-  - python=3.9
+  - python=3.12
   - pip=23.2
   - qgis=3.34
   - beautifulsoup4
