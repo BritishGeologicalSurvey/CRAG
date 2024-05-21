@@ -57,8 +57,7 @@ class QuickMapToolBase:
         """
         Get the plugin version from the metadat.txt file written at deployment
         """
-        plugin_metadata = self.iface.pluginManagerInterface().pluginMetadata("field_data_capture")
-        plugin_folder = Path(plugin_metadata['library'])
+        plugin_folder = Path(__file__).parent
         local_metadata_file = plugin_folder / 'metadata.txt'
         metadata = ConfigParser()
         metadata.read(local_metadata_file)
