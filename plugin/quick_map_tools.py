@@ -1,3 +1,5 @@
+from configparser import ConfigParser
+from pathlib import Path
 from typing import Optional
 
 from qgis.core import (
@@ -18,7 +20,6 @@ from qgis.PyQt.QtWidgets import (
     QDesktopWidget,
     QMessageBox,
 )
-import pyplugin_installer
 
 from .config import LOCALITY_POINT_CHILDREN
 from .utils import ipdb_breakpoint  # noqa
@@ -52,15 +53,20 @@ class QuickMapToolBase:
         self.iface.layerTreeView().currentLayerChanged.connect(self.to_deactivate)
 
 
-    def get_plugin_metadata(self) -> dict[str, str]:
+    def get_local_version(self) -> str:
         """
-        Get the current metadata of the FieldDataCapture plugin from QGIS plugin manager.
-        This will reload the plugin manager's current plugin metadata.
+        Get the plugin version from the metadat.txt file written at deployment
         """
-        # Update the current metadata for all plugins
-        # This will briefly open a dialog window for the plugin manager to be updated
-        pyplugin_installer.instance().reloadAndExportData()
-        return self.iface.pluginManagerInterface().pluginMetadata("field_data_capture")
+        plugin_metadata = self.iface.pluginManagerInterface().pluginMetadata("field_data_capture")
+        plugin_folder = Path(plugin_metadata['library'])
+        local_metadata_file = plugin_folder / 'metadata.txt'
+        metadata = ConfigParser()
+        metadata.read(local_metadata_file)
+        try:
+            version = metadata['general']['version']
+        except KeyError:
+            version = 'unknown_version'
+        return version
 
 
     def open_feature_form(self, feature: QgsFeature, reopen_form_on_add_locality: bool = True):
@@ -80,7 +86,7 @@ class QuickMapToolBase:
                 self._layer.changeAttributeValue(
                     fid=feature.id(),
                     field=field_index,
-                    newValue=self.get_plugin_metadata()["version_installed"],
+                    newValue=self.get_local_version(),
                 )
 
             # Get the uuid of the new feature so we can find the new feature again after saving
