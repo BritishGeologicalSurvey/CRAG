@@ -55,10 +55,10 @@ class QuickMapToolBase:
 
     def get_local_version(self) -> str:
         """
-        Get the plugin version from the metadat.txt file written at deployment
+        Get the plugin version from the metadat.txt file written at deployment.
+        The metadata file is at the same level as this Python file.
         """
-        plugin_folder = Path(__file__).parent
-        local_metadata_file = plugin_folder / 'metadata.txt'
+        local_metadata_file = Path(__file__).parent / 'metadata.txt'
         metadata = ConfigParser()
         metadata.read(local_metadata_file)
         try:
