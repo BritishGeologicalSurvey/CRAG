@@ -324,6 +324,13 @@ class FieldDataCapture:
             parent=self.iface.mainWindow(),
         )
 
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Add Field Project'),
+            callback=self.open_create_field_project,
+            parent=self.iface.mainWindow(),
+        )
+
         # Setup dev submenu button
         # We still create a QAction, but we set it's menu with a new QMenu
         dev_submenu_action = self.add_action(
@@ -372,15 +379,6 @@ class FieldDataCapture:
             icon_path,
             text=self.tr(u'Add GeoPackage Layers to Project'),
             callback=self.add_gpkg_layers_to_project,
-            add_to_menu=False,
-            parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Add Field Project'),
-            callback=self.open_create_field_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
@@ -506,7 +504,10 @@ class FieldDataCapture:
             QMessageBox.warning(
                 None,
                 "Warning",
-                "No saved field_project feature found. Please ensure you have saved a field_project polygon.",
+                (
+                    "No saved field_project feature found. Please ensure you have saved a field_project polygon.\n\n"
+                    "To create and draw a new one, go to 'Plugins' -> 'Field Data Capture' -> 'Add Field Project'"
+                )
             )
             return False
 
