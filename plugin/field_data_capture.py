@@ -324,6 +324,13 @@ class FieldDataCapture:
             parent=self.iface.mainWindow(),
         )
 
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Add Field Project'),
+            callback=self.open_create_field_project,
+            parent=self.iface.mainWindow(),
+        )
+
         # Setup dev submenu button
         # We still create a QAction, but we set it's menu with a new QMenu
         dev_submenu_action = self.add_action(
@@ -372,15 +379,6 @@ class FieldDataCapture:
             icon_path,
             text=self.tr(u'Add GeoPackage Layers to Project'),
             callback=self.add_gpkg_layers_to_project,
-            add_to_menu=False,
-            parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Add Field Project'),
-            callback=self.open_create_field_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=dev_submenu,
@@ -450,12 +448,33 @@ class FieldDataCapture:
             return False
 
 
+    @staticmethod
+    def check_field_project_exists() -> bool:
+        """
+        Check that the field_project layer has a saved feature.
+        """
+        layer_name = "field_project"
+        # If the layer does not exist, it will have no features
+        if not FieldDataCapture.check_layer_exists(layer_name):
+            return False
+
+        field_project_layer = QgsProject.instance().mapLayersByName("field_project")[0]
+        fp_features = list(field_project_layer.getFeatures())
+
+        # If the number of features is less than 1 or the first feature has an unsaved fid value
+        if len(fp_features) < 1 or fp_features[0].attribute("fid") == "Autogenerate":
+            return False
+
+        return True
+
+
     def validate_qgis_state(
         self,
         project_active: bool = False,
         db_file_exists: bool = False,
         fdc_layers_exist: bool = False,
         layer_name_exists: Optional[str] = None,
+        field_project_exists: bool = False,
     ) -> bool:
         """
         Validate that the given options are currently OK in QGIS.
@@ -478,6 +497,18 @@ class FieldDataCapture:
         # If we need to check that a given layer_name_exists and the given layer name does not exist
         if layer_name_exists is not None and not self.check_layer_exists(layer_name_exists):
             QMessageBox.warning(None, "Warning", f"Could not find layer: {layer_name_exists}")
+            return False
+
+        # If we need to check that there is 1 saved field_project and there isn't 1
+        if field_project_exists and not self.check_field_project_exists():
+            QMessageBox.warning(
+                None,
+                "Warning",
+                (
+                    "No saved field_project feature found. Please ensure you have saved a field_project polygon.\n\n"
+                    "To create and draw a new one, go to 'Plugins' -> 'Field Data Capture' -> 'Add Field Project'"
+                )
+            )
             return False
 
         return True
@@ -964,7 +995,11 @@ class FieldDataCapture:
         This will automatically disable any other quick map tools which are currently active.
         Returns a boolean indicating if the given tool was toggled.
         """
-        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True) or self.warn_unsaved_locality_data():  # noqa
+        # Don't validate that a field_project exists if the tool is for the layer field_project
+        check_fp = True
+        if layer_name == "field_project":
+            check_fp = False
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=check_fp) or self.warn_unsaved_locality_data():  # noqa
             # Disable active tool if there is one and untoggle buttons to ensure things are not left in a bad state
             self.disable_current_quick_map_tool()
             self.untoggle_quick_map_tool_buttons()
