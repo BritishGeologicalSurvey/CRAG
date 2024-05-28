@@ -243,17 +243,22 @@ def my_form_open(dialog, layer, feature):
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="4" name="dip" showLabel="1" verticalStretch="0">
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="Dip and Azimuth" showLabel="0" type="GroupBox" verticalStretch="0" visibilityExpression="&quot;manmade_type_code&quot; = 'trench'" visibilityExpressionEnabled="1">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-    </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="azimuth" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-      </labelStyle>
-    </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="6" name="length" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="5" name="dip" showLabel="1" verticalStretch="0">
+        <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+        </labelStyle>
+      </attributeEditorField>
+      <attributeEditorField horizontalStretch="0" index="6" name="azimuth" showLabel="1" verticalStretch="0">
+        <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+        </labelStyle>
+      </attributeEditorField>
+    </attributeEditorContainer>
+    <attributeEditorField horizontalStretch="0" index="7" name="length" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
