@@ -181,6 +181,14 @@ def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
     assert expected_table_names.issubset(all_table_names)
 
 
+def test_create_field_report(fdc: FieldDataCapture, qgs_project: Path):
+    # Act
+    fdc.create_field_report()
+
+    # Check file exists
+    assert Path(fdc.project_dir / fdc.report_filename).exists()
+
+
 def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Arrange
     fdc.add_gpkg_to_project()
