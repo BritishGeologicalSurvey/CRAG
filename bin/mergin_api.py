@@ -37,6 +37,9 @@ class MerginSigma:
         self.client.download_project(self.project_path(project_name), str(download_dir))
 
     def get_projects(self) -> list[dict[str, Any]]:
+        """
+        Get all of the projects from the SIGMALite namespace.
+        """
         return self.client.projects_list(namespace=self.namespace)
 
     def delete_projects(self, projects: str | list[str]) -> None:
