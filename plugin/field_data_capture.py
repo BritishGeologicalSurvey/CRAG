@@ -976,8 +976,8 @@ class FieldDataCapture:
 
         # Hard-coded transform for now
         # TODO: get from Project
-        sourceCrs = QgsCoordinateReferenceSystem(4326)
-        destCrs = QgsCoordinateReferenceSystem(27700)
+        sourceCrs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
+        destCrs = QgsCoordinateReferenceSystem.fromEpsgId(27700)
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
 
         localities = QgsProject.instance().mapLayersByName('locality_point')[0]
