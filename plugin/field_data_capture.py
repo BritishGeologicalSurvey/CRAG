@@ -55,7 +55,10 @@ from qgis.gui import (
     QgisInterface,
     QgsMapTool,
 )
-from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import (
+    QCoreApplication,
+    QVariant,
+)
 from qgis.PyQt.QtGui import (
     QColor,
     QIcon,
@@ -978,7 +981,9 @@ class FieldDataCapture:
         localities = QgsProject.instance().mapLayersByName('locality_point')[0]
         for feature in localities.getFeatures():
             field_names = [f.name() for f in feature.fields()]
-            attribute_values = dict(zip(field_names, feature.attributes()))
+            # If the field attribute is a PyQt NULL value replace with a Python None
+            values = [None if isinstance(a, QVariant) and a.isNull() else a for a in feature.attributes()]
+            attribute_values = dict(zip(field_names, values))
             # transform dates
             attribute_values['date_entered'] = attribute_values['date_entered'].toPyDateTime()
             if attribute_values['date_updated']:
