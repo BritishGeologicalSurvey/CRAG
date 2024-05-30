@@ -127,6 +127,7 @@ class FieldDataCapture:
         self.first_start = None
 
         self.gpkg_filename = Path("field-data-capture.gpkg")
+        self.report_filename = Path("field-report.html")
 
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
@@ -171,6 +172,14 @@ class FieldDataCapture:
         Get the icons directory path from the plugin folder.
         """
         return WORKDIR / "icons"
+
+
+    @property
+    def report_file(self) -> Path:
+        """
+        Get the field report file path from the current project.
+        """
+        return self.project_dir / self.report_filename
 
 
     def tr(self, message):
@@ -917,6 +926,19 @@ class FieldDataCapture:
         in an HTML document using a Jinja2 template, overwriting the older report if necessary.
         Returns a boolean indicating success of the process.
         """
+        if not self.validate_qgis_state(project_active=True):
+            return False
+
+        if self.report_file.exists():
+            result = QMessageBox.question(
+                None, "Report file Already Exists",
+                f"The report file already exists, would you like to overwrite the file?\n\n{self.report_file}",
+            )
+            if result == QMessageBox.No:
+                return False
+
+        self.report_file.touch()
+        QMessageBox.information(None, "Information", f"Created field report:\n\n{self.report_file}")
         return True
 
 
