@@ -183,6 +183,9 @@ def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
 
 def test_create_field_report(fdc: FieldDataCapture, qgs_project: Path):
     # Act
+    fdc.add_gpkg_to_project()
+    fdc.add_gpkg_layers_to_project()
+    fdc.add_test_data_to_project()
     fdc.create_field_report()
 
     # Check file exists and is not empty

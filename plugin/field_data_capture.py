@@ -39,6 +39,8 @@ from jinja2 import Environment, FileSystemLoader
 
 from qgis.core import (
     Qgis,
+    QgsCoordinateReferenceSystem,
+    QgsCoordinateTransform,
     QgsEditorWidgetSetup,
     QgsLayerTree,
     QgsLayerTreeGroup,
@@ -949,13 +951,47 @@ class FieldDataCapture:
 
         environment = Environment(loader=FileSystemLoader(self.templates_dir))
         template = environment.get_template("report.html")
-        content = template.render()
+        context = self.get_report_data()
+        content = template.render(context)
 
         with open(self.report_file, mode="w", encoding="utf-8") as report:
             report.write(content)
 
         QMessageBox.information(None, "Information", f"Created field report:\n\n{self.report_file}")
         return True
+
+
+    def get_report_data(self) -> dict:
+        """
+        Parse the locality_point layer to get the data for each locality_point
+        """
+        report_data = {
+            'locality_points': []
+        }
+
+        # Hard-coded transform for now
+        # TODO: get from Project
+        sourceCrs = QgsCoordinateReferenceSystem(4326)
+        destCrs = QgsCoordinateReferenceSystem(27700)
+        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
+
+        localities = QgsProject.instance().mapLayersByName('locality_point')[0]
+        for feature in localities.getFeatures():
+            field_names = [f.name() for f in feature.fields()]
+            attribute_values = dict(zip(field_names, feature.attributes()))
+            # transform dates
+            attribute_values['date_entered'] = attribute_values['date_entered'].toPyDateTime()
+            if attribute_values['date_updated']:
+                attribute_values['date_updated'] = attribute_values['date_updated'].toPyDateTime()
+            # transform geometry
+            geom = feature.geometry()
+            geom.transform(tr)
+            point = geom.asPoint()
+            attribute_values['geometry'] = (int(point.x()), int(point.y()))
+
+            report_data['locality_points'].append(attribute_values)
+
+        return report_data
 
 
     def add_test_data_to_project(self) -> bool:

@@ -9,8 +9,18 @@
         {% for point in locality_points %}
         <section>
             <h3>Locality point {{ point.name }}</h3>
-            <p>Date entered: {{point.date_entered}}</p>
-            <p>Geometry: {{point.geometry}}</p>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+                {% for key, value in point.items() %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </table>
         </section>
         {% endfor %}
 
