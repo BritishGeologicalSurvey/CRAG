@@ -339,7 +339,7 @@ class FieldDataCapture:
         )
 
         # Setup dev submenu button
-        # We still create a QAction, but we set it's menu with a new QMenu
+        # We still create a QAction, but we set its menu with a new QMenu
         dev_submenu_action = self.add_action(
             icon_path,
             text=self.tr(u'Developer Tools'),
