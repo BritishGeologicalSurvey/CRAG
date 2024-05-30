@@ -331,6 +331,13 @@ class FieldDataCapture:
             parent=self.iface.mainWindow(),
         )
 
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Create Field Report'),
+            callback=self.create_field_report,
+            parent=self.iface.mainWindow(),
+        )
+
         # Setup dev submenu button
         # We still create a QAction, but we set it's menu with a new QMenu
         dev_submenu_action = self.add_action(
@@ -899,6 +906,17 @@ class FieldDataCapture:
         layer_name = "field_project"
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, layer_name_exists=layer_name) or not self.toggle_quick_map_tool(layer_name, mode="add"):  # noqa
             return False
+        return True
+
+
+    def create_field_report(self) -> bool:
+        """
+        Create and save a field report.
+        If an older report already exists, issue a warning with an option to cancel.
+        If confirmed, parse the locality point layer creating an entry for each point
+        in an HTML document using a Jinja2 template, overwriting the older report if necessary.
+        Returns a boolean indicating success of the process.
+        """
         return True
 
 
