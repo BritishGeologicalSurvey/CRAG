@@ -34,6 +34,19 @@ def setup_db_conn(db_file: Path) -> sqlite3.Connection:
     return conn
 
 
+def locality_point_count(fdc: FieldDataCapture) -> int:
+    """
+    Helper function to get number of locality_points
+    """
+    conn = setup_db_conn(fdc.db_file)
+    row_count = etl.fetchone(
+        "SELECT COUNT() FROM locality_point",
+        conn,
+        row_factory=etl.row_factories.tuple_row_factory,
+    )[0]
+    return row_count
+
+
 @pytest.fixture()
 def project_dir(tmp_path: Path) -> Path:
     """

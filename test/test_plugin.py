@@ -20,7 +20,10 @@ from qgis.core import (
 )
 from qgis.PyQt.QtWidgets import QMessageBox
 
-from conftest import setup_db_conn
+from conftest import (
+    locality_point_count,
+    setup_db_conn,
+)
 from plugin.config import (
     ATTRIBUTE_TABLES,
     FEATURE_TABLES,
@@ -180,16 +183,6 @@ def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
     all_table_names = {row[0] for row in table_rows}
     expected_table_names = set(TABLE_LIST)
     assert expected_table_names.issubset(all_table_names)
-
-
-def locality_point_count(fdc: FieldDataCapture):
-    conn = setup_db_conn(fdc.db_file)
-    row_count = etl.fetchone(
-        "SELECT COUNT() FROM locality_point",
-        conn,
-        row_factory=etl.row_factories.tuple_row_factory,
-    )[0]
-    return row_count
 
 
 def test_create_field_report(fdc: FieldDataCapture, qgs_project: Path):
