@@ -35,6 +35,8 @@ from typing import (
 from xml.dom import minidom
 from xml.etree.ElementTree import canonicalize
 
+from jinja2 import Environment, FileSystemLoader
+
 from qgis.core import (
     Qgis,
     QgsEditorWidgetSetup,
@@ -172,6 +174,14 @@ class FieldDataCapture:
         Get the icons directory path from the plugin folder.
         """
         return WORKDIR / "icons"
+
+
+    @property
+    def templates_dir(self) -> Path:
+        """
+        Get the Jinja2 template directory path from the plugin folder.
+        """
+        return WORKDIR / "templates"
 
 
     @property
@@ -937,7 +947,13 @@ class FieldDataCapture:
             if result == QMessageBox.No:
                 return False
 
-        self.report_file.touch()
+        environment = Environment(loader=FileSystemLoader(self.templates_dir))
+        template = environment.get_template("report.html")
+        content = template.render()
+
+        with open(self.report_file, mode="w", encoding="utf-8") as report:
+            report.write(content)
+
         QMessageBox.information(None, "Information", f"Created field report:\n\n{self.report_file}")
         return True
 

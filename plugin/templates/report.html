@@ -1,0 +1,17 @@
+{% extends "_base.html" %}
+{% block title %}Field_Report{% endblock %}
+{% block body %}
+
+        <section>
+            <h2>Field Report</h2>
+        </section>
+
+        {% for point in locality_points %}
+        <section>
+            <h3>Locality point {{ point.name }}</h3>
+            <p>Date entered: {{point.date_entered}}</p>
+            <p>Geometry: {{point.geometry}}</p>
+        </section>
+        {% endfor %}
+
+{% endblock %}

@@ -185,8 +185,10 @@ def test_create_field_report(fdc: FieldDataCapture, qgs_project: Path):
     # Act
     fdc.create_field_report()
 
-    # Check file exists
-    assert Path(fdc.project_dir / fdc.report_filename).exists()
+    # Check file exists and is not empty
+    report_file = Path(fdc.project_dir / fdc.report_filename)
+    assert report_file.exists()
+    assert report_file.stat().st_size > 0
 
 
 def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
