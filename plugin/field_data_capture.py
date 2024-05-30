@@ -35,8 +35,10 @@ from typing import (
 from xml.dom import minidom
 from xml.etree.ElementTree import canonicalize
 
-from jinja2 import Environment, FileSystemLoader
-
+from jinja2 import (
+    Environment,
+    FileSystemLoader,
+)
 from qgis.core import (
     Qgis,
     QgsCoordinateReferenceSystem,
