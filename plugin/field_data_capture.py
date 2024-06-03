@@ -44,6 +44,7 @@ from qgis.core import (
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
     QgsEditorWidgetSetup,
+    QgsFeature,
     QgsLayerTree,
     QgsLayerTreeGroup,
     QgsMapLayer,
@@ -966,6 +967,14 @@ class FieldDataCapture:
         return True
 
 
+    def get_attribute_values_from_feature(self, feature: QgsFeature) -> dict[str, Any]:
+        field_names = [f.name() for f in feature.fields()]
+        # If the field attribute is a PyQt NULL value replace with a Python None
+        values = [None if isinstance(a, QVariant) and a.isNull() else a for a in feature.attributes()]
+        attribute_values = dict(zip(field_names, values))
+        return attribute_values
+
+
     def get_report_data(self) -> dict:
         """
         Parse the locality_point layer to get the data for each locality_point
@@ -982,10 +991,7 @@ class FieldDataCapture:
 
         localities = QgsProject.instance().mapLayersByName('locality_point')[0]
         for feature in localities.getFeatures():
-            field_names = [f.name() for f in feature.fields()]
-            # If the field attribute is a PyQt NULL value replace with a Python None
-            values = [None if isinstance(a, QVariant) and a.isNull() else a for a in feature.attributes()]
-            attribute_values = dict(zip(field_names, values))
+            attribute_values = self.get_attribute_values_from_feature(feature)
             # transform dates
             attribute_values['date_entered'] = (attribute_values['date_entered']
                                                 .toPyDateTime()
