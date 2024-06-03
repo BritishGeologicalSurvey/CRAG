@@ -25,7 +25,10 @@ from qgis.gui import (
     QgisInterface,
     QgsMapTool,
 )
-from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import (
+    Qt,
+    QSize,
+)
 from qgis.PyQt.QtGui import (
     QColor,
     QIcon,
@@ -137,11 +140,11 @@ class PhotoImporter(QDialog):
 
         # If any photos are skipped, show them in a message box
         if len(skip_photos) > 0:
-            photos_string_list = "\n".join([str(photo) for photo in skip_photos])
+            photos_str = "\n".join([str(photo) for photo in skip_photos])
             QMessageBox.warning(
                 None,
                 "Skipped Existing Photos",
-                f"The current photos either already exist or are already selected and will be skipped:\n\n{photos_string_list}"
+                f"The current photos either already exist or are already selected and will be skipped:\n\n{photos_str}"
             )
 
         return True
@@ -214,8 +217,15 @@ class PhotoImporter(QDialog):
 
 
     def create_photo_widget(self, photo: Path) -> QLabel:
+        """
+        Create the required photo widget for the given photo path.
+        The widget is a QLabel containing a QPixmap object.
+        The image is rotated correctly and scaled down.
+        """
+        image_size = QSize(200, 200)
+        # Images are displayed by create a pixmap in a QLabel object
         label = QLabel(self)
-        label.setFixedSize(200, 200)
+        label.setFixedSize(image_size)
         pixmap = QPixmap(str(photo))
 
         # Get the required rotation for the image to be displayed properly
@@ -231,6 +241,7 @@ class PhotoImporter(QDialog):
         }
         with open(photo, "rb") as photo_file:
             tags = exifread.process_file(photo_file)
+        # If the image file has orientation metadata
         if "Image Orientation" in tags:
             orientation_code = tags["Image Orientation"].values[0]
             transform = QTransform()
@@ -238,7 +249,7 @@ class PhotoImporter(QDialog):
             pixmap = pixmap.transformed(transform)
 
         # Set the pixmap and scale it down
-        label.setPixmap(pixmap.scaled(200, 200, aspectRatioMode=Qt.KeepAspectRatio))
+        label.setPixmap(pixmap.scaled(image_size, aspectRatioMode=Qt.KeepAspectRatio))
         return label
 
 
