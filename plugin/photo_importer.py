@@ -209,6 +209,16 @@ class PhotoImporter(QDialog):
         locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
         combobox = QComboBox()
+        # Configure style to show red when default value is selected
+        def update_stylesheet() -> None:
+            if combobox.currentData() is None:
+                style = "QComboBox:editable{color: red;}"
+            else:
+                style = ""
+            combobox.setStyleSheet(style)
+        combobox.currentTextChanged.connect(update_stylesheet)
+
+        # Add default value
         combobox.addItem("Select Photo", userData=None)
 
         for locality_feature in locality_point_layer.getFeatures():
