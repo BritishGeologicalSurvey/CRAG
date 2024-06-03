@@ -86,8 +86,8 @@ class PhotoImporter(QDialog):
         Create the elements of the Photo Importer dialog box User Interface.
         Also sets the layout for the dialog box.
         """
-        self.import_photos_button = QPushButton("Select Photos", self)
-        self.confirm_selection = QPushButton("Import Selected Photos", self)
+        self.select_photos_button = QPushButton("Select Photos", self)
+        self.import_selection_button = QPushButton("Import Selected Photos", self)
 
         # To make a layout scrollable, you have to wrap it in a standrd QWidget object
         self.photo_rows_layout = QVBoxLayout(self)
@@ -99,9 +99,9 @@ class PhotoImporter(QDialog):
 
         # Arrange the main layout
         layout = QVBoxLayout()
-        layout.addWidget(self.import_photos_button)
+        layout.addWidget(self.select_photos_button)
         layout.addWidget(scroll)
-        layout.addWidget(self.confirm_selection)
+        layout.addWidget(self.import_selection_button)
         self.setLayout(layout)
 
 
@@ -109,8 +109,8 @@ class PhotoImporter(QDialog):
         """
         Function for connecting signals and slots of buttons and input boxes.
         """
-        self.import_photos_button.clicked.connect(self.import_photos)
-        self.confirm_selection.clicked.connect(self.confirm_photos)
+        self.select_photos_button.clicked.connect(self.select_photos)
+        self.import_selection_button.clicked.connect(self.import_selection)
 
 
     def create_photo_widget(self, photo: Path) -> QLabel:
@@ -143,6 +143,10 @@ class PhotoImporter(QDialog):
 
 
     def create_combobox(self) -> QComboBox:
+        """
+        Create a QComboBox which lists the existing locality_point features by name and date_entered.
+        Returns the QComboBox object.
+        """
         locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
         combobox = QComboBox(self)
@@ -158,13 +162,13 @@ class PhotoImporter(QDialog):
         return combobox
 
 
-    def import_photos(self) -> bool:
+    def select_photos(self) -> bool:
         """
-        Get the required photos to import from the user.
+        Get the required photos to select from the user.
         This will create the required widgets to display the photos and add them to the layout.
         Returns a boolean indicating the success of the process.
         """
-        photos = self.select_photos_to_import()
+        photos = self.select_photos_filedialog()
         # If no photos were selected
         if len(photos) == 0:
             return False
@@ -178,7 +182,7 @@ class PhotoImporter(QDialog):
             if photo.name in already_existing_photos or photo in self.photos_to_widgets:
                 skip_photos.append(photo)
             else:
-                self.add_photo_row_layout(photo)
+                self.add_photo_row_widgets(photo)
 
         # If any photos are skipped, show them in a message box
         if len(skip_photos) > 0:
@@ -192,9 +196,9 @@ class PhotoImporter(QDialog):
         return True
 
 
-    def select_photos_to_import(self) -> list[Path]:
+    def select_photos_filedialog(self) -> list[Path]:
         """
-        Get a list of photo filepaths which will be imported.
+        Get a list of photo filepaths which will be imported from a QFileDialog.
         """
         pyqt_open_dialog = QFileDialog.getOpenFileNames(
             self,
@@ -206,7 +210,11 @@ class PhotoImporter(QDialog):
         return filepaths
 
 
-    def add_photo_row_layout(self, photo: Path) -> None:
+    def add_photo_row_widgets(self, photo: Path) -> None:
+        """
+        Create and add the required widgets to display the given photo path in the dialog.
+        Each row in the scrollable area is a QFrame which contains a QVBoxLayout.
+        """
         # Create widgets
         photo_label = QLabel(str(photo.name))
         photo_label.setFixedWidth(200)
@@ -234,7 +242,12 @@ class PhotoImporter(QDialog):
         self.photo_rows_layout.addWidget(row_frame)
 
 
-    def confirm_photos(self) -> None:
+    def import_selection(self) -> None:
+        """
+        Import the selected photos in the dialog into the project.
+        Photos which have not been assigned a locality_point will be ignored.
+        This also copies the photos into the photos directory of the project.
+        """
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
         photo_layer.startEditing()
 
