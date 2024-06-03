@@ -181,6 +181,14 @@ class FieldDataCapture:
 
 
     @property
+    def media_dir(self) -> Path:
+        """
+        Get the media directory path from the current project.
+        """
+        return self.project_dir / "media"
+
+
+    @property
     def icons_dir(self) -> Path:
         """
         Get the icons directory path from the plugin folder.
@@ -649,8 +657,11 @@ class FieldDataCapture:
         self.set_vector_layer_properties(vector_layers)
         # self.set_view_lithology_rules()
 
-        # Create empty photos directory
-        self.photos_dir.mkdir(parents=True, exist_ok=True)
+        # Create empty user directories
+        for directory in [self.photos_dir, self.media_dir]:
+            directory.mkdir(parents=True, exist_ok=True)
+            placeholder = directory / ".placeholder"
+            placeholder.touch()
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
