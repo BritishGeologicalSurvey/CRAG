@@ -144,7 +144,7 @@ class FieldDataCapture:
 
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
-        self.photo_importer: PhotoImporter
+        self.photo_importer: Optional[PhotoImporter] = None
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -1287,7 +1287,23 @@ class FieldDataCapture:
 
 
     def open_photo_importer(self) -> bool:
+        """
+        Open the photo importer tool of the plugin.
+        Returns a boolean indicating the success of the process.
+        """
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
         self.photo_importer = PhotoImporter(self.photos_dir)
+
+        self.photo_importer.photo_importer_closed.connect(self.close_photo_importer)
+
+        return True
+
+
+    def close_photo_importer(self) -> None:
+        """
+        Delete the current photo importer object.
+        """
+        del self.photo_importer
+        self.photo_importer = None

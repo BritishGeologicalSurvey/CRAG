@@ -26,6 +26,7 @@ from qgis.gui import (
     QgsMapTool,
 )
 from qgis.PyQt.QtCore import (
+    pyqtSignal,
     Qt,
     QSize,
 )
@@ -53,9 +54,6 @@ from qgis.PyQt.QtWidgets import (
     QWidget,
 )
 
-# Initialize Qt resources from file resources.py
-from .resources import *  # noqa
-
 from .utils import ipdb_breakpoint  # noqa
 
 
@@ -64,6 +62,8 @@ class PhotoImporter(QDialog):
     QDialog for selecting which photos to import and selecting
     which locality_points the photos relate to.
     """
+    photo_importer_closed = pyqtSignal()
+
     def __init__(self, photos_dir: Path):
         super().__init__()
 
@@ -89,22 +89,29 @@ class PhotoImporter(QDialog):
         Create the elements of the Photo Importer dialog box User Interface.
         Also sets the layout for the dialog box.
         """
-        self.select_photos_button = QPushButton("Select Photos", self)
-        self.import_selection_button = QPushButton("Import Selected Photos", self)
+        self.select_photos_button = QPushButton("Select Photos")
+        self.import_selection_button = QPushButton("Import Selected Photos")
+        self.cancel_button = QPushButton("Cancel")
 
         # To make a layout scrollable, you have to wrap it in a standrd QWidget object
-        self.photo_rows_layout = QVBoxLayout(self)
-        layout_wrapper = QWidget(self)
+        self.photo_rows_layout = QVBoxLayout()
+        layout_wrapper = QWidget()
         layout_wrapper.setLayout(self.photo_rows_layout)
-        scroll = QScrollArea(self)
-        scroll.setWidget(layout_wrapper)
-        scroll.setWidgetResizable(True)
+        scroll_area = QScrollArea()
+        scroll_area.setWidget(layout_wrapper)
+        # The widget must be allowed to change size so that rows can be added later
+        scroll_area.setWidgetResizable(True)
+
+        # Bottom button layout
+        bottom_button_layout = QHBoxLayout()
+        bottom_button_layout.addWidget(self.import_selection_button)
+        bottom_button_layout.addWidget(self.cancel_button)
 
         # Arrange the main layout
         layout = QVBoxLayout()
         layout.addWidget(self.select_photos_button)
-        layout.addWidget(scroll)
-        layout.addWidget(self.import_selection_button)
+        layout.addWidget(scroll_area)
+        layout.addLayout(bottom_button_layout)
         self.setLayout(layout)
 
 
@@ -114,6 +121,7 @@ class PhotoImporter(QDialog):
         """
         self.select_photos_button.clicked.connect(self.select_photos)
         self.import_selection_button.clicked.connect(self.import_selection)
+        self.cancel_button.clicked.connect(self.close)
 
 
     def select_photos(self) -> bool:
@@ -179,17 +187,19 @@ class PhotoImporter(QDialog):
 
         # Arrange layout for new widgets
         # Top part of each photo row
-        top_hbox = QHBoxLayout(self)
+        top_hbox = QHBoxLayout()
         top_hbox.addWidget(photo_label)
         top_hbox.addWidget(combobox)
         # Bottom part of each photo row
-        bottom_hbox = QHBoxLayout(self)
+        bottom_hbox = QHBoxLayout()
         bottom_hbox.addWidget(photo_widget)
         bottom_hbox.addWidget(notes_label)
 
-        row_layout = QVBoxLayout(self)
+        # Combine the top and bottom half into a single layout to form an entire row
+        row_layout = QVBoxLayout()
         row_layout.addLayout(top_hbox)
         row_layout.addLayout(bottom_hbox)
+        # Put the layout into a frame for a border
         row_frame = QFrame()
         row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
         row_frame.setLayout(row_layout)
@@ -203,11 +213,12 @@ class PhotoImporter(QDialog):
         """
         locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
-        combobox = QComboBox(self)
+        combobox = QComboBox()
         combobox.addItem("Select Photo", userData=None)
 
         for locality_feature in locality_point_layer.getFeatures():
             locality_date = locality_feature.attribute("date_entered").toPyDateTime()
+            # locality_date.replace(microsecond=0)
             combobox.addItem(
                 f"{locality_feature.attribute('name')} | {locality_date}",
                 userData=locality_feature.attribute("uuid"),
@@ -224,7 +235,7 @@ class PhotoImporter(QDialog):
         """
         image_size = QSize(200, 200)
         # Images are displayed by create a pixmap in a QLabel object
-        label = QLabel(self)
+        label = QLabel()
         label.setFixedSize(image_size)
         pixmap = QPixmap(str(photo))
 
@@ -284,3 +295,10 @@ class PhotoImporter(QDialog):
 
         photo_layer.commitChanges()
         self.close()
+
+
+    def closeEvent(self, event=None) -> None:
+        """
+        Function which is run by PyQt when the dialog is closed.
+        """
+        self.photo_importer_closed.emit()
