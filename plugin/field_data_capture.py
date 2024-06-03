@@ -985,14 +985,10 @@ class FieldDataCapture:
         return attribute_values
 
 
-    def get_report_data(self) -> dict:
+    def get_attribute_values_from_project(self) -> dict[str, Any]:
         """
-        Parse the locality_point layer to get the data for each locality_point
+        Parse the field_project feature to extract data for the report
         """
-        report_data = {
-            'locality_points': []
-        }
-
         # Get the first (only) field project feature from the field project layer
         field_projects = QgsProject.instance().mapLayersByName('field_project')[0]
         attribute_values = self.get_attribute_values_from_feature(next(field_projects.getFeatures()))
@@ -1002,7 +998,36 @@ class FieldDataCapture:
         if attribute_values['end_date']:
             attribute_values['end_date'] = attribute_values['end_date'].toPyDate()
 
-        report_data['project'] = attribute_values
+        return attribute_values
+
+
+    def get_attribute_values_from_locality_point(
+        self,
+        feature: QgsFeature,
+        tr: QgsCoordinateTransform
+    ) -> dict[str, Any]:
+        """
+        Parse the locality_point feature to extract data for the report
+        """
+        attribute_values = self.get_attribute_values_from_feature(feature)
+        # transform geometry
+        geom = feature.geometry()
+        geom.transform(tr)
+        point = geom.asPoint()
+        attribute_values['geometry'] = (int(point.x()), int(point.y()))
+
+        return attribute_values
+
+
+    def get_report_data(self) -> dict[str, Any]:
+        """
+        Parse the project layers to extract data for the report
+        """
+        report_data = {
+            'locality_points': []
+        }
+
+        report_data['project'] = self.get_attribute_values_from_project()
 
         # Transform geometry to local EPSG from the project
         sourceCrs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
@@ -1011,13 +1036,7 @@ class FieldDataCapture:
 
         localities = QgsProject.instance().mapLayersByName('locality_point')[0]
         for feature in localities.getFeatures():
-            attribute_values = self.get_attribute_values_from_feature(feature)
-            # transform geometry
-            geom = feature.geometry()
-            geom.transform(tr)
-            point = geom.asPoint()
-            attribute_values['geometry'] = (int(point.x()), int(point.y()))
-
+            attribute_values = self.get_attribute_values_from_locality_point(feature, tr)
             report_data['locality_points'].append(attribute_values)
 
         return report_data
