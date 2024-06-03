@@ -169,17 +169,14 @@ class PhotoImporter(QDialog):
 
         self.photo_comboboxes = {}
         # Copy photos to directory
-        for idx, photo in enumerate(photos):
-            new_photo = self.photos_dir / photo.name
-            new_photo.write_bytes(photo.read_bytes())
-
+        for photo in photos:
             # Create widgets
-            photo_label = QLabel(str(new_photo.name))
+            photo_label = QLabel(str(photo.name))
             photo_label.setFixedWidth(200)
             combobox = self.create_combobox()
             photo_widget = self.create_photo_widget(photo)
             notes_label = QLabel("This will be the notes")
-            self.photos_to_widgets[new_photo] = combobox
+            self.photos_to_widgets[photo] = combobox
 
             # Arrange layout for new widgets
             # Top part of each photo row
@@ -224,6 +221,10 @@ class PhotoImporter(QDialog):
             locality_fuid = combobox.currentData()
 
             if locality_fuid is not None:
+                # Copy the photo file into the project
+                new_photo = self.photos_dir / photo_path.name
+                new_photo.write_bytes(photo_path.read_bytes())
+
                 # Create new feature with default values
                 new_feature = QgsVectorLayerUtils.createFeature(photo_layer)
 
