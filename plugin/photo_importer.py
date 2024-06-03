@@ -1,4 +1,5 @@
 import logging
+import datetime as dt
 from pathlib import Path
 from typing import (
     Any,
@@ -50,6 +51,7 @@ from qgis.PyQt.QtWidgets import (
     QMessageBox,
     QPushButton,
     QScrollArea,
+    QTextEdit,
     QVBoxLayout,
     QWidget,
 )
@@ -71,14 +73,15 @@ class PhotoImporter(QDialog):
 
         # Setting the Dialog Box settings
         self.setWindowTitle("Import Photos")
-        self.setMinimumSize(500, 500)
+        self.setMinimumSize(600, 500)
         self.setWindowFlags(
             Qt.Window | Qt.WindowCloseButtonHint
         )
         self.setup_ui_elements()
         self.connect_signals_and_slots()
 
-        self.photos_to_widgets: dict[Path, QComboBox] = {}
+        self.photos_to_widgets: dict[Path, dict[str, QWidget]] = {}
+        self.photo_widget_size = 200
 
         # Make it modal so changes are not made whilst importing photos
         self.exec()
@@ -176,34 +179,51 @@ class PhotoImporter(QDialog):
         """
         Create and add the required widgets to display the given photo path in the dialog.
         Each row in the scrollable area is a QFrame which contains a QVBoxLayout.
+        Each given photo is saved to a dictionary where the keys are photo paths
+        and the values are the QWidget objects which relate to it.
         """
-        # Create widgets
-        photo_label = QLabel(str(photo.name))
-        photo_label.setFixedWidth(200)
-        combobox = self.create_combobox()
-        photo_widget = self.create_photo_widget(photo)
-        notes_label = QLabel("This will be the notes")
-        self.photos_to_widgets[photo] = combobox
+        # Get the photo metadata for display in widgets
+        with open(photo, "rb") as photo_file:
+            photo_tags = exifread.process_file(photo_file)
 
-        # Arrange layout for new widgets
-        # Top part of each photo row
-        top_hbox = QHBoxLayout()
-        top_hbox.addWidget(photo_label)
-        top_hbox.addWidget(combobox)
-        # Bottom part of each photo row
-        bottom_hbox = QHBoxLayout()
-        bottom_hbox.addWidget(photo_widget)
-        bottom_hbox.addWidget(notes_label)
+        # Arrange layout for new widgets into rows within the row layout
+        # Elements on the left of the row have a set width to match the photo size
+        photo_label = QLabel(str(photo.name))
+        photo_label.setFixedWidth(self.photo_widget_size)
+        combobox = self.create_combobox()
+        row_hbox_1 = QHBoxLayout()
+        row_hbox_1.addWidget(photo_label)
+        row_hbox_1.addWidget(combobox)
+
+        photo_date_label = self.create_photo_date_widget(photo, photo_tags)
+        notes_label = QLabel("Notes")
+        row_hbox_2 = QHBoxLayout()
+        row_hbox_2.addWidget(photo_date_label)
+        row_hbox_2.addWidget(notes_label)
+
+        photo_widget = self.create_photo_widget(photo, photo_tags)
+        notes_edit = QTextEdit()
+        row_hbox_3 = QHBoxLayout()
+        row_hbox_3.addWidget(photo_widget)
+        row_hbox_3.addWidget(notes_edit)
 
         # Combine the top and bottom half into a single layout to form an entire row
         row_layout = QVBoxLayout()
-        row_layout.addLayout(top_hbox)
-        row_layout.addLayout(bottom_hbox)
+        row_layout.addLayout(row_hbox_1)
+        row_layout.addLayout(row_hbox_2)
+        row_layout.addLayout(row_hbox_3)
+
         # Put the layout into a frame for a border
         row_frame = QFrame()
         row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
         row_frame.setLayout(row_layout)
         self.photo_rows_layout.addWidget(row_frame)
+
+        # Save the required widgets for user input with the given photo path
+        self.photos_to_widgets[photo] = {
+            "QComboBox": combobox,
+            "QTextEdit": notes_edit,
+        }
 
 
     def create_combobox(self) -> QComboBox:
@@ -217,8 +237,8 @@ class PhotoImporter(QDialog):
         combobox.addItem("Select Photo", userData=None)
 
         for locality_feature in locality_point_layer.getFeatures():
-            locality_date = locality_feature.attribute("date_entered").toPyDateTime()
-            # locality_date.replace(microsecond=0)
+            # Convert to Python datetime object and remove miliseconds
+            locality_date = locality_feature.attribute("date_entered").toPyDateTime().replace(microsecond=0)
             combobox.addItem(
                 f"{locality_feature.attribute('name')} | {locality_date}",
                 userData=locality_feature.attribute("uuid"),
@@ -227,13 +247,34 @@ class PhotoImporter(QDialog):
         return combobox
 
 
-    def create_photo_widget(self, photo: Path) -> QLabel:
+    def create_photo_date_widget(self, photo: Path, photo_tags: dict[str, Any]) -> QLabel:
+        """
+        Create the required label widget to display the photo date.
+        The date is first extracted from the EXIF metadata of the photo file,
+        but if that is missing then the file creation date is used instead.
+        """
+        date_tag = "EXIF DateTimeOriginal"
+        if date_tag in photo_tags:
+            exif_date = photo_tags[date_tag].values
+            date_display = dt.datetime.strptime(exif_date, "%Y:%m:%d %H:%M:%S")
+        else:
+            date_display = dt.datetime.fromtimestamp(photo.stat().st_mtime)
+
+        # Hide miliseconds
+        date_display = date_display.replace(microsecond=0)
+        photo_date_label = QLabel(str(date_display))
+        # Set the width to match the width of the photo widget
+        photo_date_label.setFixedWidth(self.photo_widget_size)
+        return photo_date_label
+
+
+    def create_photo_widget(self, photo: Path, photo_tags: dict[str, Any]) -> QLabel:
         """
         Create the required photo widget for the given photo path.
         The widget is a QLabel containing a QPixmap object.
         The image is rotated correctly and scaled down.
         """
-        image_size = QSize(200, 200)
+        image_size = QSize(self.photo_widget_size, self.photo_widget_size)
         # Images are displayed by create a pixmap in a QLabel object
         label = QLabel()
         label.setFixedSize(image_size)
@@ -250,11 +291,10 @@ class PhotoImporter(QDialog):
             7: 270,
             8: 270,
         }
-        with open(photo, "rb") as photo_file:
-            tags = exifread.process_file(photo_file)
+        orientation_tag = "Image Orientation"
         # If the image file has orientation metadata
-        if "Image Orientation" in tags:
-            orientation_code = tags["Image Orientation"].values[0]
+        if orientation_tag in photo_tags:
+            orientation_code = photo_tags[orientation_tag].values[0]
             transform = QTransform()
             transform.rotate(orientation_to_rotation[orientation_code])
             pixmap = pixmap.transformed(transform)
@@ -273,8 +313,8 @@ class PhotoImporter(QDialog):
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
         photo_layer.startEditing()
 
-        for photo_path, combobox in self.photos_to_widgets.items():
-            locality_fuid = combobox.currentData()
+        for photo_path, photo_widgets in self.photos_to_widgets.items():
+            locality_fuid = photo_widgets["QComboBox"].currentData()
 
             if locality_fuid is not None:
                 # Copy the photo file into the project
@@ -287,6 +327,7 @@ class PhotoImporter(QDialog):
                 new_attributes = {
                     "locality_fuid": locality_fuid,
                     "photo_file": str(photo_path.name),
+                    "notes": photo_widgets["QTextEdit"].toPlainText(),
                 }
                 for attribute, value in new_attributes.items():
                     new_feature.setAttribute(attribute, value)
