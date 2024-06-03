@@ -972,6 +972,16 @@ class FieldDataCapture:
         # If the field attribute is a PyQt NULL value replace with a Python None
         values = [None if isinstance(a, QVariant) and a.isNull() else a for a in feature.attributes()]
         attribute_values = dict(zip(field_names, values))
+
+        # transform dates (all features have these columns)
+        attribute_values['date_entered'] = (attribute_values['date_entered']
+                                            .toPyDateTime()
+                                            .replace(microsecond=0))
+        if attribute_values['date_updated']:
+            attribute_values['date_updated'] = (attribute_values['date_updated']
+                                                .toPyDateTime()
+                                                .replace(microsecond=0))
+
         return attribute_values
 
 
@@ -992,14 +1002,6 @@ class FieldDataCapture:
         localities = QgsProject.instance().mapLayersByName('locality_point')[0]
         for feature in localities.getFeatures():
             attribute_values = self.get_attribute_values_from_feature(feature)
-            # transform dates
-            attribute_values['date_entered'] = (attribute_values['date_entered']
-                                                .toPyDateTime()
-                                                .replace(microsecond=0))
-            if attribute_values['date_updated']:
-                attribute_values['date_updated'] = (attribute_values['date_updated']
-                                                    .toPyDateTime()
-                                                    .replace(microsecond=0))
             # transform geometry
             geom = feature.geometry()
             geom.transform(tr)
