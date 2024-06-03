@@ -77,6 +77,7 @@ class PhotoImporter(QDialog):
 
         self.photos_to_widgets: dict[Path, QComboBox] = {}
 
+        # Make it modal so changes are not made whilst importing photos
         self.exec()
 
 
@@ -159,7 +160,8 @@ class PhotoImporter(QDialog):
 
     def import_photos(self) -> bool:
         """
-        Get the required photos to import from the user and copy them to the project directory.
+        Get the required photos to import from the user.
+        This will create the required widgets to display the photos and add them to the layout.
         Returns a boolean indicating the success of the process.
         """
         photos = self.select_photos_to_import()
@@ -172,17 +174,19 @@ class PhotoImporter(QDialog):
         self.photo_comboboxes = {}
 
         for photo in photos:
-            if photo.name in already_existing_photos:
+            # Don't import photos if they already exist or if they are already selected
+            if photo.name in already_existing_photos or photo in self.photos_to_widgets:
                 skip_photos.append(photo)
             else:
                 self.add_photo_row_layout(photo)
 
+        # If any photos are skipped, show them in a message box
         if len(skip_photos) > 0:
             photos_string_list = "\n".join([str(photo) for photo in skip_photos])
             QMessageBox.warning(
                 None,
                 "Skipped Existing Photos",
-                f"The current photos already exist and will not be selected:\n\n{photos_string_list}"
+                f"The current photos either already exist or are already selected and will be skipped:\n\n{photos_string_list}"
             )
 
         return True
