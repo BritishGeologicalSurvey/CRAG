@@ -148,7 +148,7 @@ dependencies:
   - libspatialindex=1.9.3=h2531618_0
   - libspatialite=5.1.0=h5539517_6
   - libsqlite=3.45.3=h2797004_0
-  - libssh2=1.11.0=h0841786_0
+  - libssh2=1.11.0=h251f7ec_0
   - libstdcxx-ng=13.2.0=hc0a3c3a_7
   - libsystemd0=255=h3516f8a_1
   - libtiff=4.6.0=h1dd3fc0_3
@@ -275,6 +275,7 @@ dependencies:
       - eralchemy2==1.4.1
       - etlhelper==0.14.3
       - executing==2.0.1
+      - exifread==3.0.0
       - flake8==7.0.0
       - greenlet==3.0.3
       - imagesize==1.4.1
