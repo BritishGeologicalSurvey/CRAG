@@ -91,6 +91,7 @@ from .create_gpkg_from_sql import (
     add_test_data,
     WORKDIR,
 )
+from .photo_importer import PhotoImporter
 from .quick_map_tools import (
     QuickAddTool,
     QuickEditTool,
@@ -143,6 +144,7 @@ class FieldDataCapture:
 
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
+        self.photo_importer: PhotoImporter
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -374,6 +376,14 @@ class FieldDataCapture:
             text=self.tr(u'Add Field Project'),
             callback=self.open_create_field_project,
             parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Open Photo Importer'),
+            callback=self.open_photo_importer,
+            parent=self.iface.mainWindow(),
+            add_to_toolbar=True,
         )
 
         self.add_action(
@@ -1274,3 +1284,10 @@ class FieldDataCapture:
             return True
 
         return False
+
+
+    def open_photo_importer(self) -> bool:
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):
+            return False
+
+        self.photo_importer = PhotoImporter(self.photos_dir)
