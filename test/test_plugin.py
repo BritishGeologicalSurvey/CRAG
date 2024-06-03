@@ -185,39 +185,33 @@ def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
     assert expected_table_names.issubset(all_table_names)
 
 
-def test_create_field_report(fdc: FieldDataCapture, qgs_project: Path):
+def test_create_field_report(fdc_project: FieldDataCapture, qgs_project: Path):
     # Arrange
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
-    fdc.add_test_data_to_project()
 
     # Act
-    fdc.create_field_report()
+    fdc_project.create_field_report()
 
     # Assert
     # Check file exists and is not empty
-    report_file = Path(fdc.project_dir / fdc.report_filename)
+    report_file = Path(fdc_project.project_dir / fdc_project.report_filename)
     assert report_file.exists()
     assert report_file.stat().st_size > 0
     # Confirm the correct number of sections has been created
     soup = BeautifulSoup(report_file.read_text(encoding="utf-8"), 'lxml')
     locality_sections = soup.findAll('section', {'class': "locality_point"})
-    row_count = locality_point_count(fdc)
+    row_count = locality_point_count(fdc_project)
     assert len(locality_sections) == row_count
 
 
-def test_get_report_data(fdc: FieldDataCapture, qgs_project: Path):
+def test_get_report_data(fdc_project: FieldDataCapture, qgs_project: Path):
     # Arrange
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
-    fdc.add_test_data_to_project()
 
     # Act
-    report_data = fdc.get_report_data()
+    report_data = fdc_project.get_report_data()
 
     # Assert
     # Check that the correct amount of data has been obtained
-    row_count = locality_point_count(fdc)
+    row_count = locality_point_count(fdc_project)
     assert len(report_data['locality_points']) == row_count
 
 

@@ -160,7 +160,7 @@ def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
 
 
 @pytest.fixture()
-def fdc_project(fdc: FieldDataCapture, qgs_project: Path):
+def fdc_project(fdc: FieldDataCapture, qgs_project: Path) -> FieldDataCapture:
     """
     Setup an Field Data Capture project for use in tests.
     """
