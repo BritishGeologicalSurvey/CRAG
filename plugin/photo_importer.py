@@ -113,55 +113,6 @@ class PhotoImporter(QDialog):
         self.import_selection_button.clicked.connect(self.import_selection)
 
 
-    def create_photo_widget(self, photo: Path) -> QLabel:
-        label = QLabel(self)
-        label.setFixedSize(200, 200)
-        pixmap = QPixmap(str(photo))
-
-        # Get the required rotation for the image to be displayed properly
-        orientation_to_rotation = {
-            1: 0,
-            2: 0,
-            3: 180,
-            4: 180,
-            5: 90,
-            6: 90,
-            7: 270,
-            8: 270,
-        }
-        with open(photo, "rb") as photo_file:
-            tags = exifread.process_file(photo_file)
-        if "Image Orientation" in tags:
-            orientation_code = tags["Image Orientation"].values[0]
-            transform = QTransform()
-            transform.rotate(orientation_to_rotation[orientation_code])
-            pixmap = pixmap.transformed(transform)
-
-        # Set the pixmap and scale it down
-        label.setPixmap(pixmap.scaled(200, 200, aspectRatioMode=Qt.KeepAspectRatio))
-        return label
-
-
-    def create_combobox(self) -> QComboBox:
-        """
-        Create a QComboBox which lists the existing locality_point features by name and date_entered.
-        Returns the QComboBox object.
-        """
-        locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
-
-        combobox = QComboBox(self)
-        combobox.addItem("Select Photo", userData=None)
-
-        for locality_feature in locality_point_layer.getFeatures():
-            locality_date = locality_feature.attribute("date_entered").toPyDateTime()
-            combobox.addItem(
-                f"{locality_feature.attribute('name')} | {locality_date}",
-                userData=locality_feature.attribute("uuid"),
-            )
-
-        return combobox
-
-
     def select_photos(self) -> bool:
         """
         Get the required photos to select from the user.
@@ -240,6 +191,55 @@ class PhotoImporter(QDialog):
         row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
         row_frame.setLayout(row_layout)
         self.photo_rows_layout.addWidget(row_frame)
+
+
+    def create_combobox(self) -> QComboBox:
+        """
+        Create a QComboBox which lists the existing locality_point features by name and date_entered.
+        Returns the QComboBox object.
+        """
+        locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+
+        combobox = QComboBox(self)
+        combobox.addItem("Select Photo", userData=None)
+
+        for locality_feature in locality_point_layer.getFeatures():
+            locality_date = locality_feature.attribute("date_entered").toPyDateTime()
+            combobox.addItem(
+                f"{locality_feature.attribute('name')} | {locality_date}",
+                userData=locality_feature.attribute("uuid"),
+            )
+
+        return combobox
+
+
+    def create_photo_widget(self, photo: Path) -> QLabel:
+        label = QLabel(self)
+        label.setFixedSize(200, 200)
+        pixmap = QPixmap(str(photo))
+
+        # Get the required rotation for the image to be displayed properly
+        orientation_to_rotation = {
+            1: 0,
+            2: 0,
+            3: 180,
+            4: 180,
+            5: 90,
+            6: 90,
+            7: 270,
+            8: 270,
+        }
+        with open(photo, "rb") as photo_file:
+            tags = exifread.process_file(photo_file)
+        if "Image Orientation" in tags:
+            orientation_code = tags["Image Orientation"].values[0]
+            transform = QTransform()
+            transform.rotate(orientation_to_rotation[orientation_code])
+            pixmap = pixmap.transformed(transform)
+
+        # Set the pixmap and scale it down
+        label.setPixmap(pixmap.scaled(200, 200, aspectRatioMode=Qt.KeepAspectRatio))
+        return label
 
 
     def import_selection(self) -> None:
