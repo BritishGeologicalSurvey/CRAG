@@ -19,6 +19,7 @@ from qgis.core import (
     QgsRuleBasedRenderer,
     QgsSymbol,
     QgsVectorLayer,
+    QgsVectorLayerUtils,
 )
 from qgis.gui import (
     QgisInterface,
@@ -54,6 +55,7 @@ from .resources import *  # noqa
 
 from .utils import ipdb_breakpoint  # noqa
 
+
 class PhotoImporter(QDialog):
     """
     QDialog for selecting which photos to import and selecting
@@ -66,14 +68,14 @@ class PhotoImporter(QDialog):
 
         # Setting the Dialog Box settings
         self.setWindowTitle("Import Photos")
-        self.setMinimumSize(400, 400)
+        self.setMinimumSize(500, 500)
         self.setWindowFlags(
             Qt.Window | Qt.WindowCloseButtonHint
         )
         self.setup_ui_elements()
         self.connect_signals_and_slots()
 
-        self.photo_widgets: dict[Path, QComboBox] = {}
+        self.photos_to_widgets: dict[Path, QComboBox] = {}
 
         self.exec()
 
@@ -83,8 +85,8 @@ class PhotoImporter(QDialog):
         Create the elements of the Photo Importer dialog box User Interface.
         Also sets the layout for the dialog box.
         """
-        self.import_photos_button = QPushButton("Import Photos", self)
-        self.confirm_selection = QPushButton("Confirm Selection", self)
+        self.import_photos_button = QPushButton("Select Photos", self)
+        self.confirm_selection = QPushButton("Import Selected Photos", self)
 
         # To make a layout scrollable, you have to wrap it in a standrd QWidget object
         self.photo_rows_layout = QVBoxLayout(self)
@@ -141,26 +143,18 @@ class PhotoImporter(QDialog):
 
     def create_combobox(self) -> QComboBox:
         locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
-        photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
+
+        combobox = QComboBox(self)
+        combobox.addItem("Select Photo", userData=None)
 
         for locality_feature in locality_point_layer.getFeatures():
-            locality_fuid = locality_feature.attribute("uuid")
-            # Get photo features where the locality_fuid matches and there is no current photo file
-            photo_features = list(photo_layer.getFeatures(
-                expression=f"""
-                    "locality_fuid" = '{locality_fuid}' and "photo_file" is NULL
-                """
-            ))
+            locality_date = locality_feature.attribute("date_entered").toPyDateTime()
+            combobox.addItem(
+                f"{locality_feature.attribute('name')} | {locality_date}",
+                userData=locality_feature.attribute("uuid"),
+            )
 
-            if len(photo_features) > 0:
-                combobox = QComboBox(self)
-                combobox.addItem("Select Photo", userData=None)
-                for photo_feature in photo_features:
-                    combobox.addItem(
-                        f"{locality_feature.attribute('name')} | {photo_feature.attribute('notes')}",
-                        userData=photo_feature.attribute("fid"),
-                    )
-                return combobox
+        return combobox
 
 
     def import_photos(self) -> bool:
@@ -185,7 +179,7 @@ class PhotoImporter(QDialog):
             combobox = self.create_combobox()
             photo_widget = self.create_photo_widget(photo)
             notes_label = QLabel("This will be the notes")
-            self.photo_widgets[new_photo] = combobox
+            self.photos_to_widgets[new_photo] = combobox
 
             # Arrange layout for new widgets
             # Top part of each photo row
@@ -214,7 +208,7 @@ class PhotoImporter(QDialog):
         """
         pyqt_open_dialog = QFileDialog.getOpenFileNames(
             self,
-            "Import Recoordination CSV",
+            "Import Locality Photos",
             filter="(*.png *.jpg *.jpeg *.tif)",
         )
         filepaths = [Path(filepath) for filepath in pyqt_open_dialog[0]]
@@ -224,17 +218,23 @@ class PhotoImporter(QDialog):
 
     def confirm_photos(self) -> None:
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
-        field_index = [field.name() for field in photo_layer.fields()].index("photo_file")
         photo_layer.startEditing()
 
-        for photo_path, combobox in self.photo_widgets.items():
-            photo_fid = combobox.currentData()
+        for photo_path, combobox in self.photos_to_widgets.items():
+            locality_fuid = combobox.currentData()
 
-            if photo_fid is not None:
-                relative_photo_path = str(photo_path.name)
-                photo_layer.changeAttributeValue(fid=photo_fid, field=field_index, newValue=relative_photo_path)
-            else:
-                photo_path.unlink()
+            if locality_fuid is not None:
+                # Create new feature with default values
+                new_feature = QgsVectorLayerUtils.createFeature(photo_layer)
+
+                new_attributes = {
+                    "locality_fuid": locality_fuid,
+                    "photo_file": str(photo_path.name),
+                }
+                for attribute, value in new_attributes.items():
+                    new_feature.setAttribute(attribute, value)
+
+                photo_layer.addFeature(new_feature)
 
         photo_layer.commitChanges()
         self.close()
