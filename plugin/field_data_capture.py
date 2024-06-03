@@ -987,9 +987,13 @@ class FieldDataCapture:
             values = [None if isinstance(a, QVariant) and a.isNull() else a for a in feature.attributes()]
             attribute_values = dict(zip(field_names, values))
             # transform dates
-            attribute_values['date_entered'] = attribute_values['date_entered'].toPyDateTime()
+            attribute_values['date_entered'] = (attribute_values['date_entered']
+                                                .toPyDateTime()
+                                                .replace(microsecond=0))
             if attribute_values['date_updated']:
-                attribute_values['date_updated'] = attribute_values['date_updated'].toPyDateTime()
+                attribute_values['date_updated'] = (attribute_values['date_updated']
+                                                    .toPyDateTime()
+                                                    .replace(microsecond=0))
             # transform geometry
             geom = feature.geometry()
             geom.transform(tr)
