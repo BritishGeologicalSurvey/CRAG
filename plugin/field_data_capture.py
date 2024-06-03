@@ -1287,7 +1287,7 @@ class FieldDataCapture:
 
 
     def open_photo_importer(self) -> bool:
-        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
         self.photo_importer = PhotoImporter(self.photos_dir)

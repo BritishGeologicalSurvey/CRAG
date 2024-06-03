@@ -37,6 +37,7 @@ from qgis.PyQt.QtWidgets import (
     QComboBox,
     QDialog,
     QFileDialog,
+    QFrame,
     QGridLayout,
     QHBoxLayout,
     QLabel,
@@ -72,9 +73,9 @@ class PhotoImporter(QDialog):
         self.setup_ui_elements()
         self.connect_signals_and_slots()
 
-        self.grid_photo_widgets: dict[Path, QComboBox] = {}
+        self.photo_widgets: dict[Path, QComboBox] = {}
 
-        self.show()
+        self.exec()
 
 
     def setup_ui_elements(self) -> None:
@@ -85,11 +86,12 @@ class PhotoImporter(QDialog):
         self.import_photos_button = QPushButton("Import Photos", self)
         self.confirm_selection = QPushButton("Confirm Selection", self)
 
-        self.grid_layout = QGridLayout(self)
-        grid_wrapper = QWidget(self)
-        grid_wrapper.setLayout(self.grid_layout)
+        # To make a layout scrollable, you have to wrap it in a standrd QWidget object
+        self.photo_rows_layout = QVBoxLayout(self)
+        layout_wrapper = QWidget(self)
+        layout_wrapper.setLayout(self.photo_rows_layout)
         scroll = QScrollArea(self)
-        scroll.setWidget(grid_wrapper)
+        scroll.setWidget(layout_wrapper)
         scroll.setWidgetResizable(True)
 
         # Arrange the main layout
@@ -97,8 +99,6 @@ class PhotoImporter(QDialog):
         layout.addWidget(self.import_photos_button)
         layout.addWidget(scroll)
         layout.addWidget(self.confirm_selection)
-
-        # Set the layout
         self.setLayout(layout)
 
 
@@ -180,14 +180,30 @@ class PhotoImporter(QDialog):
             new_photo.write_bytes(photo.read_bytes())
 
             # Create widgets
-            photo_label = QLabel(str(new_photo))
-            photo_widget = self.create_photo_widget(photo)
+            photo_label = QLabel(str(new_photo.name))
+            photo_label.setFixedWidth(200)
             combobox = self.create_combobox()
+            photo_widget = self.create_photo_widget(photo)
             notes_label = QLabel("This will be the notes")
-            self.grid_photo_widgets[new_photo] = combobox
+            self.photo_widgets[new_photo] = combobox
 
-            self.grid_layout.addWidget(photo_widget, idx, 0)
-            self.grid_layout.addWidget(combobox, idx, 1)
+            # Arrange layout for new widgets
+            # Top part of each photo row
+            top_hbox = QHBoxLayout(self)
+            top_hbox.addWidget(photo_label)
+            top_hbox.addWidget(combobox)
+            # Bottom part of each photo row
+            bottom_hbox = QHBoxLayout(self)
+            bottom_hbox.addWidget(photo_widget)
+            bottom_hbox.addWidget(notes_label)
+
+            row_layout = QVBoxLayout(self)
+            row_layout.addLayout(top_hbox)
+            row_layout.addLayout(bottom_hbox)
+            row_frame = QFrame()
+            row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
+            row_frame.setLayout(row_layout)
+            self.photo_rows_layout.addWidget(row_frame)
 
         return True
 
@@ -211,7 +227,7 @@ class PhotoImporter(QDialog):
         field_index = [field.name() for field in photo_layer.fields()].index("photo_file")
         photo_layer.startEditing()
 
-        for photo_path, combobox in self.grid_photo_widgets.items():
+        for photo_path, combobox in self.photo_widgets.items():
             photo_fid = combobox.currentData()
 
             if photo_fid is not None:
@@ -221,3 +237,4 @@ class PhotoImporter(QDialog):
                 photo_path.unlink()
 
         photo_layer.commitChanges()
+        self.close()
