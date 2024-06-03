@@ -203,31 +203,31 @@ class PhotoImporter(QDialog):
 
 
     def add_photo_row_layout(self, photo: Path) -> None:
-            # Create widgets
-            photo_label = QLabel(str(photo.name))
-            photo_label.setFixedWidth(200)
-            combobox = self.create_combobox()
-            photo_widget = self.create_photo_widget(photo)
-            notes_label = QLabel("This will be the notes")
-            self.photos_to_widgets[photo] = combobox
+        # Create widgets
+        photo_label = QLabel(str(photo.name))
+        photo_label.setFixedWidth(200)
+        combobox = self.create_combobox()
+        photo_widget = self.create_photo_widget(photo)
+        notes_label = QLabel("This will be the notes")
+        self.photos_to_widgets[photo] = combobox
 
-            # Arrange layout for new widgets
-            # Top part of each photo row
-            top_hbox = QHBoxLayout(self)
-            top_hbox.addWidget(photo_label)
-            top_hbox.addWidget(combobox)
-            # Bottom part of each photo row
-            bottom_hbox = QHBoxLayout(self)
-            bottom_hbox.addWidget(photo_widget)
-            bottom_hbox.addWidget(notes_label)
+        # Arrange layout for new widgets
+        # Top part of each photo row
+        top_hbox = QHBoxLayout(self)
+        top_hbox.addWidget(photo_label)
+        top_hbox.addWidget(combobox)
+        # Bottom part of each photo row
+        bottom_hbox = QHBoxLayout(self)
+        bottom_hbox.addWidget(photo_widget)
+        bottom_hbox.addWidget(notes_label)
 
-            row_layout = QVBoxLayout(self)
-            row_layout.addLayout(top_hbox)
-            row_layout.addLayout(bottom_hbox)
-            row_frame = QFrame()
-            row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
-            row_frame.setLayout(row_layout)
-            self.photo_rows_layout.addWidget(row_frame)
+        row_layout = QVBoxLayout(self)
+        row_layout.addLayout(top_hbox)
+        row_layout.addLayout(bottom_hbox)
+        row_frame = QFrame()
+        row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
+        row_frame.setLayout(row_layout)
+        self.photo_rows_layout.addWidget(row_frame)
 
 
     def confirm_photos(self) -> None:
