@@ -167,9 +167,42 @@ class PhotoImporter(QDialog):
         if len(photos) == 0:
             return False
 
+        already_existing_photos = {photo.name for photo in self.photos_dir.glob("*")}
+        skip_photos = []
         self.photo_comboboxes = {}
-        # Copy photos to directory
+
         for photo in photos:
+            if photo.name in already_existing_photos:
+                skip_photos.append(photo)
+            else:
+                self.add_photo_row_layout(photo)
+
+        if len(skip_photos) > 0:
+            photos_string_list = "\n".join([str(photo) for photo in skip_photos])
+            QMessageBox.warning(
+                None,
+                "Skipped Existing Photos",
+                f"The current photos already exist and will not be selected:\n\n{photos_string_list}"
+            )
+
+        return True
+
+
+    def select_photos_to_import(self) -> list[Path]:
+        """
+        Get a list of photo filepaths which will be imported.
+        """
+        pyqt_open_dialog = QFileDialog.getOpenFileNames(
+            self,
+            "Import Locality Photos",
+            filter="(*.png *.jpg *.jpeg *.tif)",
+        )
+        filepaths = [Path(filepath) for filepath in pyqt_open_dialog[0]]
+
+        return filepaths
+
+
+    def add_photo_row_layout(self, photo: Path) -> None:
             # Create widgets
             photo_label = QLabel(str(photo.name))
             photo_label.setFixedWidth(200)
@@ -195,22 +228,6 @@ class PhotoImporter(QDialog):
             row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
             row_frame.setLayout(row_layout)
             self.photo_rows_layout.addWidget(row_frame)
-
-        return True
-
-
-    def select_photos_to_import(self) -> list[Path]:
-        """
-        Get a list of photo filepaths which will be imported.
-        """
-        pyqt_open_dialog = QFileDialog.getOpenFileNames(
-            self,
-            "Import Locality Photos",
-            filter="(*.png *.jpg *.jpeg *.tif)",
-        )
-        filepaths = [Path(filepath) for filepath in pyqt_open_dialog[0]]
-
-        return filepaths
 
 
     def confirm_photos(self) -> None:
