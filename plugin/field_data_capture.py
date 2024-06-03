@@ -973,7 +973,7 @@ class FieldDataCapture:
         values = [None if isinstance(a, QVariant) and a.isNull() else a for a in feature.attributes()]
         attribute_values = dict(zip(field_names, values))
 
-        # transform dates (all features have these columns)
+        # Transform entered and updated datetimes (all features have these columns)
         attribute_values['date_entered'] = (attribute_values['date_entered']
                                             .toPyDateTime()
                                             .replace(microsecond=0))
@@ -993,10 +993,20 @@ class FieldDataCapture:
             'locality_points': []
         }
 
-        # Hard-coded transform for now
-        # TODO: get from Project
+        # Get the first (only) field project feature from the field project layer
+        field_projects = QgsProject.instance().mapLayersByName('field_project')[0]
+        attribute_values = self.get_attribute_values_from_feature(next(field_projects.getFeatures()))
+        # Transform project start and end dates
+        if attribute_values['start_date']:
+            attribute_values['start_date'] = attribute_values['start_date'].toPyDate()
+        if attribute_values['end_date']:
+            attribute_values['end_date'] = attribute_values['end_date'].toPyDate()
+
+        report_data['project'] = attribute_values
+
+        # Transform geometry to local EPSG from the project
         sourceCrs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
-        destCrs = QgsCoordinateReferenceSystem.fromEpsgId(27700)
+        destCrs = QgsCoordinateReferenceSystem.fromEpsgId(report_data['project']['local_epsg'])
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
 
         localities = QgsProject.instance().mapLayersByName('locality_point')[0]

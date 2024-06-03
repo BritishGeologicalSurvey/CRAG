@@ -2,8 +2,44 @@
 {% block title %}Field_Report{% endblock %}
 {% block body %}
 
-        <section>
-            <h2>Field Report</h2>
+        <section class="project">
+            <h2>Field Report: {{ project.title }}</h2>
+            <table>
+                <tr>
+                    <td>Project lead</td>
+                    <td>{{ project.project_lead }}</td>
+                </tr>
+                <tr>
+                    <td>Project type</td>
+                    <td>{{ project.field_project_type }}</td>
+                </tr>
+                <tr>
+                    <td>Start date</td>
+                    <td>{{ project.start_date }}</td>
+                </tr>
+                <tr>
+                    <td>End date</td>
+                    <td>{{ project.end_date }}</td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>{{ project.description }}</td>
+                </tr>
+                <tr>
+                    <td>Notes</td>
+                    <td>{{ project.notes }}</td>
+                </tr>
+                <tr>
+                    <td>Entered</td>
+                    <td>{{ project.user_entered }} at {{ project.date_entered }}</td>
+                </tr>
+                {% if project.user_updated is not none %}
+                <tr>
+                    <td>Updated</td>
+                    <td>{{ project.user_updated }} at {{ project.date_updated }}</td>
+                </tr>
+                {% endif %}
+            </table>
         </section>
 
         {% for point in locality_points %}
