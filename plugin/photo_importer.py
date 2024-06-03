@@ -1,30 +1,11 @@
-import logging
 import datetime as dt
 from pathlib import Path
-from typing import (
-    Any,
-    Callable,
-    Optional,
-)
+from typing import Any
 
 import exifread
 from qgis.core import (
-    Qgis,
-    QgsEditorWidgetSetup,
-    QgsFeature,
-    QgsLayerTree,
-    QgsLayerTreeGroup,
-    QgsMapLayer,
-    QgsMapLayerDependency,
     QgsProject,
-    QgsRuleBasedRenderer,
-    QgsSymbol,
-    QgsVectorLayer,
     QgsVectorLayerUtils,
-)
-from qgis.gui import (
-    QgisInterface,
-    QgsMapTool,
 )
 from qgis.PyQt.QtCore import (
     pyqtSignal,
@@ -32,22 +13,16 @@ from qgis.PyQt.QtCore import (
     QSize,
 )
 from qgis.PyQt.QtGui import (
-    QColor,
-    QIcon,
-    QImage,
     QPixmap,
     QTransform,
 )
 from qgis.PyQt.QtWidgets import (
-    QAction,
     QComboBox,
     QDialog,
     QFileDialog,
     QFrame,
-    QGridLayout,
     QHBoxLayout,
     QLabel,
-    QMenu,
     QMessageBox,
     QPushButton,
     QScrollArea,
