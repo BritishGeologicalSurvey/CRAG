@@ -470,6 +470,7 @@ class FieldDataCapture:
         """Removes the plugin menu item and icon from QGIS GUI."""
         # Disable the current QuickMapTool if there is one
         self.disable_current_quick_map_tool()
+        self.close_photo_importer()
 
         for action in self.actions:
             self.iface.removePluginMenu(
@@ -1313,7 +1314,8 @@ class FieldDataCapture:
 
     def close_photo_importer(self) -> None:
         """
-        Delete the current photo importer object.
+        Delete the current photo importer object if there is one.
         """
-        del self.photo_importer
-        self.photo_importer = None
+        if self.photo_importer is not None:
+            del self.photo_importer
+            self.photo_importer = None
