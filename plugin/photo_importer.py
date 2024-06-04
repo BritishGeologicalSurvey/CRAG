@@ -222,7 +222,7 @@ class PhotoImporter(QDialog):
         combobox.currentTextChanged.connect(update_stylesheet)
 
         # Add default value
-        combobox.addItem("Select Photo", userData=None)
+        combobox.addItem("Select Locality Point", userData=None)
 
         for locality_feature in locality_point_layer.getFeatures():
             # Convert to Python datetime object and remove miliseconds
@@ -301,10 +301,12 @@ class PhotoImporter(QDialog):
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
         photo_layer.startEditing()
 
+        imported_photos = 0
         for photo_path, photo_widgets in self.photos_to_widgets.items():
             locality_fuid = photo_widgets["QComboBox"].currentData()
 
             if locality_fuid is not None:
+                imported_photos += 1
                 # Copy the photo file into the project
                 new_photo = self.photos_dir / photo_path.name
                 new_photo.write_bytes(photo_path.read_bytes())
@@ -324,6 +326,7 @@ class PhotoImporter(QDialog):
 
         photo_layer.commitChanges()
         self.close()
+        QMessageBox.information(None, "Imported Photos", f"Imported {imported_photos} photos successfully.")
 
 
     def closeEvent(self, event=None) -> None:
