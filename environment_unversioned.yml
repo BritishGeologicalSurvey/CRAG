@@ -10,6 +10,7 @@ dependencies:
   - beautifulsoup4
   - cx_oracle
   - Jinja2
+  - lxml
   - pandas
   - rdflib
   - pip:
@@ -18,7 +19,6 @@ dependencies:
       - flake8
       - ipdb
       - ipython
-      - lxml
       - pb_tool
       - pytest
       - sqlalchemy
