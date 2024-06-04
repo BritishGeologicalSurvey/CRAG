@@ -1025,17 +1025,24 @@ class FieldDataCapture:
     def get_attribute_values_from_locality_point(
         self,
         feature: QgsFeature,
-        tr: QgsCoordinateTransform
+        local_epsg: int
     ) -> dict[str, Any]:
         """
         Parse the locality_point feature to extract data for the report
         """
         attribute_values = self.get_attribute_values_from_feature(feature)
-        # transform geometry
+        # Create link out to Google Maps
         geom = feature.geometry()
+        point = geom.asPoint()
+        google_link = (f'<a href="https://www.google.co.uk/maps/place/{point.y()},{point.x()}'
+                       '" target="_blank">Open Google Map</a>')
+        # Transform geometry to local EPSG from the project
+        sourceCrs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
+        destCrs = QgsCoordinateReferenceSystem.fromEpsgId(local_epsg)
+        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
         geom.transform(tr)
         point = geom.asPoint()
-        attribute_values['geometry'] = (int(point.x()), int(point.y()))
+        attribute_values['geometry'] = f'{(int(point.x()), int(point.y()))} - {google_link}'
 
         return attribute_values
 
@@ -1049,15 +1056,10 @@ class FieldDataCapture:
         }
 
         report_data['project'] = self.get_attribute_values_from_project()
-
-        # Transform geometry to local EPSG from the project
-        sourceCrs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
-        destCrs = QgsCoordinateReferenceSystem.fromEpsgId(report_data['project']['local_epsg'])
-        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-
+        local_epsg = report_data['project']['local_epsg']
         localities = QgsProject.instance().mapLayersByName('locality_point')[0]
         for feature in localities.getFeatures():
-            attribute_values = self.get_attribute_values_from_locality_point(feature, tr)
+            attribute_values = self.get_attribute_values_from_locality_point(feature, local_epsg)
             report_data['locality_points'].append(attribute_values)
 
         return report_data
