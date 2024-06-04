@@ -391,7 +391,6 @@ class FieldDataCapture:
             text=self.tr(u'Open Photo Importer'),
             callback=self.open_photo_importer,
             parent=self.iface.mainWindow(),
-            add_to_toolbar=True,
         )
 
         self.add_action(
