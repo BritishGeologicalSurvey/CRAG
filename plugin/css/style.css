@@ -1,0 +1,15 @@
+table {
+    table-layout: auto;
+    width: 75%;
+}
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+tr:nth-child(odd) {
+    background-color: #a0a0a0;
+}

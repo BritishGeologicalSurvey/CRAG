@@ -24,6 +24,7 @@
 import logging
 import os.path
 import pprint
+import shutil
 import sqlite3
 from collections import defaultdict
 from pathlib import Path
@@ -138,6 +139,7 @@ class FieldDataCapture:
 
         self.gpkg_filename = Path("field-data-capture.gpkg")
         self.report_filename = Path("field-report.html")
+        self.css_filename = Path("style.css")
 
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
@@ -198,6 +200,22 @@ class FieldDataCapture:
         Get the field report file path from the current project.
         """
         return self.project_dir / self.report_filename
+
+
+    @property
+    def css_src_file(self) -> Path:
+        """
+        Get the ccs file path from the plugin folder.
+        """
+        return WORKDIR / "css" / self.css_filename
+
+
+    @property
+    def css_dest_dir(self) -> Path:
+        """
+        Get the ccs directory from the current project.
+        """
+        return self.project_dir / "css"
 
 
     def tr(self, message):
@@ -962,6 +980,9 @@ class FieldDataCapture:
 
         with open(self.report_file, mode="w", encoding="utf-8") as report:
             report.write(content)
+        # Copy CSS file to project directory
+        self.css_dest_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
 
         QMessageBox.information(None, "Information", f"Created field report:\n\n{self.report_file}")
         return True
