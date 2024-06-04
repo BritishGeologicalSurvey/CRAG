@@ -11,6 +11,7 @@ from qgis.PyQt.QtCore import (
     pyqtSignal,
     Qt,
     QSize,
+    QUrl,
 )
 from qgis.PyQt.QtGui import (
     QPixmap,
@@ -162,12 +163,10 @@ class PhotoImporter(QDialog):
             photo_tags = exifread.process_file(photo_file)
 
         # Arrange layout for new widgets into rows within the row layout
-        # Elements on the left of the row have a set width to match the photo size
-        photo_label = QLabel(str(photo.name))
-        photo_label.setFixedWidth(self.photo_widget_size)
+        photo_path_label = self.create_photo_path_widget(photo)
         combobox = self.create_combobox()
         row_hbox_1 = QHBoxLayout()
-        row_hbox_1.addWidget(photo_label)
+        row_hbox_1.addWidget(photo_path_label)
         row_hbox_1.addWidget(combobox)
 
         photo_date_label = self.create_photo_date_widget(photo, photo_tags)
@@ -199,6 +198,20 @@ class PhotoImporter(QDialog):
             "QComboBox": combobox,
             "QTextEdit": notes_edit,
         }
+
+
+    def create_photo_path_widget(self, photo: Path) -> QLabel:
+        """
+        Create a QLabel widget to display the given photo path.
+        This also makes the widget clickable, which will open the photo
+        in the OS photo viewing software.
+        """
+        # Create an encoded URL for the file
+        file_url = bytearray(QUrl.fromLocalFile(str(photo)).toEncoded()).decode()
+        photo_path_label = QLabel(f"<a href={file_url}>{photo.name}</a>")
+        photo_path_label.setOpenExternalLinks(True)
+        photo_path_label.setFixedWidth(self.photo_widget_size)
+        return photo_path_label
 
 
     def create_combobox(self) -> QComboBox:
