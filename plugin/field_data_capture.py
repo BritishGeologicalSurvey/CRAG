@@ -1291,7 +1291,7 @@ class FieldDataCapture:
             # Set the icon using the pixmap
             message_box.setIconPixmap(red_pencils_pixmap)
             # Open the message box
-            message_box.exec_()
+            message_box.exec()
             return True
 
         return False

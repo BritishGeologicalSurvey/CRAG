@@ -105,7 +105,7 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
         monkeypatch.setattr(QMessageBox, message_type, lambda *args: QMessageBox.Ok)
 
     # Apply monkeypatch for unsaved edits message box because it is setup manually
-    monkeypatch.setattr(QMessageBox, "exec_", lambda *args: True)
+    monkeypatch.setattr(QMessageBox, "exec", lambda *args: True)
     monkeypatch.setattr(QMessageBox, "setIconPixmap", lambda *args: True)
 
     # Apply monkeypatch for iface.cadDockWidget
