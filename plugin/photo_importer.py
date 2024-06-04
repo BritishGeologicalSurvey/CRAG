@@ -243,14 +243,16 @@ class PhotoImporter(QDialog):
         """
         date_tag = "EXIF DateTimeOriginal"
         if date_tag in photo_tags:
+            source = "EXIF Metadata"
             exif_date = photo_tags[date_tag].values
             date_display = dt.datetime.strptime(exif_date, "%Y:%m:%d %H:%M:%S")
         else:
+            source = "File Modified"
             date_display = dt.datetime.fromtimestamp(photo.stat().st_mtime)
 
         # Hide miliseconds
         date_display = date_display.replace(microsecond=0)
-        photo_date_label = QLabel(str(date_display))
+        photo_date_label = QLabel(f"{date_display} | {source}")
         # Set the width to match the width of the photo widget
         photo_date_label.setFixedWidth(self.photo_widget_size)
         return photo_date_label
