@@ -91,12 +91,20 @@ Activate the environment:
 conda activate fdc
 ```
 
-There is a dependency version issue in the environment with QGIS and Python.  This can be fixed by symlinking the installed version of libgsl to the required one.
+#### Dependency Issues
+
+There are some dependency issues with the environment which can be fixed with the following:
+
+> There is a dependency version issue in the environment with QGIS and Python.  This can be fixed by symlinking the installed version of libgsl to the required one.
 
 ```bash
 ln -s ${CONDA_PREFIX}/lib/libgsl.so.27  ${CONDA_PREFIX}/lib/libgsl.so.25
 ln -s ${CONDA_PREFIX}/lib/libdraco.so.8  ${CONDA_PREFIX}/lib/libdraco.so.9
 ```
+
+> When building the wheels for `geodiff`, you may encounter a CMake error which can be fixed with the following solution: https://stackoverflow.com/questions/65485116/sqlite3-not-found-on-cmake
+
+#### Add New Environment Dependency
 
 When re-creating the environment with a new dependency, you should follow these steps:
 
