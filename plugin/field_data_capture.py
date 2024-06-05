@@ -962,7 +962,7 @@ class FieldDataCapture:
         in an HTML document using a Jinja2 template, overwriting the older report if necessary.
         Returns a boolean indicating success of the process.
         """
-        if not self.validate_qgis_state(project_active=True):
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
         if self.report_file.exists():
