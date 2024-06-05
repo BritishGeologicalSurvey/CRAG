@@ -9,6 +9,8 @@ dependencies:
   - qgis=3.34
   - beautifulsoup4
   - cx_oracle
+  - Jinja2
+  - lxml
   - pandas
   - rdflib
   - pip:
