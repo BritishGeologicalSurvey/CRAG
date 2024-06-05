@@ -107,6 +107,7 @@ class PhotoImporter(QDialog):
         """
         Get the required photos to select from the user.
         This will create the required widgets to display the photos and add them to the layout.
+        If there is an error loading a photo file, it will be skipped
         Returns a boolean indicating the success of the process.
         """
         photos = self.select_photos_filedialog()
@@ -123,15 +124,20 @@ class PhotoImporter(QDialog):
             if photo.name in already_existing_photos or photo in self.photos_to_widgets:
                 skip_photos.append(photo)
             else:
-                self.add_photo_row_widgets(photo)
+                try:
+                    self.add_photo_row_widgets(photo)
+                except Exception:
+                    skip_photos.append(photo)
 
         # If any photos are skipped, show them in a message box
         if len(skip_photos) > 0:
             photos_str = "\n".join([str(photo) for photo in skip_photos])
             QMessageBox.warning(
-                None,
-                "Skipped Existing Photos",
-                f"The current photos either already exist or are already selected and will be skipped:\n\n{photos_str}"
+                None, "Skipped Photos",
+                (
+                    "Some photos have been skipped because they either already exist or could not be loaded:"
+                    f"\n\n{photos_str}"
+                ),
             )
 
         return True
