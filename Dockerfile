@@ -13,6 +13,8 @@ RUN apt-get update -y \
       # xvfb provides a headless X server for testing gui apps
       xvfb \
       zip \
+      # libsqlite3 is required to build pygeodiff
+      libsqlite3-dev \
     && apt-get clean
 
 COPY environment.yml /environment.yml
