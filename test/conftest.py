@@ -12,6 +12,7 @@ from qgis.testing.mocked import get_iface
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
 from plugin.create_gpkg_from_sql import add_test_data
 from plugin.field_data_capture import FieldDataCapture
+from plugin.photo_importer import PhotoImporter
 from plugin.quick_map_tools import QuickMapToolBase
 
 
@@ -114,6 +115,9 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
 
     # Apply monkeypatch for getting plugin metadata in QuickMapTools
     monkeypatch.setattr(QuickMapToolBase, "get_local_version", lambda *args: "fdc_test_fixture")
+
+    # Apply monkeypatch for PhotoImporter
+    monkeypatch.setattr(PhotoImporter, "exec", lambda *args: True)
 
     field_data_capture.initGui()
 
