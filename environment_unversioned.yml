@@ -19,6 +19,7 @@ dependencies:
       - flake8
       - ipdb
       - ipython
+      - mergin-client
       - pb_tool
       - pytest
       - sqlalchemy
