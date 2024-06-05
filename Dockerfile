@@ -20,7 +20,3 @@ RUN apt-get update -y \
 COPY environment.yml /environment.yml
 
 RUN conda env create -f /environment.yml
-
-# Fix sqlite3 dependency issue with environment
-RUN rm -rf ${CONDA_PREFIX}/lib/libsqlite3*
-RUN rm -rf ${CONDA_PREFIX}/include/sqlite3*
