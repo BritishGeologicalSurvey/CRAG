@@ -53,6 +53,7 @@ class CopyProjectData:
             errors = sum([table_result["errors"] for table_result in copy_results.values()])
             if errors > 0:
                 ipdb_breakpoint()
+            self.copy_src_field_project_metadata()
         self.copy_feature_files()
 
 
@@ -91,6 +92,60 @@ class CopyProjectData:
                     "errors": errors,
                 }
         return copy_results
+
+
+    def copy_src_field_project_metadata(self) -> None:
+        """
+        Copy the metadata of the source Field Project into the notes of the destination Field Project.
+        """
+        logger.info("Copying field_project source metadata into field_project destination notes")
+        # Get required data from src and dest field_project records
+        dest_notes = etl.fetchone(
+            "SELECT notes FROM field_project",
+            self.dest_conn,
+            row_factory=etl.row_factories.dict_row_factory,
+        )["notes"]
+        src_metadata = etl.fetchone(
+            """
+                SELECT
+                    short_name,
+                    title,
+                    description,
+                    project_lead,
+                    status_code,
+                    start_date,
+                    end_date,
+                    field_project_type,
+                    local_epsg,
+                    notes,
+                    mapped_scale,
+                    user_entered,
+                    date_entered,
+                    user_updated,
+                    date_updated,
+                    qgis_plugin_version
+                FROM
+                field_project
+            """,
+            self.src_conn,
+            row_factory=etl.row_factories.dict_row_factory,
+        )
+
+        # Generate the extra string to append to the notes
+        src_metadata_strings = [
+            f"{name}: {value}"
+            for name, value in src_metadata.items()
+        ]
+        src_metadata_strings.insert(0, "--- Copied Project Metadata ---")
+        src_metadata_string = "\n".join(src_metadata_strings)
+        # Add dest notes and extra newlines to the start to separate it from the dest notes
+        new_dest_notes = dest_notes + "\n\n" + src_metadata_string
+
+        etl.execute(
+            "UPDATE field_project SET notes=? WHERE uuid=?",
+            self.dest_conn,
+            parameters=(new_dest_notes, self.field_project_fuid_dest),
+        )
 
 
     def transform_fdc_rows(self, chunk: list[dict[str, Any]]) -> Generator[dict[str, Any], None, None]:
