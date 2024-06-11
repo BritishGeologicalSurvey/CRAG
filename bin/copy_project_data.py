@@ -156,7 +156,7 @@ class CopyProjectData:
                     date_updated,
                     qgis_plugin_version
                 FROM
-                field_project
+                    field_project
             """,
             self.src_conn,
             row_factory=etl.row_factories.dict_row_factory,
