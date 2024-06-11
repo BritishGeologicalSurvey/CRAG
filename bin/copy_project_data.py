@@ -44,8 +44,13 @@ class CopyProjectData:
         Copy the project data from the source Field Data Capture project into
         the destination Field Data Capture project.
         """
-        # Setup connections
+        # Ensure database files exist
         db_file = "field-data-capture.gpkg"
+        if not (self.src_dir / db_file).exists() or not (self.dest_dir / db_file).exists():
+            logger.error("Database file is missing from at least one of the projects")
+            return
+
+        # Setup database connections
         with sqlite3.connect(self.src_dir / db_file) as self.src_conn, sqlite3.connect(self.dest_dir / db_file) as self.dest_conn:  # noqa
             for conn in self.src_conn, self.dest_conn:
                 conn.enable_load_extension(True)
