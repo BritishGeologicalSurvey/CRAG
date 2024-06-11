@@ -89,26 +89,27 @@ class CopyProjectData:
         for table_set in [feature_tables, LOCALITY_POINT_CHILDREN]:
             for table in table_set:
 
-                # If there are rows to copy
-                row_count = etl.fetchone(
-                    f"SELECT COUNT() AS count FROM {table}",
-                    self.src_conn,
-                    row_factory=etl.row_factories.tuple_row_factory,
-                )[0]
-                if row_count > 0:
-                    logger.info("Copying %s rows from table: %s", row_count, table)
-                    self.current_table = table
-                    _, errors = etl.copy_table_rows(
-                        table=table,
-                        source_conn=self.src_conn,
-                        dest_conn=self.dest_conn,
-                        row_factory=etl.row_factories.dict_row_factory,
-                        transform=self.transform_fdc_rows,
-                        on_error=lambda failed_rows: None,
-                    )
+                try:
+                    # If there are rows to copy
+                    row_count = etl.fetchone(
+                        f"SELECT COUNT() AS count FROM {table}",
+                        self.src_conn,
+                        row_factory=etl.row_factories.tuple_row_factory,
+                    )[0]
 
-                if errors > 0:
-                    logger.error("%s rows failed when copying table: %s", errors, table)
+                    if row_count > 0:
+                        logger.info("Copying %s rows from table: %s", row_count, table)
+                        self.current_table = table
+                        etl.copy_table_rows(
+                            table=table,
+                            source_conn=self.src_conn,
+                            dest_conn=self.dest_conn,
+                            row_factory=etl.row_factories.dict_row_factory,
+                            transform=self.transform_fdc_rows,
+                        )
+
+                except Exception as error:
+                    logger.error("Failed to copy table '%s' due to error:\n%s", table, error)
                     logger.error("Cancelling copy and rolling back copied tables")
                     self.rollback_copied_table_rows()
                     return False
@@ -121,17 +122,26 @@ class CopyProjectData:
         Delete the rows which have been copied so far.
         These are selected using their uuid values.
         """
+        # Get existing tables first so we only delete copied data in tables which exist
+        existing_tables = etl.fetchall(
+            "SELECT name FROM sqlite_schema WHERE type='table'",
+            self.dest_conn,
+            row_factory=etl.row_factories.tuple_row_factory,
+        )
+        existing_tables = {row[0] for row in existing_tables}
+
         # Delete the rows which have been copied so far by using their uuid values
         for rollback_table, rollback_uuids in self.copied_table_rows.items():
-            logger.error("Rolling back %s rows in table: %s", len(rollback_uuids), rollback_table)
-            if len(rollback_uuids) == 1:
-                check_in_list_str = f"('{rollback_uuids[0]}')"
-            else:
-                check_in_list_str = str(tuple(rollback_uuids))
-            etl.execute(
-                f"DELETE FROM {rollback_table} WHERE uuid IN {check_in_list_str}",
-                self.dest_conn,
-            )
+            if rollback_table in existing_tables:
+                logger.error("Rolling back %s rows in table: %s", len(rollback_uuids), rollback_table)
+                if len(rollback_uuids) == 1:
+                    check_in_list_str = f"('{rollback_uuids[0]}')"
+                else:
+                    check_in_list_str = str(tuple(rollback_uuids))
+                etl.execute(
+                    f"DELETE FROM {rollback_table} WHERE uuid IN {check_in_list_str}",
+                    self.dest_conn,
+                )
 
 
     def copy_src_field_project_metadata(self) -> None:
