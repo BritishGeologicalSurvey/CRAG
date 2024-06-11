@@ -99,7 +99,7 @@ def test_copy_project_data_good(
     expected_field_project_notes_metadata = "\n".join([
         "These are some empty notes honk",
         "",
-        "--- Copied Project Metadata ---",
+        "--- Imported Project Metadata ---",
         "short_name: test_field_project",
         "title: test field project title",
         "description: test field project description",
