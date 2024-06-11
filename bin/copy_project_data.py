@@ -1,6 +1,7 @@
 import argparse
 import logging
 import sqlite3
+import tempfile
 from pathlib import Path
 from typing import (
     Any,
@@ -33,10 +34,6 @@ class CopyProjectData:
         self.dest_conn: sqlite3.Connection
         self.field_project_fuid_col = "field_project_fuid"
         self.field_project_fuid_dest: str
-        # This is a dictionary which will contain table names as keys
-        # and lists of uuid values as values, so that we can track which rows have been copied
-        self.copied_table_rows: dict[str, list[str]] = {}
-        self.current_table: str
 
 
     def copy_project_data(self) -> None:
@@ -50,21 +47,29 @@ class CopyProjectData:
             logger.error("Database file is missing from at least one of the projects")
             return
 
-        # Setup database connections
-        with sqlite3.connect(self.src_dir / db_file) as self.src_conn, sqlite3.connect(self.dest_dir / db_file) as self.dest_conn:  # noqa
-            for conn in self.src_conn, self.dest_conn:
-                conn.enable_load_extension(True)
-                etl.execute("""SELECT load_extension("mod_spatialite")""", conn=conn)
-            logger.info("Connected to both databases successfully")
+        # Create copy of dest database before making changes
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_dir = Path(tmp_dir)
+            dest_db_file_backup = tmp_dir / db_file
+            dest_db_file_backup.write_bytes((self.dest_dir / db_file).read_bytes())
 
-            self.field_project_fuid_dest = self.get_field_project_fuid_dest()
-            copy_success = self.copy_rows()
+            # Setup database connections
+            with sqlite3.connect(self.src_dir / db_file) as self.src_conn, sqlite3.connect(self.dest_dir / db_file) as self.dest_conn:  # noqa
+                for conn in self.src_conn, self.dest_conn:
+                    conn.enable_load_extension(True)
+                    etl.execute("""SELECT load_extension("mod_spatialite")""", conn=conn)
+                logger.info("Connected to both databases successfully")
 
-            if not copy_success:
-                return
+                self.field_project_fuid_dest = self.get_field_project_fuid_dest()
+                copy_success = self.copy_rows()
 
-            self.copy_src_field_project_metadata()
-        self.copy_feature_files()
+                if not copy_success:
+                    # Restore backup destination database
+                    (self.dest_dir / db_file).write_bytes(dest_db_file_backup.read_bytes())
+                    return
+
+                self.copy_src_field_project_metadata()
+            self.copy_feature_files()
 
 
     def get_field_project_fuid_dest(self) -> str:
@@ -99,7 +104,6 @@ class CopyProjectData:
 
                     if row_count > 0:
                         logger.info("Copying %s rows from table: %s", row_count, table)
-                        self.current_table = table
                         etl.copy_table_rows(
                             table=table,
                             source_conn=self.src_conn,
@@ -110,38 +114,10 @@ class CopyProjectData:
 
                 except Exception as error:
                     logger.error("Failed to copy table '%s' due to error:\n%s", table, error)
-                    logger.error("Cancelling copy and rolling back copied tables")
-                    self.rollback_copied_table_rows()
+                    logger.error("Cancelling copy and rolling back destination database")
                     return False
 
         return True
-
-
-    def rollback_copied_table_rows(self) -> None:
-        """
-        Delete the rows which have been copied so far.
-        These are selected using their uuid values.
-        """
-        # Get existing tables first so we only delete copied data in tables which exist
-        existing_tables = etl.fetchall(
-            "SELECT name FROM sqlite_schema WHERE type='table'",
-            self.dest_conn,
-            row_factory=etl.row_factories.tuple_row_factory,
-        )
-        existing_tables = {row[0] for row in existing_tables}
-
-        # Delete the rows which have been copied so far by using their uuid values
-        for rollback_table, rollback_uuids in self.copied_table_rows.items():
-            if rollback_table in existing_tables:
-                logger.error("Rolling back %s rows in table: %s", len(rollback_uuids), rollback_table)
-                if len(rollback_uuids) == 1:
-                    check_in_list_str = f"('{rollback_uuids[0]}')"
-                else:
-                    check_in_list_str = str(tuple(rollback_uuids))
-                etl.execute(
-                    f"DELETE FROM {rollback_table} WHERE uuid IN {check_in_list_str}",
-                    self.dest_conn,
-                )
 
 
     def copy_src_field_project_metadata(self) -> None:
@@ -209,10 +185,6 @@ class CopyProjectData:
             # If there is a field_project fuid in the row, replace it with the dest one
             if self.field_project_fuid_col in row:
                 row[self.field_project_fuid_col] = self.field_project_fuid_dest
-
-            if self.current_table not in self.copied_table_rows:
-                self.copied_table_rows[self.current_table] = []
-            self.copied_table_rows[self.current_table].append(row["uuid"])
 
             yield row
 
