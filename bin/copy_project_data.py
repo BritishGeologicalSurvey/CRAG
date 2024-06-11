@@ -33,6 +33,10 @@ class CopyProjectData:
         self.dest_conn: sqlite3.Connection
         self.field_project_fuid_col = "field_project_fuid"
         self.field_project_fuid_dest: str
+        # This is a dictionary which will contain table names as keys
+        # and lists of uuid values as values, so that we can track which rows have been copied
+        self.copied_table_rows: dict[str, list[str]] = {}
+        self.current_table: str
 
 
     def copy_project_data(self) -> None:
@@ -49,10 +53,11 @@ class CopyProjectData:
             logger.info("Connected to both databases successfully")
 
             self.field_project_fuid_dest = self.get_field_project_fuid_dest()
-            copy_results = self.copy_rows()
-            errors = sum([table_result["errors"] for table_result in copy_results.values()])
-            if errors > 0:
-                ipdb_breakpoint()
+            copy_success = self.copy_rows()
+
+            if not copy_success:
+                return
+
             self.copy_src_field_project_metadata()
         self.copy_feature_files()
 
@@ -68,30 +73,56 @@ class CopyProjectData:
         )["uuid"]
 
 
-    def copy_rows(self) -> dict[str, dict[str, int]]:
+    def copy_rows(self) -> bool:
         """
         Copy the feature rows from the source project into the destination project.
         This ignores the 'field_project' table, all dictionaries and views.
-        Returns a dictionary containing the processed and error counts for each tables copy_table_rows process.
+        Returns a boolean indicating the success of the process.
         """
-        copy_results: dict[str, dict[str, int]] = {}
         # Don't copy field_project
         feature_tables = FEATURE_TABLES - {"field_project"}
         for table_set in [feature_tables, LOCALITY_POINT_CHILDREN]:
             for table in table_set:
-                logger.info("Copying data from table: %s", table)
-                processed, errors = etl.copy_table_rows(
-                    table=table,
-                    source_conn=self.src_conn,
-                    dest_conn=self.dest_conn,
-                    row_factory=etl.row_factories.dict_row_factory,
-                    transform=self.transform_fdc_rows,
-                )
-                copy_results[table] = {
-                    "processed": processed,
-                    "errors": errors,
-                }
-        return copy_results
+
+                # If there are rows to copy
+                row_count = etl.fetchone(
+                    f"SELECT COUNT() AS count FROM {table}",
+                    self.src_conn,
+                    row_factory=etl.row_factories.tuple_row_factory,
+                )[0]
+                if row_count > 0:
+                    logger.info("Copying %s rows from table: %s", row_count, table)
+                    self.current_table = table
+                    _, errors = etl.copy_table_rows(
+                        table=table,
+                        source_conn=self.src_conn,
+                        dest_conn=self.dest_conn,
+                        row_factory=etl.row_factories.dict_row_factory,
+                        transform=self.transform_fdc_rows,
+                        on_error=lambda failed_rows: None,
+                    )
+
+                if errors > 0:
+                    logger.error("%s rows failed when copying table: %s", errors, table)
+                    logger.error("Cancelling copy and rolling back copied tables")
+                    self.rollback_copied_table_rows()
+                    return False
+
+        return True
+
+
+    def rollback_copied_table_rows(self) -> None:
+        """
+        Delete the rows which have been copied so far.
+        These are selected using their uuid values.
+        """
+        # Delete the rows which have been copied so far by using their uuid values
+        for rollback_table, rollback_uuids in self.copied_table_rows.items():
+            logger.error("Rolling back %s rows in table: %s", len(rollback_uuids), rollback_table)
+            etl.execute(
+                f"DELETE FROM {rollback_table} WHERE uuid IN {tuple(rollback_uuids)}",
+                self.dest_conn,
+            )
 
 
     def copy_src_field_project_metadata(self) -> None:
@@ -159,6 +190,11 @@ class CopyProjectData:
             # If there is a field_project fuid in the row, replace it with the dest one
             if self.field_project_fuid_col in row:
                 row[self.field_project_fuid_col] = self.field_project_fuid_dest
+
+            if self.current_table not in self.copied_table_rows:
+                self.copied_table_rows[self.current_table] = []
+            self.copied_table_rows[self.current_table].append(row["uuid"])
+
             yield row
 
 
