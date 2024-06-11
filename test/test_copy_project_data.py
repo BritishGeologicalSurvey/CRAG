@@ -159,7 +159,26 @@ def test_copy_project_data_good(
         assert (dest_fdc_project / "photos" / photo_file.name).exists()
 
 
+@pytest.mark.parametrize(
+    ["sql_break_db_query", "ignore_tables"],
+    [
+        (
+            # Change one of the locality_point names to match one of the test points
+            # This will cause the copy to fail as it does not abide by the UNIQUE constraint
+            "UPDATE locality_point SET name='test_point_002' WHERE name='leorudczenko_002'",
+            # Don't ignore any tables
+            {},
+        ),
+        (
+            "DROP TABLE bedrock_line",
+            # Don't check bedrock_line
+            {"bedrock_line"},
+        ),
+    ],
+)
 def test_copy_project_data_bad(
+    sql_break_db_query: str,
+    ignore_tables: set[str],
     src_fdc_project: Path,
     dest_fdc_project: Path,
 ):
@@ -181,11 +200,10 @@ def test_copy_project_data_bad(
         "terrain_line": 0,
     }
     expected_field_project_notes = "These are some empty notes honk"
-    # Change one of the locality_point names to match one of the test points
-    # This will cause the copy to fail as it does not abide by the UNIQUE constraint
+    # Break the database in some way
     dest_db = dest_fdc_project / "field-data-capture.gpkg"
     with setup_db_conn(dest_db) as conn:
-        etl.execute("UPDATE locality_point SET name='test_point_002' WHERE name='leorudczenko_002'", conn)
+        etl.execute(sql_break_db_query, conn)
 
     # Act
     copy_project_data = CopyProjectData(src_fdc_project, dest_fdc_project)
@@ -197,12 +215,13 @@ def test_copy_project_data_bad(
         # Check that there are the correct number of rows per table in the destination database
         # None should have been added
         for table, expected_row_count in expected_row_counts.items():
-            row_count = etl.fetchone(
-                f"SELECT COUNT() AS count FROM {table}",
-                conn,
-                row_factory=etl.row_factories.tuple_row_factory,
-            )[0]
-            assert row_count == expected_row_count
+            if table not in ignore_tables:
+                row_count = etl.fetchone(
+                    f"SELECT COUNT() AS count FROM {table}",
+                    conn,
+                    row_factory=etl.row_factories.tuple_row_factory,
+                )[0]
+                assert row_count == expected_row_count
 
         # Check that the field project notes have not been changed
         field_project_notes = etl.fetchone(
