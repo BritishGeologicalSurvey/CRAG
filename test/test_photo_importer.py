@@ -51,7 +51,8 @@ def test_select_photos(fdc_project: FieldDataCapture, monkeypatch: pytest.Monkey
         },
         Path("test/data/photos/no_exif_data.jpg"): {
             "photo_path_label": "<a href=file:test/data/photos/no_exif_data.jpg>no_exif_data.jpg</a>",
-            "photo_date_label": "2024-06-04 13:56:40 | File Modified",
+            # Don't include the actual date becuase it changes
+            "photo_date_label": " | File Modified",
         },
     }
     # Apply monkey patch for QFileDialog.getOpenFileNames
@@ -88,7 +89,8 @@ def test_select_photos(fdc_project: FieldDataCapture, monkeypatch: pytest.Monkey
         for idx, (expected_text, expected_data) in enumerate(expected_combobox_items.items()):
             assert combobox.itemText(idx) == expected_text
             assert combobox.itemData(idx) == expected_data
-        assert photo_date_label.text() == expected_widget_settings["photo_date_label"]
+        # Check in rather than matches because one of them does not include the full date
+        assert expected_widget_settings["photo_date_label"] in photo_date_label.text()
         assert photo_widget.pixmap().width() <= fdc_project.photo_importer.photo_widget_size
         assert photo_widget.pixmap().height() <= fdc_project.photo_importer.photo_widget_size
 
