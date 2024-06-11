@@ -1,9 +1,11 @@
+import sqlite3
 from pathlib import Path
 
 import pytest
 import etlhelper as etl
 
 from bin.copy_project_data import CopyProjectData
+from plugin.config import FEATURE_TABLES
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
 from plugin.field_data_capture import FieldDataCapture
 from conftest import setup_db_conn
@@ -70,3 +72,88 @@ def test_copy_project_data_fixtures(
                 row_factory=etl.row_factories.tuple_row_factory,
             )[0]
             assert field_project_count == 1
+
+
+def test_copy_project_data_good(
+    src_fdc_project: Path,
+    dest_fdc_project: Path,
+):
+    # Arrange
+    expected_row_counts = {
+        "artificial_line": 2,
+        "bedrock_line": 1,
+        "field_project": 1,
+        "lithology": 5,
+        "locality_point": 4,
+        "manmade_landform": 2,
+        "mass_move_line": 1,
+        "media": 2,
+        "photo": 4,
+        "sample": 2,
+        "structural_measurement": 2,
+        "superficial_landform": 2,
+        "superficial_line": 1,
+        "terrain_line": 1,
+    }
+    expected_field_project_fuid = "{3a68b7c7-e3a9-4a35-8dd2-00d31c515244}"
+    expected_field_project_notes_metadata = "\n".join([
+        "These are some empty notes honk",
+        "",
+        "--- Copied Project Metadata ---",
+        "short_name: test_field_project",
+        "title: test field project title",
+        "description: test field project description",
+        "project_lead: test_user",
+        "status_code: active",
+        "start_date: 2024-01-01",
+        "end_date: 2024-12-31",
+        "field_project_type: field_work",
+        "local_epsg: 27700",
+        "notes: test field project notes",
+        "mapped_scale: 25000",
+        "user_entered: leorud",
+        "date_entered: 2024-04-17T14:10:40.374",
+        "user_updated: None",
+        "date_updated: None",
+        "qgis_plugin_version: test_plugin_version",
+    ])
+
+    # Act
+    copy_project_data = CopyProjectData(src_fdc_project, dest_fdc_project)
+    copy_project_data.copy_project_data()
+
+    # Assert
+    dest_db = dest_fdc_project / "field-data-capture.gpkg"
+    with sqlite3.connect(dest_db) as conn:
+
+        # Check that there are the correct number of rows per table in the destination database
+        for table, expected_row_count in expected_row_counts.items():
+            row_count = etl.fetchone(
+                f"SELECT COUNT() AS count FROM {table}",
+                conn,
+                row_factory=etl.row_factories.tuple_row_factory,
+            )[0]
+            assert row_count == expected_row_count
+
+        # Check field_project_fuid values have been transformed so there is only 1
+        feature_tables = FEATURE_TABLES - {"field_project"}
+        for table in feature_tables:
+            field_project_fuids = etl.fetchall(
+                f"SELECT field_project_fuid FROM {table} GROUP BY field_project_fuid",
+                conn,
+                row_factory=etl.row_factories.tuple_row_factory,
+            )
+            assert len(field_project_fuids) == 1
+            assert field_project_fuids[0][0] == expected_field_project_fuid
+
+        # Check that the project metadata has been saved to the notes
+        field_project_notes = etl.fetchone(
+            "SELECT notes FROM field_project",
+            conn,
+            row_factory=etl.row_factories.tuple_row_factory,
+        )[0]
+        assert field_project_notes == expected_field_project_notes_metadata
+
+    # Check that the photo files have been copied across
+    for photo_file in (src_fdc_project / "photos").glob("*[!.placeholder]"):
+        assert (dest_fdc_project / "photos" / photo_file.name).exists()
