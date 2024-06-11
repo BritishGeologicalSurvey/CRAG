@@ -124,8 +124,12 @@ class CopyProjectData:
         # Delete the rows which have been copied so far by using their uuid values
         for rollback_table, rollback_uuids in self.copied_table_rows.items():
             logger.error("Rolling back %s rows in table: %s", len(rollback_uuids), rollback_table)
+            if len(rollback_uuids) == 1:
+                check_in_list_str = f"('{rollback_uuids[0]}')"
+            else:
+                check_in_list_str = str(tuple(rollback_uuids))
             etl.execute(
-                f"DELETE FROM {rollback_table} WHERE uuid IN {tuple(rollback_uuids)}",
+                f"DELETE FROM {rollback_table} WHERE uuid IN {check_in_list_str}",
                 self.dest_conn,
             )
 
