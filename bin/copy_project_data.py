@@ -120,6 +120,21 @@ class CopyProjectData:
         return True
 
 
+    def transform_fdc_rows(self, chunk: list[dict[str, Any]]) -> Generator[dict[str, Any], None, None]:
+        """
+        Transform function for ETLHelper.
+        It will remove fid values from rows and replace project_fuid values with the dest project_fuid.
+        """
+        for row in chunk:
+            # Remove the fid value as it will be autoincremented
+            row.pop("fid")
+            # If there is a field_project fuid in the row, replace it with the dest one
+            if self.field_project_fuid_col in row:
+                row[self.field_project_fuid_col] = self.field_project_fuid_dest
+
+            yield row
+
+
     def copy_src_field_project_metadata(self) -> None:
         """
         Copy the metadata of the source Field Project into the notes of the destination Field Project.
@@ -162,7 +177,7 @@ class CopyProjectData:
             f"{name}: {value}"
             for name, value in src_metadata.items()
         ]
-        src_metadata_strings.insert(0, "--- Copied Project Metadata ---")
+        src_metadata_strings.insert(0, "--- Imported Project Metadata ---")
         src_metadata_string = "\n".join(src_metadata_strings)
         # Add dest notes and extra newlines to the start to separate it from the dest notes
         new_dest_notes = dest_notes + "\n\n" + src_metadata_string
@@ -172,21 +187,6 @@ class CopyProjectData:
             self.dest_conn,
             parameters=(new_dest_notes, self.field_project_fuid_dest),
         )
-
-
-    def transform_fdc_rows(self, chunk: list[dict[str, Any]]) -> Generator[dict[str, Any], None, None]:
-        """
-        Transform function for ETLHelper.
-        It will remove fid values from rows and replace project_fuid values with the dest project_fuid.
-        """
-        for row in chunk:
-            # Remove the fid value as it will be autoincremented
-            row.pop("fid")
-            # If there is a field_project fuid in the row, replace it with the dest one
-            if self.field_project_fuid_col in row:
-                row[self.field_project_fuid_col] = self.field_project_fuid_dest
-
-            yield row
 
 
     def copy_feature_files(self) -> None:
