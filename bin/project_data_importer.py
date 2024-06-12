@@ -24,7 +24,7 @@ logging.basicConfig(
 logger = logging.getLogger("".join([word.capitalize() for word in Path(__file__).stem.split("_")]))
 
 
-class CopyProjectData:
+class ProjectDataImporter:
     def __init__(self, src: Path, dest: Path):
         logger.info("Source: %s", src)
         logger.info("Destination: %s", dest)
@@ -210,5 +210,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("src", type=Path, help="Source project directory path")
     parser.add_argument("dest", type=Path, help="Destintation project directory path")
-    copy_project_data = CopyProjectData(src=parser.parse_args().src, dest=parser.parse_args().dest)
+    copy_project_data = ProjectDataImporter(src=parser.parse_args().src, dest=parser.parse_args().dest)
     copy_project_data.copy_project_data()

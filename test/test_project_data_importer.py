@@ -4,7 +4,7 @@ from pathlib import Path
 import pytest
 import etlhelper as etl
 
-from bin.copy_project_data import CopyProjectData
+from bin.project_data_importer import ProjectDataImporter
 from plugin.config import FEATURE_TABLES
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
 from plugin.field_data_capture import FieldDataCapture
@@ -119,7 +119,7 @@ def test_copy_project_data_good(
     ])
 
     # Act
-    copy_project_data = CopyProjectData(src_fdc_project, dest_fdc_project)
+    copy_project_data = ProjectDataImporter(src_fdc_project, dest_fdc_project)
     copy_project_data.copy_project_data()
 
     # Assert
@@ -170,6 +170,7 @@ def test_copy_project_data_good(
             {},
         ),
         (
+            # Remove the table bedrock_line
             "DROP TABLE bedrock_line",
             # Don't check bedrock_line
             {"bedrock_line"},
@@ -206,7 +207,7 @@ def test_copy_project_data_bad(
         etl.execute(sql_break_db_query, conn)
 
     # Act
-    copy_project_data = CopyProjectData(src_fdc_project, dest_fdc_project)
+    copy_project_data = ProjectDataImporter(src_fdc_project, dest_fdc_project)
     copy_project_data.copy_project_data()
 
     # Assert
