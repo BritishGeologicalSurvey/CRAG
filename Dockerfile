@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:23.5.2-0
+FROM continuumio/miniconda3:24.4.0-0
 
 # Install operating system dependencies
 RUN apt-get update -y \
