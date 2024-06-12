@@ -131,6 +131,12 @@ bin/format_sql.sh raw_dump.sql > sql/V00x__pretty_formatted.sql
 python bin/mergin_api.py conflict-test
 ```
 
+> The `project_data_importer.py` script takes 2 arguments which should both be filepaths to Field Data Capture project directories, it will then copy the first given project's data (source) into the second given project's data (destination). In the event of an error, the destination project will be restored from a backup handled by the script.
+
+```bash
+python bin/project_data_importer.py my/fdc/project_src/ my/fdc_project/dest/
+```
+
 ### Running tests
 
 To run the tests:
