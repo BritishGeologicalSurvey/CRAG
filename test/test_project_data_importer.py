@@ -175,6 +175,12 @@ def test_copy_project_data_good(
             # Don't check bedrock_line
             {"bedrock_line"},
         ),
+        (
+            # Delete one of the line_type_code values that is used
+            "DELETE FROM dic_line_type_artificial WHERE code='artificial_geology_boundary'",
+            # Don't ignore any tables
+            {},
+        ),
     ],
 )
 def test_copy_project_data_bad(
