@@ -212,8 +212,8 @@
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
     <constraint desc="" exp="" field="manmade_type_code"></constraint>
-    <constraint desc="0 &lt;= dip &lt;= 90" exp="&quot;dip&quot; >= 0 and &quot;dip&quot; &lt;= 90" field="dip"></constraint>
-    <constraint desc="0 &lt;= azimuth &lt; 360" exp="&quot;azimuth&quot; >= 0 and &quot;azimuth&quot; &lt; 360" field="azimuth"></constraint>
+    <constraint desc="0 &lt;= dip &lt;= 90" exp="(&quot;dip&quot; >= 0 and &quot;dip&quot; &lt;= 90) OR (&quot;dip&quot; IS NULL)" field="dip"></constraint>
+    <constraint desc="0 &lt;= azimuth &lt; 360" exp=" (&quot;azimuth&quot; >= 0 and &quot;azimuth&quot; &lt; 360) OR (&quot;azimuth&quot; IS NULL)" field="azimuth"></constraint>
     <constraint desc="" exp="" field="length"></constraint>
     <constraint desc="" exp="" field="width"></constraint>
     <constraint desc="" exp="" field="notes"></constraint>
