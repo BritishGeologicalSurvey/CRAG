@@ -47,9 +47,16 @@ def dest_fdc_project(tmp_path: Path) -> Path:
         "media": [],
     }
     for feature_dir, feature_files in feature_filepaths.items():
-        (project_dir / feature_dir).mkdir(exist_ok=True)
-        for feature_file in feature_files:
-            new_feature_file = project_dir / feature_file.name
+        project_feature_dir = project_dir / feature_dir
+        project_feature_dir.mkdir(exist_ok=True)
+
+        for idx, feature_file in enumerate(feature_files):
+            # Put the first file into a sub directory of the feature directory to ensure it is still copied
+            if idx == 0:
+                new_feature_file = project_feature_dir / "sub_dir" / feature_file.name
+                new_feature_file.parent.mkdir(parents=True, exist_ok=True)
+            else:
+                new_feature_file = project_feature_dir / feature_file.name
             new_feature_file.write_bytes(feature_file.read_bytes())
 
     return project_dir
@@ -64,6 +71,8 @@ def test_copy_project_data_fixtures(
         assert project_dir.exists()
         for subpath in ["field-data-capture.gpkg", "photos", "media"]:
             assert (project_dir / subpath).exists()
+        # Check that some photos exist
+        assert len(list((project_dir / "photos").rglob("*[!.placeholder]"))) > 0
         # Check that a field_project row exists
         with setup_db_conn(project_dir / "field-data-capture.gpkg") as conn:
             field_project_count = etl.fetchone(
@@ -155,8 +164,8 @@ def test_copy_project_data_good(
         assert field_project_notes == expected_field_project_notes_metadata
 
     # Check that the photo files have been copied across
-    for photo_file in (src_fdc_project / "photos").glob("*[!.placeholder]"):
-        assert (dest_fdc_project / "photos" / photo_file.name).exists()
+    for photo_file in (src_fdc_project / "photos").rglob("*[!.placeholder]"):
+        assert (dest_fdc_project / photo_file.relative_to(src_fdc_project)).exists()
 
 
 @pytest.mark.parametrize(
@@ -239,5 +248,5 @@ def test_copy_project_data_bad(
         assert field_project_notes == expected_field_project_notes
 
     # Check that the photo files have not been copied across
-    for photo_file in (src_fdc_project / "photos").glob("*[!.placeholder]"):
-        assert not (dest_fdc_project / "photos" / photo_file.name).exists()
+    for photo_file in (src_fdc_project / "photos").rglob("*[!.placeholder]"):
+        assert not (dest_fdc_project / photo_file.relative_to(src_fdc_project)).exists()
