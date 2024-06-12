@@ -35,19 +35,27 @@ def test_close_photo_importer(fdc_project: FieldDataCapture):
     assert fdc_project.photo_importer is None
 
 
-def test_select_photos(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
+def test_select_photos_good(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
     # Arrange
     expected_combobox_items = {
         "Select Locality Point": None,
         "test_point_001 | 2023-10-31 16:24:14": "{abc43098-fe9b-4da0-b008-7518694466bb}",
         "test_point_002 | 2023-10-31 16:25:36": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
     }
+
+    # Copy one of the test photos into the photos directory to ensure it can still be imported
+    sub_photos_dir = fdc_project.photos_dir / "sub_photos_dir"
+    sub_photos_dir.mkdir(exist_ok=True)
+    original_photo = Path("test/data/photos/exif_data.jpg")
+    copied_photo = sub_photos_dir / original_photo.name
+    copied_photo.write_bytes(original_photo.read_bytes())
+
     # Specify test photos and their expected widget settings
     photo_files = {
-        Path("test/data/photos/exif_data.jpg"): {
-            "photo_path_label": "<a href=file:test/data/photos/exif_data.jpg>exif_data.jpg</a>",
+        copied_photo: {
+            # Don't include the full path because it changes
+            "photo_path_label": "test_project_dir/photos/sub_photos_dir/exif_data.jpg>exif_data.jpg</a>",
             "photo_date_label": "2023-11-21 14:44:07 | EXIF Metadata",
-
         },
         Path("test/data/photos/no_exif_data.jpg"): {
             "photo_path_label": "<a href=file:test/data/photos/no_exif_data.jpg>no_exif_data.jpg</a>",
@@ -85,7 +93,7 @@ def test_select_photos(fdc_project: FieldDataCapture, monkeypatch: pytest.Monkey
         assert isinstance(photo_widget.pixmap(), QPixmap)
 
         # Check widget settings
-        assert photo_path_label.text() == expected_widget_settings["photo_path_label"]
+        assert expected_widget_settings["photo_path_label"] in photo_path_label.text()
         for idx, (expected_text, expected_data) in enumerate(expected_combobox_items.items()):
             assert combobox.itemText(idx) == expected_text
             assert combobox.itemData(idx) == expected_data
@@ -153,25 +161,12 @@ def test_select_photos_independently_duplicate(fdc_project: FieldDataCapture, mo
     assert fdc_project.photo_importer.photo_rows_layout.count() == 1
 
 
-@pytest.mark.parametrize(
-    "photo_files",
-    (
-        # These photos already exist in the project
-        [
-            Path("plugin/test/data/photos/test_point_001.jpeg"),
-            Path("plugin/test/data/photos/test_point_002.jpeg"),
-        ],
-        # This photo file does not exist
-        [
-            Path("plugin/test/data/photos/not_a_file.jpeg"),
-        ],
-    ))
-def test_select_photos_bad_file(
-    photo_files: list[Path],
-    fdc_project: FieldDataCapture,
-    monkeypatch: pytest.MonkeyPatch,
-):
+def test_select_photos_bad_file(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
     # Arrange
+    # These photos already exist in the project
+    photo_files = list(fdc_project.photos_dir.glob("*[!.placeholder]"))
+    # This photo file does not exist
+    photo_files.append(Path("plugin/test/data/photos/not_a_file.jpeg"))
     fdc_project.open_photo_importer()
 
     # Act
