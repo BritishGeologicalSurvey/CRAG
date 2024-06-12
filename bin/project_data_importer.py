@@ -57,7 +57,8 @@ class ProjectDataImporter:
             with sqlite3.connect(self.src_dir / db_file) as self.src_conn, sqlite3.connect(self.dest_dir / db_file) as self.dest_conn:  # noqa
                 for conn in self.src_conn, self.dest_conn:
                     conn.enable_load_extension(True)
-                    etl.execute("""SELECT load_extension("mod_spatialite")""", conn=conn)
+                    etl.execute("""SELECT load_extension("mod_spatialite")""", conn)
+                    etl.execute("PRAGMA foreign_keys = ON", conn)
                 logger.info("Connected to both databases successfully")
 
                 self.field_project_fuid_dest = self.get_field_project_fuid_dest()
