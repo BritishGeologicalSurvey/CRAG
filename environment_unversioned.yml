@@ -7,6 +7,7 @@ dependencies:
   - python=3.12
   - pip=23.2
   - qgis=3.34
+  - sqlite=3.41.2
   - beautifulsoup4
   - cx_oracle
   - Jinja2
@@ -24,4 +25,3 @@ dependencies:
       - pb_tool
       - pytest
       - sqlalchemy
-      - sqlparse
