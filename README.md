@@ -119,25 +119,31 @@ When re-creating the environment with a new dependency, you should follow these 
 
 The repository also contains a `bin` directory with useful scripts. 
 
-> The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.
+##### Format SQL
+
+The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.
 
 ```bash
 bin/format_sql.sh raw_dump.sql > sql/V00x__pretty_formatted.sql
 ```
 
-> The `mergin_api.py` script takes a single string argument which it will use to search for projects in the `SIGMALite` namespace for deletion. It will ask for confirmation before deletion.
+##### Mergin API
+
+The `mergin_api.py` script takes a single string argument which it will use to search for projects in the `SIGMALite` namespace for deletion. It will ask for confirmation before deletion.
 
 ```bash
 python bin/mergin_api.py conflict-test
 ```
 
-> The `project_data_importer.py` script takes 2 arguments which should both be filepaths to Field Data Capture project directories, it will then copy the first given project's data (source) into the second given project's data (destination). In the event of an error, the destination project will be restored from a backup handled by the script.
+##### Project Data Importer
+
+The `project_data_importer.py` script takes 2 arguments which should both be filepaths to Field Data Capture project directories, it will then copy the first given project's data (source) into the second given project's data (destination). In the event of an error, the destination project will be restored from a backup handled by the script.
 
 ```bash
 python bin/project_data_importer.py my/fdc/project_src/ my/fdc_project/dest/
 ```
 
-### Running tests
+#### Running tests
 
 To run the tests:
 
