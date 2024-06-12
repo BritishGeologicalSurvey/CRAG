@@ -85,25 +85,50 @@ conda env create -f environment.yml
 
 It is beneficial to install the `libmamba` solver for Anaconda when creating the environment. It can speed up the process and avoid issues. You can find instructions for installing this solver here: https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community
 
-The `environment_unversioned.yml` file was created with `conda env export --from-history`. Creating a new environment from this file will use the most up-to-date dependencies.
-
 Activate the environment:
 
 ```bash
 conda activate fdc
 ```
 
-There is a dependency version issue in the environment with QGIS and Python.  This can be fixed by symlinking the installed version of libgsl to the required one.
+#### Dependency Issues
+
+There are some dependency issues with the environment which can be fixed with the following:
+
+> There is a dependency version issue in the environment with QGIS and Python.  This can be fixed by symlinking the installed version of libgsl to the required one.
 
 ```bash
 ln -s ${CONDA_PREFIX}/lib/libgsl.so.27  ${CONDA_PREFIX}/lib/libgsl.so.25
 ln -s ${CONDA_PREFIX}/lib/libdraco.so.8  ${CONDA_PREFIX}/lib/libdraco.so.9
 ```
 
-The repository also contains a `bin` directory with useful scripts.  The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.
+> When building the wheels for `geodiff`, you may encounter a CMake error which can be fixed with the following solution: https://stackoverflow.com/questions/65485116/sqlite3-not-found-on-cmake
+
+#### Add New Environment Dependency
+
+When re-creating the environment with a new dependency, you should follow these steps:
+
+- Add your knew library to `environment_unversioned.yml`
+- Delete your existing locality environment with: `conda remove -n fdc --all -y`
+- Re-build your local environment with your change using: `conda env create -f environment_unversioned.yml -y`
+- Re-export your new local environment with: `conda env export > environment.yml`
+- Remove any extra channels/prefix values from the updated `environment.yml`
+- Add both environment files to git and commit them
+
+### Bin Scripts
+
+The repository also contains a `bin` directory with useful scripts. 
+
+> The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.
 
 ```bash
 bin/format_sql.sh raw_dump.sql > sql/V00x__pretty_formatted.sql
+```
+
+> The `mergin_api.py` script takes a single string argument which it will use to search for projects in the `SIGMALite` namespace for deletion. It will ask for confirmation before deletion.
+
+```bash
+python bin/mergin_api.py conflict-test
 ```
 
 ### Running tests

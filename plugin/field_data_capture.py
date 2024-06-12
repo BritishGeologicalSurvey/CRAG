@@ -91,6 +91,7 @@ from .create_gpkg_from_sql import (
     add_test_data,
     WORKDIR,
 )
+from .photo_importer import PhotoImporter
 from .quick_map_tools import (
     QuickAddTool,
     QuickEditTool,
@@ -143,6 +144,7 @@ class FieldDataCapture:
 
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
+        self.photo_importer: Optional[PhotoImporter] = None
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -176,6 +178,14 @@ class FieldDataCapture:
         Get the photos directory path from the current project.
         """
         return self.project_dir / "photos"
+
+
+    @property
+    def media_dir(self) -> Path:
+        """
+        Get the media directory path from the current project.
+        """
+        return self.project_dir / "media"
 
 
     @property
@@ -378,6 +388,13 @@ class FieldDataCapture:
 
         self.add_action(
             icon_path,
+            text=self.tr(u'Open Photo Importer'),
+            callback=self.open_photo_importer,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            icon_path,
             text=self.tr(u'Create Field Report'),
             callback=self.create_field_report,
             parent=self.iface.mainWindow(),
@@ -453,6 +470,7 @@ class FieldDataCapture:
         """Removes the plugin menu item and icon from QGIS GUI."""
         # Disable the current QuickMapTool if there is one
         self.disable_current_quick_map_tool()
+        self.close_photo_importer()
 
         for action in self.actions:
             self.iface.removePluginMenu(
@@ -639,8 +657,11 @@ class FieldDataCapture:
         self.set_vector_layer_properties(vector_layers)
         # self.set_view_lithology_rules()
 
-        # Create empty photos directory
-        self.photos_dir.mkdir(parents=True, exist_ok=True)
+        # Create empty user directories
+        for directory in [self.photos_dir, self.media_dir]:
+            directory.mkdir(parents=True, exist_ok=True)
+            placeholder = directory / ".placeholder"
+            placeholder.touch()
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
@@ -1270,7 +1291,31 @@ class FieldDataCapture:
             # Set the icon using the pixmap
             message_box.setIconPixmap(red_pencils_pixmap)
             # Open the message box
-            message_box.exec_()
+            message_box.exec()
             return True
 
         return False
+
+
+    def open_photo_importer(self) -> bool:
+        """
+        Open the photo importer tool of the plugin.
+        Returns a boolean indicating the success of the process.
+        """
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
+            return False
+
+        self.photo_importer = PhotoImporter(self.photos_dir)
+
+        self.photo_importer.photo_importer_closed.connect(self.close_photo_importer)
+
+        return True
+
+
+    def close_photo_importer(self) -> None:
+        """
+        Delete the current photo importer object if there is one.
+        """
+        if self.photo_importer is not None:
+            del self.photo_importer
+            self.photo_importer = None

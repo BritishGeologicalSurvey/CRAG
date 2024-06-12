@@ -16,6 +16,7 @@ dependencies:
   - pip:
       - eralchemy2
       - etlhelper
+      - exifread
       - flake8
       - ipdb
       - ipython

@@ -266,8 +266,10 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     ]
     assert expected_qml_files == actual_qml_files
 
-    # Check that the photos directory has been created
-    assert fdc.photos_dir.exists()
+    # Check that the empty user directories have been created
+    for directory in [fdc.photos_dir, fdc.media_dir]:
+        assert directory.exists()
+        assert list(directory.glob("*"))[0].name == ".placeholder"
 
 
 def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
