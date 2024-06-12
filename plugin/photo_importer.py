@@ -103,6 +103,13 @@ class PhotoImporter(QDialog):
         self.cancel_button.clicked.connect(self.close)
 
 
+    def file_in_photos_dir(self, file: Path) -> bool:
+        """
+        Check if the given file already exists in the photos directory of the current project.
+        """
+        return self.photos_dir.absolute() in file.absolute().parents
+
+
     def select_photos(self) -> bool:
         """
         Get the required photos to select from the user.
@@ -115,13 +122,24 @@ class PhotoImporter(QDialog):
         if len(photos) == 0:
             return False
 
-        already_existing_photos = {photo.name for photo in self.photos_dir.glob("*")}
+        photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
+        already_existing_photos = {
+            # This path will be relative to the photos_dir already
+            Path(feature.attribute("photo_file"))
+            for feature in photo_layer.getFeatures()
+        }
         skip_photos = []
         self.photo_comboboxes = {}
 
         for photo in photos:
+            # Check if the file is in the photos directory before getting its relative path
+            if self.file_in_photos_dir(photo):
+                photo_relative_to_photos_dir = photo.relative_to(self.photos_dir)
+            else:
+                photo_relative_to_photos_dir = None
+
             # Don't import photos if they already exist or if they are already selected
-            if photo.name in already_existing_photos or photo in self.photos_to_widgets:
+            if photo_relative_to_photos_dir in already_existing_photos or photo in self.photos_to_widgets:
                 skip_photos.append(photo)
             else:
                 try:
@@ -150,6 +168,7 @@ class PhotoImporter(QDialog):
         pyqt_open_dialog = QFileDialog.getOpenFileNames(
             self,
             "Import Locality Photos",
+            directory=str(self.photos_dir),
             filter="(*.png *.jpg *.jpeg *.tif)",
         )
         filepaths = [Path(filepath) for filepath in pyqt_open_dialog[0]]
@@ -328,16 +347,22 @@ class PhotoImporter(QDialog):
 
             if locality_fuid is not None:
                 imported_photos += 1
-                # Copy the photo file into the project
-                new_photo = self.photos_dir / photo_path.name
-                new_photo.write_bytes(photo_path.read_bytes())
+
+                # Only copy the file if it is not already in the photos directory
+                if self.file_in_photos_dir(photo_path):
+                    photo_file_attribute = photo_path.relative_to(self.photos_dir)
+                else:
+                    # Copy the photo file into the project
+                    new_photo = self.photos_dir / photo_path.name
+                    new_photo.write_bytes(photo_path.read_bytes())
+                    photo_file_attribute = photo_path.name
 
                 # Create new feature with default values
                 new_feature = QgsVectorLayerUtils.createFeature(photo_layer)
 
                 new_attributes = {
                     "locality_fuid": locality_fuid,
-                    "photo_file": str(photo_path.name),
+                    "photo_file": str(photo_file_attribute),
                     "notes": photo_widgets["QTextEdit"].toPlainText(),
                 }
                 for attribute, value in new_attributes.items():
