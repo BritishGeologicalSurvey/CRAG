@@ -139,6 +139,8 @@ python bin/mergin_api.py conflict-test
 
 The `project_data_importer.py` script takes 2 arguments which should both be filepaths to Field Data Capture project directories, it will then copy the first given project's data (source) into the second given project's data (destination). In the event of an error, the destination project will be restored from a backup handled by the script.
 
+_Note: Both the source and destination project must be closed before attempting to import data._
+
 ```bash
 python bin/project_data_importer.py my/fdc/project_src/ my/fdc_project/dest/
 ```
