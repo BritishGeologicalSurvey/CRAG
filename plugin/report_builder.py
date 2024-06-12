@@ -1,4 +1,5 @@
 import shutil
+import sqlite3
 from pathlib import Path
 from typing import Any
 
@@ -15,16 +16,45 @@ from qgis.core import (
 from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QMessageBox
 
+from .config import LOCALITY_POINT_CHILDREN
 from .create_gpkg_from_sql import WORKDIR
 from .utils import ipdb_breakpoint  # noqa
 
 
+CHILD_ATTRIBUTES = {
+    "lithology": ", dic_rock_field.label ",
+    "manmade_landform": ", dic_manmade_landform.description ",
+    "media": ", dic_media.description ",
+    "photo": "",
+    "sample": ", dic_sample.description ",
+    "structural_measurement": ", dic_structure.description ",
+    "superficial_landform": ", dic_superficial_landform.description ",
+}
+
+CHILD_JOINS = {
+    "lithology": " JOIN dic_rock_field ON code == child.lithology_code ",
+    "manmade_landform": " JOIN dic_manmade_landform ON code == child.manmade_type_code ",
+    "media": " JOIN dic_media ON code == child.media_type_code ",
+    "photo": "",
+    "sample": " JOIN dic_sample ON code == child.sample_type_code ",
+    "structural_measurement": " JOIN dic_structure ON code == child.structure_type_code ",
+    "superficial_landform": " JOIN dic_superficial_landform ON code == child.superficial_type_code ",
+}
+
+
+# See https://docs.python.org/3/library/sqlite3.html#sqlite3-howto-row-factory
+def dict_factory(cursor, row):
+    fields = [column[0] for column in cursor.description]
+    return {key: value for key, value in zip(fields, row)}
+
+
 class ReportBuilder:
-    def __init__(self, project_dir: Path):
+    def __init__(self, project_dir: Path, db_file: Path):
         """Constructor.
 
         """
         self.project_dir = project_dir
+        self.db_file = db_file
         self.report_filename = Path("field-report.html")
         self.css_filename = Path("style.css")
 
@@ -104,11 +134,15 @@ class ReportBuilder:
         report_data['project'] = self.get_attribute_values_from_project()
         local_epsg = report_data['project']['local_epsg']
         localities = QgsProject.instance().mapLayersByName('locality_point')[0]
+        report_data['locality_points'] = {}
         for feature in localities.getFeatures():
             attribute_values = self.get_attribute_values_from_locality_point(feature, local_epsg)
-            report_data['locality_points'].append(attribute_values)
+            name = attribute_values['name']
+            report_data['locality_points'][name] = attribute_values
+            report_data['locality_points'][name]['children'] = self.get_child_data(name)
 
         return report_data
+
 
     def get_attribute_values_from_project(self) -> dict[str, Any]:
         """
@@ -167,3 +201,33 @@ class ReportBuilder:
                                                 .replace(microsecond=0))
 
         return attribute_values
+
+
+    def get_child_data(self, locality_name: str) -> dict[str, Any]:
+        children = {}
+        for child_table_name in LOCALITY_POINT_CHILDREN:
+            children[child_table_name] = []
+            child_rows = self.get_rows_for_locality_from_table(child_table_name, locality_name)
+            for child in child_rows:
+                children[child_table_name].append(child)
+
+        return children
+
+
+    def get_rows_for_locality_from_table(self, table: str, locality_name: str) -> dict[str, Any]:
+        """
+        """
+        sql = "SELECT child.* "
+        sql += CHILD_ATTRIBUTES[table]
+        sql += f" FROM {table} AS child JOIN locality_point ON child.locality_fuid == locality_point.uuid "
+        sql += CHILD_JOINS[table]
+        sql += f" WHERE locality_point.name LIKE '{locality_name}'"
+
+        rows = []
+        with sqlite3.connect(self.db_file) as conn:
+            conn.row_factory = dict_factory
+            cursor = conn.cursor()
+            cursor.execute(sql)
+            rows = cursor.fetchall()
+
+        return rows

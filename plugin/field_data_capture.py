@@ -942,7 +942,7 @@ class FieldDataCapture:
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        ReportBuilder(self.project_dir).create_field_report()
+        ReportBuilder(self.project_dir, self.db_file).create_field_report()
 
 
     def add_test_data_to_project(self) -> bool:
