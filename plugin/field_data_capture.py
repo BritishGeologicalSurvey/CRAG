@@ -24,7 +24,6 @@
 import logging
 import os.path
 import pprint
-import shutil
 import sqlite3
 from collections import defaultdict
 from pathlib import Path
@@ -36,16 +35,9 @@ from typing import (
 from xml.dom import minidom
 from xml.etree.ElementTree import canonicalize
 
-from jinja2 import (
-    Environment,
-    FileSystemLoader,
-)
 from qgis.core import (
     Qgis,
-    QgsCoordinateReferenceSystem,
-    QgsCoordinateTransform,
     QgsEditorWidgetSetup,
-    QgsFeature,
     QgsLayerTree,
     QgsLayerTreeGroup,
     QgsMapLayer,
@@ -59,10 +51,7 @@ from qgis.gui import (
     QgisInterface,
     QgsMapTool,
 )
-from qgis.PyQt.QtCore import (
-    QCoreApplication,
-    QVariant,
-)
+from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import (
     QColor,
     QIcon,
@@ -92,6 +81,7 @@ from .create_gpkg_from_sql import (
     WORKDIR,
 )
 from .photo_importer import PhotoImporter
+from .report_builder import ReportBuilder
 from .quick_map_tools import (
     QuickAddTool,
     QuickEditTool,
@@ -139,8 +129,6 @@ class FieldDataCapture:
         self.first_start = None
 
         self.gpkg_filename = Path("field-data-capture.gpkg")
-        self.report_filename = Path("field-report.html")
-        self.css_filename = Path("style.css")
 
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
@@ -194,38 +182,6 @@ class FieldDataCapture:
         Get the icons directory path from the plugin folder.
         """
         return WORKDIR / "icons"
-
-
-    @property
-    def templates_dir(self) -> Path:
-        """
-        Get the Jinja2 template directory path from the plugin folder.
-        """
-        return WORKDIR / "templates"
-
-
-    @property
-    def report_file(self) -> Path:
-        """
-        Get the field report file path from the current project.
-        """
-        return self.project_dir / self.report_filename
-
-
-    @property
-    def css_src_file(self) -> Path:
-        """
-        Get the ccs file path from the plugin folder.
-        """
-        return WORKDIR / "css" / self.css_filename
-
-
-    @property
-    def css_dest_dir(self) -> Path:
-        """
-        Get the ccs directory from the current project.
-        """
-        return self.project_dir / "css"
 
 
     def tr(self, message):
@@ -986,104 +942,7 @@ class FieldDataCapture:
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        if self.report_file.exists():
-            result = QMessageBox.question(
-                None, "Report file Already Exists",
-                f"The report file already exists, would you like to overwrite the file?\n\n{self.report_file}",
-            )
-            if result == QMessageBox.No:
-                return False
-
-        environment = Environment(loader=FileSystemLoader(self.templates_dir))
-        template = environment.get_template("report.html")
-        context = self.get_report_data()
-        content = template.render(context)
-
-        with open(self.report_file, mode="w", encoding="utf-8") as report:
-            report.write(content)
-        # Copy CSS file to project directory
-        self.css_dest_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
-
-        QMessageBox.information(None, "Information", f"Created field report:\n\n{self.report_file}")
-        return True
-
-
-    def get_attribute_values_from_feature(self, feature: QgsFeature) -> dict[str, Any]:
-        field_names = [f.name() for f in feature.fields()]
-        # If the field attribute is a PyQt NULL value replace with a Python None
-        values = [None if isinstance(a, QVariant) and a.isNull() else a for a in feature.attributes()]
-        attribute_values = dict(zip(field_names, values))
-
-        # Transform entered and updated datetimes (all features have these columns)
-        attribute_values['date_entered'] = (attribute_values['date_entered']
-                                            .toPyDateTime()
-                                            .replace(microsecond=0))
-        if attribute_values['date_updated']:
-            attribute_values['date_updated'] = (attribute_values['date_updated']
-                                                .toPyDateTime()
-                                                .replace(microsecond=0))
-
-        return attribute_values
-
-
-    def get_attribute_values_from_project(self) -> dict[str, Any]:
-        """
-        Parse the field_project feature to extract data for the report
-        """
-        # Get the first (only) field project feature from the field project layer
-        field_projects = QgsProject.instance().mapLayersByName('field_project')[0]
-        attribute_values = self.get_attribute_values_from_feature(next(field_projects.getFeatures()))
-        # Transform project start and end dates
-        if attribute_values['start_date']:
-            attribute_values['start_date'] = attribute_values['start_date'].toPyDate()
-        if attribute_values['end_date']:
-            attribute_values['end_date'] = attribute_values['end_date'].toPyDate()
-
-        return attribute_values
-
-
-    def get_attribute_values_from_locality_point(
-        self,
-        feature: QgsFeature,
-        local_epsg: int
-    ) -> dict[str, Any]:
-        """
-        Parse the locality_point feature to extract data for the report
-        """
-        attribute_values = self.get_attribute_values_from_feature(feature)
-        # Create link out to Google Maps
-        geom = feature.geometry()
-        point = geom.asPoint()
-        google_link = (f'<a href="https://www.google.co.uk/maps/place/{point.y()},{point.x()}'
-                       '" target="_blank">Open Google Map</a>')
-        # Transform geometry to local EPSG from the project
-        sourceCrs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
-        destCrs = QgsCoordinateReferenceSystem.fromEpsgId(local_epsg)
-        tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-        geom.transform(tr)
-        point = geom.asPoint()
-        attribute_values['geometry'] = f'{(int(point.x()), int(point.y()))} - {google_link}'
-
-        return attribute_values
-
-
-    def get_report_data(self) -> dict[str, Any]:
-        """
-        Parse the project layers to extract data for the report
-        """
-        report_data = {
-            'locality_points': []
-        }
-
-        report_data['project'] = self.get_attribute_values_from_project()
-        local_epsg = report_data['project']['local_epsg']
-        localities = QgsProject.instance().mapLayersByName('locality_point')[0]
-        for feature in localities.getFeatures():
-            attribute_values = self.get_attribute_values_from_locality_point(feature, local_epsg)
-            report_data['locality_points'].append(attribute_values)
-
-        return report_data
+        ReportBuilder(self.project_dir).create_field_report()
 
 
     def add_test_data_to_project(self) -> bool:
