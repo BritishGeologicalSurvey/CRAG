@@ -42,12 +42,6 @@ CHILD_JOINS = {
 }
 
 
-# See https://docs.python.org/3/library/sqlite3.html#sqlite3-howto-row-factory
-def dict_factory(cursor, row):
-    fields = [column[0] for column in cursor.description]
-    return {key: value for key, value in zip(fields, row)}
-
-
 class ReportBuilder:
     def __init__(self, project_dir: Path, db_file: Path):
         """Constructor.
@@ -204,6 +198,9 @@ class ReportBuilder:
 
 
     def get_child_data(self, locality_name: str) -> dict[str, Any]:
+        """
+        Get the child data for each attribute for a given locality
+        """
         children = {}
         for child_table_name in LOCALITY_POINT_CHILDREN:
             children[child_table_name] = []
@@ -216,7 +213,16 @@ class ReportBuilder:
 
     def get_rows_for_locality_from_table(self, table: str, locality_name: str) -> dict[str, Any]:
         """
+        Get the data as a dictionary for a given attibute (table) and locality point
         """
+
+        # See https://docs.python.org/3/library/sqlite3.html#sqlite3-howto-row-factory
+        def dict_factory(cursor, row):
+            fields = [column[0] for column in cursor.description]
+            return {key: value for key, value in zip(fields, row)}
+
+        # Each attribute requires diffeent columns to be returned
+        # and is dependent of a different join
         sql = "SELECT child.* "
         sql += CHILD_ATTRIBUTES[table]
         sql += f" FROM {table} AS child JOIN locality_point ON child.locality_fuid == locality_point.uuid "
