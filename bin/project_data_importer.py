@@ -36,17 +36,17 @@ class ProjectDataImporter:
         self.field_project_fuid_dest: str
 
 
-    def copy_project_data(self) -> None:
+    def copy_project_data(self) -> bool:
         """
         Copy the project data from the source Field Data Capture project into
         the destination Field Data Capture project.
+        Returns a boolean indicating the success of the process.
         """
-        # Ensure database files exist
-        db_file = "field-data-capture.gpkg"
-        if not (self.src_dir / db_file).exists() or not (self.dest_dir / db_file).exists():
-            logger.error("Database file is missing from at least one of the projects")
-            return
+        # Run initial checks before copying
+        if not self.validate_projects():
+            return False
 
+        db_file = "field-data-capture.gpkg"
         # Create copy of dest database before making changes
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_dir = Path(tmp_dir)
@@ -67,10 +67,37 @@ class ProjectDataImporter:
                 if not copy_success:
                     # Restore backup destination database
                     (self.dest_dir / db_file).write_bytes(dest_db_file_backup.read_bytes())
-                    return
+                    return False
 
                 self.copy_src_field_project_metadata()
             self.copy_feature_files()
+
+        return True
+
+
+    def validate_projects(self) -> bool:
+        """
+        Checks if the source and destination project are both ready for importing data.
+        This includes checking that a database exists, and that it is not open.
+        """
+        for project_dir in [self.src_dir, self.dest_dir]:
+
+            # Ensure database files exist
+            if not (project_dir / "field-data-capture.gpkg").exists():
+                logger.error("Database file is missing from at least one of the projects")
+                return False
+
+            # Ensure the database file is not open in QGIS
+            open_db_files = [
+                file
+                for file in project_dir.glob("*")
+                if file.suffix in {".gpkg-shm", ".gpkg-wal"}
+            ]
+            if len(open_db_files) > 0:
+                logger.error("One of the database files is open, please ensure they are closed before importing data")
+                return False
+
+        return True
 
 
     def get_field_project_fuid_dest(self) -> str:
@@ -213,5 +240,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("src", type=Path, help="Source project directory path")
     parser.add_argument("dest", type=Path, help="Destintation project directory path")
-    copy_project_data = ProjectDataImporter(src=parser.parse_args().src, dest=parser.parse_args().dest)
-    copy_project_data.copy_project_data()
+    project_data_importer = ProjectDataImporter(src=parser.parse_args().src, dest=parser.parse_args().dest)
+    project_data_importer.copy_project_data()

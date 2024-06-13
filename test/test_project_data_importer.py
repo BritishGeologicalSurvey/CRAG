@@ -62,7 +62,7 @@ def dest_fdc_project(tmp_path: Path) -> Path:
     return project_dir
 
 
-def test_copy_project_data_fixtures(
+def test_project_data_importer_fixtures(
     src_fdc_project: Path,
     dest_fdc_project: Path,
 ):
@@ -128,10 +128,11 @@ def test_copy_project_data_good(
     ])
 
     # Act
-    copy_project_data = ProjectDataImporter(src_fdc_project, dest_fdc_project)
-    copy_project_data.copy_project_data()
+    project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
+    result = project_data_importer.copy_project_data()
 
     # Assert
+    assert result
     dest_db = dest_fdc_project / "field-data-capture.gpkg"
     with sqlite3.connect(dest_db) as conn:
 
@@ -222,10 +223,11 @@ def test_copy_project_data_bad(
         etl.execute(sql_break_db_query, conn)
 
     # Act
-    copy_project_data = ProjectDataImporter(src_fdc_project, dest_fdc_project)
-    copy_project_data.copy_project_data()
+    project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
+    result = project_data_importer.copy_project_data()
 
     # Assert
+    assert not result
     with sqlite3.connect(dest_db) as conn:
 
         # Check that there are the correct number of rows per table in the destination database
@@ -250,3 +252,63 @@ def test_copy_project_data_bad(
     # Check that the photo files have not been copied across
     for photo_file in (src_fdc_project / "photos").rglob("*[!.placeholder]"):
         assert not (dest_fdc_project / photo_file.relative_to(src_fdc_project)).exists()
+
+
+def test_validate_projects_good(
+    src_fdc_project: Path,
+    dest_fdc_project: Path,
+):
+    # Arrange
+    project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
+    # Act 1
+    result = project_data_importer.validate_projects()
+    # Assert 1
+    assert result
+    # Act 2
+    result = project_data_importer.copy_project_data()
+    # Assert 2
+    assert result
+
+
+def test_validate_projects_bad_db_missing(
+    src_fdc_project: Path,
+    dest_fdc_project: Path,
+):
+    # Arrange
+    project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
+    # Delete the database file in the destination project
+    (dest_fdc_project / "field-data-capture.gpkg").unlink()
+    # Act 1
+    result = project_data_importer.validate_projects()
+    # Assert 1
+    assert not result
+    # Act 2
+    result = project_data_importer.copy_project_data()
+    # Assert 2
+    assert not result
+
+
+@pytest.mark.parametrize(
+    "open_db_file",
+    (
+        Path("field-data-capture.gpkg-shm"),
+        Path("field-data-capture.gpkg-wal"),
+    ),
+)
+def test_validate_projects_bad_db_open(
+    open_db_file: Path,
+    src_fdc_project: Path,
+    dest_fdc_project: Path,
+):
+    # Arrange
+    project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
+    # Create a dummy open database file
+    (dest_fdc_project / open_db_file).touch()
+    # Act 1
+    result = project_data_importer.validate_projects()
+    # Assert 1
+    assert not result
+    # Act 2
+    result = project_data_importer.copy_project_data()
+    # Assert 2
+    assert not result
