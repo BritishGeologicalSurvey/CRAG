@@ -6,6 +6,14 @@
                     {% for landform in point.children.manmade_landform %}
                     <table>
                         <tr>
+                            <td>Description</td>
+                            <td>{{ landform.description }}</td>
+                        </tr>
+                        <tr>
+                            <td>Notes</td>
+                            <td>{{ landform.notes }}</td>
+                        </tr>
+                        <tr>
                             <td>Entered</td>
                             <td>{{ landform.user_entered }} at {{ landform.date_entered }}</td>
                         </tr>

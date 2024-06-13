@@ -6,6 +6,18 @@
                     {% for measurement in point.children.structural_measurement %}
                     <table>
                         <tr>
+                            <td>Description</td>
+                            <td>{{ measurement.description }}</td>
+                        </tr>
+                        <tr>
+                            <td>Dip / Azimuth</td>
+                            <td>{{ measurement.dip }} / {{ measurement.azimuth }}</td>
+                        </tr>
+                        <tr>
+                            <td>Notes</td>
+                            <td>{{ measurement.notes }}</td>
+                        </tr>
+                        <tr>
                             <td>Entered</td>
                             <td>{{ measurement.user_entered }} at {{ measurement.date_entered }}</td>
                         </tr>

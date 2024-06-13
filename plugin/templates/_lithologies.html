@@ -6,6 +6,14 @@
                     {% for lithology in point.children.lithology %}
                     <table>
                         <tr>
+                            <td>Lithology</td>
+                            <td>{{ lithology.label }} ({{ lithology.lithology_code }})</td>
+                        </tr>
+                        <tr>
+                            <td>Notes</td>
+                            <td>{{ lithology.notes }}</td>
+                        </tr>
+                        <tr>
                             <td>Entered</td>
                             <td>{{ lithology.user_entered }} at {{ lithology.date_entered }}</td>
                         </tr>

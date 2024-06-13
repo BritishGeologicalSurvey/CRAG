@@ -6,6 +6,18 @@
                     {% for sample in point.children.sample %}
                     <table>
                         <tr>
+                            <td>Sample ID</td>
+                            <td>{{ sample.sample_id }}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{{ sample.description }}</td>
+                        </tr>
+                        <tr>
+                            <td>Notes</td>
+                            <td>{{ sample.notes }}</td>
+                        </tr>
+                        <tr>
                             <td>Entered</td>
                             <td>{{ sample.user_entered }} at {{ sample.date_entered }}</td>
                         </tr>

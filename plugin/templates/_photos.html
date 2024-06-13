@@ -6,6 +6,14 @@
                     {% for photo in point.children.photo %}
                     <table>
                         <tr>
+                            <td>Photo</td>
+                            <td>{{ photo.photo_file }}</td>
+                        </tr>
+                        <tr>
+                            <td>Notes</td>
+                            <td>{{ photo.notes }}</td>
+                        </tr>
+                        <tr>
                             <td>Entered</td>
                             <td>{{ photo.user_entered }} at {{ photo.date_entered }}</td>
                         </tr>

@@ -6,6 +6,18 @@
                     {% for media in point.children.media %}
                     <table>
                         <tr>
+                            <td>Media</td>
+                            <td>{{ media.link }}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{{ media.description }}</td>
+                        </tr>
+                        <tr>
+                            <td>Notes</td>
+                            <td>{{ media.notes }}</td>
+                        </tr>
+                        <tr>
                             <td>Entered</td>
                             <td>{{ media.user_entered }} at {{ media.date_entered }}</td>
                         </tr>
