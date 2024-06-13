@@ -7,7 +7,11 @@
                     <table>
                         <tr>
                             <td>Photo</td>
-                            <td>{{ photo.photo_file }}</td>
+                            <td>
+                                <a target="_blank" href="photos/{{ photo.photo_file }}">
+                                    <img src="photos/{{ photo.photo_file }}">
+                                </a>
+                            </td>
                         </tr>
                         <tr>
                             <td>Notes</td>

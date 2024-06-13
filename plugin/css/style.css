@@ -13,3 +13,9 @@ td {
 tr:nth-child(odd) {
     background-color: #a0a0a0;
 }
+
+img {
+    padding: 5px;
+    max-height: 200px;
+    max-width: 200px;
+}
