@@ -1,0 +1,21 @@
+{# Table structure for manmade landform metadata #}
+
+            {% if point.children.manmade_landform|length > 0 %}
+                <section class="manmade_landform">
+                    <h4>Manmade landforms</h4>
+                    {% for landform in point.children.manmade_landform %}
+                    <table>
+                        <tr>
+                            <td>Entered</td>
+                            <td>{{ landform.user_entered }} at {{ landform.date_entered }}</td>
+                        </tr>
+                        {% if landform.user_updated is not none %}
+                        <tr>
+                            <td>Updated</td>
+                            <td>{{ landform.user_updated }} at {{ landform.date_updated }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                    {% endfor %}
+                </section>
+            {% endif %}

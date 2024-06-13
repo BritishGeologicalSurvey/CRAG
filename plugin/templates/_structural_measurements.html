@@ -1,0 +1,21 @@
+{# Table structure for structural measurement metadata #}
+
+            {% if point.children.structural_measurement|length > 0 %}
+                <section class="structural_measurement">
+                    <h4>Structural measurements</h4>
+                    {% for measurement in point.children.structural_measurement %}
+                    <table>
+                        <tr>
+                            <td>Entered</td>
+                            <td>{{ measurement.user_entered }} at {{ measurement.date_entered }}</td>
+                        </tr>
+                        {% if measurement.user_updated is not none %}
+                        <tr>
+                            <td>Updated</td>
+                            <td>{{ measurement.user_updated }} at {{ measurement.date_updated }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                    {% endfor %}
+                </section>
+            {% endif %}

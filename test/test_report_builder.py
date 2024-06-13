@@ -27,6 +27,9 @@ def test_create_field_report(fdc_project: FieldDataCapture):
     locality_sections = soup.findAll('section', {'class': "locality_point"})
     row_count = locality_point_count(fdc_project)
     assert len(locality_sections) == row_count
+    for child in LOCALITY_POINT_CHILDREN:
+        child_sections = soup.findAll('section', {'class': child})
+        assert len(child_sections) > 0
 
 
 def test_get_report_data(fdc_project: FieldDataCapture, qgs_project: Path):

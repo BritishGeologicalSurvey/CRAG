@@ -1,0 +1,21 @@
+{# Table structure for media metadata #}
+
+            {% if point.children.media|length > 0 %}
+                <section class="media">
+                    <h4>Media files</h4>
+                    {% for media in point.children.media %}
+                    <table>
+                        <tr>
+                            <td>Entered</td>
+                            <td>{{ media.user_entered }} at {{ media.date_entered }}</td>
+                        </tr>
+                        {% if media.user_updated is not none %}
+                        <tr>
+                            <td>Updated</td>
+                            <td>{{ media.user_updated }} at {{ media.date_updated }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                    {% endfor %}
+                </section>
+            {% endif %}

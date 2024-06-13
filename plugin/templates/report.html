@@ -7,7 +7,7 @@
             {% include "_project.html" %}
             <section class="locality_points">
                 <h2>Locality Points</h2>
-                {% for point in locality_points %}
+                {% for point in locality_points.values() %}
                 {% include "_locality_point.html" %}
                 {% endfor %}
             </section>

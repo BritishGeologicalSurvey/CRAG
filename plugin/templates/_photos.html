@@ -1,0 +1,21 @@
+{# Table structure for photo metadata #}
+
+            {% if point.children.photo|length > 0 %}
+                <section class="photo">
+                    <h4>Photos</h4>
+                    {% for photo in point.children.photo %}
+                    <table>
+                        <tr>
+                            <td>Entered</td>
+                            <td>{{ photo.user_entered }} at {{ photo.date_entered }}</td>
+                        </tr>
+                        {% if photo.user_updated is not none %}
+                        <tr>
+                            <td>Updated</td>
+                            <td>{{ photo.user_updated }} at {{ photo.date_updated }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                    {% endfor %}
+                </section>
+            {% endif %}

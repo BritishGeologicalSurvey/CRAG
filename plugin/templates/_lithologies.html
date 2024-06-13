@@ -1,0 +1,21 @@
+{# Table structure for structural lithology metadata #}
+
+            {% if point.children.lithology|length > 0 %}
+                <section class="lithology">
+                    <h4>Lithologies</h4>
+                    {% for lithology in point.children.lithology %}
+                    <table>
+                        <tr>
+                            <td>Entered</td>
+                            <td>{{ lithology.user_entered }} at {{ lithology.date_entered }}</td>
+                        </tr>
+                        {% if lithology.user_updated is not none %}
+                        <tr>
+                            <td>Updated</td>
+                            <td>{{ lithology.user_updated }} at {{ lithology.date_updated }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                    {% endfor %}
+                </section>
+            {% endif %}
