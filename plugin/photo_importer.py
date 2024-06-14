@@ -123,11 +123,15 @@ class PhotoImporter(QDialog):
             return False
 
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
-        already_existing_photos = {
-            # This path will be relative to the photos_dir already
-            Path(feature.attribute("photo_file"))
-            for feature in photo_layer.getFeatures()
-        }
+        already_existing_photos = set()
+        for photo_feature in photo_layer.getFeatures():
+            photo_file = photo_feature.attribute("photo_file")
+            # If the photo_file attribute is empty it returns a QVariant NULL object, so we only want strings
+            # Only gets filepaths if they actually exist
+            if isinstance(photo_file, str) and (self.photos_dir / photo_file).exists():
+                # This path will be relative to the photos_dir already
+                already_existing_photos.add(Path(photo_file))
+
         skip_photos = []
         self.photo_comboboxes = {}
 
