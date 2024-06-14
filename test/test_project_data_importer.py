@@ -170,88 +170,46 @@ def test_copy_project_data_good(
 
 
 @pytest.mark.parametrize(
-    ["sql_break_db_query", "ignore_tables"],
+    ["sql_break_db_query"],
     [
         (
             # Change one of the locality_point names to match one of the test points
             # This will cause the copy to fail as it does not abide by the UNIQUE constraint
             "UPDATE locality_point SET name='test_point_002' WHERE name='leorudczenko_002'",
-            # Don't ignore any tables
-            {},
         ),
         (
             # Remove the table bedrock_line
             "DROP TABLE bedrock_line",
-            # Don't check bedrock_line
-            {"bedrock_line"},
         ),
         (
             # Delete one of the line_type_code values that is used
             "DELETE FROM dic_line_type_artificial WHERE code='artificial_geology_boundary'",
-            # Don't ignore any tables
-            {},
         ),
     ],
 )
 def test_copy_project_data_bad(
     sql_break_db_query: str,
-    ignore_tables: set[str],
     src_fdc_project: Path,
     dest_fdc_project: Path,
 ):
-    # Arrange
-    expected_row_counts = {
-        "artificial_line": 1,
-        "bedrock_line": 0,
-        "field_project": 1,
-        "lithology": 2,
-        "locality_point": 2,
-        "manmade_landform": 0,
-        "mass_move_line": 0,
-        "media": 0,
-        "photo": 2,
-        "sample": 0,
-        "structural_measurement": 0,
-        "superficial_landform": 0,
-        "superficial_line": 0,
-        "terrain_line": 0,
-    }
-    expected_field_project_notes = "These are some empty notes honk"
     # Break the database in some way
     dest_db = dest_fdc_project / "field-data-capture.gpkg"
     with setup_db_conn(dest_db) as conn:
         etl.execute(sql_break_db_query, conn)
 
+    # Record original state of database and photos folder
+    dest_db_original_contents = dest_db.read_bytes()
+    photo_folder_original_contents = list((src_fdc_project / "photos").rglob("*"))
+
     # Act
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
     result = project_data_importer.copy_project_data()
+    photo_folder_contents = list((src_fdc_project / "photos").rglob("*"))
 
-    # Assert
+    # Assert that function returns False and original state is unchanged
     assert not result
-    with sqlite3.connect(dest_db) as conn:
-
-        # Check that there are the correct number of rows per table in the destination database
-        # None should have been added
-        for table, expected_row_count in expected_row_counts.items():
-            if table not in ignore_tables:
-                row_count = etl.fetchone(
-                    f"SELECT COUNT() AS count FROM {table}",
-                    conn,
-                    row_factory=etl.row_factories.tuple_row_factory,
-                )[0]
-                assert row_count == expected_row_count
-
-        # Check that the field project notes have not been changed
-        field_project_notes = etl.fetchone(
-            "SELECT notes FROM field_project",
-            conn,
-            row_factory=etl.row_factories.tuple_row_factory,
-        )[0]
-        assert field_project_notes == expected_field_project_notes
-
-    # Check that the photo files have not been copied across
-    for photo_file in (src_fdc_project / "photos").rglob("*[!.placeholder]"):
-        assert not (dest_fdc_project / photo_file.relative_to(src_fdc_project)).exists()
+    assert dest_db.read_bytes() == dest_db_original_contents
+    assert photo_folder_contents == photo_folder_original_contents
 
 
 def test_validate_projects_good(
