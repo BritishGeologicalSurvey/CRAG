@@ -152,15 +152,17 @@ class PhotoImporter(QDialog):
                     skip_photos.append(photo)
 
         # If any photos are skipped, show them in a message box
-        if len(skip_photos) > 0:
-            photos_str = "\n".join([str(photo) for photo in skip_photos])
-            QMessageBox.warning(
-                None, "Skipped Photos",
-                (
+        skip_photos_num = len(skip_photos)
+        if skip_photos_num > 0:
+            if skip_photos_num > 5:
+                msg = f"{skip_photos_num} photos have been skipped because they either exist or could not be loaded."
+            else:
+                photos_str = "\n".join([str(photo) for photo in skip_photos])
+                msg = (
                     "Some photos have been skipped because they either already exist or could not be loaded:"
                     f"\n\n{photos_str}"
-                ),
-            )
+                )
+            QMessageBox.warning(None, "Skipped Photos", msg)
 
         return True
 
