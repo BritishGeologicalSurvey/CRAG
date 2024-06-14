@@ -122,7 +122,7 @@ class PhotoImporter(QDialog):
             # If the photo_file attribute is empty it returns a QVariant NULL object, so we only want strings
             # Only gets filepaths if they actually exist
             if isinstance(photo_file, str) and (self.photos_dir / photo_file).exists():
-                # This path will be relative to the photos_dir already
+                # Add only the filename to the set so that files in sub-folders are still included properly
                 already_existing_photos.add(Path(photo_file).name)
 
         skip_photos = []
