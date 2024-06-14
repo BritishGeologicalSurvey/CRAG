@@ -47,14 +47,16 @@ class ProjectDataImporter:
             return False
 
         db_file = "field-data-capture.gpkg"
+        src_db = self.src_dir / db_file
+        dest_db = self.dest_dir / db_file
         # Create copy of dest database before making changes
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_dir = Path(tmp_dir)
             dest_db_file_backup = tmp_dir / db_file
-            dest_db_file_backup.write_bytes((self.dest_dir / db_file).read_bytes())
+            dest_db_file_backup.write_bytes(dest_db.read_bytes())
 
             # Setup database connections
-            with sqlite3.connect(self.src_dir / db_file) as self.src_conn, sqlite3.connect(self.dest_dir / db_file) as self.dest_conn:  # noqa
+            with sqlite3.connect(src_db) as self.src_conn, sqlite3.connect(dest_db) as self.dest_conn:  # noqa
                 for conn in self.src_conn, self.dest_conn:
                     conn.enable_load_extension(True)
                     etl.execute("""SELECT load_extension("mod_spatialite")""", conn)
@@ -66,7 +68,7 @@ class ProjectDataImporter:
 
                 if not copy_success:
                     # Restore backup destination database
-                    (self.dest_dir / db_file).write_bytes(dest_db_file_backup.read_bytes())
+                    dest_db.write_bytes(dest_db_file_backup.read_bytes())
                     return False
 
                 self.copy_src_field_project_metadata()
@@ -118,7 +120,7 @@ class ProjectDataImporter:
         Returns a boolean indicating the success of the process.
         """
         # Don't copy field_project
-        feature_tables = FEATURE_TABLES - {"field_project"}
+        feature_tables = FEATURE_TABLES - {"field_project"}  # locality_point plus line layers
         for table_set in [feature_tables, LOCALITY_POINT_CHILDREN]:
             for table in table_set:
 
@@ -239,6 +241,6 @@ class ProjectDataImporter:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("src", type=Path, help="Source project directory path")
-    parser.add_argument("dest", type=Path, help="Destintation project directory path")
+    parser.add_argument("dest", type=Path, help="Destination project directory path")
     project_data_importer = ProjectDataImporter(src=parser.parse_args().src, dest=parser.parse_args().dest)
     project_data_importer.copy_project_data()
