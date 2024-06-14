@@ -103,13 +103,6 @@ class PhotoImporter(QDialog):
         self.cancel_button.clicked.connect(self.close)
 
 
-    def file_in_photos_dir(self, file: Path) -> bool:
-        """
-        Check if the given file already exists in the photos directory of the current project.
-        """
-        return self.photos_dir.absolute() in file.absolute().parents
-
-
     def select_photos(self) -> bool:
         """
         Get the required photos to select from the user.
@@ -136,14 +129,8 @@ class PhotoImporter(QDialog):
         self.photo_comboboxes = {}
 
         for photo in photos:
-            # Check if the file is in the photos directory before getting its relative path
-            if self.file_in_photos_dir(photo):
-                photo_relative_to_photos_dir = photo.relative_to(self.photos_dir)
-            else:
-                photo_relative_to_photos_dir = None
-
             # Don't import photos if they already exist or if they are already selected
-            if photo_relative_to_photos_dir in already_existing_photos or photo in self.photos_to_widgets:
+            if Path(photo.name) in already_existing_photos or photo in self.photos_to_widgets:
                 skip_photos.append(photo)
             else:
                 try:
@@ -355,7 +342,7 @@ class PhotoImporter(QDialog):
                 imported_photos += 1
 
                 # Only copy the file if it is not already in the photos directory
-                if self.file_in_photos_dir(photo_path):
+                if self.photos_dir.absolute() in photo_path.absolute().parents:
                     photo_file_attribute = photo_path.relative_to(self.photos_dir)
                 else:
                     # Copy the photo file into the project
