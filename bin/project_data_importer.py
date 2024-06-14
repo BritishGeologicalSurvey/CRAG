@@ -209,14 +209,23 @@ class ProjectDataImporter:
         ]
         src_metadata_strings.insert(0, "--- Imported Project Metadata ---")
         src_metadata_string = "\n".join(src_metadata_strings)
-        # Add dest notes and extra newlines to the start to separate it from the dest notes
-        new_dest_notes = dest_notes + "\n\n" + src_metadata_string
 
-        etl.execute(
-            "UPDATE field_project SET notes=? WHERE uuid=?",
-            self.dest_conn,
-            parameters=(new_dest_notes, self.field_project_fuid_dest),
-        )
+        # Add dest notes and extra newlines to the start to separate it from the dest notes
+        if dest_notes:
+            new_dest_notes = dest_notes + "\n\n" + src_metadata_string
+        else:
+            new_dest_notes = src_metadata_string
+
+        try:
+            etl.execute(
+                "UPDATE field_project SET notes=? WHERE uuid=?",
+                self.dest_conn,
+                parameters=(new_dest_notes, self.field_project_fuid_dest),
+            )
+        except Exception as error:
+            logger.error("Failed to update field_project notes due to error:\n%s",
+                         error)
+            raise
 
 
     def copy_feature_files(self) -> None:

@@ -83,9 +83,11 @@ def test_project_data_importer_fixtures(
             assert field_project_count == 1
 
 
+@pytest.mark.parametrize('null_field_project_notes', [False, True])
 def test_copy_project_data_good(
     src_fdc_project: Path,
     dest_fdc_project: Path,
+    null_field_project_notes: bool
 ):
     # Arrange
     expected_row_counts = {
@@ -105,7 +107,7 @@ def test_copy_project_data_good(
         "terrain_line": 1,
     }
     expected_field_project_fuid = "{3a68b7c7-e3a9-4a35-8dd2-00d31c515244}"
-    expected_field_project_notes_metadata = "\n".join([
+    expected_field_project_notes_metadata_lines = [
         "These are some empty notes honk",
         "",
         "--- Imported Project Metadata ---",
@@ -125,7 +127,17 @@ def test_copy_project_data_good(
         "user_updated: None",
         "date_updated: None",
         "qgis_plugin_version: test_plugin_version",
-    ])
+    ]
+    expected_field_project_notes_metadata = "\n".join(expected_field_project_notes_metadata_lines)
+    dest_db = dest_fdc_project / "field-data-capture.gpkg"
+
+    # Configure test case where project notes are null
+    if null_field_project_notes:
+        with sqlite3.connect(dest_db) as conn:
+            conn.enable_load_extension(True)
+            etl.execute("""SELECT load_extension("mod_spatialite")""", conn)
+            etl.execute("UPDATE field_project SET notes = NULL", conn)
+        expected_field_project_notes_metadata = "\n".join(expected_field_project_notes_metadata_lines[2:])
 
     # Act
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
@@ -133,9 +145,7 @@ def test_copy_project_data_good(
 
     # Assert
     assert result
-    dest_db = dest_fdc_project / "field-data-capture.gpkg"
     with sqlite3.connect(dest_db) as conn:
-
         # Check that there are the correct number of rows per table in the destination database
         for table, expected_row_count in expected_row_counts.items():
             row_count = etl.fetchone(
