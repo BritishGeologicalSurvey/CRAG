@@ -123,14 +123,14 @@ class PhotoImporter(QDialog):
             # Only gets filepaths if they actually exist
             if isinstance(photo_file, str) and (self.photos_dir / photo_file).exists():
                 # This path will be relative to the photos_dir already
-                already_existing_photos.add(Path(photo_file))
+                already_existing_photos.add(Path(photo_file).name)
 
         skip_photos = []
         self.photo_comboboxes = {}
 
         for photo in photos:
             # Don't import photos if they already exist or if they are already selected
-            if Path(photo.name) in already_existing_photos or photo in self.photos_to_widgets:
+            if photo.name in already_existing_photos or photo in self.photos_to_widgets:
                 skip_photos.append(photo)
             else:
                 try:
