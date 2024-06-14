@@ -1,5 +1,6 @@
-import sqlite3
 from pathlib import Path
+import sqlite3
+from mock import Mock
 
 import pytest
 import etlhelper as etl
@@ -213,6 +214,32 @@ def test_copy_project_data_bad(
 
     # Act
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
+    result = project_data_importer.copy_project_data()
+    photo_folder_contents = list((src_fdc_project / "photos").rglob("*"))
+
+    # Assert that function returns False and original state is unchanged
+    assert not result
+    assert dest_db.read_bytes() == dest_db_original_contents
+    assert photo_folder_contents == photo_folder_original_contents
+
+
+def test_copy_project_data_failed_metadata(
+    src_fdc_project: Path,
+    dest_fdc_project: Path,
+    monkeypatch
+):
+    # Record original state of database and photos folder
+    dest_db = dest_fdc_project / "field-data-capture.gpkg"
+    dest_db_original_contents = dest_db.read_bytes()
+    photo_folder_original_contents = list((src_fdc_project / "photos").rglob("*"))
+
+    # Make the copy_src_field_project_metadata throw an error
+    project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
+    bad_copy_src_field_project_metadata = Mock(side_effect=Exception('bad project metadata'))
+    monkeypatch.setattr(project_data_importer, 'copy_src_field_project_metadata',
+                        bad_copy_src_field_project_metadata)
+
+    # Act
     result = project_data_importer.copy_project_data()
     photo_folder_contents = list((src_fdc_project / "photos").rglob("*"))
 

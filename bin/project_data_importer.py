@@ -64,15 +64,17 @@ class ProjectDataImporter:
                 logger.info("Connected to both databases successfully")
 
                 self.field_project_fuid_dest = self.get_field_project_fuid_dest()
-                copy_success = self.copy_rows()
 
-                if not copy_success:
+                try:
+                    self.copy_rows()
+                    self.copy_src_field_project_metadata()
+                except Exception:
                     # Restore backup destination database
+                    logger.error("Cancelling copy and rolling back destination database")
                     dest_db.write_bytes(dest_db_file_backup.read_bytes())
                     return False
 
-                self.copy_src_field_project_metadata()
-            self.copy_feature_files()
+        self.copy_feature_files()
 
         return True
 
@@ -123,7 +125,6 @@ class ProjectDataImporter:
         feature_tables = FEATURE_TABLES - {"field_project"}  # locality_point plus line layers
         for table_set in [feature_tables, LOCALITY_POINT_CHILDREN]:
             for table in table_set:
-
                 try:
                     # If there are rows to copy
                     row_count = etl.fetchone(
@@ -144,10 +145,7 @@ class ProjectDataImporter:
 
                 except Exception as error:
                     logger.error("Failed to copy table '%s' due to error:\n%s", table, error)
-                    logger.error("Cancelling copy and rolling back destination database")
-                    return False
-
-        return True
+                    raise
 
 
     def transform_fdc_rows(self, chunk: list[dict[str, Any]]) -> Generator[dict[str, Any], None, None]:
