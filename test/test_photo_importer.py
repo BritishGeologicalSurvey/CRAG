@@ -1,7 +1,10 @@
 from pathlib import Path
 
 import pytest
-from qgis.core import QgsProject
+from qgis.core import (
+    QgsProject,
+    QgsVectorLayerUtils,
+)
 from qgis.PyQt.QtGui import QPixmap
 from qgis.PyQt.QtWidgets import (
     QComboBox,
@@ -49,6 +52,13 @@ def test_select_photos_good(fdc_project: FieldDataCapture, monkeypatch: pytest.M
     original_photo = Path("test/data/photos/exif_data.jpg")
     copied_photo = sub_photos_dir / original_photo.name
     copied_photo.write_bytes(original_photo.read_bytes())
+
+    # Add a new photo feature with a NULL photo_file attribute to ensure it is not picked up or breaks the importer
+    photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
+    photo_layer.startEditing()
+    photo_feature = QgsVectorLayerUtils.createFeature(photo_layer)
+    photo_layer.addFeature(photo_feature)
+    photo_layer.commitChanges()
 
     # Specify test photos and their expected widget settings
     photo_files = {
