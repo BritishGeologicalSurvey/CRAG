@@ -236,4 +236,17 @@ class ReportBuilder:
             cursor.execute(sql)
             rows = cursor.fetchall()
 
+        rows = self.remove_microseconds_by_row(rows)
+        return rows
+
+
+    def remove_microseconds_by_row(self, rows: dict[str, Any]) -> dict[str, Any]:
+        """
+        Remove any microseconds from the two date strings
+        """
+        for row in rows:
+            row['date_entered'] = row['date_entered'].split('.')[0]
+            if row['date_updated']:
+                row['date_updated'] = row['date_updated'].split('.')[0]
+
         return rows
