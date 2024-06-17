@@ -1,7 +1,10 @@
+/* Standard table layout */
 table {
     table-layout: auto;
     width: 75%;
+    margin-bottom: 10px;
 }
+
 table,
 th,
 td {
@@ -10,10 +13,43 @@ td {
     padding: 5px;
 }
 
-tr:nth-child(odd) {
-    background-color: #a0a0a0;
+/* Keep the first column narrow */
+td:first-child {
+    width: 10%;
+    white-space: nowrap;
 }
 
+/* Shade alternate rows */
+tr:nth-child(odd) {
+    background-color: #dddddd;
+}
+
+/* Do the photo tables differently */
+section.photos table {
+    width: 200px;
+}
+
+/* Place thumbnail centrally */
+td.photo {
+    width: 210px;
+    height: 210px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Put tables side by side */
+.column {
+    float: left;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Set thumbnail size */
 img {
     padding: 5px;
     max-height: 200px;
