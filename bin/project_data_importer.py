@@ -85,6 +85,10 @@ class ProjectDataImporter:
         This includes checking that a database exists, and that it is not open.
         """
         for project_dir in [self.src_dir, self.dest_dir]:
+            # Ensure project_dir is a directory
+            if not project_dir.is_dir():
+                logger.error("%s is not a directory", project_dir)
+                return False
 
             # Ensure database files exist
             if not (project_dir / "field-data-capture.gpkg").exists():

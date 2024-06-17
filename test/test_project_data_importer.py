@@ -307,3 +307,19 @@ def test_validate_projects_bad_db_open(
     result = project_data_importer.copy_project_data()
     # Assert 2
     assert not result
+
+
+def test_validate_projects_bad_path_not_a_folder(
+    src_fdc_project: Path,
+    dest_fdc_project: Path,
+):
+    # Arrange
+    # Pass geopackage name instead of project folder
+    src_geopackage = src_fdc_project / 'field-data-capture.gpkg'
+    project_data_importer = ProjectDataImporter(src_geopackage, dest_fdc_project)
+
+    # Act
+    valid_projects = project_data_importer.validate_projects()
+
+    # Assert
+    assert not valid_projects
