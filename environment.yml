@@ -300,7 +300,6 @@ dependencies:
       - python-dateutil==2.8.2
       - pytz==2022.1
       - snowballstemmer==2.2.0
-      - spatialite==0.0.3
       - sphinx==7.3.7
       - sphinxcontrib-applehelp==1.0.8
       - sphinxcontrib-devhelp==1.0.6

@@ -1,8 +1,7 @@
 import shutil
+import sqlite3
 from pathlib import Path
 from typing import Any
-
-import spatialite
 
 from jinja2 import (
     Environment,
@@ -204,7 +203,6 @@ class ReportBuilder:
     def get_rows(self, sql: str) -> dict[str, Any]:
         """
         Get the data as a dictionary for a given attibute (table) and locality point.
-        spatialite is used as a wrapper to sqlite3 to extract geometry columns.
         """
 
         # See https://docs.python.org/3/library/sqlite3.html#sqlite3-howto-row-factory
@@ -213,7 +211,9 @@ class ReportBuilder:
             return {key: value for key, value in zip(fields, row)}
 
         rows = []
-        with spatialite.connect(self.db_file) as conn:
+        with sqlite3.connect(self.db_file) as conn:
+            conn.enable_load_extension(True)
+            conn.execute("SELECT load_extension('mod_spatialite');")
             conn.row_factory = dict_factory
             cursor = conn.cursor()
             cursor.execute(sql)

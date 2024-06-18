@@ -24,5 +24,4 @@ dependencies:
       - mergin-client
       - pb_tool
       - pytest
-      - spatialite
       - sqlalchemy
