@@ -1,7 +1,8 @@
 import shutil
-import sqlite3
 from pathlib import Path
 from typing import Any
+
+import spatialite
 
 from jinja2 import (
     Environment,
@@ -10,10 +11,9 @@ from jinja2 import (
 from qgis.core import (
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
-    QgsFeature,
+    QgsGeometry,
     QgsProject,
 )
-from qgis.PyQt.QtCore import QVariant
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from .config import LOCALITY_POINT_CHILDREN
@@ -127,12 +127,11 @@ class ReportBuilder:
 
         report_data['project'] = self.get_project_data()
         local_epsg = report_data['project']['local_epsg']
-        localities = QgsProject.instance().mapLayersByName('locality_point')[0]
+        locality_data = self.get_locality_data(local_epsg)
         report_data['locality_points'] = {}
-        for feature in localities.getFeatures():
-            attribute_values = self.get_attribute_values_from_locality_point(feature, local_epsg)
-            name = attribute_values['name']
-            report_data['locality_points'][name] = attribute_values
+        for locality in locality_data:
+            name = locality['name']
+            report_data['locality_points'][name] = locality
             report_data['locality_points'][name]['children'] = self.get_child_data(name)
 
         return report_data
@@ -147,47 +146,28 @@ class ReportBuilder:
         return rows[0]
 
 
-    def get_attribute_values_from_locality_point(
-        self,
-        feature: QgsFeature,
-        local_epsg: int
-    ) -> dict[str, Any]:
+    def get_locality_data(self, local_epsg: int) -> dict[str, Any]:
         """
-        Parse the locality_point feature to extract data for the report
+        Query the locality_point table to extract data for all the points
         """
-        attribute_values = self.get_attribute_values_from_feature(feature)
-        # Create link out to Google Maps
-        geom = feature.geometry()
-        point = geom.asPoint()
-        google_link = (f'<a href="https://www.google.co.uk/maps/place/{point.y()},{point.x()}'
-                       '" target="_blank">Open Google Map</a>')
         # Transform geometry to local EPSG from the project
         sourceCrs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
         destCrs = QgsCoordinateReferenceSystem.fromEpsgId(local_epsg)
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
-        geom.transform(tr)
-        point = geom.asPoint()
-        attribute_values['geometry'] = f'{(int(point.x()), int(point.y()))} - {google_link}'
 
-        return attribute_values
+        sql = "SELECT *, AsText(geometry) as geom FROM locality_point"
+        rows = self.get_rows(sql)
 
+        for row in rows:
+            geom = QgsGeometry().fromWkt(row['geom'])
+            point = geom.asPoint()
+            google_link = (f'<a href="https://www.google.co.uk/maps/place/{point.y()},{point.x()}'
+                           '" target="_blank">Open Google Map</a>')
+            geom.transform(tr)
+            point = geom.asPoint()
+            row['geometry'] = f'{(int(point.x()), int(point.y()))} - {google_link}'
 
-    def get_attribute_values_from_feature(self, feature: QgsFeature) -> dict[str, Any]:
-        field_names = [f.name() for f in feature.fields()]
-        # If the field attribute is a PyQt NULL value replace with a Python None
-        values = [None if isinstance(a, QVariant) and a.isNull() else a for a in feature.attributes()]
-        attribute_values = dict(zip(field_names, values))
-
-        # Transform entered and updated datetimes (all features have these columns)
-        attribute_values['date_entered'] = (attribute_values['date_entered']
-                                            .toPyDateTime()
-                                            .replace(microsecond=0))
-        if attribute_values['date_updated']:
-            attribute_values['date_updated'] = (attribute_values['date_updated']
-                                                .toPyDateTime()
-                                                .replace(microsecond=0))
-
-        return attribute_values
+        return rows
 
 
     def get_child_data(self, locality_name: str) -> dict[str, Any]:
@@ -223,7 +203,8 @@ class ReportBuilder:
 
     def get_rows(self, sql: str) -> dict[str, Any]:
         """
-        Get the data as a dictionary for a given attibute (table) and locality point
+        Get the data as a dictionary for a given attibute (table) and locality point.
+        spatialite is used as a wrapper to sqlite3 to extract geometry columns.
         """
 
         # See https://docs.python.org/3/library/sqlite3.html#sqlite3-howto-row-factory
@@ -232,7 +213,7 @@ class ReportBuilder:
             return {key: value for key, value in zip(fields, row)}
 
         rows = []
-        with sqlite3.connect(self.db_file) as conn:
+        with spatialite.connect(self.db_file) as conn:
             conn.row_factory = dict_factory
             cursor = conn.cursor()
             cursor.execute(sql)
