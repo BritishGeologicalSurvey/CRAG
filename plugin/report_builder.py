@@ -125,7 +125,7 @@ class ReportBuilder:
             'locality_points': []
         }
 
-        report_data['project'] = self.get_attribute_values_from_project()
+        report_data['project'] = self.get_project_data()
         local_epsg = report_data['project']['local_epsg']
         localities = QgsProject.instance().mapLayersByName('locality_point')[0]
         report_data['locality_points'] = {}
@@ -138,20 +138,13 @@ class ReportBuilder:
         return report_data
 
 
-    def get_attribute_values_from_project(self) -> dict[str, Any]:
+    def get_project_data(self) -> dict[str, Any]:
         """
-        Parse the field_project feature to extract data for the report
+        Query the field_project table to extract data for the single project
         """
-        # Get the first (only) field project feature from the field project layer
-        field_projects = QgsProject.instance().mapLayersByName('field_project')[0]
-        attribute_values = self.get_attribute_values_from_feature(next(field_projects.getFeatures()))
-        # Transform project start and end dates
-        if attribute_values['start_date']:
-            attribute_values['start_date'] = attribute_values['start_date'].toPyDate()
-        if attribute_values['end_date']:
-            attribute_values['end_date'] = attribute_values['end_date'].toPyDate()
-
-        return attribute_values
+        sql = "SELECT * FROM field_project"
+        rows = self.get_rows(sql)
+        return rows[0]
 
 
     def get_attribute_values_from_locality_point(
