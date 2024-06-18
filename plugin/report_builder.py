@@ -204,14 +204,31 @@ class ReportBuilder:
         children = {}
         for child_table_name in LOCALITY_POINT_CHILDREN:
             children[child_table_name] = []
-            child_rows = self.get_rows_for_locality_from_table(child_table_name, locality_name)
+            child_rows = self.get_child_rows_for_locality_from_table(child_table_name, locality_name)
             for child in child_rows:
                 children[child_table_name].append(child)
 
         return children
 
 
-    def get_rows_for_locality_from_table(self, table: str, locality_name: str) -> dict[str, Any]:
+    def get_child_rows_for_locality_from_table(self, table: str, locality_name: str) -> dict[str, Any]:
+        """
+        Get the data as a dictionary for a given attibute (table) and locality point
+        """
+
+        # Each child requires diffeent columns to be returned
+        # and is dependent of a different join
+        sql = "SELECT child.* "
+        sql += CHILD_ATTRIBUTES[table]
+        sql += f" FROM {table} AS child JOIN locality_point ON child.locality_fuid == locality_point.uuid "
+        sql += CHILD_JOINS[table]
+        sql += f" WHERE locality_point.name LIKE '{locality_name}'"
+
+        rows = self.get_rows(sql)
+        return rows
+
+
+    def get_rows(self, sql: str) -> dict[str, Any]:
         """
         Get the data as a dictionary for a given attibute (table) and locality point
         """
@@ -220,14 +237,6 @@ class ReportBuilder:
         def dict_factory(cursor, row):
             fields = [column[0] for column in cursor.description]
             return {key: value for key, value in zip(fields, row)}
-
-        # Each attribute requires diffeent columns to be returned
-        # and is dependent of a different join
-        sql = "SELECT child.* "
-        sql += CHILD_ATTRIBUTES[table]
-        sql += f" FROM {table} AS child JOIN locality_point ON child.locality_fuid == locality_point.uuid "
-        sql += CHILD_JOINS[table]
-        sql += f" WHERE locality_point.name LIKE '{locality_name}'"
 
         rows = []
         with sqlite3.connect(self.db_file) as conn:
