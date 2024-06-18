@@ -8,7 +8,6 @@ dependencies:
   - pip=23.2
   - qgis=3.34
   - sqlite=3.41.2
-  - spatialite
   - beautifulsoup4
   - cx_oracle
   - Jinja2
@@ -25,4 +24,5 @@ dependencies:
       - mergin-client
       - pb_tool
       - pytest
+      - spatialite
       - sqlalchemy
