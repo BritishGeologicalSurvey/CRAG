@@ -154,7 +154,7 @@ class ReportBuilder:
         destCrs = QgsCoordinateReferenceSystem.fromEpsgId(local_epsg)
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
 
-        sql = "SELECT *, AsText(geometry) as geom FROM locality_point"
+        sql = "SELECT *, AsText(CastAutomagic(geometry)) as geom FROM locality_point"
         rows = self.get_rows(sql)
 
         for row in rows:
