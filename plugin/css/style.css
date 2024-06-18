@@ -1,8 +1,13 @@
 /* Standard table layout */
 table {
     table-layout: auto;
-    width: 75%;
+    width: 90%;
     margin-bottom: 10px;
+}
+
+hr {
+    width: 90%;
+    margin: 0;
 }
 
 table,
@@ -31,8 +36,8 @@ section.photos table {
 
 /* Place thumbnail centrally */
 td.photo {
-    width: 210px;
-    height: 210px;
+    width: 220px;
+    height: 220px;
     text-align: center;
     vertical-align: middle;
 }
