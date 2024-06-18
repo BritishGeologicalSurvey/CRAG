@@ -1,12 +1,14 @@
 from pathlib import Path
 
 from bs4 import BeautifulSoup
+import pytest
 
 from conftest import locality_point_count
 
 from plugin.config import LOCALITY_POINT_CHILDREN
 from plugin.field_data_capture import FieldDataCapture
 from plugin.report_builder import ReportBuilder
+
 from plugin.utils import ipdb_breakpoint  # noqa
 
 
@@ -32,11 +34,8 @@ def test_create_field_report(fdc_project: FieldDataCapture):
         assert len(child_sections) > 0
 
 
-def test_get_report_data(fdc_project: FieldDataCapture, qgs_project: Path):
-    # Arrange
-
+def test_get_report_data(fdc_project: FieldDataCapture, report_builder: ReportBuilder):
     # Act
-    report_builder = ReportBuilder(fdc_project.project_dir, fdc_project.db_file)
     report_data = report_builder.get_report_data()
 
     # Assert
@@ -47,3 +46,34 @@ def test_get_report_data(fdc_project: FieldDataCapture, qgs_project: Path):
     for locality in report_data['locality_points'].values():
         # Check that the children dict has been created
         assert set(LOCALITY_POINT_CHILDREN) == set(locality['children'].keys())
+
+
+@pytest.mark.parametrize(
+    "sql, count",
+    [("SELECT * FROM field_project", 1),
+     ("SELECT *, AsText(CastAutomagic(geometry)) as geom FROM locality_point", 2)]
+)
+def test_get_rows(report_builder: ReportBuilder, sql: str, count: int):
+    # Act
+    rows = report_builder.get_rows(sql)
+
+    # Assert
+    assert isinstance(rows, list)
+    assert len(rows) == count
+    assert isinstance(rows[0], dict)
+
+
+def test_remove_microseconds_by_row(report_builder: ReportBuilder):
+    # Arrange
+    fixture = [{'date_entered': '2023-10-31T16:54:28.908', 'date_updated': '2023-10-31T16:54:28.908'},
+               {'date_entered': '2023-10-31T16:54:28', 'date_updated': '2023-10-31T16:54:28'},
+               {'date_entered': '2023-10-31T16:54:28.908', 'date_updated': None}]
+    expected = [{'date_entered': '2023-10-31T16:54:28', 'date_updated': '2023-10-31T16:54:28'},
+                {'date_entered': '2023-10-31T16:54:28', 'date_updated': '2023-10-31T16:54:28'},
+                {'date_entered': '2023-10-31T16:54:28', 'date_updated': None}]
+
+    # Act
+    result = report_builder.remove_microseconds_by_row(fixture)
+
+    # Assert
+    assert expected == result
