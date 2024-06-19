@@ -48,6 +48,43 @@ def test_get_report_data(fdc_project: FieldDataCapture, report_builder: ReportBu
         assert set(LOCALITY_POINT_CHILDREN) == set(locality['children'].keys())
 
 
+def test_get_project_data(report_builder: ReportBuilder):
+    # Act
+    result = report_builder.get_project_data()
+
+    # Assert
+    assert result['short_name'] == 'test_field_project'
+
+
+def test_get_locality_data(report_builder: ReportBuilder):
+    # Arrange
+    project = report_builder.get_project_data()
+    local_epsg = project['local_epsg']
+
+    # Act
+    localities = report_builder.get_locality_data(local_epsg)
+
+    # Assert
+    assert set(localities.keys()) == {'test_point_001', 'test_point_002'}
+    for locality in localities.values():
+        assert 'children' in locality
+
+
+def test_get_child_data(report_builder: ReportBuilder):
+    # Act
+    child = report_builder.get_child_data('test_point_001')
+
+    # Assert
+    assert set(child.keys()) == set(LOCALITY_POINT_CHILDREN)
+
+
+def test_get_child_rows_for_locality_from_table(report_builder: ReportBuilder):
+    # Act & assert
+    for table in LOCALITY_POINT_CHILDREN:
+        rows = report_builder.get_child_rows_for_locality_from_table(table, 'test_point_001')
+        assert rows
+
+
 @pytest.mark.parametrize(
     "sql, count",
     [("SELECT * FROM field_project", 1),
