@@ -333,3 +333,19 @@ def test_validate_projects_bad_path_not_a_folder(
     # Assert
     assert not valid_projects
     assert f"src project {src_geopackage} is not a directory" in caplog.text
+
+
+def test_validate_projects_bad_path_src_and_dest_the_same(
+    src_fdc_project: Path,
+    caplog,
+):
+    # Arrange
+    # Pass the src as both arguments
+    project_data_importer = ProjectDataImporter(src_fdc_project, src_fdc_project)
+
+    # Act
+    valid_projects = project_data_importer.validate_projects()
+
+    # Assert
+    assert not valid_projects
+    assert "Source and destination are the same, they must be different projects" in caplog.text

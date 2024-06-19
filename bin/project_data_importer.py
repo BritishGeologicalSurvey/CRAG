@@ -84,6 +84,10 @@ class ProjectDataImporter:
         Checks if the source and destination project are both ready for importing data.
         This includes checking that a database exists, and that it is not open.
         """
+        if self.src_dir == self.dest_dir:
+            logger.error("Source and destination are the same, they must be different projects")
+            return False
+
         for target, project_dir in [('src', self.src_dir), ('dest', self.dest_dir)]:
             # Ensure project_dir is a directory
             if not project_dir.is_dir():
