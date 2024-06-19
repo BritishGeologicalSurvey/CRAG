@@ -118,21 +118,12 @@ class ReportBuilder:
 
     def get_report_data(self) -> dict[str, Any]:
         """
-        Parse the project layers to extract data for the report
+        Extract data for the report
         """
-        report_data = {
-            'locality_points': []
-        }
-
+        report_data = {}
         report_data['project'] = self.get_project_data()
         local_epsg = report_data['project']['local_epsg']
-        locality_data = self.get_locality_data(local_epsg)
-        report_data['locality_points'] = {}
-        for locality in locality_data:
-            name = locality['name']
-            report_data['locality_points'][name] = locality
-            report_data['locality_points'][name]['children'] = self.get_child_data(name)
-
+        report_data['locality_points'] = self.get_locality_data(local_epsg)
         return report_data
 
 
@@ -157,16 +148,22 @@ class ReportBuilder:
         sql = "SELECT *, AsText(CastAutomagic(geometry)) as geom FROM locality_point"
         rows = self.get_rows(sql)
 
+        locality_points = {}
         for row in rows:
+            # Get point co-ordinates for Google link
             geom = QgsGeometry().fromWkt(row['geom'])
             point = geom.asPoint()
             google_link = (f'<a href="https://www.google.co.uk/maps/place/{point.y()},{point.x()}'
                            '" target="_blank">Open Google Map</a>')
+            # Get point co-ordinates in local EPSG
             geom.transform(tr)
             point = geom.asPoint()
             row['geometry'] = f'{(int(point.x()), int(point.y()))} - {google_link}'
 
-        return rows
+            locality_points[row['name']] = row
+            locality_points[row['name']]['children'] = self.get_child_data(row['name'])
+
+        return locality_points
 
 
     def get_child_data(self, locality_name: str) -> dict[str, Any]:
