@@ -268,6 +268,7 @@ def test_validate_projects_good(
 def test_validate_projects_bad_db_missing(
     src_fdc_project: Path,
     dest_fdc_project: Path,
+    caplog,
 ):
     # Arrange
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
@@ -277,10 +278,12 @@ def test_validate_projects_bad_db_missing(
     result = project_data_importer.validate_projects()
     # Assert 1
     assert not result
+    assert "Database file is missing from the dest project" in caplog.text
     # Act 2
     result = project_data_importer.copy_project_data()
     # Assert 2
     assert not result
+    assert "Database file is missing from the dest project" in caplog.text
 
 
 @pytest.mark.parametrize(
@@ -294,6 +297,7 @@ def test_validate_projects_bad_db_open(
     open_db_file: Path,
     src_fdc_project: Path,
     dest_fdc_project: Path,
+    caplog,
 ):
     # Arrange
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
@@ -303,15 +307,20 @@ def test_validate_projects_bad_db_open(
     result = project_data_importer.validate_projects()
     # Assert 1
     assert not result
+    assert "The database file in the dest project may be open" in caplog.text
+    assert "sqlite3 dest vacuum" in caplog.text
     # Act 2
     result = project_data_importer.copy_project_data()
     # Assert 2
     assert not result
+    assert "The database file in the dest project may be open" in caplog.text
+    assert "sqlite3 dest vacuum" in caplog.text
 
 
 def test_validate_projects_bad_path_not_a_folder(
     src_fdc_project: Path,
     dest_fdc_project: Path,
+    caplog,
 ):
     # Arrange
     # Pass geopackage name instead of project folder
@@ -323,3 +332,4 @@ def test_validate_projects_bad_path_not_a_folder(
 
     # Assert
     assert not valid_projects
+    assert f"src project {src_geopackage} is not a directory" in caplog.text
