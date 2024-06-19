@@ -103,13 +103,6 @@ class PhotoImporter(QDialog):
         self.cancel_button.clicked.connect(self.close)
 
 
-    def file_in_photos_dir(self, file: Path) -> bool:
-        """
-        Check if the given file already exists in the photos directory of the current project.
-        """
-        return self.photos_dir.absolute() in file.absolute().parents
-
-
     def select_photos(self) -> bool:
         """
         Get the required photos to select from the user.
@@ -123,23 +116,21 @@ class PhotoImporter(QDialog):
             return False
 
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
-        already_existing_photos = {
-            # This path will be relative to the photos_dir already
-            Path(feature.attribute("photo_file"))
-            for feature in photo_layer.getFeatures()
-        }
+        already_existing_photos = set()
+        for photo_feature in photo_layer.getFeatures():
+            photo_file = photo_feature.attribute("photo_file")
+            # If the photo_file attribute is empty it returns a QVariant NULL object, so we only want strings
+            # Only gets filepaths if they actually exist
+            if isinstance(photo_file, str) and (self.photos_dir / photo_file).exists():
+                # Add only the filename to the set so that files in sub-folders are still included properly
+                already_existing_photos.add(Path(photo_file).name)
+
         skip_photos = []
         self.photo_comboboxes = {}
 
         for photo in photos:
-            # Check if the file is in the photos directory before getting its relative path
-            if self.file_in_photos_dir(photo):
-                photo_relative_to_photos_dir = photo.relative_to(self.photos_dir)
-            else:
-                photo_relative_to_photos_dir = None
-
             # Don't import photos if they already exist or if they are already selected
-            if photo_relative_to_photos_dir in already_existing_photos or photo in self.photos_to_widgets:
+            if photo.name in already_existing_photos or photo in self.photos_to_widgets:
                 skip_photos.append(photo)
             else:
                 try:
@@ -148,15 +139,17 @@ class PhotoImporter(QDialog):
                     skip_photos.append(photo)
 
         # If any photos are skipped, show them in a message box
-        if len(skip_photos) > 0:
-            photos_str = "\n".join([str(photo) for photo in skip_photos])
-            QMessageBox.warning(
-                None, "Skipped Photos",
-                (
+        skip_photos_num = len(skip_photos)
+        if skip_photos_num > 0:
+            if skip_photos_num > 5:
+                msg = f"{skip_photos_num} photos have been skipped because they either exist or could not be loaded."
+            else:
+                photos_str = "\n".join([str(photo) for photo in skip_photos])
+                msg = (
                     "Some photos have been skipped because they either already exist or could not be loaded:"
                     f"\n\n{photos_str}"
-                ),
-            )
+                )
+            QMessageBox.warning(None, "Skipped Photos", msg)
 
         return True
 
@@ -349,7 +342,7 @@ class PhotoImporter(QDialog):
                 imported_photos += 1
 
                 # Only copy the file if it is not already in the photos directory
-                if self.file_in_photos_dir(photo_path):
+                if self.photos_dir.absolute() in photo_path.absolute().parents:
                     photo_file_attribute = photo_path.relative_to(self.photos_dir)
                 else:
                     # Copy the photo file into the project
