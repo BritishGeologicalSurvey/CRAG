@@ -4,12 +4,12 @@
                     <button class="collapsible">Contents</button>
                     <div class="content">
                         <h3>Locality Points</h3>
-                        <ul>
+                        <ol>
                         {% for point in locality_points.values() %}
                             <li><a href="#{{ point.name }}">
                                 {{point.name}} - {{ point.exposure_type_code }}{% if point.map_face_note is not none %} ({{ point.map_face_note }}){% endif %}
                             </a></li>
                         {% endfor %}
-                        </ul>
+                        </ol>
                     </div>
                 </section>
