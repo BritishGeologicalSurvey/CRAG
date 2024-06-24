@@ -64,7 +64,7 @@ img {
 }
 
 /* Collapsible sections, see: https://www.w3schools.com/howto/howto_js_collapsible.asp */
-.collapsible {
+.collapsible, .toc_button {
     background-color: #ccc;
     cursor: pointer;
     padding: 10px;
@@ -77,12 +77,12 @@ img {
     margin-bottom: 5px;
 }
 
-.active, .collapsible:hover {
+.active, .collapsible:hover, .toc_button:hover {
     background-color: #aaa;
     margin-top: 10px;
 }
 
-.collapsible::before {
+.collapsible::before, .toc_button::before {
     content: "\25B6";
     font-weight: bold;
     display: inline;

@@ -25,6 +25,35 @@
             }
           });
         }
+
+        const toc_button = document.getElementById("toc_button");
+        toc_button.addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+              content.style.maxHeight = null;
+            } else {
+              content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+
+        const expand_all = document.getElementById("expand_all");
+        expand_all.addEventListener("click", function() {
+            for (i = 0; i < coll.length; i++) {
+                coll[i].classList.add("active");
+                var content = coll[i].nextElementSibling;
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+
+        const collapse_all = document.getElementById("collapse_all");
+        collapse_all.addEventListener("click", function () {
+            for (i = 0; i < coll.length; i++) {
+                coll[i].classList.remove("active");
+                var content = coll[i].nextElementSibling;
+                content.style.maxHeight = null;
+            }
+        });
     </script>
 </body>
 </html>

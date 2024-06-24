@@ -8,6 +8,8 @@
             {% include "_project.html" %}
             <section class="locality_points">
                 <h2>Locality Points</h2>
+                <button id="expand_all" type="button">Expand all</button>
+                <button id="collapse_all" type="button">Collapse all</button>
                 {% for point in locality_points.values() %}
                 {% include "_locality_point.html" %}
                 {% endfor %}
