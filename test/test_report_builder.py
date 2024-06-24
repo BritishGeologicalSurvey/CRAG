@@ -114,3 +114,31 @@ def test_remove_microseconds_by_row(report_builder: ReportBuilder):
 
     # Assert
     assert expected == result
+
+
+def test_create_field_report_no_db(report_builder: ReportBuilder, caplog):
+    # Arrange
+    # Remove database to force error
+    report_builder.db_file.unlink()
+
+    # Act
+    result = report_builder.create_field_report()
+
+    # Assert
+    assert not result
+    assert 'Failed to create field report' in caplog.text
+    assert 'Unable to access the geopackage' in caplog.text
+
+
+def test_create_field_report_file_not_writeable(report_builder: ReportBuilder, caplog):
+    # Arrange
+    # Make project directory readonly
+    report_builder.project_dir.chmod(444)
+
+    # Act
+    result = report_builder.create_field_report()
+
+    # Assert
+    assert not result
+    assert 'Failed to create field report' in caplog.text
+    assert 'Unable to write report file' in caplog.text

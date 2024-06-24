@@ -1,3 +1,4 @@
+import logging
 import shutil
 import sqlite3
 from pathlib import Path
@@ -19,6 +20,8 @@ from .config import LOCALITY_POINT_CHILDREN
 from .create_gpkg_from_sql import WORKDIR
 from .utils import ipdb_breakpoint  # noqa
 
+logger = logging.getLogger('report_builder')
+logging.basicConfig(level=logging.DEBUG)
 
 CHILD_ATTRIBUTES = {
     "lithology": ", dic_rock_field.label ",
@@ -93,26 +96,37 @@ class ReportBuilder:
         Returns a boolean indicating success of the process.
         """
 
-        if self.report_file.exists():
-            result = QMessageBox.question(
-                None, "Report file Already Exists",
-                f"The report file already exists, would you like to overwrite the file?\n\n{self.report_file}",
-            )
-            if result == QMessageBox.No:
-                return False
+        try:
+            if self.report_file.exists():
+                result = QMessageBox.question(
+                    None, "Report file Already Exists",
+                    f"The report file already exists, would you like to overwrite the file?\n\n{self.report_file}",
+                )
+                if result == QMessageBox.No:
+                    return False
 
-        environment = Environment(loader=FileSystemLoader(self.templates_dir))
-        template = environment.get_template("report.html")
-        context = self.get_report_data()
-        content = template.render(context)
+            environment = Environment(loader=FileSystemLoader(self.templates_dir))
+            template = environment.get_template("report.html")
+            context = self.get_report_data()
+            content = template.render(context)
 
-        with open(self.report_file, mode="w", encoding="utf-8") as report:
-            report.write(content)
-        # Copy CSS file to project directory
-        self.css_dest_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
+            with open(self.report_file, mode="w", encoding="utf-8") as report:
+                report.write(content)
+            # Copy CSS file to project directory
+            self.css_dest_dir.mkdir(parents=True, exist_ok=True)
+            shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
 
-        QMessageBox.information(None, "Information", f"Created field report:\n\n{self.report_file}")
+            QMessageBox.information(None, "Information", f"Created field report:\n\n{self.report_file}")
+        except Exception as exc:
+            msg = ""
+            if isinstance(exc, sqlite3.OperationalError):
+                msg = "Unable to access the geopackage\n"
+            elif isinstance(exc, PermissionError):
+                msg = "Unable to write report file\n"
+            logging.exception(f"Failed to create field report: {self.report_file}\n{msg}")
+            QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
+            return False
+
         return True
 
 
