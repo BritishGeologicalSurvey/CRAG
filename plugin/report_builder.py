@@ -21,7 +21,6 @@ from .create_gpkg_from_sql import WORKDIR
 from .utils import ipdb_breakpoint  # noqa
 
 logger = logging.getLogger('report_builder')
-logging.basicConfig(level=logging.DEBUG)
 
 CHILD_ATTRIBUTES = {
     "lithology": ", dic_rock_field.label ",
@@ -123,7 +122,7 @@ class ReportBuilder:
                 msg = "Unable to access the geopackage\n"
             elif isinstance(exc, PermissionError):
                 msg = "Unable to write report file\n"
-            logging.exception(f"Failed to create field report: {self.report_file}\n{msg}")
+            logger.exception(f"Failed to create field report: {self.report_file}\n{msg}")
             QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
             return False
 
