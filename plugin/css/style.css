@@ -2,12 +2,14 @@
 table {
     table-layout: auto;
     width: 90%;
+    margin-top: 5px;
     margin-bottom: 10px;
 }
 
 hr {
     width: 90%;
-    margin: 0;
+    margin-left: 0px;
+    margin-top: 10px;
 }
 
 table,
@@ -71,18 +73,20 @@ img {
     text-align: left;
     outline: none;
     font-size: 20px;
-    margin-top: 5px;
+    margin-top: 10px;
     margin-bottom: 5px;
 }
 
 .active, .collapsible:hover {
     background-color: #aaa;
+    margin-top: 10px;
 }
 
 .collapsible::before {
     content: "\25B6";
     font-weight: bold;
     display: inline;
+    margin-top: 10px;
     margin-right: 10px;
 }
 
