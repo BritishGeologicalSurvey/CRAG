@@ -63,18 +63,22 @@ img {
     max-width: 200px;
 }
 
-/* Collapsible sections, see: https://www.w3schools.com/howto/howto_js_collapsible.asp */
-.collapsible, .toc_button {
+.button {
     background-color: #ccc;
     cursor: pointer;
     padding: 10px;
-    width: 90%;
     border: none;
+    border-radius: 8px;
     text-align: left;
     outline: none;
     font-size: 20px;
     margin-top: 10px;
     margin-bottom: 5px;
+}
+
+/* Collapsible sections, see: https://www.w3schools.com/howto/howto_js_collapsible.asp */
+.collapsible, .toc_button {
+    width: 90%;
 }
 
 .active, .collapsible:hover, .toc_button:hover {
@@ -98,4 +102,14 @@ img {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+}
+
+#locality_points_header {
+    display: flex;
+    width: 90%;
+    align-items: center;
+}
+
+#expand_collapse {
+    margin-left: auto;
 }
