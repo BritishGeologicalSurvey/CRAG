@@ -87,15 +87,17 @@ img {
 }
 
 .collapsible::before, .toc_button::before {
-    content: "\25B6";
-    font-weight: bold;
-    display: inline;
-    margin-top: 10px;
+    font-family: 'Material Symbols Outlined';
+    content: "\f591";
+    font-size: 25px;
     margin-right: 10px;
 }
 
 .active::before {
-    content: "\25BC";
+    font-family: 'Material Symbols Outlined';
+    content: "\e7cd";
+    font-size: 25px;
+    margin-right: 10px;
 }
 
 .content {
