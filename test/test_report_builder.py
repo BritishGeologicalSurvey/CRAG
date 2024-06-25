@@ -1,3 +1,4 @@
+import builtins
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -130,10 +131,13 @@ def test_create_field_report_no_db(report_builder: ReportBuilder, caplog):
     assert 'Unable to access the geopackage' in caplog.text
 
 
-def test_create_field_report_file_not_writeable(report_builder: ReportBuilder, caplog):
+def test_create_field_report_file_not_writeable(report_builder: ReportBuilder, monkeypatch, caplog):
     # Arrange
-    # Make project directory readonly
-    report_builder.project_dir.chmod(444)
+    # Force open to throw an OSError, covering several failure types
+    def mock_open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None):
+        raise OSError()
+
+    monkeypatch.setattr(builtins, 'open', mock_open)
 
     # Act
     result = report_builder.create_field_report()

@@ -120,7 +120,7 @@ class ReportBuilder:
             msg = ""
             if isinstance(exc, sqlite3.OperationalError):
                 msg = "Unable to access the geopackage\n"
-            elif isinstance(exc, PermissionError):
+            elif isinstance(exc, OSError):
                 msg = "Unable to write report file\n"
             logger.exception(f"Failed to create field report: {self.report_file}\n{msg}")
             QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
