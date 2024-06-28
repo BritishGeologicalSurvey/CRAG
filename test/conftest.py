@@ -14,6 +14,7 @@ from plugin.create_gpkg_from_sql import add_test_data
 from plugin.field_data_capture import FieldDataCapture
 from plugin.photo_importer import PhotoImporter
 from plugin.quick_map_tools import QuickMapToolBase
+from plugin.report_builder import ReportBuilder
 
 
 def setup_db_conn(db_file: Path) -> sqlite3.Connection:
@@ -172,3 +173,13 @@ def fdc_project(fdc: FieldDataCapture, qgs_project: Path) -> FieldDataCapture:
     fdc.add_gpkg_layers_to_project()
     fdc.add_test_data_to_project()
     return fdc
+
+
+@pytest.fixture()
+def report_builder(fdc_project: FieldDataCapture) -> ReportBuilder:
+    """
+    Setup Report Builder for use in tests.
+    """
+    report_builder = ReportBuilder(fdc_project.project_dir, fdc_project.db_file)
+
+    return report_builder

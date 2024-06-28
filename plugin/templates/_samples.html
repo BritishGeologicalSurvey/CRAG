@@ -1,0 +1,33 @@
+{# Table structure for sample metadata #}
+
+            {% if point.children.sample|length > 0 %}
+                <section class="sample">
+                    <h4>Samples</h4>
+                    {% for sample in point.children.sample %}
+                    <table>
+                        <tr>
+                            <td>Sample ID</td>
+                            <td>{{ sample.sample_id }}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{{ sample.description }}</td>
+                        </tr>
+                        <tr>
+                            <td>Notes</td>
+                            <td>{{ sample.notes }}</td>
+                        </tr>
+                        <tr>
+                            <td>Entered</td>
+                            <td>{{ sample.user_entered }} at {{ sample.date_entered }}</td>
+                        </tr>
+                        {% if sample.user_updated is not none %}
+                        <tr>
+                            <td>Updated</td>
+                            <td>{{ sample.user_updated }} at {{ sample.date_updated }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                    {% endfor %}
+                </section>
+            {% endif %}

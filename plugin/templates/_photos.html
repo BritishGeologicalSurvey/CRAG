@@ -1,0 +1,36 @@
+{# Table structure for photo metadata #}
+
+            {% if point.children.photo|length > 0 %}
+                <section class="photo">
+                    <h4>Photos</h4>
+                    <div class="row">
+                    {% for photo in point.children.photo %}
+                    <div class="column">
+                    <table>
+                        <tr>
+                            <td class="photo" colspan="2">
+                                <a target="_blank" href="photos/{{ photo.photo_file }}">
+                                    <img src="photos/{{ photo.photo_file }}">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Notes</td>
+                            <td>{{ photo.notes }}</td>
+                        </tr>
+                        <tr>
+                            <td>Entered</td>
+                            <td>{{ photo.user_entered }} at {{ photo.date_entered }}</td>
+                        </tr>
+                        {% if photo.user_updated is not none %}
+                        <tr>
+                            <td>Updated</td>
+                            <td>{{ photo.user_updated }} at {{ photo.date_updated }}</td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                    </div>
+                    {% endfor %}
+                </div>
+                </section>
+            {% endif %}

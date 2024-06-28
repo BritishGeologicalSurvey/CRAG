@@ -1,7 +1,17 @@
+/* Standard table layout */
 table {
     table-layout: auto;
-    width: 75%;
+    width: 90%;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
+
+hr {
+    width: 90%;
+    margin-left: 0px;
+    margin-top: 10px;
+}
+
 table,
 th,
 td {
@@ -10,6 +20,98 @@ td {
     padding: 5px;
 }
 
+/* Keep the first column narrow */
+td:first-child {
+    width: 10%;
+    white-space: nowrap;
+}
+
+/* Shade alternate rows */
 tr:nth-child(odd) {
-    background-color: #a0a0a0;
+    background-color: #dddddd;
+}
+
+/* Do the photo tables differently */
+section.photos table {
+    width: 200px;
+}
+
+/* Place thumbnail centrally */
+td.photo {
+    width: 220px;
+    height: 220px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Put tables side by side */
+.column {
+    float: left;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Set thumbnail size */
+img {
+    padding: 5px;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+.button {
+    background-color: #ccc;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+/* Collapsible sections, see: https://www.w3schools.com/howto/howto_js_collapsible.asp */
+.collapsible, .toc_button {
+    width: 90%;
+}
+
+.active, .collapsible:hover, .toc_button:hover {
+    background-color: #aaa;
+    margin-top: 10px;
+}
+
+.collapsible::before, .toc_button::before {
+    font-family: 'Material Symbols Outlined';
+    content: "\f591";
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.active::before {
+    font-family: 'Material Symbols Outlined';
+    content: "\e7cd";
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+#locality_points_header {
+    display: flex;
+    width: 90%;
+    align-items: center;
+}
+
+#expand_collapse {
+    margin-left: auto;
 }

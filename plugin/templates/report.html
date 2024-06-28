@@ -4,84 +4,18 @@
 
         <section class="report">
             <h1>Field Report: {{ project.title }}</h1>
-            <section class="project">
-                <h2>Project information</h2>
-                <table>
-                    <tr>
-                        <td>Project lead</td>
-                        <td>{{ project.project_lead }}</td>
-                    </tr>
-                    <tr>
-                        <td>Project type</td>
-                        <td>{{ project.field_project_type }}</td>
-                    </tr>
-                    <tr>
-                        <td>Start date</td>
-                        <td>{{ project.start_date }}</td>
-                    </tr>
-                    <tr>
-                        <td>End date</td>
-                        <td>{{ project.end_date }}</td>
-                    </tr>
-                    <tr>
-                        <td>Description</td>
-                        <td>{{ project.description }}</td>
-                    </tr>
-                    <tr>
-                        <td>Notes</td>
-                        <td>{{ project.notes }}</td>
-                    </tr>
-                    <tr>
-                        <td>Entered</td>
-                        <td>{{ project.user_entered }} at {{ project.date_entered }}</td>
-                    </tr>
-                    {% if project.user_updated is not none %}
-                    <tr>
-                        <td>Updated</td>
-                        <td>{{ project.user_updated }} at {{ project.date_updated }}</td>
-                    </tr>
-                    {% endif %}
-                </table>
-            </section>
-
+            {% include "_toc.html" %}
+            {% include "_project.html" %}
             <section class="locality_points">
-                <h2>Locality Points</h2>
-                {% for point in locality_points %}
-                <section class="locality_point">
-                    <h3>Locality point: {{ point.name }}</h3>
-                    <table>
-                        <tr>
-                            <td>Exposure type</td>
-                            <td>{{ point.exposure_type_code }}</td>
-                        </tr>
-                        <tr>
-                            <td>Location</td>
-                            <td>{{ point.geometry }}</td>
-                        </tr>
-                        <tr>
-                            <td>Description</td>
-                            <td>{{ point.locality_description }}</td>
-                        </tr>
-                        <tr>
-                            <td>Map face note</td>
-                            <td>{{ point.map_face_note }}</td>
-                        </tr>
-                        <tr>
-                            <td>Notes</td>
-                            <td>{{ point.notes }}</td>
-                        </tr>
-                        <tr>
-                            <td>Entered</td>
-                            <td>{{ point.user_entered }} at {{ point.date_entered }}</td>
-                        </tr>
-                        {% if point.user_updated is not none %}
-                        <tr>
-                            <td>Updated</td>
-                            <td>{{ point.user_updated }} at {{ point.date_updated }}</td>
-                        </tr>
-                        {% endif %}
-                    </table>
-                </section>
+                <div id="locality_points_header">
+                    <h2>Locality Points</h2>
+                    <div id="expand_collapse">
+                        <button class="button" id="expand_all" type="button">Expand all</button>
+                        <button class="button" id="collapse_all" type="button">Collapse all</button>
+                    </div>
+                </div>
+                {% for point in locality_points.values() %}
+                {% include "_locality_point.html" %}
                 {% endfor %}
             </section>
         </section>
