@@ -28,7 +28,9 @@ CHILD_ATTRIBUTES = {
     "media": ", dic_media.description ",
     "photo": "",
     "sample": ", dic_sample.description ",
-    "structural_measurement": ", dic_structure.description ",
+    "structural_measurement": (", dic_structure.description "
+                               ", dic_structure_secondary.description as secondary_description "
+                               ", dic_structure_third.description as third_description "),
     "superficial_landform": ", dic_superficial_landform.description ",
 }
 
@@ -38,7 +40,11 @@ CHILD_JOINS = {
     "media": " JOIN dic_media ON code == child.media_type_code ",
     "photo": "",
     "sample": " JOIN dic_sample ON code == child.sample_type_code ",
-    "structural_measurement": " JOIN dic_structure ON code == child.structure_type_code ",
+    "structural_measurement": (" JOIN dic_structure ON dic_structure.code == child.structure_type_code "
+                               " LEFT JOIN dic_structure_secondary ON dic_structure_secondary.code "
+                               "== child.secondary_attribute "
+                               " LEFT JOIN dic_structure_third ON dic_structure_third.code "
+                               "== child.third_attribute "),
     "superficial_landform": " JOIN dic_superficial_landform ON code == child.superficial_type_code ",
 }
 
