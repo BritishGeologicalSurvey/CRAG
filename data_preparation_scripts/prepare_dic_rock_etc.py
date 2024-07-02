@@ -160,9 +160,7 @@ def import_dic_rock_all(conn: sqlite3.Connection):
             rows = pickle.loads(DIC_ROCK_ALL_CACHE.read_bytes())
         else:
             # Use fetchall instead of iter_rows so that we can use them again
-            rows = etl.fetchall(select_sql, oracle_conn,
-                                row_factory=etl.row_factories.dict_row_factory,
-                                transform=transform)
+            rows = etl.fetchall(select_sql, oracle_conn, transform=transform)
         etl.load('_dic_rock_all', conn, rows)
 
     if not DIC_ROCK_ALL_CACHE.exists():
@@ -296,8 +294,7 @@ def update_cgi_uris_from_inspire(conn):
             cgi_lithology_uri IS ''
     """
 
-    rows = etl.iter_rows(select_sql, conn, transform=transform_inspire_to_cgi,
-                         row_factory=etl.row_factories.dict_row_factory)
+    rows = etl.iter_rows(select_sql, conn, transform=transform_inspire_to_cgi)
     etl.executemany(update_sql, conn, rows)
 
 
@@ -349,9 +346,7 @@ def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
             status = 'C'
     """
 
-    dic_rock_all_rows = etl.fetchall(dic_rock_all_select_sql,
-                                     conn,
-                                     row_factory=etl.row_factories.dict_row_factory)
+    dic_rock_all_rows = etl.fetchall(dic_rock_all_select_sql, conn)
 
     dic_rock_field_upsert_sql = """
         INSERT INTO dic_rock_field
