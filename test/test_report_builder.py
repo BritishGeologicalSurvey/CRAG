@@ -12,6 +12,20 @@ from plugin.report_builder import ReportBuilder
 
 from plugin.utils import ipdb_breakpoint  # noqa
 
+# Minimum set of columns needed to produce a report using the templates
+EXPECTED_COMMON_COLUMNS = {"notes", "user_entered", "date_entered", "user_updated", "date_updated"}
+EXPECTED_PROJECT_COLUMNS = {"project_lead", "field_project_type", "start_date", "end_date", "description"}
+EXPECTED_LOCALITY_COLUMNS = {"name", "exposure_type_code", "geometry", "locality_description", "map_face_note"}
+EXPECTED_CHILD_COLUMNS = {
+    "lithology": {"label", "lithology_code"},
+    "manmade_landform": {"description"},
+    "media": {"description", "media_type_code", "media_link"},
+    "photo": {"photo_file"},
+    "sample": {"description", "sample_id"},
+    "structural_measurement": {"description", "secondary_description", "third_description", "dip", "azimuth"},
+    "superficial_landform": {"description"},
+}
+
 
 def test_create_field_report(fdc_project: FieldDataCapture):
     # Act
@@ -55,6 +69,8 @@ def test_get_project_data(report_builder: ReportBuilder):
 
     # Assert
     assert result['short_name'] == 'test_field_project'
+    assert EXPECTED_COMMON_COLUMNS < set(result.keys())
+    assert EXPECTED_PROJECT_COLUMNS < set(result.keys())
 
 
 def test_get_locality_data(report_builder: ReportBuilder):
@@ -68,6 +84,8 @@ def test_get_locality_data(report_builder: ReportBuilder):
     # Assert
     assert set(localities.keys()) == {'test_point_001', 'test_point_002'}
     for locality in localities.values():
+        assert EXPECTED_COMMON_COLUMNS < set(locality.keys())
+        assert EXPECTED_LOCALITY_COLUMNS < set(locality.keys())
         assert 'children' in locality
 
 
@@ -84,6 +102,9 @@ def test_get_child_rows_for_locality_from_table(report_builder: ReportBuilder):
     for table in LOCALITY_POINT_CHILDREN:
         rows = report_builder.get_child_rows_for_locality_from_table(table, 'test_point_001')
         assert rows
+        for row in rows:
+            assert EXPECTED_COMMON_COLUMNS < set(row.keys())
+            assert EXPECTED_CHILD_COLUMNS[table] < set(row.keys())
 
 
 @pytest.mark.parametrize(
