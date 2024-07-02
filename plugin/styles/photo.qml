@@ -67,6 +67,7 @@
             <Option name="StorageAuthConfigId" type="QString" value=""></Option>
             <Option name="StorageMode" type="int" value="0"></Option>
             <Option name="StorageType" type="QString" value=""></Option>
+            <Option name="UseLink" type="bool" value="true"></Option>
           </Option>
         </config>
       </editWidget>
