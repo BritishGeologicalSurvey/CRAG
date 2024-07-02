@@ -1,13 +1,13 @@
 /* Standard table layout */
 table {
     table-layout: auto;
-    width: 90%;
+    width: 100%;
     margin-top: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 hr {
-    width: 90%;
+    width: 100%;
     margin-left: 0px;
     margin-top: 10px;
 }
@@ -32,8 +32,8 @@ tr:nth-child(odd) {
 }
 
 /* Do the photo tables differently */
-section.photos table {
-    width: 200px;
+section.photo div.column {
+    margin-right: 25px;
 }
 
 /* Place thumbnail centrally */
@@ -78,7 +78,7 @@ img {
 
 /* Collapsible sections, see: https://www.w3schools.com/howto/howto_js_collapsible.asp */
 .collapsible, .toc_button {
-    width: 90%;
+    width: 100%;
 }
 
 .active, .collapsible:hover, .toc_button:hover {
@@ -108,7 +108,7 @@ img {
 
 #locality_points_header {
     display: flex;
-    width: 90%;
+    width: 100%;
     align-items: center;
 }
 
