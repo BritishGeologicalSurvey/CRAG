@@ -3,15 +3,42 @@
             {% if point.children.media|length > 0 %}
                 <section class="media">
                     <h4>Media files</h4>
+                    <div class="row">
                     {% for media in point.children.media %}
+                    <div class="column">
                     <table>
+                        {% if media.media_type_code == 'video' %}
                         <tr>
-                            <td>Media</td>
-                            <td>{{ media.link }}</td>
+                            <td class="media" colspan="2">
+                                <a target="_blank" href="media/{{ media.media_link }}">
+                                    <span class="material-symbols-outlined" style="font-size: 48px;">smart_display</span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% elif media.media_type_code == 'voice' %}
+                        <tr>
+                            <td class="media" colspan="2">
+                                <a target="_blank" href="media/{{ media.media_link }}">
+                                    <span class="material-symbols-outlined" style="font-size: 48px;">audio_file</span>
+                                </a>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td class="media" colspan="2">
+                                <a target="_blank" href="media/{{ media.media_link }}">
+                                    <img src="media/{{ media.media_link }}">
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td>Media type</td>
+                            <td>{{ media.description }}</td>
                         </tr>
                         <tr>
-                            <td>Description</td>
-                            <td>{{ media.description }}</td>
+                            <td>File name</td>
+                            <td>{{ media.media_link }}</td>
                         </tr>
                         <tr>
                             <td>Notes</td>
@@ -28,6 +55,8 @@
                         </tr>
                         {% endif %}
                     </table>
+                    </div>
                     {% endfor %}
+                </div>
                 </section>
             {% endif %}

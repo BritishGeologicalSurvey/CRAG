@@ -31,13 +31,14 @@ tr:nth-child(odd) {
     background-color: #dddddd;
 }
 
-/* Do the photo tables differently */
-section.photo div.column {
+/* Do the photo and media tables differently */
+section.photo, section.media div.column {
     margin-right: 25px;
+    max-width: 250px;
 }
 
 /* Place thumbnail centrally */
-td.photo {
+td.photo, td.media {
     width: 220px;
     height: 220px;
     text-align: center;
@@ -89,14 +90,14 @@ img {
 .collapsible::before, .toc_button::before {
     font-family: 'Material Symbols Outlined';
     content: "\f591";
-    font-size: 25px;
+    font-size: 24px;
     margin-right: 10px;
 }
 
 .active::before {
     font-family: 'Material Symbols Outlined';
     content: "\e7cd";
-    font-size: 25px;
+    font-size: 24px;
     margin-right: 10px;
 }
 
