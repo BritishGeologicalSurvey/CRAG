@@ -77,7 +77,7 @@ def assert_column_constraints(
     create_sql: str = etl.fetchone(
         'select sql from sqlite_schema where type="table" and tbl_name=?',
         data_model_gpkg, parameters=(table,)
-    ).sql
+    )['sql']
 
     # Translate tabs to spaces
     create_sql = create_sql.replace("\t", " ")
@@ -271,21 +271,21 @@ def test_lnk_rock_project_trigger_fires_on_new_project(test_data_gpkg: sqlite3.C
 
     # Arrange data to check
     test_project_uuid = etl.fetchone("SELECT uuid FROM field_project LIMIT 1",
-                                     test_data_gpkg).uuid
+                                     test_data_gpkg)['uuid']
 
     default_lithologies_sql = """
         SELECT code
         FROM dic_rock_field
         WHERE is_default IS True"""
     result = etl.fetchall(default_lithologies_sql, test_data_gpkg)
-    default_lithologies = {row.code for row in result}
+    default_lithologies = {row['code'] for row in result}
 
     rock_project_sql = """
         SELECT rock_code, field_project_uuid
         FROM _lnk_rock_project"""
     rocks_by_project = defaultdict(set)
     for row in etl.fetchall(rock_project_sql, test_data_gpkg):
-        rocks_by_project[row.field_project_uuid].add(row.rock_code)
+        rocks_by_project[row['field_project_uuid']].add(row['rock_code'])
 
     # Assert
     assert len(rocks_by_project) == 1
