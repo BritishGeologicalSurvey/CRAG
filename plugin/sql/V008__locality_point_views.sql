@@ -125,6 +125,83 @@ INSERT INTO gpkg_geometry_columns
 VALUES('view_manmade_landform','geometry','POINT',4326,1,0);
 
 
+CREATE VIEW IF NOT EXISTS "view_photo" AS
+ SELECT
+    fp.short_name AS field_project,
+    lp.name AS locality_point,
+    ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
+    ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
+    fp.local_epsg,
+    lp.exposure_type_code AS exposure_type,
+    ph.photo_file,
+    ph.notes,
+    ph.uuid AS photo_uuid,
+    lp.uuid AS locality_uuid,
+    lp.geometry AS geometry
+  FROM photo ph
+    LEFT JOIN locality_point lp ON ph.locality_fuid = lp.uuid
+    LEFT JOIN field_project fp ON lp.field_project_fuid = fp.uuid
+;
+
+INSERT INTO gpkg_contents
+VALUES('view_photo','features','view_photo','View with photo records at locality positions','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,4326);
+
+INSERT INTO gpkg_geometry_columns
+VALUES('view_photo','geometry','POINT',4326,1,0);
+
+
+CREATE VIEW IF NOT EXISTS "view_media" AS
+ SELECT
+    fp.short_name AS field_project,
+    lp.name AS locality_point,
+    ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
+    ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
+    fp.local_epsg,
+    lp.exposure_type_code AS exposure_type,
+    me.media_type_code AS media_type,
+	  me.media_link,
+    me.notes,
+    me.uuid AS media_uuid,
+    lp.uuid AS locality_uuid,
+    lp.geometry AS geometry
+  FROM media me
+    LEFT JOIN locality_point lp ON me.locality_fuid = lp.uuid
+    LEFT JOIN field_project fp ON lp.field_project_fuid = fp.uuid
+;
+
+INSERT INTO gpkg_contents
+VALUES('view_media','features','view_media','View with media records at locality positions','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,4326);
+
+INSERT INTO gpkg_geometry_columns
+VALUES('view_media','geometry','POINT',4326,1,0);
+
+
+CREATE VIEW IF NOT EXISTS "view_sample" AS
+ SELECT
+    fp.short_name AS field_project,
+    lp.name AS locality_point,
+    ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
+    ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
+    fp.local_epsg,
+    lp.exposure_type_code AS exposure_type,
+    sa.sample_id,
+    sa.sample_type_code AS sample_type,
+    sa.notes,
+    sa.uuid AS sample_uuid,
+    lp.uuid AS locality_uuid,
+    lp.geometry AS geometry
+  FROM sample sa
+    LEFT JOIN locality_point lp ON sa.locality_fuid = lp.uuid
+    LEFT JOIN field_project fp ON lp.field_project_fuid = fp.uuid
+;
+
+INSERT INTO gpkg_contents
+VALUES('view_sample','features','view_sample','View with sample results at locality positions','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,4326);
+
+INSERT INTO gpkg_geometry_columns
+VALUES('view_sample','geometry','POINT',4326,1,0);
+
+
 CREATE VIEW IF NOT EXISTS "_view_next_locality_id" AS
   -- Using nested SELECT statements as it allows us to build reusable variables
   SELECT
