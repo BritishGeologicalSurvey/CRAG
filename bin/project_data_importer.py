@@ -123,7 +123,6 @@ class ProjectDataImporter:
         return etl.fetchone(
             "SELECT uuid FROM field_project",
             self.dest_conn,
-            row_factory=etl.row_factories.dict_row_factory,
         )["uuid"]
 
 
@@ -151,7 +150,6 @@ class ProjectDataImporter:
                             table=table,
                             source_conn=self.src_conn,
                             dest_conn=self.dest_conn,
-                            row_factory=etl.row_factories.dict_row_factory,
                             transform=self.transform_fdc_rows,
                         )
 
@@ -184,7 +182,6 @@ class ProjectDataImporter:
         dest_notes = etl.fetchone(
             "SELECT notes FROM field_project",
             self.dest_conn,
-            row_factory=etl.row_factories.dict_row_factory,
         )["notes"]
         src_metadata = etl.fetchone(
             """
@@ -209,7 +206,6 @@ class ProjectDataImporter:
                     field_project
             """,
             self.src_conn,
-            row_factory=etl.row_factories.dict_row_factory,
         )
 
         # Generate the extra string to append to the notes
