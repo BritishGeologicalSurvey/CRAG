@@ -53,12 +53,14 @@ tr:nth-child(odd) {
 }
 
 /* Do the photo and media tables differently */
-section.photo, section.media div.column {
+section.photo div.column, section.media div.column {
     margin-right: 25px;
-    max-width: 250px;
+}
+section.photo table, section.media table {
+    max-width: 300px;
 }
 
-/* Place thumbnail centrally */
+/* Place thumbnails centrally */
 td.photo, td.media {
     width: 220px;
     height: 220px;
