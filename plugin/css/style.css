@@ -116,3 +116,8 @@ img {
 #expand_collapse {
     margin-left: auto;
 }
+
+span.size-48 {
+    font-size: 48px;
+    font-variation-settings: 'OPSZ' 48;
+}
