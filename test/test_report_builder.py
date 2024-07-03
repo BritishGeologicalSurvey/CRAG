@@ -6,7 +6,6 @@ import pytest
 
 from conftest import locality_point_count
 
-from plugin.config import LOCALITY_POINT_CHILDREN
 from plugin.field_data_capture import FieldDataCapture
 from plugin.report_builder import ReportBuilder
 
@@ -44,7 +43,7 @@ def test_create_field_report(fdc_project: FieldDataCapture):
     locality_sections = soup.findAll('section', {'class': "locality_point"})
     row_count = locality_point_count(fdc_project)
     assert len(locality_sections) == row_count
-    for child in LOCALITY_POINT_CHILDREN:
+    for child in EXPECTED_CHILD_COLUMNS.keys():
         child_sections = soup.findAll('section', {'class': child})
         assert len(child_sections) > 0
 
@@ -60,7 +59,7 @@ def test_get_report_data(fdc_project: FieldDataCapture, report_builder: ReportBu
     assert len(report_data['locality_points']) == row_count
     for locality in report_data['locality_points'].values():
         # Check that the children dict has been created
-        assert set(LOCALITY_POINT_CHILDREN) == set(locality['children'].keys())
+        assert set(EXPECTED_CHILD_COLUMNS.keys()) == set(locality['children'].keys())
 
 
 def test_get_project_data(report_builder: ReportBuilder):
@@ -94,12 +93,12 @@ def test_get_child_data(report_builder: ReportBuilder):
     child = report_builder.get_child_data('test_point_001')
 
     # Assert
-    assert set(child.keys()) == set(LOCALITY_POINT_CHILDREN)
+    assert set(child.keys()) == set(EXPECTED_CHILD_COLUMNS.keys())
 
 
 def test_get_child_rows_for_locality_from_table(report_builder: ReportBuilder):
     # Act & assert
-    for table in LOCALITY_POINT_CHILDREN:
+    for table in EXPECTED_CHILD_COLUMNS.keys():
         rows = report_builder.get_child_rows_for_locality_from_table(table, 'test_point_001')
         assert rows
         for row in rows:
