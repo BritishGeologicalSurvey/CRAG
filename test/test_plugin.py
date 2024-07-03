@@ -218,10 +218,16 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         group_layer_names = [layer.name() for layer in group.children()]
         assert fdc.layer_tree_structure[group.name()] == group_layer_names
 
-    # Check that dic layers are readonly
+    hidden_layers = {"view_media", "view_photo", "view_sample"}
     for layer in QgsProject.instance().mapLayers().values():
+        # Check that dic layers are readonly
         if layer.name().startswith("dic"):
             assert layer.readOnly()
+        # Check that correct layers are hidden
+        expected_visible = True
+        if layer.name() in hidden_layers:
+            expected_visible = False
+        assert expected_visible == QgsProject.instance().layerTreeRoot().findLayer(layer).itemVisibilityChecked()
 
     # Check that the style files have been copied into the project directory
     actual_qml_files = [
