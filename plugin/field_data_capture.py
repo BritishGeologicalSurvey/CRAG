@@ -959,6 +959,7 @@ class FieldDataCapture:
 
         # Copy test data media files across into current project
         self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest="photos")
+        self.copy_plugin_files_to_project(plugin_src="test/data/media", project_dest="media")
         self.iface.mapCanvas().refresh()
         QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
         return True

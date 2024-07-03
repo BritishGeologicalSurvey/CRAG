@@ -99,7 +99,7 @@ def test_copy_project_data_good(
         "locality_point": 4,
         "manmade_landform": 2,
         "mass_move_line": 1,
-        "media": 2,
+        "media": 3,
         "photo": 4,
         "sample": 2,
         "structural_measurement": 2,
