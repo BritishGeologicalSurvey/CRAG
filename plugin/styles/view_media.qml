@@ -1,0 +1,303 @@
+<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.6-Prizren">
+  <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="singleSymbol">
+    <symbols>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="marker">
+        <data_defined_properties>
+          <Option type="Map">
+            <Option name="name" type="QString" value=""></Option>
+            <Option name="properties"></Option>
+            <Option name="type" type="QString" value="collection"></Option>
+          </Option>
+        </data_defined_properties>
+        <layer class="SvgMarker" enabled="1" id="{d5491eca-9783-427d-aad5-1c2c10f14d49}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="angle" type="QString" value="0"></Option>
+            <Option name="color" type="QString" value="53,53,53,255"></Option>
+            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
+            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+            <Option name="name" type="QString" value="base64:PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjNWY2MzY4Ij48cGF0aCBkPSJNMzIwLTI0MGgzMjB2LTgwSDMyMHY4MFptMC0xNjBoMzIwdi04MEgzMjB2ODBaTTI0MC04MHEtMzMgMC01Ni41LTIzLjVUMTYwLTE2MHYtNjQwcTAtMzMgMjMuNS01Ni41VDI0MC04ODBoMzIwbDI0MCAyNDB2NDgwcTAgMzMtMjMuNSA1Ni41VDcyMC04MEgyNDBabTI4MC01MjB2LTIwMEgyNDB2NjQwaDQ4MHYtNDQwSDUyMFpNMjQwLTgwMHYyMDAtMjAwIDY0MC02NDBaIi8+PC9zdmc+"></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="MM"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+            <Option name="parameters"></Option>
+            <Option name="scale_method" type="QString" value="diameter"></Option>
+            <Option name="size" type="QString" value="4.8"></Option>
+            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="size_unit" type="QString" value="MM"></Option>
+            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+      </symbol>
+    </symbols>
+    <rotation></rotation>
+    <sizescale></sizescale>
+  </renderer-v2>
+  <selection mode="Default">
+    <selectionColor invalid="1"></selectionColor>
+    <selectionSymbol>
+      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="marker">
+        <data_defined_properties>
+          <Option type="Map">
+            <Option name="name" type="QString" value=""></Option>
+            <Option name="properties"></Option>
+            <Option name="type" type="QString" value="collection"></Option>
+          </Option>
+        </data_defined_properties>
+        <layer class="SimpleMarker" enabled="1" id="{a5419f4d-76cb-43b9-850e-d32baa9bda51}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="angle" type="QString" value="0"></Option>
+            <Option name="cap_style" type="QString" value="square"></Option>
+            <Option name="color" type="QString" value="255,0,0,255"></Option>
+            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+            <Option name="joinstyle" type="QString" value="bevel"></Option>
+            <Option name="name" type="QString" value="circle"></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="MM"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255"></Option>
+            <Option name="outline_style" type="QString" value="solid"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+            <Option name="scale_method" type="QString" value="diameter"></Option>
+            <Option name="size" type="QString" value="2"></Option>
+            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="size_unit" type="QString" value="MM"></Option>
+            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+      </symbol>
+    </selectionSymbol>
+  </selection>
+  <blendMode>0</blendMode>
+  <featureBlendMode>0</featureBlendMode>
+  <fieldConfiguration>
+    <field configurationFlags="NoFlag" name="field_project">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="locality_point">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="x">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="y">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="local_epsg">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="exposure_type">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="media_type">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="media_link">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="notes">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="media_uuid">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+    <field configurationFlags="NoFlag" name="locality_uuid">
+      <editWidget type="TextEdit">
+        <config>
+          <Option></Option>
+        </config>
+      </editWidget>
+    </field>
+  </fieldConfiguration>
+  <aliases>
+    <alias field="field_project" index="0" name=""></alias>
+    <alias field="locality_point" index="1" name=""></alias>
+    <alias field="x" index="2" name=""></alias>
+    <alias field="y" index="3" name=""></alias>
+    <alias field="local_epsg" index="4" name=""></alias>
+    <alias field="exposure_type" index="5" name=""></alias>
+    <alias field="media_type" index="6" name=""></alias>
+    <alias field="media_link" index="7" name=""></alias>
+    <alias field="notes" index="8" name=""></alias>
+    <alias field="media_uuid" index="9" name=""></alias>
+    <alias field="locality_uuid" index="10" name=""></alias>
+  </aliases>
+  <splitPolicies>
+    <policy field="field_project" policy="Duplicate"></policy>
+    <policy field="locality_point" policy="Duplicate"></policy>
+    <policy field="x" policy="Duplicate"></policy>
+    <policy field="y" policy="Duplicate"></policy>
+    <policy field="local_epsg" policy="Duplicate"></policy>
+    <policy field="exposure_type" policy="Duplicate"></policy>
+    <policy field="media_type" policy="Duplicate"></policy>
+    <policy field="media_link" policy="Duplicate"></policy>
+    <policy field="notes" policy="Duplicate"></policy>
+    <policy field="media_uuid" policy="Duplicate"></policy>
+    <policy field="locality_uuid" policy="Duplicate"></policy>
+  </splitPolicies>
+  <defaults>
+    <default applyOnUpdate="0" expression="" field="field_project"></default>
+    <default applyOnUpdate="0" expression="" field="locality_point"></default>
+    <default applyOnUpdate="0" expression="" field="x"></default>
+    <default applyOnUpdate="0" expression="" field="y"></default>
+    <default applyOnUpdate="0" expression="" field="local_epsg"></default>
+    <default applyOnUpdate="0" expression="" field="exposure_type"></default>
+    <default applyOnUpdate="0" expression="" field="media_type"></default>
+    <default applyOnUpdate="0" expression="" field="media_link"></default>
+    <default applyOnUpdate="0" expression="" field="notes"></default>
+    <default applyOnUpdate="0" expression="" field="media_uuid"></default>
+    <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
+  </defaults>
+  <constraints>
+    <constraint constraints="0" exp_strength="0" field="field_project" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="locality_point" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="x" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="y" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="local_epsg" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="exposure_type" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="media_type" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="media_link" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="media_uuid" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
+  </constraints>
+  <constraintExpressions>
+    <constraint desc="" exp="" field="field_project"></constraint>
+    <constraint desc="" exp="" field="locality_point"></constraint>
+    <constraint desc="" exp="" field="x"></constraint>
+    <constraint desc="" exp="" field="y"></constraint>
+    <constraint desc="" exp="" field="local_epsg"></constraint>
+    <constraint desc="" exp="" field="exposure_type"></constraint>
+    <constraint desc="" exp="" field="media_type"></constraint>
+    <constraint desc="" exp="" field="media_link"></constraint>
+    <constraint desc="" exp="" field="notes"></constraint>
+    <constraint desc="" exp="" field="media_uuid"></constraint>
+    <constraint desc="" exp="" field="locality_uuid"></constraint>
+  </constraintExpressions>
+  <expressionfields></expressionfields>
+  <editform tolerant="1"></editform>
+  <editforminit></editforminit>
+  <editforminitcodesource>0</editforminitcodesource>
+  <editforminitfilepath></editforminitfilepath>
+  <editforminitcode># -*- coding: utf-8 -*-
+"""
+QGIS forms can have a Python function that is called when the form is
+opened.
+
+Use this function to add extra logic to your forms.
+
+Enter the name of the function in the "Python Init function"
+field.
+An example follows:
+"""
+from qgis.PyQt.QtWidgets import QWidget
+
+def my_form_open(dialog, layer, feature):
+    geom = feature.geometry()
+    control = dialog.findChild(QWidget, "MyLineEdit")
+</editforminitcode>
+  <featformsuppress>0</featformsuppress>
+  <editorlayout>generatedlayout</editorlayout>
+  <editable>
+    <field editable="1" name="exposure_type"></field>
+    <field editable="1" name="field_project"></field>
+    <field editable="1" name="local_epsg"></field>
+    <field editable="1" name="locality_point"></field>
+    <field editable="1" name="locality_uuid"></field>
+    <field editable="1" name="media_link"></field>
+    <field editable="1" name="media_type"></field>
+    <field editable="1" name="media_uuid"></field>
+    <field editable="1" name="notes"></field>
+    <field editable="1" name="x"></field>
+    <field editable="1" name="y"></field>
+  </editable>
+  <labelOnTop>
+    <field labelOnTop="0" name="exposure_type"></field>
+    <field labelOnTop="0" name="field_project"></field>
+    <field labelOnTop="0" name="local_epsg"></field>
+    <field labelOnTop="0" name="locality_point"></field>
+    <field labelOnTop="0" name="locality_uuid"></field>
+    <field labelOnTop="0" name="media_link"></field>
+    <field labelOnTop="0" name="media_type"></field>
+    <field labelOnTop="0" name="media_uuid"></field>
+    <field labelOnTop="0" name="notes"></field>
+    <field labelOnTop="0" name="x"></field>
+    <field labelOnTop="0" name="y"></field>
+  </labelOnTop>
+  <reuseLastValue>
+    <field name="exposure_type" reuseLastValue="0"></field>
+    <field name="field_project" reuseLastValue="0"></field>
+    <field name="local_epsg" reuseLastValue="0"></field>
+    <field name="locality_point" reuseLastValue="0"></field>
+    <field name="locality_uuid" reuseLastValue="0"></field>
+    <field name="media_link" reuseLastValue="0"></field>
+    <field name="media_type" reuseLastValue="0"></field>
+    <field name="media_uuid" reuseLastValue="0"></field>
+    <field name="notes" reuseLastValue="0"></field>
+    <field name="x" reuseLastValue="0"></field>
+    <field name="y" reuseLastValue="0"></field>
+  </reuseLastValue>
+  <dataDefinedFieldProperties></dataDefinedFieldProperties>
+  <widgets></widgets>
+  <mapTip enabled="1"></mapTip>
+  <layerGeometryType>0</layerGeometryType>
+</qgis>
