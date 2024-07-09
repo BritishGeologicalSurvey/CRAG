@@ -52,7 +52,7 @@ tr:nth-child(odd) {
     background-color: #dddddd;
 }
 
-/* Place thumbnails centrally */
+/* Place thumbnails or icons centrally within cells */
 td.photo, td.media {
     width: 220px;
     min-height: 220px;
@@ -67,6 +67,7 @@ img {
     max-width: 200px;
 }
 
+/* Buttons for expand/collapse all */
 .button {
     background-color: #ccc;
     cursor: pointer;
@@ -78,6 +79,10 @@ img {
     font-size: 20px;
     margin-top: 10px;
     margin-bottom: 5px;
+}
+
+#expand_collapse {
+    margin-left: auto;
 }
 
 /* Collapsible sections, see: https://www.w3schools.com/howto/howto_js_collapsible.asp */
@@ -116,10 +121,7 @@ img {
     align-items: center;
 }
 
-#expand_collapse {
-    margin-left: auto;
-}
-
+/* Setting for media icons */
 span.size-48 {
     font-size: 48px;
     font-variation-settings: 'OPSZ' 48;
