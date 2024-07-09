@@ -3,35 +3,29 @@
             {% if point.children.media|length > 0 %}
                 <section class="media">
                     <h4>Media files</h4>
-                    <div class="row">
                     {% for media in point.children.media %}
-                    <div class="column">
                     <table>
-                        {% if media.media_type_code == 'video' %}
                         <tr>
-                            <td class="media" colspan="2">
+                            {% if media.user_updated is none %}
+                            <td class="media" rowspan="5">
+                            {% else %}
+                            <td class="media" rowspan="6">
+                            {% endif %}
+                                {% if media.media_type_code == 'video' %}
                                 <a target="_blank" href="media/{{ media.media_link }}">
                                     <span class="material-symbols-outlined size-48">smart_display</span>
                                 </a>
-                            </td>
-                        </tr>
-                        {% elif media.media_type_code == 'voice' %}
-                        <tr>
-                            <td class="media" colspan="2">
+                                {% elif media.media_type_code == 'voice' %}
                                 <a target="_blank" href="media/{{ media.media_link }}">
                                     <span class="material-symbols-outlined size-48">audio_file</span>
                                 </a>
-                            </td>
-                        </tr>
-                        {% else %}
-                        <tr>
-                            <td class="media" colspan="2">
+                                {% else %}
                                 <a target="_blank" href="media/{{ media.media_link }}">
                                     <img src="media/{{ media.media_link }}">
                                 </a>
+                                {% endif %}
                             </td>
                         </tr>
-                        {% endif %}
                         <tr>
                             <td>Media type</td>
                             <td>{{ media.description }}</td>
@@ -55,8 +49,6 @@
                         </tr>
                         {% endif %}
                     </table>
-                    </div>
                     {% endfor %}
-                </div>
                 </section>
             {% endif %}

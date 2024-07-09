@@ -52,32 +52,12 @@ tr:nth-child(odd) {
     background-color: #dddddd;
 }
 
-/* Do the photo and media tables differently */
-section.photo div.column, section.media div.column {
-    margin-right: 25px;
-}
-section.photo table, section.media table {
-    max-width: 300px;
-}
-
 /* Place thumbnails centrally */
 td.photo, td.media {
     width: 220px;
-    height: 220px;
+    min-height: 220px;
     text-align: center;
     vertical-align: middle;
-}
-
-/* Put tables side by side */
-.column {
-    float: left;
-}
-
-/* Clearfix (clear floats) */
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
 }
 
 /* Set thumbnail size */
