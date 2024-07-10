@@ -7,7 +7,15 @@
                     <table>
                         <tr>
                             <td>Description</td>
-                            <td>{{ measurement.description }}</td>
+                            <td>
+                                {{ measurement.description }}
+                                {% if measurement.secondary_description is not none %}
+                                    ; {{ measurement.secondary_description }}
+                                    {% if measurement.third_description is not none %}
+                                        ; {{ measurement.third_description }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <td>Dip / Azimuth</td>

@@ -174,6 +174,9 @@ values('dic_superficial_landform','attributes','dic_superficial_landform','Dicti
 INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'image','Image or Photograph','','C','jbow','13/09/2023',NULL,NULL);
 INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'video','Video','','C','jbow','13/09/2023',NULL,NULL);
 INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'voice','Voice note','','C','jbow','13/09/2023',NULL,NULL);
+INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'spreadsheet','Spreadsheet or CSV','','C','colb','09/07/2024',NULL,NULL);
+INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'document','Word, PDF or Text document','','C','colb','09/07/2024',NULL,NULL);
+INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'other','Other file type','','C','colb','09/07/2024',NULL,NULL);
 
 INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'field_work','Field work','','C','jbow','04/09/2023',NULL,NULL);
 INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'rapid_field_work','Rapid field work','','C','jbow','04/09/2023',NULL,NULL);

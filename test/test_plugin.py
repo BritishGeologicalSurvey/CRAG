@@ -252,7 +252,7 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
         "locality_point": 2,
         "structural_measurement": 2,
         "lithology": 3,
-        "media": 2,
+        "media": 9,
         "photo": 2,
         "sample": 2,
         "superficial_landform": 2,

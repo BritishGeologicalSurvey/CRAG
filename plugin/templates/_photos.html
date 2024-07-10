@@ -3,16 +3,22 @@
             {% if point.children.photo|length > 0 %}
                 <section class="photo">
                     <h4>Photos</h4>
-                    <div class="row">
                     {% for photo in point.children.photo %}
-                    <div class="column">
                     <table>
                         <tr>
-                            <td class="photo" colspan="2">
+                            {% if photo.user_updated is none %}
+                            <td class="photo" rowspan="4">
+                            {% else %}
+                            <td class="photo" rowspan="5">
+                            {% endif %}
                                 <a target="_blank" href="photos/{{ photo.photo_file }}">
                                     <img src="photos/{{ photo.photo_file }}">
                                 </a>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>File name</td>
+                            <td>{{ photo.photo_file }}</td>
                         </tr>
                         <tr>
                             <td>Notes</td>
@@ -29,8 +35,6 @@
                         </tr>
                         {% endif %}
                     </table>
-                    </div>
                     {% endfor %}
-                </div>
                 </section>
             {% endif %}

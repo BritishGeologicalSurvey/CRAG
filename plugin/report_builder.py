@@ -28,7 +28,9 @@ CHILD_ATTRIBUTES = {
     "media": ", dic_media.description ",
     "photo": "",
     "sample": ", dic_sample.description ",
-    "structural_measurement": ", dic_structure.description ",
+    "structural_measurement": (", dic_structure.description "
+                               ", dic_structure_secondary.description as secondary_description "
+                               ", dic_structure_third.description as third_description "),
     "superficial_landform": ", dic_superficial_landform.description ",
 }
 
@@ -38,7 +40,11 @@ CHILD_JOINS = {
     "media": " JOIN dic_media ON code == child.media_type_code ",
     "photo": "",
     "sample": " JOIN dic_sample ON code == child.sample_type_code ",
-    "structural_measurement": " JOIN dic_structure ON code == child.structure_type_code ",
+    "structural_measurement": (" JOIN dic_structure ON dic_structure.code == child.structure_type_code "
+                               " LEFT JOIN dic_structure_secondary ON dic_structure_secondary.code "
+                               "== child.secondary_attribute "
+                               " LEFT JOIN dic_structure_third ON dic_structure_third.code "
+                               "== child.third_attribute "),
     "superficial_landform": " JOIN dic_superficial_landform ON code == child.superficial_type_code ",
 }
 
@@ -52,6 +58,10 @@ class ReportBuilder:
         self.db_file = db_file
         self.report_filename = Path("field-report.html")
         self.css_filename = Path("style.css")
+        # Using locally downloaded woff2 of Google's Material Symbols Outlined font
+        # See: https://fonts.google.com/icons
+        # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
+        self.font_filename = Path("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2")
 
 
     @property
@@ -76,6 +86,22 @@ class ReportBuilder:
         Get the ccs directory from the current project.
         """
         return self.project_dir / "css"
+
+
+    @property
+    def font_src_file(self) -> Path:
+        """
+        Get the font file path from the plugin folder.
+        """
+        return WORKDIR / "fonts" / self.font_filename
+
+
+    @property
+    def font_dest_dir(self) -> Path:
+        """
+        Get the ccs directory from the current project.
+        """
+        return self.project_dir / "fonts"
 
 
     @property
@@ -111,9 +137,11 @@ class ReportBuilder:
 
             with open(self.report_file, mode="w", encoding="utf-8") as report:
                 report.write(content)
-            # Copy CSS file to project directory
+            # Copy CSS and font files to project directory
             self.css_dest_dir.mkdir(parents=True, exist_ok=True)
+            self.font_dest_dir.mkdir(parents=True, exist_ok=True)
             shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
+            shutil.copy(self.font_src_file, self.font_dest_dir / self.font_filename)
 
             QMessageBox.information(None, "Information", f"Created field report:\n\n{self.report_file}")
         except Exception as exc:

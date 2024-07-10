@@ -1,13 +1,34 @@
+/* Use local font for symnbols */
+@font-face {
+    font-family: "Material Symbols Outlined";
+    font-style: normal;
+    src: url("../fonts/MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2") format("woff2");
+  }
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+}
+
 /* Standard table layout */
 table {
     table-layout: auto;
-    width: 90%;
+    width: 100%;
     margin-top: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 hr {
-    width: 90%;
+    width: 100%;
     margin-left: 0px;
     margin-top: 10px;
 }
@@ -31,29 +52,12 @@ tr:nth-child(odd) {
     background-color: #dddddd;
 }
 
-/* Do the photo tables differently */
-section.photos table {
-    width: 200px;
-}
-
-/* Place thumbnail centrally */
-td.photo {
+/* Place thumbnails or icons centrally within cells */
+td.photo, td.media {
     width: 220px;
-    height: 220px;
+    min-height: 220px;
     text-align: center;
     vertical-align: middle;
-}
-
-/* Put tables side by side */
-.column {
-    float: left;
-}
-
-/* Clearfix (clear floats) */
-.row::after {
-    content: "";
-    clear: both;
-    display: table;
 }
 
 /* Set thumbnail size */
@@ -63,6 +67,7 @@ img {
     max-width: 200px;
 }
 
+/* Buttons for expand/collapse all */
 .button {
     background-color: #ccc;
     cursor: pointer;
@@ -76,9 +81,13 @@ img {
     margin-bottom: 5px;
 }
 
+#expand_collapse {
+    margin-left: auto;
+}
+
 /* Collapsible sections, see: https://www.w3schools.com/howto/howto_js_collapsible.asp */
 .collapsible, .toc_button {
-    width: 90%;
+    width: 100%;
 }
 
 .active, .collapsible:hover, .toc_button:hover {
@@ -89,14 +98,14 @@ img {
 .collapsible::before, .toc_button::before {
     font-family: 'Material Symbols Outlined';
     content: "\f591";
-    font-size: 25px;
+    font-size: 24px;
     margin-right: 10px;
 }
 
 .active::before {
     font-family: 'Material Symbols Outlined';
     content: "\e7cd";
-    font-size: 25px;
+    font-size: 24px;
     margin-right: 10px;
 }
 
@@ -108,10 +117,12 @@ img {
 
 #locality_points_header {
     display: flex;
-    width: 90%;
+    width: 100%;
     align-items: center;
 }
 
-#expand_collapse {
-    margin-left: auto;
+/* Setting for media icons */
+span.size-48 {
+    font-size: 48px;
+    font-variation-settings: 'OPSZ' 48;
 }

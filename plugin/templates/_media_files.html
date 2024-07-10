@@ -6,12 +6,46 @@
                     {% for media in point.children.media %}
                     <table>
                         <tr>
-                            <td>Media</td>
-                            <td>{{ media.link }}</td>
+                            {% if media.user_updated is none %}
+                            <td class="media" rowspan="5">
+                            {% else %}
+                            <td class="media" rowspan="6">
+                            {% endif %}
+                                {% if media.media_type_code == 'video' %}
+                                <a target="_blank" href="media/{{ media.media_link }}">
+                                    <span class="material-symbols-outlined size-48">smart_display</span>
+                                </a>
+                                {% elif media.media_type_code == 'voice' %}
+                                <a target="_blank" href="media/{{ media.media_link }}">
+                                    <span class="material-symbols-outlined size-48">audio_file</span>
+                                </a>
+                                {% elif media.media_type_code == 'image' %}
+                                <!-- Use thumbnail for image instead of icon -->
+                                <a target="_blank" href="media/{{ media.media_link }}">
+                                    <img src="media/{{ media.media_link }}">
+                                </a>
+                                {% elif media.media_type_code == 'spreadsheet' %}
+                                <a target="_blank" href="media/{{ media.media_link }}">
+                                    <span class="material-symbols-outlined size-48">table_chart</span>
+                                </a>
+                                {% elif media.media_type_code == 'document' %}
+                                <a target="_blank" href="media/{{ media.media_link }}">
+                                    <span class="material-symbols-outlined size-48">description</span>
+                                </a>
+                                {% else %}
+                                <a target="_blank" href="media/{{ media.media_link }}">
+                                    <span class="material-symbols-outlined size-48">unknown_document</span>
+                                </a>
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
-                            <td>Description</td>
+                            <td>Media type</td>
                             <td>{{ media.description }}</td>
+                        </tr>
+                        <tr>
+                            <td>File name</td>
+                            <td>{{ media.media_link }}</td>
                         </tr>
                         <tr>
                             <td>Notes</td>
