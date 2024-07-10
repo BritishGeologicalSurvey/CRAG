@@ -698,21 +698,33 @@ class FieldDataCapture:
                 if vector_layer.name() in display_expressions:
                     vector_layer.setDisplayExpression(display_expressions[vector_layer.name()])
 
-                # Set layer dependencies for views
-                layer_dependencies = {
-                    "view_lithology": "lithology",
-                    "view_manmade_landform": "manmade_landform",
-                    "view_structural_measurement": "structural_measurement",
-                    "view_superficial_landform": "superficial_landform",
-                }
-                if vector_layer.name() in layer_dependencies:
-                    dependent_layer = QgsProject.instance().mapLayersByName(layer_dependencies[vector_layer.name()])[0]
-                    dependency = QgsMapLayerDependency(layerId=dependent_layer.id())
-                    vector_layer.setDependencies([dependency])
+            # Set layer dependencies for views
+            layer_dependencies = {
+                "view_lithology": "lithology",
+                "view_manmade_landform": "manmade_landform",
+                "view_media": "media",
+                "view_photo": "photo",
+                "view_structural_measurement": "structural_measurement",
+                "view_sample": "sample",
+                "view_superficial_landform": "superficial_landform",
+            }
+            if vector_layer.name() in layer_dependencies:
+                dependent_layer = QgsProject.instance().mapLayersByName(layer_dependencies[vector_layer.name()])[0]
+                dependency = QgsMapLayerDependency(layerId=dependent_layer.id())
+                vector_layer.setDependencies([dependency])
 
             # Set dictionary layers to read only
             if vector_layer.name().startswith("dic"):
                 vector_layer.setReadOnly()
+
+            # Hide certain layers
+            hide_layers = {
+                "view_media",
+                "view_photo",
+                "view_sample",
+            }
+            if vector_layer.name() in hide_layers:
+                QgsProject.instance().layerTreeRoot().findLayer(vector_layer).setItemVisibilityChecked(False)
 
 
     def refresh_relation_reference_widgets(self, layer: QgsVectorLayer) -> None:
