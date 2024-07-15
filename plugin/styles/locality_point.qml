@@ -510,17 +510,17 @@
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
-    <alias field="uuid" index="2" name=""></alias>
-    <alias field="field_project_fuid" index="3" name=""></alias>
-    <alias field="name" index="4" name=""></alias>
-    <alias field="locality_type_code" index="5" name=""></alias>
-    <alias field="locality_description" index="6" name=""></alias>
-    <alias field="map_face_note" index="7" name=""></alias>
-    <alias field="geology_description" index="8" name=""></alias>
-    <alias field="user_entered" index="9" name=""></alias>
-    <alias field="date_entered" index="10" name=""></alias>
-    <alias field="user_updated" index="11" name=""></alias>
-    <alias field="date_updated" index="12" name=""></alias>
+    <alias field="uuid" index="1" name=""></alias>
+    <alias field="field_project_fuid" index="2" name=""></alias>
+    <alias field="name" index="3" name=""></alias>
+    <alias field="locality_type_code" index="4" name=""></alias>
+    <alias field="locality_description" index="5" name=""></alias>
+    <alias field="map_face_note" index="6" name=""></alias>
+    <alias field="geology_description" index="7" name=""></alias>
+    <alias field="user_entered" index="8" name=""></alias>
+    <alias field="date_entered" index="9" name=""></alias>
+    <alias field="user_updated" index="10" name=""></alias>
+    <alias field="date_updated" index="11" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -695,27 +695,27 @@ superficial_landform: [% aggregate(&#xD;
 	"locality_fuid" = attribute(@parent, 'uuid')&#xD;
 ) %]</attributeEditorTextElement>
       </attributeEditorContainer>
-      <attributeEditorField horizontalStretch="0" index="4" name="name" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="3" name="name" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField horizontalStretch="0" index="5" name="locality_type_code" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="4" name="locality_type_code" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField horizontalStretch="0" index="6" name="locality_description" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="5" name="locality_description" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField horizontalStretch="0" index="7" name="map_face_note" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="6" name="map_face_note" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField horizontalStretch="0" index="8" name="geology_description" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="7" name="geology_description" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>

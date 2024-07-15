@@ -1,4 +1,4 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.6-Prizren">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -106,15 +106,15 @@
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
-    <alias field="uuid" index="2" name=""></alias>
-    <alias field="locality_fuid" index="3" name=""></alias>
-    <alias field="sample_id" index="4" name=""></alias>
-    <alias field="sample_type_code" index="5" name=""></alias>
-    <alias field="sample_description" index="6" name=""></alias>
-    <alias field="user_entered" index="7" name=""></alias>
-    <alias field="date_entered" index="8" name=""></alias>
-    <alias field="user_updated" index="9" name=""></alias>
-    <alias field="date_updated" index="10" name=""></alias>
+    <alias field="uuid" index="1" name=""></alias>
+    <alias field="locality_fuid" index="2" name=""></alias>
+    <alias field="sample_id" index="3" name=""></alias>
+    <alias field="sample_type_code" index="4" name=""></alias>
+    <alias field="sample_description" index="5" name=""></alias>
+    <alias field="user_entered" index="6" name=""></alias>
+    <alias field="date_entered" index="7" name=""></alias>
+    <alias field="user_updated" index="8" name=""></alias>
+    <alias field="date_updated" index="9" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -192,17 +192,17 @@ def my_form_open(dialog, layer, feature):
     <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
       <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
-    <attributeEditorField horizontalStretch="0" index="4" name="sample_id" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="3" name="sample_id" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="sample_type_code" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="4" name="sample_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="6" name="sample_description" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="5" name="sample_description" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -211,7 +211,7 @@ def my_form_open(dialog, layer, feature):
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-      <attributeEditorField horizontalStretch="0" index="3" name="locality_fuid" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="2" name="locality_fuid" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>

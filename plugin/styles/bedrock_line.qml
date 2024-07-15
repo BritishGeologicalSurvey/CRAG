@@ -15856,16 +15856,16 @@
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
-    <alias field="uuid" index="2" name=""></alias>
-    <alias field="field_project_fuid" index="3" name=""></alias>
-    <alias field="line_type_code" index="4" name=""></alias>
-    <alias field="line_label" index="5" name=""></alias>
-    <alias field="notes" index="6" name=""></alias>
-    <alias field="mapped_scale" index="7" name=""></alias>
-    <alias field="user_entered" index="8" name=""></alias>
-    <alias field="date_entered" index="9" name=""></alias>
-    <alias field="user_updated" index="10" name=""></alias>
-    <alias field="date_updated" index="11" name=""></alias>
+    <alias field="uuid" index="1" name=""></alias>
+    <alias field="field_project_fuid" index="2" name=""></alias>
+    <alias field="line_type_code" index="3" name=""></alias>
+    <alias field="line_label" index="4" name=""></alias>
+    <alias field="notes" index="5" name=""></alias>
+    <alias field="mapped_scale" index="6" name=""></alias>
+    <alias field="user_entered" index="7" name=""></alias>
+    <alias field="date_entered" index="8" name=""></alias>
+    <alias field="user_updated" index="9" name=""></alias>
+    <alias field="date_updated" index="10" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -15969,12 +15969,12 @@ azimuth: [% format_number(&#xD;
 	2&#xD;
 ) + '°' %]</attributeEditorTextElement>
     </attributeEditorContainer>
-    <attributeEditorField horizontalStretch="0" index="4" name="line_type_code" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="3" name="line_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="Noto Sans,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="line_label" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="4" name="line_label" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -15983,12 +15983,12 @@ azimuth: [% format_number(&#xD;
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>[% attribute(get_feature('dic_line_type_bedrock', 'code', current_value('line_type_code') ), 'sec_attrib_list') %]</attributeEditorTextElement>
-    <attributeEditorField horizontalStretch="0" index="6" name="notes" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="5" name="notes" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="7" name="mapped_scale" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="6" name="mapped_scale" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>

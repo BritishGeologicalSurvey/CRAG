@@ -1,4 +1,4 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.6-Prizren">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -106,14 +106,14 @@
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
-    <alias field="uuid" index="2" name=""></alias>
-    <alias field="locality_fuid" index="3" name=""></alias>
-    <alias field="photo_file" index="4" name=""></alias>
-    <alias field="caption" index="5" name=""></alias>
-    <alias field="user_entered" index="6" name=""></alias>
-    <alias field="date_entered" index="7" name=""></alias>
-    <alias field="user_updated" index="8" name=""></alias>
-    <alias field="date_updated" index="9" name=""></alias>
+    <alias field="uuid" index="1" name=""></alias>
+    <alias field="locality_fuid" index="2" name=""></alias>
+    <alias field="photo_file" index="3" name=""></alias>
+    <alias field="caption" index="4" name=""></alias>
+    <alias field="user_entered" index="5" name=""></alias>
+    <alias field="date_entered" index="6" name=""></alias>
+    <alias field="user_updated" index="7" name=""></alias>
+    <alias field="date_updated" index="8" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -187,12 +187,12 @@ def my_form_open(dialog, layer, feature):
     <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
       <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
-    <attributeEditorField horizontalStretch="0" index="4" name="photo_file" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="3" name="photo_file" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="caption" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="4" name="caption" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -201,7 +201,7 @@ def my_form_open(dialog, layer, feature):
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-      <attributeEditorField horizontalStretch="0" index="3" name="locality_fuid" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="2" name="locality_fuid" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
@@ -209,33 +209,33 @@ def my_form_open(dialog, layer, feature):
     </attributeEditorContainer>
   </attributeEditorForm>
   <editable>
+    <field editable="1" name="caption"></field>
     <field editable="1" name="date_entered"></field>
     <field editable="1" name="date_updated"></field>
     <field editable="1" name="fid"></field>
     <field editable="1" name="locality_fuid"></field>
-    <field editable="1" name="caption"></field>
     <field editable="1" name="photo_file"></field>
     <field editable="1" name="user_entered"></field>
     <field editable="1" name="user_updated"></field>
     <field editable="1" name="uuid"></field>
   </editable>
   <labelOnTop>
+    <field labelOnTop="0" name="caption"></field>
     <field labelOnTop="0" name="date_entered"></field>
     <field labelOnTop="0" name="date_updated"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="locality_fuid"></field>
-    <field labelOnTop="0" name="caption"></field>
     <field labelOnTop="0" name="photo_file"></field>
     <field labelOnTop="0" name="user_entered"></field>
     <field labelOnTop="0" name="user_updated"></field>
     <field labelOnTop="0" name="uuid"></field>
   </labelOnTop>
   <reuseLastValue>
+    <field name="caption" reuseLastValue="0"></field>
     <field name="date_entered" reuseLastValue="0"></field>
     <field name="date_updated" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="locality_fuid" reuseLastValue="0"></field>
-    <field name="caption" reuseLastValue="0"></field>
     <field name="photo_file" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
