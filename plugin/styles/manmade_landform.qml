@@ -1,4 +1,4 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.6-Prizren">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -137,18 +137,18 @@
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
-    <alias field="uuid" index="2" name=""></alias>
-    <alias field="locality_fuid" index="3" name=""></alias>
-    <alias field="manmade_type_code" index="4" name=""></alias>
-    <alias field="dip" index="5" name=""></alias>
-    <alias field="azimuth" index="6" name=""></alias>
-    <alias field="length" index="7" name=""></alias>
-    <alias field="width" index="8" name=""></alias>
-    <alias field="notes" index="9" name=""></alias>
-    <alias field="user_entered" index="10" name=""></alias>
-    <alias field="date_entered" index="11" name=""></alias>
-    <alias field="user_updated" index="12" name=""></alias>
-    <alias field="date_updated" index="13" name=""></alias>
+    <alias field="uuid" index="1" name=""></alias>
+    <alias field="locality_fuid" index="2" name=""></alias>
+    <alias field="manmade_type_code" index="3" name=""></alias>
+    <alias field="dip" index="4" name=""></alias>
+    <alias field="azimuth" index="5" name=""></alias>
+    <alias field="length" index="6" name=""></alias>
+    <alias field="width" index="7" name=""></alias>
+    <alias field="notes" index="8" name=""></alias>
+    <alias field="user_entered" index="9" name=""></alias>
+    <alias field="date_entered" index="10" name=""></alias>
+    <alias field="user_updated" index="11" name=""></alias>
+    <alias field="date_updated" index="12" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="DefaultValue"></policy>
@@ -238,32 +238,32 @@ def my_form_open(dialog, layer, feature):
     <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
       <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
-    <attributeEditorField horizontalStretch="0" index="4" name="manmade_type_code" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="3" name="manmade_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="dip" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="4" name="dip" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="6" name="azimuth" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="5" name="azimuth" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="7" name="length" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="6" name="length" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="8" name="width" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="7" name="width" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="9" name="notes" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="8" name="notes" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -272,7 +272,7 @@ def my_form_open(dialog, layer, feature):
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-      <attributeEditorField horizontalStretch="0" index="3" name="locality_fuid" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="2" name="locality_fuid" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
