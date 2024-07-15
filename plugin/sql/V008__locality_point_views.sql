@@ -19,6 +19,10 @@ CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
     sm.notes,
     sm.uuid AS structure_uuid,
     lp.uuid AS locality_uuid,
+    sm.user_entered,
+    sm.date_entered,
+    sm.user_updated,
+    sm.date_updated,
     lp.geometry as geometry
   FROM structural_measurement sm
     LEFT JOIN locality_point lp on sm.locality_fuid = lp.uuid
@@ -47,6 +51,10 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
     lith.notes,
     lith.uuid AS lithology_uuid,
     lp.uuid AS locality_uuid,
+    lith.user_entered,
+    lith.date_entered,
+    lith.user_updated,
+    lith.date_updated,
     lp.geometry AS geometry
   FROM lithology lith
     LEFT JOIN locality_point lp ON lith.locality_fuid = lp.uuid
@@ -80,6 +88,10 @@ CREATE VIEW IF NOT EXISTS "view_superficial_landform" AS
     sl.notes,
     sl.uuid AS superficial_uuid,
     lp.uuid AS locality_uuid,
+    sl.user_entered,
+    sl.date_entered,
+    sl.user_updated,
+    sl.date_updated,
     lp.geometry as geometry
   FROM superficial_landform sl
     LEFT JOIN locality_point lp on sl.locality_fuid = lp.uuid
@@ -111,6 +123,10 @@ CREATE VIEW IF NOT EXISTS "view_manmade_landform" AS
     ml.notes,
     ml.uuid AS manmade_uuid,
     lp.uuid AS locality_uuid,
+    ml.user_entered,
+    ml.date_entered,
+    ml.user_updated,
+    ml.date_updated,
     lp.geometry as geometry
   FROM manmade_landform ml
     LEFT JOIN locality_point lp on ml.locality_fuid = lp.uuid
@@ -137,6 +153,10 @@ CREATE VIEW IF NOT EXISTS "view_photo" AS
     ph.caption,
     ph.uuid AS photo_uuid,
     lp.uuid AS locality_uuid,
+    ph.user_entered,
+    ph.date_entered,
+    ph.user_updated,
+    ph.date_updated,
     lp.geometry AS geometry
   FROM photo ph
     LEFT JOIN locality_point lp ON ph.locality_fuid = lp.uuid
@@ -163,6 +183,10 @@ CREATE VIEW IF NOT EXISTS "view_media" AS
     me.media_description,
     me.uuid AS media_uuid,
     lp.uuid AS locality_uuid,
+    me.user_entered,
+    me.date_entered,
+    me.user_updated,
+    me.date_updated,
     lp.geometry AS geometry
   FROM media me
     LEFT JOIN locality_point lp ON me.locality_fuid = lp.uuid
@@ -189,6 +213,10 @@ CREATE VIEW IF NOT EXISTS "view_sample" AS
     sa.sample_description,
     sa.uuid AS sample_uuid,
     lp.uuid AS locality_uuid,
+    sa.user_entered,
+    sa.date_entered,
+    sa.user_updated,
+    sa.date_updated,
     lp.geometry AS geometry
   FROM sample sa
     LEFT JOIN locality_point lp ON sa.locality_fuid = lp.uuid
