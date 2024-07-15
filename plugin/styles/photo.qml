@@ -72,7 +72,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="notes">
+    <field configurationFlags="NoFlag" name="caption">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -117,7 +117,7 @@
     <alias field="uuid" index="2" name=""></alias>
     <alias field="locality_fuid" index="3" name=""></alias>
     <alias field="photo_file" index="4" name=""></alias>
-    <alias field="notes" index="5" name=""></alias>
+    <alias field="caption" index="5" name=""></alias>
     <alias field="user_entered" index="6" name=""></alias>
     <alias field="date_entered" index="7" name=""></alias>
     <alias field="user_updated" index="8" name=""></alias>
@@ -129,7 +129,7 @@
     <policy field="uuid" policy="Duplicate"></policy>
     <policy field="locality_fuid" policy="DefaultValue"></policy>
     <policy field="photo_file" policy="DefaultValue"></policy>
-    <policy field="notes" policy="DefaultValue"></policy>
+    <policy field="caption" policy="DefaultValue"></policy>
     <policy field="user_entered" policy="Duplicate"></policy>
     <policy field="date_entered" policy="Duplicate"></policy>
     <policy field="user_updated" policy="Duplicate"></policy>
@@ -141,7 +141,7 @@
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
     <default applyOnUpdate="0" expression="" field="photo_file"></default>
-    <default applyOnUpdate="0" expression="" field="notes"></default>
+    <default applyOnUpdate="0" expression="" field="caption"></default>
     <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
     <default applyOnUpdate="1" expression="@user_account_name" field="user_updated"></default>
@@ -153,7 +153,7 @@
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="photo_file" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="caption" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
@@ -165,7 +165,7 @@
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
     <constraint desc="" exp="" field="photo_file"></constraint>
-    <constraint desc="" exp="" field="notes"></constraint>
+    <constraint desc="" exp="" field="caption"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
     <constraint desc="" exp="" field="user_updated"></constraint>
@@ -204,7 +204,7 @@ def my_form_open(dialog, layer, feature):
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="notes" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="5" name="caption" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -225,7 +225,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="date_updated"></field>
     <field editable="1" name="fid"></field>
     <field editable="1" name="locality_fuid"></field>
-    <field editable="1" name="notes"></field>
+    <field editable="1" name="caption"></field>
     <field editable="1" name="objectid"></field>
     <field editable="1" name="photo_file"></field>
     <field editable="1" name="user_entered"></field>
@@ -237,7 +237,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="date_updated"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="locality_fuid"></field>
-    <field labelOnTop="0" name="notes"></field>
+    <field labelOnTop="0" name="caption"></field>
     <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="photo_file"></field>
     <field labelOnTop="0" name="user_entered"></field>
@@ -249,7 +249,7 @@ def my_form_open(dialog, layer, feature):
     <field name="date_updated" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="locality_fuid" reuseLastValue="0"></field>
-    <field name="notes" reuseLastValue="0"></field>
+    <field name="caption" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
     <field name="photo_file" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>

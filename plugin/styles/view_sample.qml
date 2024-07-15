@@ -270,7 +270,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="notes">
+    <field configurationFlags="NoFlag" name="sample_description">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -301,7 +301,7 @@
     <alias field="locality_type" index="5" name=""></alias>
     <alias field="sample_id" index="6" name=""></alias>
     <alias field="sample_type" index="7" name=""></alias>
-    <alias field="notes" index="8" name=""></alias>
+    <alias field="sample_description" index="8" name=""></alias>
     <alias field="sample_uuid" index="9" name=""></alias>
     <alias field="locality_uuid" index="10" name=""></alias>
   </aliases>
@@ -314,7 +314,7 @@
     <policy field="locality_type" policy="Duplicate"></policy>
     <policy field="sample_id" policy="Duplicate"></policy>
     <policy field="sample_type" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
+    <policy field="sample_description" policy="Duplicate"></policy>
     <policy field="sample_uuid" policy="Duplicate"></policy>
     <policy field="locality_uuid" policy="Duplicate"></policy>
   </splitPolicies>
@@ -327,7 +327,7 @@
     <default applyOnUpdate="0" expression="" field="locality_type"></default>
     <default applyOnUpdate="0" expression="" field="sample_id"></default>
     <default applyOnUpdate="0" expression="" field="sample_type"></default>
-    <default applyOnUpdate="0" expression="" field="notes"></default>
+    <default applyOnUpdate="0" expression="" field="sample_description"></default>
     <default applyOnUpdate="0" expression="" field="sample_uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
   </defaults>
@@ -340,7 +340,7 @@
     <constraint constraints="0" exp_strength="0" field="locality_type" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="sample_id" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="sample_type" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="sample_description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="sample_uuid" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
@@ -353,7 +353,7 @@
     <constraint desc="" exp="" field="locality_type"></constraint>
     <constraint desc="" exp="" field="sample_id"></constraint>
     <constraint desc="" exp="" field="sample_type"></constraint>
-    <constraint desc="" exp="" field="notes"></constraint>
+    <constraint desc="" exp="" field="sample_description"></constraint>
     <constraint desc="" exp="" field="sample_uuid"></constraint>
     <constraint desc="" exp="" field="locality_uuid"></constraint>
   </constraintExpressions>
@@ -387,7 +387,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="locality_point"></field>
     <field editable="1" name="locality_type"></field>
     <field editable="1" name="locality_uuid"></field>
-    <field editable="1" name="notes"></field>
+    <field editable="1" name="sample_description"></field>
     <field editable="1" name="sample_id"></field>
     <field editable="1" name="sample_type"></field>
     <field editable="1" name="sample_uuid"></field>
@@ -400,7 +400,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="locality_point"></field>
     <field labelOnTop="0" name="locality_type"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
-    <field labelOnTop="0" name="notes"></field>
+    <field labelOnTop="0" name="sample_description"></field>
     <field labelOnTop="0" name="sample_id"></field>
     <field labelOnTop="0" name="sample_type"></field>
     <field labelOnTop="0" name="sample_uuid"></field>
@@ -413,7 +413,7 @@ def my_form_open(dialog, layer, feature):
     <field name="locality_point" reuseLastValue="0"></field>
     <field name="locality_type" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
-    <field name="notes" reuseLastValue="0"></field>
+    <field name="sample_description" reuseLastValue="0"></field>
     <field name="sample_id" reuseLastValue="0"></field>
     <field name="sample_type" reuseLastValue="0"></field>
     <field name="sample_uuid" reuseLastValue="0"></field>

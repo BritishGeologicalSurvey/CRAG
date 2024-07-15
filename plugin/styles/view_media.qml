@@ -146,7 +146,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="notes">
+    <field configurationFlags="NoFlag" name="media_description">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -177,7 +177,7 @@
     <alias field="locality_type" index="5" name=""></alias>
     <alias field="media_type" index="6" name=""></alias>
     <alias field="media_link" index="7" name=""></alias>
-    <alias field="notes" index="8" name=""></alias>
+    <alias field="media_description" index="8" name=""></alias>
     <alias field="media_uuid" index="9" name=""></alias>
     <alias field="locality_uuid" index="10" name=""></alias>
   </aliases>
@@ -190,7 +190,7 @@
     <policy field="locality_type" policy="Duplicate"></policy>
     <policy field="media_type" policy="Duplicate"></policy>
     <policy field="media_link" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
+    <policy field="media_description" policy="Duplicate"></policy>
     <policy field="media_uuid" policy="Duplicate"></policy>
     <policy field="locality_uuid" policy="Duplicate"></policy>
   </splitPolicies>
@@ -203,7 +203,7 @@
     <default applyOnUpdate="0" expression="" field="locality_type"></default>
     <default applyOnUpdate="0" expression="" field="media_type"></default>
     <default applyOnUpdate="0" expression="" field="media_link"></default>
-    <default applyOnUpdate="0" expression="" field="notes"></default>
+    <default applyOnUpdate="0" expression="" field="media_description"></default>
     <default applyOnUpdate="0" expression="" field="media_uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
   </defaults>
@@ -216,7 +216,7 @@
     <constraint constraints="0" exp_strength="0" field="locality_type" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="media_type" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="media_link" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="media_description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="media_uuid" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
@@ -229,7 +229,7 @@
     <constraint desc="" exp="" field="locality_type"></constraint>
     <constraint desc="" exp="" field="media_type"></constraint>
     <constraint desc="" exp="" field="media_link"></constraint>
-    <constraint desc="" exp="" field="notes"></constraint>
+    <constraint desc="" exp="" field="media_description"></constraint>
     <constraint desc="" exp="" field="media_uuid"></constraint>
     <constraint desc="" exp="" field="locality_uuid"></constraint>
   </constraintExpressions>
@@ -266,7 +266,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="media_link"></field>
     <field editable="1" name="media_type"></field>
     <field editable="1" name="media_uuid"></field>
-    <field editable="1" name="notes"></field>
+    <field editable="1" name="media_description"></field>
     <field editable="1" name="x"></field>
     <field editable="1" name="y"></field>
   </editable>
@@ -279,7 +279,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="media_link"></field>
     <field labelOnTop="0" name="media_type"></field>
     <field labelOnTop="0" name="media_uuid"></field>
-    <field labelOnTop="0" name="notes"></field>
+    <field labelOnTop="0" name="media_description"></field>
     <field labelOnTop="0" name="x"></field>
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
@@ -292,7 +292,7 @@ def my_form_open(dialog, layer, feature):
     <field name="media_link" reuseLastValue="0"></field>
     <field name="media_type" reuseLastValue="0"></field>
     <field name="media_uuid" reuseLastValue="0"></field>
-    <field name="notes" reuseLastValue="0"></field>
+    <field name="media_description" reuseLastValue="0"></field>
     <field name="x" reuseLastValue="0"></field>
     <field name="y" reuseLastValue="0"></field>
   </reuseLastValue>
