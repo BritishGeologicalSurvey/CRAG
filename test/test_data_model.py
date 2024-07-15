@@ -36,12 +36,12 @@ def test_data_loading(test_data_gpkg):
     [
         (   # Spatial (feature) tables
             FEATURE_TABLES,
-            {"fid", "objectid", "uuid", "geometry", "notes", "user_entered", "date_entered", "user_updated",
+            {"fid", "objectid", "uuid", "geometry", "user_entered", "date_entered", "user_updated",
              "date_updated"},
         ),
         (   # Non-spatial (attribute) tables
             ATTRIBUTE_TABLES,
-            {"fid", "objectid", "uuid", "notes", "user_entered", "date_entered", "user_updated", "date_updated"},
+            {"fid", "objectid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
             DICTIONARIES,
@@ -62,11 +62,7 @@ def test_data_model_columns(
         # Only get the columns from the actual list of columns that we want to check
         check_col_names = {col_name for col_name in all_col_names if col_name in expected_col_names}
         # Assert names are correct
-        # Don't check for notes on locality_point, it was renamed to geology_description
-        if table == "locality_point":
-            assert check_col_names == expected_col_names - {"notes"}
-        else:
-            assert check_col_names == expected_col_names
+        assert check_col_names == expected_col_names
 
         assert_column_constraints(data_model_gpkg, table)
 

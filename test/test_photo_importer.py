@@ -238,7 +238,7 @@ def test_import_selection(fdc_project: FieldDataCapture, monkeypatch: pytest.Mon
     # Apply monkey patch for QFileDialog.getOpenFileNames
     monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_files])
     fdc_project.photo_importer.select_photos_button.click()
-    photo_notes = "these are some new notes"
+    photo_caption = "these are some new notes"
 
     # Act
     # Modify input data like a user
@@ -249,7 +249,7 @@ def test_import_selection(fdc_project: FieldDataCapture, monkeypatch: pytest.Mon
         combobox.setCurrentIndex(idx + 1)
         # Edit the text edit box
         text_edit = fdc_project.photo_importer.photos_to_widgets[photo]["QTextEdit"]
-        text_edit.setText(photo_notes)
+        text_edit.setText(photo_caption)
     fdc_project.photo_importer.import_selection_button.click()
 
     # Assert
@@ -263,8 +263,8 @@ def test_import_selection(fdc_project: FieldDataCapture, monkeypatch: pytest.Mon
     for photo, feature in zip(photo_files, list(photo_layer.getFeatures())[-2:]):
         assert feature.attribute("photo_file") == photo.name
         assert (fdc_project.photos_dir / photo.name).exists()
-        # Check that the notes were also added
-        assert feature.attribute("notes") == photo_notes
+        # Check that the caption were also added
+        assert feature.attribute("caption") == photo_caption
 
 
 def test_import_selection_some(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
@@ -278,7 +278,7 @@ def test_import_selection_some(fdc_project: FieldDataCapture, monkeypatch: pytes
     # Apply monkey patch for QFileDialog.getOpenFileNames
     monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_files])
     fdc_project.photo_importer.select_photos_button.click()
-    photo_notes = "these are some new notes"
+    photo_caption = "these are some new notes"
 
     # Act
     # Modify input data like a user for only the second photo
@@ -288,7 +288,7 @@ def test_import_selection_some(fdc_project: FieldDataCapture, monkeypatch: pytes
     combobox.setCurrentIndex(2)
     # Edit the text edit box
     text_edit = fdc_project.photo_importer.photos_to_widgets[photo]["QTextEdit"]
-    text_edit.setText(photo_notes)
+    text_edit.setText(photo_caption)
     fdc_project.photo_importer.import_selection_button.click()
 
     # Assert
@@ -305,5 +305,5 @@ def test_import_selection_some(fdc_project: FieldDataCapture, monkeypatch: pytes
     feature = features[-1]
     assert feature.attribute("photo_file") == photo.name
     assert (fdc_project.photos_dir / photo.name).exists()
-    # Check that the notes were also added
-    assert feature.attribute("notes") == photo_notes
+    # Check that the caption were also added
+    assert feature.attribute("caption") == photo_caption
