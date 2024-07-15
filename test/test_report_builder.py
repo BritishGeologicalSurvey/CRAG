@@ -12,7 +12,7 @@ from plugin.report_builder import ReportBuilder
 from plugin.utils import ipdb_breakpoint  # noqa
 
 # Minimum set of columns needed to produce a report using the templates
-EXPECTED_COMMON_COLUMNS = {"notes", "user_entered", "date_entered", "user_updated", "date_updated"}
+EXPECTED_COMMON_COLUMNS = {"user_entered", "date_entered", "user_updated", "date_updated"}
 EXPECTED_PROJECT_COLUMNS = {"project_lead", "field_project_type", "start_date", "end_date", "description"}
 EXPECTED_LOCALITY_COLUMNS = {"name", "locality_type_code", "geometry", "locality_description", "map_face_note"}
 EXPECTED_CHILD_COLUMNS = {
@@ -83,8 +83,7 @@ def test_get_locality_data(report_builder: ReportBuilder):
     # Assert
     assert set(localities.keys()) == {'test_point_001', 'test_point_002'}
     for locality in localities.values():
-        # Don't check for notes on locality_point, it was renamed to geology_description
-        assert EXPECTED_COMMON_COLUMNS - {"notes"} < set(locality.keys())
+        assert EXPECTED_COMMON_COLUMNS < set(locality.keys())
         assert EXPECTED_LOCALITY_COLUMNS < set(locality.keys())
         assert 'children' in locality
 
