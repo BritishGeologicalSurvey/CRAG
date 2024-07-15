@@ -16,7 +16,6 @@ from plugin.config import (
 COLUMN_CONSTRAINTS = {
     # column_name: constraint
     "fid": "INTEGER NOT NULL,",  # include the comma to ensure extra constraints aren't added
-    "objectid": "INTEGER UNIQUE",
     "uuid": "TEXT NOT NULL UNIQUE",
     "code": "TEXT NOT NULL UNIQUE",  # this only applies to dictionaries
     "user_entered": "TEXT NOT NULL",
@@ -36,12 +35,12 @@ def test_data_loading(test_data_gpkg):
     [
         (   # Spatial (feature) tables
             FEATURE_TABLES,
-            {"fid", "objectid", "uuid", "geometry", "user_entered", "date_entered", "user_updated",
+            {"fid", "uuid", "geometry", "user_entered", "date_entered", "user_updated",
              "date_updated"},
         ),
         (   # Non-spatial (attribute) tables
             ATTRIBUTE_TABLES,
-            {"fid", "objectid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"},
+            {"fid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"},
         ),
         (   # Dictionary tables
             DICTIONARIES,
@@ -85,8 +84,8 @@ def assert_column_constraints(
     for col_name, col_constraints in COLUMN_CONSTRAINTS.items():
 
         if table in DICTIONARIES:
-            # Don't check uuid or objectid for dictionaries
-            if col_name in ["uuid", "objectid"]:
+            # Don't check uuid for dictionaries
+            if col_name in {"uuid"}:
                 continue
         else:
             # Don't check code for non-dictionaries

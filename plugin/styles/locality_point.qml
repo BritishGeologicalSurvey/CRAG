@@ -381,13 +381,6 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="objectid">
-      <editWidget type="Hidden">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
     <field configurationFlags="NoFlag" name="uuid">
       <editWidget type="Hidden">
         <config>
@@ -517,7 +510,6 @@
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
-    <alias field="objectid" index="1" name=""></alias>
     <alias field="uuid" index="2" name=""></alias>
     <alias field="field_project_fuid" index="3" name=""></alias>
     <alias field="name" index="4" name=""></alias>
@@ -532,7 +524,6 @@
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
-    <policy field="objectid" policy="Duplicate"></policy>
     <policy field="uuid" policy="Duplicate"></policy>
     <policy field="field_project_fuid" policy="DefaultValue"></policy>
     <policy field="name" policy="DefaultValue"></policy>
@@ -547,7 +538,6 @@
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
-    <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="attribute(&#xD;&#xA;&#x9;get_feature(&#xD;&#xA;&#x9;&#x9;'field_project',&#xD;&#xA;&#x9;&#x9;'fid',&#xD;&#xA;&#x9;&#x9;-- Get the list of field_project fid values&#xD;&#xA;&#x9;&#x9;-- Then take the first one&#xD;&#xA;&#x9;&#x9;-- There should only be one, but this means&#xD;&#xA;&#x9;&#x9;-- that if the fid changes, this expression&#xD;&#xA;&#x9;&#x9;-- still works as expected&#xD;&#xA;&#x9;&#x9;aggregate(&#xD;&#xA;&#x9;&#x9;&#x9;'field_project',&#xD;&#xA;&#x9;&#x9;&#x9;'array_agg',&#xD;&#xA;&#x9;&#x9;&#x9;&quot;fid&quot;&#xD;&#xA;&#x9;&#x9;)[0]&#xD;&#xA;&#x9;),&#xD;&#xA;&#x9;'uuid'&#xD;&#xA;)" field="field_project_fuid"></default>
     <default applyOnUpdate="0" expression="coalesce (&#xA;-- Case 1, use mergin_username from _view_next_locality_id&#xA;&#x9;attribute(&#xA;&#x9;&#x9;get_feature(&#xA;&#x9;&#x9;&#x9;'_view_next_locality_id',&#xA;&#x9;&#x9;&#x9;'username' ,&#xA;&#x9;&#x9;&#x9;@mergin_username&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'next_locality_id'&#xA;&#x9;),&#xA;&#xA;-- Case 2, use user_account_name from _view_next_locality_id&#xA;&#x9;attribute(&#xA;&#x9;&#x9;get_feature(&#xA;&#x9;&#x9;&#x9;'_view_next_locality_id',&#xA;&#x9;&#x9;&#x9;'username' ,&#xA;&#x9;&#x9;&#x9;@user_account_name&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'next_locality_id'&#xA;&#x9;),&#xA;&#xA;-- Case 3 and 4, creating the first point with '_001'&#xA;&#x9;concat(&#xA;&#x9;&#x9;coalesce(&#xA;&#x9;&#x9;&#x9;-- Case 3 use mergin_username&#xA;&#x9;&#x9;&#x9;@mergin_username,&#xA;&#x9;&#x9;&#x9;-- Case 4, use user_account_name&#xA;&#x9;&#x9;&#x9;@user_account_name&#xA;&#x9;&#x9;),&#xA;&#x9;&#x9;'_001'&#xA;&#x9;)&#xA;&#xA;)&#xA;" field="name"></default>
@@ -562,7 +552,6 @@
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="field_project_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="3" exp_strength="0" field="name" notnull_strength="1" unique_strength="1"></constraint>
@@ -577,7 +566,6 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="field_project_fuid"></constraint>
     <constraint desc="" exp="" field="name"></constraint>
@@ -850,7 +838,6 @@ superficial_landform: [% aggregate(&#xD;
     <field editable="1" name="locality_type_code"></field>
     <field editable="1" name="map_face_note"></field>
     <field editable="0" name="name"></field>
-    <field editable="0" name="objectid"></field>
     <field editable="0" name="user_entered"></field>
     <field editable="1" name="user_updated"></field>
     <field editable="0" name="uuid"></field>
@@ -866,7 +853,6 @@ superficial_landform: [% aggregate(&#xD;
     <field labelOnTop="0" name="locality_type_code"></field>
     <field labelOnTop="0" name="map_face_note"></field>
     <field labelOnTop="0" name="name"></field>
-    <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="user_entered"></field>
     <field labelOnTop="0" name="user_updated"></field>
     <field labelOnTop="0" name="uuid"></field>
@@ -882,7 +868,6 @@ superficial_landform: [% aggregate(&#xD;
     <field name="locality_type_code" reuseLastValue="0"></field>
     <field name="map_face_note" reuseLastValue="0"></field>
     <field name="name" reuseLastValue="0"></field>
-    <field name="objectid" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>
