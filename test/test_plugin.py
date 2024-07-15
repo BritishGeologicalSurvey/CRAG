@@ -427,7 +427,6 @@ def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
     # Arrange
     hidden_widgets = {
         "fid",
-        "objectid",
         "uuid",
         "user_entered",
         "date_entered",

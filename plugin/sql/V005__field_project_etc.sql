@@ -15,7 +15,6 @@ VALUES('field_project','features','field_project','','2024-04-17T13:25:04.729Z',
 
 CREATE TABLE IF NOT EXISTS "field_project" (
 	"fid"	INTEGER NOT NULL,
-	"objectid"	INTEGER UNIQUE,
 	"uuid"	TEXT NOT NULL UNIQUE,
 	"short_name" TEXT NOT NULL UNIQUE,
 	"title"	TEXT,

@@ -15,7 +15,6 @@ VALUES('locality_point','features','locality_point','Locality where observations
 
 CREATE TABLE IF NOT EXISTS "locality_point" (
     "fid" INTEGER NOT NULL,
-    "objectid" INTEGER UNIQUE,
     "uuid" TEXT NOT NULL UNIQUE,
     "field_project_fuid" TEXT NOT NULL,
     "name" TEXT NOT NULL UNIQUE,

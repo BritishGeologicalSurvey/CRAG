@@ -7,13 +7,6 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="objectid">
-      <editWidget type="Hidden">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
     <field configurationFlags="NoFlag" name="uuid">
       <editWidget type="Hidden">
         <config>
@@ -144,7 +137,6 @@
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
-    <alias field="objectid" index="1" name=""></alias>
     <alias field="uuid" index="2" name=""></alias>
     <alias field="locality_fuid" index="3" name=""></alias>
     <alias field="manmade_type_code" index="4" name=""></alias>
@@ -160,7 +152,6 @@
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="DefaultValue"></policy>
-    <policy field="objectid" policy="DefaultValue"></policy>
     <policy field="uuid" policy="DefaultValue"></policy>
     <policy field="locality_fuid" policy="DefaultValue"></policy>
     <policy field="manmade_type_code" policy="DefaultValue"></policy>
@@ -176,7 +167,6 @@
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
-    <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
     <default applyOnUpdate="0" expression="" field="manmade_type_code"></default>
@@ -192,7 +182,6 @@
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="manmade_type_code" notnull_strength="1" unique_strength="0"></constraint>
@@ -208,7 +197,6 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
     <constraint desc="" exp="" field="manmade_type_code"></constraint>
@@ -301,7 +289,6 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="locality_fuid"></field>
     <field editable="1" name="manmade_type_code"></field>
     <field editable="1" name="notes"></field>
-    <field editable="1" name="objectid"></field>
     <field editable="1" name="user_entered"></field>
     <field editable="1" name="user_updated"></field>
     <field editable="1" name="uuid"></field>
@@ -317,7 +304,6 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="locality_fuid"></field>
     <field labelOnTop="0" name="manmade_type_code"></field>
     <field labelOnTop="0" name="notes"></field>
-    <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="user_entered"></field>
     <field labelOnTop="0" name="user_updated"></field>
     <field labelOnTop="0" name="uuid"></field>
@@ -333,7 +319,6 @@ def my_form_open(dialog, layer, feature):
     <field name="locality_fuid" reuseLastValue="0"></field>
     <field name="manmade_type_code" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>
-    <field name="objectid" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>
