@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
     "locality_type_code"  TEXT NOT NULL,
     "locality_description" TEXT,
     "map_face_note" TEXT,
-    "notes" TEXT,
+    "geology_description" TEXT,
     "user_entered" TEXT NOT NULL,
     "date_entered" DATETIME NOT NULL,
     "user_updated" TEXT,

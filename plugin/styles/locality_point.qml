@@ -467,7 +467,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="notes">
+    <field configurationFlags="NoFlag" name="geology_description">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -524,7 +524,7 @@
     <alias field="locality_type_code" index="5" name=""></alias>
     <alias field="locality_description" index="6" name=""></alias>
     <alias field="map_face_note" index="7" name=""></alias>
-    <alias field="notes" index="8" name=""></alias>
+    <alias field="geology_description" index="8" name=""></alias>
     <alias field="user_entered" index="9" name=""></alias>
     <alias field="date_entered" index="10" name=""></alias>
     <alias field="user_updated" index="11" name=""></alias>
@@ -539,7 +539,7 @@
     <policy field="locality_type_code" policy="DefaultValue"></policy>
     <policy field="locality_description" policy="DefaultValue"></policy>
     <policy field="map_face_note" policy="DefaultValue"></policy>
-    <policy field="notes" policy="DefaultValue"></policy>
+    <policy field="geology_description" policy="DefaultValue"></policy>
     <policy field="user_entered" policy="Duplicate"></policy>
     <policy field="date_entered" policy="Duplicate"></policy>
     <policy field="user_updated" policy="Duplicate"></policy>
@@ -554,7 +554,7 @@
     <default applyOnUpdate="0" expression="" field="locality_type_code"></default>
     <default applyOnUpdate="0" expression="" field="locality_description"></default>
     <default applyOnUpdate="0" expression="" field="map_face_note"></default>
-    <default applyOnUpdate="0" expression="" field="notes"></default>
+    <default applyOnUpdate="0" expression="" field="geology_description"></default>
     <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
     <default applyOnUpdate="1" expression="@user_account_name" field="user_updated"></default>
@@ -569,7 +569,7 @@
     <constraint constraints="1" exp_strength="0" field="locality_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="map_face_note" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="geology_description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
@@ -584,7 +584,7 @@
     <constraint desc="" exp="" field="locality_type_code"></constraint>
     <constraint desc="" exp="" field="locality_description"></constraint>
     <constraint desc="" exp="" field="map_face_note"></constraint>
-    <constraint desc="" exp="" field="notes"></constraint>
+    <constraint desc="" exp="" field="geology_description"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
     <constraint desc="" exp="" field="user_updated"></constraint>
@@ -727,7 +727,7 @@ superficial_landform: [% aggregate(&#xD;
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField horizontalStretch="0" index="8" name="notes" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="8" name="geology_description" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
@@ -849,7 +849,7 @@ superficial_landform: [% aggregate(&#xD;
     <field editable="1" name="locality_type_code"></field>
     <field editable="1" name="map_face_note"></field>
     <field editable="0" name="name"></field>
-    <field editable="1" name="notes"></field>
+    <field editable="1" name="geology_description"></field>
     <field editable="0" name="objectid"></field>
     <field editable="0" name="user_entered"></field>
     <field editable="1" name="user_updated"></field>
@@ -865,7 +865,7 @@ superficial_landform: [% aggregate(&#xD;
     <field labelOnTop="0" name="locality_type_code"></field>
     <field labelOnTop="0" name="map_face_note"></field>
     <field labelOnTop="0" name="name"></field>
-    <field labelOnTop="0" name="notes"></field>
+    <field labelOnTop="0" name="geology_description"></field>
     <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="user_entered"></field>
     <field labelOnTop="0" name="user_updated"></field>
@@ -881,7 +881,7 @@ superficial_landform: [% aggregate(&#xD;
     <field name="locality_type_code" reuseLastValue="0"></field>
     <field name="map_face_note" reuseLastValue="0"></field>
     <field name="name" reuseLastValue="0"></field>
-    <field name="notes" reuseLastValue="0"></field>
+    <field name="geology_description" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
