@@ -426,7 +426,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="exposure_type_code">
+    <field configurationFlags="NoFlag" name="locality_type_code">
       <editWidget type="RelationReference">
         <config>
           <Option type="Map">
@@ -436,11 +436,11 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_exposure_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_exposure_type_441db9d8_a39e_418e_9476_4ee81f35e8ca"></Option>
-            <Option name="ReferencedLayerName" type="QString" value="dic_exposure_type"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_locality_type"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_locality_type_441db9d8_a39e_418e_9476_4ee81f35e8ca"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="dic_locality_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="dic_exposure_type_locality_point_2"></Option>
+            <Option name="Relation" type="QString" value="dic_locality_type_locality_point_2"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
@@ -521,7 +521,7 @@
     <alias field="uuid" index="2" name=""></alias>
     <alias field="field_project_fuid" index="3" name=""></alias>
     <alias field="name" index="4" name=""></alias>
-    <alias field="exposure_type_code" index="5" name=""></alias>
+    <alias field="locality_type_code" index="5" name=""></alias>
     <alias field="locality_description" index="6" name=""></alias>
     <alias field="map_face_note" index="7" name=""></alias>
     <alias field="notes" index="8" name=""></alias>
@@ -536,7 +536,7 @@
     <policy field="uuid" policy="Duplicate"></policy>
     <policy field="field_project_fuid" policy="DefaultValue"></policy>
     <policy field="name" policy="DefaultValue"></policy>
-    <policy field="exposure_type_code" policy="DefaultValue"></policy>
+    <policy field="locality_type_code" policy="DefaultValue"></policy>
     <policy field="locality_description" policy="DefaultValue"></policy>
     <policy field="map_face_note" policy="DefaultValue"></policy>
     <policy field="notes" policy="DefaultValue"></policy>
@@ -551,7 +551,7 @@
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="attribute(&#xD;&#xA;&#x9;get_feature(&#xD;&#xA;&#x9;&#x9;'field_project',&#xD;&#xA;&#x9;&#x9;'fid',&#xD;&#xA;&#x9;&#x9;-- Get the list of field_project fid values&#xD;&#xA;&#x9;&#x9;-- Then take the first one&#xD;&#xA;&#x9;&#x9;-- There should only be one, but this means&#xD;&#xA;&#x9;&#x9;-- that if the fid changes, this expression&#xD;&#xA;&#x9;&#x9;-- still works as expected&#xD;&#xA;&#x9;&#x9;aggregate(&#xD;&#xA;&#x9;&#x9;&#x9;'field_project',&#xD;&#xA;&#x9;&#x9;&#x9;'array_agg',&#xD;&#xA;&#x9;&#x9;&#x9;&quot;fid&quot;&#xD;&#xA;&#x9;&#x9;)[0]&#xD;&#xA;&#x9;),&#xD;&#xA;&#x9;'uuid'&#xD;&#xA;)" field="field_project_fuid"></default>
     <default applyOnUpdate="0" expression="if(&#xD;&#xA;&#x9;-- If the mergin_username is valid&#xD;&#xA;&#x9;nullif(@mergin_username, ''),&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;-- True, start first coalesce with case 1 and 2 of mergin_username&#xD;&#xA;&#x9;coalesce(&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;-- Case 1, use mergin_username from _view_next_locality_id&#xD;&#xA;&#x9;&#x9;attribute(&#xD;&#xA;&#x9;&#x9;&#x9;get_feature(&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;'_view_next_locality_id',&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;'username' ,&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;@mergin_username&#xD;&#xA;&#x9;&#x9;&#x9;),&#xD;&#xA;&#x9;&#x9;&#x9;'next_locality_id'&#xD;&#xA;&#x9;&#x9;),&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;-- Case 2, use mergin_username to create the first point with '_001'&#xD;&#xA;&#x9;&#x9;concat(&#xD;&#xA;&#x9;&#x9;&#x9;@mergin_username,&#xD;&#xA;&#x9;&#x9;&#x9;'_001'&#xD;&#xA;&#x9;&#x9;)&#xD;&#xA;&#x9;),&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;-- False, start second coalesce with case 3 and 4 of user_account_name&#xD;&#xA;&#x9;coalesce(&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;-- Case 3, use user_account_name from _view_next_locality_id&#xD;&#xA;&#x9;&#x9;attribute(&#xD;&#xA;&#x9;&#x9;&#x9;get_feature(&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;'_view_next_locality_id',&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;'username' ,&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;@user_account_name&#xD;&#xA;&#x9;&#x9;&#x9;),&#xD;&#xA;&#x9;&#x9;&#x9;'next_locality_id'&#xD;&#xA;&#x9;&#x9;),&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;-- Case 4, use user_account_name to create the first point with '_001'&#xD;&#xA;&#x9;&#x9;concat(&#xD;&#xA;&#x9;&#x9;&#x9;@user_account_name,&#xD;&#xA;&#x9;&#x9;&#x9;'_001'&#xD;&#xA;&#x9;&#x9;)&#xD;&#xA;&#x9;)&#xD;&#xA;)" field="name"></default>
-    <default applyOnUpdate="0" expression="" field="exposure_type_code"></default>
+    <default applyOnUpdate="0" expression="" field="locality_type_code"></default>
     <default applyOnUpdate="0" expression="" field="locality_description"></default>
     <default applyOnUpdate="0" expression="" field="map_face_note"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
@@ -566,7 +566,7 @@
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="field_project_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="3" exp_strength="0" field="name" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="1" exp_strength="0" field="exposure_type_code" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="locality_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="map_face_note" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
@@ -581,7 +581,7 @@
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="field_project_fuid"></constraint>
     <constraint desc="" exp="" field="name"></constraint>
-    <constraint desc="" exp="" field="exposure_type_code"></constraint>
+    <constraint desc="" exp="" field="locality_type_code"></constraint>
     <constraint desc="" exp="" field="locality_description"></constraint>
     <constraint desc="" exp="" field="map_face_note"></constraint>
     <constraint desc="" exp="" field="notes"></constraint>
@@ -712,7 +712,7 @@ superficial_landform: [% aggregate(&#xD;
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
-      <attributeEditorField horizontalStretch="0" index="5" name="exposure_type_code" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="5" name="locality_type_code" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
@@ -843,7 +843,7 @@ superficial_landform: [% aggregate(&#xD;
     <field editable="0" name="date_entered"></field>
     <field editable="1" name="date_updated"></field>
     <field editable="1" name="epsg_code"></field>
-    <field editable="1" name="exposure_type_code"></field>
+    <field editable="1" name="locality_type_code"></field>
     <field editable="0" name="fid"></field>
     <field editable="1" name="field_project_fuid"></field>
     <field editable="1" name="locality_description"></field>
@@ -859,7 +859,7 @@ superficial_landform: [% aggregate(&#xD;
     <field labelOnTop="0" name="date_entered"></field>
     <field labelOnTop="0" name="date_updated"></field>
     <field labelOnTop="0" name="epsg_code"></field>
-    <field labelOnTop="0" name="exposure_type_code"></field>
+    <field labelOnTop="0" name="locality_type_code"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="field_project_fuid"></field>
     <field labelOnTop="0" name="locality_description"></field>
@@ -875,7 +875,7 @@ superficial_landform: [% aggregate(&#xD;
     <field name="date_entered" reuseLastValue="0"></field>
     <field name="date_updated" reuseLastValue="0"></field>
     <field name="epsg_code" reuseLastValue="0"></field>
-    <field name="exposure_type_code" reuseLastValue="0"></field>
+    <field name="locality_type_code" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="field_project_fuid" reuseLastValue="0"></field>
     <field name="locality_description" reuseLastValue="0"></field>

@@ -2367,7 +2367,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="exposure_type">
+    <field configurationFlags="NoFlag" name="locality_type">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -2423,7 +2423,7 @@
     <alias field="x" index="2" name=""></alias>
     <alias field="y" index="3" name=""></alias>
     <alias field="local_epsg" index="4" name=""></alias>
-    <alias field="exposure_type" index="5" name=""></alias>
+    <alias field="locality_type" index="5" name=""></alias>
     <alias field="lithology_code" index="6" name=""></alias>
     <alias field="lithology" index="7" name=""></alias>
     <alias field="simple_lithology" index="8" name=""></alias>
@@ -2437,7 +2437,7 @@
     <policy field="x" policy="Duplicate"></policy>
     <policy field="y" policy="Duplicate"></policy>
     <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="exposure_type" policy="Duplicate"></policy>
+    <policy field="locality_type" policy="Duplicate"></policy>
     <policy field="lithology_code" policy="Duplicate"></policy>
     <policy field="lithology" policy="Duplicate"></policy>
     <policy field="simple_lithology" policy="Duplicate"></policy>
@@ -2451,7 +2451,7 @@
     <default applyOnUpdate="0" expression="" field="x"></default>
     <default applyOnUpdate="0" expression="" field="y"></default>
     <default applyOnUpdate="0" expression="" field="local_epsg"></default>
-    <default applyOnUpdate="0" expression="" field="exposure_type"></default>
+    <default applyOnUpdate="0" expression="" field="locality_type"></default>
     <default applyOnUpdate="0" expression="" field="lithology_code"></default>
     <default applyOnUpdate="0" expression="" field="lithology"></default>
     <default applyOnUpdate="0" expression="" field="simple_lithology"></default>
@@ -2465,7 +2465,7 @@
     <constraint constraints="0" exp_strength="0" field="x" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="y" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="local_epsg" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="exposure_type" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="locality_type" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="lithology_code" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="lithology" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="simple_lithology" notnull_strength="0" unique_strength="0"></constraint>
@@ -2479,7 +2479,7 @@
     <constraint desc="" exp="" field="x"></constraint>
     <constraint desc="" exp="" field="y"></constraint>
     <constraint desc="" exp="" field="local_epsg"></constraint>
-    <constraint desc="" exp="" field="exposure_type"></constraint>
+    <constraint desc="" exp="" field="locality_type"></constraint>
     <constraint desc="" exp="" field="lithology_code"></constraint>
     <constraint desc="" exp="" field="lithology"></constraint>
     <constraint desc="" exp="" field="simple_lithology"></constraint>
@@ -2512,7 +2512,7 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
-    <field editable="1" name="exposure_type"></field>
+    <field editable="1" name="locality_type"></field>
     <field editable="1" name="field_project"></field>
     <field editable="1" name="hex_colour"></field>
     <field editable="1" name="lithology"></field>
@@ -2528,7 +2528,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="y"></field>
   </editable>
   <labelOnTop>
-    <field labelOnTop="0" name="exposure_type"></field>
+    <field labelOnTop="0" name="locality_type"></field>
     <field labelOnTop="0" name="field_project"></field>
     <field labelOnTop="0" name="hex_colour"></field>
     <field labelOnTop="0" name="lithology"></field>
@@ -2544,7 +2544,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="exposure_type" reuseLastValue="0"></field>
+    <field name="locality_type" reuseLastValue="0"></field>
     <field name="field_project" reuseLastValue="0"></field>
     <field name="hex_colour" reuseLastValue="0"></field>
     <field name="lithology" reuseLastValue="0"></field>
