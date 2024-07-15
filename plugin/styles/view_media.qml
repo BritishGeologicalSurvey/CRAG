@@ -263,10 +263,10 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="locality_point"></field>
     <field editable="1" name="locality_type"></field>
     <field editable="1" name="locality_uuid"></field>
+    <field editable="1" name="media_description"></field>
     <field editable="1" name="media_link"></field>
     <field editable="1" name="media_type"></field>
     <field editable="1" name="media_uuid"></field>
-    <field editable="1" name="media_description"></field>
     <field editable="1" name="x"></field>
     <field editable="1" name="y"></field>
   </editable>
@@ -276,10 +276,10 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="locality_point"></field>
     <field labelOnTop="0" name="locality_type"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
+    <field labelOnTop="0" name="media_description"></field>
     <field labelOnTop="0" name="media_link"></field>
     <field labelOnTop="0" name="media_type"></field>
     <field labelOnTop="0" name="media_uuid"></field>
-    <field labelOnTop="0" name="media_description"></field>
     <field labelOnTop="0" name="x"></field>
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
@@ -289,10 +289,10 @@ def my_form_open(dialog, layer, feature):
     <field name="locality_point" reuseLastValue="0"></field>
     <field name="locality_type" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
+    <field name="media_description" reuseLastValue="0"></field>
     <field name="media_link" reuseLastValue="0"></field>
     <field name="media_type" reuseLastValue="0"></field>
     <field name="media_uuid" reuseLastValue="0"></field>
-    <field name="media_description" reuseLastValue="0"></field>
     <field name="x" reuseLastValue="0"></field>
     <field name="y" reuseLastValue="0"></field>
   </reuseLastValue>
