@@ -845,11 +845,11 @@ superficial_landform: [% aggregate(&#xD;
     <field editable="1" name="epsg_code"></field>
     <field editable="0" name="fid"></field>
     <field editable="1" name="field_project_fuid"></field>
+    <field editable="1" name="geology_description"></field>
     <field editable="1" name="locality_description"></field>
     <field editable="1" name="locality_type_code"></field>
     <field editable="1" name="map_face_note"></field>
     <field editable="0" name="name"></field>
-    <field editable="1" name="geology_description"></field>
     <field editable="0" name="objectid"></field>
     <field editable="0" name="user_entered"></field>
     <field editable="1" name="user_updated"></field>
@@ -861,11 +861,11 @@ superficial_landform: [% aggregate(&#xD;
     <field labelOnTop="0" name="epsg_code"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="field_project_fuid"></field>
+    <field labelOnTop="0" name="geology_description"></field>
     <field labelOnTop="0" name="locality_description"></field>
     <field labelOnTop="0" name="locality_type_code"></field>
     <field labelOnTop="0" name="map_face_note"></field>
     <field labelOnTop="0" name="name"></field>
-    <field labelOnTop="0" name="geology_description"></field>
     <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="user_entered"></field>
     <field labelOnTop="0" name="user_updated"></field>
@@ -877,11 +877,11 @@ superficial_landform: [% aggregate(&#xD;
     <field name="epsg_code" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="field_project_fuid" reuseLastValue="0"></field>
+    <field name="geology_description" reuseLastValue="0"></field>
     <field name="locality_description" reuseLastValue="0"></field>
     <field name="locality_type_code" reuseLastValue="0"></field>
     <field name="map_face_note" reuseLastValue="0"></field>
     <field name="name" reuseLastValue="0"></field>
-    <field name="geology_description" reuseLastValue="0"></field>
     <field name="objectid" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
