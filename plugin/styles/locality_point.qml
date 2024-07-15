@@ -437,7 +437,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_locality_type"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_locality_type_441db9d8_a39e_418e_9476_4ee81f35e8ca"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_locality_type_89a263f7_be81_4c21_8e49_3de6ad8b28d2"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_locality_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_locality_type_locality_point_2"></Option>
@@ -843,10 +843,10 @@ superficial_landform: [% aggregate(&#xD;
     <field editable="0" name="date_entered"></field>
     <field editable="1" name="date_updated"></field>
     <field editable="1" name="epsg_code"></field>
-    <field editable="1" name="locality_type_code"></field>
     <field editable="0" name="fid"></field>
     <field editable="1" name="field_project_fuid"></field>
     <field editable="1" name="locality_description"></field>
+    <field editable="1" name="locality_type_code"></field>
     <field editable="1" name="map_face_note"></field>
     <field editable="0" name="name"></field>
     <field editable="1" name="notes"></field>
@@ -859,10 +859,10 @@ superficial_landform: [% aggregate(&#xD;
     <field labelOnTop="0" name="date_entered"></field>
     <field labelOnTop="0" name="date_updated"></field>
     <field labelOnTop="0" name="epsg_code"></field>
-    <field labelOnTop="0" name="locality_type_code"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="field_project_fuid"></field>
     <field labelOnTop="0" name="locality_description"></field>
+    <field labelOnTop="0" name="locality_type_code"></field>
     <field labelOnTop="0" name="map_face_note"></field>
     <field labelOnTop="0" name="name"></field>
     <field labelOnTop="0" name="notes"></field>
@@ -875,10 +875,10 @@ superficial_landform: [% aggregate(&#xD;
     <field name="date_entered" reuseLastValue="0"></field>
     <field name="date_updated" reuseLastValue="0"></field>
     <field name="epsg_code" reuseLastValue="0"></field>
-    <field name="locality_type_code" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="field_project_fuid" reuseLastValue="0"></field>
     <field name="locality_description" reuseLastValue="0"></field>
+    <field name="locality_type_code" reuseLastValue="0"></field>
     <field name="map_face_note" reuseLastValue="0"></field>
     <field name="name" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>
