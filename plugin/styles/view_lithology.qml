@@ -2512,7 +2512,6 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
-    <field editable="1" name="locality_type"></field>
     <field editable="1" name="field_project"></field>
     <field editable="1" name="hex_colour"></field>
     <field editable="1" name="lithology"></field>
@@ -2520,6 +2519,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="lithology_uuid"></field>
     <field editable="1" name="local_epsg"></field>
     <field editable="1" name="locality_point"></field>
+    <field editable="1" name="locality_type"></field>
     <field editable="1" name="locality_uuid"></field>
     <field editable="1" name="notes"></field>
     <field editable="1" name="representativeLithology_uri"></field>
@@ -2528,7 +2528,6 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="y"></field>
   </editable>
   <labelOnTop>
-    <field labelOnTop="0" name="locality_type"></field>
     <field labelOnTop="0" name="field_project"></field>
     <field labelOnTop="0" name="hex_colour"></field>
     <field labelOnTop="0" name="lithology"></field>
@@ -2536,6 +2535,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="lithology_uuid"></field>
     <field labelOnTop="0" name="local_epsg"></field>
     <field labelOnTop="0" name="locality_point"></field>
+    <field labelOnTop="0" name="locality_type"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
     <field labelOnTop="0" name="notes"></field>
     <field labelOnTop="0" name="representativeLithology_uri"></field>
@@ -2544,7 +2544,6 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="locality_type" reuseLastValue="0"></field>
     <field name="field_project" reuseLastValue="0"></field>
     <field name="hex_colour" reuseLastValue="0"></field>
     <field name="lithology" reuseLastValue="0"></field>
@@ -2552,6 +2551,7 @@ def my_form_open(dialog, layer, feature):
     <field name="lithology_uuid" reuseLastValue="0"></field>
     <field name="local_epsg" reuseLastValue="0"></field>
     <field name="locality_point" reuseLastValue="0"></field>
+    <field name="locality_type" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>
     <field name="representativeLithology_uri" reuseLastValue="0"></field>

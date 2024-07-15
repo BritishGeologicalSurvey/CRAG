@@ -258,10 +258,10 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
-    <field editable="1" name="locality_type"></field>
     <field editable="1" name="field_project"></field>
     <field editable="1" name="local_epsg"></field>
     <field editable="1" name="locality_point"></field>
+    <field editable="1" name="locality_type"></field>
     <field editable="1" name="locality_uuid"></field>
     <field editable="1" name="media_link"></field>
     <field editable="1" name="media_type"></field>
@@ -271,10 +271,10 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="y"></field>
   </editable>
   <labelOnTop>
-    <field labelOnTop="0" name="locality_type"></field>
     <field labelOnTop="0" name="field_project"></field>
     <field labelOnTop="0" name="local_epsg"></field>
     <field labelOnTop="0" name="locality_point"></field>
+    <field labelOnTop="0" name="locality_type"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
     <field labelOnTop="0" name="media_link"></field>
     <field labelOnTop="0" name="media_type"></field>
@@ -284,10 +284,10 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="locality_type" reuseLastValue="0"></field>
     <field name="field_project" reuseLastValue="0"></field>
     <field name="local_epsg" reuseLastValue="0"></field>
     <field name="locality_point" reuseLastValue="0"></field>
+    <field name="locality_type" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
     <field name="media_link" reuseLastValue="0"></field>
     <field name="media_type" reuseLastValue="0"></field>
