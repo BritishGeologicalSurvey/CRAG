@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS "dic_manmade_landform" (
 insert into gpkg_contents
 values('dic_manmade_landform','attributes','dic_manmade_landform','Dictionary of man-made features.','2023-09-15t13:21:52.679z',null,null,null,null,null);
 
-CREATE TABLE IF NOT EXISTS "dic_exposure_type" (
+CREATE TABLE IF NOT EXISTS "dic_locality_type" (
 	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT,
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS "dic_exposure_type" (
 );
 
 insert into gpkg_contents
-values('dic_exposure_type','attributes','dic_exposure_type','Dictionary of exposure types','2023-09-15t13:21:52.679z',null,null,null,null,null);
+values('dic_locality_type','attributes','dic_locality_type','Dictionary of exposure types','2023-09-15t13:21:52.679z',null,null,null,null,null);
 
 
 CREATE TABLE IF NOT EXISTS "dic_structure" (
@@ -186,13 +186,13 @@ INSERT INTO "dic_field_project_type" ("fid","code","description","translation","
 INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'lab_study','Lab study','','C','jbow','04/09/2023',NULL,NULL);
 INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'derived_from_paper','Derived from a paper map or fieldslip','','C','jbow','04/09/2023',NULL,NULL);
 
-INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'outcrop','Outcrop','','C','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'section','Section','','C','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'quarry','Quarry','','C','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'auger_borehole','Auger/Borehole','','C','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'road_cut','Road cut','','C','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'trench','Trench','','C','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_exposure_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'other','Other','','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'outcrop','Outcrop','','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'section','Section','','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'quarry','Quarry','','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'auger_borehole','Auger/Borehole','','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'road_cut','Road cut','','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'trench','Trench','','C','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'other','Other','','C','kigl','01/01/2012','jbow','13/09/2023');
 
 INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","user_entered","date_entered","user_updated","date_updated") VALUES (1,'ERRATIC','erratic','Erratic','C',NULL,'ERRAT','GGMME','Erratic','Erratic','ERR','kigl','01/01/2012','jbow','08/01/2024');
 INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","user_entered","date_entered","user_updated","date_updated") VALUES (2,'GLACIAL','crag_and_tail','Crag and tail','C',NULL,'GL_CG','GGBC','Crag_And_Tail','Crag_And_Tail','CRAGTAIL','kigl','01/01/2012','jbow','08/01/2024');

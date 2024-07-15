@@ -40,7 +40,7 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
-    exp_type.code AS exposure_type,
+    loc_type.code AS locality_type,
     lith.lithology_code,
 	  rock.label AS lithology,
 	  rock.simple_lithology,
@@ -50,7 +50,7 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
     lp.geometry AS geometry
   FROM lithology lith
     LEFT JOIN locality_point lp ON lith.locality_fuid = lp.uuid
-    LEFT JOIN dic_exposure_type exp_type ON lp.exposure_type_code = exp_type.code
+    LEFT JOIN dic_locality_type loc_type ON lp.locality_type_code = loc_type.code
 	  LEFT JOIN dic_rock_field rock ON lith.lithology_code = rock.code
     LEFT JOIN field_project fp ON lp.field_project_fuid = fp.uuid
 ;
@@ -132,7 +132,7 @@ CREATE VIEW IF NOT EXISTS "view_photo" AS
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
-    lp.exposure_type_code AS exposure_type,
+    lp.locality_type_code AS locality_type,
     ph.photo_file,
     ph.notes,
     ph.uuid AS photo_uuid,
@@ -157,7 +157,7 @@ CREATE VIEW IF NOT EXISTS "view_media" AS
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
-    lp.exposure_type_code AS exposure_type,
+    lp.locality_type_code AS locality_type,
     me.media_type_code AS media_type,
 	  me.media_link,
     me.notes,
@@ -183,7 +183,7 @@ CREATE VIEW IF NOT EXISTS "view_sample" AS
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
     fp.local_epsg,
-    lp.exposure_type_code AS exposure_type,
+    lp.locality_type_code AS locality_type,
     sa.sample_id,
     sa.sample_type_code AS sample_type,
     sa.notes,

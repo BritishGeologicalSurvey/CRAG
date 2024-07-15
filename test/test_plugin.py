@@ -360,7 +360,7 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
         feature.setGeometry(geometry)
         # Set the field_project_fuid to be the uuid of the field project from the test data set
         feature.setAttribute("field_project_fuid", "{85d48fd4-e66f-4436-833b-9e37691a7d4f}")
-        feature.setAttribute("exposure_type_code", "auger_borehole")
+        feature.setAttribute("locality_type_code", "auger_borehole")
         layer.addFeature(feature)
         layer.commitChanges()
 
