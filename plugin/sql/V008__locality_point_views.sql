@@ -134,7 +134,7 @@ CREATE VIEW IF NOT EXISTS "view_photo" AS
     fp.local_epsg,
     lp.locality_type_code AS locality_type,
     ph.photo_file,
-    ph.notes,
+    ph.caption,
     ph.uuid AS photo_uuid,
     lp.uuid AS locality_uuid,
     lp.geometry AS geometry
@@ -160,7 +160,7 @@ CREATE VIEW IF NOT EXISTS "view_media" AS
     lp.locality_type_code AS locality_type,
     me.media_type_code AS media_type,
 	  me.media_link,
-    me.notes,
+    me.media_description,
     me.uuid AS media_uuid,
     lp.uuid AS locality_uuid,
     lp.geometry AS geometry
@@ -186,7 +186,7 @@ CREATE VIEW IF NOT EXISTS "view_sample" AS
     lp.locality_type_code AS locality_type,
     sa.sample_id,
     sa.sample_type_code AS sample_type,
-    sa.notes,
+    sa.sample_description,
     sa.uuid AS sample_uuid,
     lp.uuid AS locality_uuid,
     lp.geometry AS geometry

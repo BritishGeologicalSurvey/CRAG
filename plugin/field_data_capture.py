@@ -691,8 +691,8 @@ class FieldDataCapture(FieldDataCaptureProject):
                     "lithology": """attribute(get_feature('dic_rock_field', 'code', "lithology_code"), 'label')
                         + ' (' + "lithology_code" + ')'""",
                     "manmade_landform": '''"manmade_type_code"''',
-                    "media": '''"media_link" + ' | ' + "notes"''',
-                    "photo": '''"photo_file" + ' | ' + "notes"''',
+                    "media": '''"media_link" + ' | ' + "media_description"''',
+                    "photo": '''"photo_file" + ' | ' + "caption"''',
                     "sample": '''"sample_id"''',
                     "structural_measurement": '''"structure_type_code"''',
                     "superficial_landform": '''"superficial_type_code"''',

@@ -139,7 +139,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="notes">
+    <field configurationFlags="NoFlag" name="caption">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -169,7 +169,7 @@
     <alias field="local_epsg" index="4" name=""></alias>
     <alias field="locality_type" index="5" name=""></alias>
     <alias field="photo_file" index="6" name=""></alias>
-    <alias field="notes" index="7" name=""></alias>
+    <alias field="caption" index="7" name=""></alias>
     <alias field="photo_uuid" index="8" name=""></alias>
     <alias field="locality_uuid" index="9" name=""></alias>
   </aliases>
@@ -181,7 +181,7 @@
     <policy field="local_epsg" policy="Duplicate"></policy>
     <policy field="locality_type" policy="Duplicate"></policy>
     <policy field="photo_file" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
+    <policy field="caption" policy="Duplicate"></policy>
     <policy field="photo_uuid" policy="Duplicate"></policy>
     <policy field="locality_uuid" policy="Duplicate"></policy>
   </splitPolicies>
@@ -193,7 +193,7 @@
     <default applyOnUpdate="0" expression="" field="local_epsg"></default>
     <default applyOnUpdate="0" expression="" field="locality_type"></default>
     <default applyOnUpdate="0" expression="" field="photo_file"></default>
-    <default applyOnUpdate="0" expression="" field="notes"></default>
+    <default applyOnUpdate="0" expression="" field="caption"></default>
     <default applyOnUpdate="0" expression="" field="photo_uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
   </defaults>
@@ -205,7 +205,7 @@
     <constraint constraints="0" exp_strength="0" field="local_epsg" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_type" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="photo_file" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="caption" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="photo_uuid" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
@@ -217,7 +217,7 @@
     <constraint desc="" exp="" field="local_epsg"></constraint>
     <constraint desc="" exp="" field="locality_type"></constraint>
     <constraint desc="" exp="" field="photo_file"></constraint>
-    <constraint desc="" exp="" field="notes"></constraint>
+    <constraint desc="" exp="" field="caption"></constraint>
     <constraint desc="" exp="" field="photo_uuid"></constraint>
     <constraint desc="" exp="" field="locality_uuid"></constraint>
   </constraintExpressions>
@@ -251,7 +251,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="locality_point"></field>
     <field editable="1" name="locality_type"></field>
     <field editable="1" name="locality_uuid"></field>
-    <field editable="1" name="notes"></field>
+    <field editable="1" name="caption"></field>
     <field editable="1" name="photo_file"></field>
     <field editable="1" name="photo_uuid"></field>
     <field editable="1" name="x"></field>
@@ -263,7 +263,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="locality_point"></field>
     <field labelOnTop="0" name="locality_type"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
-    <field labelOnTop="0" name="notes"></field>
+    <field labelOnTop="0" name="caption"></field>
     <field labelOnTop="0" name="photo_file"></field>
     <field labelOnTop="0" name="photo_uuid"></field>
     <field labelOnTop="0" name="x"></field>
@@ -275,7 +275,7 @@ def my_form_open(dialog, layer, feature):
     <field name="locality_point" reuseLastValue="0"></field>
     <field name="locality_type" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
-    <field name="notes" reuseLastValue="0"></field>
+    <field name="caption" reuseLastValue="0"></field>
     <field name="photo_file" reuseLastValue="0"></field>
     <field name="photo_uuid" reuseLastValue="0"></field>
     <field name="x" reuseLastValue="0"></field>
