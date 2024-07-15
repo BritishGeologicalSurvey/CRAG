@@ -81,7 +81,8 @@ def test_get_locality_data(report_builder: ReportBuilder):
     # Assert
     assert set(localities.keys()) == {'test_point_001', 'test_point_002'}
     for locality in localities.values():
-        assert EXPECTED_COMMON_COLUMNS < set(locality.keys())
+        # Don't check for notes on locality_point, it was renamed to geology_description
+        assert EXPECTED_COMMON_COLUMNS - {"notes"} < set(locality.keys())
         assert EXPECTED_LOCALITY_COLUMNS < set(locality.keys())
         assert 'children' in locality
 

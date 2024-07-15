@@ -62,7 +62,11 @@ def test_data_model_columns(
         # Only get the columns from the actual list of columns that we want to check
         check_col_names = {col_name for col_name in all_col_names if col_name in expected_col_names}
         # Assert names are correct
-        assert check_col_names == expected_col_names
+        # Don't check for notes on locality_point, it was renamed to geology_description
+        if table == "locality_point":
+            assert check_col_names == expected_col_names - {"notes"}
+        else:
+            assert check_col_names == expected_col_names
 
         assert_column_constraints(data_model_gpkg, table)
 
