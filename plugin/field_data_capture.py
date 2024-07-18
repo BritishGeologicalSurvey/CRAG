@@ -324,6 +324,40 @@ class FieldDataCapture:
             checkable=True,
         )
 
+        # Create a single add/edit/delete button for all line tables
+        quick_line_add = self.add_action(
+            icon_path,
+            text=self.tr(u'Quick Add Lline'),
+            callback=lambda: self.select_quick_line_layer(mode="add"),
+            add_to_toolbar=True,
+            parent=self.iface.mainWindow(),
+            checkable=True,
+        )
+
+        quick_line_edit = self.add_action(
+            icon_path,
+            text=self.tr(u'Quick Edit Line'),
+            callback=lambda: self.select_quick_line_layer(mode="edit"),
+            add_to_toolbar=True,
+            parent=self.iface.mainWindow(),
+            checkable=True,
+        )
+
+        quick_line_delete = self.add_action(
+            icon_path,
+            text=self.tr(u'Quick Delete Line'),
+            callback=lambda: self.select_quick_line_layer(mode="delete"),
+            add_to_toolbar=True,
+            parent=self.iface.mainWindow(),
+            checkable=True,
+        )
+
+        # Link all line tables to the same add/edit/delete buttons
+        for line_table in FEATURE_TABLES_LINES:
+            self.quick_map_tool_buttons[f"fdc_{line_table}_add"] = quick_line_add
+            self.quick_map_tool_buttons[f"fdc_{line_table}_edit"] = quick_line_edit
+            self.quick_map_tool_buttons[f"fdc_{line_table}_delete"] = quick_line_delete
+
         self.button_setup_project = self.add_action(
             icon_path,
             text=self.tr(u'Setup Project'),
@@ -1045,10 +1079,31 @@ class FieldDataCapture:
         return True
 
 
-    def toggle_quick_map_tool(self, layer_name: str, mode: str) -> bool:
+    def select_quick_line_layer(self, mode: str) -> bool:
+        """
+        Get the user to select a line layer to be used with a QuickMapTool with the given mode.
+        Returns a boolean indicating if the given tool was toggled.
+        """
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True) or self.warn_unsaved_locality_data():  # noqa
+            # Disable active tool if there is one and untoggle buttons to ensure things are not left in a bad state
+            self.disable_current_quick_map_tool()
+            self.untoggle_quick_map_tool_buttons()
+            return False
+
+        line_layer = "bedrock_line"
+        return self.toggle_quick_map_tool(layer_name=line_layer, mode=mode, prepopulate={"line_type_code": "fish_bed"})
+
+
+    def toggle_quick_map_tool(
+        self,
+        layer_name: str,
+        mode: str,
+        prepopulate: Optional[dict[str, Any]] = None,
+    ) -> bool:
         """
         Toggle the required quick map tool for the given layer and mode.
         This will automatically disable any other quick map tools which are currently active.
+        Takes an optional dictionary which can be used to prepopulate values in features created by the tool.
         Returns a boolean indicating if the given tool was toggled.
         """
         # Don't validate that a field_project exists if the tool is for the layer field_project
@@ -1075,14 +1130,20 @@ class FieldDataCapture:
         # If the current qgis map tool is different to the toggled quick map tool
         # then we need to enable the toggled map tool as the user is trying to enable it
         if map_tool is None or map_tool.toolName() != toggled_quick_map_tool_name:
-            self.enable_quick_map_tool(layer, mode)
+            self.enable_quick_map_tool(layer, mode, prepopulate)
 
         return True
 
 
-    def enable_quick_map_tool(self, layer: QgsVectorLayer, mode: str) -> None:
+    def enable_quick_map_tool(
+        self,
+        layer: QgsVectorLayer,
+        mode: str,
+        prepopulate: Optional[dict[str, Any]] = None,
+    ) -> None:
         """
         Setup the required quick map tool for the given layer and mode.
+        Takes an optional dictionary which can be used to prepopulate values in features created by the tool.
         """
         tool_name = f"fdc_{layer.name()}_{mode}"
         mode_tools = {
@@ -1097,7 +1158,7 @@ class FieldDataCapture:
         else:
             action = None
 
-        self.quick_map_tool = mode_tools[mode](self.iface, layer, action)
+        self.quick_map_tool = mode_tools[mode](self.iface, layer, action, prepopulate)
 
         # Connect the required signals
         self.quick_map_tool.warn_unsaved_locality_data.connect(self.warn_unsaved_locality_data)

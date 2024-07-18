@@ -1,6 +1,9 @@
 from configparser import ConfigParser
 from pathlib import Path
-from typing import Optional
+from typing import (
+    Any,
+    Optional,
+)
 
 from qgis.core import (
     QgsApplication,
@@ -21,7 +24,10 @@ from qgis.PyQt.QtWidgets import (
     QMessageBox,
 )
 
-from .config import LOCALITY_POINT_CHILDREN
+from .config import (
+    FEATURE_TABLES_LINES,
+    LOCALITY_POINT_CHILDREN,
+)
 from .utils import ipdb_breakpoint  # noqa
 
 
@@ -160,13 +166,22 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
     """
     quick_mode = "add"
 
-    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer, action: Optional[QAction]):
+    def __init__(
+        self,
+        iface: QgisInterface,
+        layer: QgsVectorLayer,
+        action: Optional[QAction],
+        prepopulate: Optional[dict[str, Any]] = None,
+        *args,
+        **kwargs,
+    ):
         QgsMapToolDigitizeFeature.__init__(
             self, iface.mapCanvas(), iface.cadDockWidget(),
             mode=self.capture_modes[layer.name()],
         )
         QuickMapToolBase.__init__(self, iface, layer, action)
 
+        self.prepopulate = prepopulate
         # Setup map tool
         self.setCursor(QgsApplication.getThemeCursor(QgsApplication.Cursor.CapturePoint))
         # This signal fires when the user has finished drawing some geometry on the map
@@ -183,6 +198,8 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
             "locality_point": qgis_capture_mode.CapturePoint,
             "field_project": qgis_capture_mode.CapturePolygon,
         }
+        for line_table in FEATURE_TABLES_LINES:
+            capture_modes[line_table] = qgis_capture_mode.CaptureLine
         return capture_modes
 
 
@@ -191,8 +208,19 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
         Open the feature form for the layer with the given new feature.
         This is triggered by the 'digitizingCompleted' signal which passes a new empty feature with the geometry.
         """
-        # Create feature with the geometry from the new empty feature
-        feature = QgsVectorLayerUtils.createFeature(layer=self._layer, geometry=geometry_feature.geometry())
+        # Get the prepopulate values by field index instead of field name so they can be used by QgsVectorLayerUtils
+        prepopulate_indexed = {}
+        if self.prepopulate is not None:
+            for field_name, prepopulate_value in self.prepopulate.items():
+                field_index = [field.name() for field in self._layer.fields()].index(field_name)
+                prepopulate_indexed[field_index] = prepopulate_value
+
+        # Create feature with the geometry from the new empty feature and prepopulate any values required
+        feature = QgsVectorLayerUtils.createFeature(
+            layer=self._layer,
+            geometry=geometry_feature.geometry(),
+            attributes=prepopulate_indexed,
+        )
         self._layer.addFeature(feature)
         self.open_feature_form(feature)
 
@@ -204,7 +232,14 @@ class QuickEditTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
     """
     quick_mode = "edit"
 
-    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer, action: Optional[QAction]):
+    def __init__(
+        self,
+        iface: QgisInterface,
+        layer: QgsVectorLayer,
+        action: Optional[QAction],
+        *args,
+        **kwargs,
+    ):
         QgsMapToolIdentifyFeature.__init__(self, iface.mapCanvas(), layer)
         QuickMapToolBase.__init__(self, iface, layer, action)
 
@@ -229,7 +264,14 @@ class QuickDeleteTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
     """
     quick_mode = "delete"
 
-    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer, action: Optional[QAction]):
+    def __init__(
+        self,
+        iface: QgisInterface,
+        layer: QgsVectorLayer,
+        action: Optional[QAction],
+        *args,
+        **kwargs,
+    ):
         QgsMapToolIdentifyFeature.__init__(self, iface.mapCanvas(), layer)
         QuickMapToolBase.__init__(self, iface, layer, action)
 
@@ -243,11 +285,18 @@ class QuickDeleteTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
         """
         Delete the given feature, asking for confirmation before proceeding.
         """
-        point_name = feature.attribute("name")
+        # Get string identifier of feature to display to user
+        identifier_fields = {
+            "locality_point": "name",
+        }
+        for line_table in FEATURE_TABLES_LINES:
+            identifier_fields[line_table] = "line_type_code"
+        feature_identifier = feature.attribute(identifier_fields[self._layer.name()])
+
         result = QMessageBox.question(
             None, "Delete Feature",
             (
-                f"Are you sure you want to delete feature '{point_name}'"
+                f"Are you sure you want to delete feature '{feature_identifier}'"
                 f" and any child features from layer '{self._layer.name()}'?"
             ),
         )
