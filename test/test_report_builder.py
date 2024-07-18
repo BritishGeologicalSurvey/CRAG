@@ -12,15 +12,16 @@ from plugin.utils import ipdb_breakpoint  # noqa
 # Minimum set of columns needed to produce a report using the templates
 EXPECTED_COMMON_COLUMNS = {"user_entered", "date_entered", "user_updated", "date_updated"}
 EXPECTED_PROJECT_COLUMNS = {"project_lead", "field_project_type", "start_date", "end_date", "description"}
-EXPECTED_LOCALITY_COLUMNS = {"name", "locality_type_code", "geometry", "locality_description", "map_face_note"}
+EXPECTED_LOCALITY_COLUMNS = {"name", "locality_type_code", "geometry",
+                             "locality_description", "map_face_note", "geology_description"}
 EXPECTED_CHILD_COLUMNS = {
     "lithology": {"label", "lithology_code"},
-    "manmade_landform": {"description"},
-    "media": {"description", "media_type_code", "media_link"},
-    "photo": {"photo_file"},
-    "sample": {"description", "sample_id"},
-    "structural_measurement": {"description", "secondary_description", "third_description", "dip", "azimuth"},
-    "superficial_landform": {"description"},
+    "manmade_landform": {"description", "notes"},
+    "media": {"description", "media_type_code", "media_link", "media_description"},
+    "photo": {"photo_file", "caption"},
+    "sample": {"description", "sample_id", "sample_description"},
+    "structural_measurement": {"description", "secondary_description", "third_description", "dip", "azimuth", "notes"},
+    "superficial_landform": {"description", "notes"},
 }
 
 
