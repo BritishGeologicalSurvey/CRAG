@@ -353,10 +353,15 @@ class PhotoImporter(QDialog):
                 # Create new feature with default values
                 new_feature = QgsVectorLayerUtils.createFeature(photo_layer)
 
+                # Get photo caption value
+                photo_caption = photo_widgets["QTextEdit"].toPlainText()
+                if photo_caption == "":
+                    photo_caption = None
+
                 new_attributes = {
                     "locality_fuid": locality_fuid,
                     "photo_file": str(photo_file_attribute),
-                    "caption": photo_widgets["QTextEdit"].toPlainText(),
+                    "caption": photo_caption,
                 }
                 for attribute, value in new_attributes.items():
                     new_feature.setAttribute(attribute, value)
