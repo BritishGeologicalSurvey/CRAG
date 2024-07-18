@@ -15,7 +15,7 @@ from qgis.core import (
 from qgis.gui import (
     QgisInterface,
     QgsMapToolDigitizeFeature,
-    QgsMapToolIdentifyFeature,
+    QgsMapToolIdentify,
 )
 from qgis.PyQt.QtCore import (
     pyqtSignal,
@@ -32,6 +32,7 @@ from qgis.PyQt.QtWidgets import (
 from .config import (
     FEATURE_TABLES_LINES,
     LOCALITY_POINT_CHILDREN,
+    TABLE_LIST,
 )
 from .utils import ipdb_breakpoint  # noqa
 
@@ -141,21 +142,26 @@ class QuickMapToolBase:
         return version
 
 
-    def open_feature_form(self, feature: QgsFeature, reopen_form_on_add_locality: bool = True):
+    def open_feature_form(
+        self,
+        feature: QgsFeature,
+        feature_layer: QgsVectorLayer,
+        reopen_form_on_add_locality: bool = True,
+    ):
         """
         Open the feature form for the given feature in a modal state.
         Also handles the auto saving of the layer if the user confirms the form.
         If the tool is locality_point_add, then the option to reopen the form can be used too.
         """
-        save = self.open_custom_feature_form(feature)
+        save = self.open_custom_feature_form(feature, feature_layer)
 
         # Handle saving or rollback
         if save:
             # For field_project features, add the plugin version to the new feature
-            if self._layer.name() == "field_project" and self.quick_mode == "add":
-                field_index = [field.name() for field in self._layer.fields()].index("qgis_plugin_version")
+            if feature_layer.name() == "field_project" and self.quick_mode == "add":
+                field_index = [field.name() for field in feature_layer.fields()].index("qgis_plugin_version")
                 # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-                self._layer.changeAttributeValue(
+                feature_layer.changeAttributeValue(
                     fid=feature.id(),
                     field=field_index,
                     newValue=self.get_local_version(),
@@ -164,36 +170,36 @@ class QuickMapToolBase:
             # Get the uuid of the new feature so we can find the new feature again after saving
             # We can't use the fid as this will be set once it is saved
             new_feature_uuid = feature.attribute("uuid")
-            self._layer.commitChanges(stopEditing=False)
+            feature_layer.commitChanges(stopEditing=False)
             # Get the saved new feature
-            new_feature = list(self._layer.getFeatures(expression=f""""uuid" = '{new_feature_uuid}'"""))[0]
+            new_feature = list(feature_layer.getFeatures(expression=f""""uuid" = '{new_feature_uuid}'"""))[0]
 
         else:
-            self._layer.rollBack()
+            feature_layer.rollBack()
             # Re-enable editing and the current tool
             # rollBack disables editing which then triggers the tool to deactivate too
-            self._layer.startEditing()
+            feature_layer.startEditing()
             self.iface.mapCanvas().setMapTool(self)
 
         # Post digitization operations
         self.canvas().refresh()
 
         # Special handling for locality_point
-        if self._layer.name() == "locality_point":
+        if feature_layer.name() == "locality_point":
             # Reopen the form for a new point to show all tabs
             if save and self.quick_mode == "add" and reopen_form_on_add_locality:
                 # Set reopen_form to False to prevent an infinite loop
-                self.open_feature_form(new_feature, reopen_form_on_add_locality=False)
+                self.open_feature_form(new_feature, feature_layer, reopen_form_on_add_locality=False)
             else:
                 self.warn_unsaved_locality_data.emit()
 
         # Special handling for field_project
         # Deactivate the tool after adding a new feature
-        if self._layer.name() == "field_project" and save and self.quick_mode == "add":
+        if feature_layer.name() == "field_project" and save and self.quick_mode == "add":
             self.to_deactivate.emit()
 
 
-    def open_custom_feature_form(self, feature: QgsFeature) -> bool:
+    def open_custom_feature_form(self, feature: QgsFeature, feature_layer: QgsFeature) -> bool:
         """
         Open the required feature form the the given feature.
         This will set the dialog to be modal and have a dynamic size according to the screen resolution.
@@ -202,7 +208,7 @@ class QuickMapToolBase:
         """
         # Get the dialog from the iface
         # This ensures the dialog is setup properly for the given layer and feature
-        dialog = self.iface.getFeatureForm(self._layer, feature)
+        dialog = self.iface.getFeatureForm(feature_layer, feature)
         # Get the screen size of the primary screen
         screen_size = QDesktopWidget().screenGeometry(0).size()
         # Set the dialog size based on the screen size
@@ -224,6 +230,44 @@ class QuickMapToolBase:
         feature.setAttributes(dialog.feature().attributes())
 
         return result
+
+
+    def get_layer_from_feature(self, feature: QgsFeature) -> QgsVectorLayer:
+        """
+        Get the layer for the given feature.
+        """
+        for layer_id in QgsProject.instance().mapLayers():
+            layer = QgsProject.instance().mapLayer(layer_id)
+            if layer.name() in TABLE_LIST and feature in list(layer.getFeatures()):
+                return layer
+
+
+class QuickMapToolIdentifyBase:
+    """
+    This is an additional base class which is used in QuickEditTool and QuickDeleteTool.
+    Both of these tools need to identify features in a different way to the QuickAddTool,
+    and use a universal signal which would conflict with the QuickAddTool.
+    """
+    identified_feature = pyqtSignal(QgsFeature, QgsVectorLayer)
+
+    def canvasReleaseEvent(self, event) -> None:
+        """
+        Get the feature from the given event coordinates.
+        Emits the feature and it's layer to the identified_feature signal.
+        """
+        # Make sure the layer is a list
+        if isinstance(self._layer, QgsVectorLayer):
+            layer = [self._layer]
+        else:
+            layer = self._layer
+
+        # Get first result from top
+        results = super().identify(event.x(), event.y(), layer, QgsMapToolIdentify.TopDownAll)
+        if len(results) > 0:
+            feature = results[0].mFeature
+            feature_layer = self.get_layer_from_feature(feature)
+
+            self.identified_feature.emit(feature, feature_layer)
 
 
 class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
@@ -290,10 +334,10 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
             attributes=prepopulate_indexed,
         )
         self._layer.addFeature(feature)
-        self.open_feature_form(feature)
+        self.open_feature_form(feature, feature_layer=self._layer)
 
 
-class QuickEditTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
+class QuickEditTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIdentify):
     """
     Custom QgsMapTool based on QgsMapToolIdentifyFeature with custom logic to reduce clicks
     when editing an existing feature.
@@ -309,28 +353,24 @@ class QuickEditTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
         *args,
         **kwargs,
     ):
-        if isinstance(layer, list):
-            qgs_layer = None
-        else:
-            qgs_layer = layer
-        QgsMapToolIdentifyFeature.__init__(self, iface.mapCanvas(), qgs_layer)
+        QgsMapToolIdentify.__init__(self, iface.mapCanvas())
         QuickMapToolBase.__init__(self, iface, layer, action, tool_name)
 
         # Setup map tool
         self.setCursor(QgsApplication.getThemeCursor(QgsApplication.Cursor.Identify))
         # This signal fires when the user has clicked on a feature on the map
-        self.featureIdentified.connect(self.edit_feature)
+        self.identified_feature.connect(self.edit_feature)
 
 
-    def edit_feature(self, feature: QgsFeature):
+    def edit_feature(self, feature: QgsFeature, feature_layer: QgsVectorLayer):
         """
         Open the feature form for the given feature.
         This is triggered by the 'featureIdentified' signal which passes an identified feature.
         """
-        self.open_feature_form(feature)
+        self.open_feature_form(feature, feature_layer)
 
 
-class QuickDeleteTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
+class QuickDeleteTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIdentify):
     """
     Custom QgsMapTool based on QgsMapToolIdentifyFeature with custom logic to reduce clicks
     when deleting an existing feature.
@@ -346,20 +386,16 @@ class QuickDeleteTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
         *args,
         **kwargs,
     ):
-        if isinstance(layer, list):
-            qgs_layer = None
-        else:
-            qgs_layer = layer
-        QgsMapToolIdentifyFeature.__init__(self, iface.mapCanvas(), qgs_layer)
+        QgsMapToolIdentify.__init__(self, iface.mapCanvas())
         QuickMapToolBase.__init__(self, iface, layer, action, tool_name)
 
         # Setup map tool
         self.setCursor(QgsApplication.getThemeCursor(QgsApplication.Cursor.CrossHair))
         # This signal fires when the user has clicked on a feature on the map
-        self.featureIdentified.connect(self.delete_feature)
+        self.identified_feature.connect(self.delete_feature)
 
 
-    def delete_feature(self, feature: QgsFeature):
+    def delete_feature(self, feature: QgsFeature, feature_layer: QgsVectorLayer):
         """
         Delete the given feature, asking for confirmation before proceeding.
         """
@@ -369,23 +405,23 @@ class QuickDeleteTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
         }
         for line_table in FEATURE_TABLES_LINES:
             identifier_fields[line_table] = "line_type_code"
-        feature_identifier = feature.attribute(identifier_fields[self._layer.name()])
+        feature_identifier = feature.attribute(identifier_fields[feature_layer.name()])
 
         result = QMessageBox.question(
             None, "Delete Feature",
             (
                 f"Are you sure you want to delete feature '{feature_identifier}'"
-                f" and any child features from layer '{self._layer.name()}'?"
+                f" and any child features from layer '{feature_layer.name()}'?"
             ),
         )
 
         if result == QMessageBox.Yes:
             # We have to setup a new DeleteContext object which is used to perform a cascade delete programmatically
             context = QgsVectorLayer.DeleteContext(cascade=True, project=QgsProject.instance())
-            self._layer.deleteFeature(fid=feature.attribute("fid"), context=context)
+            feature_layer.deleteFeature(fid=feature.attribute("fid"), context=context)
 
             # Save the child layers first for locality_point deletions
-            if self._layer.name() == "locality_point":
+            if feature_layer.name() == "locality_point":
                 # Save the child layers first
                 for child_layer_name in LOCALITY_POINT_CHILDREN:
                     child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
@@ -393,4 +429,4 @@ class QuickDeleteTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
                         child_layer.commitChanges()
 
             # Save the parent layer last
-            self._layer.commitChanges(stopEditing=False)
+            feature_layer.commitChanges(stopEditing=False)
