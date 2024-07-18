@@ -334,7 +334,7 @@ class FieldDataCapture:
             checkable=True,
         )
 
-        quick_line_edit = self.add_action(
+        self.quick_map_tool_buttons["fdc_lines_edit"] = self.add_action(
             icon_path,
             text=self.tr(u'Quick Edit Line'),
             callback=lambda: self.select_quick_line_layer(mode="edit"),
@@ -343,7 +343,7 @@ class FieldDataCapture:
             checkable=True,
         )
 
-        quick_line_delete = self.add_action(
+        self.quick_map_tool_buttons["fdc_lines_delete"] = self.add_action(
             icon_path,
             text=self.tr(u'Quick Delete Line'),
             callback=lambda: self.select_quick_line_layer(mode="delete"),
@@ -352,11 +352,9 @@ class FieldDataCapture:
             checkable=True,
         )
 
-        # Link all line tables to the same add/edit/delete buttons
+        # Link all line tables to the same add button
         for line_table in FEATURE_TABLES_LINES:
             self.quick_map_tool_buttons[f"fdc_{line_table}_add"] = quick_line_add
-            self.quick_map_tool_buttons[f"fdc_{line_table}_edit"] = quick_line_edit
-            self.quick_map_tool_buttons[f"fdc_{line_table}_delete"] = quick_line_delete
 
         self.button_setup_project = self.add_action(
             icon_path,
@@ -1090,14 +1088,19 @@ class FieldDataCapture:
             self.untoggle_quick_map_tool_buttons()
             return False
 
-        line_layer = "bedrock_line"
-        return self.toggle_quick_map_tool(layer_name=line_layer, mode=mode, prepopulate={"line_type_code": "fish_bed"})
+        if mode == "add":
+            line_layer = "bedrock_line"
+        else:
+            line_layer = FEATURE_TABLES_LINES
+        return self.toggle_quick_map_tool(layer_name=line_layer, mode=mode,
+                                          layers_ref="lines", prepopulate={"line_type_code": "fish_bed"})
 
 
     def toggle_quick_map_tool(
         self,
-        layer_name: str,
+        layer_name: str | list[str],
         mode: str,
+        layers_ref: Optional[str] = None,
         prepopulate: Optional[dict[str, Any]] = None,
     ) -> bool:
         """
@@ -1116,8 +1119,15 @@ class FieldDataCapture:
             self.untoggle_quick_map_tool_buttons()
             return False
 
-        toggled_quick_map_tool_name = f"fdc_{layer_name}_{mode}"
-        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        if isinstance(layer_name, str):
+            toggled_quick_map_tool_name = f"fdc_{layer_name}_{mode}"
+            layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        else:
+            toggled_quick_map_tool_name = f"fdc_{layers_ref}_{mode}"
+            layer = [
+                QgsProject.instance().mapLayersByName(layer_name_)[0]
+                for layer_name_ in layer_name
+            ]
 
         # Get the current map tool before changing anything
         map_tool = self.iface.mapCanvas().mapTool()
@@ -1130,22 +1140,22 @@ class FieldDataCapture:
         # If the current qgis map tool is different to the toggled quick map tool
         # then we need to enable the toggled map tool as the user is trying to enable it
         if map_tool is None or map_tool.toolName() != toggled_quick_map_tool_name:
-            self.enable_quick_map_tool(layer, mode, prepopulate)
+            self.enable_quick_map_tool(layer, mode, toggled_quick_map_tool_name, prepopulate)
 
         return True
 
 
     def enable_quick_map_tool(
         self,
-        layer: QgsVectorLayer,
+        layer: QgsVectorLayer | list[QgsVectorLayer],
         mode: str,
+        tool_name: str,
         prepopulate: Optional[dict[str, Any]] = None,
     ) -> None:
         """
         Setup the required quick map tool for the given layer and mode.
         Takes an optional dictionary which can be used to prepopulate values in features created by the tool.
         """
-        tool_name = f"fdc_{layer.name()}_{mode}"
         mode_tools = {
             "add": QuickAddTool,
             "edit": QuickEditTool,
@@ -1158,7 +1168,7 @@ class FieldDataCapture:
         else:
             action = None
 
-        self.quick_map_tool = mode_tools[mode](self.iface, layer, action, prepopulate)
+        self.quick_map_tool = mode_tools[mode](self.iface, layer, action, tool_name, prepopulate)
 
         # Connect the required signals
         self.quick_map_tool.warn_unsaved_locality_data.connect(self.warn_unsaved_locality_data)

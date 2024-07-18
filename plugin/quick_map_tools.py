@@ -17,7 +17,12 @@ from qgis.gui import (
     QgsMapToolDigitizeFeature,
     QgsMapToolIdentifyFeature,
 )
-from qgis.PyQt.QtCore import pyqtSignal
+from qgis.PyQt.QtCore import (
+    pyqtSignal,
+    QItemSelectionModel,
+    QModelIndex,
+    QSortFilterProxyModel,
+)
 from qgis.PyQt.QtWidgets import (
     QAction,
     QDesktopWidget,
@@ -40,23 +45,85 @@ class QuickMapToolBase:
     warn_unsaved_locality_data = pyqtSignal()
     to_deactivate = pyqtSignal()
 
-    def __init__(self, iface: QgisInterface, layer: QgsVectorLayer, action: Optional[QAction]):
+    def __init__(
+        self,
+        iface: QgisInterface,
+        layer: QgsVectorLayer | list[QgsVectorLayer],
+        action: Optional[QAction],
+        tool_name: str,
+    ):
         """
         Setup the QuickMapTool for fast editing.
         """
         # Setup map tool
-        self.setToolName(f"fdc_{layer.name()}_{self.quick_mode}")
+        self.setToolName(tool_name)
         self.iface: QgisInterface = iface
-        self._layer: QgsVectorLayer = layer
+        self._layer: QgsVectorLayer | list[QgsVectorLayer] = layer
         if action is not None:
             self.setAction(action)
 
-        # Prepare layer
-        self.iface.setActiveLayer(layer)
-        if not layer.isEditable():
-            layer.startEditing()
+        self.prepare_layer(layer)
         # Connect active layer changed signal to deactivate function in the plugin
         self.iface.layerTreeView().currentLayerChanged.connect(self.to_deactivate)
+
+
+    def prepare_layer(self, layer: QgsVectorLayer | list[QgsVectorLayer]) -> None:
+        """
+        Prepare the layer for quick editing.
+        This includes making it editable and setting it as the active layer.
+        """
+        if isinstance(layer, QgsVectorLayer):
+            layer = [layer]
+
+        # PyQGIS does not provide a method for selecting mutliple layers in the tree view
+        # Therefore we go into the root PyQt5 objects and find the elements we want from the widget
+        view = self.iface.layerTreeView()
+        model = view.model()
+
+        # Firstly, clear current selection
+        view.selectionModel().clear()
+
+        all_model_indexes = self.recursive_find_selection_model_indexes(start_index=model)
+        for vector_layer in layer:
+            if not vector_layer.isEditable():
+                vector_layer.startEditing()
+            # Select the layer in the layerTreeView
+            layer_index = all_model_indexes[vector_layer.name()]
+            view.selectionModel().setCurrentIndex(layer_index, QItemSelectionModel.Select)
+
+
+    def recursive_find_selection_model_indexes(
+        self,
+        start_index: QSortFilterProxyModel | QModelIndex,
+        valid_indexes: Optional[dict[str, QModelIndex]] = None,
+    ) -> list[QModelIndex]:
+        """
+        Recursively search the given model/ model index to find all other valid child indexes.
+        This is used on the iface.layerTreeView().model() object to return all child indexes.
+        This essentially means it returns all of the child index elements of the layerTreeView.
+        This does also mean that child line_types will be included in this list, not only layers.
+        """
+        if valid_indexes is None:
+            valid_indexes = {}
+
+        if isinstance(start_index, QModelIndex) and start_index.data() is not None:
+            valid_indexes[start_index.data()] = start_index
+
+        # The method used to get children differs between the single root object and all other child objects
+        if isinstance(start_index, QModelIndex):
+            child_method = start_index.child
+        elif isinstance(start_index, QSortFilterProxyModel):
+            child_method = start_index.index
+
+        index_int = 0
+        # Whilst the incrementing index_int value is still finding children with valid data
+        while child_method(index_int, 0).data() is not None:
+            # The start_index is theoretically a table with columns and rows
+            # But the layerTreeView only has columns, and so we only increment the first index
+            self.recursive_find_selection_model_indexes(child_method(index_int, 0), valid_indexes)
+            index_int += 1
+
+        return valid_indexes
 
 
     def get_local_version(self) -> str:
@@ -171,6 +238,7 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
         iface: QgisInterface,
         layer: QgsVectorLayer,
         action: Optional[QAction],
+        tool_name: str,
         prepopulate: Optional[dict[str, Any]] = None,
         *args,
         **kwargs,
@@ -179,7 +247,7 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
             self, iface.mapCanvas(), iface.cadDockWidget(),
             mode=self.capture_modes[layer.name()],
         )
-        QuickMapToolBase.__init__(self, iface, layer, action)
+        QuickMapToolBase.__init__(self, iface, layer, action, tool_name)
 
         self.prepopulate = prepopulate
         # Setup map tool
@@ -235,13 +303,18 @@ class QuickEditTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
     def __init__(
         self,
         iface: QgisInterface,
-        layer: QgsVectorLayer,
+        layer: QgsVectorLayer | list[QgsVectorLayer],
         action: Optional[QAction],
+        tool_name: str,
         *args,
         **kwargs,
     ):
-        QgsMapToolIdentifyFeature.__init__(self, iface.mapCanvas(), layer)
-        QuickMapToolBase.__init__(self, iface, layer, action)
+        if isinstance(layer, list):
+            qgs_layer = None
+        else:
+            qgs_layer = layer
+        QgsMapToolIdentifyFeature.__init__(self, iface.mapCanvas(), qgs_layer)
+        QuickMapToolBase.__init__(self, iface, layer, action, tool_name)
 
         # Setup map tool
         self.setCursor(QgsApplication.getThemeCursor(QgsApplication.Cursor.Identify))
@@ -267,13 +340,18 @@ class QuickDeleteTool(QuickMapToolBase, QgsMapToolIdentifyFeature):
     def __init__(
         self,
         iface: QgisInterface,
-        layer: QgsVectorLayer,
+        layer: QgsVectorLayer | list[QgsVectorLayer],
         action: Optional[QAction],
+        tool_name: str,
         *args,
         **kwargs,
     ):
-        QgsMapToolIdentifyFeature.__init__(self, iface.mapCanvas(), layer)
-        QuickMapToolBase.__init__(self, iface, layer, action)
+        if isinstance(layer, list):
+            qgs_layer = None
+        else:
+            qgs_layer = layer
+        QgsMapToolIdentifyFeature.__init__(self, iface.mapCanvas(), qgs_layer)
+        QuickMapToolBase.__init__(self, iface, layer, action, tool_name)
 
         # Setup map tool
         self.setCursor(QgsApplication.getThemeCursor(QgsApplication.Cursor.CrossHair))
