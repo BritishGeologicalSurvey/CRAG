@@ -29,7 +29,7 @@ See the [Versions and Feedback](https://kwvmxgit.ad.nerc.ac.uk/field-data-captur
 
 ## ER Diagram
 
-There are 3 "primary key" columns on the data tables.  `fid` is used by QGIS/Geopackage, `objectid` is used by ESRI products.  We let the respective tools populate those and consider them unstable as the `fid` can change during Mergin Maps syncing process.  The `uuid` column is the unique key used to define parent-child relationships.
+There are 2 "primary key" columns on the data tables.  `fid` is used by QGIS/Geopackage.  We let the respective tool populate those and consider them unstable as the `fid` can change during Mergin Maps syncing process.  The `uuid` column is the unique key used to define parent-child relationships.
 
 Note that all tables also have `user_added`, `date_added`, `user_updated` and `date_updated` columns.
 

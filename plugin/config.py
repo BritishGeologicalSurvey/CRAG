@@ -22,13 +22,13 @@ TABLES = {
     ],
     "attributes": [
         # Dictionaries
-        "dic_exposure_type",
         "dic_field_project_type",
         "dic_line_type_artificial",
         "dic_line_type_bedrock",
         "dic_line_type_mass_move",
         "dic_line_type_superficial",
         "dic_line_type_terrain",
+        "dic_locality_type",
         "dic_manmade_landform",
         "dic_media",
         "dic_rock_field",
