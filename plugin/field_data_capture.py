@@ -327,10 +327,10 @@ class FieldDataCapture:
         )
 
         # Create a single add/edit/delete button for all line tables
-        quick_line_add = self.add_action(
+        self.quick_map_tool_buttons["fdc_lines_add"] = self.add_action(
             icon_path,
             text=self.tr(u'Quick Add Lline'),
-            callback=lambda: self.select_quick_line_layer(mode="add"),
+            callback=self.select_quick_line_layer_add,
             add_to_toolbar=True,
             parent=self.iface.mainWindow(),
             checkable=True,
@@ -339,7 +339,11 @@ class FieldDataCapture:
         self.quick_map_tool_buttons["fdc_lines_edit"] = self.add_action(
             icon_path,
             text=self.tr(u'Quick Edit Line'),
-            callback=lambda: self.select_quick_line_layer(mode="edit"),
+            callback=lambda: self.toggle_quick_map_tool(
+                layer_name=FEATURE_TABLES_LINES,
+                mode="edit",
+                layers_ref="lines",
+            ),
             add_to_toolbar=True,
             parent=self.iface.mainWindow(),
             checkable=True,
@@ -348,7 +352,11 @@ class FieldDataCapture:
         self.quick_map_tool_buttons["fdc_lines_delete"] = self.add_action(
             icon_path,
             text=self.tr(u'Quick Delete Line'),
-            callback=lambda: self.select_quick_line_layer(mode="delete"),
+            callback=lambda: self.toggle_quick_map_tool(
+                layer_name=FEATURE_TABLES_LINES,
+                mode="delete",
+                layers_ref="lines",
+            ),
             add_to_toolbar=True,
             parent=self.iface.mainWindow(),
             checkable=True,
@@ -356,7 +364,7 @@ class FieldDataCapture:
 
         # Link all line tables to the same add button
         for line_table in FEATURE_TABLES_LINES:
-            self.quick_map_tool_buttons[f"fdc_{line_table}_add"] = quick_line_add
+            self.quick_map_tool_buttons[f"fdc_{line_table}_add"] = self.quick_map_tool_buttons["fdc_lines_add"]
 
         self.button_setup_project = self.add_action(
             icon_path,
@@ -1079,9 +1087,9 @@ class FieldDataCapture:
         return True
 
 
-    def select_quick_line_layer(self, mode: str) -> bool:
+    def select_quick_line_layer_add(self) -> bool:
         """
-        Get the user to select a line layer to be used with a QuickMapTool with the given mode.
+        Get the user to select a line layer to be used with a QuickMapTool with the add mode.
         Returns a boolean indicating if the given tool was toggled.
         """
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True) or self.warn_unsaved_locality_data():  # noqa
@@ -1090,18 +1098,18 @@ class FieldDataCapture:
             self.untoggle_quick_map_tool_buttons()
             return False
 
-        # For add lines mode, we need to get a line layer and type from the user first
-        if mode == "add":
-            # Open line layer selector tool
-            self.line_layer_selector = LineLayerSelector()
-            self.line_layer_selector.line_layer_selector_confirm.connect(self.confirm_line_layer_selector)
-            self.line_layer_selector.line_layer_selector_closed.connect(self.close_line_layer_selector)
-            # Show it in a modal state
-            self.line_layer_selector.exec()
+        # If the quick add lines tool is already in use, disable it
+        map_tool = self.iface.mapCanvas().mapTool()
+        if isinstance(map_tool, QuickAddTool) and map_tool._layer.name() in FEATURE_TABLES_LINES:
+            return self.toggle_quick_map_tool(layer_name=map_tool._layer.name(), mode=map_tool.quick_mode)
 
-        # Otherwise, just toggle the given tool with all line layers enabled
-        else:
-            return self.toggle_quick_map_tool(layer_name=FEATURE_TABLES_LINES, mode=mode, layers_ref="lines")
+        # Open line layer selector tool
+        self.line_layer_selector = LineLayerSelector()
+        self.line_layer_selector.line_layer_selector_confirm.connect(self.confirm_line_layer_selector)
+        self.line_layer_selector.line_layer_selector_closed.connect(self.close_line_layer_selector)
+        # Show it in a modal state
+        self.line_layer_selector.exec()
+        return True
 
 
     def confirm_line_layer_selector(self, line_layer: str, line_type: str) -> None:
