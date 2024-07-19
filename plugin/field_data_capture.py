@@ -1249,8 +1249,9 @@ class FieldDataCapture:
             return False
 
         self.photo_importer = PhotoImporter(self.photos_dir)
-
         self.photo_importer.photo_importer_closed.connect(self.close_photo_importer)
+        # Make it modal so changes are not made whilst importing photos
+        self.photo_importer.exec()
 
         return True
 
