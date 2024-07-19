@@ -107,6 +107,7 @@ class QuickMapToolBase:
         if valid_indexes is None:
             valid_indexes = {}
 
+        # Only add QModelIndex child objects to the list, the root QSortFilterProxyModel object has no data
         if isinstance(start_index, QModelIndex) and start_index.data() is not None:
             valid_indexes[start_index.data()] = start_index
 

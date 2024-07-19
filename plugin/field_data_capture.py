@@ -80,6 +80,7 @@ from .create_gpkg_from_sql import (
     add_test_data,
     WORKDIR,
 )
+from .line_layer_selector import LineLayerSelector
 from .photo_importer import PhotoImporter
 from .report_builder import ReportBuilder
 from .quick_map_tools import (
@@ -133,6 +134,7 @@ class FieldDataCapture:
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
         self.photo_importer: Optional[PhotoImporter] = None
+        self.line_layer_selector: Optional[LineLayerSelector] = None
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -1088,12 +1090,44 @@ class FieldDataCapture:
             self.untoggle_quick_map_tool_buttons()
             return False
 
+        # For add lines mode, we need to get a line layer and type from the user first
         if mode == "add":
-            line_layer = "bedrock_line"
+            # Open line layer selector tool
+            self.line_layer_selector = LineLayerSelector()
+            self.line_layer_selector.line_layer_selector_confirm.connect(self.confirm_line_layer_selector)
+            self.line_layer_selector.line_layer_selector_closed.connect(self.close_line_layer_selector)
+            # Show it in a modal state
+            self.line_layer_selector.exec()
+
+        # Otherwise, just toggle the given tool with all line layers enabled
         else:
-            line_layer = FEATURE_TABLES_LINES
-        return self.toggle_quick_map_tool(layer_name=line_layer, mode=mode,
-                                          layers_ref="lines", prepopulate={"line_type_code": "fish_bed"})
+            return self.toggle_quick_map_tool(layer_name=FEATURE_TABLES_LINES, mode=mode, layers_ref="lines")
+
+
+    def confirm_line_layer_selector(self, line_layer: str, line_type: str) -> None:
+        """
+        Confirm the selection from the line layer selector and toggling the required tool.
+        """
+        self.close_line_layer_selector(reset_buttons=False)
+        self.toggle_quick_map_tool(
+            layer_name=line_layer,
+            mode="add",
+            prepopulate={"line_type_code": line_type},
+        )
+
+
+    def close_line_layer_selector(self, reset_buttons: bool = True) -> None:
+        """
+        Delete the current line layer selector object if there is one.
+        """
+        if reset_buttons:
+            self.disable_current_quick_map_tool()
+            self.untoggle_quick_map_tool_buttons()
+        if self.line_layer_selector is not None:
+            # Make sure it is closed first
+            self.line_layer_selector.close()
+            del self.line_layer_selector
+            self.line_layer_selector = None
 
 
     def toggle_quick_map_tool(
