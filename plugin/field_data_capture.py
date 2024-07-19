@@ -1148,6 +1148,7 @@ class FieldDataCapture:
         """
         Toggle the required quick map tool for the given layer and mode.
         This will automatically disable any other quick map tools which are currently active.
+        Takes an optional layers_ref value which is used to name the layers the tool is used on when it is more than 1.
         Takes an optional dictionary which can be used to prepopulate values in features created by the tool.
         Returns a boolean indicating if the given tool was toggled.
         """
