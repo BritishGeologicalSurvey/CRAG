@@ -15,19 +15,20 @@ VALUES('locality_point','features','locality_point','Locality where observations
 
 CREATE TABLE IF NOT EXISTS "locality_point" (
     "fid" INTEGER NOT NULL,
+    "objectid" INTEGER UNIQUE,
     "uuid" TEXT NOT NULL UNIQUE,
     "field_project_fuid" TEXT NOT NULL,
     "name" TEXT NOT NULL UNIQUE,
-    "locality_type_code"  TEXT NOT NULL,
+    "exposure_type_code"  TEXT NOT NULL,
     "locality_description" TEXT,
     "map_face_note" TEXT,
-    "geology_description" TEXT,
+    "notes" TEXT,
     "user_entered" TEXT NOT NULL,
     "date_entered" DATETIME NOT NULL,
     "user_updated" TEXT,
     "date_updated" DATETIME,
     "geometry" POINT NOT NULL,
-    FOREIGN KEY("locality_type_code") REFERENCES "dic_locality_type"("code"),
+    FOREIGN KEY("exposure_type_code") REFERENCES "dic_exposure_type"("code"),
     FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );

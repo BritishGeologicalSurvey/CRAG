@@ -2901,34 +2901,6 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="user_entered">
-      <editWidget type="">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="date_entered">
-      <editWidget type="">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="user_updated">
-      <editWidget type="">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="date_updated">
-      <editWidget type="">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
   </fieldConfiguration>
   <aliases>
     <alias field="field_project" index="0" name=""></alias>
@@ -2947,10 +2919,6 @@
     <alias field="notes" index="13" name=""></alias>
     <alias field="superficial_uuid" index="14" name=""></alias>
     <alias field="locality_uuid" index="15" name=""></alias>
-    <alias field="user_entered" index="16" name=""></alias>
-    <alias field="date_entered" index="17" name=""></alias>
-    <alias field="user_updated" index="18" name=""></alias>
-    <alias field="date_updated" index="19" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="field_project" policy="Duplicate"></policy>
@@ -2969,10 +2937,6 @@
     <policy field="notes" policy="Duplicate"></policy>
     <policy field="superficial_uuid" policy="Duplicate"></policy>
     <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="user_entered" policy="Duplicate"></policy>
-    <policy field="date_entered" policy="Duplicate"></policy>
-    <policy field="user_updated" policy="Duplicate"></policy>
-    <policy field="date_updated" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="field_project"></default>
@@ -2991,10 +2955,6 @@
     <default applyOnUpdate="0" expression="" field="notes"></default>
     <default applyOnUpdate="0" expression="" field="superficial_uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
-    <default applyOnUpdate="0" expression="" field="user_entered"></default>
-    <default applyOnUpdate="0" expression="" field="date_entered"></default>
-    <default applyOnUpdate="0" expression="" field="user_updated"></default>
-    <default applyOnUpdate="0" expression="" field="date_updated"></default>
   </defaults>
   <constraints>
     <constraint constraints="0" exp_strength="0" field="field_project" notnull_strength="0" unique_strength="0"></constraint>
@@ -3013,10 +2973,6 @@
     <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="superficial_uuid" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="user_entered" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="date_entered" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="field_project"></constraint>
@@ -3035,10 +2991,6 @@
     <constraint desc="" exp="" field="notes"></constraint>
     <constraint desc="" exp="" field="superficial_uuid"></constraint>
     <constraint desc="" exp="" field="locality_uuid"></constraint>
-    <constraint desc="" exp="" field="user_entered"></constraint>
-    <constraint desc="" exp="" field="date_entered"></constraint>
-    <constraint desc="" exp="" field="user_updated"></constraint>
-    <constraint desc="" exp="" field="date_updated"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>

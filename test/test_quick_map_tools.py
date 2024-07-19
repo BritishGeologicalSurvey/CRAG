@@ -329,21 +329,21 @@ def test_quick_map_tools_locality_add_confirm(
 ):
     # Arrange
     layer_name = "locality_point"
-    locality_type_field = "locality_type_code"
-    locality_type_value = "auger_borehole"
+    exposure_field = "exposure_type_code"
+    exposure_value = "auger_borehole"
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-    locality_type_field_index = [field.name() for field in layer.fields()].index(locality_type_field)
+    exposure_field_index = [field.name() for field in layer.fields()].index(exposure_field)
 
-    # Apply monkeypatch for open feature form, which adds an locality_type_code to the new feature like a user would
-    def add_locality_type(feature: QgsFeature) -> bool:
+    # Apply monkeypatch for open feature form, which adds an exposure_type_code to the new feature like a user would
+    def add_exposure(feature: QgsFeature) -> bool:
         # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-        layer.changeAttributeValue(fid=feature.id(), field=locality_type_field_index, newValue=locality_type_value)
+        layer.changeAttributeValue(fid=feature.id(), field=exposure_field_index, newValue=exposure_value)
         # Return True to confirm the change
         return True
-    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", add_locality_type)
+    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", add_exposure)
 
     # Act
     # Make a new and empty feature with just a point geometry
@@ -363,7 +363,7 @@ def test_quick_map_tools_locality_add_confirm(
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
     assert new_feature.attribute("fid") == expected_fid
     assert new_feature.attribute("name") == f"{pwd.getpwuid(os.getuid()).pw_name}_001"
-    assert new_feature.attribute(locality_type_field) == locality_type_value
+    assert new_feature.attribute(exposure_field) == exposure_value
     assert new_feature.geometry().asWkt() == geometry_wkt
     # Check that the tool is still enabled
     assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickAddTool)
@@ -377,21 +377,21 @@ def test_quick_map_tools_locality_add_cancel(
 ):
     # Arrange
     layer_name = "locality_point"
-    locality_type_field = "locality_type_code"
-    locality_type_value = "auger_borehole"
+    exposure_field = "exposure_type_code"
+    exposure_value = "auger_borehole"
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-    locality_type_field_index = [field.name() for field in layer.fields()].index(locality_type_field)
+    exposure_field_index = [field.name() for field in layer.fields()].index(exposure_field)
 
-    # Apply monkeypatch for open feature form, which adds an locality_type_code to the new feature like a user would
-    def add_locality_type(feature: QgsFeature) -> bool:
+    # Apply monkeypatch for open feature form, which adds an exposure_type_code to the new feature like a user would
+    def add_exposure(feature: QgsFeature) -> bool:
         # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-        layer.changeAttributeValue(fid=feature.id(), field=locality_type_field_index, newValue=locality_type_value)
+        layer.changeAttributeValue(fid=feature.id(), field=exposure_field_index, newValue=exposure_value)
         # Return False to cancel the change
         return False
-    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", add_locality_type)
+    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", add_exposure)
 
     # Act
     # Make a new and empty feature with just a point geometry

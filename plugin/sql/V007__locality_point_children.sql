@@ -2,6 +2,7 @@ BEGIN TRANSACTION;
 
 CREATE TABLE IF NOT EXISTS "structural_measurement" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
   "structure_type_code" TEXT NOT NULL,
@@ -27,6 +28,7 @@ VALUES('structural_measurement','attributes','structural_measurement','Structura
 
 CREATE TABLE IF NOT EXISTS "manmade_landform" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
   "manmade_type_code" TEXT NOT NULL,
@@ -46,6 +48,7 @@ VALUES('manmade_landform','attributes','manmade_landform','Man-made landforms da
 
 CREATE TABLE IF NOT EXISTS "lithology"(
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
   "lithology_code" TEXT NOT NULL,
@@ -66,11 +69,12 @@ VALUES('lithology','attributes','lithology','Rock type at the surface','2023-09-
 
 CREATE TABLE IF NOT EXISTS "media" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
   "media_type_code" TEXT NOT NULL,
   "media_link" TEXT,
-  "media_description" TEXT,
+  "notes" TEXT,
   "user_entered" TEXT NOT NULL,
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT, "date_updated" DATETIME,
@@ -85,10 +89,11 @@ VALUES('media','attributes','media','Media files associated with locality.','202
 
 CREATE TABLE IF NOT EXISTS "photo" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
   "photo_file" TEXT,
-  "caption" TEXT,
+  "notes" TEXT,
   "user_entered" TEXT NOT NULL,
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT, "date_updated" DATETIME,
@@ -102,11 +107,12 @@ VALUES('photo','attributes','photo','Photo files associated with locality.','202
 
 CREATE TABLE IF NOT EXISTS "sample" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
   "sample_id" TEXT NOT NULL,
   "sample_type_code" TEXT NOT NULL,
-  "sample_description" TEXT,
+  "notes" TEXT,
   "user_entered" TEXT NOT NULL,
   "date_entered" DATETIME NOT NULL,
   "user_updated" TEXT,
@@ -122,6 +128,7 @@ VALUES('sample','attributes','sample','Sample data.','2023-09-15T13:21:52.679Z',
 
 CREATE TABLE IF NOT EXISTS "superficial_landform" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "locality_fuid" TEXT NOT NULL,
   "superficial_type_code" TEXT NOT NULL,
