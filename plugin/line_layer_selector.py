@@ -5,6 +5,7 @@ from qgis.PyQt.QtCore import (
 )
 from qgis.PyQt.QtWidgets import (
     QComboBox,
+    QCompleter,
     QDialog,
     QHBoxLayout,
     QLabel,
@@ -24,7 +25,6 @@ class LineLayerSelector(QDialog):
     """
     line_layer_selector_confirm = pyqtSignal(str, str)
     line_layer_selector_closed = pyqtSignal()
-    selected_layer_changed = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -80,12 +80,8 @@ class LineLayerSelector(QDialog):
         line_cat_label = QLabel("Line Category")
 
         line_type_label = QLabel("Line Type")
-        self.line_type_combobox = QComboBox()
-        # Add default value
-        self.line_type_combobox.addItem("Select Line Type", userData=None)
-        for line_type_list in self.layers_to_codes.values():
-            for line_type in line_type_list:
-                self.line_type_combobox.addItem(line_type, userData=line_type)
+        self.line_type_combobox = self.create_searchable_combobox()
+        self.update_line_type_combobox()
 
         line_attributes_layout = QVBoxLayout()
         line_attributes_layout.addWidget(line_layer_label)
@@ -105,26 +101,43 @@ class LineLayerSelector(QDialog):
         self.setLayout(dialog_layout)
 
 
+    def create_searchable_combobox(self) -> QComboBox:
+        """
+        Create a searchable QComboBox widget.
+        """
+        combobox = QComboBox()
+        combobox.setEditable(True)
+        # Don't add the inserted text as an item to the list
+        combobox.setInsertPolicy(QComboBox.NoInsert)
+        # Popup a list below the text box which shows the ones which do match the search term
+        combobox.completer().setCompletionMode(QCompleter.PopupCompletion)
+        return combobox
+
+
     def connect_signals_and_slots(self) -> None:
         """
         Function for connecting signals and slots of buttons and input boxes.
         """
+        self.line_layer_combobox.currentTextChanged.connect(
+            lambda: self.update_line_type_combobox(self.line_layer_combobox.currentData()),
+        )
         self.ok_button.clicked.connect(self.confirm_selection)
         self.cancel_button.clicked.connect(self.close)
 
 
-    def create_child_combobox(self, field: str, parent_combobox: QComboBox) -> QComboBox:
-        """
-        Create a 'child' combobox where it's values are automatically filtered
-        based on the value of the given parent combobox.
-        """
-
-
-    def update_line_type_combobox(self, line_layer: str | None) -> None:
+    def update_line_type_combobox(self, line_layer: str | None = None) -> None:
         """
         Update the values in line_type_combobox to be line types from the given layer.
         If None is given, the current values will be removed other than the default one.
         """
+        # Remove all items and then add default one
+        self.line_type_combobox.clear()
+        self.line_type_combobox.addItem("Select Line Type", userData=None)
+
+        # If a valid line layer is given
+        if isinstance(line_layer, str):
+            for line_type in self.layers_to_codes[line_layer]:
+                self.line_type_combobox.addItem(line_type, userData=line_type)
 
 
     def confirm_selection(self) -> None:
