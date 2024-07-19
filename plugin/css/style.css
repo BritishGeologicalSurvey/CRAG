@@ -43,7 +43,7 @@ td {
 
 /* Keep the first column narrow */
 td:first-child {
-    width: 12%;
+    width: 10%;
     white-space: nowrap;
 }
 

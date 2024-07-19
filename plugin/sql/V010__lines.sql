@@ -16,6 +16,7 @@ VALUES('bedrock_line','features','bedrock_line','Line denoting a bedrock feature
 
 CREATE TABLE IF NOT EXISTS "bedrock_line" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "field_project_fuid" TEXT NOT NULL,
   "line_type_code" TEXT NOT NULL,
@@ -140,6 +141,7 @@ VALUES('superficial_line','features','superficial_line','Line denoting a superfi
 
 CREATE TABLE IF NOT EXISTS "superficial_line" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "field_project_fuid" TEXT NOT NULL,
   "line_type_code" TEXT NOT NULL,
@@ -264,6 +266,7 @@ VALUES('artificial_line','features','artificial_line','Line denoting a artificia
 
 CREATE TABLE IF NOT EXISTS "artificial_line" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "field_project_fuid" TEXT NOT NULL,
   "line_type_code" TEXT NOT NULL,
@@ -388,6 +391,7 @@ VALUES('mass_move_line','features','mass_move_line','Line denoting a mass moveme
 
 CREATE TABLE IF NOT EXISTS "mass_move_line" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "field_project_fuid" TEXT NOT NULL,
   "line_type_code" TEXT NOT NULL,
@@ -512,6 +516,7 @@ VALUES('terrain_line','features','terrain_line','Line denoting a terrain feature
 
 CREATE TABLE IF NOT EXISTS "terrain_line" (
   "fid" INTEGER NOT NULL,
+  "objectid" INTEGER UNIQUE,
   "uuid" TEXT NOT NULL UNIQUE,
   "field_project_fuid" TEXT NOT NULL,
   "line_type_code" TEXT NOT NULL,

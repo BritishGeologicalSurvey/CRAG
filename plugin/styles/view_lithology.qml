@@ -2367,7 +2367,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="locality_type">
+    <field configurationFlags="NoFlag" name="exposure_type">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
@@ -2416,34 +2416,6 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="user_entered">
-      <editWidget type="">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="date_entered">
-      <editWidget type="">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="user_updated">
-      <editWidget type="">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="date_updated">
-      <editWidget type="">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
   </fieldConfiguration>
   <aliases>
     <alias field="field_project" index="0" name=""></alias>
@@ -2451,17 +2423,13 @@
     <alias field="x" index="2" name=""></alias>
     <alias field="y" index="3" name=""></alias>
     <alias field="local_epsg" index="4" name=""></alias>
-    <alias field="locality_type" index="5" name=""></alias>
+    <alias field="exposure_type" index="5" name=""></alias>
     <alias field="lithology_code" index="6" name=""></alias>
     <alias field="lithology" index="7" name=""></alias>
     <alias field="simple_lithology" index="8" name=""></alias>
     <alias field="notes" index="9" name=""></alias>
     <alias field="lithology_uuid" index="10" name=""></alias>
     <alias field="locality_uuid" index="11" name=""></alias>
-    <alias field="user_entered" index="12" name=""></alias>
-    <alias field="date_entered" index="13" name=""></alias>
-    <alias field="user_updated" index="14" name=""></alias>
-    <alias field="date_updated" index="15" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="field_project" policy="Duplicate"></policy>
@@ -2469,17 +2437,13 @@
     <policy field="x" policy="Duplicate"></policy>
     <policy field="y" policy="Duplicate"></policy>
     <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="locality_type" policy="Duplicate"></policy>
+    <policy field="exposure_type" policy="Duplicate"></policy>
     <policy field="lithology_code" policy="Duplicate"></policy>
     <policy field="lithology" policy="Duplicate"></policy>
     <policy field="simple_lithology" policy="Duplicate"></policy>
     <policy field="notes" policy="Duplicate"></policy>
     <policy field="lithology_uuid" policy="Duplicate"></policy>
     <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="user_entered" policy="Duplicate"></policy>
-    <policy field="date_entered" policy="Duplicate"></policy>
-    <policy field="user_updated" policy="Duplicate"></policy>
-    <policy field="date_updated" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="field_project"></default>
@@ -2487,17 +2451,13 @@
     <default applyOnUpdate="0" expression="" field="x"></default>
     <default applyOnUpdate="0" expression="" field="y"></default>
     <default applyOnUpdate="0" expression="" field="local_epsg"></default>
-    <default applyOnUpdate="0" expression="" field="locality_type"></default>
+    <default applyOnUpdate="0" expression="" field="exposure_type"></default>
     <default applyOnUpdate="0" expression="" field="lithology_code"></default>
     <default applyOnUpdate="0" expression="" field="lithology"></default>
     <default applyOnUpdate="0" expression="" field="simple_lithology"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
     <default applyOnUpdate="0" expression="" field="lithology_uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
-    <default applyOnUpdate="0" expression="" field="user_entered"></default>
-    <default applyOnUpdate="0" expression="" field="date_entered"></default>
-    <default applyOnUpdate="0" expression="" field="user_updated"></default>
-    <default applyOnUpdate="0" expression="" field="date_updated"></default>
   </defaults>
   <constraints>
     <constraint constraints="0" exp_strength="0" field="field_project" notnull_strength="0" unique_strength="0"></constraint>
@@ -2505,17 +2465,13 @@
     <constraint constraints="0" exp_strength="0" field="x" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="y" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="local_epsg" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="locality_type" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="exposure_type" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="lithology_code" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="lithology" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="simple_lithology" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="lithology_uuid" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="user_entered" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="date_entered" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="field_project"></constraint>
@@ -2523,17 +2479,13 @@
     <constraint desc="" exp="" field="x"></constraint>
     <constraint desc="" exp="" field="y"></constraint>
     <constraint desc="" exp="" field="local_epsg"></constraint>
-    <constraint desc="" exp="" field="locality_type"></constraint>
+    <constraint desc="" exp="" field="exposure_type"></constraint>
     <constraint desc="" exp="" field="lithology_code"></constraint>
     <constraint desc="" exp="" field="lithology"></constraint>
     <constraint desc="" exp="" field="simple_lithology"></constraint>
     <constraint desc="" exp="" field="notes"></constraint>
     <constraint desc="" exp="" field="lithology_uuid"></constraint>
     <constraint desc="" exp="" field="locality_uuid"></constraint>
-    <constraint desc="" exp="" field="user_entered"></constraint>
-    <constraint desc="" exp="" field="date_entered"></constraint>
-    <constraint desc="" exp="" field="user_updated"></constraint>
-    <constraint desc="" exp="" field="date_updated"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
@@ -2560,6 +2512,7 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>generatedlayout</editorlayout>
   <editable>
+    <field editable="1" name="exposure_type"></field>
     <field editable="1" name="field_project"></field>
     <field editable="1" name="hex_colour"></field>
     <field editable="1" name="lithology"></field>
@@ -2567,7 +2520,6 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="lithology_uuid"></field>
     <field editable="1" name="local_epsg"></field>
     <field editable="1" name="locality_point"></field>
-    <field editable="1" name="locality_type"></field>
     <field editable="1" name="locality_uuid"></field>
     <field editable="1" name="notes"></field>
     <field editable="1" name="representativeLithology_uri"></field>
@@ -2576,6 +2528,7 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="y"></field>
   </editable>
   <labelOnTop>
+    <field labelOnTop="0" name="exposure_type"></field>
     <field labelOnTop="0" name="field_project"></field>
     <field labelOnTop="0" name="hex_colour"></field>
     <field labelOnTop="0" name="lithology"></field>
@@ -2583,7 +2536,6 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="lithology_uuid"></field>
     <field labelOnTop="0" name="local_epsg"></field>
     <field labelOnTop="0" name="locality_point"></field>
-    <field labelOnTop="0" name="locality_type"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
     <field labelOnTop="0" name="notes"></field>
     <field labelOnTop="0" name="representativeLithology_uri"></field>
@@ -2592,6 +2544,7 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
   <reuseLastValue>
+    <field name="exposure_type" reuseLastValue="0"></field>
     <field name="field_project" reuseLastValue="0"></field>
     <field name="hex_colour" reuseLastValue="0"></field>
     <field name="lithology" reuseLastValue="0"></field>
@@ -2599,7 +2552,6 @@ def my_form_open(dialog, layer, feature):
     <field name="lithology_uuid" reuseLastValue="0"></field>
     <field name="local_epsg" reuseLastValue="0"></field>
     <field name="locality_point" reuseLastValue="0"></field>
-    <field name="locality_type" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>
     <field name="representativeLithology_uri" reuseLastValue="0"></field>
