@@ -1,3 +1,5 @@
+from typing import Optional
+
 from qgis.core import QgsProject
 from qgis.PyQt.QtCore import (
     pyqtSignal,
@@ -26,7 +28,7 @@ class LineLayerSelector(QDialog):
     line_layer_selector_confirm = pyqtSignal(str, str)
     line_layer_selector_closed = pyqtSignal()
 
-    def __init__(self):
+    def __init__(self, preselect_line_type: Optional[dict[str, str]] = None):
         super().__init__()
 
         self.setWindowTitle("Select Line Type")
@@ -35,19 +37,23 @@ class LineLayerSelector(QDialog):
             Qt.Window | Qt.WindowCloseButtonHint
         )
 
-        self.layers_to_cats_to_codes = self.get_layers_to_categories_to_codes()
+        self.layers_to_cats_to_types = self.get_layers_to_categories_to_types()
 
+        self.comboboxes: dict[str, QComboBox] = {}
         self.setup_ui_elements()
         self.connect_signals_and_slots()
 
+        if preselect_line_type is not None:
+            self.apply_preselect_line_type(preselect_line_type)
 
-    def get_layers_to_categories_to_codes(self) -> dict[str, dict[str, list[str]]]:
+
+    def get_layers_to_categories_to_types(self) -> dict[str, dict[str, list[str]]]:
         """
         Generate a dictionary where the keys are names of each line layer,
         and the values more dictionaries where the keys are line categories from the above layer
         and the values are line types from the above category.
         """
-        layers_to_cats_to_codes: dict[str, dict[str, list[str]]] = {}
+        layers_to_cats_to_types: dict[str, dict[str, list[str]]] = {}
 
         for line_table in FEATURE_TABLES_LINES:
             # Get dictionary for line table
@@ -68,9 +74,9 @@ class LineLayerSelector(QDialog):
                 cats_to_codes[line_category].append(feature.attribute("code"))
 
             # Add category dictionary to layer dictionary
-            layers_to_cats_to_codes[line_table] = cats_to_codes
+            layers_to_cats_to_types[line_table] = cats_to_codes
 
-        return layers_to_cats_to_codes
+        return layers_to_cats_to_types
 
 
     def setup_ui_elements(self) -> None:
@@ -80,11 +86,11 @@ class LineLayerSelector(QDialog):
         """
         # Create comboboxes
         line_layer_label = QLabel("Line Layer")
-        self.line_layer_combobox = QComboBox()
+        self.comboboxes["layer"] = QComboBox()
         line_cat_label = QLabel("Line Category")
-        self.line_cat_combobox = QComboBox()
+        self.comboboxes["category"] = QComboBox()
         line_type_label = QLabel("Line Type")
-        self.line_type_combobox = self.create_searchable_combobox()
+        self.comboboxes["type"] = self.create_searchable_combobox()
 
         # Initial population of comboboxes
         self.update_line_layer_combobox()
@@ -94,11 +100,11 @@ class LineLayerSelector(QDialog):
         # Create layout for lines attributes input
         line_attributes_layout = QVBoxLayout()
         line_attributes_layout.addWidget(line_layer_label)
-        line_attributes_layout.addWidget(self.line_layer_combobox)
+        line_attributes_layout.addWidget(self.comboboxes["layer"])
         line_attributes_layout.addWidget(line_cat_label)
-        line_attributes_layout.addWidget(self.line_cat_combobox)
+        line_attributes_layout.addWidget(self.comboboxes["category"])
         line_attributes_layout.addWidget(line_type_label)
-        line_attributes_layout.addWidget(self.line_type_combobox)
+        line_attributes_layout.addWidget(self.comboboxes["type"])
 
         # Create buttons
         self.ok_button = QPushButton("OK")
@@ -136,9 +142,9 @@ class LineLayerSelector(QDialog):
         Populate the line_layer_combobox with line layer names.
         """
         # Add default value
-        self.line_layer_combobox.addItem("Select Line Layer", userData=None)
-        for line_layer in self.layers_to_cats_to_codes:
-            self.line_layer_combobox.addItem(line_layer, userData=line_layer)
+        self.comboboxes["layer"].addItem("Select Line Layer", userData=None)
+        for line_layer in self.layers_to_cats_to_types:
+            self.comboboxes["layer"].addItem(line_layer, userData=line_layer)
 
 
     def update_line_cat_combobox(self) -> None:
@@ -148,15 +154,15 @@ class LineLayerSelector(QDialog):
         and reset the line_type_combobox to default.
         """
         # Remove all items and then add default one
-        self.line_cat_combobox.clear()
-        self.line_cat_combobox.addItem("Select Line Category", userData=None)
+        self.comboboxes["category"].clear()
+        self.comboboxes["category"].addItem("Select Line Category", userData=None)
         # Reset the line_type_combobox
         self.update_line_type_combobox()
 
-        line_layer = self.line_layer_combobox.currentData()
+        line_layer = self.comboboxes["layer"].currentData()
         if isinstance(line_layer, str):
-            for line_category in self.layers_to_cats_to_codes[line_layer]:
-                self.line_cat_combobox.addItem(line_category, userData=line_category)
+            for line_category in self.layers_to_cats_to_types[line_layer]:
+                self.comboboxes["category"].addItem(line_category, userData=line_category)
 
 
     def update_line_type_combobox(self) -> None:
@@ -165,24 +171,50 @@ class LineLayerSelector(QDialog):
         If the current selection is invalid, reset the items to default.
         """
         # Remove all items and then add default one
-        self.line_type_combobox.clear()
-        self.line_type_combobox.addItem("Select Line Type", userData=None)
+        self.comboboxes["type"].clear()
+        self.comboboxes["type"].addItem("Select Line Type", userData=None)
 
-        line_layer = self.line_layer_combobox.currentData()
-        line_category = self.line_cat_combobox.currentData()
+        line_layer = self.comboboxes["layer"].currentData()
+        line_category = self.comboboxes["category"].currentData()
         # If a valid line layer is given
         if isinstance(line_layer, str):
 
             # If a valid category is given, only show line types from the category
             if isinstance(line_category, str):
-                for line_type in self.layers_to_cats_to_codes[line_layer][line_category]:
-                    self.line_type_combobox.addItem(line_type, userData=line_type)
+                for line_type in self.layers_to_cats_to_types[line_layer][line_category]:
+                    self.comboboxes["type"].addItem(line_type, userData=line_type)
 
             # If a valid category is not given, add all lines for the layer instead
             else:
-                for line_category in self.layers_to_cats_to_codes[line_layer]:
-                    for line_type in self.layers_to_cats_to_codes[line_layer][line_category]:
-                        self.line_type_combobox.addItem(line_type, userData=line_type)
+                for line_category in self.layers_to_cats_to_types[line_layer]:
+                    for line_type in self.layers_to_cats_to_types[line_layer][line_category]:
+                        self.comboboxes["type"].addItem(line_type, userData=line_type)
+
+
+    def apply_preselect_line_type(self, preselect_line_type: dict[str, str]) -> None:
+        """
+        Update the combobox selection to match a given preselection.
+        """
+        preselected = preselect_line_type.copy()
+
+        # Get category of line type and add it to dictionary
+        preselected["category"] = [
+            category
+            for category, types in self.layers_to_cats_to_types[preselected["layer"]].items()
+            if preselected["type"] in types
+        ][0]
+
+        # Get line attribute lists so that we can find index of given preselection
+        line_attribute_lists = {
+            "layer": list(self.layers_to_cats_to_types.keys()),
+            "category": list(self.layers_to_cats_to_types[preselected["layer"]].keys()),
+            "type": self.layers_to_cats_to_types[preselected["layer"]][preselected["category"]]
+        }
+
+        # Set the current index of each combobox to be the given preselection
+        for line_attribute, value_list in line_attribute_lists.items():
+            # Add 1 to index because a default value is included in combobox list
+            self.comboboxes[line_attribute].setCurrentIndex(value_list.index(preselected[line_attribute]) + 1)
 
 
     def connect_signals_and_slots(self) -> None:
@@ -191,9 +223,9 @@ class LineLayerSelector(QDialog):
         """
         # The line_layer_combobox connects to both the line_cat_combobox and line_type_combobox
         # because a user does not have to select a category, they can just select a layer and type
-        self.line_layer_combobox.currentTextChanged.connect(self.update_line_cat_combobox)
-        self.line_layer_combobox.currentTextChanged.connect(self.update_line_type_combobox)
-        self.line_cat_combobox.currentTextChanged.connect(self.update_line_type_combobox)
+        self.comboboxes["layer"].currentTextChanged.connect(self.update_line_cat_combobox)
+        self.comboboxes["layer"].currentTextChanged.connect(self.update_line_type_combobox)
+        self.comboboxes["category"].currentTextChanged.connect(self.update_line_type_combobox)
         self.ok_button.clicked.connect(self.confirm_selection)
         self.cancel_button.clicked.connect(self.close)
 
@@ -202,8 +234,8 @@ class LineLayerSelector(QDialog):
         """
         Confirm the current line selection, emit a signal to plugin if it is valid.
         """
-        line_layer = self.line_layer_combobox.currentData()
-        line_type = self.line_type_combobox.currentData()
+        line_layer = self.comboboxes["layer"].currentData()
+        line_type = self.comboboxes["type"].currentData()
         if line_layer is not None and line_type is not None:
             self.line_layer_selector_confirm.emit(line_layer, line_type)
         else:

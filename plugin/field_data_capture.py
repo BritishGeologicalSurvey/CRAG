@@ -135,6 +135,7 @@ class FieldDataCapture:
         self.quick_map_tool: Optional[QgsMapTool] = None
         self.photo_importer: Optional[PhotoImporter] = None
         self.line_layer_selector: Optional[LineLayerSelector] = None
+        self.last_quick_add_line_type: Optional[dict[str, str]] = None
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -1104,7 +1105,7 @@ class FieldDataCapture:
             return self.toggle_quick_map_tool(layer_name=map_tool._layer.name(), mode=map_tool.quick_mode)
 
         # Open line layer selector tool
-        self.line_layer_selector = LineLayerSelector()
+        self.line_layer_selector = LineLayerSelector(self.last_quick_add_line_type)
         self.line_layer_selector.line_layer_selector_confirm.connect(self.confirm_line_layer_selector)
         self.line_layer_selector.line_layer_selector_closed.connect(self.close_line_layer_selector)
         # Show it in a modal state
@@ -1116,6 +1117,12 @@ class FieldDataCapture:
         """
         Confirm the selection from the line layer selector and toggling the required tool.
         """
+        # Save selection
+        self.last_quick_add_line_type = {
+            "layer": line_layer,
+            "type": line_type,
+        }
+
         self.close_line_layer_selector(reset_buttons=False)
         self.toggle_quick_map_tool(
             layer_name=line_layer,
