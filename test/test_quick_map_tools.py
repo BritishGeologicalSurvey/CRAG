@@ -53,6 +53,14 @@ LINE_TYPE_CODES = (
 )
 
 
+@pytest.fixture()
+def monkeypatch_feature_form_false(monkeypatch: pytest.MonkeyPatch) -> None:
+    """
+    Apply monkeypatch for open feature form, which cancels the form like a user would.
+    """
+    monkeypatch.setattr(QuickMapToolBase, "open_custom_feature_form", lambda *args: False)
+
+
 def assert_tool_enabled(
     fdc: FieldDataCapture,
     layer_names: str | list[str] | set[str],
@@ -319,7 +327,7 @@ def test_field_project_add_confirm(
 def test_field_project_add_cancel(
     fdc: FieldDataCapture,
     qgs_project,
-    monkeypatch: pytest.MonkeyPatch,
+    monkeypatch_feature_form_false,
 ):
     # Arrange
     layer_name = "field_project"
@@ -327,8 +335,6 @@ def test_field_project_add_cancel(
 
     # Act
     fdc.button_setup_project.trigger()
-    # Apply monkeypatch for open feature form, which cancels the form like a user would
-    monkeypatch.setattr(fdc.quick_map_tool, "open_custom_feature_form", lambda *args: False)
     # Make a new and empty feature with just a polygon geometry
     geometry_wkt = "Polygon ((-3.06646639970546664 56.02224055154277949, -0.86620852862676745 52.89687413861690857, -1.3338961920444623 52.75580097369699217, -3.55541259327851167 55.88561238892003047, -3.06646639970546664 56.02224055154277949))"  # noqa
     geometry = QgsGeometry.fromWkt(geometry_wkt)
@@ -376,7 +382,7 @@ def test_locality_add_confirm(
 
 def test_locality_add_cancel(
     fdc_project: FieldDataCapture,
-    monkeypatch: pytest.MonkeyPatch,
+    monkeypatch_feature_form_false,
 ):
     # Arrange
     layer_name = "locality_point"
@@ -384,9 +390,6 @@ def test_locality_add_cancel(
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-
-    # Apply monkeypatch for open feature form, which cancels the form like a user would
-    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", lambda *args: False)
 
     # Act
     # Make a new and empty feature with just a point geometry
@@ -431,7 +434,10 @@ def test_locality_edit_confirm(fdc_project: FieldDataCapture, monkeypatch: pytes
     assert_tool_enabled(fdc_project, layer_name, QuickEditTool, expected_tool_name)
 
 
-def test_locality_edit_cancel(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
+def test_locality_edit_cancel(
+    fdc_project: FieldDataCapture,
+    monkeypatch_feature_form_false,
+):
     # Arrange
     layer_name = "locality_point"
     edit_field = "map_face_note"
@@ -440,9 +446,6 @@ def test_locality_edit_cancel(fdc_project: FieldDataCapture, monkeypatch: pytest
     # Enable edit quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-
-    # Apply monkeypatch for open feature form, which cancels the form like a user would
-    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", lambda *args: False)
 
     # Act
     # Emit the signal which would open the form and auto save afterwards
@@ -581,7 +584,7 @@ def test_lines_add_cancel(
     layer_name: str,
     line_type_code: str,
     fdc_project: FieldDataCapture,
-    monkeypatch: pytest.MonkeyPatch,
+    monkeypatch_feature_form_false,
 ):
     # Arrange
     expected_tool_name = f"fdc_{layer_name}_add"
@@ -591,8 +594,6 @@ def test_lines_add_cancel(
 
     # Emit signal as if user selected a line type
     fdc_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
-    # Apply monkeypatch for open feature form, which cancels the form like a user would
-    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", lambda *args: False)
 
     # Act
     # Make a new and empty feature with just a line geometry
@@ -663,7 +664,7 @@ def test_lines_edit_cancel(
     layer_name: str,
     old_value: str,
     fdc_project: FieldDataCapture,
-    monkeypatch: pytest.MonkeyPatch,
+    monkeypatch_feature_form_false,
 ):
     # Arrange
     edit_field = "line_label"
@@ -671,9 +672,6 @@ def test_lines_edit_cancel(
     # Enable edit quick line mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-
-    # Apply monkeypatch for open feature form, which cancels the form like a user would
-    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", lambda *args: False)
 
     # Act
     # Emit the signal which would open the form and auto save afterwards
