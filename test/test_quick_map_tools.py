@@ -86,6 +86,26 @@ def monkeypatch_feature_form_false(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(QuickMapToolBase, "open_custom_feature_form", lambda *args: False)
 
 
+def monkeypatch_feature_form_modify_attributes(
+    attributes: dict[str, Any],
+    fdc: FieldDataCapture,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """
+    Apply a monkeypatch function to the open_custom_feature_form method of QuickMapTools.
+    The new function will modify a given feature from a given layer, and modify the attributes given
+    in the dictionary.
+    """
+    def modify_attributes(feature: QgsFeature, layer: QgsVectorLayer) -> bool:
+        for field_name, field_value in attributes.items():
+            field_index = [field.name() for field in layer.fields()].index(field_name)
+            # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+            layer.changeAttributeValue(fid=feature.id(), field=field_index, newValue=field_value)
+        # Return True to confirm the change
+        return True
+    monkeypatch.setattr(fdc.quick_map_tool, "open_custom_feature_form", modify_attributes)
+
+
 def assert_tool_enabled(
     fdc: FieldDataCapture,
     layer_names: str | list[str] | set[str],
@@ -281,26 +301,6 @@ def test_locality_warn_edits(mode: str, fdc_project: FieldDataCapture):
     # Check that the layer still has the manual changes
     assert layer.isModified()
     assert layer.getFeature(point_fid).attribute(edit_field) == new_value
-
-
-def monkeypatch_feature_form_modify_attributes(
-    attributes: dict[str, Any],
-    fdc: FieldDataCapture,
-    monkeypatch: pytest.MonkeyPatch,
-) -> None:
-    """
-    Apply a monkeypatch function to the open_custom_feature_form method of QuickMapTools.
-    The new function will modify a given feature from a given layer, and modify the attributes given
-    in the dictionary.
-    """
-    def modify_attributes(feature: QgsFeature, layer: QgsVectorLayer) -> bool:
-        for field_name, field_value in attributes.items():
-            field_index = [field.name() for field in layer.fields()].index(field_name)
-            # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-            layer.changeAttributeValue(fid=feature.id(), field=field_index, newValue=field_value)
-        # Return True to confirm the change
-        return True
-    monkeypatch.setattr(fdc.quick_map_tool, "open_custom_feature_form", modify_attributes)
 
 
 def test_field_project_add_confirm(
