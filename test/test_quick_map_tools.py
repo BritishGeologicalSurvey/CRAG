@@ -4,6 +4,7 @@ which depend on a running QGIS version which is supplied by the 'fdc_project' fi
 """
 import os
 import pwd
+from typing import Any
 
 import pytest
 from qgis.core import (
@@ -45,7 +46,7 @@ LINE_TYPE_CODES = (
         ("locality_point", "delete", QuickDeleteTool),
     ),
 )
-def test_quick_map_tools_enable(
+def test_enable(
     fdc_project: FieldDataCapture,
     layer_name: str,
     mode: str,
@@ -81,7 +82,7 @@ def test_quick_map_tools_enable(
         ("locality_point", "delete", QuickDeleteTool),
     ),
 )
-def test_quick_map_tools_enable_bad(
+def test_enable_bad(
     fdc: FieldDataCapture,
     layer_name: str,
     mode: str,
@@ -110,7 +111,7 @@ def test_quick_map_tools_enable_bad(
         ("locality_point", "delete", QuickDeleteTool),
     ),
 )
-def test_quick_map_tools_disable(
+def test_disable(
     fdc_project: FieldDataCapture,
     layer_name: str,
     mode: str,
@@ -140,7 +141,7 @@ def test_quick_map_tools_disable(
         ("locality_point", "delete", QuickDeleteTool),
     ),
 )
-def test_quick_map_tools_disable_bad(
+def test_disable_bad(
     fdc_project: FieldDataCapture,
     layer_name: str,
     mode: str,
@@ -173,7 +174,7 @@ def test_quick_map_tools_disable_bad(
         ("locality_point", "delete", QuickDeleteTool),
     ),
 )
-def test_quick_map_tools_switch_tool(
+def test_switch_tool(
     fdc_project: FieldDataCapture,
     layer_name: str,
     new_mode: str,
@@ -211,7 +212,7 @@ def test_quick_map_tools_switch_tool(
         ("delete", QuickDeleteTool),
     ),
 )
-def test_quick_map_tools_locality_warn_edits(fdc_project: FieldDataCapture, mode: str, expected_tool: QgsMapTool):
+def test_locality_warn_edits(fdc_project: FieldDataCapture, mode: str, expected_tool: QgsMapTool):
     # Arrange
     layer_name = "locality_point"
     point_fid = 1
@@ -240,7 +241,27 @@ def test_quick_map_tools_locality_warn_edits(fdc_project: FieldDataCapture, mode
     assert layer.getFeature(point_fid).attribute(edit_field) == new_value
 
 
-def test_quick_map_tools_field_project_add_confirm(
+def monkeypatch_feature_form_modify_attributes(
+    attributes: dict[str, Any],
+    fdc: FieldDataCapture,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """
+    Apply a monkeypatch function to the open_custom_feature_form method of QuickMapTools.
+    The new function will modify a given feature from a given layer, and modify the attributes given
+    in the dictionary.
+    """
+    def modify_attributes(feature: QgsFeature, layer: QgsVectorLayer) -> bool:
+        for field_name, field_value in attributes.items():
+            field_index = [field.name() for field in layer.fields()].index(field_name)
+            # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+            layer.changeAttributeValue(fid=feature.id(), field=field_index, newValue=field_value)
+        # Return True to confirm the change
+        return True
+    monkeypatch.setattr(fdc.quick_map_tool, "open_custom_feature_form", modify_attributes)
+
+
+def test_field_project_add_confirm(
     fdc: FieldDataCapture,
     qgs_project,
     monkeypatch: pytest.MonkeyPatch,
@@ -263,22 +284,12 @@ def test_quick_map_tools_field_project_add_confirm(
     assert fdc.iface.mapCanvas().mapTool().toolName() == expected_tool_name
 
     # Arrange 2
-    properties = {
+    attributes = {
         "short_name": "test_field_project",
         "field_project_type": "field_work",
         "local_epsg": 27700,
     }
-
-    # Prepare monkeypatch for open feature form, which adds project properties like a user would
-    def add_project_properties(feature: QgsFeature, feature_layer: QgsVectorLayer) -> bool:
-        for field_name, field_value in properties.items():
-            field_index = [field.name() for field in feature_layer.fields()].index(field_name)
-            # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-            feature_layer.changeAttributeValue(fid=feature.id(), field=field_index, newValue=field_value)
-        # Return True to confirm the change
-        return True
-
-    monkeypatch.setattr(fdc.quick_map_tool, "open_custom_feature_form", add_project_properties)
+    monkeypatch_feature_form_modify_attributes(attributes, fdc, monkeypatch)
 
     # Act 2 - add a new project
     # Make a new and empty feature with just a polygon geometry
@@ -301,12 +312,12 @@ def test_quick_map_tools_field_project_add_confirm(
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
     assert new_feature.attribute("fid") == expected_fid
     assert new_feature.attribute("qgis_plugin_version") == "fdc_test_fixture"
-    for field_name, field_value in properties.items():
+    for field_name, field_value in attributes.items():
         assert new_feature.attribute(field_name) == field_value
     assert new_feature.geometry().asWkt() == geometry_wkt
 
 
-def test_quick_map_tools_field_project_add_cancel(
+def test_field_project_add_cancel(
     fdc: FieldDataCapture,
     qgs_project,
     monkeypatch: pytest.MonkeyPatch,
@@ -337,7 +348,7 @@ def test_quick_map_tools_field_project_add_cancel(
     assert fdc.iface.mapCanvas().mapTool().toolName() == expected_tool_name
 
 
-def test_quick_map_tools_locality_add_confirm(
+def test_locality_add_confirm(
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
 ):
@@ -349,15 +360,8 @@ def test_quick_map_tools_locality_add_confirm(
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-    exposure_field_index = [field.name() for field in layer.fields()].index(exposure_field)
 
-    # Apply monkeypatch for open feature form, which adds an exposure_type_code to the new feature like a user would
-    def add_exposure(feature: QgsFeature, feature_layer: QgsVectorLayer) -> bool:
-        # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-        feature_layer.changeAttributeValue(fid=feature.id(), field=exposure_field_index, newValue=exposure_value)
-        # Return True to confirm the change
-        return True
-    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", add_exposure)
+    monkeypatch_feature_form_modify_attributes({exposure_field: exposure_value}, fdc_project, monkeypatch)
 
     # Act
     # Make a new and empty feature with just a point geometry
@@ -385,7 +389,7 @@ def test_quick_map_tools_locality_add_confirm(
     assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
-def test_quick_map_tools_locality_add_cancel(
+def test_locality_add_cancel(
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
 ):
@@ -425,7 +429,7 @@ def test_quick_map_tools_locality_add_cancel(
     assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
-def test_quick_map_tools_locality_edit_confirm(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
+def test_locality_edit_confirm(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
     # Arrange
     layer_name = "locality_point"
     edit_field = "map_face_note"
@@ -434,15 +438,8 @@ def test_quick_map_tools_locality_edit_confirm(fdc_project: FieldDataCapture, mo
     # Enable edit quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-    edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
 
-    # Apply monkeypatch for open feature form, which makes an edit to the map_face_note like a user would
-    def edit_feature(feature: QgsFeature, feature_layer: QgsVectorLayer) -> bool:
-        # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-        feature_layer.changeAttributeValue(fid=feature.id(), field=edit_field_index, newValue=new_value)
-        # Return True to confirm the change
-        return True
-    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", edit_feature)
+    monkeypatch_feature_form_modify_attributes({edit_field: new_value}, fdc_project, monkeypatch)
 
     # Act
     # Emit the signal which would open the form and auto save afterwards
@@ -463,7 +460,7 @@ def test_quick_map_tools_locality_edit_confirm(fdc_project: FieldDataCapture, mo
     assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
-def test_quick_map_tools_locality_edit_cancel(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
+def test_locality_edit_cancel(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
     # Arrange
     layer_name = "locality_point"
     edit_field = "map_face_note"
@@ -495,7 +492,7 @@ def test_quick_map_tools_locality_edit_cancel(fdc_project: FieldDataCapture, mon
     assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
-def test_quick_map_tools_locality_delete_confirm(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_yes):
+def test_locality_delete_confirm(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_yes):
     # Arrange
     layer_name = "locality_point"
     expected_tool_name = f"fdc_{layer_name}_delete"
@@ -538,7 +535,7 @@ def test_quick_map_tools_locality_delete_confirm(fdc_project: FieldDataCapture, 
     assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
-def test_quick_map_tools_locality_delete_cancel(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_no):
+def test_locality_delete_cancel(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_no):
     # Arrange
     layer_name = "locality_point"
     expected_tool_name = f"fdc_{layer_name}_delete"
@@ -588,7 +585,7 @@ def test_quick_map_tools_locality_delete_cancel(fdc_project: FieldDataCapture, m
         LINE_TYPE_CODES,
     ),
 )
-def test_quick_map_tools_lines_add_confirm(
+def test_lines_add_confirm(
     layer_name: str,
     line_type_code: str,
     fdc_project: FieldDataCapture,
@@ -637,7 +634,7 @@ def test_quick_map_tools_lines_add_confirm(
         LINE_TYPE_CODES,
     ),
 )
-def test_quick_map_tools_lines_add_cancel(
+def test_lines_add_cancel(
     layer_name: str,
     line_type_code: str,
     fdc_project: FieldDataCapture,
@@ -681,7 +678,7 @@ def test_quick_map_tools_lines_add_cancel(
 
 
 @pytest.mark.parametrize("layer_name", FEATURE_TABLES_LINES)
-def test_quick_map_tools_lines_edit_confirm(
+def test_lines_edit_confirm(
     layer_name: str,
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
@@ -693,15 +690,8 @@ def test_quick_map_tools_lines_edit_confirm(
     # Enable edit quick line mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-    edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
 
-    # Apply monkeypatch for open feature form, which makes an edit to the line_label like a user would
-    def edit_feature(feature: QgsFeature, feature_layer: QgsVectorLayer) -> bool:
-        # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-        feature_layer.changeAttributeValue(fid=feature.id(), field=edit_field_index, newValue=new_value)
-        # Return True to confirm the change
-        return True
-    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", edit_feature)
+    monkeypatch_feature_form_modify_attributes({edit_field: new_value}, fdc_project, monkeypatch)
 
     # Act
     # Emit the signal which would open the form and auto save afterwards
@@ -740,7 +730,7 @@ def test_quick_map_tools_lines_edit_confirm(
         ),
     ),
 )
-def test_quick_map_tools_lines_edit_cancel(
+def test_lines_edit_cancel(
     layer_name: str,
     old_value: str,
     fdc_project: FieldDataCapture,
@@ -776,7 +766,7 @@ def test_quick_map_tools_lines_edit_cancel(
 
 
 @pytest.mark.parametrize("layer_name", FEATURE_TABLES_LINES)
-def test_quick_map_tools_lines_delete_confirm(
+def test_lines_delete_confirm(
     layer_name: str,
     fdc_project: FieldDataCapture,
     monkeypatch_qmsgbox_question_yes,
@@ -809,7 +799,7 @@ def test_quick_map_tools_lines_delete_confirm(
 
 
 @pytest.mark.parametrize("layer_name", FEATURE_TABLES_LINES)
-def test_quick_map_tools_lines_delete_cancel(
+def test_lines_delete_cancel(
     layer_name: str,
     fdc_project: FieldDataCapture,
     monkeypatch_qmsgbox_question_no,
