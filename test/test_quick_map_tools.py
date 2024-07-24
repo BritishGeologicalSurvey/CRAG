@@ -53,6 +53,31 @@ LINE_TYPE_CODES = (
 )
 
 
+def create_empty_geometry_feature(wkt_str: str) -> QgsFeature:
+    """
+    Create a new and empty QgsFeature, with just a geometry made from the given WKT string.
+    """
+    geometry = QgsGeometry.fromWkt(wkt_str)
+    geometry_feature = QgsFeature()
+    geometry_feature.setGeometry(geometry)
+    return geometry_feature
+
+
+@pytest.fixture()
+def empty_geometry_feature_polygon() -> QgsFeature:
+    return create_empty_geometry_feature("Polygon ((-3.06646639970546664 56.02224055154277949, -0.86620852862676745 52.89687413861690857, -1.3338961920444623 52.75580097369699217, -3.55541259327851167 55.88561238892003047, -3.06646639970546664 56.02224055154277949))")  # noqa
+
+
+@pytest.fixture()
+def empty_geometry_feature_point() -> QgsFeature:
+    return create_empty_geometry_feature("Point (-3 55)")
+
+
+@pytest.fixture()
+def empty_geometry_feature_line() -> QgsFeature:
+    return create_empty_geometry_feature("LineString (-3 55, 55 -3)")
+
+
 @pytest.fixture()
 def monkeypatch_feature_form_false(monkeypatch: pytest.MonkeyPatch) -> None:
     """
@@ -282,6 +307,7 @@ def test_field_project_add_confirm(
     fdc: FieldDataCapture,
     qgs_project,
     monkeypatch: pytest.MonkeyPatch,
+    empty_geometry_feature_polygon: QgsFeature,
 ):
     # Arrange 1
     layer_name = "field_project"
@@ -305,12 +331,7 @@ def test_field_project_add_confirm(
     monkeypatch_feature_form_modify_attributes(attributes, fdc, monkeypatch)
 
     # Act 2 - add a new project
-    # Make a new and empty feature with just a polygon geometry
-    geometry_wkt = "Polygon ((-3.06646639970546664 56.02224055154277949, -0.86620852862676745 52.89687413861690857, -1.3338961920444623 52.75580097369699217, -3.55541259327851167 55.88561238892003047, -3.06646639970546664 56.02224055154277949))"  # noqa
-    geometry = QgsGeometry.fromWkt(geometry_wkt)
-    geometry_feature = QgsFeature()
-    geometry_feature.setGeometry(geometry)
-    fdc.quick_map_tool.digitizingCompleted.emit(geometry_feature)
+    fdc.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_polygon)
 
     # Assert 2 - confirm tool teardown and project creation
     assert_no_tool_enabled(fdc, layer)
@@ -321,13 +342,14 @@ def test_field_project_add_confirm(
     assert new_feature.attribute("qgis_plugin_version") == "fdc_test_fixture"
     for field_name, field_value in attributes.items():
         assert new_feature.attribute(field_name) == field_value
-    assert new_feature.geometry().asWkt() == geometry_wkt
+    assert new_feature.geometry().asWkt() == empty_geometry_feature_polygon.geometry().asWkt()
 
 
 def test_field_project_add_cancel(
     fdc: FieldDataCapture,
     qgs_project,
     monkeypatch_feature_form_false,
+    empty_geometry_feature_polygon: QgsFeature,
 ):
     # Arrange
     layer_name = "field_project"
@@ -335,12 +357,7 @@ def test_field_project_add_cancel(
 
     # Act
     fdc.button_setup_project.trigger()
-    # Make a new and empty feature with just a polygon geometry
-    geometry_wkt = "Polygon ((-3.06646639970546664 56.02224055154277949, -0.86620852862676745 52.89687413861690857, -1.3338961920444623 52.75580097369699217, -3.55541259327851167 55.88561238892003047, -3.06646639970546664 56.02224055154277949))"  # noqa
-    geometry = QgsGeometry.fromWkt(geometry_wkt)
-    geometry_feature = QgsFeature()
-    geometry_feature.setGeometry(geometry)
-    fdc.quick_map_tool.digitizingCompleted.emit(geometry_feature)
+    fdc.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_polygon)
 
     # Assert
     assert_tool_enabled(fdc, layer_name, QuickAddTool, expected_tool_name)
@@ -349,6 +366,7 @@ def test_field_project_add_cancel(
 def test_locality_add_confirm(
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
+    empty_geometry_feature_point: QgsFeature,
 ):
     # Arrange
     layer_name = "locality_point"
@@ -362,12 +380,7 @@ def test_locality_add_confirm(
     monkeypatch_feature_form_modify_attributes({exposure_field: exposure_value}, fdc_project, monkeypatch)
 
     # Act
-    # Make a new and empty feature with just a point geometry
-    geometry_wkt = "Point (-3 55)"
-    geometry = QgsGeometry.fromWkt(geometry_wkt)
-    geometry_feature = QgsFeature()
-    geometry_feature.setGeometry(geometry)
-    fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
+    fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_point)
 
     # Assert
     # Check that the new feature has the correct attributes and geometry
@@ -376,13 +389,14 @@ def test_locality_add_confirm(
     assert new_feature.attribute("fid") == expected_fid
     assert new_feature.attribute("name") == f"{pwd.getpwuid(os.getuid()).pw_name}_001"
     assert new_feature.attribute(exposure_field) == exposure_value
-    assert new_feature.geometry().asWkt() == geometry_wkt
+    assert new_feature.geometry().asWkt() == empty_geometry_feature_point.geometry().asWkt()
     assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
 
 
 def test_locality_add_cancel(
     fdc_project: FieldDataCapture,
     monkeypatch_feature_form_false,
+    empty_geometry_feature_point: QgsFeature,
 ):
     # Arrange
     layer_name = "locality_point"
@@ -392,12 +406,7 @@ def test_locality_add_cancel(
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
     # Act
-    # Make a new and empty feature with just a point geometry
-    geometry_wkt = "Point (-3 55)"
-    geometry = QgsGeometry.fromWkt(geometry_wkt)
-    geometry_feature = QgsFeature()
-    geometry_feature.setGeometry(geometry)
-    fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
+    fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_point)
 
     # Assert
     # Check that there are only 2 features
@@ -543,6 +552,7 @@ def test_lines_add_confirm(
     line_type_code: str,
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
+    empty_geometry_feature_line: QgsFeature,
 ):
     # Arrange
     expected_tool_name = f"fdc_{layer_name}_add"
@@ -556,12 +566,7 @@ def test_lines_add_confirm(
     monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", lambda *args: True)
 
     # Act
-    # Make a new and empty feature with just a line geometry
-    geometry_wkt = "LineString (-3 55, 55 -3)"
-    geometry = QgsGeometry.fromWkt(geometry_wkt)
-    geometry_feature = QgsFeature()
-    geometry_feature.setGeometry(geometry)
-    fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
+    fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_line)
 
     # Assert
     # Check that the new feature has the correct attributes and geometry
@@ -569,7 +574,7 @@ def test_lines_add_confirm(
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
     assert new_feature.attribute("fid") == expected_fid
     assert new_feature.attribute("line_type_code") == line_type_code
-    assert new_feature.geometry().asWkt() == geometry_wkt
+    assert new_feature.geometry().asWkt() == empty_geometry_feature_line.geometry().asWkt()
     assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
 
 
@@ -585,6 +590,7 @@ def test_lines_add_cancel(
     line_type_code: str,
     fdc_project: FieldDataCapture,
     monkeypatch_feature_form_false,
+    empty_geometry_feature_line: QgsFeature,
 ):
     # Arrange
     expected_tool_name = f"fdc_{layer_name}_add"
@@ -596,12 +602,7 @@ def test_lines_add_cancel(
     fdc_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
 
     # Act
-    # Make a new and empty feature with just a line geometry
-    geometry_wkt = "LineString (-3 55, 55 -3)"
-    geometry = QgsGeometry.fromWkt(geometry_wkt)
-    geometry_feature = QgsFeature()
-    geometry_feature.setGeometry(geometry)
-    fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
+    fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_line)
 
     # Assert
     # Check that there are only 2 features
