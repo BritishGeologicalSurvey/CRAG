@@ -4,7 +4,10 @@ which depend on a running QGIS version which is supplied by the 'fdc_project' fi
 """
 import os
 import pwd
-from typing import Any
+from typing import (
+    Any,
+    Optional,
+)
 
 import pytest
 from qgis.core import (
@@ -18,12 +21,24 @@ from qgis.gui import QgsMapTool
 from plugin.config import FEATURE_TABLES_LINES
 from plugin.field_data_capture import FieldDataCapture
 from plugin.quick_map_tools import (
+    QuickMapToolBase,
     QuickAddTool,
     QuickEditTool,
     QuickDeleteTool,
 )
 from plugin.utils import ipdb_breakpoint  # noqa
 
+COMMON_TOOLS = (
+    ["layer_names", "mode", "expected_tool", "layers_ref"],
+    (
+        # layer(s), mode, class, layers_ref
+        ("locality_point", "add", QuickAddTool, "locality_point"),
+        ("locality_point", "edit", QuickEditTool, "locality_point"),
+        ("locality_point", "delete", QuickDeleteTool, "locality_point"),
+        (sorted(FEATURE_TABLES_LINES), "edit", QuickEditTool, "lines"),
+        (sorted(FEATURE_TABLES_LINES), "delete", QuickDeleteTool, "lines"),
+    ),
+)
 LINE_TYPE_CODES = (
     # artificial_line
     "cliffline_quarry",
@@ -38,87 +53,115 @@ LINE_TYPE_CODES = (
 )
 
 
-@pytest.mark.parametrize(
-    ["layer_name", "mode", "expected_tool"],
-    (
-        ("locality_point", "add", QuickAddTool),
-        ("locality_point", "edit", QuickEditTool),
-        ("locality_point", "delete", QuickDeleteTool),
-    ),
-)
-def test_enable(
-    fdc_project: FieldDataCapture,
-    layer_name: str,
+def assert_tool_enabled(
+    fdc: FieldDataCapture,
+    layer_names: str | list[str] | set[str],
+    expected_tool: QgsMapTool,
+    expected_tool_name: str,
+    layers_ref: Optional[str] = None
+) -> None:
+    """
+    Assert that a tool defined by the given attributes is currently enabled.
+    Also checks that the given layer(s) are in the correct state.
+    """
+    # Get layer(s) for checking
+    # If a list of layers is given for the tool
+    if isinstance(layer_names, list) or isinstance(layer_names, set):
+        expected_layers = [
+            QgsProject.instance().mapLayersByName(layer)[0]
+            for layer in layer_names
+        ]
+    # If a single layer is given for the tool
+    else:
+        expected_layers = [QgsProject.instance().mapLayersByName(layer_names)[0]]
+
+    # Check layer(s)
+    for expected_layer in expected_layers:
+        # We cannot check the active layer as it is not a working function in the mocked iface
+        assert expected_layer.isEditable()
+        assert not expected_layer.isModified()
+
+    # Check that the tool has been applied to the canvas
+    map_tool = fdc.iface.mapCanvas().mapTool()
+    assert isinstance(map_tool, expected_tool)
+    # Check the attributes of the tool
+    assert map_tool.toolName() == expected_tool_name
+    if isinstance(map_tool._layer, list):
+        assert set(map_tool._layer) == set(expected_layers)
+    else:
+        assert map_tool._layer == expected_layers[0]
+    # Check that the button is toggled, but only if it is not the add field_project tool because it is a one time use
+    if expected_tool_name != "fdc_field_project_add":
+        assert fdc.quick_map_tool_buttons[expected_tool_name].isChecked()
+
+
+def assert_no_tool_enabled(fdc: FieldDataCapture, layer: Optional[QgsVectorLayer] = None) -> None:
+    """
+    Assert that no tool is currently enabled.
+    Also takes an optional layer to check if it is re-enabed editing mode and saved/rolled back.
+    """
+    # Check that a QuickMapTool has not been applied to the canvas
+    assert not isinstance(fdc.iface.mapCanvas().mapTool(), QuickMapToolBase)
+    for tool_button in fdc.quick_map_tool_buttons.values():
+        # Check that the button is not toggled
+        assert not tool_button.isChecked()
+
+    if layer is not None:
+        assert layer.isEditable()
+        assert not layer.isModified()
+
+
+@pytest.mark.parametrize(*COMMON_TOOLS)
+def test_enable_good(
+    layer_names: str | list[str],
     mode: str,
     expected_tool: QgsMapTool,
+    layers_ref: str,
+    fdc_project: FieldDataCapture,
 ):
     # Arrange
-    expected_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
-    expected_tool_name = f"fdc_{layer_name}_{mode}"
+    expected_tool_name = f"fdc_{layers_ref}_{mode}"
 
     # Act
     # Enable quick tool
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
-    # Assert
-    # We cannot check the active layer as it is not a working function in the mocked iface
-    assert expected_layer.isEditable()
-    # Check that the tool has been applied to the canvas
-    map_tool = fdc_project.iface.mapCanvas().mapTool()
-    assert isinstance(map_tool, expected_tool)
-    # Check the attributes of the tool
-    assert map_tool.quick_mode == mode
-    assert map_tool._layer == expected_layer
-    assert map_tool.toolName() == expected_tool_name
-    # Check that the button is toggled
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, layer_names, expected_tool, expected_tool_name, layers_ref)
 
 
-@pytest.mark.parametrize(
-    ["layer_name", "mode", "expected_tool"],
-    (
-        ("locality_point", "add", QuickAddTool),
-        ("locality_point", "edit", QuickEditTool),
-        ("locality_point", "delete", QuickDeleteTool),
-    ),
-)
+@pytest.mark.parametrize(*COMMON_TOOLS)
 def test_enable_bad(
-    fdc: FieldDataCapture,
-    layer_name: str,
+    layer_names: str | list[str],
     mode: str,
     expected_tool: QgsMapTool,
+    layers_ref: str,
+    fdc: FieldDataCapture,
 ):
+    """
+    This test uses the 'fdc' fixture rather than 'fdc_project' because
+    because it tests that the quick tool is not toggled when no project exists.
+    """
     # Arrange
-    expected_tool_name = f"fdc_{layer_name}_{mode}"
-    # This test uses fdc rather than fdc_project
-    # because it tests that the quick tool is not toggled when no project exists
+    expected_tool_name = f"fdc_{layers_ref}_{mode}"
+
     # Act
     # Enable quick tool
     fdc.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    # Check that the tool has not been applied to the canvas
-    assert not isinstance(fdc.iface.mapCanvas().mapTool(), expected_tool)
-    # Check that the button is not toggled
-    assert not fdc.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_no_tool_enabled(fdc)
 
 
-@pytest.mark.parametrize(
-    ["layer_name", "mode", "expected_tool"],
-    (
-        ("locality_point", "add", QuickAddTool),
-        ("locality_point", "edit", QuickEditTool),
-        ("locality_point", "delete", QuickDeleteTool),
-    ),
-)
-def test_disable(
-    fdc_project: FieldDataCapture,
-    layer_name: str,
+@pytest.mark.parametrize(*COMMON_TOOLS)
+def test_disable_good(
+    layer_names: str | list[str],
     mode: str,
     expected_tool: QgsMapTool,
+    layers_ref: str,
+    fdc_project: FieldDataCapture,
 ):
     # Arrange
-    expected_tool_name = f"fdc_{layer_name}_{mode}"
+    expected_tool_name = f"fdc_{layers_ref}_{mode}"
     # Enable quick tool
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
@@ -127,28 +170,19 @@ def test_disable(
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    # Check that the tool is not applied to the canvas
-    assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
-    # Check that the button is not toggled
-    assert not fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_no_tool_enabled(fdc_project)
 
 
-@pytest.mark.parametrize(
-    ["layer_name", "mode", "expected_tool"],
-    (
-        ("locality_point", "add", QuickAddTool),
-        ("locality_point", "edit", QuickEditTool),
-        ("locality_point", "delete", QuickDeleteTool),
-    ),
-)
+@pytest.mark.parametrize(*COMMON_TOOLS)
 def test_disable_bad(
-    fdc_project: FieldDataCapture,
-    layer_name: str,
+    layer_names: str | list[str],
     mode: str,
     expected_tool: QgsMapTool,
+    layers_ref: str,
+    fdc_project: FieldDataCapture,
 ):
     # Arrange
-    expected_tool_name = f"fdc_{layer_name}_{mode}"
+    expected_tool_name = f"fdc_{layers_ref}_{mode}"
     # Enable quick tool
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
@@ -161,58 +195,36 @@ def test_disable_bad(
 
     # Assert
     # The tool should have been disabled properly even though the state is invalid
-    # Check that the tool is not applied to the canvas
-    assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
-    # Check that the button is not toggled
-    assert not fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_no_tool_enabled(fdc_project)
 
 
-@pytest.mark.parametrize(
-    ["layer_name", "new_mode", "expected_tool"],
-    (
-        ("locality_point", "edit", QuickEditTool),
-        ("locality_point", "delete", QuickDeleteTool),
-    ),
-)
+# Ignore first common tool as it is fdc_locality_point_add which is used as old tool
+@pytest.mark.parametrize(COMMON_TOOLS[0], COMMON_TOOLS[1][1:])
 def test_switch_tool(
-    fdc_project: FieldDataCapture,
-    layer_name: str,
-    new_mode: str,
+    layer_names: str | list[str],
+    mode: str,
     expected_tool: QgsMapTool,
+    layers_ref: str,
+    fdc_project: FieldDataCapture,
 ):
     # Arrange
-    old_tool_name = f"fdc_{layer_name}_add"
-    expected_tool_name = f"fdc_{layer_name}_{new_mode}"
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    old_tool_name = "fdc_locality_point_add"
+    expected_tool_name = f"fdc_{layers_ref}_{mode}"
 
     # Act
-    # Enable quick add tool
+    # Enable quick add locality point tool
     fdc_project.quick_map_tool_buttons[old_tool_name].trigger()
-    # Enable quick delete tool
+    # Enable new quick tool
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    map_tool = fdc_project.iface.mapCanvas().mapTool()
-    # Check that the tool has been applied to the canvas
-    assert isinstance(map_tool, expected_tool)
-    # Check the attributes of the tool
-    assert map_tool.quick_mode == new_mode
-    assert map_tool._layer == layer
-    assert map_tool.toolName() == expected_tool_name
-    # Check that the buttons are toggled correctly
+    assert_tool_enabled(fdc_project, layer_names, expected_tool, expected_tool_name, layers_ref)
+    # Check that the old button is not toggled
     assert not fdc_project.quick_map_tool_buttons[old_tool_name].isChecked()
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
-@pytest.mark.parametrize(
-    ["mode", "expected_tool"],
-    (
-        ("add", QuickAddTool),
-        ("edit", QuickEditTool),
-        ("delete", QuickDeleteTool),
-    ),
-)
-def test_locality_warn_edits(fdc_project: FieldDataCapture, mode: str, expected_tool: QgsMapTool):
+@pytest.mark.parametrize("mode", ("add", "edit", "delete"))
+def test_locality_warn_edits(mode: str, fdc_project: FieldDataCapture):
     # Arrange
     layer_name = "locality_point"
     point_fid = 1
@@ -230,10 +242,7 @@ def test_locality_warn_edits(fdc_project: FieldDataCapture, mode: str, expected_
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    # Check that the button is not toggled
-    assert not fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
-    # Check that the tool has not been applied to the canvas
-    assert not isinstance(fdc_project.iface.mapCanvas().mapTool(), expected_tool)
+    assert_no_tool_enabled(fdc_project)
     # Check that the layer is still editable
     assert layer.isEditable()
     # Check that the layer still has the manual changes
@@ -274,14 +283,10 @@ def test_field_project_add_confirm(
     fdc.button_setup_project.trigger()
 
     # Assert 1 - confirm tool setup
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    assert_tool_enabled(fdc, layer_name, QuickAddTool, expected_tool_name)
     # Check that the layer is not modified yet
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     assert not layer.isModified()
-    # Check that the layer has enabled editing mode
-    assert layer.isEditable()
-    # Check that the tool has been enabled
-    assert isinstance(fdc.iface.mapCanvas().mapTool(), QuickAddTool)
-    assert fdc.iface.mapCanvas().mapTool().toolName() == expected_tool_name
 
     # Arrange 2
     attributes = {
@@ -300,13 +305,7 @@ def test_field_project_add_confirm(
     fdc.quick_map_tool.digitizingCompleted.emit(geometry_feature)
 
     # Assert 2 - confirm tool teardown and project creation
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-    # Check that the layer is saved
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
-    # Check that the tool has been disabled
-    assert not isinstance(fdc.iface.mapCanvas().mapTool(), QuickAddTool)
+    assert_no_tool_enabled(fdc, layer)
     # Check that the new feature has the correct attributes and geometry
     expected_fid = 1
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
@@ -338,14 +337,7 @@ def test_field_project_add_cancel(
     fdc.quick_map_tool.digitizingCompleted.emit(geometry_feature)
 
     # Assert
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-    # Check that the layer has been rolled back
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
-    # Check that the tool has been re-enabled
-    assert isinstance(fdc.iface.mapCanvas().mapTool(), QuickAddTool)
-    assert fdc.iface.mapCanvas().mapTool().toolName() == expected_tool_name
+    assert_tool_enabled(fdc, layer_name, QuickAddTool, expected_tool_name)
 
 
 def test_locality_add_confirm(
@@ -372,10 +364,6 @@ def test_locality_add_confirm(
     fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
 
     # Assert
-    # Check that the layer is saved
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that the new feature has the correct attributes and geometry
     expected_fid = 3
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
@@ -383,10 +371,7 @@ def test_locality_add_confirm(
     assert new_feature.attribute("name") == f"{pwd.getpwuid(os.getuid()).pw_name}_001"
     assert new_feature.attribute(exposure_field) == exposure_value
     assert new_feature.geometry().asWkt() == geometry_wkt
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickAddTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
 
 
 def test_locality_add_cancel(
@@ -412,10 +397,6 @@ def test_locality_add_cancel(
     fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
 
     # Assert
-    # Check that the layer is rolled back
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that there are only 2 features
     features = list(layer.getFeatures())
     assert len(features) == 2
@@ -423,10 +404,7 @@ def test_locality_add_cancel(
     expected_fid = 3
     feature_fids = {feature.attribute("fid") for feature in features}
     assert expected_fid not in feature_fids
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickAddTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
 
 
 def test_locality_edit_confirm(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
@@ -448,16 +426,9 @@ def test_locality_edit_confirm(fdc_project: FieldDataCapture, monkeypatch: pytes
     fdc_project.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
 
     # Assert
-    # Check that the layer is saved
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that the edit has been saved correctly
     assert layer.getFeature(edit_feature_fid).attribute(edit_field) == new_value
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickEditTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, layer_name, QuickEditTool, expected_tool_name)
 
 
 def test_locality_edit_cancel(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
@@ -480,16 +451,9 @@ def test_locality_edit_cancel(fdc_project: FieldDataCapture, monkeypatch: pytest
     fdc_project.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
 
     # Assert
-    # Check that the layer is rolled back
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that the edit has not been saved
     assert layer.getFeature(edit_feature_fid).attribute(edit_field) == old_value
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickEditTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, layer_name, QuickEditTool, expected_tool_name)
 
 
 def test_locality_delete_confirm(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_yes):
@@ -509,10 +473,6 @@ def test_locality_delete_confirm(fdc_project: FieldDataCapture, monkeypatch_qmsg
     fdc_project.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
 
     # Assert
-    # Check that the layer is saved
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that there is only 1 feature remaining
     features = list(layer.getFeatures())
     assert len(features) == 1
@@ -529,10 +489,7 @@ def test_locality_delete_confirm(fdc_project: FieldDataCapture, monkeypatch_qmsg
         for child_feature in child_layer.getFeatures():
             assert child_feature.attribute("locality_fuid") != delete_locality_fuid
 
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickDeleteTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, layer_name, QuickDeleteTool, expected_tool_name)
 
 
 def test_locality_delete_cancel(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_no):
@@ -552,10 +509,6 @@ def test_locality_delete_cancel(fdc_project: FieldDataCapture, monkeypatch_qmsgb
     fdc_project.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
 
     # Assert
-    # Check that the layer is rolled back
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that there are still 2 features
     features = list(layer.getFeatures())
     assert len(features) == 2
@@ -572,10 +525,7 @@ def test_locality_delete_cancel(fdc_project: FieldDataCapture, monkeypatch_qmsgb
         child_locality_fuids = {child_feature.attribute("locality_fuid") for child_feature in child_layer.getFeatures()}
         assert delete_locality_fuid in child_locality_fuids
 
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickDeleteTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, layer_name, QuickDeleteTool, expected_tool_name)
 
 
 @pytest.mark.parametrize(
@@ -611,20 +561,13 @@ def test_lines_add_confirm(
     fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
 
     # Assert
-    # Check that the layer is saved
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that the new feature has the correct attributes and geometry
     expected_fid = 2
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
     assert new_feature.attribute("fid") == expected_fid
     assert new_feature.attribute("line_type_code") == line_type_code
     assert new_feature.geometry().asWkt() == geometry_wkt
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickAddTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
 
 
 @pytest.mark.parametrize(
@@ -660,10 +603,6 @@ def test_lines_add_cancel(
     fdc_project.quick_map_tool.digitizingCompleted.emit(geometry_feature)
 
     # Assert
-    # Check that the layer is rolled back
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that there are only 2 features
     features = list(layer.getFeatures())
     assert len(features) == 1
@@ -671,10 +610,7 @@ def test_lines_add_cancel(
     expected_fid = 2
     feature_fids = {feature.attribute("fid") for feature in features}
     assert expected_fid not in feature_fids
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickAddTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
 
 
 @pytest.mark.parametrize("layer_name", FEATURE_TABLES_LINES)
@@ -700,16 +636,9 @@ def test_lines_edit_confirm(
     fdc_project.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
 
     # Assert
-    # Check that the layer is saved
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that the edit has been saved correctly
     assert layer.getFeature(edit_feature_fid).attribute(edit_field) == new_value
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickEditTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, FEATURE_TABLES_LINES, QuickEditTool, expected_tool_name)
 
 
 @pytest.mark.parametrize(
@@ -753,16 +682,9 @@ def test_lines_edit_cancel(
     fdc_project.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
 
     # Assert
-    # Check that the layer is rolled back
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that the edit has not been saved
     assert layer.getFeature(edit_feature_fid).attribute(edit_field) == old_value
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickEditTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, FEATURE_TABLES_LINES, QuickEditTool, expected_tool_name)
 
 
 @pytest.mark.parametrize("layer_name", FEATURE_TABLES_LINES)
@@ -785,17 +707,9 @@ def test_lines_delete_confirm(
     fdc_project.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
 
     # Assert
-    # Check that the layer is saved
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that there are no features remaining
     assert len(list(layer.getFeatures())) == 0
-
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickDeleteTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, FEATURE_TABLES_LINES, QuickDeleteTool, expected_tool_name)
 
 
 @pytest.mark.parametrize("layer_name", FEATURE_TABLES_LINES)
@@ -818,17 +732,9 @@ def test_lines_delete_cancel(
     fdc_project.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
 
     # Assert
-    # Check that the layer is rolled back
-    assert not layer.isModified()
-    # Check that the layer has re-enabled editing mode
-    assert layer.isEditable()
     # Check that there is still 1 feature
     features = list(layer.getFeatures())
     assert len(features) == 1
     # Check that it's fid value is not deleted
     assert delete_feature_fid in {feature.attribute("fid") for feature in features}
-
-    # Check that the tool is still enabled
-    assert isinstance(fdc_project.iface.mapCanvas().mapTool(), QuickDeleteTool)
-    assert fdc_project.iface.mapCanvas().mapTool().toolName() == expected_tool_name
-    assert fdc_project.quick_map_tool_buttons[expected_tool_name].isChecked()
+    assert_tool_enabled(fdc_project, FEATURE_TABLES_LINES, QuickDeleteTool, expected_tool_name)
