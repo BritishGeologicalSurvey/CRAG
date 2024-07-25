@@ -6,6 +6,7 @@ import os
 import pwd
 from typing import (
     Any,
+    Iterable,
     Optional,
 )
 
@@ -17,7 +18,6 @@ from qgis.core import (
     QgsVectorLayer,
 )
 from qgis.gui import QgsMapTool
-
 from plugin.config import FEATURE_TABLES_LINES
 from plugin.field_data_capture import FieldDataCapture
 from plugin.quick_map_tools import (
@@ -108,10 +108,9 @@ def monkeypatch_feature_form_modify_attributes(
 
 def assert_tool_enabled(
     fdc: FieldDataCapture,
-    layer_names: str | list[str] | set[str],
+    layer_names: str | Iterable[str],
     expected_tool: QgsMapTool,
     expected_tool_name: str,
-    layers_ref: Optional[str] = None
 ) -> None:
     """
     Assert that a tool defined by the given attributes is currently enabled.
@@ -131,6 +130,7 @@ def assert_tool_enabled(
     # Check layer(s)
     for expected_layer in expected_layers:
         # We cannot check the active layer as it is not a working function in the mocked iface
+        # The selection model is also just a Mock object and cannot be directly checked either
         assert expected_layer.isEditable()
         assert not expected_layer.isModified()
 
@@ -166,7 +166,7 @@ def assert_no_tool_enabled(fdc: FieldDataCapture, layer: Optional[QgsVectorLayer
 
 @pytest.mark.parametrize(*COMMON_TOOLS)
 def test_enable_good(
-    layer_names: str | list[str],
+    layer_names: str | Iterable[str],
     mode: str,
     expected_tool: QgsMapTool,
     layers_ref: str,
@@ -179,12 +179,12 @@ def test_enable_good(
     # Enable quick tool
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
-    assert_tool_enabled(fdc_project, layer_names, expected_tool, expected_tool_name, layers_ref)
+    assert_tool_enabled(fdc_project, layer_names, expected_tool, expected_tool_name)
 
 
 @pytest.mark.parametrize(*COMMON_TOOLS)
 def test_enable_bad(
-    layer_names: str | list[str],
+    layer_names: str | Iterable[str],
     mode: str,
     expected_tool: QgsMapTool,
     layers_ref: str,
@@ -207,7 +207,7 @@ def test_enable_bad(
 
 @pytest.mark.parametrize(*COMMON_TOOLS)
 def test_disable_good(
-    layer_names: str | list[str],
+    layer_names: str | Iterable[str],
     mode: str,
     expected_tool: QgsMapTool,
     layers_ref: str,
@@ -228,7 +228,7 @@ def test_disable_good(
 
 @pytest.mark.parametrize(*COMMON_TOOLS)
 def test_disable_bad(
-    layer_names: str | list[str],
+    layer_names: str | Iterable[str],
     mode: str,
     expected_tool: QgsMapTool,
     layers_ref: str,
@@ -254,7 +254,7 @@ def test_disable_bad(
 # Ignore first common tool as it is fdc_locality_point_add which is used as old tool
 @pytest.mark.parametrize(COMMON_TOOLS[0], COMMON_TOOLS[1][1:])
 def test_switch_tool(
-    layer_names: str | list[str],
+    layer_names: str | Iterable[str],
     mode: str,
     expected_tool: QgsMapTool,
     layers_ref: str,
@@ -271,7 +271,7 @@ def test_switch_tool(
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    assert_tool_enabled(fdc_project, layer_names, expected_tool, expected_tool_name, layers_ref)
+    assert_tool_enabled(fdc_project, layer_names, expected_tool, expected_tool_name)
     # Check that the old button is not toggled
     assert not fdc_project.quick_map_tool_buttons[old_tool_name].isChecked()
 
