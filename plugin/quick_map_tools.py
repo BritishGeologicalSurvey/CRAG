@@ -97,12 +97,13 @@ class QuickMapToolBase:
         self,
         start_index: QSortFilterProxyModel | QModelIndex,
         valid_indexes: Optional[dict[str, QModelIndex]] = None,
-    ) -> list[QModelIndex]:
+    ) -> dict[str, QModelIndex]:
         """
-        Recursively search the given model/ model index to find all other valid child indexes.
+        Recursively search the given model/model index to find all other valid child indexes.
         This is used on the iface.layerTreeView().model() object to return all child indexes.
         This essentially means it returns all of the child index elements of the layerTreeView.
         This does also mean that child line_types will be included in this list, not only layers.
+        Returns a dictionary of index data names as values and index objects as keys.
         """
         if valid_indexes is None:
             valid_indexes = {}
