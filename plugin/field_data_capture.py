@@ -1218,7 +1218,7 @@ class FieldDataCapture:
         else:
             action = None
 
-        self.quick_map_tool = mode_tools[mode](self.iface, layer, action, tool_name, prepopulate)
+        self.quick_map_tool = mode_tools[mode](self.iface, layer, tool_name, action, prepopulate)
 
         # Connect the required signals
         self.quick_map_tool.warn_unsaved_locality_data.connect(self.warn_unsaved_locality_data)

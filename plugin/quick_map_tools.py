@@ -50,8 +50,8 @@ class QuickMapToolBase:
         self,
         iface: QgisInterface,
         layer: QgsVectorLayer | list[QgsVectorLayer],
-        action: Optional[QAction],
         tool_name: str,
+        action: Optional[QAction],
     ):
         """
         Setup the QuickMapTool for fast editing.
@@ -282,8 +282,8 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
         self,
         iface: QgisInterface,
         layer: QgsVectorLayer,
-        action: Optional[QAction],
         tool_name: str,
+        action: Optional[QAction],
         prepopulate: Optional[dict[str, Any]] = None,
         *args,
         **kwargs,
@@ -292,7 +292,7 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
             self, iface.mapCanvas(), iface.cadDockWidget(),
             mode=self.capture_modes[layer.name()],
         )
-        QuickMapToolBase.__init__(self, iface, layer, action, tool_name)
+        QuickMapToolBase.__init__(self, iface, layer, tool_name, action)
 
         self.prepopulate = prepopulate
         # Setup map tool
@@ -349,13 +349,13 @@ class QuickEditTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIdenti
         self,
         iface: QgisInterface,
         layer: QgsVectorLayer | list[QgsVectorLayer],
-        action: Optional[QAction],
         tool_name: str,
+        action: Optional[QAction],
         *args,
         **kwargs,
     ):
         QgsMapToolIdentify.__init__(self, iface.mapCanvas())
-        QuickMapToolBase.__init__(self, iface, layer, action, tool_name)
+        QuickMapToolBase.__init__(self, iface, layer, tool_name, action)
 
         # Setup map tool
         self.setCursor(QgsApplication.getThemeCursor(QgsApplication.Cursor.Identify))
@@ -382,13 +382,13 @@ class QuickDeleteTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIden
         self,
         iface: QgisInterface,
         layer: QgsVectorLayer | list[QgsVectorLayer],
-        action: Optional[QAction],
         tool_name: str,
+        action: Optional[QAction],
         *args,
         **kwargs,
     ):
         QgsMapToolIdentify.__init__(self, iface.mapCanvas())
-        QuickMapToolBase.__init__(self, iface, layer, action, tool_name)
+        QuickMapToolBase.__init__(self, iface, layer, tool_name, action)
 
         # Setup map tool
         self.setCursor(QgsApplication.getThemeCursor(QgsApplication.Cursor.CrossHair))

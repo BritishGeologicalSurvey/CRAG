@@ -118,15 +118,15 @@ def assert_tool_enabled(
     Also checks that the given layer(s) are in the correct state.
     """
     # Get layer(s) for checking
+    # If a single layer is given for the tool
+    if isinstance(layer_names, str):
+        expected_layers = [QgsProject.instance().mapLayersByName(layer_names)[0]]
     # If a list of layers is given for the tool
-    if isinstance(layer_names, list) or isinstance(layer_names, set):
+    else:
         expected_layers = [
             QgsProject.instance().mapLayersByName(layer)[0]
             for layer in layer_names
         ]
-    # If a single layer is given for the tool
-    else:
-        expected_layers = [QgsProject.instance().mapLayersByName(layer_names)[0]]
 
     # Check layer(s)
     for expected_layer in expected_layers:
