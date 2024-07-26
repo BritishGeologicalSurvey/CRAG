@@ -1,4 +1,7 @@
-from typing import Optional
+from typing import (
+    Any,
+    Optional,
+)
 
 from qgis.core import QgsProject
 from qgis.PyQt.QtCore import (
@@ -47,7 +50,8 @@ class LineLayerSelector(QDialog):
             self.apply_preselect_line_type(preselect_line_type)
 
 
-    def get_layers_to_categories_to_types(self) -> dict[str, dict[str, list[str]]]:
+    @staticmethod
+    def get_layers_to_categories_to_types() -> dict[str, dict[str, list[str]]]:
         """
         Generate a dictionary where the keys are names of each line layer,
         and the values more dictionaries where the keys are line categories from the above layer
@@ -55,7 +59,7 @@ class LineLayerSelector(QDialog):
         """
         layers_to_cats_to_types: dict[str, dict[str, list[str]]] = {}
 
-        for line_table in FEATURE_TABLES_LINES:
+        for line_table in sorted(FEATURE_TABLES_LINES):
             # Get dictionary for line table
             line_name = line_table.replace("_line", "")
             dic_table = f"dic_line_type_{line_name}"
@@ -204,17 +208,33 @@ class LineLayerSelector(QDialog):
             if preselected["type"] in types
         ][0]
 
-        # Get line attribute lists so that we can find index of given preselection
-        line_attribute_lists = {
-            "layer": list(self.layers_to_cats_to_types.keys()),
-            "category": list(self.layers_to_cats_to_types[preselected["layer"]].keys()),
-            "type": self.layers_to_cats_to_types[preselected["layer"]][preselected["category"]]
-        }
-
         # Set the current index of each combobox to be the given preselection
-        for line_attribute, value_list in line_attribute_lists.items():
-            # Add 1 to index because a default value is included in combobox list
-            self.comboboxes[line_attribute].setCurrentIndex(value_list.index(preselected[line_attribute]) + 1)
+        for line_attribute, combobox in self.comboboxes.items():
+            self.set_combobox_index_by_data(combobox, preselected[line_attribute])
+
+
+    @staticmethod
+    def set_combobox_index_by_data(combobox: QComboBox, data: Any) -> None:
+        """
+        Set the index of a given combobox to be the index at which the given data is found,
+        if it is found.
+        """
+        combobox_data_list = LineLayerSelector.get_combobox_data_list(combobox)
+        if data in combobox_data_list:
+            combobox.setCurrentIndex(combobox_data_list.index(data))
+
+
+    @staticmethod
+    def get_combobox_data_list(combobox: QComboBox) -> list[Any]:
+        """
+        Get a list of the data items from a given QComboBox object.
+        """
+        model = combobox.model()
+        data_list = [
+            model.index(row_idx, 0).data()
+            for row_idx in range(model.rowCount())
+        ]
+        return data_list
 
 
     def connect_signals_and_slots(self) -> None:
