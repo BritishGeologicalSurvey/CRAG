@@ -329,7 +329,7 @@ class FieldDataCapture:
 
         # Create a single add/edit/delete button for all line tables
         self.quick_map_tool_buttons["fdc_lines_add"] = self.add_action(
-            icon_path,
+            str(self.icons_dir / "quick_lines_add.png"),
             text=self.tr(u'Quick Add Lline'),
             callback=self.select_quick_line_layer_add,
             add_to_toolbar=True,
@@ -338,7 +338,7 @@ class FieldDataCapture:
         )
 
         self.quick_map_tool_buttons["fdc_lines_edit"] = self.add_action(
-            icon_path,
+            str(self.icons_dir / "quick_lines_edit.png"),
             text=self.tr(u'Quick Edit Line'),
             callback=lambda: self.toggle_quick_map_tool(
                 layer_name=FEATURE_TABLES_LINES,
@@ -351,7 +351,7 @@ class FieldDataCapture:
         )
 
         self.quick_map_tool_buttons["fdc_lines_delete"] = self.add_action(
-            icon_path,
+            str(self.icons_dir / "quick_lines_delete.png"),
             text=self.tr(u'Quick Delete Line'),
             callback=lambda: self.toggle_quick_map_tool(
                 layer_name=FEATURE_TABLES_LINES,
