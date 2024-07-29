@@ -88,13 +88,16 @@ from .quick_map_tools import (
     QuickEditTool,
     QuickDeleteTool,
 )
-from .utils import ipdb_breakpoint  # noqa
+from .utils import (  # noqa
+    FieldDataCaptureProject,
+    ipdb_breakpoint,
+)
 
 logger = logging.getLogger('fdc')
 logging.basicConfig(level=logging.DEBUG)
 
 
-class FieldDataCapture:
+class FieldDataCapture(FieldDataCaptureProject):
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface: QgisInterface):
@@ -129,8 +132,6 @@ class FieldDataCapture:
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
 
-        self.gpkg_filename = Path("field-data-capture.gpkg")
-
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
         self.photo_importer: Optional[PhotoImporter] = None
@@ -139,44 +140,13 @@ class FieldDataCapture:
 
         logger.debug("Field Data Capture plugin initialised.")
 
+
     @property
     def project_dir(self) -> Path:
         """
         Get the current project directory.
         """
         return Path(QgsProject.instance().readPath("./"))
-
-
-    @property
-    def db_file(self) -> Path:
-        """
-        Get the db file path from the current project.
-        """
-        return self.project_dir / self.gpkg_filename
-
-
-    @property
-    def styles_dir(self) -> Path:
-        """
-        Get the styles directory path from the current project.
-        """
-        return self.project_dir / "styles"
-
-
-    @property
-    def photos_dir(self) -> Path:
-        """
-        Get the photos directory path from the current project.
-        """
-        return self.project_dir / "photos"
-
-
-    @property
-    def media_dir(self) -> Path:
-        """
-        Get the media directory path from the current project.
-        """
-        return self.project_dir / "media"
 
 
     @property
