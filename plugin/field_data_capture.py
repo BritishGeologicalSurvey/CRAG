@@ -82,6 +82,10 @@ from .create_gpkg_from_sql import (
 )
 from .line_layer_selector import LineLayerSelector
 from .photo_importer import PhotoImporter
+from .project_validation import (
+    ValidationStatus,
+    validate_project,
+)
 from .report_builder import ReportBuilder
 from .quick_map_tools import (
     QuickAddTool,
@@ -366,6 +370,13 @@ class FieldDataCapture(FieldDataCaptureProject):
             icon_path,
             text=self.tr(u'Create Field Report'),
             callback=self.create_field_report,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Validate Current Project'),
+            callback=self.run_project_validation,
             parent=self.iface.mainWindow(),
         )
 
@@ -1283,3 +1294,48 @@ class FieldDataCapture(FieldDataCaptureProject):
         if self.photo_importer is not None:
             del self.photo_importer
             self.photo_importer = None
+
+
+    def run_project_validation(self) -> None:
+        """
+        Run the project validation against the current QGIS project.
+        """
+        if self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
+            results = validate_project(self.project_dir)
+
+            status_to_str = {
+                ValidationStatus.FAIL: "failed",
+                ValidationStatus.WARNING: "warning",
+                ValidationStatus.PASS: "passed",
+            }
+
+            all_messages: list[str] = []
+            result_statuses: set[ValidationStatus] = set()
+            for result in results:
+                result_statuses.add(result.status)
+
+                if result.status < ValidationStatus.PASS:
+                    # Prepare start of the message
+                    status_str = status_to_str[result.status]
+                    result_messages = [f"Validation {status_str} for function: {result.validation_function}"]
+
+                    for message in result.messages:
+                        # Indent child messages
+                        result_messages.append("\t" + message)
+
+                    all_messages.append("\n".join(result_messages))
+
+            # Get final status
+            status_to_qmsgbox = {
+                ValidationStatus.FAIL: QMessageBox.critical,
+                ValidationStatus.WARNING: QMessageBox.warning,
+                ValidationStatus.PASS: QMessageBox.information,
+            }
+            final_status = min(result_statuses)
+
+            # Prepare final message for QMessageBox
+            qmsgbox_msg = "\n\n".join([
+                f"Validation for project '{self.project_dir.name}' {status_to_str[final_status]}.",
+            ] + all_messages)
+
+            status_to_qmsgbox[final_status](None, "Project Validation", qmsgbox_msg)
