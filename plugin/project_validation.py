@@ -2,8 +2,13 @@ import dataclasses
 from enum import Enum
 from pathlib import Path
 
+from .config import (
+    FEATURE_STR_IDENTIFIERS,
+    FEATURE_TABLES,
+)
 from .utils import (  # noqa
     FieldDataCaptureProject,
+    get_table_rows,
     ipdb_breakpoint,
 )
 
@@ -51,6 +56,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
     Run all checks against the given project directory.
     """
     checks = [
+        check_features_valid_parents,
         check_no_conflict_gpkg_exists,
     ]
 
@@ -60,6 +66,37 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
     ]
 
     return results
+
+
+def check_features_valid_parents(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that all of the geometry features in the given project have a valid parent field_project.
+    """
+    result = ValidationResult(validation_function=check_features_valid_parents.__name__)
+    field_project_uuid = get_table_rows(project.db_file, "SELECT uuid FROM field_project")[0]["uuid"]
+
+    # Check all feature tables other than field_project
+    for table in sorted(FEATURE_TABLES - {"field_project"}):
+        feature_identifier = FEATURE_STR_IDENTIFIERS[table]
+        rows = get_table_rows(project.db_file, f"SELECT field_project_fuid, {feature_identifier} FROM {table}")
+
+        # Perform check
+        bad_rows = [
+            row
+            for row in rows
+            if row["field_project_fuid"] != field_project_uuid
+        ]
+
+        # Prepare results
+        # If failed
+        if len(bad_rows) > 0:
+            result.status = ValidationStatus.FAIL
+            for bad_row in bad_rows:
+                result.messages.append(
+                    f"{table} with invalid parent field_project found: {bad_row[feature_identifier]}"
+                )
+
+    return result
 
 
 def check_no_conflict_gpkg_exists(project: FieldDataCaptureProject) -> ValidationResult:
@@ -73,9 +110,9 @@ def check_no_conflict_gpkg_exists(project: FieldDataCaptureProject) -> Validatio
     conflict_files = list(project.project_dir.glob("*conflicted copy*.gpkg"))
 
     # Prepare results
-    # If pass
+    # If failed
     if len(conflict_files) > 0:
-        result.status = ValidationStatus.FAIL
+        result.status = ValidationStatus.WARNING
         for conflict_file in conflict_files:
             result.messages.append(f"Conflict GeoPackge file found: {conflict_file.name}")
 
