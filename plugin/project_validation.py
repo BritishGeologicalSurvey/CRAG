@@ -13,6 +13,15 @@ from .utils import (  # noqa
     ipdb_breakpoint,
 )
 
+ATTACHMENT_TABLES = {
+    "media": "media_link",
+    "photo": "photo_file",
+}
+ATTACHMENT_DIRS = {
+    "media": "media",
+    "photo": "photos",
+}
+
 
 class ValidationStatus(Enum):
     """
@@ -60,6 +69,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
         check_features_valid_parents,
         check_locality_children_valid_parents,
         check_field_project_plugin_version,
+        check_attached_filepaths_exist,
         check_no_conflict_gpkg_exists,
     ]
 
@@ -154,6 +164,35 @@ def check_field_project_plugin_version(project: FieldDataCaptureProject) -> Vali
     if plugin_version is None:
         result.status = ValidationStatus.FAIL
         result.messages.append("field_project does not include a valid plugin version")
+
+    return result
+
+
+def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that all filepaths which are saved into the given project (e.g. photos/media)
+    have a matching and existing file within the file.
+    """
+    result = ValidationResult(validation_function=check_attached_filepaths_exist.__name__)
+
+    for table, attachment_col in ATTACHMENT_TABLES.items():
+        attachment_dir: Path = getattr(project, f"{ATTACHMENT_DIRS[table]}_dir")
+
+        # Perform check
+        non_existing_attachments = [
+            row[attachment_col]
+            for row in get_table_rows(project.db_file, f"SELECT {attachment_col} FROM {table}")
+            if not (attachment_dir / row[attachment_col]).exists()
+        ]
+
+        # Prepare results
+        # If failed
+        if len(non_existing_attachments) > 0:
+            result.status = ValidationStatus.FAIL
+            for attachment in non_existing_attachments:
+                result.messages.append(
+                    f"{table} record with non-existing file found: {attachment}"
+                )
 
     return result
 

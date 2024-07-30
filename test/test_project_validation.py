@@ -79,6 +79,14 @@ def test_validate_project_bad(fdc_project_bad: Path):
             ],
         ),
         ValidationResult(
+            validation_function="check_attached_filepaths_exist",
+            status=ValidationStatus.FAIL,
+            messages=[
+                "media record with non-existing file found: file_does_no_exist.mov",
+                "photo record with non-existing file found: file_does_no_exist.jpg",
+            ],
+        ),
+        ValidationResult(
             validation_function="check_no_conflict_gpkg_exists",
             status=ValidationStatus.WARNING,
             messages=[
