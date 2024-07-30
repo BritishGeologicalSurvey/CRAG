@@ -147,13 +147,15 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     message_types = [
         "information",
         "warning",
+        "critical",
     ]
     for message_type in message_types:
         # Usually, QMessageBoxes prevent tests from progressing, as they require user input
         # To show a message, the code would usually be:
         # result = QMessageBox.warning(parent, title, message)
-        # The monkeypatched version swallows the arguments and always returns QMessageBox.Ok
-        monkeypatch.setattr(QMessageBox, message_type, lambda *args: QMessageBox.Ok)
+        # The monkeypatched version swallows the arguments and always returns QMessageBox.Ok through a Mock object
+        qmsgbox_mock = Mock(return_value=QMessageBox.Ok)
+        monkeypatch.setattr(QMessageBox, message_type, qmsgbox_mock)
 
     # Apply monkeypatch for unsaved edits message box because it is setup manually
     monkeypatch.setattr(QMessageBox, "exec", lambda *args: True)
