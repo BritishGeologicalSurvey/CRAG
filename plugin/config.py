@@ -74,6 +74,13 @@ LOCALITY_POINT_CHILDREN = ATTRIBUTE_TABLES - {"field_project"}
 FEATURE_STR_IDENTIFIERS = {
     **{
         "locality_point": "name",
+        "lithology": "lithology_code",
+        "manmade_landform": "manmade_type_code",
+        "media": "media_link",
+        "photo": "photo_file",
+        "sample": "sample_id",
+        "structural_measurement": "structure_type_code",
+        "superficial_landform": "superficial_type_code",
     },
     **{
         line_table: "line_type_code"
