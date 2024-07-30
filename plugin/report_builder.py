@@ -18,7 +18,10 @@ from qgis.PyQt.QtWidgets import QMessageBox
 
 from .config import LOCALITY_POINT_CHILDREN
 from .create_gpkg_from_sql import WORKDIR
-from .utils import ipdb_breakpoint  # noqa
+from .utils import (  # noqa
+    get_table_rows,
+    ipdb_breakpoint,
+)
 
 logger = logging.getLogger('report_builder')
 
@@ -173,7 +176,8 @@ class ReportBuilder:
         Query the field_project table to extract data for the single project
         """
         sql = "SELECT * FROM field_project"
-        rows = self.get_rows(sql)
+        rows = get_table_rows(self.db_file, sql)
+        rows = self.remove_microseconds_by_row(rows)
         return rows[0]
 
 
@@ -187,7 +191,8 @@ class ReportBuilder:
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
 
         sql = "SELECT *, AsText(CastAutomagic(geometry)) as geom FROM locality_point"
-        rows = self.get_rows(sql)
+        rows = get_table_rows(self.db_file, sql)
+        rows = self.remove_microseconds_by_row(rows)
 
         locality_points = {}
         for row in rows:
@@ -234,29 +239,7 @@ class ReportBuilder:
         sql += CHILD_JOINS[table]
         sql += f" WHERE locality_point.name LIKE '{locality_name}'"
 
-        rows = self.get_rows(sql)
-        return rows
-
-
-    def get_rows(self, sql: str) -> dict[str, Any]:
-        """
-        Get the data as a dictionary for a given attibute (table) and locality point.
-        """
-
-        # See https://docs.python.org/3/library/sqlite3.html#sqlite3-howto-row-factory
-        def dict_factory(cursor, row):
-            fields = [column[0] for column in cursor.description]
-            return {key: value for key, value in zip(fields, row)}
-
-        rows = []
-        with sqlite3.connect(self.db_file) as conn:
-            conn.enable_load_extension(True)
-            conn.execute("SELECT load_extension('mod_spatialite');")
-            conn.row_factory = dict_factory
-            cursor = conn.cursor()
-            cursor.execute(sql)
-            rows = cursor.fetchall()
-
+        rows = get_table_rows(self.db_file, sql)
         rows = self.remove_microseconds_by_row(rows)
         return rows
 
