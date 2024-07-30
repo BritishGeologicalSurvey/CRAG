@@ -5,6 +5,7 @@ from pathlib import Path
 from .config import (
     FEATURE_STR_IDENTIFIERS,
     FEATURE_TABLES,
+    LOCALITY_POINT_CHILDREN,
 )
 from .utils import (  # noqa
     FieldDataCaptureProject,
@@ -57,6 +58,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
     """
     checks = [
         check_features_valid_parents,
+        check_locality_children_valid_parents,
         check_no_conflict_gpkg_exists,
     ]
 
@@ -94,6 +96,39 @@ def check_features_valid_parents(project: FieldDataCaptureProject) -> Validation
             for bad_row in bad_rows:
                 result.messages.append(
                     f"{table} with invalid parent field_project found: {bad_row[feature_identifier]}"
+                )
+
+    return result
+
+
+def check_locality_children_valid_parents(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that all of the locality_point child features in the given project have a valid parent locality_point.
+    """
+    result = ValidationResult(validation_function=check_locality_children_valid_parents.__name__)
+    locality_point_uuids = {
+        row["uuid"]
+        for row in get_table_rows(project.db_file, "SELECT uuid FROM locality_point")
+    }
+
+    for table in sorted(LOCALITY_POINT_CHILDREN):
+        feature_identifier = FEATURE_STR_IDENTIFIERS[table]
+        rows = get_table_rows(project.db_file, f"SELECT locality_fuid, {feature_identifier} FROM {table}")
+
+        # Perform check
+        bad_rows = [
+            row
+            for row in rows
+            if row["locality_fuid"] not in locality_point_uuids
+        ]
+
+        # Prepare results
+        # If failed
+        if len(bad_rows) > 0:
+            result.status = ValidationStatus.FAIL
+            for bad_row in bad_rows:
+                result.messages.append(
+                    f"{table} with invalid parent locality_point found: {bad_row[feature_identifier]}"
                 )
 
     return result

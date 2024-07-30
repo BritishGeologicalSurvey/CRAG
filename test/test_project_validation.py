@@ -58,6 +58,14 @@ def test_validate_project_bad(fdc_project_bad: Path):
             ],
         ),
         ValidationResult(
+            validation_function="check_locality_children_valid_parents",
+            status=ValidationStatus.FAIL,
+            messages=[
+                "media with invalid parent locality_point found: file_does_no_exist.mov",
+                "sample with invalid parent locality_point found: sample_001",
+            ],
+        ),
+        ValidationResult(
             validation_function="check_no_conflict_gpkg_exists",
             status=ValidationStatus.PASS,
             messages=[],
