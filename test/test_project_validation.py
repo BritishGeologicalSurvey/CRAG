@@ -16,7 +16,7 @@ from conftest import create_fdc_project_files
 @pytest.fixture()
 def fdc_project_bad(tmp_path: Path) -> Path:
     """
-    Fixture to setup a test project which is purposefully invalid.
+    Fixture to setup a test project which is purposefully invalid and breaks all validation checks.
     Creates a project with a database which contains some data and photo files.
     """
     project_dir = tmp_path / "fdc_project_invalid"
@@ -28,11 +28,17 @@ def fdc_project_bad(tmp_path: Path) -> Path:
         ],
         "media": [],
     }
+
     create_fdc_project_files(
         project_dir=project_dir,
         insert_data_sql=Path("test/data/fdc_project_invalid.sql"),
         feature_filepaths=feature_filepaths,
     )
+
+    # Add a dummy conflict GeoPackage to the project
+    dummy_conflict_gpkg = project_dir / "field-data-capture (conflicted copy).gpkg"
+    dummy_conflict_gpkg.touch()
+
     return project_dir
 
 
@@ -67,8 +73,10 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_no_conflict_gpkg_exists",
-            status=ValidationStatus.PASS,
-            messages=[],
+            status=ValidationStatus.WARNING,
+            messages=[
+                "Conflict GeoPackge file found: field-data-capture (conflicted copy).gpkg",
+            ],
         ),
     ]
 
