@@ -76,6 +76,7 @@ def check_features_valid_parents(project: FieldDataCaptureProject) -> Validation
     Check that all of the geometry features in the given project have a valid parent field_project.
     """
     result = ValidationResult(validation_function=check_features_valid_parents.__name__)
+
     field_project_uuid = get_table_rows(project.db_file, "SELECT uuid FROM field_project")[0]["uuid"]
 
     # Check all feature tables other than field_project
@@ -107,6 +108,7 @@ def check_locality_children_valid_parents(project: FieldDataCaptureProject) -> V
     Check that all of the locality_point child features in the given project have a valid parent locality_point.
     """
     result = ValidationResult(validation_function=check_locality_children_valid_parents.__name__)
+
     locality_point_uuids = {
         row["uuid"]
         for row in get_table_rows(project.db_file, "SELECT uuid FROM locality_point")
