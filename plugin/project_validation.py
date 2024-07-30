@@ -59,6 +59,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
     checks = [
         check_features_valid_parents,
         check_locality_children_valid_parents,
+        check_field_project_plugin_version,
         check_no_conflict_gpkg_exists,
     ]
 
@@ -130,6 +131,27 @@ def check_locality_children_valid_parents(project: FieldDataCaptureProject) -> V
                 result.messages.append(
                     f"{table} with invalid parent locality_point found: {bad_row[feature_identifier]}"
                 )
+
+    return result
+
+
+def check_field_project_plugin_version(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that a plugin version is included in the field_project record of the given project.
+    """
+    result = ValidationResult(validation_function=check_field_project_plugin_version.__name__)
+
+    # Perform check
+    plugin_version = get_table_rows(
+        project.db_file,
+        "SELECT qgis_plugin_version FROM field_project",
+    )[0]["qgis_plugin_version"]
+
+    # Prepare results
+    # If failed
+    if plugin_version is None:
+        result.status = ValidationStatus.FAIL
+        result.messages.append("field_project does not include a valid plugin version")
 
     return result
 

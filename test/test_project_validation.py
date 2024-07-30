@@ -72,6 +72,13 @@ def test_validate_project_bad(fdc_project_bad: Path):
             ],
         ),
         ValidationResult(
+            validation_function="check_field_project_plugin_version",
+            status=ValidationStatus.FAIL,
+            messages=[
+                "field_project does not include a valid plugin version",
+            ],
+        ),
+        ValidationResult(
             validation_function="check_no_conflict_gpkg_exists",
             status=ValidationStatus.WARNING,
             messages=[
