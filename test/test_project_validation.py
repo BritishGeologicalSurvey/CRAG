@@ -87,6 +87,14 @@ def test_validate_project_bad(fdc_project_bad: Path):
             ],
         ),
         ValidationResult(
+            validation_function="check_attachment_filepaths_recorded",
+            status=ValidationStatus.FAIL,
+            # Project path here is dynamic because it comes from the tmp_path fixture
+            messages=[
+                f"photo unrecorded file found: {fdc_project_bad / 'photos/no_exif_data.jpg'}",
+            ],
+        ),
+        ValidationResult(
             validation_function="check_no_conflict_gpkg_exists",
             status=ValidationStatus.WARNING,
             messages=[

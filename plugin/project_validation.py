@@ -70,6 +70,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
         check_locality_children_valid_parents,
         check_field_project_plugin_version,
         check_attached_filepaths_exist,
+        check_attachment_filepaths_recorded,
         check_no_conflict_gpkg_exists,
     ]
 
@@ -192,6 +193,44 @@ def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> Validati
             for attachment in non_existing_attachments:
                 result.messages.append(
                     f"{table} record with non-existing file found: {attachment}"
+                )
+
+    return result
+
+
+def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that all attachment filepaths which are saved into the given project directory (e.g. photos/media)
+    have a matching record within the database.
+    """
+    result = ValidationResult(validation_function=check_attachment_filepaths_recorded.__name__)
+
+    for table, attachment_col in ATTACHMENT_TABLES.items():
+        attachment_dir: Path = getattr(project, f"{ATTACHMENT_DIRS[table]}_dir")
+
+        # Perform check
+        recorded_attachments = {
+            Path(row[attachment_col])
+            for row in get_table_rows(project.db_file, f"SELECT {attachment_col} FROM {table}")
+        }
+
+        unrecorded_attachments = [
+            attachment
+            for attachment in attachment_dir.rglob("*")
+            if all((
+                attachment.is_file(),
+                attachment.name != ".placeholder",
+                attachment.relative_to(attachment_dir) not in recorded_attachments,
+            ))
+        ]
+
+        # Prepare results
+        # If failed
+        if len(unrecorded_attachments) > 0:
+            result.status = ValidationStatus.FAIL
+            for attachment in unrecorded_attachments:
+                result.messages.append(
+                    f"{table} unrecorded file found: {attachment}"
                 )
 
     return result
