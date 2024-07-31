@@ -1326,7 +1326,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
             # Prepare final message for QMessageBox
             qmsgbox_msg = "\n\n".join([
-                f"Validation for project '{self.project_dir.name}' {status_to_str[final_status]}.",
+                f"Validation for project '{self.project_dir.name}': {status_to_str[final_status].upper()}",
             ] + all_messages)
 
             status_to_qmsgbox[final_status](None, "Project Validation", qmsgbox_msg)

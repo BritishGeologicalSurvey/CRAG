@@ -108,7 +108,7 @@ def check_features_valid_parents(project: FieldDataCaptureProject) -> Validation
             result.status = ValidationStatus.FAIL
             for bad_row in bad_rows:
                 result.messages.append(
-                    f"{table} with invalid parent field_project found: {bad_row[feature_identifier]}"
+                    f"Record in '{table}' with invalid parent 'field_project' found: {bad_row[feature_identifier]}"
                 )
 
     return result
@@ -142,7 +142,7 @@ def check_locality_children_valid_parents(project: FieldDataCaptureProject) -> V
             result.status = ValidationStatus.FAIL
             for bad_row in bad_rows:
                 result.messages.append(
-                    f"{table} with invalid parent locality_point found: {bad_row[feature_identifier]}"
+                    f"Record in '{table}' with invalid parent 'locality_point' found: {bad_row[feature_identifier]}"
                 )
 
     return result
@@ -164,7 +164,7 @@ def check_field_project_plugin_version(project: FieldDataCaptureProject) -> Vali
     # If failed
     if plugin_version is None:
         result.status = ValidationStatus.FAIL
-        result.messages.append("field_project does not include a valid plugin version")
+        result.messages.append("The 'field_project' record does not include a valid 'qgis_plugin_version'")
 
     return result
 
@@ -192,7 +192,7 @@ def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> Validati
             result.status = ValidationStatus.FAIL
             for attachment in non_existing_attachments:
                 result.messages.append(
-                    f"{table} record with non-existing file found: {attachment}"
+                    f"Record in '{table}' with non-existing file found: {attachment}"
                 )
 
     return result
@@ -230,7 +230,7 @@ def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> Val
             result.status = ValidationStatus.FAIL
             for attachment in unrecorded_attachments:
                 result.messages.append(
-                    f"{table} unrecorded file found: {attachment}"
+                    f"Unrecorded file for '{table}' found: {attachment}"
                 )
 
     return result

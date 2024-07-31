@@ -59,31 +59,31 @@ def test_validate_project_bad(fdc_project_bad: Path):
             validation_function="check_features_valid_parents",
             status=ValidationStatus.FAIL,
             messages=[
-                "bedrock_line with invalid parent field_project found: algal_band",
-                "locality_point with invalid parent field_project found: leorudczenko_002",
+                "Record in 'bedrock_line' with invalid parent 'field_project' found: algal_band",
+                "Record in 'locality_point' with invalid parent 'field_project' found: leorudczenko_002",
             ],
         ),
         ValidationResult(
             validation_function="check_locality_children_valid_parents",
             status=ValidationStatus.FAIL,
             messages=[
-                "media with invalid parent locality_point found: file_does_no_exist.mov",
-                "sample with invalid parent locality_point found: sample_001",
+                "Record in 'media' with invalid parent 'locality_point' found: file_does_no_exist.mov",
+                "Record in 'sample' with invalid parent 'locality_point' found: sample_001",
             ],
         ),
         ValidationResult(
             validation_function="check_field_project_plugin_version",
             status=ValidationStatus.FAIL,
             messages=[
-                "field_project does not include a valid plugin version",
+                "The 'field_project' record does not include a valid 'qgis_plugin_version'",
             ],
         ),
         ValidationResult(
             validation_function="check_attached_filepaths_exist",
             status=ValidationStatus.FAIL,
             messages=[
-                "media record with non-existing file found: file_does_no_exist.mov",
-                "photo record with non-existing file found: file_does_no_exist.jpg",
+                "Record in 'media' with non-existing file found: file_does_no_exist.mov",
+                "Record in 'photo' with non-existing file found: file_does_no_exist.jpg",
             ],
         ),
         ValidationResult(
@@ -91,7 +91,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
             status=ValidationStatus.FAIL,
             # Project path here is dynamic because it comes from the tmp_path fixture
             messages=[
-                f"photo unrecorded file found: {fdc_project_bad / 'photos/no_exif_data.jpg'}",
+                f"Unrecorded file for 'photo' found: {fdc_project_bad / 'photos/no_exif_data.jpg'}",
             ],
         ),
         ValidationResult(
@@ -119,7 +119,7 @@ def test_validate_project_plugin_pass(fdc_project: FieldDataCapture):
     QMessageBox.information.assert_called_with(
         None,
         "Project Validation",
-        "Validation for project 'test_project_dir' passed.",
+        "Validation for project 'test_project_dir': PASSED",
     )
 
 
@@ -138,7 +138,7 @@ def test_validate_project_plugin_warning(fdc_project: FieldDataCapture):
         None,
         "Project Validation",
         (
-            "Validation for project 'test_project_dir' warning.\n\n"
+            "Validation for project 'test_project_dir': WARNING\n\n"
             "Conflict GeoPackge file found: field-data-capture (conflicted copy).gpkg"
         ),
     )
