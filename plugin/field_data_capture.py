@@ -1303,29 +1303,20 @@ class FieldDataCapture(FieldDataCaptureProject):
         if self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
             results = validate_project(self.project_dir)
 
-            status_to_str = {
-                ValidationStatus.FAIL: "failed",
-                ValidationStatus.WARNING: "warning",
-                ValidationStatus.PASS: "passed",
-            }
-
             all_messages: list[str] = []
             result_statuses: set[ValidationStatus] = set()
             for result in results:
                 result_statuses.add(result.status)
 
                 if result.status < ValidationStatus.PASS:
-                    # Prepare start of the message
-                    status_str = status_to_str[result.status]
-                    result_messages = [f"Validation {status_str} for function: {result.validation_function}"]
-
-                    for message in result.messages:
-                        # Indent child messages
-                        result_messages.append("\t" + message)
-
-                    all_messages.append("\n".join(result_messages))
+                    all_messages.append("\n".join(result.messages))
 
             # Get final status
+            status_to_str = {
+                ValidationStatus.FAIL: "failed",
+                ValidationStatus.WARNING: "warning",
+                ValidationStatus.PASS: "passed",
+            }
             status_to_qmsgbox = {
                 ValidationStatus.FAIL: QMessageBox.critical,
                 ValidationStatus.WARNING: QMessageBox.warning,
