@@ -59,9 +59,6 @@ class PhotoImporter(QDialog):
         self.photos_to_widgets: dict[Path, dict[str, QWidget]] = {}
         self.photo_widget_size = 200
 
-        # Make it modal so changes are not made whilst importing photos
-        self.exec()
-
 
     def setup_ui_elements(self) -> None:
         """

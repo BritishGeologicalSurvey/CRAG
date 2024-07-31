@@ -80,6 +80,7 @@ from .create_gpkg_from_sql import (
     add_test_data,
     WORKDIR,
 )
+from .line_layer_selector import LineLayerSelector
 from .photo_importer import PhotoImporter
 from .report_builder import ReportBuilder
 from .quick_map_tools import (
@@ -133,6 +134,8 @@ class FieldDataCapture:
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
         self.photo_importer: Optional[PhotoImporter] = None
+        self.line_layer_selector: Optional[LineLayerSelector] = None
+        self.last_quick_add_line_type: Optional[dict[str, str]] = None
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -323,6 +326,46 @@ class FieldDataCapture:
             parent=self.iface.mainWindow(),
             checkable=True,
         )
+
+        # Create a single add/edit/delete button for all line tables
+        self.quick_map_tool_buttons["fdc_lines_add"] = self.add_action(
+            str(self.icons_dir / "quick_lines_add.png"),
+            text=self.tr(u'Quick Add Lline'),
+            callback=self.select_quick_line_layer_add,
+            add_to_toolbar=True,
+            parent=self.iface.mainWindow(),
+            checkable=True,
+        )
+
+        self.quick_map_tool_buttons["fdc_lines_edit"] = self.add_action(
+            str(self.icons_dir / "quick_lines_edit.png"),
+            text=self.tr(u'Quick Edit Line'),
+            callback=lambda: self.toggle_quick_map_tool(
+                layer_name=FEATURE_TABLES_LINES,
+                mode="edit",
+                layers_ref="lines",
+            ),
+            add_to_toolbar=True,
+            parent=self.iface.mainWindow(),
+            checkable=True,
+        )
+
+        self.quick_map_tool_buttons["fdc_lines_delete"] = self.add_action(
+            str(self.icons_dir / "quick_lines_delete.png"),
+            text=self.tr(u'Quick Delete Line'),
+            callback=lambda: self.toggle_quick_map_tool(
+                layer_name=FEATURE_TABLES_LINES,
+                mode="delete",
+                layers_ref="lines",
+            ),
+            add_to_toolbar=True,
+            parent=self.iface.mainWindow(),
+            checkable=True,
+        )
+
+        # Link all line tables to the same add button
+        for line_table in FEATURE_TABLES_LINES:
+            self.quick_map_tool_buttons[f"fdc_{line_table}_add"] = self.quick_map_tool_buttons["fdc_lines_add"]
 
         self.button_setup_project = self.add_action(
             icon_path,
@@ -1045,10 +1088,75 @@ class FieldDataCapture:
         return True
 
 
-    def toggle_quick_map_tool(self, layer_name: str, mode: str) -> bool:
+    def select_quick_line_layer_add(self) -> bool:
+        """
+        Get the user to select a line layer to be used with a QuickMapTool with the add mode.
+        Returns a boolean indicating if the given tool was toggled.
+        """
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True) or self.warn_unsaved_locality_data():  # noqa
+            # Disable active tool if there is one and untoggle buttons to ensure things are not left in a bad state
+            self.disable_current_quick_map_tool()
+            self.untoggle_quick_map_tool_buttons()
+            return False
+
+        # If the quick add lines tool is already in use, disable it
+        map_tool = self.iface.mapCanvas().mapTool()
+        if isinstance(map_tool, QuickAddTool) and map_tool._layer.name() in FEATURE_TABLES_LINES:
+            return self.toggle_quick_map_tool(layer_name=map_tool._layer.name(), mode=map_tool.quick_mode)
+
+        # Open line layer selector tool
+        self.line_layer_selector = LineLayerSelector(self.last_quick_add_line_type)
+        self.line_layer_selector.line_layer_selector_confirm.connect(self.confirm_line_layer_selector)
+        self.line_layer_selector.line_layer_selector_closed.connect(self.close_line_layer_selector)
+        # Show it in a modal state
+        self.line_layer_selector.exec()
+        return True
+
+
+    def confirm_line_layer_selector(self, line_layer: str, line_type: str) -> None:
+        """
+        Confirm the selection from the line layer selector and toggling the required tool.
+        """
+        # Save selection
+        self.last_quick_add_line_type = {
+            "layer": line_layer,
+            "type": line_type,
+        }
+
+        self.close_line_layer_selector(reset_buttons=False)
+        self.toggle_quick_map_tool(
+            layer_name=line_layer,
+            mode="add",
+            prepopulate={"line_type_code": line_type},
+        )
+
+
+    def close_line_layer_selector(self, reset_buttons: bool = True) -> None:
+        """
+        Delete the current line layer selector object if there is one.
+        """
+        if reset_buttons:
+            self.disable_current_quick_map_tool()
+            self.untoggle_quick_map_tool_buttons()
+        if self.line_layer_selector is not None:
+            # Make sure it is closed first
+            self.line_layer_selector.close()
+            del self.line_layer_selector
+            self.line_layer_selector = None
+
+
+    def toggle_quick_map_tool(
+        self,
+        layer_name: str | list[str],
+        mode: str,
+        layers_ref: Optional[str] = None,
+        prepopulate: Optional[dict[str, Any]] = None,
+    ) -> bool:
         """
         Toggle the required quick map tool for the given layer and mode.
         This will automatically disable any other quick map tools which are currently active.
+        Takes an optional layers_ref value which is used to name the layers the tool is used on when it is more than 1.
+        Takes an optional dictionary which can be used to prepopulate values in features created by the tool.
         Returns a boolean indicating if the given tool was toggled.
         """
         # Don't validate that a field_project exists if the tool is for the layer field_project
@@ -1061,8 +1169,15 @@ class FieldDataCapture:
             self.untoggle_quick_map_tool_buttons()
             return False
 
-        toggled_quick_map_tool_name = f"fdc_{layer_name}_{mode}"
-        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        if isinstance(layer_name, str):
+            toggled_quick_map_tool_name = f"fdc_{layer_name}_{mode}"
+            layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        else:
+            toggled_quick_map_tool_name = f"fdc_{layers_ref}_{mode}"
+            layer = [
+                QgsProject.instance().mapLayersByName(layer_name_)[0]
+                for layer_name_ in layer_name
+            ]
 
         # Get the current map tool before changing anything
         map_tool = self.iface.mapCanvas().mapTool()
@@ -1075,16 +1190,22 @@ class FieldDataCapture:
         # If the current qgis map tool is different to the toggled quick map tool
         # then we need to enable the toggled map tool as the user is trying to enable it
         if map_tool is None or map_tool.toolName() != toggled_quick_map_tool_name:
-            self.enable_quick_map_tool(layer, mode)
+            self.enable_quick_map_tool(layer, mode, toggled_quick_map_tool_name, prepopulate)
 
         return True
 
 
-    def enable_quick_map_tool(self, layer: QgsVectorLayer, mode: str) -> None:
+    def enable_quick_map_tool(
+        self,
+        layer: QgsVectorLayer | list[QgsVectorLayer],
+        mode: str,
+        tool_name: str,
+        prepopulate: Optional[dict[str, Any]] = None,
+    ) -> None:
         """
         Setup the required quick map tool for the given layer and mode.
+        Takes an optional dictionary which can be used to prepopulate values in features created by the tool.
         """
-        tool_name = f"fdc_{layer.name()}_{mode}"
         mode_tools = {
             "add": QuickAddTool,
             "edit": QuickEditTool,
@@ -1097,7 +1218,7 @@ class FieldDataCapture:
         else:
             action = None
 
-        self.quick_map_tool = mode_tools[mode](self.iface, layer, action)
+        self.quick_map_tool = mode_tools[mode](self.iface, layer, tool_name, action, prepopulate)
 
         # Connect the required signals
         self.quick_map_tool.warn_unsaved_locality_data.connect(self.warn_unsaved_locality_data)
@@ -1178,8 +1299,9 @@ class FieldDataCapture:
             return False
 
         self.photo_importer = PhotoImporter(self.photos_dir)
-
         self.photo_importer.photo_importer_closed.connect(self.close_photo_importer)
+        # Make it modal so changes are not made whilst importing photos
+        self.photo_importer.exec()
 
         return True
 

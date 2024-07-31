@@ -32,7 +32,7 @@ def test_close_photo_importer(fdc_project: FieldDataCapture):
     fdc_project.open_photo_importer()
 
     # Act
-    fdc_project.photo_importer.photo_importer_closed.emit()
+    fdc_project.photo_importer.cancel_button.click()
 
     # Assert
     assert fdc_project.photo_importer is None
