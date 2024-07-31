@@ -34,22 +34,6 @@ CREATE TABLE IF NOT EXISTS "dic_media" (
 INSERT INTO gpkg_contents
 VALUES('dic_media','attributes','dic_media','Media type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
-CREATE TABLE IF NOT EXISTS "dic_field_project_type" (
-	"fid"	INTEGER NOT NULL,
-	"code"	TEXT NOT NULL UNIQUE,
-	"description"	TEXT NOT NULL,
-	"translation"	TEXT,
-	"status"	TEXT,
-	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATETIME NOT NULL,
-	"user_updated"	TEXT,
-	"date_updated"	DATETIME,
-	PRIMARY KEY("fid" AUTOINCREMENT)
-);
-
-INSERT INTO gpkg_contents
-VALUES('dic_field_project_type','attributes','dic_field_project_type','Field project type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
-
 CREATE TABLE IF NOT EXISTS "dic_manmade_landform" (
 	"fid"	INTEGER NOT NULL,
 	"category"	TEXT,
@@ -177,14 +161,6 @@ INSERT INTO "dic_media" ("fid","code","description","translation","status","user
 INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'spreadsheet','Spreadsheet or CSV','','C','colb','09/07/2024',NULL,NULL);
 INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'document','Word, PDF or Text document','','C','colb','09/07/2024',NULL,NULL);
 INSERT INTO "dic_media" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'other','Other file type','','C','colb','09/07/2024',NULL,NULL);
-
-INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'field_work','Field work','','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'rapid_field_work','Rapid field work','','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'remote_sensing','Derived using remote sensing resources','','C','jbow','13/09/2023',NULL,NULL);
-INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'desk_compilation','Desk compilation','','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'archive_upload','Archive upload','','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'lab_study','Lab study','','C','jbow','04/09/2023',NULL,NULL);
-INSERT INTO "dic_field_project_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'derived_from_paper','Derived from a paper map or fieldslip','','C','jbow','04/09/2023',NULL,NULL);
 
 INSERT INTO "dic_locality_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'outcrop','Outcrop','','C','kigl','01/01/2012','jbow','13/09/2023');
 INSERT INTO "dic_locality_type" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'section','Section','','C','kigl','01/01/2012','jbow','13/09/2023');

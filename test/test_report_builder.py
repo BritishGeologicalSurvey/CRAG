@@ -11,7 +11,7 @@ from plugin.utils import ipdb_breakpoint  # noqa
 
 # Minimum set of columns needed to produce a report using the templates
 EXPECTED_COMMON_COLUMNS = {"user_entered", "date_entered", "user_updated", "date_updated"}
-EXPECTED_PROJECT_COLUMNS = {"project_lead", "field_project_type", "start_date", "end_date", "description"}
+EXPECTED_PROJECT_COLUMNS = {"project_lead", "start_date", "end_date", "description"}
 EXPECTED_LOCALITY_COLUMNS = {"name", "locality_type_code", "geometry",
                              "locality_description", "map_face_note", "geology_description"}
 EXPECTED_CHILD_COLUMNS = {

@@ -298,7 +298,6 @@ def test_field_project_limit_1_trigger(test_data_gpkg: sqlite3.Connection):
     new_field_project = {
         "uuid": "{d57614a8-21bb-47a5-8cb6-82c0b009ec1b}",
         "short_name": "extra_field_project",
-        "field_project_type": "DESK",
         "local_epsg": 27700,
         "mapped_scale": 25000,
         "user_entered": "leorud",

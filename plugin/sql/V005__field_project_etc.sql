@@ -20,10 +20,8 @@ CREATE TABLE IF NOT EXISTS "field_project" (
 	"title"	TEXT,
 	"description"	TEXT,
 	"project_lead"	TEXT,
-	"status_code"	TEXT,
 	"start_date"	DATE,
 	"end_date"	DATE,
-	"field_project_type"	TEXT NOT NULL,
 	"local_epsg"  INTEGER NOT NULL,
 	"notes"	TEXT,
 	"mapped_scale"	INTEGER NOT NULL,
@@ -33,7 +31,6 @@ CREATE TABLE IF NOT EXISTS "field_project" (
 	"date_updated"	DATETIME,
 	"qgis_plugin_version"	TEXT,
 	"geometry"	POLYGON NOT NULL,
-	FOREIGN KEY("field_project_type") REFERENCES "dic_field_project_type"("code"),
 	PRIMARY KEY("fid" AUTOINCREMENT)
 );
 

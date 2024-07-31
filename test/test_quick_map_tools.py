@@ -325,7 +325,6 @@ def test_field_project_add_confirm(
     # Arrange 2
     attributes = {
         "short_name": "test_field_project",
-        "field_project_type": "field_work",
         "local_epsg": 27700,
     }
     monkeypatch_feature_form_modify_attributes(attributes, fdc, monkeypatch)

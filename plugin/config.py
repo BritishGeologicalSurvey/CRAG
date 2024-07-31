@@ -22,7 +22,6 @@ TABLES = {
     ],
     "attributes": [
         # Dictionaries
-        "dic_field_project_type",
         "dic_line_type_artificial",
         "dic_line_type_bedrock",
         "dic_line_type_mass_move",

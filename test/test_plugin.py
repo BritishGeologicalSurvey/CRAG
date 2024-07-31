@@ -75,7 +75,6 @@ def test_check_field_project_exists(fdc: FieldDataCapture, qgs_project):
     # Set required properties
     properties = {
         "short_name": "test_field_project",
-        "field_project_type": "field_work",
         "local_epsg": 27700,
     }
     for property, value in properties.items():
