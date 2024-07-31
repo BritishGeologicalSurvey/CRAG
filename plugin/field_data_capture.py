@@ -489,7 +489,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         """
         missing_layers = [
             table_name
-            for table_name in set(TABLE_LIST) - {"view_photo", "view_media", "view_sample"}
+            for table_name in TABLE_LIST
             if not FieldDataCapture.check_layer_exists(table_name)
         ]
         if len(missing_layers) == 0:
