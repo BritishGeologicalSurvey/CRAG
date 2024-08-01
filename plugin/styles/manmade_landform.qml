@@ -185,9 +185,9 @@
     <default applyOnUpdate="0" expression="" field="length"></default>
     <default applyOnUpdate="0" expression="" field="width"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
-    <default applyOnUpdate="0" expression="coalesce(@mergin_username, @user_account_name)" field="user_entered"></default>
+    <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_entered"></default>
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
-    <default applyOnUpdate="1" expression="coalesce(@mergin_username, @user_account_name)" field="user_updated"></default>
+    <default applyOnUpdate="1" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_updated"></default>
     <default applyOnUpdate="1" expression="now()" field="date_updated"></default>
   </defaults>
   <constraints>
