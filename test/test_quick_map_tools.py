@@ -18,7 +18,10 @@ from qgis.core import (
     QgsVectorLayer,
 )
 from qgis.gui import QgsMapTool
-from plugin.config import FEATURE_TABLES_LINES
+from plugin.config import (
+    FEATURE_TABLES_LINES,
+    LAYER_TREE_STRUCTURE_INDEXED,
+)
 from plugin.field_data_capture import FieldDataCapture
 from plugin.quick_map_tools import (
     QuickMapToolBase,
@@ -491,7 +494,7 @@ def test_locality_delete_confirm(fdc_project: FieldDataCapture, monkeypatch_qmsg
     assert features[0].attribute("fid") != delete_feature_fid
 
     # Check that the deleted feature children do not exist
-    for child_layer_name in fdc_project.layer_tree_structure["locality_data"]:
+    for child_layer_name in LAYER_TREE_STRUCTURE_INDEXED["locality_data"]:
         child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
         # The child layer should have been autosaved
         assert not child_layer.isEditable()
@@ -527,7 +530,7 @@ def test_locality_delete_cancel(fdc_project: FieldDataCapture, monkeypatch_qmsgb
     assert delete_feature_fid in {feature.attribute("fid") for feature in features}
 
     # Check that the child features have not been deleted
-    for child_layer_name in fdc_project.layer_tree_structure["locality_data"]:
+    for child_layer_name in LAYER_TREE_STRUCTURE_INDEXED["locality_data"]:
         child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
         # The child layer should not have been changed
         assert not child_layer.isEditable()

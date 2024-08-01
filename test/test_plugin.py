@@ -24,6 +24,7 @@ from plugin.config import (
     ATTRIBUTE_TABLES,
     FEATURE_TABLES,
     TABLE_LIST,
+    LAYER_TREE_STRUCTURE_INDEXED,
 )
 from plugin.field_data_capture import FieldDataCapture
 from plugin.utils import ipdb_breakpoint  # noqa
@@ -187,6 +188,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         "locality_point",
         "lines",
         "views",
+        "field_project",
         "locality_data",
         "metadata",
     ]
@@ -215,7 +217,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Check layers in groups
     for group in root_groups:
         group_layer_names = [layer.name() for layer in group.children()]
-        assert fdc.layer_tree_structure[group.name()] == group_layer_names
+        assert LAYER_TREE_STRUCTURE_INDEXED[group.name()] == group_layer_names
 
     hidden_layers = {"view_media", "view_photo", "view_sample"}
     for layer in QgsProject.instance().mapLayers().values():
