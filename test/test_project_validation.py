@@ -139,6 +139,6 @@ def test_validate_project_plugin_warning(fdc_project: FieldDataCapture):
         "Project Validation",
         (
             "Validation for project 'test_project_dir': WARNING\n\n"
-            "Conflict GeoPackge file found: field-data-capture (conflicted copy).gpkg"
+            "• Conflict GeoPackge file found: field-data-capture (conflicted copy).gpkg"
         ),
     )

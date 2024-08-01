@@ -1309,7 +1309,12 @@ class FieldDataCapture(FieldDataCaptureProject):
                 result_statuses.add(result.status)
 
                 if result.status < ValidationStatus.PASS:
-                    all_messages.append("\n".join(result.messages))
+                    display_messages = [
+                        # Add bullet point before each message
+                        "• " + message
+                        for message in result.messages
+                    ]
+                    all_messages.append("\n".join(display_messages))
 
             # Get final status
             status_to_str = {
