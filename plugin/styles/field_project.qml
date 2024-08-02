@@ -206,6 +206,9 @@
               <Option type="Map">
                 <Option name="WGS84 (EPSG:4326)" type="QString" value="4326"></Option>
               </Option>
+              <Option type="Map">
+                <Option name="Irish Grid TM65 (EPSG:29902)" type="QString" value="29902"></Option>
+              </Option>
             </Option>
           </Option>
         </config>
