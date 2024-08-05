@@ -1,13 +1,12 @@
 -- Dictionary tables and their contents
 
 BEGIN TRANSACTION;
-CREATE TABLE IF NOT EXISTS "dic_sample" (
+CREATE TABLE IF NOT EXISTS "dic_sample_material" (
 	"fid"	INTEGER NOT NULL,
 	"code"	TEXT NOT NULL UNIQUE,
 	"description"	TEXT NOT NULL,
 	"translation"	TEXT,
 	"status"	TEXT,
-	"sigma_db_code"	TEXT,
 	"user_entered"	TEXT NOT NULL,
 	"date_entered"	DATETIME NOT NULL,
 	"user_updated"	TEXT,
@@ -16,7 +15,7 @@ CREATE TABLE IF NOT EXISTS "dic_sample" (
 );
 
 INSERT INTO gpkg_contents
-VALUES('dic_sample','attributes','dic_sample','Sample type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+VALUES('dic_sample_material','attributes','dic_sample_material','Sample type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
 
 CREATE TABLE IF NOT EXISTS "dic_media" (
 	"fid"	INTEGER NOT NULL,
@@ -348,11 +347,20 @@ INSERT INTO "dic_structure_third" ("fid","category","code","description","status
 INSERT INTO "dic_structure_third" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015","user_entered","date_entered","user_updated","date_updated") VALUES (6,'DEFORMATION_PHASE','phase_d5','Phase D5','C','','5','Phase-D5','kigl','01/01/2012','jbow','05/03/2024');
 INSERT INTO "dic_structure_third" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015","user_entered","date_entered","user_updated","date_updated") VALUES (7,'DEFORMATION_PHASE','phase_d6','Phase D6','C','','6','Phase-D6','kigl','01/01/2012','jbow','05/03/2024');
 
-INSERT INTO "dic_sample" ("fid","code","description","translation","status","sigma_db_code","user_entered","date_entered","user_updated","date_updated") VALUES (1,'fossil_sample','Fossil sample','','C','FOSS','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_sample" ("fid","code","description","translation","status","sigma_db_code","user_entered","date_entered","user_updated","date_updated") VALUES (2,'hand_specimen','Hand specimen','','C','HAND','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_sample" ("fid","code","description","translation","status","sigma_db_code","user_entered","date_entered","user_updated","date_updated") VALUES (3,'bedrock_sample','Bedrock sample','','C','ROCK','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_sample" ("fid","code","description","translation","status","sigma_db_code","user_entered","date_entered","user_updated","date_updated") VALUES (4,'soil_sample','Soil sample','','C','SOIL','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_sample" ("fid","code","description","translation","status","sigma_db_code","user_entered","date_entered","user_updated","date_updated") VALUES (5,'stream_sediment_sample','Stream sediment sample','','C','STREAM','kigl','01/01/2012','jbow','13/09/2023');
-INSERT INTO "dic_sample" ("fid","code","description","translation","status","sigma_db_code","user_entered","date_entered","user_updated","date_updated") VALUES (6,'superficial_deposit_sample','Superficial deposit sample','','C','SUPER','kigl','01/01/2012','jbow','13/09/2023');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (1,'biology','Biology','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (2,'gas','Gas','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (3,'ice','Ice','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (4,'liquid_aqueous','Liquid aqueous','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (5,'liquid_organic','Liquid organic','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (6,'mineral','Mineral','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (7,'organic_material','Organic material','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (8,'other','Other','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (9,'particulate','Particulate','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (10,'plant_structure','Plant structure','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (11,'rock','Rock','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (12,'sediment','Sediment','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (13,'soil','Soil','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (14,'synthetic','Synthetic','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (15,'tephra','Tephra','','C','leorud','02/08/2024','leorud','02/08/2024');
 
 COMMIT;

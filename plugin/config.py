@@ -31,7 +31,7 @@ TABLES = {
         "dic_manmade_landform",
         "dic_media",
         "dic_rock_field",
-        "dic_sample",
+        "dic_sample_material",
         "dic_structure",
         "dic_structure_secondary",
         "dic_structure_third",

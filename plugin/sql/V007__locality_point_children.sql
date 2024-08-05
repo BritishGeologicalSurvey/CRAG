@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS "sample" (
   "user_updated" TEXT,
   "date_updated" DATETIME,
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
-  FOREIGN KEY("sample_type_code") REFERENCES "dic_sample"("code"),
+  FOREIGN KEY("sample_type_code") REFERENCES "dic_sample_material"("code"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
 

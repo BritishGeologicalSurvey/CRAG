@@ -54,11 +54,11 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_sample"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_sample_635e7f92_f696_4033_9376_efbe3daaaec9"></Option>
-            <Option name="ReferencedLayerName" type="QString" value="dic_sample"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_sample_material"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_sample_material_635e7f92_f696_4033_9376_efbe3daaaec9"></Option>
+            <Option name="ReferencedLayerName" type="QString" value="dic_sample_material"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
-            <Option name="Relation" type="QString" value="dic_sample_sample"></Option>
+            <Option name="Relation" type="QString" value="dic_sample_material_sample"></Option>
             <Option name="ShowForm" type="bool" value="false"></Option>
             <Option name="ShowOpenFormButton" type="bool" value="false"></Option>
           </Option>
