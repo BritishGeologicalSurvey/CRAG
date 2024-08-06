@@ -60,6 +60,7 @@ from qgis.PyQt.QtWidgets import (
     QAction,
     QMenu,
     QMessageBox,
+    QToolBar,
     QWidget,
 )
 
@@ -133,6 +134,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
 
+        self.toolbar: QToolBar
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
         self.photo_importer: Optional[PhotoImporter] = None
@@ -246,8 +248,8 @@ class FieldDataCapture(FieldDataCaptureProject):
             action.setWhatsThis(whats_this)
 
         if add_to_toolbar:
-            # Adds plugin icon to Plugins toolbar
-            self.iface.addToolBarIcon(action)
+            # Adds plugin icon to Field Data Capture toolbar
+            self.toolbar.addAction(action)
 
         if add_to_menu and submenu is None:
             self.iface.addPluginToMenu(
@@ -270,6 +272,12 @@ class FieldDataCapture(FieldDataCaptureProject):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
         icon_path = ':/plugins/field_data_capture/icon.png'
+
+        # Create a new toolbar for the plugin
+        toolbar_text = "Field Data Capture Toolbar"
+        self.toolbar = self.iface.addToolBar(toolbar_text)
+        self.toolbar.setToolTip(toolbar_text)
+        self.toolbar.setObjectName("".join(toolbar_text))
 
         self.quick_map_tool_buttons["fdc_locality_point_add"] = self.add_action(
             str(self.icons_dir / "quick_locality_add.png"),
@@ -454,6 +462,9 @@ class FieldDataCapture(FieldDataCaptureProject):
                 self.tr(u'&Field Data Capture'),
                 action)
             self.iface.removeToolBarIcon(action)
+
+        # Delete the Field Data Capture toolbar
+        del self.toolbar
 
 
     @staticmethod
