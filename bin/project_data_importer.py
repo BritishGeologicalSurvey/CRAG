@@ -55,7 +55,7 @@ class ProjectDataImporter:
             dest_db_file_backup = tmp_dir / db_file
             dest_db_file_backup.write_bytes(dest_db.read_bytes())
 
-            # Setup database connections
+            # Setup database transactions
             with sqlite3.connect(src_db) as self.src_conn, sqlite3.connect(dest_db) as self.dest_conn:  # noqa
                 for conn in self.src_conn, self.dest_conn:
                     conn.enable_load_extension(True)
@@ -73,6 +73,9 @@ class ProjectDataImporter:
                     logger.error("Cancelling copy and rolling back destination database")
                     dest_db.write_bytes(dest_db_file_backup.read_bytes())
                     return False
+
+            for conn in self.src_conn, self.dest_conn:
+                conn.close()
 
         self.copy_feature_files()
 

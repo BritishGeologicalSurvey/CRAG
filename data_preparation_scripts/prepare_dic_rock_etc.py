@@ -8,12 +8,12 @@ export ORACLE_PASSWORD=<BGS Oracle reader password>
 source $(setup_oracle_client)
 """
 import csv
-import datetime as dt
 import logging
-from pathlib import Path
 import pickle
 import re
 import sqlite3
+import datetime as dt
+from pathlib import Path
 from typing import Iterable
 
 import etlhelper as etl
@@ -67,6 +67,8 @@ def main():
 
         logging.info("Dumping SQL file")
         dump_sql(conn)
+
+    conn.close()
 
 
 def create_tables(conn: sqlite3.Connection):

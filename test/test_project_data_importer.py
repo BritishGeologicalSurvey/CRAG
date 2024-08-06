@@ -1,6 +1,6 @@
-from pathlib import Path
 import sqlite3
 from mock import Mock
+from pathlib import Path
 
 import pytest
 import etlhelper as etl
@@ -119,6 +119,7 @@ def test_copy_project_data_good(
             conn.enable_load_extension(True)
             etl.execute("""SELECT load_extension("mod_spatialite")""", conn)
             etl.execute("UPDATE field_project SET notes = NULL", conn)
+        conn.close()
         expected_field_project_notes_metadata = "\n".join(expected_field_project_notes_metadata_lines[2:])
 
     # Act
@@ -155,6 +156,8 @@ def test_copy_project_data_good(
             row_factory=etl.row_factories.tuple_row_factory,
         )[0]
         assert field_project_notes == expected_field_project_notes_metadata
+
+    conn.close()
 
     # Check that the photo files have been copied across
     for photo_file in (src_fdc_project / "photos").rglob("*[!.placeholder]"):

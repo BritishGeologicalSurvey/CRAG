@@ -926,6 +926,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                     """
             )
             rows = cursor.fetchall()
+        conn.close()
 
         simple_lithology_categories = defaultdict(list)
         simple_lithology_colours = {}
@@ -977,6 +978,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         with sqlite3.connect(self.db_file) as conn:
             conn.enable_load_extension(True)
             add_test_data(conn)
+        conn.close()
 
         # Copy test data media files across into current project
         self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest="photos")
