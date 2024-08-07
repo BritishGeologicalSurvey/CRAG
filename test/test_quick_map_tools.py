@@ -18,7 +18,10 @@ from qgis.core import (
     QgsVectorLayer,
 )
 from qgis.gui import QgsMapTool
-from plugin.config import FEATURE_TABLES_LINES
+from plugin.config import (
+    FEATURE_TABLES_LINES,
+    LAYER_TREE_STRUCTURE_INDEXED,
+)
 from plugin.field_data_capture import FieldDataCapture
 from plugin.quick_map_tools import (
     QuickMapToolBase,
@@ -325,7 +328,6 @@ def test_field_project_add_confirm(
     # Arrange 2
     attributes = {
         "short_name": "test_field_project",
-        "field_project_type": "field_work",
         "local_epsg": 27700,
     }
     monkeypatch_feature_form_modify_attributes(attributes, fdc, monkeypatch)
@@ -370,14 +372,14 @@ def test_locality_add_confirm(
 ):
     # Arrange
     layer_name = "locality_point"
-    exposure_field = "exposure_type_code"
-    exposure_value = "auger_borehole"
+    locality_type_field = "locality_type_code"
+    locality_type_value = "auger_borehole"
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
-    monkeypatch_feature_form_modify_attributes({exposure_field: exposure_value}, fdc_project, monkeypatch)
+    monkeypatch_feature_form_modify_attributes({locality_type_field: locality_type_value}, fdc_project, monkeypatch)
 
     # Act
     fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_point)
@@ -388,7 +390,7 @@ def test_locality_add_confirm(
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
     assert new_feature.attribute("fid") == expected_fid
     assert new_feature.attribute("name") == f"{pwd.getpwuid(os.getuid()).pw_name}_001"
-    assert new_feature.attribute(exposure_field) == exposure_value
+    assert new_feature.attribute(locality_type_field) == locality_type_value
     assert new_feature.geometry().asWkt() == empty_geometry_feature_point.geometry().asWkt()
     assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
 
@@ -492,7 +494,7 @@ def test_locality_delete_confirm(fdc_project: FieldDataCapture, monkeypatch_qmsg
     assert features[0].attribute("fid") != delete_feature_fid
 
     # Check that the deleted feature children do not exist
-    for child_layer_name in fdc_project.layer_tree_structure["locality_data"]:
+    for child_layer_name in LAYER_TREE_STRUCTURE_INDEXED["locality_data"]:
         child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
         # The child layer should have been autosaved
         assert not child_layer.isEditable()
@@ -528,7 +530,7 @@ def test_locality_delete_cancel(fdc_project: FieldDataCapture, monkeypatch_qmsgb
     assert delete_feature_fid in {feature.attribute("fid") for feature in features}
 
     # Check that the child features have not been deleted
-    for child_layer_name in fdc_project.layer_tree_structure["locality_data"]:
+    for child_layer_name in LAYER_TREE_STRUCTURE_INDEXED["locality_data"]:
         child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
         # The child layer should not have been changed
         assert not child_layer.isEditable()

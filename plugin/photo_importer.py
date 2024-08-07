@@ -185,16 +185,16 @@ class PhotoImporter(QDialog):
         row_hbox_1.addWidget(combobox)
 
         photo_date_label = self.create_photo_date_widget(photo, photo_tags)
-        notes_label = QLabel("Notes")
+        caption_label = QLabel("Caption")
         row_hbox_2 = QHBoxLayout()
         row_hbox_2.addWidget(photo_date_label)
-        row_hbox_2.addWidget(notes_label)
+        row_hbox_2.addWidget(caption_label)
 
         photo_widget = self.create_photo_widget(photo, photo_tags)
-        notes_edit = QTextEdit()
+        caption_edit = QTextEdit()
         row_hbox_3 = QHBoxLayout()
         row_hbox_3.addWidget(photo_widget)
-        row_hbox_3.addWidget(notes_edit)
+        row_hbox_3.addWidget(caption_edit)
 
         # Combine the top and bottom half into a single layout to form an entire row
         row_layout = QVBoxLayout()
@@ -211,7 +211,7 @@ class PhotoImporter(QDialog):
         # Save the required widgets for user input with the given photo path
         self.photos_to_widgets[photo] = {
             "QComboBox": combobox,
-            "QTextEdit": notes_edit,
+            "QTextEdit": caption_edit,
         }
 
 
@@ -350,10 +350,15 @@ class PhotoImporter(QDialog):
                 # Create new feature with default values
                 new_feature = QgsVectorLayerUtils.createFeature(photo_layer)
 
+                # Get photo caption value
+                photo_caption = photo_widgets["QTextEdit"].toPlainText()
+                if photo_caption == "":
+                    photo_caption = None
+
                 new_attributes = {
                     "locality_fuid": locality_fuid,
                     "photo_file": str(photo_file_attribute),
-                    "notes": photo_widgets["QTextEdit"].toPlainText(),
+                    "caption": photo_caption,
                 }
                 for attribute, value in new_attributes.items():
                     new_feature.setAttribute(attribute, value)

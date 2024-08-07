@@ -1161,13 +1161,6 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="objectid">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
     <field configurationFlags="NoFlag" name="uuid">
       <editWidget type="TextEdit">
         <config>
@@ -1280,21 +1273,19 @@
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
-    <alias field="objectid" index="1" name=""></alias>
-    <alias field="uuid" index="2" name=""></alias>
-    <alias field="field_project_fuid" index="3" name=""></alias>
-    <alias field="line_type_code" index="4" name=""></alias>
-    <alias field="line_label" index="5" name=""></alias>
-    <alias field="notes" index="6" name=""></alias>
-    <alias field="mapped_scale" index="7" name=""></alias>
-    <alias field="user_entered" index="8" name=""></alias>
-    <alias field="date_entered" index="9" name=""></alias>
-    <alias field="user_updated" index="10" name=""></alias>
-    <alias field="date_updated" index="11" name=""></alias>
+    <alias field="uuid" index="1" name=""></alias>
+    <alias field="field_project_fuid" index="2" name=""></alias>
+    <alias field="line_type_code" index="3" name=""></alias>
+    <alias field="line_label" index="4" name=""></alias>
+    <alias field="notes" index="5" name=""></alias>
+    <alias field="mapped_scale" index="6" name=""></alias>
+    <alias field="user_entered" index="7" name=""></alias>
+    <alias field="date_entered" index="8" name=""></alias>
+    <alias field="user_updated" index="9" name=""></alias>
+    <alias field="date_updated" index="10" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
-    <policy field="objectid" policy="Duplicate"></policy>
     <policy field="uuid" policy="Duplicate"></policy>
     <policy field="field_project_fuid" policy="Duplicate"></policy>
     <policy field="line_type_code" policy="Duplicate"></policy>
@@ -1308,7 +1299,6 @@
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
-    <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="attribute(&#xD;&#xA;&#x9;get_feature(&#xD;&#xA;&#x9;&#x9;'field_project',&#xD;&#xA;&#x9;&#x9;'fid',&#xD;&#xA;&#x9;&#x9;-- Get the list of field_project fid values&#xD;&#xA;&#x9;&#x9;-- Then take the first one&#xD;&#xA;&#x9;&#x9;-- There should only be one, but this means&#xD;&#xA;&#x9;&#x9;-- that if the fid changes, this expression&#xD;&#xA;&#x9;&#x9;-- still works as expected&#xD;&#xA;&#x9;&#x9;aggregate(&#xD;&#xA;&#x9;&#x9;&#x9;'field_project',&#xD;&#xA;&#x9;&#x9;&#x9;'array_agg',&#xD;&#xA;&#x9;&#x9;&#x9;&quot;fid&quot;&#xD;&#xA;&#x9;&#x9;)[0]&#xD;&#xA;&#x9;),&#xD;&#xA;&#x9;'uuid'&#xD;&#xA;)" field="field_project_fuid"></default>
     <default applyOnUpdate="0" expression="" field="line_type_code"></default>
@@ -1322,7 +1312,6 @@
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="field_project_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="line_type_code" notnull_strength="1" unique_strength="0"></constraint>
@@ -1336,7 +1325,6 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="field_project_fuid"></constraint>
     <constraint desc="" exp="" field="line_type_code"></constraint>
@@ -1398,12 +1386,12 @@ azimuth: [% format_number(&#xD;
 	2&#xD;
 ) + '°' %]</attributeEditorTextElement>
     </attributeEditorContainer>
-    <attributeEditorField horizontalStretch="0" index="4" name="line_type_code" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="3" name="line_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="Noto Sans,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="line_label" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="4" name="line_label" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -1412,12 +1400,12 @@ azimuth: [% format_number(&#xD;
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>[% attribute(get_feature('dic_line_type_mass_move', 'code', current_value('line_type_code') ), 'sec_attrib_list') %]</attributeEditorTextElement>
-    <attributeEditorField horizontalStretch="0" index="6" name="notes" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="5" name="notes" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="7" name="mapped_scale" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="6" name="mapped_scale" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -1432,7 +1420,6 @@ azimuth: [% format_number(&#xD;
     <field editable="1" name="line_type_code"></field>
     <field editable="1" name="mapped_scale"></field>
     <field editable="1" name="notes"></field>
-    <field editable="1" name="objectid"></field>
     <field editable="1" name="user_entered"></field>
     <field editable="1" name="user_updated"></field>
     <field editable="1" name="uuid"></field>
@@ -1446,7 +1433,6 @@ azimuth: [% format_number(&#xD;
     <field labelOnTop="0" name="line_type_code"></field>
     <field labelOnTop="0" name="mapped_scale"></field>
     <field labelOnTop="0" name="notes"></field>
-    <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="user_entered"></field>
     <field labelOnTop="0" name="user_updated"></field>
     <field labelOnTop="0" name="uuid"></field>
@@ -1460,7 +1446,6 @@ azimuth: [% format_number(&#xD;
     <field name="line_type_code" reuseLastValue="1"></field>
     <field name="mapped_scale" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>
-    <field name="objectid" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>

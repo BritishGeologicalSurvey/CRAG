@@ -60,6 +60,7 @@ from qgis.PyQt.QtWidgets import (
     QAction,
     QMenu,
     QMessageBox,
+    QToolBar,
     QWidget,
 )
 
@@ -67,13 +68,10 @@ from qgis.PyQt.QtWidgets import (
 from .resources import *  # noqa
 
 from .config import (
-    DICTIONARIES,
-    FEATURE_TABLES,
     FEATURE_TABLES_LINES,
-    INTERNAL_TABLES,
     LOCALITY_POINT_CHILDREN,
     TABLE_LIST,
-    VIEWS,
+    LAYER_TREE_STRUCTURE,
 )
 from .create_gpkg_from_sql import main as gpkg_from_sql
 from .create_gpkg_from_sql import (
@@ -136,6 +134,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
 
+        self.toolbar: QToolBar
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
         self.photo_importer: Optional[PhotoImporter] = None
@@ -249,8 +248,8 @@ class FieldDataCapture(FieldDataCaptureProject):
             action.setWhatsThis(whats_this)
 
         if add_to_toolbar:
-            # Adds plugin icon to Plugins toolbar
-            self.iface.addToolBarIcon(action)
+            # Adds plugin icon to Field Data Capture toolbar
+            self.toolbar.addAction(action)
 
         if add_to_menu and submenu is None:
             self.iface.addPluginToMenu(
@@ -273,6 +272,12 @@ class FieldDataCapture(FieldDataCaptureProject):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
         icon_path = ':/plugins/field_data_capture/icon.png'
+
+        # Create a new toolbar for the plugin
+        toolbar_text = "Field Data Capture Toolbar"
+        self.toolbar = self.iface.addToolBar(toolbar_text)
+        self.toolbar.setToolTip(toolbar_text)
+        self.toolbar.setObjectName("".join(toolbar_text))
 
         self.quick_map_tool_buttons["fdc_locality_point_add"] = self.add_action(
             str(self.icons_dir / "quick_locality_add.png"),
@@ -458,6 +463,9 @@ class FieldDataCapture(FieldDataCaptureProject):
                 action)
             self.iface.removeToolBarIcon(action)
 
+        # Delete the Field Data Capture toolbar
+        del self.toolbar
+
 
     @staticmethod
     def project_is_active() -> bool:
@@ -489,7 +497,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         """
         missing_layers = [
             table_name
-            for table_name in set(TABLE_LIST) - {"view_photo", "view_media", "view_sample"}
+            for table_name in TABLE_LIST
             if not FieldDataCapture.check_layer_exists(table_name)
         ]
         if len(missing_layers) == 0:
@@ -612,28 +620,38 @@ class FieldDataCapture(FieldDataCaptureProject):
         # Get layer tree root
         root = QgsProject.instance().layerTreeRoot()
 
-        # Store the vector layers as keys, with it's corresponding group as the items
-        vector_layers = {}
-        for idx, (group_name, group_layer_names) in enumerate(self.layer_tree_structure.items()):
+        vector_layers = []
+        for idx, item in enumerate(LAYER_TREE_STRUCTURE):
 
             # Create the group if required
             group = None
             add_to_legend = True
-            if group_name is not None:
-                group = self.create_legend_group(root, group_name, idx)
+            if item["group"] is not None:
+                group = self.create_legend_group(root, item["group"], idx)
                 add_to_legend = False
 
-            for layer_name in group_layer_names:
+            for layer_name in item["tables"]:
                 # Create layer
                 uri = f"{self.db_file}|layername={layer_name}"
                 vector_layer = QgsVectorLayer(uri, layer_name, "ogr")
-                QgsProject.instance().addMapLayer(vector_layer, add_to_legend)
-                vector_layers[vector_layer] = group
+
+                # Here, we purposefully insert a layer manually rather than relying on addMapLayer
+                # This is because addMapLayer adds the given layer to the top of the layer tree view,
+                # but we want to add each layer to a specific index
+                if add_to_legend:
+                    root.insertLayer(idx, vector_layer)
+                else:
+                    tree_layer = group.addLayer(vector_layer)
+                    # Collapse all layers added to a group
+                    tree_layer.setExpanded(False)
+
+                QgsProject.instance().addMapLayer(vector_layer, addToLegend=False)
+                vector_layers.append(vector_layer)
 
         # Changes to layers are only done after all layers are added to avoid issues
         # Create relationships first to ensure their corresponding styles/properties can be set
-        self.find_create_relationships(list(vector_layers.keys()))
-        self.apply_qml_styles(list(vector_layers.keys()))
+        self.find_create_relationships(vector_layers)
+        self.apply_qml_styles(vector_layers)
         self.set_vector_layer_properties(vector_layers)
         # self.set_view_lithology_rules()
 
@@ -673,54 +691,48 @@ class FieldDataCapture(FieldDataCaptureProject):
         return group
 
 
-    def set_vector_layer_properties(self, vector_layers: dict[QgsVectorLayer, Optional[QgsLayerTreeGroup]]) -> None:
+    def set_vector_layer_properties(self, vector_layers: list[QgsVectorLayer]) -> None:
         """
         Set the properties for the given vector layers.
-        This includes adding the layer to a group, setting read only, and setting display expressions.
+        This includes setting layer dependencies, read only properties, and display expressions.
         """
-        for vector_layer, group in vector_layers.items():
+        for vector_layer in vector_layers:
 
-            # Add layer to a group if required
-            if group is not None:
-                tree_layer = group.addLayer(vector_layer)
-                # Collapse all layers added to a group
-                tree_layer.setExpanded(False)
+            # Set display expressions for certain layers
+            display_expressions = {
+                "lithology": """attribute(get_feature('dic_rock_field', 'code', "lithology_code"), 'label')
+                    + ' (' + "lithology_code" + ')'""",
+                "manmade_landform": '''"manmade_type_code"''',
+                "media": '''"media_link" + ' | ' + "media_description"''',
+                "photo": '''"photo_file" + ' | ' + "caption"''',
+                "sample": '''"sample_id"''',
+                "structural_measurement": '''"structure_type_code"''',
+                "superficial_landform": '''"superficial_type_code"''',
+                "dic_rock_field": """"label" + ' (' + "code" + ')'""",
+                "_lnk_rock_project": """
+                                        attribute(
+                                            get_feature(
+                                                'field_project',
+                                                'uuid',
+                                                "field_project_uuid"),
+                                            'short_name')
 
-                # Set display expressions for certain layers
-                display_expressions = {
-                    "lithology": """attribute(get_feature('dic_rock_field', 'code', "lithology_code"), 'label')
-                        + ' (' + "lithology_code" + ')'""",
-                    "manmade_landform": '''"manmade_type_code"''',
-                    "media": '''"media_link" + ' | ' + "notes"''',
-                    "photo": '''"photo_file" + ' | ' + "notes"''',
-                    "sample": '''"sample_id"''',
-                    "structural_measurement": '''"structure_type_code"''',
-                    "superficial_landform": '''"superficial_type_code"''',
-                    "dic_rock_field": """"label" + ' (' + "code" + ')'""",
-                    "_lnk_rock_project": """
-                                            attribute(
-                                                get_feature(
-                                                    'field_project',
-                                                    'uuid',
-                                                    "field_project_uuid"),
-                                                'short_name')
+                                        + ' - ' +
 
-                                            + ' - ' +
+                                        attribute(
+                                            get_feature(
+                                                'dic_rock_field',
+                                                'code',
+                                                "rock_code"),
+                                            'label')
 
-                                            attribute(
-                                                get_feature(
-                                                    'dic_rock_field',
-                                                    'code',
-                                                    "rock_code"),
-                                                'label')
+                                        + ' - ' +
 
-                                            + ' - ' +
-
-                                            "rock_code"
-                                         """,
-                }
-                if vector_layer.name() in display_expressions:
-                    vector_layer.setDisplayExpression(display_expressions[vector_layer.name()])
+                                        "rock_code"
+                                        """,
+            }
+            if vector_layer.name() in display_expressions:
+                vector_layer.setDisplayExpression(display_expressions[vector_layer.name()])
 
             # Set layer dependencies for views
             layer_dependencies = {
@@ -825,33 +837,6 @@ class FieldDataCapture(FieldDataCaptureProject):
                 except IndexError:
                     logger.debug('No relations defined in project')
 
-    @property
-    def layer_tree_structure(self) -> dict[Optional[str], list[str]]:
-        """
-        Dictionary of layer names which will represent the QGIS layer tree structure.
-        """
-        # Create inital structure
-        layer_tree_structure = {
-            None: FEATURE_TABLES.difference(FEATURE_TABLES_LINES),
-            "lines": FEATURE_TABLES_LINES,
-            "views": VIEWS,
-            "locality_data": LOCALITY_POINT_CHILDREN,
-            "metadata": DICTIONARIES.union(INTERNAL_TABLES),
-        }
-
-        # Sort the lists
-        for group_name, table_set in layer_tree_structure.items():
-            table_list = list(table_set)
-            table_list.sort()
-            layer_tree_structure[group_name] = table_list
-
-        # Move the project layer
-        project_name = "field_project"
-        layer_tree_structure[None].remove(project_name)
-        layer_tree_structure["metadata"].insert(0, project_name)
-
-        return layer_tree_structure
-
 
     def apply_qml_styles(self, vector_layers: list[QgsVectorLayer]) -> None:
         """
@@ -941,6 +926,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                     """
             )
             rows = cursor.fetchall()
+        conn.close()
 
         simple_lithology_categories = defaultdict(list)
         simple_lithology_colours = {}
@@ -992,6 +978,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         with sqlite3.connect(self.db_file) as conn:
             conn.enable_load_extension(True)
             add_test_data(conn)
+        conn.close()
 
         # Copy test data media files across into current project
         self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest="photos")

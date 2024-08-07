@@ -30,7 +30,7 @@ CHILD_ATTRIBUTES = {
     "manmade_landform": ", dic_manmade_landform.description ",
     "media": ", dic_media.description ",
     "photo": "",
-    "sample": ", dic_sample.description ",
+    "sample": ", dic_sample_material.description ",
     "structural_measurement": (", dic_structure.description "
                                ", dic_structure_secondary.description as secondary_description "
                                ", dic_structure_third.description as third_description "),
@@ -42,7 +42,7 @@ CHILD_JOINS = {
     "manmade_landform": " JOIN dic_manmade_landform ON code == child.manmade_type_code ",
     "media": " JOIN dic_media ON code == child.media_type_code ",
     "photo": "",
-    "sample": " JOIN dic_sample ON code == child.sample_type_code ",
+    "sample": " JOIN dic_sample_material ON code == child.sample_type_code ",
     "structural_measurement": (" JOIN dic_structure ON dic_structure.code == child.structure_type_code "
                                " LEFT JOIN dic_structure_secondary ON dic_structure_secondary.code "
                                "== child.secondary_attribute "

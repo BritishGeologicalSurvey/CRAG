@@ -24,6 +24,7 @@ from plugin.config import (
     ATTRIBUTE_TABLES,
     FEATURE_TABLES,
     TABLE_LIST,
+    LAYER_TREE_STRUCTURE_INDEXED,
 )
 from plugin.field_data_capture import FieldDataCapture
 from plugin.utils import ipdb_breakpoint  # noqa
@@ -75,7 +76,6 @@ def test_check_field_project_exists(fdc: FieldDataCapture, qgs_project):
     # Set required properties
     properties = {
         "short_name": "test_field_project",
-        "field_project_type": "field_work",
         "local_epsg": 27700,
     }
     for property, value in properties.items():
@@ -188,6 +188,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         "locality_point",
         "lines",
         "views",
+        "field_project",
         "locality_data",
         "metadata",
     ]
@@ -216,7 +217,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Check layers in groups
     for group in root_groups:
         group_layer_names = [layer.name() for layer in group.children()]
-        assert fdc.layer_tree_structure[group.name()] == group_layer_names
+        assert LAYER_TREE_STRUCTURE_INDEXED[group.name()] == group_layer_names
 
     hidden_layers = {"view_media", "view_photo", "view_sample"}
     for layer in QgsProject.instance().mapLayers().values():
@@ -360,7 +361,7 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
         feature.setGeometry(geometry)
         # Set the field_project_fuid to be the uuid of the field project from the test data set
         feature.setAttribute("field_project_fuid", "{85d48fd4-e66f-4436-833b-9e37691a7d4f}")
-        feature.setAttribute("exposure_type_code", "auger_borehole")
+        feature.setAttribute("locality_type_code", "auger_borehole")
         layer.addFeature(feature)
         layer.commitChanges()
 
@@ -427,7 +428,6 @@ def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
     # Arrange
     hidden_widgets = {
         "fid",
-        "objectid",
         "uuid",
         "user_entered",
         "date_entered",

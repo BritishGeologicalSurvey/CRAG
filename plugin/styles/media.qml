@@ -1,13 +1,6 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.5-Prizren">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.6-Prizren">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
-      <editWidget type="Hidden">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="objectid">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
@@ -94,7 +87,7 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="notes">
+    <field configurationFlags="NoFlag" name="media_description">
       <editWidget type="TextEdit">
         <config>
           <Option type="Map">
@@ -135,25 +128,23 @@
   </fieldConfiguration>
   <aliases>
     <alias field="fid" index="0" name=""></alias>
-    <alias field="objectid" index="1" name=""></alias>
-    <alias field="uuid" index="2" name=""></alias>
-    <alias field="locality_fuid" index="3" name=""></alias>
-    <alias field="media_type_code" index="4" name=""></alias>
-    <alias field="media_link" index="5" name=""></alias>
-    <alias field="notes" index="6" name=""></alias>
-    <alias field="user_entered" index="7" name=""></alias>
-    <alias field="date_entered" index="8" name=""></alias>
-    <alias field="user_updated" index="9" name=""></alias>
-    <alias field="date_updated" index="10" name=""></alias>
+    <alias field="uuid" index="1" name=""></alias>
+    <alias field="locality_fuid" index="2" name=""></alias>
+    <alias field="media_type_code" index="3" name=""></alias>
+    <alias field="media_link" index="4" name=""></alias>
+    <alias field="media_description" index="5" name=""></alias>
+    <alias field="user_entered" index="6" name=""></alias>
+    <alias field="date_entered" index="7" name=""></alias>
+    <alias field="user_updated" index="8" name=""></alias>
+    <alias field="date_updated" index="9" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
-    <policy field="objectid" policy="Duplicate"></policy>
     <policy field="uuid" policy="Duplicate"></policy>
     <policy field="locality_fuid" policy="DefaultValue"></policy>
     <policy field="media_type_code" policy="DefaultValue"></policy>
     <policy field="media_link" policy="DefaultValue"></policy>
-    <policy field="notes" policy="DefaultValue"></policy>
+    <policy field="media_description" policy="DefaultValue"></policy>
     <policy field="user_entered" policy="Duplicate"></policy>
     <policy field="date_entered" policy="Duplicate"></policy>
     <policy field="user_updated" policy="Duplicate"></policy>
@@ -161,12 +152,11 @@
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
-    <default applyOnUpdate="0" expression="" field="objectid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
     <default applyOnUpdate="0" expression="" field="media_type_code"></default>
     <default applyOnUpdate="0" expression="" field="media_link"></default>
-    <default applyOnUpdate="0" expression="" field="notes"></default>
+    <default applyOnUpdate="0" expression="" field="media_description"></default>
     <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_entered"></default>
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
     <default applyOnUpdate="1" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_updated"></default>
@@ -174,12 +164,11 @@
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="2" exp_strength="0" field="objectid" notnull_strength="0" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="media_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="media_link" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="media_description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
@@ -187,12 +176,11 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="" exp="" field="objectid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
     <constraint desc="" exp="" field="media_type_code"></constraint>
     <constraint desc="" exp="" field="media_link"></constraint>
-    <constraint desc="" exp="" field="notes"></constraint>
+    <constraint desc="" exp="" field="media_description"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
     <constraint desc="" exp="" field="user_updated"></constraint>
@@ -226,17 +214,17 @@ def my_form_open(dialog, layer, feature):
     <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
       <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
-    <attributeEditorField horizontalStretch="0" index="4" name="media_type_code" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="3" name="media_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="media_link" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="4" name="media_link" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="6" name="notes" showLabel="1" verticalStretch="0">
+    <attributeEditorField horizontalStretch="0" index="5" name="media_description" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
@@ -245,7 +233,7 @@ def my_form_open(dialog, layer, feature):
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-      <attributeEditorField horizontalStretch="0" index="3" name="locality_fuid" showLabel="1" verticalStretch="0">
+      <attributeEditorField horizontalStretch="0" index="2" name="locality_fuid" showLabel="1" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
@@ -257,10 +245,9 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="date_updated"></field>
     <field editable="1" name="fid"></field>
     <field editable="1" name="locality_fuid"></field>
+    <field editable="1" name="media_description"></field>
     <field editable="1" name="media_link"></field>
     <field editable="1" name="media_type_code"></field>
-    <field editable="1" name="notes"></field>
-    <field editable="1" name="objectid"></field>
     <field editable="1" name="user_entered"></field>
     <field editable="1" name="user_updated"></field>
     <field editable="1" name="uuid"></field>
@@ -270,10 +257,9 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="date_updated"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="locality_fuid"></field>
+    <field labelOnTop="0" name="media_description"></field>
     <field labelOnTop="0" name="media_link"></field>
     <field labelOnTop="0" name="media_type_code"></field>
-    <field labelOnTop="0" name="notes"></field>
-    <field labelOnTop="0" name="objectid"></field>
     <field labelOnTop="0" name="user_entered"></field>
     <field labelOnTop="0" name="user_updated"></field>
     <field labelOnTop="0" name="uuid"></field>
@@ -283,10 +269,9 @@ def my_form_open(dialog, layer, feature):
     <field name="date_updated" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="locality_fuid" reuseLastValue="0"></field>
+    <field name="media_description" reuseLastValue="0"></field>
     <field name="media_link" reuseLastValue="0"></field>
     <field name="media_type_code" reuseLastValue="0"></field>
-    <field name="notes" reuseLastValue="0"></field>
-    <field name="objectid" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>

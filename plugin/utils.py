@@ -70,6 +70,7 @@ def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:
         cursor = conn.cursor()
         cursor.execute(sql)
         rows = cursor.fetchall()
+    conn.close()
 
     return rows
 

@@ -1,6 +1,6 @@
-from pathlib import Path
 import logging
 import sqlite3
+from pathlib import Path
 
 logger = logging.getLogger('create_gpkg')
 # Using __file__ rather than cwd() so that the import location does not affect the path
@@ -23,6 +23,7 @@ def main(
         with sqlite3.connect(db_file) as conn:
             logger.info('Applying %s', sql_script.name)
             apply_script(conn, sql_script)
+    conn.close()
 
 
 def apply_script(conn: sqlite3.Connection, sql_script: Path):

@@ -22,17 +22,16 @@ TABLES = {
     ],
     "attributes": [
         # Dictionaries
-        "dic_exposure_type",
-        "dic_field_project_type",
         "dic_line_type_artificial",
         "dic_line_type_bedrock",
         "dic_line_type_mass_move",
         "dic_line_type_superficial",
         "dic_line_type_terrain",
+        "dic_locality_type",
         "dic_manmade_landform",
         "dic_media",
         "dic_rock_field",
-        "dic_sample",
+        "dic_sample_material",
         "dic_structure",
         "dic_structure_secondary",
         "dic_structure_third",
@@ -85,5 +84,53 @@ FEATURE_STR_IDENTIFIERS = {
     **{
         line_table: "line_type_code"
         for line_table in sorted(FEATURE_TABLES_LINES)
+    },
+}
+
+LAYER_TREE_STRUCTURE = [
+    {
+        "group": None,
+        "tables": ["locality_point"],
+    },
+    {
+        "group": "lines",
+        "tables": sorted(list(FEATURE_TABLES_LINES)),
+    },
+    {
+        "group": "views",
+        "tables": sorted(list(VIEWS)),
+    },
+    {
+        "group": None,
+        "tables": ["field_project"],
+    },
+    {
+        "group": "locality_data",
+        "tables": sorted(list(LOCALITY_POINT_CHILDREN)),
+    },
+    {
+        "group": "metadata",
+        "tables": sorted(list(DICTIONARIES.union(INTERNAL_TABLES))),
+    },
+]
+
+LAYER_TREE_STRUCTURE_INDEXED = {
+    # First create a dictionary with all groups where the group is not None
+    **{
+        dict_item["group"]: dict_item["tables"]
+        for dict_item in LAYER_TREE_STRUCTURE
+        # Ignore items with no group as we need to combine them first
+        if dict_item["group"] is not None
+    },
+    # Second, create an isolated dictionary where the only key is None
+    # And it's value is the list of all tables with no group combined
+    **{
+        None: [
+            table
+            for dict_item in LAYER_TREE_STRUCTURE
+            for table in dict_item["tables"]
+            # Combine all items with no group
+            if dict_item["group"] is None
+        ]
     },
 }
