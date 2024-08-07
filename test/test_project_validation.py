@@ -82,8 +82,8 @@ def test_validate_project_bad(fdc_project_bad: Path):
             validation_function="check_attached_filepaths_exist",
             status=ValidationStatus.FAIL,
             messages=[
-                "Record in 'media' with non-existing file found: file_does_no_exist.mov",
-                "Record in 'photo' with non-existing file found: file_does_no_exist.jpg",
+                "File referenced in 'media' table not found: file_does_no_exist.mov",
+                "File referenced in 'photo' table not found: file_does_no_exist.jpg",
             ],
         ),
         ValidationResult(
@@ -91,14 +91,14 @@ def test_validate_project_bad(fdc_project_bad: Path):
             status=ValidationStatus.FAIL,
             # Project path here is dynamic because it comes from the tmp_path fixture
             messages=[
-                f"Unrecorded file for 'photo' found: {fdc_project_bad / 'photos/no_exif_data.jpg'}",
+                f"Unregistered file in 'photo' directory: {fdc_project_bad / 'photos/no_exif_data.jpg'}",
             ],
         ),
         ValidationResult(
             validation_function="check_no_conflict_gpkg_exists",
             status=ValidationStatus.WARNING,
             messages=[
-                "Conflict GeoPackge file found: field-data-capture (conflicted copy).gpkg",
+                "Conflict GeoPackage file found: field-data-capture (conflicted copy).gpkg",
             ],
         ),
     ]
@@ -139,6 +139,6 @@ def test_validate_project_plugin_warning(fdc_project: FieldDataCapture):
         "Project Validation",
         (
             "Validation for project 'test_project_dir': WARNING\n\n"
-            "• Conflict GeoPackge file found: field-data-capture (conflicted copy).gpkg"
+            "• Conflict GeoPackage file found: field-data-capture (conflicted copy).gpkg"
         ),
     )
