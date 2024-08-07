@@ -362,5 +362,6 @@ INSERT INTO "dic_sample_material" ("fid","code","description","translation","sta
 INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (13,'soil','Soil','','C','leorud','02/08/2024','leorud','02/08/2024');
 INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (14,'synthetic','Synthetic','','C','leorud','02/08/2024','leorud','02/08/2024');
 INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (15,'tephra','Tephra','','C','leorud','02/08/2024','leorud','02/08/2024');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status","user_entered","date_entered","user_updated","date_updated") VALUES (16,'rock_fossil','Rock (Fossil)','','C','leorud','02/08/2024','leorud','02/08/2024');
 
 COMMIT;
