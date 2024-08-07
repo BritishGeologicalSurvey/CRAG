@@ -192,7 +192,7 @@ def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> Validati
             result.status = ValidationStatus.FAIL
             for attachment in non_existing_attachments:
                 result.messages.append(
-                    f"Record in '{table}' with non-existing file found: {attachment}"
+                    f"File referenced in '{table}' table not found: {attachment}"
                 )
 
     return result
@@ -230,7 +230,7 @@ def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> Val
             result.status = ValidationStatus.FAIL
             for attachment in unrecorded_attachments:
                 result.messages.append(
-                    f"Unrecorded file for '{table}' found: {attachment}"
+                    f"Unregistered file in '{table}' directory: {attachment}"
                 )
 
     return result
@@ -251,6 +251,6 @@ def check_no_conflict_gpkg_exists(project: FieldDataCaptureProject) -> Validatio
     if len(conflict_files) > 0:
         result.status = ValidationStatus.WARNING
         for conflict_file in conflict_files:
-            result.messages.append(f"Conflict GeoPackge file found: {conflict_file.name}")
+            result.messages.append(f"Conflict GeoPackage file found: {conflict_file.name}")
 
     return result
