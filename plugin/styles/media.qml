@@ -167,9 +167,9 @@
     <default applyOnUpdate="0" expression="" field="media_type_code"></default>
     <default applyOnUpdate="0" expression="" field="media_link"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
-    <default applyOnUpdate="0" expression="@user_account_name" field="user_entered"></default>
+    <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_entered"></default>
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
-    <default applyOnUpdate="1" expression="@user_account_name" field="user_updated"></default>
+    <default applyOnUpdate="1" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_updated"></default>
     <default applyOnUpdate="1" expression="now()" field="date_updated"></default>
   </defaults>
   <constraints>

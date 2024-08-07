@@ -440,9 +440,9 @@ def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
     }
     expected_expressions = {
         "uuid": "uuid()",
-        "user_entered": "@user_account_name",
+        "user_entered": "coalesce(nullif(@mergin_username, ''), @user_account_name)",
         "date_entered": "now()",
-        "user_updated": "@user_account_name",
+        "user_updated": "coalesce(nullif(@mergin_username, ''), @user_account_name)",
         "date_updated": "now()",
     }
 
