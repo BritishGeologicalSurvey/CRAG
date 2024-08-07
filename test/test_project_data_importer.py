@@ -7,9 +7,11 @@ import etlhelper as etl
 
 from bin.project_data_importer import ProjectDataImporter
 from plugin.config import FEATURE_TABLES
-from plugin.create_gpkg_from_sql import main as gpkg_from_sql
 from plugin.field_data_capture import FieldDataCapture
-from conftest import setup_db_conn
+from conftest import (
+    create_fdc_project_files,
+    setup_db_conn,
+)
 from plugin.utils import ipdb_breakpoint  # noqa
 
 
@@ -28,38 +30,19 @@ def dest_fdc_project(tmp_path: Path) -> Path:
     Fixture to setup a test destination project for merging 2 projects together.
     Creates a project with a database which contains some data and photo files.
     """
-    # Make the project directory
     project_dir = tmp_path / "dest_fdc_project"
-    project_dir.mkdir(exist_ok=True)
-
-    # Make database file
-    db_file = project_dir / "field-data-capture.gpkg"
-    db_file_data = Path("test/data/dest_fdc_project.sql")
-    gpkg_from_sql(db_file=db_file)
-    with setup_db_conn(db_file) as conn:
-        conn.executescript(db_file_data.read_text())
-
-    # Make feature files directories and copy files into them for testing
-    feature_filepaths: dict[str, list[Path]] = {
+    feature_filepaths = {
         "photos": [
             Path("test/data/photos/exif_data.jpg"),
             Path("test/data/photos/no_exif_data.jpg"),
         ],
         "media": [],
     }
-    for feature_dir, feature_files in feature_filepaths.items():
-        project_feature_dir = project_dir / feature_dir
-        project_feature_dir.mkdir(exist_ok=True)
-
-        for idx, feature_file in enumerate(feature_files):
-            # Put the first file into a sub directory of the feature directory to ensure it is still copied
-            if idx == 0:
-                new_feature_file = project_feature_dir / "sub_dir" / feature_file.name
-                new_feature_file.parent.mkdir(parents=True, exist_ok=True)
-            else:
-                new_feature_file = project_feature_dir / feature_file.name
-            new_feature_file.write_bytes(feature_file.read_bytes())
-
+    create_fdc_project_files(
+        project_dir=project_dir,
+        insert_data_sql=Path("test/data/dest_fdc_project.sql"),
+        feature_filepaths=feature_filepaths,
+    )
     return project_dir
 
 

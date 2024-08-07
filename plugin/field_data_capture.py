@@ -82,19 +82,26 @@ from .create_gpkg_from_sql import (
 )
 from .line_layer_selector import LineLayerSelector
 from .photo_importer import PhotoImporter
+from .project_validation import (
+    ValidationStatus,
+    validate_project,
+)
 from .report_builder import ReportBuilder
 from .quick_map_tools import (
     QuickAddTool,
     QuickEditTool,
     QuickDeleteTool,
 )
-from .utils import ipdb_breakpoint  # noqa
+from .utils import (  # noqa
+    FieldDataCaptureProject,
+    ipdb_breakpoint,
+)
 
 logger = logging.getLogger('fdc')
 logging.basicConfig(level=logging.DEBUG)
 
 
-class FieldDataCapture:
+class FieldDataCapture(FieldDataCaptureProject):
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface: QgisInterface):
@@ -129,8 +136,6 @@ class FieldDataCapture:
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
 
-        self.gpkg_filename = Path("field-data-capture.gpkg")
-
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
         self.photo_importer: Optional[PhotoImporter] = None
@@ -139,44 +144,13 @@ class FieldDataCapture:
 
         logger.debug("Field Data Capture plugin initialised.")
 
+
     @property
     def project_dir(self) -> Path:
         """
         Get the current project directory.
         """
         return Path(QgsProject.instance().readPath("./"))
-
-
-    @property
-    def db_file(self) -> Path:
-        """
-        Get the db file path from the current project.
-        """
-        return self.project_dir / self.gpkg_filename
-
-
-    @property
-    def styles_dir(self) -> Path:
-        """
-        Get the styles directory path from the current project.
-        """
-        return self.project_dir / "styles"
-
-
-    @property
-    def photos_dir(self) -> Path:
-        """
-        Get the photos directory path from the current project.
-        """
-        return self.project_dir / "photos"
-
-
-    @property
-    def media_dir(self) -> Path:
-        """
-        Get the media directory path from the current project.
-        """
-        return self.project_dir / "media"
 
 
     @property
@@ -396,6 +370,13 @@ class FieldDataCapture:
             icon_path,
             text=self.tr(u'Create Field Report'),
             callback=self.create_field_report,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Validate Current Project'),
+            callback=self.run_project_validation,
             parent=self.iface.mainWindow(),
         )
 
@@ -1313,3 +1294,44 @@ class FieldDataCapture:
         if self.photo_importer is not None:
             del self.photo_importer
             self.photo_importer = None
+
+
+    def run_project_validation(self) -> None:
+        """
+        Run the project validation against the current QGIS project.
+        """
+        if self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
+            results = validate_project(self.project_dir)
+
+            all_messages: list[str] = []
+            result_statuses: set[ValidationStatus] = set()
+            for result in results:
+                result_statuses.add(result.status)
+
+                if result.status < ValidationStatus.PASS:
+                    display_messages = [
+                        # Add bullet point before each message
+                        "• " + message
+                        for message in result.messages
+                    ]
+                    all_messages.append("\n".join(display_messages))
+
+            # Get final status
+            status_to_str = {
+                ValidationStatus.FAIL: "failed",
+                ValidationStatus.WARNING: "warning",
+                ValidationStatus.PASS: "passed",
+            }
+            status_to_qmsgbox = {
+                ValidationStatus.FAIL: QMessageBox.critical,
+                ValidationStatus.WARNING: QMessageBox.warning,
+                ValidationStatus.PASS: QMessageBox.information,
+            }
+            final_status = min(result_statuses)
+
+            # Prepare final message for QMessageBox
+            qmsgbox_msg = "\n\n".join([
+                f"Validation for project '{self.project_dir.name}': {status_to_str[final_status].upper()}",
+            ] + all_messages)
+
+            status_to_qmsgbox[final_status](None, "Project Validation", qmsgbox_msg)

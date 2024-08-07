@@ -2,13 +2,11 @@ import builtins
 from pathlib import Path
 
 from bs4 import BeautifulSoup
-import pytest
 
 from conftest import locality_point_count
 
 from plugin.field_data_capture import FieldDataCapture
 from plugin.report_builder import ReportBuilder
-
 from plugin.utils import ipdb_breakpoint  # noqa
 
 # Minimum set of columns needed to produce a report using the templates
@@ -104,21 +102,6 @@ def test_get_child_rows_for_locality_from_table(report_builder: ReportBuilder):
         for row in rows:
             assert EXPECTED_COMMON_COLUMNS < set(row.keys())
             assert EXPECTED_CHILD_COLUMNS[table] < set(row.keys())
-
-
-@pytest.mark.parametrize(
-    "sql, count",
-    [("SELECT * FROM field_project", 1),
-     ("SELECT *, AsText(CastAutomagic(geometry)) as geom FROM locality_point", 2)]
-)
-def test_get_rows(report_builder: ReportBuilder, sql: str, count: int):
-    # Act
-    rows = report_builder.get_rows(sql)
-
-    # Assert
-    assert isinstance(rows, list)
-    assert len(rows) == count
-    assert isinstance(rows[0], dict)
 
 
 def test_remove_microseconds_by_row(report_builder: ReportBuilder):

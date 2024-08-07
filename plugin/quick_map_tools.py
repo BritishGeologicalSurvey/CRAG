@@ -30,6 +30,7 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from .config import (
+    FEATURE_STR_IDENTIFIERS,
     FEATURE_TABLES_LINES,
     LOCALITY_POINT_CHILDREN,
     TABLE_LIST,
@@ -402,12 +403,7 @@ class QuickDeleteTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIden
         Delete the given feature, asking for confirmation before proceeding.
         """
         # Get string identifier of feature to display to user
-        identifier_fields = {
-            "locality_point": "name",
-        }
-        for line_table in FEATURE_TABLES_LINES:
-            identifier_fields[line_table] = "line_type_code"
-        feature_identifier = feature.attribute(identifier_fields[feature_layer.name()])
+        feature_identifier = feature.attribute(FEATURE_STR_IDENTIFIERS[feature_layer.name()])
 
         result = QMessageBox.question(
             None, "Delete Feature",

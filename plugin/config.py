@@ -70,3 +70,20 @@ ATTRIBUTE_TABLES = {table for table in TABLES['attributes']
 TABLE_LIST = sorted(TABLES["features"] + TABLES["attributes"])
 
 LOCALITY_POINT_CHILDREN = ATTRIBUTE_TABLES - {"field_project"}
+
+FEATURE_STR_IDENTIFIERS = {
+    **{
+        "locality_point": "name",
+        "lithology": "lithology_code",
+        "manmade_landform": "manmade_type_code",
+        "media": "media_link",
+        "photo": "photo_file",
+        "sample": "sample_id",
+        "structural_measurement": "structure_type_code",
+        "superficial_landform": "superficial_type_code",
+    },
+    **{
+        line_table: "line_type_code"
+        for line_table in sorted(FEATURE_TABLES_LINES)
+    },
+}
