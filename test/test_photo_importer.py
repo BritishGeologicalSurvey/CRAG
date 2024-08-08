@@ -40,7 +40,7 @@ def test_close_photo_importer(fdc_project: FieldDataCapture):
 
 def test_select_photos_good(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
     # Arrange
-    expected_combobox_items = {
+    expected_combobox_locality_items = {
         "Select Locality Point": None,
         "test_point_001 | 2023-10-31 16:24:14": "{abc43098-fe9b-4da0-b008-7518694466bb}",
         "test_point_002 | 2023-10-31 16:25:36": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
@@ -84,7 +84,7 @@ def test_select_photos_good(fdc_project: FieldDataCapture, monkeypatch: pytest.M
     # Check that the widgets have been saved according to their photo paths
     for photo, widgets_dict in fdc_project.photo_importer.photos_to_widgets.items():
         assert photo in photo_files
-        assert isinstance(widgets_dict["QComboBox"], QComboBox)
+        assert isinstance(widgets_dict["QComboBox_locality"], QComboBox)
         assert isinstance(widgets_dict["QTextEdit"], QTextEdit)
 
     # Check that each photo row contains the correct widgets with the correct settings
@@ -92,21 +92,21 @@ def test_select_photos_good(fdc_project: FieldDataCapture, monkeypatch: pytest.M
         row_layout = fdc_project.photo_importer.photo_rows_layout.itemAt(idx).widget().layout()
         # Extract the widgets from the layout
         photo_path_label = row_layout.itemAt(0).layout().itemAt(0).widget()
-        combobox = row_layout.itemAt(0).layout().itemAt(1).widget()
+        combobox_locality = row_layout.itemAt(0).layout().itemAt(1).widget()
         photo_date_label = row_layout.itemAt(1).layout().itemAt(0).widget()
         photo_widget = row_layout.itemAt(2).layout().itemAt(0).widget()
 
         # Check widget types
         assert isinstance(photo_path_label, QLabel)
-        assert isinstance(combobox, QComboBox)
+        assert isinstance(combobox_locality, QComboBox)
         assert isinstance(photo_date_label, QLabel)
         assert isinstance(photo_widget.pixmap(), QPixmap)
 
         # Check widget settings
         assert expected_widget_settings["photo_path_label"] in photo_path_label.text()
-        for idx, (expected_text, expected_data) in enumerate(expected_combobox_items.items()):
-            assert combobox.itemText(idx) == expected_text
-            assert combobox.itemData(idx) == expected_data
+        for idx, (expected_text, expected_data) in enumerate(expected_combobox_locality_items.items()):
+            assert combobox_locality.itemText(idx) == expected_text
+            assert combobox_locality.itemData(idx) == expected_data
         # Check in rather than matches because one of them does not include the full date
         assert expected_widget_settings["photo_date_label"] in photo_date_label.text()
         assert photo_widget.pixmap().width() <= fdc_project.photo_importer.photo_widget_size
@@ -143,7 +143,7 @@ def test_select_photos_independently(fdc_project: FieldDataCapture, monkeypatch:
     # Check that the widgets have been saved according to both independently selected filepaths
     for photo, widgets_dict in fdc_project.photo_importer.photos_to_widgets.items():
         assert photo in photo_files
-        assert isinstance(widgets_dict["QComboBox"], QComboBox)
+        assert isinstance(widgets_dict["QComboBox_locality"], QComboBox)
         assert isinstance(widgets_dict["QTextEdit"], QTextEdit)
 
     # Check that there are 2 photo row layouts within the the photo_rows_layout
@@ -190,7 +190,7 @@ def test_select_photos_bad_file(fdc_project: FieldDataCapture, monkeypatch: pyte
     assert fdc_project.photo_importer.photo_rows_layout.count() == 0
 
 
-def test_combobox_stylesheet(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
+def test_combobox_locality_stylesheet(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
     # Arrange
     # Select good test photos
     photo_files = [
@@ -207,24 +207,24 @@ def test_combobox_stylesheet(fdc_project: FieldDataCapture, monkeypatch: pytest.
     # Assert 1
     # Check that the comboboxes have the correct style sheet on the default value
     for photo in photo_files:
-        combobox = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox"]
-        assert combobox.currentText() == "Select Locality Point"
-        assert combobox.currentData() is None
-        assert combobox.styleSheet() == "QComboBox:editable{color: red;}"
+        combobox_locality = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox_locality"]
+        assert combobox_locality.currentText() == "Select Locality Point"
+        assert combobox_locality.currentData() is None
+        assert combobox_locality.styleSheet() == "QComboBox:editable{color: red;}"
 
     # Act 2
     # Select a different item in the comboboxes
     for photo in photo_files:
-        combobox = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox"]
-        combobox.setCurrentIndex(1)
+        combobox_locality = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox_locality"]
+        combobox_locality.setCurrentIndex(1)
 
     # Assert 2
     # Check that the comboboxes have the correct style sheet on the new value
     for photo in photo_files:
-        combobox = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox"]
-        assert combobox.currentText() == "test_point_001 | 2023-10-31 16:24:14"
-        assert combobox.currentData() == "{abc43098-fe9b-4da0-b008-7518694466bb}"
-        assert combobox.styleSheet() == ""
+        combobox_locality = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox_locality"]
+        assert combobox_locality.currentText() == "test_point_001 | 2023-10-31 16:24:14"
+        assert combobox_locality.currentData() == "{abc43098-fe9b-4da0-b008-7518694466bb}"
+        assert combobox_locality.styleSheet() == ""
 
 
 def test_import_selection(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
@@ -243,10 +243,10 @@ def test_import_selection(fdc_project: FieldDataCapture, monkeypatch: pytest.Mon
     # Act
     # Modify input data like a user
     for idx, photo in enumerate(photo_files):
-        # Select a point in the combobox
-        combobox = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox"]
+        # Select a point in the locality combobox
+        combobox_locality = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox_locality"]
         # Add 1 to index because index 0 is no selection
-        combobox.setCurrentIndex(idx + 1)
+        combobox_locality.setCurrentIndex(idx + 1)
         # Edit the text edit box
         text_edit = fdc_project.photo_importer.photos_to_widgets[photo]["QTextEdit"]
         text_edit.setText(photo_caption)
@@ -283,9 +283,9 @@ def test_import_selection_some(fdc_project: FieldDataCapture, monkeypatch: pytes
     # Act
     # Modify input data like a user for only the second photo
     photo = photo_files[1]
-    # Select a point in the combobox
-    combobox = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox"]
-    combobox.setCurrentIndex(2)
+    # Select a point in the locality combobox
+    combobox_locality = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox_locality"]
+    combobox_locality.setCurrentIndex(2)
     # Edit the text edit box
     text_edit = fdc_project.photo_importer.photos_to_widgets[photo]["QTextEdit"]
     text_edit.setText(photo_caption)

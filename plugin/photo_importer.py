@@ -124,8 +124,6 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
                 already_existing_photos.add(Path(photo_file).name)
 
         skip_photos = []
-        self.photo_comboboxes = {}
-
         for photo in photos:
             # Don't import photos if they already exist or if they are already selected
             if photo.name in already_existing_photos or photo in self.photos_to_widgets:
@@ -180,10 +178,10 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
         # Arrange layout for new widgets into rows within the row layout
         photo_path_label = self.create_photo_path_widget(photo)
-        combobox = self.create_combobox()
+        combobox_locality = self.create_combobox_locality()
         row_hbox_1 = QHBoxLayout()
         row_hbox_1.addWidget(photo_path_label)
-        row_hbox_1.addWidget(combobox)
+        row_hbox_1.addWidget(combobox_locality)
 
         photo_date_label = self.create_photo_date_widget(photo, photo_tags)
         caption_label = QLabel("Caption")
@@ -211,7 +209,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
         # Save the required widgets for user input with the given photo path
         self.photos_to_widgets[photo] = {
-            "QComboBox": combobox,
+            "QComboBox_locality": combobox_locality,
             "QTextEdit": caption_edit,
         }
 
@@ -230,7 +228,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         return photo_path_label
 
 
-    def create_combobox(self) -> QComboBox:
+    def create_combobox_locality(self) -> QComboBox:
         """
         Create a QComboBox which lists the existing locality_point features by name and date_entered.
         Returns the QComboBox object.
@@ -334,7 +332,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
         imported_photos = 0
         for photo_path, photo_widgets in self.photos_to_widgets.items():
-            locality_fuid = photo_widgets["QComboBox"].currentData()
+            locality_fuid = photo_widgets["QComboBox_locality"].currentData()
 
             if locality_fuid is not None:
                 imported_photos += 1
