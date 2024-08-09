@@ -64,19 +64,30 @@ class QuickMapToolBase:
         if action is not None:
             self.setAction(action)
 
-        self.prepare_layer(layer)
+        self.prepare_layer()
         # Connect active layer changed signal to deactivate function in the plugin
         self.iface.layerTreeView().currentLayerChanged.connect(self.to_deactivate)
+        # Connect editingStopped signal from all given layers to deactivate function in the plugin
+        for layer in self.get_layer():
+            layer.editingStopped.connect(self.to_deactivate)
 
 
-    def prepare_layer(self, layer: QgsVectorLayer | list[QgsVectorLayer]) -> None:
+    def get_layer(self) -> list[QgsVectorLayer]:
+        """
+        Get the current layer(s) in a list.
+        This avoids having to check if the current layer is a list first.
+        """
+        if isinstance(self._layer, QgsVectorLayer):
+            return [self._layer]
+        else:
+            return self._layer
+
+
+    def prepare_layer(self) -> None:
         """
         Prepare the layer for quick editing.
         This includes making it editable and setting it as the active layer.
         """
-        if isinstance(layer, QgsVectorLayer):
-            layer = [layer]
-
         # PyQGIS does not provide a method for selecting mutliple layers in the tree view
         # Therefore we go into the root PyQt5 objects and find the elements we want from the widget
         view = self.iface.layerTreeView()
@@ -86,7 +97,7 @@ class QuickMapToolBase:
         view.selectionModel().clear()
 
         all_model_indexes = self.recursive_find_selection_model_indexes(start_index=model)
-        for vector_layer in layer:
+        for vector_layer in self.get_layer():
             if not vector_layer.isEditable():
                 vector_layer.startEditing()
             # Select the layer in the layerTreeView
@@ -248,14 +259,8 @@ class QuickMapToolIdentifyBase:
         Get the feature from the given event coordinates.
         Emits the feature and it's layer to the identified_feature signal.
         """
-        # Make sure the layer is a list
-        if isinstance(self._layer, QgsVectorLayer):
-            layer = [self._layer]
-        else:
-            layer = self._layer
-
         # Get first result from top
-        results = super().identify(event.x(), event.y(), layer, QgsMapToolIdentify.TopDownAll)
+        results = super().identify(event.x(), event.y(), self.get_layer(), QgsMapToolIdentify.TopDownAll)
         if len(results) > 0:
             feature = results[0].mFeature
             feature_layer = self.get_layer_from_feature(feature)
