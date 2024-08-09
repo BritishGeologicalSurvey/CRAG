@@ -1,4 +1,4 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.6-Prizren">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.36.2-Maidenhead">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -24,7 +24,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_fc063a78_7397_4042_97b4_367493564648"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_44960071_9485_4270_9279_30c163e515ed"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_sample_2"></Option>
@@ -55,7 +55,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_sample_material"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_sample_material_635e7f92_f696_4033_9376_efbe3daaaec9"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_sample_material_1ded7b45_2d8d_4d72_ae1b_a3b7cf389334"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_sample_material"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_sample_material_sample"></Option>
@@ -133,7 +133,7 @@
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
     <default applyOnUpdate="0" expression="" field="sample_id"></default>
-    <default applyOnUpdate="0" expression="" field="sample_type_code"></default>
+    <default applyOnUpdate="0" expression="'rock'" field="sample_type_code"></default>
     <default applyOnUpdate="0" expression="" field="sample_description"></default>
     <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_entered"></default>
     <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
@@ -189,30 +189,30 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
-    <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+    <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
       <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
     <attributeEditorField horizontalStretch="0" index="3" name="sample_id" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="4" name="sample_type_code" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="5" name="sample_description" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorContainer collapsed="1" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="Parent locality" showLabel="1" type="GroupBox" verticalStretch="0" visibilityExpression="" visibilityExpressionEnabled="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
       <attributeEditorField horizontalStretch="0" index="2" name="locality_fuid" showLabel="1" verticalStretch="0">
-        <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+        <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
@@ -249,7 +249,7 @@ def my_form_open(dialog, layer, feature):
     <field name="locality_fuid" reuseLastValue="0"></field>
     <field name="sample_description" reuseLastValue="0"></field>
     <field name="sample_id" reuseLastValue="0"></field>
-    <field name="sample_type_code" reuseLastValue="0"></field>
+    <field name="sample_type_code" reuseLastValue="1"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>

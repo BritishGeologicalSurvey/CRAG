@@ -82,6 +82,14 @@ def empty_geometry_feature_line() -> QgsFeature:
 
 
 @pytest.fixture()
+def monkeypatch_feature_form_true(monkeypatch: pytest.MonkeyPatch) -> None:
+    """
+    Apply monkeypatch for open feature form, which confirms the form like a user would.
+    """
+    monkeypatch.setattr(QuickMapToolBase, "open_custom_feature_form", lambda *args: True)
+
+
+@pytest.fixture()
 def monkeypatch_feature_form_false(monkeypatch: pytest.MonkeyPatch) -> None:
     """
     Apply monkeypatch for open feature form, which cancels the form like a user would.
@@ -369,17 +377,16 @@ def test_locality_add_confirm(
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_point: QgsFeature,
+    monkeypatch_feature_form_true,
 ):
     # Arrange
     layer_name = "locality_point"
     locality_type_field = "locality_type_code"
-    locality_type_value = "auger_borehole"
+    last_locality_type_value = "outcrop"
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-
-    monkeypatch_feature_form_modify_attributes({locality_type_field: locality_type_value}, fdc_project, monkeypatch)
 
     # Act
     fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_point)
@@ -390,7 +397,7 @@ def test_locality_add_confirm(
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
     assert new_feature.attribute("fid") == expected_fid
     assert new_feature.attribute("name") == f"{pwd.getpwuid(os.getuid()).pw_name}_001"
-    assert new_feature.attribute(locality_type_field) == locality_type_value
+    assert new_feature.attribute(locality_type_field) == last_locality_type_value
     assert new_feature.geometry().asWkt() == empty_geometry_feature_point.geometry().asWkt()
     assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
 
@@ -555,6 +562,7 @@ def test_lines_add_confirm(
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_line: QgsFeature,
+    monkeypatch_feature_form_true,
 ):
     # Arrange
     expected_tool_name = f"fdc_{layer_name}_add"
@@ -564,8 +572,6 @@ def test_lines_add_confirm(
 
     # Emit signal as if user selected a line type
     fdc_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
-    # Apply monkeypatch for open feature form, which confirms the form like a user would
-    monkeypatch.setattr(fdc_project.quick_map_tool, "open_custom_feature_form", lambda *args: True)
 
     # Act
     fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_line)

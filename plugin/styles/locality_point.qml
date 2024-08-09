@@ -865,7 +865,7 @@ superficial_landform: [% aggregate(&#xD;
     <field name="field_project_fuid" reuseLastValue="0"></field>
     <field name="geology_description" reuseLastValue="0"></field>
     <field name="locality_description" reuseLastValue="0"></field>
-    <field name="locality_type_code" reuseLastValue="0"></field>
+    <field name="locality_type_code" reuseLastValue="1"></field>
     <field name="map_face_note" reuseLastValue="0"></field>
     <field name="name" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>

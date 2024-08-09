@@ -348,7 +348,7 @@ def my_form_open(dialog, layer, feature):
     <field name="notes" reuseLastValue="0"></field>
     <field name="secondary_attribute" reuseLastValue="0"></field>
     <field name="structure_type_category" reuseLastValue="0"></field>
-    <field name="structure_type_code" reuseLastValue="0"></field>
+    <field name="structure_type_code" reuseLastValue="1"></field>
     <field name="third_attribute" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>

@@ -160,16 +160,6 @@ class QuickMapToolBase:
 
         # Handle saving or rollback
         if save:
-            # For field_project features, add the plugin version to the new feature
-            if feature_layer.name() == "field_project" and self.quick_mode == "add":
-                field_index = [field.name() for field in feature_layer.fields()].index("qgis_plugin_version")
-                # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-                feature_layer.changeAttributeValue(
-                    fid=feature.id(),
-                    field=field_index,
-                    newValue=self.get_local_version(),
-                )
-
             # Get the uuid of the new feature so we can find the new feature again after saving
             # We can't use the fid as this will be set once it is saved
             new_feature_uuid = feature.attribute("uuid")
@@ -325,10 +315,16 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
         """
         # Get the prepopulate values by field index instead of field name so they can be used by QgsVectorLayerUtils
         prepopulate_indexed = {}
+        default_values = self.get_default_values()
+        # Add default values to temp prepopulate dictionary so that we can apply both in 1 loop
         if self.prepopulate is not None:
-            for field_name, prepopulate_value in self.prepopulate.items():
-                field_index = [field.name() for field in self._layer.fields()].index(field_name)
-                prepopulate_indexed[field_index] = prepopulate_value
+            prepopulate = self.prepopulate | default_values
+        else:
+            prepopulate = default_values
+
+        for field_name, prepopulate_value in prepopulate.items():
+            field_index = [field.name() for field in self._layer.fields()].index(field_name)
+            prepopulate_indexed[field_index] = prepopulate_value
 
         # Create feature with the geometry from the new empty feature and prepopulate any values required
         feature = QgsVectorLayerUtils.createFeature(
@@ -338,6 +334,31 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
         )
         self._layer.addFeature(feature)
         self.open_feature_form(feature, feature_layer=self._layer)
+
+
+    def get_default_values(self) -> dict[str, Any]:
+        """
+        Get the default values which should be prepopulated in a new feature.
+        The styles do not always apply these when using QuickMapTools.
+        """
+        default_values = {}
+        # Add tool can only take a single layer, so do not need to check if it is a list when checking name
+
+        if self._layer.name() == "locality_point":
+            # Get default value for locality_type_code
+            locality_type_code = "locality_type_code"
+            locality_type_codes = [
+                feature.attribute(locality_type_code)
+                for feature in self._layer.getFeatures()
+            ]
+            if len(locality_type_codes) > 0:
+                default_values[locality_type_code] = locality_type_codes[-1]
+
+        elif self._layer.name() == "field_project":
+            # Get default value for qgis_plugin_version
+            default_values["qgis_plugin_version"] = self.get_local_version()
+
+        return default_values
 
 
 class QuickEditTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIdentify):

@@ -1,4 +1,4 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.6-Prizren">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.36.2-Maidenhead">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -25,7 +25,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_acda2da5_77f6_43e1_ab7e_7ac409577fc7"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_ce58af9d_caae_4d8c_8d4c_36b2c34cda61"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_superficial_landform"></Option>
@@ -44,14 +44,14 @@
             <Option name="ChainFilters" type="bool" value="false"></Option>
             <Option name="FetchLimitActive" type="bool" value="true"></Option>
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
-            <Option name="FilterExpression" type="QString" value=""></Option>
+            <Option name="FilterExpression" type="invalid"></Option>
             <Option name="FilterFields" type="List">
               <Option type="QString" value="category"></Option>
             </Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_superficial_landform"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_superficial_landform_ea7aced7_9a5d_47c7_b890_765577064181"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_superficial_landform_f2f77699_a3c4_4229_9a39_ac7f0847f3e3"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_superficial_landform"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_superficial_landform_superficial_landform_2"></Option>
@@ -255,50 +255,60 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
-    <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+    <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
       <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
     <attributeEditorField horizontalStretch="0" index="3" name="superficial_type_code" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="4" name="dip" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="azimuth" showLabel="0" type="Row" verticalStretch="0" visibilityExpression="attribute(&#xD;&#xA;&#x9;get_feature(&#xD;&#xA;&#x9;&#x9;'dic_superficial_landform',&#xD;&#xA;&#x9;&#x9;'code',&#xD;&#xA;&#x9;&#x9;&quot;superficial_type_code&quot;&#xD;&#xA;&#x9;),&#xD;&#xA;&#x9;'has_azimuth'&#xD;&#xA;)" visibilityExpressionEnabled="1">
+      <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
+        <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-    </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="5" name="azimuth" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,8.25,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      <attributeEditorField horizontalStretch="0" index="5" name="azimuth" showLabel="1" verticalStretch="0">
+        <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+        </labelStyle>
+      </attributeEditorField>
+    </attributeEditorContainer>
+    <attributeEditorContainer collapsed="0" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="0" horizontalStretch="0" name="dip" showLabel="0" type="Row" verticalStretch="0" visibilityExpression="attribute(&#xD;&#xA;&#x9;get_feature(&#xD;&#xA;&#x9;&#x9;'dic_superficial_landform',&#xD;&#xA;&#x9;&#x9;'code',&#xD;&#xA;&#x9;&#x9;&quot;superficial_type_code&quot;&#xD;&#xA;&#x9;),&#xD;&#xA;&#x9;'has_dip'&#xD;&#xA;)" visibilityExpressionEnabled="1">
+      <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
+        <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
-    </attributeEditorField>
+      <attributeEditorField horizontalStretch="0" index="4" name="dip" showLabel="1" verticalStretch="0">
+        <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
+          <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+        </labelStyle>
+      </attributeEditorField>
+    </attributeEditorContainer>
     <attributeEditorField horizontalStretch="0" index="6" name="length" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="7" name="width" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="8" name="height_depth" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="9" name="notes" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorContainer collapsed="1" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="Parent locality" showLabel="1" type="GroupBox" verticalStretch="0" visibilityExpression="" visibilityExpressionEnabled="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
       <attributeEditorField horizontalStretch="0" index="2" name="locality_fuid" showLabel="1" verticalStretch="0">
-        <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+        <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
         </labelStyle>
       </attributeEditorField>
@@ -349,7 +359,7 @@ def my_form_open(dialog, layer, feature):
     <field name="locality_fuid" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>
     <field name="superficial_type_category" reuseLastValue="0"></field>
-    <field name="superficial_type_code" reuseLastValue="0"></field>
+    <field name="superficial_type_code" reuseLastValue="1"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>

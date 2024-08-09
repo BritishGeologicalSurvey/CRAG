@@ -700,36 +700,71 @@ class FieldDataCapture(FieldDataCaptureProject):
 
             # Set display expressions for certain layers
             display_expressions = {
-                "lithology": """attribute(get_feature('dic_rock_field', 'code', "lithology_code"), 'label')
-                    + ' (' + "lithology_code" + ')'""",
-                "manmade_landform": '''"manmade_type_code"''',
+                "lithology": """
+                    attribute(
+                        get_feature(
+                            'dic_rock_field',
+                            'code',
+                            "lithology_code"
+                        ),
+                        'label'
+                    ) + ' (' + "lithology_code" + ')'
+                """,
+                "manmade_landform": """
+                    attribute(
+                        get_feature(
+                            'dic_manmade_landform',
+                            'code',
+                            "manmade_type_code"
+                        ),
+                        'description'
+                    )
+                """,
                 "media": '''"media_link" + ' | ' + "media_description"''',
                 "photo": '''"photo_file" + ' | ' + "caption"''',
                 "sample": '''"sample_id"''',
-                "structural_measurement": '''"structure_type_code"''',
-                "superficial_landform": '''"superficial_type_code"''',
+                "structural_measurement": """
+                    attribute(
+                        get_feature(
+                            'dic_structure',
+                            'code',
+                            "structure_type_code"
+                        ),
+                        'description'
+                    )
+                """,
+                "superficial_landform": """
+                    attribute(
+                        get_feature(
+                            'dic_superficial_landform',
+                            'code',
+                            "superficial_type_code"
+                        ),
+                        'description'
+                    )
+                """,
                 "dic_rock_field": """"label" + ' (' + "code" + ')'""",
                 "_lnk_rock_project": """
-                                        attribute(
-                                            get_feature(
-                                                'field_project',
-                                                'uuid',
-                                                "field_project_uuid"),
-                                            'short_name')
+                    attribute(
+                        get_feature(
+                            'field_project',
+                            'uuid',
+                            "field_project_uuid"),
+                        'short_name')
 
-                                        + ' - ' +
+                    + ' - ' +
 
-                                        attribute(
-                                            get_feature(
-                                                'dic_rock_field',
-                                                'code',
-                                                "rock_code"),
-                                            'label')
+                    attribute(
+                        get_feature(
+                            'dic_rock_field',
+                            'code',
+                            "rock_code"),
+                        'label')
 
-                                        + ' - ' +
+                    + ' - ' +
 
-                                        "rock_code"
-                                        """,
+                    "rock_code"
+                """,
             }
             if vector_layer.name() in display_expressions:
                 vector_layer.setDisplayExpression(display_expressions[vector_layer.name()])
