@@ -169,7 +169,7 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     monkeypatch.setattr(QuickMapToolBase, "get_local_version", lambda *args: "fdc_test_fixture")
 
     # Apply monkeypatch for LineLayerSelector
-    monkeypatch.setattr(LineLayerSelector, "exec", lambda *args: True)
+    monkeypatch.setattr(LineLayerSelector, "exec", Mock())
 
     # Apply monkeypatch for searching GUI elements in QuickMapTools
     monkeypatch.setattr(

@@ -23,6 +23,7 @@ from plugin.config import (
     LAYER_TREE_STRUCTURE_INDEXED,
 )
 from plugin.field_data_capture import FieldDataCapture
+from plugin.line_layer_selector import LineLayerSelector
 from plugin.quick_map_tools import (
     QuickMapToolBase,
     QuickAddTool,
@@ -283,6 +284,51 @@ def test_manually_disable_editing(
 
     # Assert
     assert_no_tool_enabled(fdc_project)
+
+
+@pytest.mark.parametrize(
+    ["layer_name", "line_type_code"],
+    zip(
+        # Ignore the first value from each because it will be the already activated tool
+        sorted(FEATURE_TABLES_LINES)[1:],
+        LINE_TYPE_CODES[1:],
+    ),
+)
+def test_reopen_line_layer_selector(
+    layer_name: str,
+    line_type_code: str,
+    fdc_project: FieldDataCapture,
+):
+    # Arrange
+    expected_tool = QuickAddTool
+    expected_tool_name = f"fdc_{layer_name}_add"
+    start_layer_name = "artificial_line"
+    start_line_type_code = "cliffline_quarry"
+    # Press button to activate QuickAddTool for lines
+    fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
+    # Emit signal as if user selected the starting line type
+    fdc_project.line_layer_selector.line_layer_selector_confirm.emit(start_layer_name, start_line_type_code)
+
+    # Act 1
+    # Press button to activate QuickAddTool for lines whilst tool is already active
+    fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
+
+    # Assert 1
+    # Check that LineLayerSelector has been reopened
+    assert isinstance(fdc_project.line_layer_selector, LineLayerSelector)
+    # Check that the button is still toggled
+    assert fdc_project.quick_map_tool_buttons["fdc_lines_add"].isChecked()
+
+    # Act 2
+    # Emit signal as if user selected a new line type
+    fdc_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
+
+    # Assert 2
+    assert_tool_enabled(fdc_project, layer_name, expected_tool, expected_tool_name)
+    # Check that the button is still toggled
+    assert fdc_project.quick_map_tool_buttons["fdc_lines_add"].isChecked()
+    # Check that the LineLayerSelector was opened twice
+    assert LineLayerSelector.exec.call_count == 2
 
 
 @pytest.mark.parametrize("mode", ("add", "edit", "delete"))

@@ -1102,10 +1102,8 @@ class FieldDataCapture(FieldDataCaptureProject):
             self.untoggle_quick_map_tool_buttons()
             return False
 
-        # If the quick add lines tool is already in use, disable it
-        map_tool = self.iface.mapCanvas().mapTool()
-        if isinstance(map_tool, QuickAddTool) and map_tool._layer.name() in FEATURE_TABLES_LINES:
-            return self.toggle_quick_map_tool(layer_name=map_tool._layer.name(), mode=map_tool.quick_mode)
+        # Ensure the button is toggled, it can be untoggled if pressed again to select a different line type
+        self.quick_map_tool_buttons["fdc_lines_add"].setChecked(True)
 
         # Open line layer selector tool
         self.line_layer_selector = LineLayerSelector(self.last_quick_add_line_type)
