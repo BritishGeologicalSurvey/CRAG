@@ -142,10 +142,7 @@ def assert_tool_enabled(
     assert isinstance(map_tool, expected_tool)
     # Check the attributes of the tool
     assert map_tool.toolName() == expected_tool_name
-    if isinstance(map_tool._layer, list):
-        assert set(map_tool._layer) == set(expected_layers)
-    else:
-        assert map_tool._layer == expected_layers[0]
+    assert set(map_tool.get_layer()) == set(expected_layers)
     # Check that the button is toggled, but only if it is not the add field_project tool because it is a one time use
     if expected_tool_name != "fdc_field_project_add":
         assert fdc.quick_map_tool_buttons[expected_tool_name].isChecked()
