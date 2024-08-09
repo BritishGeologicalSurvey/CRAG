@@ -32,14 +32,13 @@ from plugin.quick_map_tools import (
 from plugin.utils import ipdb_breakpoint  # noqa
 
 COMMON_TOOLS = (
-    ["layer_names", "mode", "expected_tool", "layers_ref"],
+    ["layer_names", "expected_tool", "expected_tool_name"],
     (
-        # layer(s), mode, class, layers_ref
-        ("locality_point", "add", QuickAddTool, "locality_point"),
-        ("locality_point", "edit", QuickEditTool, "locality_point"),
-        ("locality_point", "delete", QuickDeleteTool, "locality_point"),
-        (sorted(FEATURE_TABLES_LINES), "edit", QuickEditTool, "lines"),
-        (sorted(FEATURE_TABLES_LINES), "delete", QuickDeleteTool, "lines"),
+        ("locality_point", QuickAddTool, "fdc_locality_point_add"),
+        ("locality_point", QuickEditTool, "fdc_locality_point_edit"),
+        ("locality_point", QuickDeleteTool, "fdc_locality_point_delete"),
+        (sorted(FEATURE_TABLES_LINES), QuickEditTool, "fdc_lines_edit"),
+        (sorted(FEATURE_TABLES_LINES), QuickDeleteTool, "fdc_lines_delete"),
     ),
 )
 LINE_TYPE_CODES = (
@@ -167,14 +166,10 @@ def assert_no_tool_enabled(fdc: FieldDataCapture, layer: Optional[QgsVectorLayer
 @pytest.mark.parametrize(*COMMON_TOOLS)
 def test_enable_good(
     layer_names: str | Iterable[str],
-    mode: str,
     expected_tool: QgsMapTool,
-    layers_ref: str,
+    expected_tool_name: str,
     fdc_project: FieldDataCapture,
 ):
-    # Arrange
-    expected_tool_name = f"fdc_{layers_ref}_{mode}"
-
     # Act
     # Enable quick tool
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
@@ -185,18 +180,12 @@ def test_enable_good(
 @pytest.mark.parametrize(*COMMON_TOOLS)
 def test_enable_bad(
     layer_names: str | Iterable[str],
-    mode: str,
     expected_tool: QgsMapTool,
-    layers_ref: str,
+    expected_tool_name: str,
     fdc: FieldDataCapture,
 ):
-    """
-    This test uses the 'fdc' fixture rather than 'fdc_project' because
-    because it tests that the quick tool is not toggled when no project exists.
-    """
-    # Arrange
-    expected_tool_name = f"fdc_{layers_ref}_{mode}"
-
+    # This test uses the 'fdc' fixture rather than 'fdc_project' because
+    # it tests that the quick tool is not toggled when no project exists.
     # Act
     # Enable quick tool
     fdc.quick_map_tool_buttons[expected_tool_name].trigger()
@@ -208,13 +197,10 @@ def test_enable_bad(
 @pytest.mark.parametrize(*COMMON_TOOLS)
 def test_disable_good(
     layer_names: str | Iterable[str],
-    mode: str,
     expected_tool: QgsMapTool,
-    layers_ref: str,
+    expected_tool_name: str,
     fdc_project: FieldDataCapture,
 ):
-    # Arrange
-    expected_tool_name = f"fdc_{layers_ref}_{mode}"
     # Enable quick tool
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
@@ -229,13 +215,11 @@ def test_disable_good(
 @pytest.mark.parametrize(*COMMON_TOOLS)
 def test_disable_bad(
     layer_names: str | Iterable[str],
-    mode: str,
     expected_tool: QgsMapTool,
-    layers_ref: str,
+    expected_tool_name: str,
     fdc_project: FieldDataCapture,
 ):
     # Arrange
-    expected_tool_name = f"fdc_{layers_ref}_{mode}"
     # Enable quick tool
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
 
@@ -255,14 +239,12 @@ def test_disable_bad(
 @pytest.mark.parametrize(COMMON_TOOLS[0], COMMON_TOOLS[1][1:])
 def test_switch_tool(
     layer_names: str | Iterable[str],
-    mode: str,
     expected_tool: QgsMapTool,
-    layers_ref: str,
+    expected_tool_name: str,
     fdc_project: FieldDataCapture,
 ):
     # Arrange
     old_tool_name = "fdc_locality_point_add"
-    expected_tool_name = f"fdc_{layers_ref}_{mode}"
 
     # Act
     # Enable quick add locality point tool
