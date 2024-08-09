@@ -258,6 +258,25 @@ def test_switch_tool(
     assert not fdc_project.quick_map_tool_buttons[old_tool_name].isChecked()
 
 
+@pytest.mark.parametrize(*COMMON_TOOLS)
+def test_manually_disable_editing(
+    layer_names: str | Iterable[str],
+    expected_tool: QgsMapTool,
+    expected_tool_name: str,
+    fdc_project: FieldDataCapture,
+):
+    # Arrange
+    # Enable quick tool
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+
+    # Act
+    # Disable editing on the first layer manually, this used to cause the tool to break
+    fdc_project.quick_map_tool.get_layer()[0].rollBack()
+
+    # Assert
+    assert_no_tool_enabled(fdc_project)
+
+
 @pytest.mark.parametrize("mode", ("add", "edit", "delete"))
 def test_locality_warn_edits(mode: str, fdc_project: FieldDataCapture):
     # Arrange

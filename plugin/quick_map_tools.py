@@ -67,6 +67,9 @@ class QuickMapToolBase:
         self.prepare_layer()
         # Connect active layer changed signal to deactivate function in the plugin
         self.iface.layerTreeView().currentLayerChanged.connect(self.to_deactivate)
+        # Connect editingStopped signal from all given layers to deactivate function in the plugin
+        for layer in self.get_layer():
+            layer.editingStopped.connect(self.to_deactivate)
 
 
     def get_layer(self) -> list[QgsVectorLayer]:
