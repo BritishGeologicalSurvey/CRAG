@@ -327,7 +327,7 @@ def my_form_open(dialog, layer, feature):
     <field name="fid" reuseLastValue="0"></field>
     <field name="length" reuseLastValue="0"></field>
     <field name="locality_fuid" reuseLastValue="0"></field>
-    <field name="manmade_type_code" reuseLastValue="0"></field>
+    <field name="manmade_type_code" reuseLastValue="1"></field>
     <field name="notes" reuseLastValue="0"></field>
     <field name="user_entered" reuseLastValue="0"></field>
     <field name="user_updated" reuseLastValue="0"></field>
