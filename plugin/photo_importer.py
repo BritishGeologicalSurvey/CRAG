@@ -398,7 +398,8 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
                 # Only copy the file if it is not already in the photos directory
                 if self.is_photo_file_in_photos_dir(photo_path):
-                    new_photo = photo_path
+                    # Move the already existing photo to the newly selected sub_photo_dir
+                    new_photo = photo_path.rename(sub_photo_dir / photo_path.name)
                 else:
                     # Copy the photo file into the project
                     new_photo = sub_photo_dir / photo_path.name
