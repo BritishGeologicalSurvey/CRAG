@@ -9,7 +9,10 @@ from typing import (
 from qgis.core import QgsProject
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtGui import QDesktopServices
-from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt.QtWidgets import (
+    QComboBox,
+    QMessageBox,
+)
 from PyQt5.QtCore import pyqtRemoveInputHook
 
 from .config import TABLE_LIST
@@ -277,6 +280,30 @@ def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:
     conn.close()
 
     return rows
+
+
+def set_combobox_index_by_data(combobox: QComboBox, data: Any) -> None:
+    """
+    Set the index of a given combobox to be the index at which the given data is found,
+    if it is found.
+    """
+    combobox_item_dict = get_combobox_items_dict(combobox)
+    data_items = list(combobox_item_dict.values())
+    if data in data_items:
+        combobox.setCurrentIndex(data_items.index(data))
+
+
+def get_combobox_items_dict(combobox: QComboBox) -> dict[str, Any]:
+    """
+    Get a dictionary of the items from a given QComboBox object.
+    The keys are the displayed labels, whilst the values are the actual data.
+    """
+    model = combobox.model()
+    label_to_data = {
+        combobox.itemText(row_idx): combobox.itemData(row_idx)
+        for row_idx in range(model.rowCount())
+    }
+    return label_to_data
 
 
 def ipdb_breakpoint():
