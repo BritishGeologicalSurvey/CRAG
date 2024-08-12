@@ -15,7 +15,10 @@ from qgis.PyQt.QtWidgets import (
 
 from plugin.field_data_capture import FieldDataCapture
 from plugin.photo_importer import PhotoImporter
-from plugin.utils import ipdb_breakpoint  # noqa
+from plugin.utils import (  # noqa
+    get_combobox_items_dict,
+    ipdb_breakpoint,
+)
 
 
 def test_open_photo_importer(fdc_project: FieldDataCapture):
@@ -81,36 +84,24 @@ def test_select_photos_good(fdc_project: FieldDataCapture, monkeypatch: pytest.M
     fdc_project.photo_importer.select_photos_button.click()
 
     # Assert
-    # Check that the widgets have been saved according to their photo paths
-    for photo, widgets_dict in fdc_project.photo_importer.photos_to_widgets.items():
-        assert photo in photo_files
-        assert isinstance(widgets_dict["QComboBox_locality"], QComboBox)
-        assert isinstance(widgets_dict["QTextEdit"], QTextEdit)
-
     # Check that each photo row contains the correct widgets with the correct settings
-    for idx, (photo, expected_widget_settings) in enumerate(photo_files.items()):
-        row_layout = fdc_project.photo_importer.photo_rows_layout.itemAt(idx).widget().layout()
-        # Extract the widgets from the layout
-        photo_path_label = row_layout.itemAt(0).layout().itemAt(0).widget()
-        combobox_locality = row_layout.itemAt(0).layout().itemAt(1).widget()
-        photo_date_label = row_layout.itemAt(1).layout().itemAt(0).widget()
-        photo_widget = row_layout.itemAt(2).layout().itemAt(0).widget()
-
+    for photo, expected_widget_settings in photo_files.items():
+        widgets_dict = fdc_project.photo_importer.photos_to_widgets[photo]
         # Check widget types
-        assert isinstance(photo_path_label, QLabel)
-        assert isinstance(combobox_locality, QComboBox)
-        assert isinstance(photo_date_label, QLabel)
-        assert isinstance(photo_widget.pixmap(), QPixmap)
+        assert isinstance(widgets_dict["QLabel_photo_path"], QLabel)
+        assert isinstance(widgets_dict["QLabel_photo_date"], QLabel)
+        assert isinstance(widgets_dict["QLabel_photo_widget"].pixmap(), QPixmap)
+        assert isinstance(widgets_dict["QComboBox_locality"], QComboBox)
+        assert isinstance(widgets_dict["QComboBox_sub_photo_dir"], QComboBox)
+        assert isinstance(widgets_dict["QTextEdit_caption"], QTextEdit)
 
         # Check widget settings
-        assert expected_widget_settings["photo_path_label"] in photo_path_label.text()
-        for idx, (expected_text, expected_data) in enumerate(expected_combobox_locality_items.items()):
-            assert combobox_locality.itemText(idx) == expected_text
-            assert combobox_locality.itemData(idx) == expected_data
+        assert expected_widget_settings["photo_path_label"] in widgets_dict["QLabel_photo_path"].text()
+        assert get_combobox_items_dict(widgets_dict["QComboBox_locality"]) == expected_combobox_locality_items
         # Check in rather than matches because one of them does not include the full date
-        assert expected_widget_settings["photo_date_label"] in photo_date_label.text()
-        assert photo_widget.pixmap().width() <= fdc_project.photo_importer.photo_widget_size
-        assert photo_widget.pixmap().height() <= fdc_project.photo_importer.photo_widget_size
+        assert expected_widget_settings["photo_date_label"] in widgets_dict["QLabel_photo_date"].text()
+        assert widgets_dict["QLabel_photo_widget"].pixmap().width() <= fdc_project.photo_importer.photo_widget_size
+        assert widgets_dict["QLabel_photo_widget"].pixmap().height() <= fdc_project.photo_importer.photo_widget_size
 
 
 def test_select_photos_independently(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
@@ -143,11 +134,17 @@ def test_select_photos_independently(fdc_project: FieldDataCapture, monkeypatch:
     # Check that the widgets have been saved according to both independently selected filepaths
     for photo, widgets_dict in fdc_project.photo_importer.photos_to_widgets.items():
         assert photo in photo_files
+        # Check widget types
+        assert isinstance(widgets_dict["QLabel_photo_path"], QLabel)
+        assert isinstance(widgets_dict["QLabel_photo_date"], QLabel)
+        assert isinstance(widgets_dict["QLabel_photo_widget"].pixmap(), QPixmap)
         assert isinstance(widgets_dict["QComboBox_locality"], QComboBox)
-        assert isinstance(widgets_dict["QTextEdit"], QTextEdit)
+        assert isinstance(widgets_dict["QComboBox_sub_photo_dir"], QComboBox)
+        assert isinstance(widgets_dict["QTextEdit_caption"], QTextEdit)
 
-    # Check that there are 2 photo row layouts within the the photo_rows_layout
-    assert fdc_project.photo_importer.photo_rows_layout.count() == 2
+    # Check that there are 4 items within the photo_rows_layout
+    # 2 for rows, 2 for stretch
+    assert fdc_project.photo_importer.photo_rows_layout.count() == 4
 
 
 def test_select_photos_independently_duplicate(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
@@ -167,8 +164,8 @@ def test_select_photos_independently_duplicate(fdc_project: FieldDataCapture, mo
     # Only one photo row widget set should exist as the the user selected the same photo twice
     # Check that the widgets have been saved according to the single filepath
     assert len(fdc_project.photo_importer.photos_to_widgets) == 1
-    # Check that there is 1 photo row layout within the the photo_rows_layout
-    assert fdc_project.photo_importer.photo_rows_layout.count() == 1
+    # Check that there is 1 photo row layout and 1 stretch within the photo_rows_layout
+    assert fdc_project.photo_importer.photo_rows_layout.count() == 2
 
 
 def test_select_photos_bad_file(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
@@ -248,7 +245,7 @@ def test_import_selection(fdc_project: FieldDataCapture, monkeypatch: pytest.Mon
         # Add 1 to index because index 0 is no selection
         combobox_locality.setCurrentIndex(idx + 1)
         # Edit the text edit box
-        text_edit = fdc_project.photo_importer.photos_to_widgets[photo]["QTextEdit"]
+        text_edit = fdc_project.photo_importer.photos_to_widgets[photo]["QTextEdit_caption"]
         text_edit.setText(photo_caption)
     fdc_project.photo_importer.import_selection_button.click()
 
@@ -287,7 +284,7 @@ def test_import_selection_some(fdc_project: FieldDataCapture, monkeypatch: pytes
     combobox_locality = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox_locality"]
     combobox_locality.setCurrentIndex(2)
     # Edit the text edit box
-    text_edit = fdc_project.photo_importer.photos_to_widgets[photo]["QTextEdit"]
+    text_edit = fdc_project.photo_importer.photos_to_widgets[photo]["QTextEdit_caption"]
     text_edit.setText(photo_caption)
     fdc_project.photo_importer.import_selection_button.click()
 

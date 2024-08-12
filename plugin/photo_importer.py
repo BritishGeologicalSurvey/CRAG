@@ -34,6 +34,7 @@ from qgis.PyQt.QtWidgets import (
 
 from .utils import (  # noqa
     FieldDataCaptureProject,
+    set_combobox_index_by_data,
     ipdb_breakpoint,
 )
 
@@ -99,6 +100,13 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         self.select_photos_button.clicked.connect(self.select_photos)
         self.import_selection_button.clicked.connect(self.import_selection)
         self.cancel_button.clicked.connect(self.close)
+
+
+    def is_photo_file_in_photos_dir(self, photo_file: Path) -> bool:
+        """
+        Check if the given photo file exists in the photos_dir already.
+        """
+        return self.photos_dir.absolute() in photo_file.absolute().parents
 
 
     def select_photos(self) -> bool:
@@ -176,41 +184,67 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         with open(photo, "rb") as photo_file:
             photo_tags = exifread.process_file(photo_file)
 
-        # Arrange layout for new widgets into rows within the row layout
+        # Arrange layout for new widgets into columns within the row layout
+        # Column 1
         photo_path_label = self.create_photo_path_widget(photo)
-        combobox_locality = self.create_combobox_locality()
-        row_hbox_1 = QHBoxLayout()
-        row_hbox_1.addWidget(photo_path_label)
-        row_hbox_1.addWidget(combobox_locality)
-
         photo_date_label = self.create_photo_date_widget(photo, photo_tags)
-        caption_label = QLabel("Caption")
-        row_hbox_2 = QHBoxLayout()
-        row_hbox_2.addWidget(photo_date_label)
-        row_hbox_2.addWidget(caption_label)
-
         photo_widget = self.create_photo_widget(photo, photo_tags)
-        caption_edit = QTextEdit()
-        row_hbox_3 = QHBoxLayout()
-        row_hbox_3.addWidget(photo_widget)
-        row_hbox_3.addWidget(caption_edit)
+        # Column 1 layout
+        col_vbox_1 = QVBoxLayout()
+        col_vbox_1.addWidget(photo_path_label)
+        col_vbox_1.addWidget(photo_date_label)
+        col_vbox_1.addWidget(photo_widget)
 
-        # Combine the top and bottom half into a single layout to form an entire row
-        row_layout = QVBoxLayout()
-        row_layout.addLayout(row_hbox_1)
-        row_layout.addLayout(row_hbox_2)
-        row_layout.addLayout(row_hbox_3)
+        # Column 2
+        # Create sub-vboxes for labels to QComboBoxes
+        # Labels
+        locality_label = QLabel("Locality Point:")
+        sub_photo_dir_label = QLabel("Photo Sub-Folder:")
+        label_vbox = QVBoxLayout()
+        label_vbox.addWidget(locality_label)
+        label_vbox.addWidget(sub_photo_dir_label)
+        # QComboBoxes
+        combobox_locality = self.create_combobox_locality()
+        combobox_sub_photo_dir = self.create_combobox_sub_photo_dir()
+        # If given photo is in dir already, preselect it's path
+        if self.is_photo_file_in_photos_dir(photo):
+            set_combobox_index_by_data(combobox_sub_photo_dir, photo.parent.absolute())
+        combobox_vbox = QVBoxLayout()
+        combobox_vbox.addWidget(combobox_locality)
+        combobox_vbox.addWidget(combobox_sub_photo_dir)
+        # Combine labels and comboboxes
+        label_combobox_hbox = QHBoxLayout()
+        label_combobox_hbox.addLayout(label_vbox, stretch=0)
+        label_combobox_hbox.addLayout(combobox_vbox, stretch=1)
+        # Caption
+        caption_label = QLabel("Caption")
+        caption_edit = QTextEdit()
+        # Column 2 layout
+        col_vbox_2 = QVBoxLayout()
+        col_vbox_2.addLayout(label_combobox_hbox)
+        col_vbox_2.addWidget(caption_label)
+        col_vbox_2.addWidget(caption_edit)
+
+        # Combine the columns into a single layout to form an entire row
+        row_layout = QHBoxLayout()
+        row_layout.addLayout(col_vbox_1)
+        row_layout.addLayout(col_vbox_2)
 
         # Put the layout into a frame for a border
         row_frame = QFrame()
         row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
         row_frame.setLayout(row_layout)
         self.photo_rows_layout.addWidget(row_frame)
+        self.photo_rows_layout.addStretch()
 
-        # Save the required widgets for user input with the given photo path
+        # Save widgets with the given photo path
         self.photos_to_widgets[photo] = {
+            "QLabel_photo_path": photo_path_label,
+            "QLabel_photo_date": photo_date_label,
+            "QLabel_photo_widget": photo_widget,
             "QComboBox_locality": combobox_locality,
-            "QTextEdit": caption_edit,
+            "QComboBox_sub_photo_dir": combobox_sub_photo_dir,
+            "QTextEdit_caption": caption_edit,
         }
 
 
@@ -226,40 +260,6 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         photo_path_label.setOpenExternalLinks(True)
         photo_path_label.setFixedWidth(self.photo_widget_size)
         return photo_path_label
-
-
-    def create_combobox_locality(self) -> QComboBox:
-        """
-        Create a QComboBox which lists the existing locality_point features by name and date_entered.
-        Returns the QComboBox object.
-        """
-        locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
-
-        combobox = QComboBox()
-
-        def update_stylesheet() -> None:
-            """
-            Configure style to show red when default value is selected
-            """
-            if combobox.currentData() is None:
-                style = "QComboBox:editable{color: red;}"
-            else:
-                style = ""
-            combobox.setStyleSheet(style)
-        combobox.currentTextChanged.connect(update_stylesheet)
-
-        # Add default value
-        combobox.addItem("Select Locality Point", userData=None)
-
-        for locality_feature in locality_point_layer.getFeatures():
-            # Convert to Python datetime object and remove miliseconds
-            locality_date = locality_feature.attribute("date_entered").toPyDateTime().replace(microsecond=0)
-            combobox.addItem(
-                f"{locality_feature.attribute('name')} | {locality_date}",
-                userData=locality_feature.attribute("uuid"),
-            )
-
-        return combobox
 
 
     def create_photo_date_widget(self, photo: Path, photo_tags: dict[str, Any]) -> QLabel:
@@ -321,6 +321,64 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         return label
 
 
+    def create_combobox_locality(self) -> QComboBox:
+        """
+        Create a QComboBox which lists the existing locality_point features by name and date_entered.
+        Returns the QComboBox object.
+        """
+        locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+
+        combobox = QComboBox()
+        self.configure_combobox_style(combobox)
+
+        # Add default value
+        combobox.addItem("Select Locality Point", userData=None)
+
+        for locality_feature in locality_point_layer.getFeatures():
+            # Convert to Python datetime object and remove miliseconds
+            locality_date = locality_feature.attribute("date_entered").toPyDateTime().replace(microsecond=0)
+            combobox.addItem(
+                f"{locality_feature.attribute('name')} | {locality_date}",
+                userData=locality_feature.attribute("uuid"),
+            )
+
+        return combobox
+
+
+    def create_combobox_sub_photo_dir(self) -> QComboBox:
+        """
+        Create a QComboBox which lists the existing photo sub-directories recursively.
+        Returns the QComboBox object.
+        """
+        combobox = QComboBox()
+
+        # Add default value
+        combobox.addItem(str(self.photos_dir.relative_to(self.photos_dir.parent)), userData=self.photos_dir)
+
+        for photo_path in self.photos_dir.rglob("*"):
+            if photo_path.is_dir():
+                combobox.addItem(
+                    str(photo_path.relative_to(self.photos_dir.parent)),
+                    userData=photo_path.absolute(),
+                )
+
+        return combobox
+
+
+    @staticmethod
+    def configure_combobox_style(combobox: QComboBox) -> None:
+        """
+        Configure given QComboBox style to show red when default None value is selected.
+        """
+        def update_stylesheet() -> None:
+            if combobox.currentData() is None:
+                style = "QComboBox:editable{color: red;}"
+            else:
+                style = ""
+            combobox.setStyleSheet(style)
+        combobox.currentTextChanged.connect(update_stylesheet)
+
+
     def import_selection(self) -> None:
         """
         Import the selected photos in the dialog into the project.
@@ -333,24 +391,25 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         imported_photos = 0
         for photo_path, photo_widgets in self.photos_to_widgets.items():
             locality_fuid = photo_widgets["QComboBox_locality"].currentData()
+            sub_photo_dir: Path = photo_widgets["QComboBox_sub_photo_dir"].currentData()
 
             if locality_fuid is not None:
                 imported_photos += 1
 
                 # Only copy the file if it is not already in the photos directory
-                if self.photos_dir.absolute() in photo_path.absolute().parents:
-                    photo_file_attribute = photo_path.relative_to(self.photos_dir)
+                if self.is_photo_file_in_photos_dir(photo_path):
+                    new_photo = photo_path
                 else:
                     # Copy the photo file into the project
-                    new_photo = self.photos_dir / photo_path.name
+                    new_photo = sub_photo_dir / photo_path.name
                     new_photo.write_bytes(photo_path.read_bytes())
-                    photo_file_attribute = photo_path.name
+                photo_file_attribute = new_photo.relative_to(self.photos_dir)
 
                 # Create new feature with default values
                 new_feature = QgsVectorLayerUtils.createFeature(photo_layer)
 
                 # Get photo caption value
-                photo_caption = photo_widgets["QTextEdit"].toPlainText()
+                photo_caption = photo_widgets["QTextEdit_caption"].toPlainText()
                 if photo_caption == "":
                     photo_caption = None
 
