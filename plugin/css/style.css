@@ -36,7 +36,7 @@ hr {
 table,
 th,
 td {
-    border: 1px solid black;
+    border: 2px solid #40c1e4;
     border-collapse: collapse;
     padding: 5px;
 }
@@ -49,7 +49,7 @@ td:first-child {
 
 /* Shade alternate rows */
 tr:nth-child(odd) {
-    background-color: #dddddd;
+    background-color: #eeeeee;
 }
 
 /* Place thumbnails or icons centrally within cells */
@@ -69,7 +69,7 @@ img {
 
 /* Buttons for expand/collapse all */
 .button {
-    background-color: #ccc;
+    background-color: #ffd92e;
     cursor: pointer;
     padding: 10px;
     border: none;
@@ -91,7 +91,7 @@ img {
 }
 
 .active, .collapsible:hover, .toc_button:hover {
-    background-color: #aaa;
+    background-color: #ffd92e;
     margin-top: 10px;
 }
 
