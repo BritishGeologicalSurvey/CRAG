@@ -1,3 +1,4 @@
+import logging
 import sqlite3
 from pathlib import Path
 from typing import Generator
@@ -185,6 +186,10 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
 
     # Apply monkeypatch for PhotoImporter
     monkeypatch.setattr(PhotoImporter, "exec", lambda *args: True)
+
+    # Mute exifread logging
+    exifread_logger = logging.getLogger("exifread")
+    exifread_logger.setLevel(logging.CRITICAL)
 
     field_data_capture.initGui()
 
