@@ -366,7 +366,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         self.add_action(
             icon_path,
-            text=self.tr(u'Open Photo Importer'),
+            text=self.tr(u'Import Photos'),
             callback=self.open_photo_importer,
             parent=self.iface.mainWindow(),
         )
