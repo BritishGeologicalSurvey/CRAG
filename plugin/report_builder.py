@@ -1,7 +1,6 @@
 import logging
 import shutil
 import sqlite3
-from pathlib import Path
 from typing import Any
 
 from jinja2 import (
@@ -17,8 +16,8 @@ from qgis.core import (
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from .config import LOCALITY_POINT_CHILDREN
-from .create_gpkg_from_sql import WORKDIR
 from .utils import (  # noqa
+    FieldDataCaptureProject,
     get_table_rows,
     ipdb_breakpoint,
 )
@@ -52,69 +51,7 @@ CHILD_JOINS = {
 }
 
 
-class ReportBuilder:
-    def __init__(self, project_dir: Path, db_file: Path):
-        """Constructor.
-
-        """
-        self.project_dir = project_dir
-        self.db_file = db_file
-        self.report_filename = Path("field-report.html")
-        self.css_filename = Path("style.css")
-        # Using locally downloaded woff2 of Google's Material Symbols Outlined font
-        # See: https://fonts.google.com/icons
-        # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
-        self.font_filename = Path("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2")
-
-
-    @property
-    def report_file(self) -> Path:
-        """
-        Get the field report file path from the current project.
-        """
-        return self.project_dir / self.report_filename
-
-
-    @property
-    def css_src_file(self) -> Path:
-        """
-        Get the ccs file path from the plugin folder.
-        """
-        return WORKDIR / "css" / self.css_filename
-
-
-    @property
-    def css_dest_dir(self) -> Path:
-        """
-        Get the ccs directory from the current project.
-        """
-        return self.project_dir / "css"
-
-
-    @property
-    def font_src_file(self) -> Path:
-        """
-        Get the font file path from the plugin folder.
-        """
-        return WORKDIR / "fonts" / self.font_filename
-
-
-    @property
-    def font_dest_dir(self) -> Path:
-        """
-        Get the ccs directory from the current project.
-        """
-        return self.project_dir / "fonts"
-
-
-    @property
-    def templates_dir(self) -> Path:
-        """
-        Get the Jinja2 template directory path from the plugin folder.
-        """
-        return WORKDIR / "templates"
-
-
+class ReportBuilder(FieldDataCaptureProject):
     def create_field_report(self) -> bool:
         """
         Create and save a field report.

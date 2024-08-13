@@ -152,14 +152,6 @@ class FieldDataCapture(FieldDataCaptureProject):
         return Path(QgsProject.instance().readPath("./"))
 
 
-    @property
-    def icons_dir(self) -> Path:
-        """
-        Get the icons directory path from the plugin folder.
-        """
-        return WORKDIR / "icons"
-
-
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
 
@@ -999,7 +991,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        ReportBuilder(self.project_dir, self.db_file).create_field_report()
+        ReportBuilder(self.project_dir).create_field_report()
 
 
     def add_test_data_to_project(self) -> bool:
@@ -1299,7 +1291,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        self.photo_importer = PhotoImporter(self.photos_dir)
+        self.photo_importer = PhotoImporter(self.project_dir)
         self.photo_importer.photo_importer_closed.connect(self.close_photo_importer)
         # Make it modal so changes are not made whilst importing photos
         self.photo_importer.exec()

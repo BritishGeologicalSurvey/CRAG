@@ -32,20 +32,22 @@ from qgis.PyQt.QtWidgets import (
     QWidget,
 )
 
-from .utils import ipdb_breakpoint  # noqa
+from .utils import (  # noqa
+    FieldDataCaptureProject,
+    ipdb_breakpoint,
+)
 
 
-class PhotoImporter(QDialog):
+class PhotoImporter(FieldDataCaptureProject, QDialog):
     """
     QDialog for selecting which photos to import and selecting
     which locality_points the photos relate to.
     """
     photo_importer_closed = pyqtSignal()
 
-    def __init__(self, photos_dir: Path):
-        super().__init__()
-
-        self.photos_dir = photos_dir
+    def __init__(self, project_dir: Path):
+        FieldDataCaptureProject.__init__(self, project_dir)
+        QDialog.__init__(self)
 
         # Setting the Dialog Box settings
         self.setWindowTitle("Import Photos")

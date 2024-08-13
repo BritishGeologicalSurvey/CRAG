@@ -242,6 +242,6 @@ def report_builder(fdc_project: FieldDataCapture) -> ReportBuilder:
     """
     Setup Report Builder for use in tests.
     """
-    report_builder = ReportBuilder(fdc_project.project_dir, fdc_project.db_file)
+    report_builder = ReportBuilder(fdc_project.project_dir)
 
     return report_builder

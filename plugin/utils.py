@@ -5,6 +5,8 @@ from typing import Any
 
 from PyQt5.QtCore import pyqtRemoveInputHook
 
+from .create_gpkg_from_sql import WORKDIR
+
 
 class FieldDataCaptureProject:
     """
@@ -14,6 +16,12 @@ class FieldDataCaptureProject:
     """
     project_dir: Path
     gpkg_filename = Path("field-data-capture.gpkg")
+    report_filename = Path("field-report.html")
+    css_filename = Path("style.css")
+    # Using locally downloaded woff2 of Google's Material Symbols Outlined font
+    # See: https://fonts.google.com/icons
+    # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
+    font_filename = Path("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2")
 
     def __init__(self, project_dir: Path):
         """
@@ -48,6 +56,61 @@ class FieldDataCaptureProject:
         Get the media directory path from the current project.
         """
         return self.project_dir / "media"
+
+    @property
+    def icons_dir(self) -> Path:
+        """
+        Get the icons directory path from the plugin folder.
+        """
+        return WORKDIR / "icons"
+
+    @property
+    def report_file(self) -> Path:
+        """
+        Get the field report file path from the current project.
+        """
+        return self.project_dir / self.report_filename
+
+
+    @property
+    def css_src_file(self) -> Path:
+        """
+        Get the ccs file path from the plugin folder.
+        """
+        return WORKDIR / "css" / self.css_filename
+
+
+    @property
+    def css_dest_dir(self) -> Path:
+        """
+        Get the ccs directory from the current project.
+        """
+        return self.project_dir / "css"
+
+
+    @property
+    def font_src_file(self) -> Path:
+        """
+        Get the font file path from the plugin folder.
+        """
+        return WORKDIR / "fonts" / self.font_filename
+
+
+    @property
+    def font_dest_dir(self) -> Path:
+        """
+        Get the ccs directory from the current project.
+        """
+        return self.project_dir / "fonts"
+
+
+    @property
+    def templates_dir(self) -> Path:
+        """
+        Get the Jinja2 template directory path from the plugin folder.
+        """
+        return WORKDIR / "templates"
+
 
 
 def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:
