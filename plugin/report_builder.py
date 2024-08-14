@@ -88,7 +88,7 @@ class ReportBuilder(FieldDataCaptureProject):
                 "Created Field Report",
                 (
                     "A field report has been created in the project folder. "
-                    f"Would you like to open it now?:\n\n{self.report_file}"
+                    f"Would you like to open it now?\n\n{self.report_file}"
                 ),
             )
             if result == QMessageBox.Yes:

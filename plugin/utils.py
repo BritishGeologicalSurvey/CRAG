@@ -22,7 +22,8 @@ class FieldDataCaptureProject:
     This class includes a base __init__ method which can be overwritten/ignored.
     It simply takes a project_dir value and uses it in-place of the default project_dir found from QGIS.
     """
-    project_dir: Path
+    # This is the internal project_dir attribute
+    _project_dir: Optional[Path] = None
     gpkg_filename = Path("field-data-capture.gpkg")
     report_filename = Path("field-report.html")
     css_filename = Path("style.css")
@@ -37,6 +38,8 @@ class FieldDataCaptureProject:
         Base init method which effectively sets the self.project_dir attribute using the given Path.
         """
         if project_dir is not None:
+            # Overriding a class attribute within the __init__ makes it an instance attribute
+            # This means the instance attribute is no longer shared with other instances
             self._project_dir = project_dir
 
 
@@ -47,10 +50,10 @@ class FieldDataCaptureProject:
         If a project_dir value was given during initalisation, return that value.
         Otherwise, return the current project_dir from QGIS.
         """
-        if hasattr(self, "_project_dir") and self._project_dir is not None:
-            return self._project_dir
-        else:
+        if self._project_dir is None:
             return Path(QgsProject.instance().readPath("./"))
+        else:
+            return self._project_dir
 
     @property
     def db_file(self) -> Path:
