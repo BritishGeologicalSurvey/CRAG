@@ -31,7 +31,7 @@ def test_create_field_report(fdc_project: FieldDataCapture):
 
     # Assert
     # Check file exists and is not empty
-    report_builder = ReportBuilder(fdc_project.project_dir)
+    report_builder = ReportBuilder()
     report_file = Path(report_builder.project_dir / report_builder.report_filename)
     assert report_file.exists()
     assert report_file.stat().st_size > 0

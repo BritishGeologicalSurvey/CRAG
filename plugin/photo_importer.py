@@ -38,16 +38,15 @@ from .utils import (  # noqa
 )
 
 
-class PhotoImporter(FieldDataCaptureProject, QDialog):
+class PhotoImporter(QDialog, FieldDataCaptureProject):
     """
     QDialog for selecting which photos to import and selecting
     which locality_points the photos relate to.
     """
     photo_importer_closed = pyqtSignal()
 
-    def __init__(self, project_dir: Path):
-        FieldDataCaptureProject.__init__(self, project_dir)
-        QDialog.__init__(self)
+    def __init__(self):
+        super().__init__()
 
         # Setting the Dialog Box settings
         self.setWindowTitle("Import Photos")
