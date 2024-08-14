@@ -1,16 +1,16 @@
 <qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.36.2-Maidenhead">
   <renderer-v2 attr="manmade_landform_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
-      <category label="adit" render="true" symbol="0" type="string" uuid="{5ee37a87-53bd-4138-95ab-6d5128b32ac4}" value="adit"></category>
-      <category label="adit_abandoned" render="true" symbol="1" type="string" uuid="{ea6131d0-640a-41e1-9aa2-aa507284060e}" value="adit_abandoned"></category>
-      <category label="adit_unknown_orientation" render="true" symbol="2" type="string" uuid="{46aa36f8-53ee-4d74-9c18-00314397a7ca}" value="adit_unknown_orientation"></category>
-      <category label="former_mine_site" render="true" symbol="3" type="string" uuid="{6e584339-d64b-4571-9201-9bb0ec965df4}" value="former_mine_site"></category>
-      <category label="shaft" render="true" symbol="4" type="string" uuid="{a6bcd45c-7ab4-4761-968d-0a26169bb2e4}" value="shaft"></category>
-      <category label="shaft_abandoned" render="true" symbol="5" type="string" uuid="{2c04c9e3-2c4f-4f57-838e-1a9be70efb76}" value="shaft_abandoned"></category>
-      <category label="shaft_abandoned_uncertain" render="true" symbol="6" type="string" uuid="{9d127bdd-bce9-42ef-b5a9-ddd1010e5f51}" value="shaft_abandoned_uncertain"></category>
-      <category label="trench" render="true" symbol="7" type="string" uuid="{a1b1a929-3381-4dcc-bab9-b0ea6b83e425}" value="trench"></category>
-      <category label="waste_disposal_site" render="true" symbol="8" type="string" uuid="{76c9b991-f1c2-41d6-8f54-1576ec04dd6f}" value="waste_disposal_site"></category>
-      <category label="" render="true" symbol="9" type="NULL" uuid="{78dcf0c2-904d-4f16-8b2d-7d4fa5fb0500}" value="NULL"></category>
+      <category label="adit" render="true" symbol="0" type="string" uuid="{5140067d-40f2-4334-a252-736e768b29d5}" value="adit"></category>
+      <category label="adit_abandoned" render="true" symbol="1" type="string" uuid="{069e54ed-849b-4901-8d8c-78c74f55a476}" value="adit_abandoned"></category>
+      <category label="adit_unknown_orientation" render="true" symbol="2" type="string" uuid="{c26e460b-8e4d-47c2-b1a9-96004b48ecb5}" value="adit_unknown_orientation"></category>
+      <category label="former_mine_site" render="true" symbol="3" type="string" uuid="{8837cbcc-2a91-43c1-91b7-8ec45dfa3b41}" value="former_mine_site"></category>
+      <category label="shaft" render="true" symbol="4" type="string" uuid="{9b80016f-0b95-4649-8986-7fb4466112a4}" value="shaft"></category>
+      <category label="shaft_abandoned" render="true" symbol="5" type="string" uuid="{b45b8f76-0079-458a-bfbb-44fbf842b4bd}" value="shaft_abandoned"></category>
+      <category label="shaft_abandoned_uncertain" render="true" symbol="6" type="string" uuid="{5c2a6572-a68b-4029-a698-0dea433e6461}" value="shaft_abandoned_uncertain"></category>
+      <category label="trench" render="true" symbol="7" type="string" uuid="{aacac582-6c34-4707-9993-ad21e1fb5026}" value="trench"></category>
+      <category label="waste_disposal_site" render="true" symbol="8" type="string" uuid="{b1943ecb-4ad5-492a-a302-71d8d9b962ce}" value="waste_disposal_site"></category>
+      <category label="" render="true" symbol="9" type="NULL" uuid="{25ee2613-041d-48ee-ad16-ed3fbbf42b93}" value="NULL"></category>
     </categories>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="marker">
@@ -21,7 +21,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{b23b96fe-ba57-4a9b-b44f-010e83dca80b}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{0371cc14-89b2-4914-af9d-12ac9fc55684}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -56,7 +56,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{1d39f992-4f16-4cce-a5c9-8158ec587e72}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{9adce534-7e60-4562-a7e7-ff0967d6a7ed}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -91,7 +91,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{0b7fcf0b-ad2a-49e6-9d2a-a234d95adcc6}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{835d6e94-bc98-4624-8210-ede85fd6d38f}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -135,7 +135,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{a2c52848-e622-4f29-b256-003119522096}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{31c15c6a-c000-4c6c-9343-e5868f680fef}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -170,7 +170,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{6418783e-87e5-49bb-b6a6-4d9b0bc4e7b4}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{823593bb-14d5-4f5d-b65e-e158564e6a5d}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -205,7 +205,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{92db544a-f0f7-4630-9857-a7f777b760d1}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{d44690e6-3480-4217-9849-fbb5ea154abb}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -249,7 +249,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{e2dc6829-0704-4b0e-af1e-f109bd515655}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{ad936a84-6b7a-47e6-b9b8-ffe7c950c0f0}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -284,7 +284,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{fbb6c63d-f9d9-4bff-8a3b-3c8216170f20}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{7d1a0b1f-6f7a-4a33-9d88-ef9ac5b22822}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -319,7 +319,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{5d678f0a-4d09-4718-ac9e-a9eb76bebd4a}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{b6d7060f-bd4c-41c7-960b-c6bf051685af}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -363,7 +363,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{38869a73-a55c-4339-82d6-2738394d1384}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{6e4430bc-1758-4ec4-9fea-d325184e72c7}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -398,7 +398,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{038a4291-de4e-44a2-8970-d74ff25224c6}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{6e4b3dfa-d15c-42c9-b7e1-14ac94ec8056}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -433,7 +433,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{d85de4ff-8f22-4c5f-8dd6-0e25a870b9ac}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{d923572e-50fa-4def-a86e-d5d7f128632d}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -477,7 +477,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{d7ad91c2-5a53-4e46-a0f6-660b00823231}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{547cd710-8574-45da-8523-35e704fd2655}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -512,7 +512,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{9b40ed5f-1ec9-4a95-92b1-9949e03a0d0d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{45377c8b-3857-45af-85bc-69d8a8880e12}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -547,7 +547,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{e7e53f60-d526-4dfb-9f41-e8a1c891b420}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{42e6eac4-353e-4433-93fc-63f64269e25d}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -591,7 +591,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{ae37db10-1d1f-4f5f-817f-76e551daad9b}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{40daca49-e5e1-450b-b167-c6c60b4ff1f7}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -626,7 +626,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{a627637e-aa50-4ebe-a2aa-4a7efd2611ae}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{f91104b3-1bc6-48e8-95b8-18f698c15621}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -661,7 +661,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{750874fc-689f-4852-a511-118cf398e2d7}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{d8e9f927-309a-46fa-905b-4fd385d9b8d1}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -705,7 +705,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{52fda39e-ccf0-4356-bd4d-d6150a31a614}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{ad1ce2d4-cbe6-445e-809a-f6a122ab4061}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -740,7 +740,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{26e4570b-c155-4b44-9b49-5aaebd96f7ef}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{2f2e9271-ed35-4a85-a9f4-ad10e9f90fb2}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -775,7 +775,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{5e039af8-86b2-4425-ba0e-e61a32381750}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{0abfb6f0-bd1b-4de6-9d71-5f3402b1dc39}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -819,7 +819,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{171e56da-f6b7-469f-ba35-72d329ced46d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{e36bdb3e-324f-4cf2-8164-5546e9292abf}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="200,200,200,0,rgb:0.78431372549019607,0.78431372549019607,0.78431372549019607,0"></Option>
@@ -854,7 +854,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{effb39e1-21fa-424d-b746-548c90b5bec3}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{a694394b-2935-44ab-84a3-1df7192b8f64}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -889,7 +889,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{860b2ad8-4b2e-4b5a-b78f-59480acdb603}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{58120729-67ab-4c53-8831-cac136a1d509}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -933,7 +933,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{bfea57ca-1077-49d6-8656-98a66836b9b5}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{148fc9f8-2fcf-4e0f-8a97-276f314ef220}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -968,7 +968,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{6beba40e-86a4-4502-8ad9-f2160bb666cf}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{6e0b6f0f-0b7d-4361-b7e1-7c396e34c13f}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1003,7 +1003,7 @@
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{d6b8fd7b-fcc3-49df-9a59-68d90d152ec9}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{2894fbe3-3cf0-4d74-891f-d4e082d0c1e7}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,rgb:0,0,0,1"></Option>
@@ -1047,11 +1047,11 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{8ec3536f-a64f-4576-9c45-74d696881a8f}" locked="0" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{c8f0f2c2-b8a4-4aad-9136-2740acea0ca1}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="225,116,135,255,hsv:0.97222222222222221,0.4823529411764706,0.88235294117647056,1"></Option>
+            <Option name="color" type="QString" value="121,93,222,255,hsv:0.70277777777777772,0.58039215686274515,0.87058823529411766,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
@@ -1088,7 +1088,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{8ec3536f-a64f-4576-9c45-74d696881a8f}" locked="0" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{c8f0f2c2-b8a4-4aad-9136-2740acea0ca1}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
@@ -1134,7 +1134,7 @@
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{0a12c188-7e0d-4218-9b65-7fdf794a8780}" locked="0" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{5aa60d82-a9b5-4ab5-8326-7f9112c0b469}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
@@ -1277,7 +1277,7 @@
           <Option name="drawToAllParts" type="bool" value="false"></Option>
           <Option name="enabled" type="QString" value="0"></Option>
           <Option name="labelAnchorPoint" type="QString" value="point_on_exterior"></Option>
-          <Option name="lineSymbol" type="QString" value="&lt;symbol frame_rate=&quot;10&quot; alpha=&quot;1&quot; clip_to_extent=&quot;1&quot; is_animated=&quot;0&quot; type=&quot;line&quot; force_rhr=&quot;0&quot; name=&quot;symbol&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; type=&quot;QString&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; type=&quot;QString&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer pass=&quot;0&quot; enabled=&quot;1&quot; class=&quot;SimpleLine&quot; locked=&quot;0&quot; id=&quot;{45ef4d1e-565c-4376-ad61-3fe0cac71e58}&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;align_dash_pattern&quot;/>&lt;Option value=&quot;square&quot; type=&quot;QString&quot; name=&quot;capstyle&quot;/>&lt;Option value=&quot;5;2&quot; type=&quot;QString&quot; name=&quot;customdash&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;customdash_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;customdash_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;dash_pattern_offset&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;dash_pattern_offset_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;dash_pattern_offset_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;draw_inside_polygon&quot;/>&lt;Option value=&quot;bevel&quot; type=&quot;QString&quot; name=&quot;joinstyle&quot;/>&lt;Option value=&quot;60,60,60,255,rgb:0.23529411764705882,0.23529411764705882,0.23529411764705882,1&quot; type=&quot;QString&quot; name=&quot;line_color&quot;/>&lt;Option value=&quot;solid&quot; type=&quot;QString&quot; name=&quot;line_style&quot;/>&lt;Option value=&quot;0.3&quot; type=&quot;QString&quot; name=&quot;line_width&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;line_width_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;offset&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;offset_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;offset_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;ring_filter&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;trim_distance_end&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;trim_distance_end_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;trim_distance_end_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;trim_distance_start&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;trim_distance_start_map_unit_scale&quot;/>&lt;Option value=&quot;MM&quot; type=&quot;QString&quot; name=&quot;trim_distance_start_unit&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;tweak_dash_pattern_on_corners&quot;/>&lt;Option value=&quot;0&quot; type=&quot;QString&quot; name=&quot;use_custom_dash&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot; name=&quot;width_map_unit_scale&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; type=&quot;QString&quot; name=&quot;name&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; type=&quot;QString&quot; name=&quot;type&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
+          <Option name="lineSymbol" type="QString" value="&lt;symbol force_rhr=&quot;0&quot; name=&quot;symbol&quot; type=&quot;line&quot; clip_to_extent=&quot;1&quot; alpha=&quot;1&quot; frame_rate=&quot;10&quot; is_animated=&quot;0&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; name=&quot;name&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; name=&quot;type&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer pass=&quot;0&quot; class=&quot;SimpleLine&quot; id=&quot;{45ef4d1e-565c-4376-ad61-3fe0cac71e58}&quot; locked=&quot;0&quot; enabled=&quot;1&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;0&quot; name=&quot;align_dash_pattern&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;square&quot; name=&quot;capstyle&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;5;2&quot; name=&quot;customdash&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;customdash_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;customdash_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;dash_pattern_offset&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;dash_pattern_offset_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;dash_pattern_offset_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;draw_inside_polygon&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;bevel&quot; name=&quot;joinstyle&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;60,60,60,255,rgb:0.23529411764705882,0.23529411764705882,0.23529411764705882,1&quot; name=&quot;line_color&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;solid&quot; name=&quot;line_style&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0.3&quot; name=&quot;line_width&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;line_width_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;offset&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;offset_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;offset_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;ring_filter&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;trim_distance_end&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;trim_distance_end_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;trim_distance_end_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;trim_distance_start&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;trim_distance_start_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;trim_distance_start_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;tweak_dash_pattern_on_corners&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;use_custom_dash&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;width_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; name=&quot;name&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; name=&quot;type&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
           <Option name="minLength" type="double" value="0"></Option>
           <Option name="minLengthMapUnitScale" type="QString" value="3x:0,0,0,0,0,0"></Option>
           <Option name="minLengthUnit" type="QString" value="MM"></Option>
