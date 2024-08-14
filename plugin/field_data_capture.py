@@ -350,7 +350,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         self.add_action(
             icon_path,
-            text=self.tr(u'Import Photos'),
+            text=self.tr(u'Register Photos'),
             callback=self.open_photo_importer,
             parent=self.iface.mainWindow(),
         )
@@ -1187,9 +1187,20 @@ class FieldDataCapture(FieldDataCaptureProject):
             return False
 
         self.photo_importer = PhotoImporter()
-        self.photo_importer.photo_importer_closed.connect(self.close_photo_importer)
-        # Make it modal so changes are not made whilst importing photos
-        self.photo_importer.exec()
+        # If no unregistered photos are found
+        if len(self.photo_importer.photos_to_widgets) == 0:
+            self.close_photo_importer()
+            parent_dir = self.photos_dir.relative_to(self.project_dir.parent)
+            QMessageBox.warning(
+                None,
+                "No Unregistered Photos Found",
+                f"Could not find any unregistered photos in the folder:\n\n{parent_dir}",
+            )
+
+        else:
+            self.photo_importer.photo_importer_closed.connect(self.close_photo_importer)
+            # Make it modal so changes are not made whilst importing photos
+            self.photo_importer.exec()
 
         return True
 

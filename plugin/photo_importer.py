@@ -20,7 +20,6 @@ from qgis.PyQt.QtGui import (
 from qgis.PyQt.QtWidgets import (
     QComboBox,
     QDialog,
-    QFileDialog,
     QFrame,
     QHBoxLayout,
     QLabel,
@@ -34,14 +33,13 @@ from qgis.PyQt.QtWidgets import (
 
 from .utils import (  # noqa
     FieldDataCaptureProject,
-    set_combobox_index_by_data,
     ipdb_breakpoint,
 )
 
 
 class PhotoImporter(QDialog, FieldDataCaptureProject):
     """
-    QDialog for selecting which photos to import and selecting
+    QDialog for selecting which photos to import/register and selecting
     which locality_points the photos relate to.
     """
     photo_importer_closed = pyqtSignal()
@@ -50,7 +48,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         super().__init__()
 
         # Setting the Dialog Box settings
-        self.setWindowTitle("Import Photos")
+        self.setWindowTitle("Register Photos")
         self.setMinimumSize(600, 500)
         self.setWindowFlags(
             Qt.Window | Qt.WindowCloseButtonHint
@@ -60,6 +58,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
         self.photos_to_widgets: dict[Path, dict[str, QWidget]] = {}
         self.photo_widget_size = 200
+        self.select_photos()
 
 
     def setup_ui_elements(self) -> None:
@@ -67,8 +66,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         Create the elements of the Photo Importer dialog box User Interface.
         Also sets the layout for the dialog box.
         """
-        self.select_photos_button = QPushButton("Select Photos")
-        self.import_selection_button = QPushButton("Import Selected Photos")
+        self.import_selection_button = QPushButton("Register Selected Photos")
         self.cancel_button = QPushButton("Cancel")
 
         # To make a layout scrollable, you have to wrap it in a standrd QWidget object
@@ -87,7 +85,6 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
         # Arrange the main layout
         layout = QVBoxLayout()
-        layout.addWidget(self.select_photos_button)
         layout.addWidget(scroll_area)
         layout.addLayout(bottom_button_layout)
         self.setLayout(layout)
@@ -97,46 +94,30 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         """
         Function for connecting signals and slots of buttons and input boxes.
         """
-        self.select_photos_button.clicked.connect(self.select_photos)
         self.import_selection_button.clicked.connect(self.import_selection)
         self.cancel_button.clicked.connect(self.close)
 
 
-    def is_photo_file_in_photos_dir(self, photo_file: Path) -> bool:
-        """
-        Check if the given photo file exists in the photos_dir already.
-        """
-        return self.photos_dir.absolute() in photo_file.absolute().parents
-
-
     def select_photos(self) -> bool:
         """
-        Get the required photos to select from the user.
+        Get the unregistered photos from the project_dir/photos directory.
         This will create the required widgets to display the photos and add them to the layout.
-        If there is an error loading a photo file, it will be skipped
+        If there is an error loading a photo file, it will be skipped.
         Returns a boolean indicating the success of the process.
         """
-        photos = self.select_photos_filedialog()
-        # If no photos were selected
-        if len(photos) == 0:
-            return False
-
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
-        already_existing_photos = set()
-        for photo_feature in photo_layer.getFeatures():
-            photo_file = photo_feature.attribute("photo_file")
-            # If the photo_file attribute is empty it returns a QVariant NULL object, so we only want strings
-            # Only gets filepaths if they actually exist
-            if isinstance(photo_file, str) and (self.photos_dir / photo_file).exists():
-                # Add only the filename to the set so that files in sub-folders are still included properly
-                already_existing_photos.add(Path(photo_file).name)
+        registered_photos = {
+            Path(photo_feature.attribute("photo_file"))
+            for photo_feature in photo_layer.getFeatures()
+        }
 
         skip_photos = []
-        for photo in photos:
-            # Don't import photos if they already exist or if they are already selected
-            if photo.name in already_existing_photos or photo in self.photos_to_widgets:
-                skip_photos.append(photo)
-            else:
+        for photo in self.photos_dir.rglob("*"):
+            if all((
+                photo.is_file(),
+                photo.relative_to(self.photos_dir) not in registered_photos,
+                photo.name != ".placeholder",
+            )):
                 try:
                     self.add_photo_row_widgets(photo)
                 except Exception:
@@ -146,31 +127,16 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         skip_photos_num = len(skip_photos)
         if skip_photos_num > 0:
             if skip_photos_num > 5:
-                msg = f"{skip_photos_num} photos have been skipped because they either exist or could not be loaded."
+                msg = f"{skip_photos_num} photos have been skipped because they could not be loaded."
             else:
                 photos_str = "\n".join([str(photo) for photo in skip_photos])
                 msg = (
-                    "Some photos have been skipped because they either already exist or could not be loaded:"
+                    "Some photos have been skipped because they could not be loaded:"
                     f"\n\n{photos_str}"
                 )
             QMessageBox.warning(None, "Skipped Photos", msg)
 
         return True
-
-
-    def select_photos_filedialog(self) -> list[Path]:
-        """
-        Get a list of photo filepaths which will be imported from a QFileDialog.
-        """
-        pyqt_open_dialog = QFileDialog.getOpenFileNames(
-            self,
-            "Import Locality Photos",
-            directory=str(self.photos_dir),
-            filter="(*.png *.jpg *.jpeg *.tif)",
-        )
-        filepaths = [Path(filepath) for filepath in pyqt_open_dialog[0]]
-
-        return filepaths
 
 
     def add_photo_row_widgets(self, photo: Path) -> None:
@@ -181,61 +147,42 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         and the values are the QWidget objects which relate to it.
         """
         # Get the photo metadata for display in widgets
-        with open(photo, "rb") as photo_file:
-            photo_tags = exifread.process_file(photo_file)
+        try:
+            with open(photo, "rb") as photo_file:
+                photo_tags = exifread.process_file(photo_file)
+        except Exception:
+            photo_tags = {}
 
-        # Arrange layout for new widgets into columns within the row layout
-        # Column 1
+        # Arrange layout for new widgets into rows within the row layout
         photo_path_label = self.create_photo_path_widget(photo)
-        photo_date_label = self.create_photo_date_widget(photo, photo_tags)
-        photo_widget = self.create_photo_widget(photo, photo_tags)
-        # Column 1 layout
-        col_vbox_1 = QVBoxLayout()
-        col_vbox_1.addWidget(photo_path_label)
-        col_vbox_1.addWidget(photo_date_label)
-        col_vbox_1.addWidget(photo_widget)
-
-        # Column 2
-        # Create sub-vboxes for labels to QComboBoxes
-        # Labels
-        locality_label = QLabel("Locality Point:")
-        sub_photo_dir_label = QLabel("Photo Sub-Folder:")
-        label_vbox = QVBoxLayout()
-        label_vbox.addWidget(locality_label)
-        label_vbox.addWidget(sub_photo_dir_label)
-        # QComboBoxes
         combobox_locality = self.create_combobox_locality()
-        combobox_sub_photo_dir = self.create_combobox_sub_photo_dir()
-        # If given photo is in dir already, preselect it's path
-        if self.is_photo_file_in_photos_dir(photo):
-            set_combobox_index_by_data(combobox_sub_photo_dir, photo.parent.absolute())
-        combobox_vbox = QVBoxLayout()
-        combobox_vbox.addWidget(combobox_locality)
-        combobox_vbox.addWidget(combobox_sub_photo_dir)
-        # Combine labels and comboboxes
-        label_combobox_hbox = QHBoxLayout()
-        label_combobox_hbox.addLayout(label_vbox, stretch=0)
-        label_combobox_hbox.addLayout(combobox_vbox, stretch=1)
-        # Caption
-        caption_label = QLabel("Caption")
-        caption_edit = QTextEdit()
-        # Column 2 layout
-        col_vbox_2 = QVBoxLayout()
-        col_vbox_2.addLayout(label_combobox_hbox)
-        col_vbox_2.addWidget(caption_label)
-        col_vbox_2.addWidget(caption_edit)
+        row_hbox_1 = QHBoxLayout()
+        row_hbox_1.addWidget(photo_path_label)
+        row_hbox_1.addWidget(combobox_locality)
 
-        # Combine the columns into a single layout to form an entire row
-        row_layout = QHBoxLayout()
-        row_layout.addLayout(col_vbox_1)
-        row_layout.addLayout(col_vbox_2)
+        photo_date_label = self.create_photo_date_widget(photo, photo_tags)
+        caption_label = QLabel("Caption")
+        row_hbox_2 = QHBoxLayout()
+        row_hbox_2.addWidget(photo_date_label)
+        row_hbox_2.addWidget(caption_label)
+
+        photo_widget = self.create_photo_widget(photo, photo_tags)
+        caption_edit = QTextEdit()
+        row_hbox_3 = QHBoxLayout()
+        row_hbox_3.addWidget(photo_widget)
+        row_hbox_3.addWidget(caption_edit)
+
+        # Combine the top and bottom half into a single layout to form an entire row
+        row_layout = QVBoxLayout()
+        row_layout.addLayout(row_hbox_1)
+        row_layout.addLayout(row_hbox_2)
+        row_layout.addLayout(row_hbox_3)
 
         # Put the layout into a frame for a border
         row_frame = QFrame()
         row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
         row_frame.setLayout(row_layout)
         self.photo_rows_layout.addWidget(row_frame)
-        self.photo_rows_layout.addStretch()
 
         # Save widgets with the given photo path
         self.photos_to_widgets[photo] = {
@@ -243,7 +190,6 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
             "QLabel_photo_date": photo_date_label,
             "QLabel_photo_widget": photo_widget,
             "QComboBox_locality": combobox_locality,
-            "QComboBox_sub_photo_dir": combobox_sub_photo_dir,
             "QTextEdit_caption": caption_edit,
         }
 
@@ -345,26 +291,6 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         return combobox
 
 
-    def create_combobox_sub_photo_dir(self) -> QComboBox:
-        """
-        Create a QComboBox which lists the existing photo sub-directories recursively.
-        Returns the QComboBox object.
-        """
-        combobox = QComboBox()
-
-        # Add default value
-        combobox.addItem(str(self.photos_dir.relative_to(self.photos_dir.parent)), userData=self.photos_dir)
-
-        for photo_path in self.photos_dir.rglob("*"):
-            if photo_path.is_dir():
-                combobox.addItem(
-                    str(photo_path.relative_to(self.photos_dir.parent)),
-                    userData=photo_path.absolute(),
-                )
-
-        return combobox
-
-
     @staticmethod
     def configure_combobox_style(combobox: QComboBox) -> None:
         """
@@ -383,7 +309,6 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         """
         Import the selected photos in the dialog into the project.
         Photos which have not been assigned a locality_point will be ignored.
-        This also copies the photos into the photos directory of the project.
         """
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
         photo_layer.startEditing()
@@ -391,20 +316,9 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         imported_photos = 0
         for photo_path, photo_widgets in self.photos_to_widgets.items():
             locality_fuid = photo_widgets["QComboBox_locality"].currentData()
-            sub_photo_dir: Path = photo_widgets["QComboBox_sub_photo_dir"].currentData()
 
             if locality_fuid is not None:
                 imported_photos += 1
-
-                # Only copy the file if it is not already in the photos directory
-                if self.is_photo_file_in_photos_dir(photo_path):
-                    # Move the already existing photo to the newly selected sub_photo_dir
-                    new_photo = photo_path.rename(sub_photo_dir / photo_path.name)
-                else:
-                    # Copy the photo file into the project
-                    new_photo = sub_photo_dir / photo_path.name
-                    new_photo.write_bytes(photo_path.read_bytes())
-                photo_file_attribute = new_photo.relative_to(self.photos_dir)
 
                 # Create new feature with default values
                 new_feature = QgsVectorLayerUtils.createFeature(photo_layer)
@@ -416,7 +330,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
                 new_attributes = {
                     "locality_fuid": locality_fuid,
-                    "photo_file": str(photo_file_attribute),
+                    "photo_file": str(photo_path.relative_to(self.photos_dir)),
                     "caption": photo_caption,
                 }
                 for attribute, value in new_attributes.items():
@@ -426,7 +340,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
         photo_layer.commitChanges()
         self.close()
-        QMessageBox.information(None, "Imported Photos", f"Imported {imported_photos} photos successfully.")
+        QMessageBox.information(None, "Registered Photos", f"Registered {imported_photos} photos successfully.")
 
 
     def closeEvent(self, event=None) -> None:
