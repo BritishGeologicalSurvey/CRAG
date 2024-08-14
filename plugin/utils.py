@@ -19,6 +19,8 @@ from .create_gpkg_from_sql import WORKDIR
 class FieldDataCaptureProject:
     """
     Base/Mixin class for basic attributes of the project file structure.
+    This class includes a base __init__ method which can be overwritten/ignored.
+    It simply takes a project_dir value and uses it in-place of the default project_dir found from QGIS.
     """
     project_dir: Path
     gpkg_filename = Path("field-data-capture.gpkg")
@@ -30,12 +32,25 @@ class FieldDataCaptureProject:
     font_filename = Path("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2")
 
 
+    def __init__(self, project_dir: Optional[Path] = None):
+        """
+        Base init method which effectively sets the self.project_dir attribute using the given Path.
+        """
+        if project_dir is not None:
+            self._project_dir = project_dir
+
+
     @property
     def project_dir(self) -> Path:
         """
         Get the current project directory.
+        If a project_dir value was given during initalisation, return that value.
+        Otherwise, return the current project_dir from QGIS.
         """
-        return Path(QgsProject.instance().readPath("./"))
+        if hasattr(self, "_project_dir") and self._project_dir is not None:
+            return self._project_dir
+        else:
+            return Path(QgsProject.instance().readPath("./"))
 
     @property
     def db_file(self) -> Path:
