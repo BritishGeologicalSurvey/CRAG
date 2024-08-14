@@ -51,9 +51,13 @@ from qgis.gui import (
     QgisInterface,
     QgsMapTool,
 )
-from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import (
+    QCoreApplication,
+    QUrl,
+)
 from qgis.PyQt.QtGui import (
     QColor,
+    QDesktopServices,
     QIcon,
 )
 from qgis.PyQt.QtWidgets import (
@@ -374,6 +378,14 @@ class FieldDataCapture(FieldDataCaptureProject):
             icon_path,
             text=self.tr(u'Validate Current Project'),
             callback=self.run_project_validation,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Open Project Folder'),
+            callback=lambda: self.open_local_filepath(self.project_dir),
+            add_to_toolbar=True,
             parent=self.iface.mainWindow(),
         )
 
@@ -1347,3 +1359,14 @@ class FieldDataCapture(FieldDataCaptureProject):
             ] + all_messages)
 
             status_to_qmsgbox[final_status](None, "Project Validation", qmsgbox_msg)
+
+
+    @staticmethod
+    def open_local_filepath(filepath: Path) -> None:
+        """
+        Open the given filepath with the OS native software.
+        """
+        if filepath.exists():
+            QDesktopServices.openUrl(QUrl.fromLocalFile(str(filepath.absolute())))
+        else:
+            QMessageBox.warning(None, "File Not Found", f"Could not find file: {filepath}")
