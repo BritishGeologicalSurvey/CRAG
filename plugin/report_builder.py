@@ -83,7 +83,17 @@ class ReportBuilder(FieldDataCaptureProject):
             shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
             shutil.copy(self.font_src_file, self.font_dest_dir / self.font_filename)
 
-            QMessageBox.information(None, "Information", f"Created field report:\n\n{self.report_file}")
+            result = QMessageBox.question(
+                None,
+                "Created Field Report",
+                (
+                    "A field report has been created in the project folder. "
+                    f"Would you like to open it now?:\n\n{self.report_file}"
+                ),
+            )
+            if result == QMessageBox.Yes:
+                self.open_local_filepath(self.report_file)
+
         except Exception as exc:
             msg = ""
             if isinstance(exc, sqlite3.OperationalError):
