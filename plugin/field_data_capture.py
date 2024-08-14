@@ -377,15 +377,6 @@ class FieldDataCapture(FieldDataCaptureProject):
             parent=self.iface.mainWindow(),
         )
 
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Open Field Report'),
-            callback=lambda: self.open_local_filepath(self.report_file),
-            add_to_toolbar=True,
-            parent=self.iface.mainWindow(),
-        )
-
         # Setup dev submenu button
         # We still create a QAction, but we set its menu with a new QMenu
         dev_submenu_action = self.add_action(
