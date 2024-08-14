@@ -98,7 +98,15 @@ LAYER_TREE_STRUCTURE = [
     },
     {
         "group": "views",
-        "tables": sorted(list(VIEWS)),
+        "tables": [
+            "view_structural_measurement",
+            "view_superficial_landform",
+            "view_manmade_landform",
+            "view_photo",
+            "view_media",
+            "view_sample",
+            "view_lithology",
+        ],
     },
     {
         "group": None,

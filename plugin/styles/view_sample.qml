@@ -25,7 +25,7 @@
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="4.8"></Option>
+            <Option name="size" type="QString" value="6.0"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="MM"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>

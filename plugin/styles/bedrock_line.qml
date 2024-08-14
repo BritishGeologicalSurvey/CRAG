@@ -31,8 +31,8 @@
       <category label="dyke_inf_underground" render="true" symbol="27" type="string" uuid="{4b39716b-317d-4fe7-8daf-509181750c16}" value="dyke_inf_underground"></category>
       <category label="dyke_obs" render="true" symbol="28" type="string" uuid="{42a4457f-7c22-488e-816f-0d686bcd68fb}" value="dyke_obs"></category>
       <category label="euestheria_band" render="true" symbol="29" type="string" uuid="{68e3a19d-2f57-4ab8-8d2e-48cf54e817f7}" value="euestheria_band"></category>
-      <category label="fault_complex_movenent_inf" render="true" symbol="30" type="string" uuid="{bdcef0e0-0408-41c2-82aa-c9090e50cda4}" value="fault_complex_movenent_inf"></category>
-      <category label="fault_complex_movenent_obs" render="true" symbol="31" type="string" uuid="{df4bdb3b-2a32-41d1-a0e6-d01b0a1d38aa}" value="fault_complex_movenent_obs"></category>
+      <category label="fault_complex_movement_inf" render="true" symbol="30" type="string" uuid="{bdcef0e0-0408-41c2-82aa-c9090e50cda4}" value="fault_complex_movement_inf"></category>
+      <category label="fault_complex_movement_obs" render="true" symbol="31" type="string" uuid="{df4bdb3b-2a32-41d1-a0e6-d01b0a1d38aa}" value="fault_complex_movement_obs"></category>
       <category label="fault_conjectural" render="true" symbol="32" type="string" uuid="{e37648d3-a711-4df6-958b-17729e4877d9}" value="fault_conjectural"></category>
       <category label="fault_crossmark_downthrow_side_inf" render="true" symbol="33" type="string" uuid="{864f528e-f75b-4683-b87d-7556c244ea9b}" value="fault_crossmark_downthrow_side_inf"></category>
       <category label="fault_crossmark_downthrow_side_inf_underground" render="true" symbol="34" type="string" uuid="{3280b632-f17d-4e77-a6a5-79da26b1fd8a}" value="fault_crossmark_downthrow_side_inf_underground"></category>
