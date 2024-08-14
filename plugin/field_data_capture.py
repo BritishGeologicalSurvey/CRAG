@@ -389,6 +389,15 @@ class FieldDataCapture(FieldDataCaptureProject):
             parent=self.iface.mainWindow(),
         )
 
+
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Open Field Report'),
+            callback=lambda: self.open_local_filepath(self.report_file),
+            add_to_toolbar=True,
+            parent=self.iface.mainWindow(),
+        )
+
         # Setup dev submenu button
         # We still create a QAction, but we set its menu with a new QMenu
         dev_submenu_action = self.add_action(
@@ -1361,12 +1370,17 @@ class FieldDataCapture(FieldDataCaptureProject):
             status_to_qmsgbox[final_status](None, "Project Validation", qmsgbox_msg)
 
 
-    @staticmethod
-    def open_local_filepath(filepath: Path) -> None:
+    def open_local_filepath(self, filepath: Path) -> bool:
         """
         Open the given filepath with the OS native software.
+        Returns a boolean indicating success of the process.
         """
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
+            return False
+
         if filepath.exists():
             QDesktopServices.openUrl(QUrl.fromLocalFile(str(filepath.absolute())))
+            return True
         else:
             QMessageBox.warning(None, "File Not Found", f"Could not find file: {filepath}")
+            return False
