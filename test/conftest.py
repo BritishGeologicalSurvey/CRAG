@@ -18,6 +18,7 @@ from plugin.line_layer_selector import LineLayerSelector
 from plugin.photo_importer import PhotoImporter
 from plugin.quick_map_tools import QuickMapToolBase
 from plugin.report_builder import ReportBuilder
+from plugin.utils import FieldDataCaptureProject
 
 
 def setup_db_conn(db_file: Path) -> sqlite3.Connection:
@@ -165,6 +166,9 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     cadDockWidget = QgsAdvancedDigitizingDockWidget(iface.mapCanvas())
     monkeypatch.setattr(iface, "cadDockWidget", lambda *args: cadDockWidget)
 
+    # Apply monkeypatch for open_local_filepath
+    monkeypatch.setattr(FieldDataCaptureProject, "open_local_filepath", Mock(return_value=True))
+
     # Apply monkeypatch for getting plugin metadata in QuickMapTools
     monkeypatch.setattr(QuickMapToolBase, "get_local_version", lambda *args: "fdc_test_fixture")
 
@@ -242,6 +246,6 @@ def report_builder(fdc_project: FieldDataCapture) -> ReportBuilder:
     """
     Setup Report Builder for use in tests.
     """
-    report_builder = ReportBuilder(fdc_project.project_dir, fdc_project.db_file)
+    report_builder = ReportBuilder()
 
     return report_builder

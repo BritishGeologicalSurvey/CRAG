@@ -144,22 +144,6 @@ class FieldDataCapture(FieldDataCaptureProject):
         logger.debug("Field Data Capture plugin initialised.")
 
 
-    @property
-    def project_dir(self) -> Path:
-        """
-        Get the current project directory.
-        """
-        return Path(QgsProject.instance().readPath("./"))
-
-
-    @property
-    def icons_dir(self) -> Path:
-        """
-        Get the icons directory path from the plugin folder.
-        """
-        return WORKDIR / "icons"
-
-
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
 
@@ -366,7 +350,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         self.add_action(
             icon_path,
-            text=self.tr(u'Open Photo Importer'),
+            text=self.tr(u'Import Photos'),
             callback=self.open_photo_importer,
             parent=self.iface.mainWindow(),
         )
@@ -382,6 +366,14 @@ class FieldDataCapture(FieldDataCaptureProject):
             icon_path,
             text=self.tr(u'Validate Current Project'),
             callback=self.run_project_validation,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            str(self.icons_dir / "open_project_folder.png"),
+            text=self.tr(u'Open Project Folder'),
+            callback=lambda: self.open_local_filepath(self.project_dir),
+            add_to_toolbar=True,
             parent=self.iface.mainWindow(),
         )
 
@@ -465,111 +457,6 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         # Delete the Field Data Capture toolbar
         del self.toolbar
-
-
-    @staticmethod
-    def project_is_active() -> bool:
-        """
-        Check if a saved project is currently open.
-        """
-        if QgsProject.instance().fileName() != '':
-            return True
-        else:
-            QMessageBox.warning(None, "Warning", "Please open an existing saved project.")
-            return False
-
-
-    @staticmethod
-    def check_layer_exists(layer_name: str) -> bool:
-        """
-        Check if a given layer name exists in the list of current layers.
-        """
-        if len(QgsProject.instance().mapLayersByName(layer_name)) > 0:
-            return True
-        else:
-            return False
-
-
-    @staticmethod
-    def check_fdc_layers_exist() -> bool:
-        """
-        Check if the Field Data Capture layers exist in the current layers.
-        """
-        missing_layers = [
-            table_name
-            for table_name in TABLE_LIST
-            if not FieldDataCapture.check_layer_exists(table_name)
-        ]
-        if len(missing_layers) == 0:
-            return True
-        else:
-            return False
-
-
-    @staticmethod
-    def check_field_project_exists() -> bool:
-        """
-        Check that the field_project layer has a saved feature.
-        """
-        layer_name = "field_project"
-        # If the layer does not exist, it will have no features
-        if not FieldDataCapture.check_layer_exists(layer_name):
-            return False
-
-        field_project_layer = QgsProject.instance().mapLayersByName("field_project")[0]
-        fp_features = list(field_project_layer.getFeatures())
-
-        # If the number of features is less than 1 or the first feature has an unsaved fid value
-        if len(fp_features) < 1 or fp_features[0].attribute("fid") == "Autogenerate":
-            return False
-
-        return True
-
-
-    def validate_qgis_state(
-        self,
-        project_active: bool = False,
-        db_file_exists: bool = False,
-        fdc_layers_exist: bool = False,
-        layer_name_exists: Optional[str] = None,
-        field_project_exists: bool = False,
-    ) -> bool:
-        """
-        Validate that the given options are currently OK in QGIS.
-        Returns a boolean indicating the validity of the current state of QGIS.
-        """
-        # If we need to check project_active and the project is not active
-        if project_active and not self.project_is_active():
-            return False
-
-        # If we need to check the db_file_exists and the db file does not exist
-        if db_file_exists and not self.db_file.exists():
-            QMessageBox.warning(None, "Warning", f"Could not find file:\n\n{self.db_file}")
-            return False
-
-        # If we need to check the fdc_layers_exist and the fdc layers do not exist
-        if fdc_layers_exist and not self.check_fdc_layers_exist():
-            QMessageBox.warning(None, "Warning", "Could not find the required layers for Field Data Capture.")
-            return False
-
-        # If we need to check that a given layer_name_exists and the given layer name does not exist
-        if layer_name_exists is not None and not self.check_layer_exists(layer_name_exists):
-            QMessageBox.warning(None, "Warning", f"Could not find layer: {layer_name_exists}")
-            return False
-
-        # If we need to check that there is 1 saved field_project and there isn't 1
-        if field_project_exists and not self.check_field_project_exists():
-            QMessageBox.warning(
-                None,
-                "Warning",
-                (
-                    "No saved field_project feature found. Please ensure you have saved a field_project polygon.\n\n"
-                    "To create and draw a new one, go to 'Plugins' -> 'Field Data Capture' -> 'Add Field Project'"
-                )
-            )
-            return False
-
-        return True
 
 
     def run_function_list(self, functions: list[Callable]) -> bool:
@@ -999,7 +886,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        ReportBuilder(self.project_dir, self.db_file).create_field_report()
+        ReportBuilder().create_field_report()
 
 
     def add_test_data_to_project(self) -> bool:
@@ -1299,7 +1186,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        self.photo_importer = PhotoImporter(self.photos_dir)
+        self.photo_importer = PhotoImporter()
         self.photo_importer.photo_importer_closed.connect(self.close_photo_importer)
         # Make it modal so changes are not made whilst importing photos
         self.photo_importer.exec()

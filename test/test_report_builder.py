@@ -1,5 +1,4 @@
 import builtins
-from pathlib import Path
 
 from bs4 import BeautifulSoup
 
@@ -7,7 +6,10 @@ from conftest import locality_point_count
 
 from plugin.field_data_capture import FieldDataCapture
 from plugin.report_builder import ReportBuilder
-from plugin.utils import ipdb_breakpoint  # noqa
+from plugin.utils import (  # noqa
+    FieldDataCaptureProject,
+    ipdb_breakpoint,
+)
 
 # Minimum set of columns needed to produce a report using the templates
 EXPECTED_COMMON_COLUMNS = {"user_entered", "date_entered", "user_updated", "date_updated"}
@@ -25,18 +27,16 @@ EXPECTED_CHILD_COLUMNS = {
 }
 
 
-def test_create_field_report(fdc_project: FieldDataCapture):
+def test_create_field_report(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_yes):
     # Act
     fdc_project.create_field_report()
 
     # Assert
     # Check file exists and is not empty
-    report_builder = ReportBuilder(fdc_project.project_dir, fdc_project.db_file)
-    report_file = Path(report_builder.project_dir / report_builder.report_filename)
-    assert report_file.exists()
-    assert report_file.stat().st_size > 0
+    assert fdc_project.report_file.exists()
+    assert fdc_project.report_file.stat().st_size > 0
     # Confirm the correct number of sections has been created
-    soup = BeautifulSoup(report_file.read_text(encoding="utf-8"), 'lxml')
+    soup = BeautifulSoup(fdc_project.report_file.read_text(encoding="utf-8"), 'lxml')
     project_sections = soup.findAll('section', {'class': "project"})
     assert len(project_sections) == 1
     locality_sections = soup.findAll('section', {'class': "locality_point"})
@@ -45,6 +45,9 @@ def test_create_field_report(fdc_project: FieldDataCapture):
     for child in EXPECTED_CHILD_COLUMNS.keys():
         child_sections = soup.findAll('section', {'class': child})
         assert len(child_sections) > 0
+
+    # Check that the method to open the file after creation was called
+    FieldDataCaptureProject.open_local_filepath.assert_called_once_with(fdc_project.report_file)
 
 
 def test_get_report_data(fdc_project: FieldDataCapture, report_builder: ReportBuilder):
