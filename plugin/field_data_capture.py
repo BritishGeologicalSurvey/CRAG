@@ -370,7 +370,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
 
         self.add_action(
-            icon_path,
+            str(self.icons_dir / "open_project_folder.png"),
             text=self.tr(u'Open Project Folder'),
             callback=lambda: self.open_local_filepath(self.project_dir),
             add_to_toolbar=True,
