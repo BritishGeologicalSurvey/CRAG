@@ -37,18 +37,18 @@ from .utils import (  # noqa
 )
 
 
-class PhotoImporter(QDialog, FieldDataCaptureProject):
+class FileLinker(QDialog, FieldDataCaptureProject):
     """
-    QDialog for selecting which photos to import/register and selecting
-    which locality_points the photos relate to.
+    QDialog for linking files to a project within the database.
+    This includes selecting which locality_points the files relate to.
     """
-    photo_importer_closed = pyqtSignal()
+    file_linker_closed = pyqtSignal()
 
     def __init__(self):
         super().__init__()
 
         # Setting the Dialog Box settings
-        self.setWindowTitle("Register Photos")
+        self.setWindowTitle("Link Files")
         self.setMinimumSize(600, 500)
         self.setWindowFlags(
             Qt.Window | Qt.WindowCloseButtonHint
@@ -56,17 +56,17 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         self.setup_ui_elements()
         self.connect_signals_and_slots()
 
-        self.photos_to_widgets: dict[Path, dict[str, QWidget]] = {}
+        self.files_to_widgets: dict[Path, dict[str, QWidget]] = {}
         self.photo_widget_size = 200
         self.select_photos()
 
 
     def setup_ui_elements(self) -> None:
         """
-        Create the elements of the Photo Importer dialog box User Interface.
+        Create the elements of the File Linker dialog box User Interface.
         Also sets the layout for the dialog box.
         """
-        self.import_selection_button = QPushButton("Register Selected Photos")
+        self.import_selection_button = QPushButton("Link Selected Files")
         self.cancel_button = QPushButton("Cancel")
 
         # To make a layout scrollable, you have to wrap it in a standrd QWidget object
@@ -100,13 +100,13 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
     def select_photos(self) -> bool:
         """
-        Get the unregistered photos from the project_dir/photos directory.
+        Get the unlinked photos from the project_dir/photos directory.
         This will create the required widgets to display the photos and add them to the layout.
         If there is an error loading a photo file, it will be skipped.
         Returns a boolean indicating the success of the process.
         """
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
-        registered_photos = {
+        linked_photos = {
             Path(photo_feature.attribute("photo_file"))
             for photo_feature in photo_layer.getFeatures()
         }
@@ -115,7 +115,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         for photo in self.photos_dir.rglob("*"):
             if all((
                 photo.is_file(),
-                photo.relative_to(self.photos_dir) not in registered_photos,
+                photo.relative_to(self.photos_dir) not in linked_photos,
                 photo.name != ".placeholder",
             )):
                 try:
@@ -154,7 +154,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
             photo_tags = {}
 
         # Arrange layout for new widgets into rows within the row layout
-        photo_path_label = self.create_photo_path_widget(photo)
+        photo_path_label = self.create_filepath_widget(photo)
         combobox_locality = self.create_combobox_locality()
         row_hbox_1 = QHBoxLayout()
         row_hbox_1.addWidget(photo_path_label)
@@ -185,7 +185,7 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         self.photo_rows_layout.addWidget(row_frame)
 
         # Save widgets with the given photo path
-        self.photos_to_widgets[photo] = {
+        self.files_to_widgets[photo] = {
             "QLabel_photo_path": photo_path_label,
             "QLabel_photo_date": photo_date_label,
             "QLabel_photo_widget": photo_widget,
@@ -194,18 +194,18 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
         }
 
 
-    def create_photo_path_widget(self, photo: Path) -> QLabel:
+    def create_filepath_widget(self, filepath: Path) -> QLabel:
         """
-        Create a QLabel widget to display the given photo path.
-        This also makes the widget clickable, which will open the photo
-        in the OS photo viewing software.
+        Create a QLabel widget to display the given filepath.
+        This also makes the widget clickable,
+        which will open the filepath in an OS native software.
         """
         # Create an encoded URL for the file
-        file_url = bytearray(QUrl.fromLocalFile(str(photo)).toEncoded()).decode()
-        photo_path_label = QLabel(f"<a href={file_url}>{photo.name}</a>")
-        photo_path_label.setOpenExternalLinks(True)
-        photo_path_label.setFixedWidth(self.photo_widget_size)
-        return photo_path_label
+        file_url = bytearray(QUrl.fromLocalFile(str(filepath)).toEncoded()).decode()
+        filepath_label = QLabel(f"<a href={file_url}>{filepath.name}</a>")
+        filepath_label.setOpenExternalLinks(True)
+        filepath_label.setFixedWidth(self.photo_widget_size)
+        return filepath_label
 
 
     def create_photo_date_widget(self, photo: Path, photo_tags: dict[str, Any]) -> QLabel:
@@ -307,18 +307,18 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
     def import_selection(self) -> None:
         """
-        Import the selected photos in the dialog into the project.
-        Photos which have not been assigned a locality_point will be ignored.
+        Import the selected files in the dialog into the project's database.
+        Files which have not been assigned a locality_point will be ignored.
         """
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
         photo_layer.startEditing()
 
-        imported_photos = 0
-        for photo_path, photo_widgets in self.photos_to_widgets.items():
+        imported_files = 0
+        for photo_path, photo_widgets in self.files_to_widgets.items():
             locality_fuid = photo_widgets["QComboBox_locality"].currentData()
 
             if locality_fuid is not None:
-                imported_photos += 1
+                imported_files += 1
 
                 # Create new feature with default values
                 new_feature = QgsVectorLayerUtils.createFeature(photo_layer)
@@ -340,11 +340,11 @@ class PhotoImporter(QDialog, FieldDataCaptureProject):
 
         photo_layer.commitChanges()
         self.close()
-        QMessageBox.information(None, "Registered Photos", f"Registered {imported_photos} photos successfully.")
+        QMessageBox.information(None, "Linked Files", f"Linked {imported_files} files successfully.")
 
 
     def closeEvent(self, event=None) -> None:
         """
         Function which is run by PyQt when the dialog is closed.
         """
-        self.photo_importer_closed.emit()
+        self.file_linker_closed.emit()

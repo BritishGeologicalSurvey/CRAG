@@ -79,7 +79,7 @@ from .create_gpkg_from_sql import (
     WORKDIR,
 )
 from .line_layer_selector import LineLayerSelector
-from .photo_importer import PhotoImporter
+from .file_linker import FileLinker
 from .project_validation import (
     ValidationStatus,
     validate_project,
@@ -137,7 +137,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         self.toolbar: QToolBar
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
-        self.photo_importer: Optional[PhotoImporter] = None
+        self.file_linker: Optional[FileLinker] = None
         self.line_layer_selector: Optional[LineLayerSelector] = None
         self.last_quick_add_line_type: Optional[dict[str, str]] = None
 
@@ -350,8 +350,8 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         self.add_action(
             icon_path,
-            text=self.tr(u'Register Photos'),
-            callback=self.open_photo_importer,
+            text=self.tr(u'Link Photos and Media'),
+            callback=self.open_file_linker,
             parent=self.iface.mainWindow(),
         )
 
@@ -447,7 +447,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         """Removes the plugin menu item and icon from QGIS GUI."""
         # Disable the current QuickMapTool if there is one
         self.disable_current_quick_map_tool()
-        self.close_photo_importer()
+        self.close_file_linker()
 
         for action in self.actions:
             self.iface.removePluginMenu(
@@ -1178,40 +1178,40 @@ class FieldDataCapture(FieldDataCaptureProject):
         return False
 
 
-    def open_photo_importer(self) -> bool:
+    def open_file_linker(self) -> bool:
         """
-        Open the photo importer tool of the plugin.
+        Open the File Linker tool of the plugin if there are unlinked files found in the project.
         Returns a boolean indicating the success of the process.
         """
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        self.photo_importer = PhotoImporter()
+        self.file_linker = FileLinker()
         # If no unregistered photos are found
-        if len(self.photo_importer.photos_to_widgets) == 0:
-            self.close_photo_importer()
+        if len(self.file_linker.files_to_widgets) == 0:
+            self.close_file_linker()
             parent_dir = self.photos_dir.relative_to(self.project_dir.parent)
             QMessageBox.warning(
                 None,
-                "No Unregistered Photos Found",
-                f"Could not find any unregistered photos in the folder:\n\n{parent_dir}",
+                "No Unlinked Files Found",
+                f"Could not find any unlinked files in the folder:\n\n{parent_dir}",
             )
 
         else:
-            self.photo_importer.photo_importer_closed.connect(self.close_photo_importer)
+            self.file_linker.file_linker_closed.connect(self.close_file_linker)
             # Make it modal so changes are not made whilst importing photos
-            self.photo_importer.exec()
+            self.file_linker.exec()
 
         return True
 
 
-    def close_photo_importer(self) -> None:
+    def close_file_linker(self) -> None:
         """
-        Delete the current photo importer object if there is one.
+        Delete the current File Linker object if there is one.
         """
-        if self.photo_importer is not None:
-            del self.photo_importer
-            self.photo_importer = None
+        if self.file_linker is not None:
+            del self.file_linker
+            self.file_linker = None
 
 
     def run_project_validation(self) -> None:

@@ -15,7 +15,7 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from plugin.field_data_capture import FieldDataCapture
-from plugin.photo_importer import PhotoImporter
+from plugin.file_linker import FileLinker
 from plugin.utils import (  # noqa
     get_combobox_items_dict,
     set_combobox_index_by_data,
@@ -66,24 +66,24 @@ def assert_widgets_dict_types(widgets_dict: dict[str, Any]) -> None:
     assert isinstance(widgets_dict["QTextEdit_caption"], QTextEdit)
 
 
-def test_open_photo_importer(fdc_project: FieldDataCapture):
+def test_open_file_linker(fdc_project: FieldDataCapture):
     # Act
-    fdc_project.open_photo_importer()
+    fdc_project.open_file_linker()
 
     # Assert
-    assert isinstance(fdc_project.photo_importer, PhotoImporter)
-    assert fdc_project.photos_dir == fdc_project.photo_importer.photos_dir
+    assert isinstance(fdc_project.file_linker, FileLinker)
+    assert fdc_project.photos_dir == fdc_project.file_linker.photos_dir
 
 
-def test_close_photo_importer(fdc_project: FieldDataCapture):
+def test_close_file_linker(fdc_project: FieldDataCapture):
     # Arrange
-    fdc_project.open_photo_importer()
+    fdc_project.open_file_linker()
 
     # Act
-    fdc_project.photo_importer.cancel_button.click()
+    fdc_project.file_linker.cancel_button.click()
 
     # Assert
-    assert fdc_project.photo_importer is None
+    assert fdc_project.file_linker is None
 
 
 def test_select_photos_good(
@@ -145,15 +145,15 @@ def test_select_photos_good(
 
     # Apply monkey patch for QFileDialog.getOpenFileNames
     monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_test_files])
-    fdc_project.open_photo_importer()
+    fdc_project.open_file_linker()
 
     # Act
-    fdc_project.photo_importer.select_photos_button.click()
+    fdc_project.file_linker.select_photos_button.click()
 
     # Assert
     # Check that each photo row contains the correct widgets with the correct settings
     for photo, labels in photos_to_labels.items():
-        widgets_dict = fdc_project.photo_importer.photos_to_widgets[photo]
+        widgets_dict = fdc_project.file_linker.photos_to_widgets[photo]
         assert_widgets_dict_types(widgets_dict)
 
         # Check widget values
@@ -169,8 +169,8 @@ def test_select_photos_good(
             assert get_combobox_items_dict(widgets_dict[combobox_name]) == expected_items
 
         # Check photo display size
-        assert widgets_dict["QLabel_photo_widget"].pixmap().width() <= fdc_project.photo_importer.photo_widget_size
-        assert widgets_dict["QLabel_photo_widget"].pixmap().height() <= fdc_project.photo_importer.photo_widget_size
+        assert widgets_dict["QLabel_photo_widget"].pixmap().width() <= fdc_project.file_linker.photo_widget_size
+        assert widgets_dict["QLabel_photo_widget"].pixmap().height() <= fdc_project.file_linker.photo_widget_size
 
 
 def test_select_photos_independently(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
@@ -187,48 +187,48 @@ def test_select_photos_independently(fdc_project: FieldDataCapture, monkeypatch:
             "photo_date_label": "2024-06-04 13:56:40 | File Modified",
         },
     }
-    fdc_project.open_photo_importer()
+    fdc_project.open_file_linker()
 
     # Act 1 - Select a single photo
     # Apply monkey patch for QFileDialog.getOpenFileNames to return the first filepath only
     monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [[list(photo_files.keys())[0]]])
-    fdc_project.photo_importer.select_photos_button.click()
+    fdc_project.file_linker.select_photos_button.click()
 
     # Act 2 - Select another single photo
     # Apply monkey patch for QFileDialog.getOpenFileNames to return the first filepath only
     monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [[list(photo_files.keys())[1]]])
-    fdc_project.photo_importer.select_photos_button.click()
+    fdc_project.file_linker.select_photos_button.click()
 
     # Assert
     # Check that the widgets have been saved according to both independently selected filepaths
-    for photo, widgets_dict in fdc_project.photo_importer.photos_to_widgets.items():
+    for photo, widgets_dict in fdc_project.file_linker.photos_to_widgets.items():
         assert photo in photo_files
         assert_widgets_dict_types(widgets_dict)
 
     # Check that there are 4 items within the photo_rows_layout
     # 2 for rows, 2 for stretch
-    assert fdc_project.photo_importer.photo_rows_layout.count() == 4
+    assert fdc_project.file_linker.photo_rows_layout.count() == 4
 
 
 def test_select_photos_independently_duplicate(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
     # Arrange
     # Specify test photos and their expected widget settings
     photo_file = Path("test/data/photos/exif_data.jpg")
-    fdc_project.open_photo_importer()
+    fdc_project.open_file_linker()
 
     # Act 1
     # Apply monkey patch for QFileDialog.getOpenFileNames
     monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [[photo_file]])
-    fdc_project.photo_importer.select_photos_button.click()
+    fdc_project.file_linker.select_photos_button.click()
     # Act 2 - Select the same photo again
-    fdc_project.photo_importer.select_photos_button.click()
+    fdc_project.file_linker.select_photos_button.click()
 
     # Assert
     # Only one photo row widget set should exist as the the user selected the same photo twice
     # Check that the widgets have been saved according to the single filepath
-    assert len(fdc_project.photo_importer.photos_to_widgets) == 1
+    assert len(fdc_project.file_linker.photos_to_widgets) == 1
     # Check that there is 1 photo row layout and 1 stretch within the photo_rows_layout
-    assert fdc_project.photo_importer.photo_rows_layout.count() == 2
+    assert fdc_project.file_linker.photo_rows_layout.count() == 2
 
 
 def test_select_photos_bad_file(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
@@ -237,17 +237,17 @@ def test_select_photos_bad_file(fdc_project: FieldDataCapture, monkeypatch: pyte
     photo_files = list(fdc_project.photos_dir.glob("*[!.placeholder]"))
     # This photo file does not exist
     photo_files.append(Path("plugin/test/data/photos/not_a_file.jpeg"))
-    fdc_project.open_photo_importer()
+    fdc_project.open_file_linker()
 
     # Act
     # Apply monkey patch for QFileDialog.getOpenFileNames
     monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_files])
-    fdc_project.photo_importer.select_photos_button.click()
+    fdc_project.file_linker.select_photos_button.click()
 
     # Assert
     # Check that no photo widgets were created
-    assert len(fdc_project.photo_importer.photos_to_widgets) == 0
-    assert fdc_project.photo_importer.photo_rows_layout.count() == 0
+    assert len(fdc_project.file_linker.photos_to_widgets) == 0
+    assert fdc_project.file_linker.photo_rows_layout.count() == 0
 
 
 def test_combobox_locality_stylesheet(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
@@ -257,17 +257,17 @@ def test_combobox_locality_stylesheet(fdc_project: FieldDataCapture, monkeypatch
         Path("test/data/photos/exif_data.jpg"),
         Path("test/data/photos/no_exif_data.jpg"),
     ]
-    fdc_project.open_photo_importer()
+    fdc_project.open_file_linker()
 
     # Act 1
     # Apply monkey patch for QFileDialog.getOpenFileNames
     monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_files])
-    fdc_project.photo_importer.select_photos_button.click()
+    fdc_project.file_linker.select_photos_button.click()
 
     # Assert 1
     # Check that the comboboxes have the correct style sheet on the default value
     for photo in photo_files:
-        combobox_locality = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox_locality"]
+        combobox_locality = fdc_project.file_linker.photos_to_widgets[photo]["QComboBox_locality"]
         assert combobox_locality.currentText() == "Select Locality Point"
         assert combobox_locality.currentData() is None
         assert combobox_locality.styleSheet() == "QComboBox:editable{color: red;}"
@@ -275,13 +275,13 @@ def test_combobox_locality_stylesheet(fdc_project: FieldDataCapture, monkeypatch
     # Act 2
     # Select a different item in the comboboxes
     for photo in photo_files:
-        combobox_locality = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox_locality"]
+        combobox_locality = fdc_project.file_linker.photos_to_widgets[photo]["QComboBox_locality"]
         combobox_locality.setCurrentIndex(1)
 
     # Assert 2
     # Check that the comboboxes have the correct style sheet on the new value
     for photo in photo_files:
-        combobox_locality = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox_locality"]
+        combobox_locality = fdc_project.file_linker.photos_to_widgets[photo]["QComboBox_locality"]
         assert combobox_locality.currentText() == "test_point_001 | 2023-10-31 16:24:14"
         assert combobox_locality.currentData() == "{abc43098-fe9b-4da0-b008-7518694466bb}"
         assert combobox_locality.styleSheet() == ""
@@ -318,10 +318,10 @@ def test_import_selection(
     ]
     photos_to_options = dict(zip(photo_test_files, photo_options))
 
-    fdc_project.open_photo_importer()
+    fdc_project.open_file_linker()
     # Apply monkey patch for QFileDialog.getOpenFileNames
     monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_test_files])
-    fdc_project.photo_importer.select_photos_button.click()
+    fdc_project.file_linker.select_photos_button.click()
 
     # Act
     # Modify input data like a user
@@ -329,20 +329,20 @@ def test_import_selection(
 
         # Populate values in appropriate widgets
         for widget_name, new_value in options.items():
-            widget = fdc_project.photo_importer.photos_to_widgets[photo_file][widget_name]
+            widget = fdc_project.file_linker.photos_to_widgets[photo_file][widget_name]
             if widget_name.startswith("QComboBox_"):
                 set_combobox_index_by_data(widget, new_value)
             elif widget_name.startswith("QTextEdit_"):
                 widget.setText(new_value)
 
-    fdc_project.photo_importer.import_selection_button.click()
+    fdc_project.file_linker.import_selection_button.click()
 
     # Assert
     photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
     # Check that the layer has been saved
     assert not photo_layer.isModified()
-    # Check that the PhotoImporter closed
-    assert fdc_project.photo_importer is None
+    # Check that the FileLinker closed
+    assert fdc_project.file_linker is None
     # Check that the features have correct attributes and the files have been copied/moved in the project
     # Only check the last 4 photo features because they should be the newest ones
     new_features = list(photo_layer.getFeatures())[-4:]
@@ -361,29 +361,29 @@ def test_import_selection_some(fdc_project: FieldDataCapture, monkeypatch: pytes
         Path("test/data/photos/exif_data.jpg"),
         Path("test/data/photos/no_exif_data.jpg"),
     ]
-    fdc_project.open_photo_importer()
+    fdc_project.open_file_linker()
     # Apply monkey patch for QFileDialog.getOpenFileNames
     monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_files])
-    fdc_project.photo_importer.select_photos_button.click()
+    fdc_project.file_linker.select_photos_button.click()
     photo_caption = "these are some new notes"
 
     # Act
     # Modify input data like a user for only the second photo
     photo = photo_files[1]
     # Select a point in the locality combobox
-    combobox_locality = fdc_project.photo_importer.photos_to_widgets[photo]["QComboBox_locality"]
+    combobox_locality = fdc_project.file_linker.photos_to_widgets[photo]["QComboBox_locality"]
     combobox_locality.setCurrentIndex(2)
     # Edit the text edit box
-    text_edit = fdc_project.photo_importer.photos_to_widgets[photo]["QTextEdit_caption"]
+    text_edit = fdc_project.file_linker.photos_to_widgets[photo]["QTextEdit_caption"]
     text_edit.setText(photo_caption)
-    fdc_project.photo_importer.import_selection_button.click()
+    fdc_project.file_linker.import_selection_button.click()
 
     # Assert
     photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
     # Check that the layer has been saved
     assert not photo_layer.isModified()
-    # Check that the PhotoImporter closed
-    assert fdc_project.photo_importer is None
+    # Check that the FileLinker closed
+    assert fdc_project.file_linker is None
     # Check that there are only 3 photo features and files
     features = list(photo_layer.getFeatures())
     assert len(features) == 3
