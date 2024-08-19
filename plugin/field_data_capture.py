@@ -1187,7 +1187,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         self.file_linker = FileLinker()
         # If no unregistered photos are found
-        if len(self.file_linker.files_to_widgets) == 0:
+        if len(self.file_linker.layers_to_files_to_widgets) == 0:
             self.close_file_linker()
             parent_dir = self.photos_dir.relative_to(self.project_dir.parent)
             QMessageBox.warning(

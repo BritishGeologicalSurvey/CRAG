@@ -1,11 +1,15 @@
 import datetime as dt
 from pathlib import Path
-from typing import Any
+from typing import (
+    Any,
+    Callable,
+)
 
 import exifread
 from qgis.core import (
+    QgsFeature,
     QgsProject,
-    QgsVectorLayerUtils,
+    QgsVectorLayer,
 )
 from qgis.PyQt.QtCore import (
     pyqtSignal,
@@ -33,8 +37,12 @@ from qgis.PyQt.QtWidgets import (
 
 from .utils import (  # noqa
     FieldDataCaptureProject,
+    create_prepopulated_feature,
     ipdb_breakpoint,
 )
+
+WidgetsDict = dict[str, QWidget]
+CreateFeatureFunction = Callable[[QgsVectorLayer, Path, WidgetsDict], QgsFeature]
 
 
 class FileLinker(QDialog, FieldDataCaptureProject):
@@ -56,9 +64,11 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         self.setup_ui_elements()
         self.connect_signals_and_slots()
 
-        self.files_to_widgets: dict[Path, dict[str, QWidget]] = {}
+        self.skip_files: list[Path] = []
+        self.layers_to_feature_functions: dict[str, CreateFeatureFunction] = {}
+        self.layers_to_files_to_widgets: dict[str, dict[Path, WidgetsDict]] = {}
         self.photo_widget_size = 200
-        self.select_photos()
+        self.add_file_panels()
 
 
     def setup_ui_elements(self) -> None:
@@ -66,26 +76,18 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         Create the elements of the File Linker dialog box User Interface.
         Also sets the layout for the dialog box.
         """
-        self.import_selection_button = QPushButton("Link Selected Files")
+        self.link_selection_button = QPushButton("Link Selected Files")
         self.cancel_button = QPushButton("Cancel")
-
-        # To make a layout scrollable, you have to wrap it in a standrd QWidget object
-        self.photo_rows_layout = QVBoxLayout()
-        layout_wrapper = QWidget()
-        layout_wrapper.setLayout(self.photo_rows_layout)
-        scroll_area = QScrollArea()
-        scroll_area.setWidget(layout_wrapper)
-        # The widget must be allowed to change size so that rows can be added later
-        scroll_area.setWidgetResizable(True)
 
         # Bottom button layout
         bottom_button_layout = QHBoxLayout()
-        bottom_button_layout.addWidget(self.import_selection_button)
+        bottom_button_layout.addWidget(self.link_selection_button)
         bottom_button_layout.addWidget(self.cancel_button)
 
         # Arrange the main layout
         layout = QVBoxLayout()
-        layout.addWidget(scroll_area)
+        self.file_panels_layout = QVBoxLayout()
+        layout.addLayout(self.file_panels_layout)
         layout.addLayout(bottom_button_layout)
         self.setLayout(layout)
 
@@ -94,16 +96,164 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         Function for connecting signals and slots of buttons and input boxes.
         """
-        self.import_selection_button.clicked.connect(self.import_selection)
+        self.link_selection_button.clicked.connect(self.link_selection)
         self.cancel_button.clicked.connect(self.close)
 
 
-    def select_photos(self) -> bool:
+    def add_file_panels(self) -> None:
+        """
+        Add the required file panels to the dialog and populate them.
+        """
+        self.add_file_panel(
+            layer_name="photo",
+            select_files_function=self.select_unlinked_photos,
+            create_layout_function=self.create_photo_row_layout,
+            create_feature_function=self.create_photo_feature,
+        )
+
+        # If any files are skipped, show them in a message box
+        skip_files_num = len(self.skip_files)
+        if skip_files_num > 0:
+            if skip_files_num > 5:
+                msg = f"{skip_files_num} files have been skipped because they could not be loaded."
+            else:
+                file_str = "\n".join([str(filepath) for filepath in self.skip_files])
+                msg = (
+                    "Some files have been skipped because they could not be loaded:"
+                    f"\n\n{file_str}"
+                )
+            QMessageBox.warning(None, "Skipped Files", msg)
+
+
+    def add_file_panel(
+        self,
+        layer_name: str,
+        select_files_function: Callable[[], list[Path]],
+        create_layout_function: Callable[[Path], tuple[QHBoxLayout | QVBoxLayout, WidgetsDict]],
+        create_feature_function: CreateFeatureFunction,
+    ) -> None:
+        """
+        Add a new file panel with a scrollable area for rows of file widgets.
+        Each row in the scrollable area is a QFrame which contains a QHBoxLayout or QVBoxLayout.
+        Takes 3 functions:
+
+        'select_files_function' is used to get the list of filepaths to be selected.
+
+        'create_layout_function' is used to create the individual row layouts.
+        It takes a single filepath, and returns a PyQt Layout, and a dictionary of widgets to be saved.
+
+        'create_feature_function' is used to create a new feature for each filepath.
+        It takes the layer for the feature, a single filepath, and a dictionary of widgets that were saved earlier.
+        It returns a new QgsFeature.
+        """
+        # To make a layout scrollable, you have to wrap it in a standrd QWidget object
+        file_rows_layout = QVBoxLayout()
+        layout_wrapper = QWidget()
+        layout_wrapper.setLayout(file_rows_layout)
+        scroll_area = QScrollArea()
+        scroll_area.setWidget(layout_wrapper)
+        # The widget must be allowed to change size so that rows can be added later
+        scroll_area.setWidgetResizable(True)
+
+        filepaths = select_files_function()
+        if len(filepaths) > 0:
+            self.layers_to_files_to_widgets[layer_name] = {}
+
+            for filepath in select_files_function():
+                try:
+                    row_layout, widgets_dict = create_layout_function(filepath)
+                    # Add the layer name to the dictionary so that we can find the appropriate link function later
+                    widgets_dict["layer_name"] = layer_name
+                    self.layers_to_files_to_widgets[layer_name][filepath] = widgets_dict
+
+                    # Put the layout into a frame for a border
+                    row_frame = QFrame()
+                    row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
+                    row_frame.setLayout(row_layout)
+                    file_rows_layout.addWidget(row_frame)
+
+                except Exception:
+                    self.skip_files.append(filepath)
+
+            self.layers_to_feature_functions[layer_name] = create_feature_function
+            self.file_panels_layout.addWidget(scroll_area)
+
+
+    def link_selection(self) -> None:
+        """
+        Link the selected files in the dialog into the project's database.
+        Files which have not been assigned a locality_point will be ignored.
+        """
+        linked_files = 0
+        for layer_name, files_to_widgets in self.layers_to_files_to_widgets.items():
+            layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+            layer.startEditing()
+
+            for filepath, widgets_dict in files_to_widgets.items():
+                if widgets_dict["QComboBox_locality"].currentData() is not None:
+                    feature = self.layers_to_feature_functions[layer_name](layer, filepath, widgets_dict)
+                    layer.addFeature(feature)
+                    linked_files += 1
+
+        layer.commitChanges()
+        self.close()
+        QMessageBox.information(None, "Linked Files", f"Linked {linked_files} files successfully.")
+
+
+    def closeEvent(self, event=None) -> None:
+        """
+        Function which is run by PyQt when the dialog is closed.
+        """
+        self.file_linker_closed.emit()
+
+
+    """Methods used for all file types."""
+
+
+    def create_combobox_locality(self) -> QComboBox:
+        """
+        Create a QComboBox which lists the existing locality_point features by name and date_entered.
+        Returns the QComboBox object.
+        """
+        locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+
+        combobox = QComboBox()
+        self.configure_combobox_style(combobox)
+
+        # Add default value
+        combobox.addItem("Select Locality Point", userData=None)
+
+        for locality_feature in locality_point_layer.getFeatures():
+            # Convert to Python datetime object and remove miliseconds
+            locality_date = locality_feature.attribute("date_entered").toPyDateTime().replace(microsecond=0)
+            combobox.addItem(
+                f"{locality_feature.attribute('name')} | {locality_date}",
+                userData=locality_feature.attribute("uuid"),
+            )
+
+        return combobox
+
+
+    @staticmethod
+    def configure_combobox_style(combobox: QComboBox) -> None:
+        """
+        Configure given QComboBox style to show red when default None value is selected.
+        """
+        def update_stylesheet() -> None:
+            if combobox.currentData() is None:
+                style = "QComboBox:editable{color: red;}"
+            else:
+                style = ""
+            combobox.setStyleSheet(style)
+        combobox.currentTextChanged.connect(update_stylesheet)
+
+
+    """Methods used for only photos."""
+
+
+    def select_unlinked_photos(self) -> list[Path]:
         """
         Get the unlinked photos from the project_dir/photos directory.
-        This will create the required widgets to display the photos and add them to the layout.
-        If there is an error loading a photo file, it will be skipped.
-        Returns a boolean indicating the success of the process.
         """
         photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
         linked_photos = {
@@ -111,40 +261,22 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             for photo_feature in photo_layer.getFeatures()
         }
 
-        skip_photos = []
+        unlinked_photos = []
         for photo in self.photos_dir.rglob("*"):
             if all((
                 photo.is_file(),
                 photo.relative_to(self.photos_dir) not in linked_photos,
                 photo.name != self.placeholder_filename.name,
             )):
-                try:
-                    self.add_photo_row_widgets(photo)
-                except Exception:
-                    skip_photos.append(photo)
+                unlinked_photos.append(photo)
 
-        # If any photos are skipped, show them in a message box
-        skip_photos_num = len(skip_photos)
-        if skip_photos_num > 0:
-            if skip_photos_num > 5:
-                msg = f"{skip_photos_num} photos have been skipped because they could not be loaded."
-            else:
-                photos_str = "\n".join([str(photo) for photo in skip_photos])
-                msg = (
-                    "Some photos have been skipped because they could not be loaded:"
-                    f"\n\n{photos_str}"
-                )
-            QMessageBox.warning(None, "Skipped Photos", msg)
-
-        return True
+        return unlinked_photos
 
 
-    def add_photo_row_widgets(self, photo: Path) -> None:
+    def create_photo_row_layout(self, photo: Path) -> tuple[QHBoxLayout | QVBoxLayout, WidgetsDict]:
         """
-        Create and add the required widgets to display the given photo path in the dialog.
-        Each row in the scrollable area is a QFrame which contains a QVBoxLayout.
-        Each given photo is saved to a dictionary where the keys are photo paths
-        and the values are the QWidget objects which relate to it.
+        Create the required layout of widgets to display the given photo path in the dialog.
+        Returns the layout for the new set of widgets, and a dictionary of widgets to be saved to the photo path.
         """
         # Get the photo metadata for display in widgets
         try:
@@ -178,20 +310,16 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         row_layout.addLayout(row_hbox_2)
         row_layout.addLayout(row_hbox_3)
 
-        # Put the layout into a frame for a border
-        row_frame = QFrame()
-        row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
-        row_frame.setLayout(row_layout)
-        self.photo_rows_layout.addWidget(row_frame)
-
         # Save widgets with the given photo path
-        self.files_to_widgets[photo] = {
+        widgets_dict = {
             "QLabel_photo_path": photo_path_label,
             "QLabel_photo_date": photo_date_label,
             "QLabel_photo_widget": photo_widget,
             "QComboBox_locality": combobox_locality,
             "QTextEdit_caption": caption_edit,
         }
+
+        return row_layout, widgets_dict
 
 
     def create_filepath_widget(self, filepath: Path) -> QLabel:
@@ -267,84 +395,23 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         return label
 
 
-    def create_combobox_locality(self) -> QComboBox:
+    def create_photo_feature(
+        self,
+        layer: QgsVectorLayer,
+        photo: Path,
+        photo_widgets: WidgetsDict,
+    ) -> QgsFeature:
         """
-        Create a QComboBox which lists the existing locality_point features by name and date_entered.
-        Returns the QComboBox object.
+        Create a new photo feature for the given filepath.
         """
-        locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+        # Get photo caption value
+        photo_caption = photo_widgets["QTextEdit_caption"].toPlainText()
+        if photo_caption == "":
+            photo_caption = None
 
-        combobox = QComboBox()
-        self.configure_combobox_style(combobox)
-
-        # Add default value
-        combobox.addItem("Select Locality Point", userData=None)
-
-        for locality_feature in locality_point_layer.getFeatures():
-            # Convert to Python datetime object and remove miliseconds
-            locality_date = locality_feature.attribute("date_entered").toPyDateTime().replace(microsecond=0)
-            combobox.addItem(
-                f"{locality_feature.attribute('name')} | {locality_date}",
-                userData=locality_feature.attribute("uuid"),
-            )
-
-        return combobox
-
-
-    @staticmethod
-    def configure_combobox_style(combobox: QComboBox) -> None:
-        """
-        Configure given QComboBox style to show red when default None value is selected.
-        """
-        def update_stylesheet() -> None:
-            if combobox.currentData() is None:
-                style = "QComboBox:editable{color: red;}"
-            else:
-                style = ""
-            combobox.setStyleSheet(style)
-        combobox.currentTextChanged.connect(update_stylesheet)
-
-
-    def import_selection(self) -> None:
-        """
-        Import the selected files in the dialog into the project's database.
-        Files which have not been assigned a locality_point will be ignored.
-        """
-        photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
-        photo_layer.startEditing()
-
-        imported_files = 0
-        for photo_path, photo_widgets in self.files_to_widgets.items():
-            locality_fuid = photo_widgets["QComboBox_locality"].currentData()
-
-            if locality_fuid is not None:
-                imported_files += 1
-
-                # Create new feature with default values
-                new_feature = QgsVectorLayerUtils.createFeature(photo_layer)
-
-                # Get photo caption value
-                photo_caption = photo_widgets["QTextEdit_caption"].toPlainText()
-                if photo_caption == "":
-                    photo_caption = None
-
-                new_attributes = {
-                    "locality_fuid": locality_fuid,
-                    "photo_file": str(photo_path.relative_to(self.photos_dir)),
-                    "caption": photo_caption,
-                }
-                for attribute, value in new_attributes.items():
-                    new_feature.setAttribute(attribute, value)
-
-                photo_layer.addFeature(new_feature)
-
-        photo_layer.commitChanges()
-        self.close()
-        QMessageBox.information(None, "Linked Files", f"Linked {imported_files} files successfully.")
-
-
-    def closeEvent(self, event=None) -> None:
-        """
-        Function which is run by PyQt when the dialog is closed.
-        """
-        self.file_linker_closed.emit()
+        new_attributes = {
+            "locality_fuid": photo_widgets["QComboBox_locality"].currentData(),
+            "photo_file": str(photo.relative_to(self.photos_dir)),
+            "caption": photo_caption,
+        }
+        return create_prepopulated_feature(layer, prepopulate=new_attributes)
