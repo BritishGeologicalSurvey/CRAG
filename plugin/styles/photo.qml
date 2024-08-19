@@ -1,4 +1,4 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.6-Prizren">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.36.2-Maidenhead">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -141,7 +141,7 @@
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="photo_file" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="photo_file" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="caption" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
@@ -152,7 +152,7 @@
     <constraint desc="" exp="" field="fid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
-    <constraint desc="" exp="" field="photo_file"></constraint>
+    <constraint desc="" exp="-- Don't match absolute windows paths (e.g. starting with &quot;C:/&quot;)&#xD;&#xA;not(regexp_match(lower(&quot;photo_file&quot;), '^[a-z]:/'))&#xD;&#xA;and&#xD;&#xA;-- Don't match absolute Linux paths (starting with &quot;/&quot;)&#xD;&#xA;not(regexp_match(&quot;photo_file&quot;, '^/'))&#xD;&#xA;and&#xD;&#xA;-- Don't match filepaths from parent directories (e.g. starting with &quot;../&quot;)&#xD;&#xA;not(regexp_match(&quot;photo_file&quot;, '^\\.\\./'))" field="photo_file"></constraint>
     <constraint desc="" exp="" field="caption"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
