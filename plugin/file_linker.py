@@ -67,7 +67,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         self.skip_files: list[Path] = []
         self.layers_to_feature_functions: dict[str, CreateFeatureFunction] = {}
         self.layers_to_files_to_widgets: dict[str, dict[Path, WidgetsDict]] = {}
-        self.photo_widget_size = 200
+        self.thumbnail_size = 200
         self.add_file_panels()
 
 
@@ -106,7 +106,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         self.add_file_panel(
             layer_name="photo",
-            select_files_function=self.select_unlinked_photos,
+            project_sub_dir=self.photos_dir,
             create_layout_function=self.create_photo_row_layout,
             create_feature_function=self.create_photo_feature,
         )
@@ -128,16 +128,17 @@ class FileLinker(QDialog, FieldDataCaptureProject):
     def add_file_panel(
         self,
         layer_name: str,
-        select_files_function: Callable[[], list[Path]],
+        project_sub_dir: Path,
         create_layout_function: Callable[[Path], tuple[QHBoxLayout | QVBoxLayout, WidgetsDict]],
         create_feature_function: CreateFeatureFunction,
     ) -> None:
         """
         Add a new file panel with a scrollable area for rows of file widgets.
         Each row in the scrollable area is a QFrame which contains a QHBoxLayout or QVBoxLayout.
-        Takes 3 functions:
 
-        'select_files_function' is used to get the list of filepaths to be selected.
+        The project_sub_dir argument is the folder where the files for the given layer are saved.
+
+        Takes 2 functions:
 
         'create_layout_function' is used to create the individual row layouts.
         It takes a single filepath, and returns a PyQt Layout, and a dictionary of widgets to be saved.
@@ -155,11 +156,11 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         # The widget must be allowed to change size so that rows can be added later
         scroll_area.setWidgetResizable(True)
 
-        filepaths = select_files_function()
+        filepaths = self.get_unlinked_files(layer_name, files_dir=project_sub_dir)
         if len(filepaths) > 0:
             self.layers_to_files_to_widgets[layer_name] = {}
 
-            for filepath in select_files_function():
+            for filepath in filepaths:
                 try:
                     row_layout, widgets_dict = create_layout_function(filepath)
                     # Add the layer name to the dictionary so that we can find the appropriate link function later
@@ -210,6 +211,28 @@ class FileLinker(QDialog, FieldDataCaptureProject):
     """Methods used for all file types."""
 
 
+    def get_unlinked_files(self, layer_name: str, files_dir: Path) -> list[Path]:
+        """
+        Get the unlinked files for the given layer from the given directory.
+        """
+        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        linked_files = {
+            Path(photo_feature.attribute("photo_file"))
+            for photo_feature in layer.getFeatures()
+        }
+
+        unlinked_files = []
+        for filepath in files_dir.rglob("*"):
+            if all((
+                filepath.is_file(),
+                filepath.relative_to(files_dir) not in linked_files,
+                filepath.name != self.placeholder_filename.name,
+            )):
+                unlinked_files.append(filepath)
+
+        return unlinked_files
+
+
     def create_combobox_locality(self) -> QComboBox:
         """
         Create a QComboBox which lists the existing locality_point features by name and date_entered.
@@ -248,80 +271,6 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         combobox.currentTextChanged.connect(update_stylesheet)
 
 
-    """Methods used for only photos."""
-
-
-    def select_unlinked_photos(self) -> list[Path]:
-        """
-        Get the unlinked photos from the project_dir/photos directory.
-        """
-        photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
-        linked_photos = {
-            Path(photo_feature.attribute("photo_file"))
-            for photo_feature in photo_layer.getFeatures()
-        }
-
-        unlinked_photos = []
-        for photo in self.photos_dir.rglob("*"):
-            if all((
-                photo.is_file(),
-                photo.relative_to(self.photos_dir) not in linked_photos,
-                photo.name != self.placeholder_filename.name,
-            )):
-                unlinked_photos.append(photo)
-
-        return unlinked_photos
-
-
-    def create_photo_row_layout(self, photo: Path) -> tuple[QHBoxLayout | QVBoxLayout, WidgetsDict]:
-        """
-        Create the required layout of widgets to display the given photo path in the dialog.
-        Returns the layout for the new set of widgets, and a dictionary of widgets to be saved to the photo path.
-        """
-        # Get the photo metadata for display in widgets
-        try:
-            with open(photo, "rb") as photo_file:
-                photo_tags = exifread.process_file(photo_file)
-        except Exception:
-            photo_tags = {}
-
-        # Arrange layout for new widgets into rows within the row layout
-        photo_path_label = self.create_filepath_widget(photo)
-        combobox_locality = self.create_combobox_locality()
-        row_hbox_1 = QHBoxLayout()
-        row_hbox_1.addWidget(photo_path_label)
-        row_hbox_1.addWidget(combobox_locality)
-
-        photo_date_label = self.create_photo_date_widget(photo, photo_tags)
-        caption_label = QLabel("Caption")
-        row_hbox_2 = QHBoxLayout()
-        row_hbox_2.addWidget(photo_date_label)
-        row_hbox_2.addWidget(caption_label)
-
-        photo_widget = self.create_photo_widget(photo, photo_tags)
-        caption_edit = QTextEdit()
-        row_hbox_3 = QHBoxLayout()
-        row_hbox_3.addWidget(photo_widget)
-        row_hbox_3.addWidget(caption_edit)
-
-        # Combine the top and bottom half into a single layout to form an entire row
-        row_layout = QVBoxLayout()
-        row_layout.addLayout(row_hbox_1)
-        row_layout.addLayout(row_hbox_2)
-        row_layout.addLayout(row_hbox_3)
-
-        # Save widgets with the given photo path
-        widgets_dict = {
-            "QLabel_photo_path": photo_path_label,
-            "QLabel_photo_date": photo_date_label,
-            "QLabel_photo_widget": photo_widget,
-            "QComboBox_locality": combobox_locality,
-            "QTextEdit_caption": caption_edit,
-        }
-
-        return row_layout, widgets_dict
-
-
     def create_filepath_widget(self, filepath: Path) -> QLabel:
         """
         Create a QLabel widget to display the given filepath.
@@ -332,15 +281,19 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         file_url = bytearray(QUrl.fromLocalFile(str(filepath)).toEncoded()).decode()
         filepath_label = QLabel(f"<a href={file_url}>{filepath.name}</a>")
         filepath_label.setOpenExternalLinks(True)
-        filepath_label.setFixedWidth(self.photo_widget_size)
+        filepath_label.setFixedWidth(self.thumbnail_size)
         return filepath_label
 
 
-    def create_photo_date_widget(self, photo: Path, photo_tags: dict[str, Any]) -> QLabel:
+    def create_file_date_widget(
+        self,
+        photo: Path,
+        photo_tags: dict[str, Any] = {},
+    ) -> QLabel:
         """
-        Create the required label widget to display the photo date.
-        The date is first extracted from the EXIF metadata of the photo file,
-        but if that is missing then the file creation date is used instead.
+        Create a label widget to display the file date.
+        If photo tags are given, then the date is extracted from the EXIF metadata of the file,
+        otherwise the file creation date is used instead.
         """
         date_tag = "EXIF DateTimeOriginal"
         if date_tag in photo_tags:
@@ -353,23 +306,27 @@ class FileLinker(QDialog, FieldDataCaptureProject):
 
         # Hide miliseconds
         date_display = date_display.replace(microsecond=0)
-        photo_date_label = QLabel(f"{date_display} | {source}")
-        # Set the width to match the width of the photo widget
-        photo_date_label.setFixedWidth(self.photo_widget_size)
-        return photo_date_label
+        file_date_label = QLabel(f"{date_display} | {source}")
+        # Set the width to match the width of the image widget
+        file_date_label.setFixedWidth(self.thumbnail_size)
+        return file_date_label
 
 
-    def create_photo_widget(self, photo: Path, photo_tags: dict[str, Any]) -> QLabel:
+    def create_image_widget(
+        self,
+        image_path: Path,
+        photo_tags: dict[str, Any] = {},
+    ) -> QLabel:
         """
-        Create the required photo widget for the given photo path.
+        Create a new widget to display an image from the given filepath.
         The widget is a QLabel containing a QPixmap object.
-        The image is rotated correctly and scaled down.
+        If photo tags are given, then the image is rotated correctly.
         """
-        image_size = QSize(self.photo_widget_size, self.photo_widget_size)
+        image_size = QSize(self.thumbnail_size, self.thumbnail_size)
         # Images are displayed by create a pixmap in a QLabel object
         label = QLabel()
         label.setFixedSize(image_size)
-        pixmap = QPixmap(str(photo))
+        pixmap = QPixmap(str(image_path))
 
         # Get the required rotation for the image to be displayed properly
         orientation_to_rotation = {
@@ -393,6 +350,58 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         # Set the pixmap and scale it down
         label.setPixmap(pixmap.scaled(image_size, aspectRatioMode=Qt.KeepAspectRatio))
         return label
+
+
+    """Methods used for only photos."""
+
+
+    def create_photo_row_layout(self, photo: Path) -> tuple[QHBoxLayout | QVBoxLayout, WidgetsDict]:
+        """
+        Create the required layout of widgets to display the given photo path in the dialog.
+        Returns the layout for the new set of widgets, and a dictionary of widgets to be saved to the photo path.
+        """
+        # Get the photo metadata for display in widgets
+        try:
+            with open(photo, "rb") as photo_file:
+                photo_tags = exifread.process_file(photo_file)
+        except Exception:
+            photo_tags = {}
+
+        # Arrange layout for new widgets into rows within the row layout
+        photo_path_label = self.create_filepath_widget(photo)
+        combobox_locality = self.create_combobox_locality()
+        row_hbox_1 = QHBoxLayout()
+        row_hbox_1.addWidget(photo_path_label)
+        row_hbox_1.addWidget(combobox_locality)
+
+        photo_date_label = self.create_file_date_widget(photo, photo_tags=photo_tags)
+        caption_label = QLabel("Caption")
+        row_hbox_2 = QHBoxLayout()
+        row_hbox_2.addWidget(photo_date_label)
+        row_hbox_2.addWidget(caption_label)
+
+        photo_widget = self.create_image_widget(photo, photo_tags=photo_tags)
+        caption_edit = QTextEdit()
+        row_hbox_3 = QHBoxLayout()
+        row_hbox_3.addWidget(photo_widget)
+        row_hbox_3.addWidget(caption_edit)
+
+        # Combine the top and bottom half into a single layout to form an entire row
+        row_layout = QVBoxLayout()
+        row_layout.addLayout(row_hbox_1)
+        row_layout.addLayout(row_hbox_2)
+        row_layout.addLayout(row_hbox_3)
+
+        # Save widgets with the given photo path
+        widgets_dict = {
+            "QLabel_photo_path": photo_path_label,
+            "QLabel_photo_date": photo_date_label,
+            "QLabel_photo_widget": photo_widget,
+            "QComboBox_locality": combobox_locality,
+            "QTextEdit_caption": caption_edit,
+        }
+
+        return row_layout, widgets_dict
 
 
     def create_photo_feature(
