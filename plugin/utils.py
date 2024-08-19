@@ -6,7 +6,13 @@ from typing import (
     Optional,
 )
 
-from qgis.core import QgsProject
+from qgis.core import (
+    QgsGeometry,
+    QgsFeature,
+    QgsProject,
+    QgsVectorLayer,
+    QgsVectorLayerUtils,
+)
 from qgis.PyQt.QtCore import QUrl
 from qgis.PyQt.QtGui import QDesktopServices
 from qgis.PyQt.QtWidgets import (
@@ -305,6 +311,29 @@ def get_combobox_items_dict(combobox: QComboBox) -> dict[str, Any]:
         for row_idx in range(model.rowCount())
     }
     return label_to_data
+
+
+def create_prepopulated_feature(
+    layer: QgsVectorLayer,
+    prepopulate: dict[str, Any],
+    geometry: QgsGeometry = QgsGeometry()
+) -> QgsFeature:
+    """
+    Create a new feature for the given layer using the given prepopulated values.
+    This means it the feature will have the default values from the layer, and the given prepopulated values.
+    """
+    prepopulate_indexed = {}
+    for field_name, prepopulate_value in prepopulate.items():
+        field_index = [field.name() for field in layer.fields()].index(field_name)
+        prepopulate_indexed[field_index] = prepopulate_value
+
+    # Create feature with the geometry from the new empty feature and prepopulate any values required
+    feature = QgsVectorLayerUtils.createFeature(
+        layer=layer,
+        geometry=geometry,
+        attributes=prepopulate_indexed,
+    )
+    return feature
 
 
 def ipdb_breakpoint():
