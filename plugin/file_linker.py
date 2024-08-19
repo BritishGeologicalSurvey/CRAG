@@ -116,7 +116,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             if all((
                 photo.is_file(),
                 photo.relative_to(self.photos_dir) not in linked_photos,
-                photo.name != ".placeholder",
+                photo.name != self.placeholder_filename.name,
             )):
                 try:
                     self.add_photo_row_widgets(photo)

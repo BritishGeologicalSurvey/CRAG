@@ -545,8 +545,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         # Create empty user directories
         for directory in [self.photos_dir, self.media_dir]:
             directory.mkdir(parents=True, exist_ok=True)
-            placeholder = directory / ".placeholder"
-            placeholder.touch()
+            (directory / self.placeholder_filename).touch()
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)

@@ -28,6 +28,7 @@ class FieldDataCaptureProject:
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
     gpkg_filename = Path("field-data-capture.gpkg")
+    placeholder_filename = Path(".placeholder")
     report_filename = Path("field-report.html")
     css_filename = Path("style.css")
     # Using locally downloaded woff2 of Google's Material Symbols Outlined font
