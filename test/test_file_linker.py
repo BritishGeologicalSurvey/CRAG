@@ -12,6 +12,7 @@ from qgis.PyQt.QtWidgets import (
     QComboBox,
     QFileDialog,
     QLabel,
+    QMessageBox,
     QTextEdit,
 )
 
@@ -92,16 +93,38 @@ def assert_widgets_dict_types(widgets_dict: dict[str, Any]) -> None:
     assert isinstance(widgets_dict["QTextEdit_notes"], QTextEdit)
 
 
-def test_open_file_linker(fdc_project: FieldDataCapture):
+def test_open_file_linker_good(
+    fdc_project: FieldDataCapture,
+    unlinked_test_files: UnlinkedTestFiles,
+):
     # Act
-    fdc_project.open_file_linker()
+    result = fdc_project.open_file_linker()
 
     # Assert
+    assert result
     assert isinstance(fdc_project.file_linker, FileLinker)
     assert fdc_project.photos_dir == fdc_project.file_linker.photos_dir
 
 
-def test_close_file_linker(fdc_project: FieldDataCapture):
+def test_open_file_linker_bad(fdc_project: FieldDataCapture):
+    # Act
+    result = fdc_project.open_file_linker()
+
+    # Assert
+    assert not result
+    assert fdc_project.file_linker is None
+    parent_dir = fdc_project.photos_dir.relative_to(fdc_project.project_dir.parent)
+    QMessageBox.warning.assert_called_once_with(
+        None,
+        "No Unlinked Files Found",
+        f"Could not find any unlinked files in the folder:\n\n{parent_dir}",
+    )
+
+
+def test_close_file_linker(
+    fdc_project: FieldDataCapture,
+    unlinked_test_files: UnlinkedTestFiles,
+):
     # Arrange
     fdc_project.open_file_linker()
 
@@ -112,7 +135,7 @@ def test_close_file_linker(fdc_project: FieldDataCapture):
     assert fdc_project.file_linker is None
 
 
-def test_select_files_good(
+def test_select_files(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
 ):
@@ -150,118 +173,40 @@ def test_select_files_good(
             assert image_widget.pixmap().height() <= fdc_project.file_linker.thumbnail_size
 
 
-def test_select_photos_independently(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
-    # Arrange
-    # Specify test photos and their expected widget settings
-    photo_files = {
-        Path("test/data/photos/exif_data.jpg"): {
-            "photo_path_label": "<a href=file:test/data/photos/exif_data.jpg>exif_data.jpg</a>",
-            "photo_date_label": "2023-11-21 14:44:07 | EXIF Metadata",
-
-        },
-        Path("test/data/photos/no_exif_data.jpg"): {
-            "photo_path_label": "<a href=file:test/data/photos/no_exif_data.jpg>no_exif_data.jpg</a>",
-            "photo_date_label": "2024-06-04 13:56:40 | File Modified",
-        },
-    }
-    fdc_project.open_file_linker()
-
-    # Act 1 - Select a single photo
-    # Apply monkey patch for QFileDialog.getOpenFileNames to return the first filepath only
-    monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [[list(photo_files.keys())[0]]])
-    fdc_project.file_linker.select_photos_button.click()
-
-    # Act 2 - Select another single photo
-    # Apply monkey patch for QFileDialog.getOpenFileNames to return the first filepath only
-    monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [[list(photo_files.keys())[1]]])
-    fdc_project.file_linker.select_photos_button.click()
-
-    # Assert
-    # Check that the widgets have been saved according to both independently selected filepaths
-    for photo, widgets_dict in fdc_project.file_linker.photos_to_widgets.items():
-        assert photo in photo_files
-        assert_widgets_dict_types(widgets_dict)
-
-    # Check that there are 4 items within the photo_rows_layout
-    # 2 for rows, 2 for stretch
-    assert fdc_project.file_linker.photo_rows_layout.count() == 4
-
-
-def test_select_photos_independently_duplicate(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
-    # Arrange
-    # Specify test photos and their expected widget settings
-    photo_file = Path("test/data/photos/exif_data.jpg")
-    fdc_project.open_file_linker()
-
+def test_combobox_locality_stylesheet(
+    fdc_project: FieldDataCapture,
+    unlinked_test_files: UnlinkedTestFiles,
+):
     # Act 1
-    # Apply monkey patch for QFileDialog.getOpenFileNames
-    monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [[photo_file]])
-    fdc_project.file_linker.select_photos_button.click()
-    # Act 2 - Select the same photo again
-    fdc_project.file_linker.select_photos_button.click()
-
-    # Assert
-    # Only one photo row widget set should exist as the the user selected the same photo twice
-    # Check that the widgets have been saved according to the single filepath
-    assert len(fdc_project.file_linker.photos_to_widgets) == 1
-    # Check that there is 1 photo row layout and 1 stretch within the photo_rows_layout
-    assert fdc_project.file_linker.photo_rows_layout.count() == 2
-
-
-def test_select_photos_bad_file(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
-    # Arrange
-    # These photos already exist in the project
-    photo_files = list(fdc_project.photos_dir.glob("*[!.placeholder]"))
-    # This photo file does not exist
-    photo_files.append(Path("plugin/test/data/photos/not_a_file.jpeg"))
     fdc_project.open_file_linker()
-
-    # Act
-    # Apply monkey patch for QFileDialog.getOpenFileNames
-    monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_files])
-    fdc_project.file_linker.select_photos_button.click()
-
-    # Assert
-    # Check that no photo widgets were created
-    assert len(fdc_project.file_linker.photos_to_widgets) == 0
-    assert fdc_project.file_linker.photo_rows_layout.count() == 0
-
-
-def test_combobox_locality_stylesheet(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
-    # Arrange
-    # Select good test photos
-    photo_files = [
-        Path("test/data/photos/exif_data.jpg"),
-        Path("test/data/photos/no_exif_data.jpg"),
-    ]
-    fdc_project.open_file_linker()
-
-    # Act 1
-    # Apply monkey patch for QFileDialog.getOpenFileNames
-    monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_files])
-    fdc_project.file_linker.select_photos_button.click()
 
     # Assert 1
     # Check that the comboboxes have the correct style sheet on the default value
-    for photo in photo_files:
-        combobox_locality = fdc_project.file_linker.photos_to_widgets[photo]["QComboBox_locality"]
-        assert combobox_locality.currentText() == "Select Locality Point"
-        assert combobox_locality.currentData() is None
-        assert combobox_locality.styleSheet() == "QComboBox:editable{color: red;}"
+    for layer, files_to_widgets in unlinked_test_files.items():
+        for filepath in files_to_widgets:
+            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer][filepath]
+            combobox_locality = actual_widgets_dict["QComboBox_locality"]
+            assert combobox_locality.currentText() == "Select Locality Point"
+            assert combobox_locality.currentData() is None
+            assert combobox_locality.styleSheet() == "QComboBox:editable{color: red;}"
 
     # Act 2
     # Select a different item in the comboboxes
-    for photo in photo_files:
-        combobox_locality = fdc_project.file_linker.photos_to_widgets[photo]["QComboBox_locality"]
-        combobox_locality.setCurrentIndex(1)
+    for layer, files_to_widgets in unlinked_test_files.items():
+        for filepath in files_to_widgets:
+            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer][filepath]
+            combobox_locality = actual_widgets_dict["QComboBox_locality"]
+            combobox_locality.setCurrentIndex(1)
 
     # Assert 2
     # Check that the comboboxes have the correct style sheet on the new value
-    for photo in photo_files:
-        combobox_locality = fdc_project.file_linker.photos_to_widgets[photo]["QComboBox_locality"]
-        assert combobox_locality.currentText() == "test_point_001 | 2023-10-31 16:24:14"
-        assert combobox_locality.currentData() == "{abc43098-fe9b-4da0-b008-7518694466bb}"
-        assert combobox_locality.styleSheet() == ""
+    for layer, files_to_widgets in unlinked_test_files.items():
+        for filepath in files_to_widgets:
+            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer][filepath]
+            combobox_locality = actual_widgets_dict["QComboBox_locality"]
+            assert combobox_locality.currentText() == "test_point_001 | 2023-10-31 16:24:14"
+            assert combobox_locality.currentData() == "{abc43098-fe9b-4da0-b008-7518694466bb}"
+            assert combobox_locality.styleSheet() == ""
 
 
 def test_import_selection(

@@ -1195,6 +1195,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                 "No Unlinked Files Found",
                 f"Could not find any unlinked files in the folder:\n\n{parent_dir}",
             )
+            return False
 
         else:
             self.file_linker.file_linker_closed.connect(self.close_file_linker)
