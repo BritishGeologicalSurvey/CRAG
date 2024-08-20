@@ -6,7 +6,11 @@ from unittest.mock import Mock
 
 import pytest
 import etlhelper as etl
-from qgis.core import QgsProject
+from qgis.core import (
+    QgsGeometry,
+    QgsFeature,
+    QgsProject,
+)
 from qgis.gui import QgsAdvancedDigitizingDockWidget
 from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.testing.mocked import get_iface
@@ -98,6 +102,16 @@ def locality_point_count(fdc: FieldDataCapture) -> int:
         row_factory=etl.row_factories.tuple_row_factory,
     )[0]
     return row_count
+
+
+def create_empty_geometry_feature(wkt_str: str) -> QgsFeature:
+    """
+    Create a new and empty QgsFeature, with just a geometry made from the given WKT string.
+    """
+    geometry = QgsGeometry.fromWkt(wkt_str)
+    geometry_feature = QgsFeature()
+    geometry_feature.setGeometry(geometry)
+    return geometry_feature
 
 
 @pytest.fixture()
@@ -254,3 +268,13 @@ def report_builder(fdc_project: FieldDataCapture) -> ReportBuilder:
     report_builder = ReportBuilder()
 
     return report_builder
+
+
+@pytest.fixture()
+def empty_geometry_feature_polygon() -> QgsFeature:
+    """
+    This is mainly used for QuickMapTools where the tool returns an empty feature with just a geometry.
+    But the actual geometry can also be used for testing the creation of Polygon features.
+    To get the geometry from the feature, call feature.geometry().
+    """
+    return create_empty_geometry_feature("Polygon ((-3.06646639970546664 56.02224055154277949, -0.86620852862676745 52.89687413861690857, -1.3338961920444623 52.75580097369699217, -3.55541259327851167 55.88561238892003047, -3.06646639970546664 56.02224055154277949))")  # noqa
