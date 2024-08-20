@@ -1,3 +1,4 @@
+import datetime as dt
 from pathlib import Path
 from typing import Any
 
@@ -22,48 +23,73 @@ from plugin.utils import (  # noqa
     ipdb_breakpoint,
 )
 
+UnlinkedTestFiles = dict[str, dict[Path, dict[str, str]]]
+
+EXPECTED_COMBOBOX_ITEMS = {
+    "QComboBox_locality": {
+        "Select Locality Point": None,
+        "test_point_001 | 2023-10-31 16:24:14": "{abc43098-fe9b-4da0-b008-7518694466bb}",
+        "test_point_002 | 2023-10-31 16:25:36": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
+    },
+}
+
+
+def get_file_modified_datetime(filepath: Path) -> dt.datetime:
+    return dt.datetime.fromtimestamp(filepath.stat().st_mtime).replace(microsecond=0)
+
 
 @pytest.fixture()
-def photo_test_files(fdc_project: FieldDataCapture) -> list[Path]:
+def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
     """
-    Add some additional photos/directories to photos folder for testing.
-    Returns a list of photos which are good for importing.
+    Add some unlinked files to project folder for testing.
+    Returns a dictionary of layer names as keys, where the values are another dictionary
+    which contains unlinked filepaths as keys, where the values are another dictionary
+    which contains widget_dict labels as keys, and expected string values for the widgets.
     """
     # Make some sub-directories
     sub_dir_a = fdc_project.photos_dir / "sub_photos_dir_A"
     sub_dir_b = sub_dir_a / "sub_photos_dir_B"
-    sub_dir_c = fdc_project.photos_dir / "sub_photos_dir_C"
-    for sub_dir in [sub_dir_a, sub_dir_b, sub_dir_c]:
-        sub_dir.mkdir(exist_ok=True)
+    for sub_dir in [sub_dir_a, sub_dir_b]:
+        sub_dir.mkdir()
 
-    # Create copy of existing photo in project folder and put it in new sub-directory
-    new_photo_a = sub_dir_a / "test_img_001.jpeg"
-    new_photo_a.write_bytes((fdc_project.photos_dir / "test_point_001.jpeg").read_bytes())
-    # Create copy of existing photo in project folder and put it at photo root directory
-    new_photo_root = fdc_project.photos_dir / "test_img_002.jpeg"
-    new_photo_root.write_bytes((fdc_project.photos_dir / "test_point_002.jpeg").read_bytes())
+    # Create copies of existing photos in various directories in project_dir/photos/
+    new_photo_a = sub_dir_a / "exif_data.jpg"
+    new_photo_a.write_bytes(Path("test/data/photos/exif_data.jpg").read_bytes())
+    new_photo_b = sub_dir_b / "no_exif_data.jpg"
+    new_photo_b.write_bytes(Path("test/data/photos/no_exif_data.jpg").read_bytes())
 
-    photo_files = [
-        # Photos outside project photos directory
-        Path("test/data/photos/exif_data.jpg"),
-        Path("test/data/photos/no_exif_data.jpg"),
-        # Photos inside project photos directory
-        new_photo_a,
-        new_photo_root,
-    ]
-    return photo_files
+    unlinked_files = {
+        "photo": {
+            new_photo_a:
+                {
+                    "QLabel_filepath": f"<a href=file://{new_photo_a}>{new_photo_a.name}</a>",
+                    "QLabel_file_date": "2023-11-21 14:44:07 | EXIF Metadata",
+                },
+            new_photo_b:
+                {
+                    "QLabel_filepath": f"<a href=file://{new_photo_b}>{new_photo_b.name}</a>",
+                    "QLabel_file_date": f"{get_file_modified_datetime(new_photo_b)} | File Modified",
+                },
+        },
+    }
+
+    # Add QComboBox_locality to all widget dictionaries
+    for files_to_widgets in unlinked_files.values():
+        for widget_dict in files_to_widgets.values():
+            widget_dict["QComboBox_locality"] = EXPECTED_COMBOBOX_ITEMS["QComboBox_locality"]
+
+    return unlinked_files
 
 
 def assert_widgets_dict_types(widgets_dict: dict[str, Any]) -> None:
     """
     Check that the widgets in the given dictionary have the correct type.
     """
-    assert isinstance(widgets_dict["QLabel_photo_path"], QLabel)
-    assert isinstance(widgets_dict["QLabel_photo_date"], QLabel)
-    assert isinstance(widgets_dict["QLabel_photo_widget"].pixmap(), QPixmap)
+    assert isinstance(widgets_dict["QLabel_filepath"], QLabel)
+    assert isinstance(widgets_dict["QLabel_file_date"], QLabel)
+    assert isinstance(widgets_dict["QLabel_image_widget"].pixmap(), QPixmap)
     assert isinstance(widgets_dict["QComboBox_locality"], QComboBox)
-    assert isinstance(widgets_dict["QComboBox_sub_photo_dir"], QComboBox)
-    assert isinstance(widgets_dict["QTextEdit_caption"], QTextEdit)
+    assert isinstance(widgets_dict["QTextEdit_notes"], QTextEdit)
 
 
 def test_open_file_linker(fdc_project: FieldDataCapture):
@@ -86,91 +112,42 @@ def test_close_file_linker(fdc_project: FieldDataCapture):
     assert fdc_project.file_linker is None
 
 
-def test_select_photos_good(
+def test_select_files_good(
     fdc_project: FieldDataCapture,
-    photo_test_files: list[Path],
-    monkeypatch: pytest.MonkeyPatch,
+    unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
-    # Specify test photos and their expected values in widgets
-    photo_values = [
-        {
-            "QLabel_photo_path": "<a href=file:test/data/photos/exif_data.jpg>exif_data.jpg</a>",
-            "QLabel_photo_date": "2023-11-21 14:44:07 | EXIF Metadata",
-            "QComboBox_sub_photo_dir": "photos",
-        },
-        {
-            "QLabel_photo_path": "<a href=file:test/data/photos/no_exif_data.jpg>no_exif_data.jpg</a>",
-            # Don't include the actual date becuase it changes
-            "QLabel_photo_date": " | File Modified",
-            "QComboBox_sub_photo_dir": "photos",
-        },
-        {
-            "QLabel_photo_path": "test_project_dir/photos/sub_photos_dir_A/test_img_001.jpeg>test_img_001.jpeg</a>",
-            # Don't include the actual date becuase it changes
-            "QLabel_photo_date": " | File Modified",
-            # The parent path of the photo should be pre-selected because it is already in the projects photos dir
-            "QComboBox_sub_photo_dir": "photos/sub_photos_dir_A",
-        },
-        {
-            "QLabel_photo_path": "test_project_dir/photos/test_img_002.jpeg>test_img_002.jpeg</a>",
-            # Don't include the actual date becuase it changes
-            "QLabel_photo_date": " | File Modified",
-            "QComboBox_sub_photo_dir": "photos",
-        },
-    ]
-    photos_to_labels = dict(zip(photo_test_files, photo_values))
-
-    sub_dir_a = fdc_project.photos_dir / "sub_photos_dir_A"
-    expected_combobox_items = {
-        "QComboBox_locality": {
-            "Select Locality Point": None,
-            "test_point_001 | 2023-10-31 16:24:14": "{abc43098-fe9b-4da0-b008-7518694466bb}",
-            "test_point_002 | 2023-10-31 16:25:36": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
-        },
-        "QComboBox_sub_photo_dir": {
-            "photos": fdc_project.photos_dir.absolute(),
-            "photos/sub_photos_dir_A": sub_dir_a.absolute(),
-            "photos/sub_photos_dir_A/sub_photos_dir_B": (sub_dir_a / "sub_photos_dir_B").absolute(),
-            "photos/sub_photos_dir_C": (fdc_project.photos_dir / "sub_photos_dir_C").absolute(),
-        },
-    }
-
-    # Add a new photo feature with a NULL photo_file attribute to ensure it is not picked up or breaks the importer
+    # Add a new photo feature with a NULL photo_file attribute to ensure it is not picked up or breaks the linker
     photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
     photo_layer.startEditing()
     photo_feature = QgsVectorLayerUtils.createFeature(photo_layer)
     photo_layer.addFeature(photo_feature)
     photo_layer.commitChanges()
 
-    # Apply monkey patch for QFileDialog.getOpenFileNames
-    monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_test_files])
-    fdc_project.open_file_linker()
-
     # Act
-    fdc_project.file_linker.select_photos_button.click()
+    fdc_project.open_file_linker()
 
     # Assert
     # Check that each photo row contains the correct widgets with the correct settings
-    for photo, labels in photos_to_labels.items():
-        widgets_dict = fdc_project.file_linker.photos_to_widgets[photo]
-        assert_widgets_dict_types(widgets_dict)
+    for layer, expected_files_to_widgets in unlinked_test_files.items():
+        for filepath, expected_widgets_dict in expected_files_to_widgets.items():
+            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer][filepath]
 
-        # Check widget values
-        for widget_name, expected_value in labels.items():
-            if widget_name.startswith("QComboBox_"):
-                assert widgets_dict[widget_name].currentText() == expected_value
-            elif widget_name.startswith("QLabel_"):
-                # Check in rather than matches because some of them does not include the full date
-                assert expected_value in widgets_dict[widget_name].text()
+            assert_widgets_dict_types(actual_widgets_dict)
 
-        # Check combobox items
-        for combobox_name, expected_items in expected_combobox_items.items():
-            assert get_combobox_items_dict(widgets_dict[combobox_name]) == expected_items
+            # We don't directly compare expected_widgets_dict to actual_widgets_dict because expected is incomplete
+            for widget_name, expected_value in expected_widgets_dict.items():
 
-        # Check photo display size
-        assert widgets_dict["QLabel_photo_widget"].pixmap().width() <= fdc_project.file_linker.photo_widget_size
-        assert widgets_dict["QLabel_photo_widget"].pixmap().height() <= fdc_project.file_linker.photo_widget_size
+                if widget_name.startswith("QLabel_"):
+                    assert expected_value == actual_widgets_dict[widget_name].text()
+
+                elif widget_name.startswith("QCombobox"):
+                    assert expected_value == get_combobox_items_dict(actual_widgets_dict[widget_name])
+
+            # Check photo display size
+            image_widget = actual_widgets_dict["QLabel_image_widget"]
+            assert image_widget.pixmap().width() <= fdc_project.file_linker.thumbnail_size
+            assert image_widget.pixmap().height() <= fdc_project.file_linker.thumbnail_size
 
 
 def test_select_photos_independently(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
