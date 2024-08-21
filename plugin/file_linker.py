@@ -72,6 +72,18 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         self.add_file_rows()
 
 
+    @property
+    def file_count(self) -> int:
+        """
+        Return the number of files currently loaded into the FileLinker.
+        """
+        file_count = sum([
+            len(files_to_widgets)
+            for files_to_widgets in self.layers_to_files_to_widgets.values()
+        ])
+        return file_count
+
+
     def setup_ui_elements(self) -> None:
         """
         Create the elements of the File Linker dialog box User Interface.
@@ -126,11 +138,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         )
 
         # If there is only 1 file selected, add stretch to layout so the single row is the same size as normal
-        file_count = sum([
-            len(files_to_widgets)
-            for files_to_widgets in self.layers_to_files_to_widgets.values()
-        ])
-        if file_count == 1:
+        if self.file_count == 1:
             self.file_rows_layout.addStretch()
 
         # If any files are skipped, show them in a message box

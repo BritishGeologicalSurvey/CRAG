@@ -1187,7 +1187,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         self.file_linker = FileLinker()
         # If no unregistered files are found
-        if len(self.file_linker.layers_to_files_to_widgets) == 0:
+        if self.file_linker.file_count == 0:
             self.close_file_linker()
             QMessageBox.warning(
                 None,
