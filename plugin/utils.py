@@ -41,6 +41,10 @@ class FieldDataCaptureProject:
     # See: https://fonts.google.com/icons
     # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
     font_filename = Path("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2")
+    layers_to_file_attributes = {
+        "photo": "photo_file",
+        "media": "media_link",
+    }
 
 
     def __init__(self, project_dir: Optional[Path] = None):
@@ -141,6 +145,17 @@ class FieldDataCaptureProject:
         Get the Jinja2 template directory path from the plugin folder.
         """
         return WORKDIR / "templates"
+
+
+    @property
+    def layers_to_dirs(self) -> dict[str, Path]:
+        """
+        Dictionary of layer names to their corresponding directories.
+        """
+        return {
+            "photo": self.photos_dir,
+            "media": self.media_dir,
+        }
 
 
     @staticmethod

@@ -10,7 +10,6 @@ from qgis.core import (
 from qgis.PyQt.QtGui import QPixmap
 from qgis.PyQt.QtWidgets import (
     QComboBox,
-    QFileDialog,
     QLabel,
     QMessageBox,
     QTextEdit,
@@ -33,9 +32,18 @@ EXPECTED_COMBOBOX_ITEMS = {
         "test_point_002 | 2023-10-31 16:25:36": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
     },
 }
+WIDGET_NAMES_TO_ATTRIBUTES_NAMES = {
+    "photo": {
+        "QComboBox_locality": "locality_fuid",
+        "QTextEdit_notes": "caption",
+    },
+}
 
 
 def get_file_modified_datetime(filepath: Path) -> dt.datetime:
+    """
+    Get the file modified string timestamp from the given filepath, as it would be displayed in the FileLinker.
+    """
     return dt.datetime.fromtimestamp(filepath.stat().st_mtime).replace(microsecond=0)
 
 
@@ -48,8 +56,8 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
     which contains widget_dict labels as keys, and expected string values for the widgets.
     """
     # Make some sub-directories
-    sub_dir_a = fdc_project.photos_dir / "sub_photos_dir_A"
-    sub_dir_b = sub_dir_a / "sub_photos_dir_B"
+    sub_dir_a = fdc_project.photos_dir / "sub_dir_A"
+    sub_dir_b = sub_dir_a / "sub_dir_B"
     for sub_dir in [sub_dir_a, sub_dir_b]:
         sub_dir.mkdir()
 
@@ -58,26 +66,26 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
     new_photo_a.write_bytes(Path("test/data/photos/exif_data.jpg").read_bytes())
     new_photo_b = sub_dir_b / "no_exif_data.jpg"
     new_photo_b.write_bytes(Path("test/data/photos/no_exif_data.jpg").read_bytes())
+    new_photo_c = sub_dir_a / "test_img_001.jpeg"
+    new_photo_c.write_bytes((fdc_project.photos_dir / "test_point_001.jpeg").read_bytes())
 
     unlinked_files = {
         "photo": {
             new_photo_a:
-                {
-                    "QLabel_filepath": f"<a href=file://{new_photo_a}>{new_photo_a.name}</a>",
-                    "QLabel_file_date": "2023-11-21 14:44:07 | EXIF Metadata",
-                },
+                {"QLabel_file_date": "2023-11-21 14:44:07 | EXIF Metadata"},
             new_photo_b:
-                {
-                    "QLabel_filepath": f"<a href=file://{new_photo_b}>{new_photo_b.name}</a>",
-                    "QLabel_file_date": f"{get_file_modified_datetime(new_photo_b)} | File Modified",
-                },
+                {"QLabel_file_date": f"{get_file_modified_datetime(new_photo_b)} | File Modified"},
+            new_photo_c:
+                {"QLabel_file_date": f"{get_file_modified_datetime(new_photo_c)} | File Modified"},
         },
     }
 
     # Add QComboBox_locality to all widget dictionaries
     for files_to_widgets in unlinked_files.values():
-        for widget_dict in files_to_widgets.values():
+        for filepath, widget_dict in files_to_widgets.items():
             widget_dict["QComboBox_locality"] = EXPECTED_COMBOBOX_ITEMS["QComboBox_locality"]
+            # Dynamically add expected filepath label for all files
+            widget_dict["QLabel_filepath"] = f"<a href=file://{filepath}>{filepath.name}</a>"
 
     return unlinked_files
 
@@ -152,9 +160,9 @@ def test_select_files(
 
     # Assert
     # Check that each photo row contains the correct widgets with the correct settings
-    for layer, expected_files_to_widgets in unlinked_test_files.items():
+    for layer_name, expected_files_to_widgets in unlinked_test_files.items():
         for filepath, expected_widgets_dict in expected_files_to_widgets.items():
-            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer][filepath]
+            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer_name][filepath]
 
             assert_widgets_dict_types(actual_widgets_dict)
 
@@ -182,9 +190,9 @@ def test_combobox_locality_stylesheet(
 
     # Assert 1
     # Check that the comboboxes have the correct style sheet on the default value
-    for layer, files_to_widgets in unlinked_test_files.items():
+    for layer_name, files_to_widgets in unlinked_test_files.items():
         for filepath in files_to_widgets:
-            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer][filepath]
+            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer_name][filepath]
             combobox_locality = actual_widgets_dict["QComboBox_locality"]
             assert combobox_locality.currentText() == "Select Locality Point"
             assert combobox_locality.currentData() is None
@@ -192,127 +200,107 @@ def test_combobox_locality_stylesheet(
 
     # Act 2
     # Select a different item in the comboboxes
-    for layer, files_to_widgets in unlinked_test_files.items():
+    for layer_name, files_to_widgets in unlinked_test_files.items():
         for filepath in files_to_widgets:
-            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer][filepath]
+            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer_name][filepath]
             combobox_locality = actual_widgets_dict["QComboBox_locality"]
             combobox_locality.setCurrentIndex(1)
 
     # Assert 2
     # Check that the comboboxes have the correct style sheet on the new value
-    for layer, files_to_widgets in unlinked_test_files.items():
+    for layer_name, files_to_widgets in unlinked_test_files.items():
         for filepath in files_to_widgets:
-            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer][filepath]
+            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer_name][filepath]
             combobox_locality = actual_widgets_dict["QComboBox_locality"]
             assert combobox_locality.currentText() == "test_point_001 | 2023-10-31 16:24:14"
             assert combobox_locality.currentData() == "{abc43098-fe9b-4da0-b008-7518694466bb}"
             assert combobox_locality.styleSheet() == ""
 
 
-def test_import_selection(
+def test_link_selection(
     fdc_project: FieldDataCapture,
-    photo_test_files: list[Path],
-    monkeypatch: pytest.MonkeyPatch,
+    unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
-    # Selection options for photo_files, the caption describes what changes when imported
-    photo_options = [
-        {
-            "QComboBox_locality": "{abc43098-fe9b-4da0-b008-7518694466bb}",
-            "QComboBox_sub_photo_dir": fdc_project.photos_dir,
-            "QTextEdit_caption": "Photo is copied to root",
-        },
-        {
-            "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
-            "QComboBox_sub_photo_dir": fdc_project.photos_dir / "sub_photos_dir_C",
-            "QTextEdit_caption": "Photo is copied to sub-directory A",
-        },
-        {
-            "QComboBox_locality": "{abc43098-fe9b-4da0-b008-7518694466bb}",
-            "QComboBox_sub_photo_dir": fdc_project.photos_dir / "sub_photos_dir_A",
-            "QTextEdit_caption": "Photo is not moved",
-        },
-        {
-            "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
-            "QComboBox_sub_photo_dir": fdc_project.photos_dir / "sub_photos_dir_A" / "sub_photos_dir_B",
-            "QTextEdit_caption": "Photo is moved from root to sub-directory B",
-        },
-    ]
-    photos_to_options = dict(zip(photo_test_files, photo_options))
-
+    layers_to_files_to_options = {
+        "photo": {
+            Path("sub_dir_A/test_img_001.jpeg"): {
+                "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
+                "QTextEdit_notes": "Caption for test_img_001.jpeg",
+            },
+            Path("sub_dir_A/exif_data.jpg"): {
+                # Don't select this file, it should not be saved to the database
+                "QComboBox_locality": None,
+                "QTextEdit_notes": "Caption for exif_data.jpg",
+            },
+            Path("sub_dir_A/sub_dir_B/no_exif_data.jpg"): {
+                # Don't select this file, it should not be saved to the database
+                "QComboBox_locality": "{abc43098-fe9b-4da0-b008-7518694466bb}",
+                "QTextEdit_notes": "Caption for no_exif_data.jpg",
+            },
+        }
+    }
     fdc_project.open_file_linker()
-    # Apply monkey patch for QFileDialog.getOpenFileNames
-    monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_test_files])
-    fdc_project.file_linker.select_photos_button.click()
 
     # Act
-    # Modify input data like a user
-    for photo_file, options in photos_to_options.items():
-
-        # Populate values in appropriate widgets
-        for widget_name, new_value in options.items():
-            widget = fdc_project.file_linker.photos_to_widgets[photo_file][widget_name]
-            if widget_name.startswith("QComboBox_"):
-                set_combobox_index_by_data(widget, new_value)
-            elif widget_name.startswith("QTextEdit_"):
-                widget.setText(new_value)
-
-    fdc_project.file_linker.import_selection_button.click()
+    modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
+    fdc_project.file_linker.link_selection_button.click()
 
     # Assert
-    photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
-    # Check that the layer has been saved
-    assert not photo_layer.isModified()
     # Check that the FileLinker closed
     assert fdc_project.file_linker is None
-    # Check that the features have correct attributes and the files have been copied/moved in the project
-    # Only check the last 4 photo features because they should be the newest ones
-    new_features = list(photo_layer.getFeatures())[-4:]
-    for (photo_file, options), feature in zip(photos_to_options.items(), new_features):
-        assert feature.attribute("locality_fuid") == options["QComboBox_locality"]
-        new_photo_file = options["QComboBox_sub_photo_dir"] / photo_file.name
-        assert feature.attribute("photo_file") == str(new_photo_file.relative_to(fdc_project.photos_dir))
-        assert new_photo_file.exists()
-        assert feature.attribute("caption") == options["QTextEdit_caption"]
+
+    for layer_name in unlinked_test_files:
+        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        layer_dir = fdc_project.layers_to_dirs[layer_name]
+        widgets_to_attributes = WIDGET_NAMES_TO_ATTRIBUTES_NAMES[layer_name]
+
+        # Check that the layer has been saved
+        assert not layer.isModified()
+
+        # Check that the features have correct attributes
+        # Only check the last X features where the option for locality is not None
+        # because they should be the newest ones
+        expected_new_features = len([
+            file_options
+            for file_options in layers_to_files_to_options[layer_name].values()
+            if file_options["QComboBox_locality"] is not None
+        ])
+        new_features = iter(list(layer.getFeatures())[-expected_new_features:])
+
+        for filepath, expected_file_options in layers_to_files_to_options[layer_name].items():
+            # If the file was meant to have a selected locality, it should exist as a feature
+            if expected_file_options["QComboBox_locality"] is not None:
+                # Get the next new feature
+                feature = next(new_features)
+
+                file_attribute = Path(feature.attribute(fdc_project.layers_to_file_attributes[layer_name]))
+                # Check that the relative path exists in the directory
+                assert (layer_dir / file_attribute).exists()
+                assert file_attribute == filepath
+
+                # Check that input widget values have been saved correclty
+                for widget_name, expected_value in expected_file_options.items():
+                    assert feature.attribute(widgets_to_attributes[widget_name]) == expected_value
 
 
-def test_import_selection_some(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
-    # Arrange
-    # Select good test photos
-    photo_files = [
-        Path("test/data/photos/exif_data.jpg"),
-        Path("test/data/photos/no_exif_data.jpg"),
-    ]
-    fdc_project.open_file_linker()
-    # Apply monkey patch for QFileDialog.getOpenFileNames
-    monkeypatch.setattr(QFileDialog, "getOpenFileNames", lambda *args, **kwargs: [photo_files])
-    fdc_project.file_linker.select_photos_button.click()
-    photo_caption = "these are some new notes"
+def modify_file_linker_inputs(
+    file_linker: FileLinker,
+    layers_to_files_to_options: dict[str, dict[Path, dict[str, str]]]
+) -> None:
+    """
+    Modify the inputs of the given FileLinker dialog using the given dictionary of options.
+    This directly modified the widgets in the dialog, like a user would.
+    """
+    for layer_name, files_to_widgets in file_linker.layers_to_files_to_widgets.items():
+        layer_dir = file_linker.layers_to_dirs[layer_name]
 
-    # Act
-    # Modify input data like a user for only the second photo
-    photo = photo_files[1]
-    # Select a point in the locality combobox
-    combobox_locality = fdc_project.file_linker.photos_to_widgets[photo]["QComboBox_locality"]
-    combobox_locality.setCurrentIndex(2)
-    # Edit the text edit box
-    text_edit = fdc_project.file_linker.photos_to_widgets[photo]["QTextEdit_caption"]
-    text_edit.setText(photo_caption)
-    fdc_project.file_linker.import_selection_button.click()
+        for filepath, widgets_dict in files_to_widgets.items():
+            file_options = layers_to_files_to_options[layer_name][filepath.relative_to(layer_dir)]
 
-    # Assert
-    photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
-    # Check that the layer has been saved
-    assert not photo_layer.isModified()
-    # Check that the FileLinker closed
-    assert fdc_project.file_linker is None
-    # Check that there are only 3 photo features and files
-    features = list(photo_layer.getFeatures())
-    assert len(features) == 3
-    assert len(list(fdc_project.photos_dir.glob("*[!.placeholder]"))) == 3
-    # Check that the feature has correct photo and the file has been copied into the project
-    feature = features[-1]
-    assert feature.attribute("photo_file") == photo.name
-    assert (fdc_project.photos_dir / photo.name).exists()
-    # Check that the caption were also added
-    assert feature.attribute("caption") == photo_caption
+            # For each option in the dictionary for the current file, apply it
+            for widget_name, new_value in file_options.items():
+                if widget_name.startswith("QComboBox_"):
+                    set_combobox_index_by_data(widgets_dict[widget_name], new_value)
+                elif widget_name.startswith("QTextEdit_"):
+                    widgets_dict[widget_name].setText(new_value)

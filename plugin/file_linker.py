@@ -52,6 +52,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
     """
     file_linker_closed = pyqtSignal()
 
+
     def __init__(self):
         super().__init__()
 
@@ -63,15 +64,6 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         )
         self.setup_ui_elements()
         self.connect_signals_and_slots()
-
-        self.layers_to_dirs = {
-            "photo": self.photos_dir,
-            "media": self.media_dir,
-        }
-        self.layers_to_file_attributes = {
-            "photo": "photo_file",
-            "media": "media_link",
-        }
 
         self.skip_files: list[Path] = []
         self.layers_to_feature_functions: dict[str, CreateFeatureFunction] = {}
