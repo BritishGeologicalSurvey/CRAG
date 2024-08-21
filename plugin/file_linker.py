@@ -386,6 +386,9 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         row_hbox_2.addWidget(description_label)
 
         image_widget = self.create_image_widget(photo, photo_tags=photo_tags)
+        # Some photos (e.g. HEIC) are loaded as NULL pixmap objects, so we use a no photography icon instead
+        if image_widget.pixmap().isNull():
+            image_widget = self.create_image_widget(self.icons_dir / "no_photography.png")
         notes_edit = QTextEdit()
         row_hbox_3 = QHBoxLayout()
         row_hbox_3.addWidget(image_widget)
