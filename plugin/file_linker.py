@@ -249,7 +249,8 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         return unlinked_files
 
 
-    def create_combobox_locality(self) -> QComboBox:
+    @staticmethod
+    def create_combobox_locality() -> QComboBox:
         """
         Create a QComboBox which lists the existing locality_point features by name and date_entered.
         Returns the QComboBox object.
@@ -257,17 +258,17 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
 
         combobox = QComboBox()
-        self.configure_combobox_style(combobox)
+        FileLinker.configure_combobox_style(combobox)
 
         # Add default value
         combobox.addItem("Select Locality Point", userData=None)
 
-        for locality_feature in locality_point_layer.getFeatures():
+        for feature in locality_point_layer.getFeatures():
             # Convert to Python datetime object and remove miliseconds
-            locality_date = locality_feature.attribute("date_entered").toPyDateTime().replace(microsecond=0)
+            locality_date = feature.attribute("date_entered").toPyDateTime().replace(microsecond=0)
             combobox.addItem(
-                f"{locality_feature.attribute('name')} | {locality_date}",
-                userData=locality_feature.attribute("uuid"),
+                f"{feature.attribute('name')} | {locality_date}",
+                userData=feature.attribute("uuid"),
             )
 
         return combobox
@@ -331,6 +332,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
     def create_image_widget(
         self,
         image_path: Path,
+        image_size: int,
         photo_tags: dict[str, Any] = {},
     ) -> QLabel:
         """
@@ -338,10 +340,12 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         The widget is a QLabel containing a QPixmap object.
         If photo tags are given, then the image is rotated correctly.
         """
-        image_size = QSize(self.thumbnail_size, self.thumbnail_size)
         # Images are displayed by create a pixmap in a QLabel object
         label = QLabel()
-        label.setFixedSize(image_size)
+        label.setFixedHeight(image_size)
+        # Always make the label part of the widget take up the same width
+        # This forces the columns to retain the same width too
+        label.setFixedWidth(self.thumbnail_size)
         pixmap = QPixmap(str(image_path))
 
         # Get the required rotation for the image to be displayed properly
@@ -364,7 +368,8 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             pixmap = pixmap.transformed(transform)
 
         # Set the pixmap and scale it down
-        label.setPixmap(pixmap.scaled(image_size, aspectRatioMode=Qt.KeepAspectRatio))
+        image_qsize = QSize(image_size, image_size)
+        label.setPixmap(pixmap.scaled(image_qsize, aspectRatioMode=Qt.KeepAspectRatio))
         return label
 
 
@@ -383,33 +388,30 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         except Exception:
             photo_tags = {}
 
-        # Arrange layout for new widgets into rows within the row layout
         filepath_label = self.create_filepath_widget(photo)
-        combobox_locality = self.create_combobox_locality()
-        row_hbox_1 = QHBoxLayout()
-        row_hbox_1.addWidget(filepath_label)
-        row_hbox_1.addWidget(combobox_locality)
-
         file_date_label = self.create_file_date_widget(photo, photo_tags=photo_tags)
-        description_label = QLabel("Photo Caption")
-        row_hbox_2 = QHBoxLayout()
-        row_hbox_2.addWidget(file_date_label)
-        row_hbox_2.addWidget(description_label)
-
-        image_widget = self.create_image_widget(photo, photo_tags=photo_tags)
+        image_widget = self.create_image_widget(photo, self.thumbnail_size, photo_tags=photo_tags)
         # Some photos (e.g. HEIC) are loaded as NULL pixmap objects, so we use a no photography icon instead
         if image_widget.pixmap().isNull():
-            image_widget = self.create_image_widget(self.icons_dir / "no_photography.png")
-        notes_edit = QTextEdit()
-        row_hbox_3 = QHBoxLayout()
-        row_hbox_3.addWidget(image_widget)
-        row_hbox_3.addWidget(notes_edit)
+            image_widget = self.create_image_widget(self.icons_dir / "no_photography.png", self.thumbnail_size)
+        row_vbox_1 = QVBoxLayout()
+        row_vbox_1.addWidget(filepath_label)
+        row_vbox_1.addWidget(file_date_label)
+        row_vbox_1.addWidget(image_widget)
 
-        # Combine the top and bottom half into a single layout to form an entire row
-        row_layout = QVBoxLayout()
-        row_layout.addLayout(row_hbox_1)
-        row_layout.addLayout(row_hbox_2)
-        row_layout.addLayout(row_hbox_3)
+        combobox_locality = self.create_combobox_locality()
+        description_label = QLabel("Photo Caption")
+        notes_edit = QTextEdit()
+        notes_edit.setFixedHeight(self.thumbnail_size)
+        row_vbox_2 = QVBoxLayout()
+        row_vbox_2.addWidget(combobox_locality)
+        row_vbox_2.addWidget(description_label)
+        row_vbox_2.addWidget(notes_edit)
+
+        # Combine layout columns into 1 layout
+        row_layout = QHBoxLayout()
+        row_layout.addLayout(row_vbox_1)
+        row_layout.addLayout(row_vbox_2)
 
         widgets_dict = {
             "QLabel_filepath": filepath_label,
@@ -452,30 +454,33 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         Create the required layout of widgets to display the given media path in the dialog.
         Returns the layout for the new set of widgets, and a dictionary of widgets to be saved to the media path.
         """
-        # Arrange layout for new widgets into rows within the row layout
+        image_size = self.thumbnail_size - 50
+        # Arrange layout for new widgets into columns within the row layout
         filepath_label = self.create_filepath_widget(media)
-        combobox_locality = self.create_combobox_locality()
-        row_hbox_1 = QHBoxLayout()
-        row_hbox_1.addWidget(filepath_label)
-        row_hbox_1.addWidget(combobox_locality)
-
         file_date_label = self.create_file_date_widget(media)
+        media_label = QLabel("Media")
+        image_widget = self.create_image_widget(self.icons_dir / "document.png", image_size)
+        row_vbox_1 = QVBoxLayout()
+        row_vbox_1.addWidget(filepath_label)
+        row_vbox_1.addWidget(file_date_label)
+        row_vbox_1.addWidget(media_label)
+        row_vbox_1.addWidget(image_widget)
+
+        combobox_locality = self.create_combobox_locality()
+        combobox_media_type = self.create_combobox_media_type()
         description_label = QLabel("Media Description")
-        row_hbox_2 = QHBoxLayout()
-        row_hbox_2.addWidget(file_date_label)
-        row_hbox_2.addWidget(description_label)
-
-        image_widget = self.create_image_widget(self.icons_dir / "document.png")
         notes_edit = QTextEdit()
-        row_hbox_3 = QHBoxLayout()
-        row_hbox_3.addWidget(image_widget)
-        row_hbox_3.addWidget(notes_edit)
+        notes_edit.setFixedHeight(image_size)
+        row_vbox_2 = QVBoxLayout()
+        row_vbox_2.addWidget(combobox_locality)
+        row_vbox_2.addWidget(combobox_media_type)
+        row_vbox_2.addWidget(description_label)
+        row_vbox_2.addWidget(notes_edit)
 
-        # Combine the top and bottom half into a single layout to form an entire row
-        row_layout = QVBoxLayout()
-        row_layout.addLayout(row_hbox_1)
-        row_layout.addLayout(row_hbox_2)
-        row_layout.addLayout(row_hbox_3)
+        # Combine layout columns into 1 layout
+        row_layout = QHBoxLayout()
+        row_layout.addLayout(row_vbox_1)
+        row_layout.addLayout(row_vbox_2)
 
         widgets_dict = {
             "QLabel_filepath": filepath_label,
@@ -483,9 +488,33 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             "QLabel_image_widget": image_widget,
             "QComboBox_locality": combobox_locality,
             "QTextEdit_notes": notes_edit,
+            "QComboBox_media_type": combobox_media_type,
         }
 
         return row_layout, widgets_dict
+
+
+    @staticmethod
+    def create_combobox_media_type() -> QComboBox:
+        """
+        Create a combobox which lists the media type codes.
+        Returns the QComboBox object.
+        """
+        dic_media_layer = QgsProject.instance().mapLayersByName("dic_media")[0]
+
+        combobox = QComboBox()
+        FileLinker.configure_combobox_style(combobox)
+
+        # Add default value
+        combobox.addItem("Select Media Type", userData=None)
+
+        for feature in dic_media_layer.getFeatures():
+            combobox.addItem(
+                feature.attribute("description"),
+                userData=feature.attribute("code"),
+            )
+
+        return combobox
 
 
     def create_media_feature(
@@ -506,6 +535,6 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             "locality_fuid": media_widgets["QComboBox_locality"].currentData(),
             "media_link": str(media.relative_to(self.media_dir)),
             "media_description": media_description,
-            "media_type_code": "other",
+            "media_type_code": media_widgets["QComboBox_media_type"].currentData(),
         }
         return create_prepopulated_feature(layer, prepopulate=new_attributes)
