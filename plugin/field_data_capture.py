@@ -1186,14 +1186,13 @@ class FieldDataCapture(FieldDataCaptureProject):
             return False
 
         self.file_linker = FileLinker()
-        # If no unregistered photos are found
+        # If no unregistered files are found
         if len(self.file_linker.layers_to_files_to_widgets) == 0:
             self.close_file_linker()
-            parent_dir = self.photos_dir.relative_to(self.project_dir.parent)
             QMessageBox.warning(
                 None,
                 "No Unlinked Files Found",
-                f"Could not find any unlinked files in the folder:\n\n{parent_dir}",
+                f"Could not find any unlinked files in the project folder:\n\n{self.project_dir.name}/",
             )
             return False
 
