@@ -4,6 +4,7 @@ from typing import Any
 
 import pytest
 from qgis.core import (
+    QgsFeature,
     QgsProject,
     QgsVectorLayerUtils,
 )
@@ -88,17 +89,6 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
             widget_dict["QLabel_filepath"] = f"<a href=file://{filepath}>{filepath.name}</a>"
 
     return unlinked_files
-
-
-def assert_widgets_dict_types(widgets_dict: dict[str, Any]) -> None:
-    """
-    Check that the widgets in the given dictionary have the correct type.
-    """
-    assert isinstance(widgets_dict["QLabel_filepath"], QLabel)
-    assert isinstance(widgets_dict["QLabel_file_date"], QLabel)
-    assert isinstance(widgets_dict["QLabel_image_widget"].pixmap(), QPixmap)
-    assert isinstance(widgets_dict["QComboBox_locality"], QComboBox)
-    assert isinstance(widgets_dict["QTextEdit_notes"], QTextEdit)
 
 
 def test_open_file_linker_good(
@@ -196,6 +186,17 @@ def test_select_files(
             assert image_widget.pixmap().height() <= fdc_project.file_linker.thumbnail_size
 
 
+def assert_widgets_dict_types(widgets_dict: dict[str, Any]) -> None:
+    """
+    Check that the widgets in the given dictionary have the correct type.
+    """
+    assert isinstance(widgets_dict["QLabel_filepath"], QLabel)
+    assert isinstance(widgets_dict["QLabel_file_date"], QLabel)
+    assert isinstance(widgets_dict["QLabel_image_widget"].pixmap(), QPixmap)
+    assert isinstance(widgets_dict["QComboBox_locality"], QComboBox)
+    assert isinstance(widgets_dict["QTextEdit_notes"], QTextEdit)
+
+
 def test_combobox_locality_stylesheet(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
@@ -267,9 +268,6 @@ def test_link_selection(
 
     for layer_name in unlinked_test_files:
         layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-        layer_dir = fdc_project.layers_to_dirs[layer_name]
-        widgets_to_attributes = WIDGET_NAMES_TO_ATTRIBUTES_NAMES[layer_name]
-
         # Check that the layer has been saved
         assert not layer.isModified()
 
@@ -283,20 +281,16 @@ def test_link_selection(
         ])
         new_features = iter(list(layer.getFeatures())[-expected_new_features:])
 
-        for filepath, expected_file_options in layers_to_files_to_options[layer_name].items():
+        for expected_filepath, expected_file_options in layers_to_files_to_options[layer_name].items():
             # If the file was meant to have a selected locality, it should exist as a feature
             if expected_file_options["QComboBox_locality"] is not None:
-                # Get the next new feature
-                feature = next(new_features)
-
-                file_attribute = Path(feature.attribute(fdc_project.layers_to_file_attributes[layer_name]))
-                # Check that the relative path exists in the directory
-                assert (layer_dir / file_attribute).exists()
-                assert file_attribute == filepath
-
-                # Check that input widget values have been saved correclty
-                for widget_name, expected_value in expected_file_options.items():
-                    assert feature.attribute(widgets_to_attributes[widget_name]) == expected_value
+                assert_feature_expected_options(
+                    fdc_project,
+                    layer_name,
+                    expected_filepath,
+                    expected_file_options,
+                    feature=next(new_features),
+                )
 
 
 def modify_file_linker_inputs(
@@ -319,3 +313,25 @@ def modify_file_linker_inputs(
                     set_combobox_index_by_data(widgets_dict[widget_name], new_value)
                 elif widget_name.startswith("QTextEdit_"):
                     widgets_dict[widget_name].setText(new_value)
+
+
+def assert_feature_expected_options(
+    fdc: FieldDataCapture,
+    layer_name: str,
+    expected_filepath: Path,
+    expected_file_options: dict[str, Any],
+    feature: QgsFeature,
+) -> None:
+    # These 3 variables depend on the layer
+    layer_dir = fdc.layers_to_dirs[layer_name]
+    widgets_to_attributes = WIDGET_NAMES_TO_ATTRIBUTES_NAMES[layer_name]
+    file_attribute_name = fdc.layers_to_file_attributes[layer_name]
+
+    file_attribute = Path(feature.attribute(file_attribute_name))
+    # Check that the relative path exists in the directory
+    assert (layer_dir / file_attribute).exists()
+    assert file_attribute == expected_filepath
+
+    # Check that input widget values have been saved correclty
+    for widget_name, expected_value in expected_file_options.items():
+        assert feature.attribute(widgets_to_attributes[widget_name]) == expected_value
