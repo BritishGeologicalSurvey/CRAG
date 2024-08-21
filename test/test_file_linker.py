@@ -1,6 +1,9 @@
 import datetime as dt
 from pathlib import Path
-from typing import Any
+from typing import (
+    Any,
+    Callable,
+)
 
 import pytest
 from qgis.core import (
@@ -197,40 +200,34 @@ def assert_widgets_dict_types(widgets_dict: dict[str, Any]) -> None:
     assert isinstance(widgets_dict["QTextEdit_notes"], QTextEdit)
 
 
-def test_combobox_locality_stylesheet(
+@pytest.mark.parametrize(
+    ["create_combobox", "expected_items"],
+    (
+        (FileLinker.create_combobox_locality, EXPECTED_COMBOBOX_ITEMS["QComboBox_locality"]),
+    ),
+)
+def test_create_comboboxes(
+    create_combobox: Callable[[], QComboBox],
+    expected_items: dict[str, Any],
     fdc_project: FieldDataCapture,
-    unlinked_test_files: UnlinkedTestFiles,
 ):
     # Act 1
-    fdc_project.open_file_linker()
+    combobox = create_combobox()
 
     # Assert 1
-    # Check that the comboboxes have the correct style sheet on the default value
-    for layer_name, files_to_widgets in unlinked_test_files.items():
-        for filepath in files_to_widgets:
-            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer_name][filepath]
-            combobox_locality = actual_widgets_dict["QComboBox_locality"]
-            assert combobox_locality.currentText() == "Select Locality Point"
-            assert combobox_locality.currentData() is None
-            assert combobox_locality.styleSheet() == "QComboBox:editable{color: red;}"
+    assert get_combobox_items_dict(combobox) == expected_items
+    # Check default values, the style should be red when the data is None
+    assert combobox.currentData() is None
+    assert combobox.styleSheet() == "QComboBox:editable{color: red;}"
 
     # Act 2
-    # Select a different item in the comboboxes
-    for layer_name, files_to_widgets in unlinked_test_files.items():
-        for filepath in files_to_widgets:
-            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer_name][filepath]
-            combobox_locality = actual_widgets_dict["QComboBox_locality"]
-            combobox_locality.setCurrentIndex(1)
+    # Select a different item in the combobox
+    combobox.setCurrentIndex(1)
 
     # Assert 2
-    # Check that the comboboxes have the correct style sheet on the new value
-    for layer_name, files_to_widgets in unlinked_test_files.items():
-        for filepath in files_to_widgets:
-            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer_name][filepath]
-            combobox_locality = actual_widgets_dict["QComboBox_locality"]
-            assert combobox_locality.currentText() == "test_point_001 | 2023-10-31 16:24:14"
-            assert combobox_locality.currentData() == "{abc43098-fe9b-4da0-b008-7518694466bb}"
-            assert combobox_locality.styleSheet() == ""
+    # Check new values, the style should be default when the data is not None
+    assert combobox.currentData() is not None
+    assert combobox.styleSheet() == ""
 
 
 def test_link_selection(
