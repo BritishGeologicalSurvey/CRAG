@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import (
     Any,
     Callable,
+    Optional,
 )
 
 import exifread
@@ -43,6 +44,7 @@ from .utils import (  # noqa
 
 WidgetsDict = dict[str, QWidget]
 CreateFeatureFunction = Callable[[QgsVectorLayer, Path, WidgetsDict], QgsFeature]
+ValidationFunction = Callable[[WidgetsDict], tuple[bool, Optional[str]]]
 
 
 class FileLinker(QDialog, FieldDataCaptureProject):
@@ -67,6 +69,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
 
         self.skip_files: list[Path] = []
         self.layers_to_feature_functions: dict[str, CreateFeatureFunction] = {}
+        self.layers_to_validation_functions: dict[str, Optional[ValidationFunction]] = {}
         self.layers_to_files_to_widgets: dict[str, dict[Path, WidgetsDict]] = {}
         self.thumbnail_size = 200
         self.add_file_rows()
@@ -135,6 +138,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             layer_name="media",
             create_layout_function=self.create_media_row_layout,
             create_feature_function=self.create_media_feature,
+            validation_function=self.validate_media_widgets_dict,
         )
 
         # If there is only 1 file selected, add stretch to layout so the single row is the same size as normal
@@ -160,10 +164,11 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         layer_name: str,
         create_layout_function: Callable[[Path], tuple[QHBoxLayout | QVBoxLayout, WidgetsDict]],
         create_feature_function: CreateFeatureFunction,
+        validation_function: Optional[ValidationFunction] = None,
     ) -> None:
         """
         Add new file rows to the existing layout for unlinked files for the given layer.
-        Takes 2 functions:
+        Takes 3 functions:
 
         'create_layout_function' is used to create the individual row layouts.
         It takes a single filepath, and returns a PyQt Layout, and a dictionary of widgets to be saved.
@@ -171,6 +176,9 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         'create_feature_function' is used to create a new feature for each filepath.
         It takes the layer for the feature, a single filepath, and a dictionary of widgets that were saved earlier.
         It returns a new QgsFeature.
+
+        'validation_function' is used to validate the input values within the widgets of each file.
+        It takes a single widgets_dict, and returns a boolean and an optional string message in the event of an error.
         """
         filepaths = self.get_unlinked_files(layer_name)
         if len(filepaths) > 0:
@@ -191,27 +199,52 @@ class FileLinker(QDialog, FieldDataCaptureProject):
                     self.skip_files.append(filepath)
 
             self.layers_to_feature_functions[layer_name] = create_feature_function
+            self.layers_to_validation_functions[layer_name] = validation_function
 
 
     def link_selection(self) -> None:
         """
-        Link the selected files in the dialog into the project's database.
+        If the current selection options pass the validation,
+        then link the selected files in the dialog into the project's database.
         Files which have not been assigned a locality_point will be ignored.
         """
-        linked_files = 0
+        if self.validate_selection():
+            linked_files = 0
+            for layer_name, files_to_widgets in self.layers_to_files_to_widgets.items():
+                layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+                layer.startEditing()
+
+                for filepath, widgets_dict in files_to_widgets.items():
+                    if widgets_dict["QComboBox_locality"].currentData() is not None:
+                        feature = self.layers_to_feature_functions[layer_name](layer, filepath, widgets_dict)
+                        layer.addFeature(feature)
+                        linked_files += 1
+
+                layer.commitChanges()
+            self.close()
+            QMessageBox.information(None, "Linked Files", f"Linked {linked_files} files successfully.")
+
+
+    def validate_selection(self) -> bool:
+        """
+        Run the validation functions for each file selected and display any errors.
+        Returns a boolean indicating the overall result of the validation.
+        """
+        errors = []
         for layer_name, files_to_widgets in self.layers_to_files_to_widgets.items():
-            layer = QgsProject.instance().mapLayersByName(layer_name)[0]
-            layer.startEditing()
+            validation_function = self.layers_to_validation_functions[layer_name]
+            if validation_function is not None:
 
-            for filepath, widgets_dict in files_to_widgets.items():
-                if widgets_dict["QComboBox_locality"].currentData() is not None:
-                    feature = self.layers_to_feature_functions[layer_name](layer, filepath, widgets_dict)
-                    layer.addFeature(feature)
-                    linked_files += 1
+                for filepath, widgets_dict in files_to_widgets.items():
+                    result, message = validation_function(widgets_dict)
+                    if not result:
+                        errors.append(f"Invalid input for file: {filepath.name}\n  {message}")
 
-            layer.commitChanges()
-        self.close()
-        QMessageBox.information(None, "Linked Files", f"Linked {linked_files} files successfully.")
+        if len(errors) == 0:
+            return True
+        else:
+            QMessageBox.warning(None, "Invalid Input Found", "\n\n".join(errors))
+            return False
 
 
     def closeEvent(self, event=None) -> None:
@@ -538,3 +571,16 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             "media_type_code": media_widgets["QComboBox_media_type"].currentData(),
         }
         return create_prepopulated_feature(layer, prepopulate=new_attributes)
+
+
+    def validate_media_widgets_dict(self, widgets_dict: WidgetsDict) -> tuple[bool, Optional[str]]:
+        """
+        Validate that the input options of the given widgets_dict for a media file is valid.
+        """
+        # If a locality is selected but a media type is not
+        if all((
+            widgets_dict["QComboBox_locality"].currentData() is not None,
+            widgets_dict["QComboBox_media_type"].currentData() is None,
+        )):
+            return False, "Please select a valid Media Type"
+        return True, None
