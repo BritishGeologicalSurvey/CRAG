@@ -143,6 +143,21 @@ def test_close_file_linker(
     assert fdc_project.file_linker is None
 
 
+def test_get_unlinked_files(
+    fdc_project: FieldDataCapture,
+    unlinked_test_files: UnlinkedTestFiles,
+):
+    # Arrange
+    fdc_project.open_file_linker()
+
+    # Act
+    for layer_name, expected_files_dict in unlinked_test_files.items():
+        actual_unlinked_files = fdc_project.file_linker.get_unlinked_files(layer_name)
+
+        # Assert
+        assert set(expected_files_dict) == set(actual_unlinked_files)
+
+
 def test_select_files(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
