@@ -69,7 +69,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         self.layers_to_feature_functions: dict[str, CreateFeatureFunction] = {}
         self.layers_to_files_to_widgets: dict[str, dict[Path, WidgetsDict]] = {}
         self.thumbnail_size = 200
-        self.add_file_panels()
+        self.add_file_rows()
 
 
     def setup_ui_elements(self) -> None:
@@ -77,6 +77,16 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         Create the elements of the File Linker dialog box User Interface.
         Also sets the layout for the dialog box.
         """
+        # Scrollable area layout
+        # To make a layout scrollable, you have to wrap it in a standrd QWidget object
+        self.file_rows_layout = QVBoxLayout()
+        layout_wrapper = QWidget()
+        layout_wrapper.setLayout(self.file_rows_layout)
+        scroll_area = QScrollArea()
+        scroll_area.setWidget(layout_wrapper)
+        # The widget must be allowed to change size so that rows can be added later
+        scroll_area.setWidgetResizable(True)
+
         self.link_selection_button = QPushButton("Link Selected Files")
         self.cancel_button = QPushButton("Cancel")
 
@@ -87,8 +97,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
 
         # Arrange the main layout
         layout = QVBoxLayout()
-        self.file_panels_layout = QVBoxLayout()
-        layout.addLayout(self.file_panels_layout)
+        layout.addWidget(scroll_area)
         layout.addLayout(bottom_button_layout)
         self.setLayout(layout)
 
@@ -101,20 +110,28 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         self.cancel_button.clicked.connect(self.close)
 
 
-    def add_file_panels(self) -> None:
+    def add_file_rows(self) -> None:
         """
-        Add the required file panels to the dialog and populate them.
+        Add the required file rows to the dialog and populate them.
         """
-        self.add_file_panel(
+        self.add_layer_file_rows(
             layer_name="photo",
             create_layout_function=self.create_photo_row_layout,
             create_feature_function=self.create_photo_feature,
         )
-        self.add_file_panel(
+        self.add_layer_file_rows(
             layer_name="media",
             create_layout_function=self.create_media_row_layout,
             create_feature_function=self.create_media_feature,
         )
+
+        # If there is only 1 file selected, add stretch to layout so the single row is the same size as normal
+        file_count = sum([
+            len(files_to_widgets)
+            for files_to_widgets in self.layers_to_files_to_widgets.values()
+        ])
+        if file_count == 1:
+            self.file_rows_layout.addStretch()
 
         # If any files are skipped, show them in a message box
         skip_files_num = len(self.skip_files)
@@ -130,16 +147,14 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             QMessageBox.warning(None, "Skipped Files", msg)
 
 
-    def add_file_panel(
+    def add_layer_file_rows(
         self,
         layer_name: str,
         create_layout_function: Callable[[Path], tuple[QHBoxLayout | QVBoxLayout, WidgetsDict]],
         create_feature_function: CreateFeatureFunction,
     ) -> None:
         """
-        Add a new file panel with a scrollable area for rows of file widgets.
-        Each row in the scrollable area is a QFrame which contains a QHBoxLayout or QVBoxLayout.
-
+        Add new file rows to the existing layout for unlinked files for the given layer.
         Takes 2 functions:
 
         'create_layout_function' is used to create the individual row layouts.
@@ -149,15 +164,6 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         It takes the layer for the feature, a single filepath, and a dictionary of widgets that were saved earlier.
         It returns a new QgsFeature.
         """
-        # To make a layout scrollable, you have to wrap it in a standrd QWidget object
-        file_rows_layout = QVBoxLayout()
-        layout_wrapper = QWidget()
-        layout_wrapper.setLayout(file_rows_layout)
-        scroll_area = QScrollArea()
-        scroll_area.setWidget(layout_wrapper)
-        # The widget must be allowed to change size so that rows can be added later
-        scroll_area.setWidgetResizable(True)
-
         filepaths = self.get_unlinked_files(layer_name)
         if len(filepaths) > 0:
             self.layers_to_files_to_widgets[layer_name] = {}
@@ -165,21 +171,18 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             for filepath in filepaths:
                 try:
                     row_layout, widgets_dict = create_layout_function(filepath)
-                    # Add the layer name to the dictionary so that we can find the appropriate link function later
-                    widgets_dict["layer_name"] = layer_name
                     self.layers_to_files_to_widgets[layer_name][filepath] = widgets_dict
 
                     # Put the layout into a frame for a border
                     row_frame = QFrame()
                     row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
                     row_frame.setLayout(row_layout)
-                    file_rows_layout.addWidget(row_frame)
+                    self.file_rows_layout.addWidget(row_frame)
 
                 except Exception:
                     self.skip_files.append(filepath)
 
             self.layers_to_feature_functions[layer_name] = create_feature_function
-            self.file_panels_layout.addWidget(scroll_area)
 
 
     def link_selection(self) -> None:
@@ -380,7 +383,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         row_hbox_1.addWidget(combobox_locality)
 
         file_date_label = self.create_file_date_widget(photo, photo_tags=photo_tags)
-        description_label = QLabel("Caption")
+        description_label = QLabel("Photo Caption")
         row_hbox_2 = QHBoxLayout()
         row_hbox_2.addWidget(file_date_label)
         row_hbox_2.addWidget(description_label)
