@@ -454,7 +454,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         row_hbox_2.addWidget(file_date_label)
         row_hbox_2.addWidget(description_label)
 
-        image_widget = self.create_image_widget(self.icons_dir / "open_project_folder.png")
+        image_widget = self.create_image_widget(self.icons_dir / "document.png")
         notes_edit = QTextEdit()
         row_hbox_3 = QHBoxLayout()
         row_hbox_3.addWidget(image_widget)
