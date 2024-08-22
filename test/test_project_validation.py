@@ -91,7 +91,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
             status=ValidationStatus.FAIL,
             # Project path here is dynamic because it comes from the tmp_path fixture
             messages=[
-                f"Unregistered file in 'photo' directory: {fdc_project_bad / 'photos/no_exif_data.jpg'}",
+                f"Unlinked file in 'photo' directory: {fdc_project_bad / 'photos/no_exif_data.jpg'}",
             ],
         ),
         ValidationResult(

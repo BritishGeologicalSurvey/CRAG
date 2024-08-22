@@ -230,7 +230,7 @@ def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> Val
             result.status = ValidationStatus.FAIL
             for attachment in unrecorded_attachments:
                 result.messages.append(
-                    f"Unregistered file in '{table}' directory: {attachment}"
+                    f"Unlinked file in '{table}' directory: {attachment}"
                 )
 
     return result
