@@ -229,13 +229,14 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         errors = []
         for layer_name, files_to_widgets in self.layers_to_files_to_widgets.items():
+            layer_dir = self.layers_to_dirs[layer_name]
             validation_function = self.layers_to_validation_functions[layer_name]
             if validation_function is not None:
 
                 for filepath, widgets_dict in files_to_widgets.items():
                     result, message = validation_function(widgets_dict)
                     if not result:
-                        errors.append(f"Invalid input for file: {filepath.name}\n  {message}")
+                        errors.append(f"{filepath.relative_to(layer_dir)}\n• {message}")
 
         if len(errors) == 0:
             return True
