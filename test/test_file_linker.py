@@ -35,12 +35,26 @@ EXPECTED_COMBOBOX_ITEMS = {
         "test_point_001 | 2023-10-31 16:24:14": "{abc43098-fe9b-4da0-b008-7518694466bb}",
         "test_point_002 | 2023-10-31 16:25:36": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
     },
+    "QComboBox_media_type": {
+        "Select Media Type": None,
+        "Image or Photograph": "image",
+        "Video": "video",
+        "Voice note": "voice",
+        "Spreadsheet or CSV": "spreadsheet",
+        "Word, PDF or Text document": "document",
+        "Other file type": "other",
+    },
 }
 WIDGET_NAMES_TO_ATTRIBUTES_NAMES = {
     "photo": {
         "QComboBox_locality": "locality_fuid",
         "QTextEdit_notes": "caption",
     },
+    "media": {
+        "QComboBox_locality": "locality_fuid",
+        "QComboBox_media_type": "media_type_code",
+        "QTextEdit_notes": "media_description",
+    }
 }
 
 
@@ -49,6 +63,30 @@ def get_file_modified_datetime(filepath: Path) -> dt.datetime:
     Get the file modified string timestamp from the given filepath, as it would be displayed in the FileLinker.
     """
     return dt.datetime.fromtimestamp(filepath.stat().st_mtime).replace(microsecond=0)
+
+
+def modify_file_linker_inputs(
+    file_linker: FileLinker,
+    layers_to_files_to_options: dict[str, dict[Path, dict[str, str]]]
+) -> None:
+    """
+    Modify the inputs of the given FileLinker dialog using the given dictionary of options.
+    This directly modified the widgets in the dialog, like a user would.
+    """
+    for layer_name, files_to_widgets in file_linker.layers_to_files_to_widgets.items():
+        # If file options are given for this layer
+        if layer_name in layers_to_files_to_options:
+            layer_dir = file_linker.layers_to_dirs[layer_name]
+
+            for filepath, widgets_dict in files_to_widgets.items():
+                file_options = layers_to_files_to_options[layer_name][filepath.relative_to(layer_dir)]
+
+                # For each option in the dictionary for the current file, apply it
+                for widget_name, new_value in file_options.items():
+                    if widget_name.startswith("QComboBox_"):
+                        set_combobox_index_by_data(widgets_dict[widget_name], new_value)
+                    elif widget_name.startswith("QTextEdit_"):
+                        widgets_dict[widget_name].setText(new_value)
 
 
 @pytest.fixture()
@@ -60,36 +98,49 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
     which contains widget_dict labels as keys, and expected string values for the widgets.
     """
     # Make some sub-directories
-    sub_dir_a = fdc_project.photos_dir / "sub_dir_A"
-    sub_dir_b = sub_dir_a / "sub_dir_B"
-    for sub_dir in [sub_dir_a, sub_dir_b]:
-        sub_dir.mkdir()
+    for layer_dir in fdc_project.layers_to_dirs.values():
+        sub_dir_a = Path("sub_dir_A")
+        sub_dir_b = sub_dir_a / "sub_dir_B"
+        sub_dir_a_full = layer_dir / "sub_dir_A"
+        sub_dir_b_full = sub_dir_a_full / "sub_dir_B"
+        for sub_dir_full in [sub_dir_a_full, sub_dir_b_full]:
+            sub_dir_full.mkdir()
 
     # Create copies of existing photos in various directories in project_dir/photos/
-    new_photo_a = sub_dir_a / "exif_data.jpg"
+    new_photo_a = fdc_project.photos_dir / sub_dir_a / "exif_data.jpg"
     new_photo_a.write_bytes(Path("test/data/photos/exif_data.jpg").read_bytes())
-    new_photo_b = sub_dir_b / "no_exif_data.jpg"
+    new_photo_b = fdc_project.photos_dir / sub_dir_b / "no_exif_data.jpg"
     new_photo_b.write_bytes(Path("test/data/photos/no_exif_data.jpg").read_bytes())
-    new_photo_c = sub_dir_a / "test_img_001.jpeg"
+    new_photo_c = fdc_project.photos_dir / sub_dir_a / "test_img_001.jpeg"
     new_photo_c.write_bytes((fdc_project.photos_dir / "test_point_001.jpeg").read_bytes())
+
+    # Create copies of existing media files in various directories in project_dir/media/
+    new_media_a = fdc_project.media_dir / sub_dir_a / "test_csv_001.csv"
+    new_media_a.write_bytes((fdc_project.media_dir / "test_point_001.csv").read_bytes())
+    new_media_b = fdc_project.media_dir / sub_dir_b / "test_txt_001.txt"
+    new_media_b.write_bytes((fdc_project.media_dir / "test_point_001.txt").read_bytes())
 
     unlinked_files = {
         "photo": {
-            new_photo_a:
-                {"QLabel_file_date": "2023-11-21 14:44:07 | EXIF Metadata"},
-            new_photo_b:
-                {"QLabel_file_date": f"{get_file_modified_datetime(new_photo_b)} | File Modified"},
-            new_photo_c:
-                {"QLabel_file_date": f"{get_file_modified_datetime(new_photo_c)} | File Modified"},
+            # Only provide date label if it is EXIF data, others are dynmcially added below
+            new_photo_a: {"QLabel_file_date": "2023-11-21 14:44:07 | EXIF Metadata"},
+            new_photo_b: {},
+            new_photo_c: {},
         },
+        "media": {
+            new_media_a: {},
+            new_media_b: {},
+        }
     }
 
     # Add QComboBox_locality to all widget dictionaries
     for files_to_widgets in unlinked_files.values():
-        for filepath, widget_dict in files_to_widgets.items():
-            widget_dict["QComboBox_locality"] = EXPECTED_COMBOBOX_ITEMS["QComboBox_locality"]
+        for filepath, widgets_dict in files_to_widgets.items():
+            widgets_dict["QComboBox_locality"] = EXPECTED_COMBOBOX_ITEMS["QComboBox_locality"]
             # Dynamically add expected filepath label for all files
-            widget_dict["QLabel_filepath"] = f"<a href=file://{filepath}>{filepath.name}</a>"
+            widgets_dict["QLabel_filepath"] = f"<a href=file://{filepath}>{filepath.name}</a>"
+            if "QLabel_file_date" not in widgets_dict:
+                widgets_dict["QLabel_file_date"] = f"{get_file_modified_datetime(filepath)} | File Modified"
 
     return unlinked_files
 
@@ -207,6 +258,7 @@ def assert_widgets_dict_types(widgets_dict: dict[str, Any]) -> None:
     ["create_combobox", "expected_items"],
     (
         (FileLinker.create_combobox_locality, EXPECTED_COMBOBOX_ITEMS["QComboBox_locality"]),
+        (FileLinker.create_combobox_media_type, EXPECTED_COMBOBOX_ITEMS["QComboBox_media_type"]),
     ),
 )
 def test_create_comboboxes(
@@ -233,6 +285,57 @@ def test_create_comboboxes(
     assert combobox.styleSheet() == ""
 
 
+def test_validate_selection(
+    fdc_project: FieldDataCapture,
+    unlinked_test_files: UnlinkedTestFiles,
+):
+    # Arrange 1
+    layers_to_files_to_options = {
+        "media": {
+            Path("sub_dir_A/test_csv_001.csv"): {
+                "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
+                # Don't select a media type, this should fail the validation
+                "QComboBox_media_type": None,
+                "QTextEdit_notes": "Description for test_csv_001.csv",
+            },
+            Path("sub_dir_A/sub_dir_B/test_txt_001.txt"): {
+                "QComboBox_locality": "{abc43098-fe9b-4da0-b008-7518694466bb}",
+                # Don't select a media type, this should fail the validation
+                "QComboBox_media_type": None,
+                "QTextEdit_notes": "Description for test_txt_001.txt",
+            },
+        }
+    }
+    fdc_project.open_file_linker()
+
+    # Act 1
+    # Pick invalid media type
+    modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
+    result_1 = fdc_project.file_linker.validate_selection()
+
+    # Assert 1
+    assert not result_1
+    QMessageBox.warning.assert_called_once_with(
+        None,
+        "Invalid Input Found",
+        (
+            "sub_dir_A/test_csv_001.csv\n• Please select a valid Media Type\n\n"
+            "sub_dir_A/sub_dir_B/test_txt_001.txt\n• Please select a valid Media Type"
+        ),
+    )
+
+    # Act 2
+    # Pick valid media type
+    for files_to_options in layers_to_files_to_options.values():
+        for file_options in files_to_options.values():
+            file_options["QComboBox_media_type"] = "other"
+    modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
+    result_2 = fdc_project.file_linker.validate_selection()
+
+    # Assert 2
+    assert result_2
+
+
 def test_save_links(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
@@ -250,9 +353,21 @@ def test_save_links(
                 "QTextEdit_notes": "Caption for exif_data.jpg",
             },
             Path("sub_dir_A/sub_dir_B/no_exif_data.jpg"): {
-                # Don't select this file, it should not be saved to the database
                 "QComboBox_locality": "{abc43098-fe9b-4da0-b008-7518694466bb}",
                 "QTextEdit_notes": "Caption for no_exif_data.jpg",
+            },
+        },
+        "media": {
+            Path("sub_dir_A/test_csv_001.csv"): {
+                # Don't select this file, it should not be saved to the database
+                "QComboBox_locality": None,
+                "QComboBox_media_type": "spreadsheet",
+                "QTextEdit_notes": "Description for test_csv_001.csv",
+            },
+            Path("sub_dir_A/sub_dir_B/test_txt_001.txt"): {
+                "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
+                "QComboBox_media_type": "document",
+                "QTextEdit_notes": "Description for test_txt_001.txt",
             },
         }
     }
@@ -291,28 +406,6 @@ def test_save_links(
                     expected_file_options,
                     feature=next(new_features),
                 )
-
-
-def modify_file_linker_inputs(
-    file_linker: FileLinker,
-    layers_to_files_to_options: dict[str, dict[Path, dict[str, str]]]
-) -> None:
-    """
-    Modify the inputs of the given FileLinker dialog using the given dictionary of options.
-    This directly modified the widgets in the dialog, like a user would.
-    """
-    for layer_name, files_to_widgets in file_linker.layers_to_files_to_widgets.items():
-        layer_dir = file_linker.layers_to_dirs[layer_name]
-
-        for filepath, widgets_dict in files_to_widgets.items():
-            file_options = layers_to_files_to_options[layer_name][filepath.relative_to(layer_dir)]
-
-            # For each option in the dictionary for the current file, apply it
-            for widget_name, new_value in file_options.items():
-                if widget_name.startswith("QComboBox_"):
-                    set_combobox_index_by_data(widgets_dict[widget_name], new_value)
-                elif widget_name.startswith("QTextEdit_"):
-                    widgets_dict[widget_name].setText(new_value)
 
 
 def assert_feature_expected_options(
