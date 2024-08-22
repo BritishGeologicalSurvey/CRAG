@@ -102,12 +102,12 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         # The widget must be allowed to change size so that rows can be added later
         scroll_area.setWidgetResizable(True)
 
-        self.link_selection_button = QPushButton("Link Selected Files")
+        self.save_links_button = QPushButton("Save Links")
         self.cancel_button = QPushButton("Cancel")
 
         # Bottom button layout
         bottom_button_layout = QHBoxLayout()
-        bottom_button_layout.addWidget(self.link_selection_button)
+        bottom_button_layout.addWidget(self.save_links_button)
         bottom_button_layout.addWidget(self.cancel_button)
 
         # Arrange the main layout
@@ -121,7 +121,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         Function for connecting signals and slots of buttons and input boxes.
         """
-        self.link_selection_button.clicked.connect(self.link_selection)
+        self.save_links_button.clicked.connect(self.save_links)
         self.cancel_button.clicked.connect(self.close)
 
 
@@ -148,14 +148,11 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         # If any files are skipped, show them in a message box
         skip_files_num = len(self.skip_files)
         if skip_files_num > 0:
-            if skip_files_num > 5:
-                msg = f"{skip_files_num} files have been skipped because they could not be loaded."
-            else:
-                file_str = "\n".join([str(filepath) for filepath in self.skip_files])
-                msg = (
-                    "Some files have been skipped because they could not be loaded:"
-                    f"\n\n{file_str}"
-                )
+            file_str = "\n".join([str(filepath) for filepath in self.skip_files])
+            msg = (
+                "Some files have been skipped because they could not be loaded:"
+                f"\n\n{file_str}"
+            )
             QMessageBox.warning(None, "Skipped Files", msg)
 
 
@@ -202,10 +199,10 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             self.layers_to_validation_functions[layer_name] = validation_function
 
 
-    def link_selection(self) -> None:
+    def save_links(self) -> None:
         """
         If the current selection options pass the validation,
-        then link the selected files in the dialog into the project's database.
+        then save the links selected in the dialog into the project's database.
         Files which have not been assigned a locality_point will be ignored.
         """
         if self.validate_selection():
@@ -331,6 +328,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         file_url = bytearray(QUrl.fromLocalFile(str(filepath)).toEncoded()).decode()
         filepath_label = QLabel(f"<a href={file_url}>{filepath.name}</a>")
         filepath_label.setOpenExternalLinks(True)
+        filepath_label.setToolTip(str(filepath.relative_to(self.project_dir)))
         filepath_label.setFixedWidth(self.thumbnail_size)
         return filepath_label
 

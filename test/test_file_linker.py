@@ -114,11 +114,10 @@ def test_open_file_linker_bad(fdc_project: FieldDataCapture):
     # Assert
     assert not result
     assert fdc_project.file_linker is None
-    parent_dir = fdc_project.photos_dir.relative_to(fdc_project.project_dir.parent)
-    QMessageBox.warning.assert_called_once_with(
+    QMessageBox.information.assert_called_with(
         None,
-        "No Unlinked Files Found",
-        f"Could not find any unlinked files in the folder:\n\n{parent_dir}",
+        "All Files Linked",
+        "All of the project files are already linked.",
     )
 
 
@@ -183,6 +182,10 @@ def test_select_files(
                 elif widget_name.startswith("QCombobox"):
                     assert expected_value == get_combobox_items_dict(actual_widgets_dict[widget_name])
 
+            # Check filepath tooltip
+            filepath_label = actual_widgets_dict["QLabel_filepath"]
+            assert filepath_label.toolTip() == str(filepath.relative_to(fdc_project.project_dir))
+
             # Check photo display size
             image_widget = actual_widgets_dict["QLabel_image_widget"]
             assert image_widget.pixmap().width() <= fdc_project.file_linker.thumbnail_size
@@ -230,7 +233,7 @@ def test_create_comboboxes(
     assert combobox.styleSheet() == ""
 
 
-def test_link_selection(
+def test_save_links(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
 ):
@@ -257,7 +260,7 @@ def test_link_selection(
 
     # Act
     modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
-    fdc_project.file_linker.link_selection_button.click()
+    fdc_project.file_linker.save_links_button.click()
 
     # Assert
     # Check that the FileLinker closed

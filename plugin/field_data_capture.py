@@ -1189,11 +1189,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         # If no unregistered files are found
         if self.file_linker.file_count == 0:
             self.close_file_linker()
-            QMessageBox.warning(
-                None,
-                "No Unlinked Files Found",
-                f"Could not find any unlinked files in the project folder:\n\n{self.project_dir.name}/",
-            )
+            QMessageBox.information(None, "All Files Linked", "All of the project files are already linked.")
             return False
 
         else:
