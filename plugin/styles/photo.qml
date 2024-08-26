@@ -152,7 +152,7 @@
     <constraint desc="" exp="" field="fid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
-    <constraint desc="" exp="-- Don't match absolute windows paths (e.g. starting with &quot;C:/&quot;)&#xD;&#xA;not(regexp_match(lower(&quot;photo_file&quot;), '^[a-z]:/'))&#xD;&#xA;and&#xD;&#xA;-- Don't match absolute Linux paths (starting with &quot;/&quot;)&#xD;&#xA;not(regexp_match(&quot;photo_file&quot;, '^/'))&#xD;&#xA;and&#xD;&#xA;-- Don't match filepaths from parent directories (e.g. starting with &quot;../&quot;)&#xD;&#xA;not(regexp_match(&quot;photo_file&quot;, '^\\.\\./'))" field="photo_file"></constraint>
+    <constraint desc="" exp="-- Photos must be within project photos folder&#xD;&#xA;&#xD;&#xA;-- Don't match absolute windows paths (e.g. starting with &quot;C:/&quot;)&#xD;&#xA;not(regexp_match(lower(&quot;photo_file&quot;), '^[a-z]:/'))&#xD;&#xA;and&#xD;&#xA;-- Don't match absolute Linux paths (starting with &quot;/&quot;)&#xD;&#xA;not(regexp_match(&quot;photo_file&quot;, '^/'))&#xD;&#xA;and&#xD;&#xA;-- Don't match filepaths from parent directories (e.g. starting with &quot;../&quot;)&#xD;&#xA;not(regexp_match(&quot;photo_file&quot;, '^\\.\\./'))" field="photo_file"></constraint>
     <constraint desc="" exp="" field="caption"></constraint>
     <constraint desc="" exp="" field="user_entered"></constraint>
     <constraint desc="" exp="" field="date_entered"></constraint>
