@@ -46,8 +46,8 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
     fp.local_epsg,
     loc_type.code AS locality_type,
     lith.lithology_code,
-	  rock.label AS lithology,
-	  rock.simple_lithology,
+    rock.label AS lithology,
+    rock.simple_lithology,
     lith.notes,
     lith.uuid AS lithology_uuid,
     lp.uuid AS locality_uuid,
@@ -59,7 +59,7 @@ CREATE VIEW IF NOT EXISTS "view_lithology" AS
   FROM lithology lith
     LEFT JOIN locality_point lp ON lith.locality_fuid = lp.uuid
     LEFT JOIN dic_locality_type loc_type ON lp.locality_type_code = loc_type.code
-	  LEFT JOIN dic_rock_field rock ON lith.lithology_code = rock.code
+      LEFT JOIN dic_rock_field rock ON lith.lithology_code = rock.code
     LEFT JOIN field_project fp ON lp.field_project_fuid = fp.uuid
 ;
 
@@ -179,7 +179,7 @@ CREATE VIEW IF NOT EXISTS "view_media" AS
     fp.local_epsg,
     lp.locality_type_code AS locality_type,
     me.media_type_code AS media_type,
-	  me.media_link,
+    me.media_link,
     me.media_description,
     me.uuid AS media_uuid,
     lp.uuid AS locality_uuid,

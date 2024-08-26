@@ -7,19 +7,19 @@ See issues #44 and #87 for context.
 BEGIN TRANSACTION;
 
 CREATE TABLE IF NOT EXISTS "dic_rock_field" (
-	"fid"	INTEGER NOT NULL,
-	"category"	TEXT,
-	"code"	TEXT NOT NULL UNIQUE,
-	"is_default"	BOOLEAN NOT NULL DEFAULT 0,
-	"simple_lithology"	TEXT,
-	"label"	TEXT,
-	"description"	TEXT,
-	"translation"	TEXT,
-	"user_entered"	TEXT NOT NULL,
-	"date_entered"	DATETIME NOT NULL,
-	"user_updated"	TEXT,
-	"date_updated"	DATETIME,
-	PRIMARY KEY("fid" AUTOINCREMENT)
+    "fid" INTEGER NOT NULL,
+    "category" TEXT,
+    "code" TEXT NOT NULL UNIQUE,
+    "is_default" BOOLEAN NOT NULL DEFAULT 0,
+    "simple_lithology" TEXT,
+    "label" TEXT,
+    "description" TEXT,
+    "translation" TEXT,
+    "user_entered" TEXT NOT NULL,
+    "date_entered" DATETIME NOT NULL,
+    "user_updated" TEXT,
+    "date_updated" DATETIME,
+    PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
 insert into gpkg_contents
