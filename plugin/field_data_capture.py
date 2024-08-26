@@ -163,7 +163,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
     def add_action(
         self,
-        icon_path: str,
+        icon_path: Optional[str],
         text: str,
         callback: Callable,
         enabled_flag: bool = True,
@@ -255,8 +255,6 @@ class FieldDataCapture(FieldDataCaptureProject):
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/field_data_capture/icon.png'
-
         # Create a new toolbar for the plugin
         toolbar_text = "Field Data Capture Toolbar"
         self.toolbar = self.iface.addToolBar(toolbar_text)
@@ -293,7 +291,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         # Create a single add/edit/delete button for all line tables
         self.quick_map_tool_buttons["fdc_lines_add"] = self.add_action(
             str(self.icons_dir / "quick_lines_add.png"),
-            text=self.tr(u'Quick Add Lline'),
+            text=self.tr(u'Quick Add Line'),
             callback=self.select_quick_line_layer_add,
             add_to_toolbar=True,
             parent=self.iface.mainWindow(),
@@ -330,45 +328,6 @@ class FieldDataCapture(FieldDataCaptureProject):
         for line_table in FEATURE_TABLES_LINES:
             self.quick_map_tool_buttons[f"fdc_{line_table}_add"] = self.quick_map_tool_buttons["fdc_lines_add"]
 
-        self.button_setup_project = self.add_action(
-            icon_path,
-            text=self.tr(u'Setup Project'),
-            callback=lambda: self.run_function_list(functions=[
-                self.add_gpkg_to_project,
-                self.add_gpkg_layers_to_project,
-                self.open_create_field_project,
-            ]),
-            parent=self.iface.mainWindow(),
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Add Field Project'),
-            callback=self.open_create_field_project,
-            parent=self.iface.mainWindow(),
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Link Photos and Media'),
-            callback=self.open_file_linker,
-            parent=self.iface.mainWindow(),
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Create Field Report'),
-            callback=self.create_field_report,
-            parent=self.iface.mainWindow(),
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Validate Current Project'),
-            callback=self.run_project_validation,
-            parent=self.iface.mainWindow(),
-        )
-
         self.add_action(
             str(self.icons_dir / "open_project_folder.png"),
             text=self.tr(u'Open Project Folder'),
@@ -377,19 +336,62 @@ class FieldDataCapture(FieldDataCaptureProject):
             parent=self.iface.mainWindow(),
         )
 
-        # Setup dev submenu button
+        self.add_action(
+            None,
+            text=self.tr(u'Link Photos and Media'),
+            callback=self.open_file_linker,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            None,
+            text=self.tr(u'Create Field Report'),
+            callback=self.create_field_report,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            None,
+            text=self.tr(u'Validate Current Project'),
+            callback=self.run_project_validation,
+            parent=self.iface.mainWindow(),
+        )
+
+        # Setup advanced tools menu
         # We still create a QAction, but we set its menu with a new QMenu
-        dev_submenu_action = self.add_action(
-            icon_path,
-            text=self.tr(u'Developer Tools'),
+        advanced_submenu_action = self.add_action(
+            None,
+            text=self.tr(u'More...'),
             callback=None,
             parent=self.iface.mainWindow(),
         )
-        dev_submenu = QMenu()
-        dev_submenu_action.setMenu(dev_submenu)
+        advanced_submenu = QMenu()
+        advanced_submenu_action.setMenu(advanced_submenu)
+
+        self.button_setup_project = self.add_action(
+            None,
+            text=self.tr(u'Setup Project'),
+            callback=lambda: self.run_function_list(functions=[
+                self.add_gpkg_to_project,
+                self.add_gpkg_layers_to_project,
+                self.open_create_field_project,
+            ]),
+            parent=self.iface.mainWindow(),
+            submenu=advanced_submenu
+        )
 
         self.add_action(
-            icon_path,
+            None,
+            text=self.tr(u'Add Field Project'),
+            callback=self.open_create_field_project,
+            parent=self.iface.mainWindow(),
+            submenu=advanced_submenu
+        )
+
+        advanced_submenu.addSeparator()
+
+        self.add_action(
+            None,
             text=self.tr(u'Setup Test Project'),
             callback=lambda: self.run_function_list(functions=[
                 self.add_gpkg_to_project,
@@ -398,45 +400,45 @@ class FieldDataCapture(FieldDataCaptureProject):
             ]),
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
+            submenu=advanced_submenu,
         )
 
         self.add_action(
-            icon_path,
+            None,
             text=self.tr(u'Export Styles to QML'),
             callback=self.export_qml_styles,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
+            submenu=advanced_submenu,
         )
 
-        dev_submenu.addSeparator()
+        advanced_submenu.addSeparator()
 
         self.add_action(
-            icon_path,
+            None,
             text=self.tr(u'Add GeoPackage to Project'),
             callback=self.add_gpkg_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
+            submenu=advanced_submenu,
         )
 
         self.add_action(
-            icon_path,
+            None,
             text=self.tr(u'Add GeoPackage Layers to Project'),
             callback=self.add_gpkg_layers_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
+            submenu=advanced_submenu,
         )
 
         self.add_action(
-            icon_path,
+            None,
             text=self.tr(u'Add Test Data to Project'),
             callback=self.add_test_data_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
+            submenu=advanced_submenu,
         )
 
         # will be set False in run()
