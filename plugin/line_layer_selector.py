@@ -1,7 +1,4 @@
-from typing import (
-    Any,
-    Optional,
-)
+from typing import Optional
 
 from qgis.core import QgsProject
 from qgis.PyQt.QtCore import (
@@ -20,7 +17,10 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from .config import FEATURE_TABLES_LINES
-from .utils import ipdb_breakpoint  # noqa
+from .utils import (  # noqa
+    set_combobox_index_by_data,
+    ipdb_breakpoint,
+)
 
 
 class LineLayerSelector(QDialog):
@@ -210,31 +210,7 @@ class LineLayerSelector(QDialog):
 
         # Set the current index of each combobox to be the given preselection
         for line_attribute, combobox in self.comboboxes.items():
-            self.set_combobox_index_by_data(combobox, preselected[line_attribute])
-
-
-    @staticmethod
-    def set_combobox_index_by_data(combobox: QComboBox, data: Any) -> None:
-        """
-        Set the index of a given combobox to be the index at which the given data is found,
-        if it is found.
-        """
-        combobox_data_list = LineLayerSelector.get_combobox_data_list(combobox)
-        if data in combobox_data_list:
-            combobox.setCurrentIndex(combobox_data_list.index(data))
-
-
-    @staticmethod
-    def get_combobox_data_list(combobox: QComboBox) -> list[Any]:
-        """
-        Get a list of the data items from a given QComboBox object.
-        """
-        model = combobox.model()
-        data_list = [
-            model.index(row_idx, 0).data()
-            for row_idx in range(model.rowCount())
-        ]
-        return data_list
+            set_combobox_index_by_data(combobox, preselected[line_attribute])
 
 
     def connect_signals_and_slots(self) -> None:

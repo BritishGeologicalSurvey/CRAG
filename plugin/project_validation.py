@@ -219,7 +219,7 @@ def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> Val
             for attachment in attachment_dir.rglob("*")
             if all((
                 attachment.is_file(),
-                attachment.name != ".placeholder",
+                attachment.name != project.placeholder_filename.name,
                 attachment.relative_to(attachment_dir) not in recorded_attachments,
             ))
         ]
@@ -230,7 +230,7 @@ def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> Val
             result.status = ValidationStatus.FAIL
             for attachment in unrecorded_attachments:
                 result.messages.append(
-                    f"Unregistered file in '{table}' directory: {attachment}"
+                    f"Unlinked file in '{table}' directory: {attachment}"
                 )
 
     return result

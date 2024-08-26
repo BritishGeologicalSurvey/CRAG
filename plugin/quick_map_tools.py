@@ -10,7 +10,6 @@ from qgis.core import (
     QgsFeature,
     QgsProject,
     QgsVectorLayer,
-    QgsVectorLayerUtils,
 )
 from qgis.gui import (
     QgisInterface,
@@ -35,7 +34,10 @@ from .config import (
     LOCALITY_POINT_CHILDREN,
     TABLE_LIST,
 )
-from .utils import ipdb_breakpoint  # noqa
+from .utils import (  # noqa
+    create_prepopulated_feature,
+    ipdb_breakpoint,
+)
 
 
 class QuickMapToolBase:
@@ -318,8 +320,6 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
         Open the feature form for the layer with the given new feature.
         This is triggered by the 'digitizingCompleted' signal which passes a new empty feature with the geometry.
         """
-        # Get the prepopulate values by field index instead of field name so they can be used by QgsVectorLayerUtils
-        prepopulate_indexed = {}
         default_values = self.get_default_values()
         # Add default values to temp prepopulate dictionary so that we can apply both in 1 loop
         if self.prepopulate is not None:
@@ -327,16 +327,12 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
         else:
             prepopulate = default_values
 
-        for field_name, prepopulate_value in prepopulate.items():
-            field_index = [field.name() for field in self._layer.fields()].index(field_name)
-            prepopulate_indexed[field_index] = prepopulate_value
-
-        # Create feature with the geometry from the new empty feature and prepopulate any values required
-        feature = QgsVectorLayerUtils.createFeature(
+        feature = create_prepopulated_feature(
             layer=self._layer,
+            prepopulate=prepopulate,
             geometry=geometry_feature.geometry(),
-            attributes=prepopulate_indexed,
         )
+
         self._layer.addFeature(feature)
         self.open_feature_form(feature, feature_layer=self._layer)
 

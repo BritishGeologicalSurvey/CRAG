@@ -79,7 +79,7 @@ from .create_gpkg_from_sql import (
     WORKDIR,
 )
 from .line_layer_selector import LineLayerSelector
-from .photo_importer import PhotoImporter
+from .file_linker import FileLinker
 from .project_validation import (
     ValidationStatus,
     validate_project,
@@ -137,7 +137,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         self.toolbar: QToolBar
         self.quick_map_tool_buttons: dict[str, QAction] = {}
         self.quick_map_tool: Optional[QgsMapTool] = None
-        self.photo_importer: Optional[PhotoImporter] = None
+        self.file_linker: Optional[FileLinker] = None
         self.line_layer_selector: Optional[LineLayerSelector] = None
         self.last_quick_add_line_type: Optional[dict[str, str]] = None
 
@@ -163,7 +163,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
     def add_action(
         self,
-        icon_path: str,
+        icon_path: Optional[str],
         text: str,
         callback: Callable,
         enabled_flag: bool = True,
@@ -255,8 +255,6 @@ class FieldDataCapture(FieldDataCaptureProject):
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
 
-        icon_path = ':/plugins/field_data_capture/icon.png'
-
         # Create a new toolbar for the plugin
         toolbar_text = "Field Data Capture Toolbar"
         self.toolbar = self.iface.addToolBar(toolbar_text)
@@ -293,7 +291,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         # Create a single add/edit/delete button for all line tables
         self.quick_map_tool_buttons["fdc_lines_add"] = self.add_action(
             str(self.icons_dir / "quick_lines_add.png"),
-            text=self.tr(u'Quick Add Lline'),
+            text=self.tr(u'Quick Add Line'),
             callback=self.select_quick_line_layer_add,
             add_to_toolbar=True,
             parent=self.iface.mainWindow(),
@@ -330,45 +328,6 @@ class FieldDataCapture(FieldDataCaptureProject):
         for line_table in FEATURE_TABLES_LINES:
             self.quick_map_tool_buttons[f"fdc_{line_table}_add"] = self.quick_map_tool_buttons["fdc_lines_add"]
 
-        self.button_setup_project = self.add_action(
-            icon_path,
-            text=self.tr(u'Setup Project'),
-            callback=lambda: self.run_function_list(functions=[
-                self.add_gpkg_to_project,
-                self.add_gpkg_layers_to_project,
-                self.open_create_field_project,
-            ]),
-            parent=self.iface.mainWindow(),
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Add Field Project'),
-            callback=self.open_create_field_project,
-            parent=self.iface.mainWindow(),
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Import Photos'),
-            callback=self.open_photo_importer,
-            parent=self.iface.mainWindow(),
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Create Field Report'),
-            callback=self.create_field_report,
-            parent=self.iface.mainWindow(),
-        )
-
-        self.add_action(
-            icon_path,
-            text=self.tr(u'Validate Current Project'),
-            callback=self.run_project_validation,
-            parent=self.iface.mainWindow(),
-        )
-
         self.add_action(
             str(self.icons_dir / "open_project_folder.png"),
             text=self.tr(u'Open Project Folder'),
@@ -377,19 +336,62 @@ class FieldDataCapture(FieldDataCaptureProject):
             parent=self.iface.mainWindow(),
         )
 
-        # Setup dev submenu button
+        self.add_action(
+            None,
+            text=self.tr(u'Link Photos and Media'),
+            callback=self.open_file_linker,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            None,
+            text=self.tr(u'Create Field Report'),
+            callback=self.create_field_report,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            None,
+            text=self.tr(u'Validate Current Project'),
+            callback=self.run_project_validation,
+            parent=self.iface.mainWindow(),
+        )
+
+        # Setup advanced tools menu
         # We still create a QAction, but we set its menu with a new QMenu
-        dev_submenu_action = self.add_action(
-            icon_path,
-            text=self.tr(u'Developer Tools'),
+        advanced_submenu_action = self.add_action(
+            None,
+            text=self.tr(u'More...'),
             callback=None,
             parent=self.iface.mainWindow(),
         )
-        dev_submenu = QMenu()
-        dev_submenu_action.setMenu(dev_submenu)
+        advanced_submenu = QMenu()
+        advanced_submenu_action.setMenu(advanced_submenu)
+
+        self.button_setup_project = self.add_action(
+            None,
+            text=self.tr(u'Setup Project'),
+            callback=lambda: self.run_function_list(functions=[
+                self.add_gpkg_to_project,
+                self.add_gpkg_layers_to_project,
+                self.open_create_field_project,
+            ]),
+            parent=self.iface.mainWindow(),
+            submenu=advanced_submenu
+        )
 
         self.add_action(
-            icon_path,
+            None,
+            text=self.tr(u'Add Field Project'),
+            callback=self.open_create_field_project,
+            parent=self.iface.mainWindow(),
+            submenu=advanced_submenu
+        )
+
+        advanced_submenu.addSeparator()
+
+        self.add_action(
+            None,
             text=self.tr(u'Setup Test Project'),
             callback=lambda: self.run_function_list(functions=[
                 self.add_gpkg_to_project,
@@ -398,45 +400,45 @@ class FieldDataCapture(FieldDataCaptureProject):
             ]),
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
+            submenu=advanced_submenu,
         )
 
         self.add_action(
-            icon_path,
+            None,
             text=self.tr(u'Export Styles to QML'),
             callback=self.export_qml_styles,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
+            submenu=advanced_submenu,
         )
 
-        dev_submenu.addSeparator()
+        advanced_submenu.addSeparator()
 
         self.add_action(
-            icon_path,
+            None,
             text=self.tr(u'Add GeoPackage to Project'),
             callback=self.add_gpkg_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
+            submenu=advanced_submenu,
         )
 
         self.add_action(
-            icon_path,
+            None,
             text=self.tr(u'Add GeoPackage Layers to Project'),
             callback=self.add_gpkg_layers_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
+            submenu=advanced_submenu,
         )
 
         self.add_action(
-            icon_path,
+            None,
             text=self.tr(u'Add Test Data to Project'),
             callback=self.add_test_data_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=dev_submenu,
+            submenu=advanced_submenu,
         )
 
         # will be set False in run()
@@ -447,7 +449,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         """Removes the plugin menu item and icon from QGIS GUI."""
         # Disable the current QuickMapTool if there is one
         self.disable_current_quick_map_tool()
-        self.close_photo_importer()
+        self.close_file_linker()
 
         for action in self.actions:
             self.iface.removePluginMenu(
@@ -545,8 +547,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         # Create empty user directories
         for directory in [self.photos_dir, self.media_dir]:
             directory.mkdir(parents=True, exist_ok=True)
-            placeholder = directory / ".placeholder"
-            placeholder.touch()
+            (directory / self.placeholder_filename).touch()
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
@@ -1178,29 +1179,36 @@ class FieldDataCapture(FieldDataCaptureProject):
         return False
 
 
-    def open_photo_importer(self) -> bool:
+    def open_file_linker(self) -> bool:
         """
-        Open the photo importer tool of the plugin.
+        Open the File Linker tool of the plugin if there are unlinked files found in the project.
         Returns a boolean indicating the success of the process.
         """
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        self.photo_importer = PhotoImporter()
-        self.photo_importer.photo_importer_closed.connect(self.close_photo_importer)
-        # Make it modal so changes are not made whilst importing photos
-        self.photo_importer.exec()
+        self.file_linker = FileLinker()
+        # If no unregistered files are found
+        if self.file_linker.file_count == 0:
+            self.close_file_linker()
+            QMessageBox.information(None, "All Files Linked", "All of the project files are already linked.")
+            return False
+
+        else:
+            self.file_linker.file_linker_closed.connect(self.close_file_linker)
+            # Make it modal so changes are not made whilst importing photos
+            self.file_linker.exec()
 
         return True
 
 
-    def close_photo_importer(self) -> None:
+    def close_file_linker(self) -> None:
         """
-        Delete the current photo importer object if there is one.
+        Delete the current File Linker object if there is one.
         """
-        if self.photo_importer is not None:
-            del self.photo_importer
-            self.photo_importer = None
+        if self.file_linker is not None:
+            del self.file_linker
+            self.file_linker = None
 
 
     def run_project_validation(self) -> None:

@@ -44,59 +44,6 @@ def test_project_fixture(fdc: FieldDataCapture, qgs_project: Path):
     assert files[0].name == "test_project.qgz"
 
 
-def test_validation_good(fdc_project: FieldDataCapture):
-    assert fdc_project.validate_qgis_state(
-        project_active=True,
-        db_file_exists=True,
-        fdc_layers_exist=True,
-        field_project_exists=True,
-    )
-
-
-def test_validation_bad(fdc: FieldDataCapture):
-    assert not fdc.validate_qgis_state(project_active=True, fdc_layers_exist=True)
-
-
-def test_check_field_project_exists(fdc: FieldDataCapture, qgs_project):
-    # Assert 1, the layer does not exist
-    assert not fdc.check_field_project_exists()
-
-    # Act 1, add fdc layers
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
-
-    # Assert 2, the layer exists but has no features
-    assert not fdc.check_field_project_exists()
-
-    # Act 2, add an unsaved field_project
-    layer = QgsProject.instance().mapLayersByName("field_project")[0]
-    layer.startEditing()
-    # Creat the feature
-    feature = QgsVectorLayerUtils.createFeature(layer)
-    # Set required properties
-    properties = {
-        "short_name": "test_field_project",
-        "local_epsg": 27700,
-    }
-    for property, value in properties.items():
-        feature.setAttribute(property, value)
-    # Add geometry
-    geometry_wkt = "Polygon ((-3.06646639970546664 56.02224055154277949, -0.86620852862676745 52.89687413861690857, -1.3338961920444623 52.75580097369699217, -3.55541259327851167 55.88561238892003047, -3.06646639970546664 56.02224055154277949))"  # noqa
-    geometry = QgsGeometry.fromWkt(geometry_wkt)
-    feature.setGeometry(geometry)
-    # Add feature to layer
-    layer.addFeature(feature)
-
-    # Assert 3, the layer exists with a feature but the feature is not saved
-    assert not fdc.check_field_project_exists()
-
-    # Act 3, save the feature so all the checks are good
-    layer.commitChanges()
-
-    # Assert 4, all the checks are good
-    assert fdc.check_field_project_exists()
-
-
 def test_setup_project_logic_good(
     fdc: FieldDataCapture,
     qgs_project: Path,
@@ -241,7 +188,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Check that the empty user directories have been created
     for directory in [fdc.photos_dir, fdc.media_dir]:
         assert directory.exists()
-        assert list(directory.glob("*"))[0].name == ".placeholder"
+        assert list(directory.glob("*"))[0].name == fdc.placeholder_filename.name
 
 
 def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):

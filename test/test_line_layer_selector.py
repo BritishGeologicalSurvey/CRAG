@@ -1,10 +1,12 @@
-from typing import Any
-
 import pytest
 
 from plugin.field_data_capture import FieldDataCapture
 from plugin.line_layer_selector import LineLayerSelector
-from plugin.utils import ipdb_breakpoint  # noqa
+from plugin.utils import (  # noqa
+    get_combobox_items_dict,
+    set_combobox_index_by_data,
+    ipdb_breakpoint,
+)
 
 
 @pytest.fixture()
@@ -24,29 +26,6 @@ def line_selector(fdc_project: FieldDataCapture) -> LineLayerSelector:
     return LineLayerSelector()
 
 
-@pytest.mark.parametrize(
-    ["line_attribute", "data", "data_set"],
-    (
-        ("layer", "artificial_line", True),
-        ("layer", "bedrock_line", True),
-        ("layer", "terrain_line", True),
-        ("layer", "not_a_layer", False),
-        ("layer", "dummy_layer", False),
-    ),
-)
-def test_set_combobox_index_by_data(
-    line_attribute: str,
-    data: Any,
-    data_set: bool,
-    line_selector: LineLayerSelector,
-):
-    # Act
-    LineLayerSelector.set_combobox_index_by_data(line_selector.comboboxes[line_attribute], data)
-
-    # Assert
-    assert (line_selector.comboboxes[line_attribute].currentData() == data) is data_set
-
-
 def test_default_state(line_selector: LineLayerSelector, default_data: dict[str, str]):
     # Arrange
     # Put default values into lists
@@ -60,7 +39,7 @@ def test_default_state(line_selector: LineLayerSelector, default_data: dict[str,
     for line_attribute, combobox in line_selector.comboboxes.items():
         # All comboboxes should start with no selection
         assert combobox.currentData() is None
-        assert LineLayerSelector.get_combobox_data_list(combobox) == default_data[line_attribute]
+        assert list(get_combobox_items_dict(combobox).keys()) == default_data[line_attribute]
 
 
 @pytest.mark.parametrize(
@@ -91,19 +70,19 @@ def test_selection_all_comboboxes(
     expected_category_line_types = set(layers_to_cats_to_types[layer][category])
 
     # Act 1 - Select a layer
-    line_selector.set_combobox_index_by_data(line_selector.comboboxes["layer"], layer)
+    set_combobox_index_by_data(line_selector.comboboxes["layer"], layer)
 
     # Assert 1 - Check that categories and line_types are from given layer
-    layer_categories_data_list = LineLayerSelector.get_combobox_data_list(line_selector.comboboxes["category"])
+    layer_categories_data_list = list(get_combobox_items_dict(line_selector.comboboxes["category"]).keys())
     assert set(layer_categories_data_list[1:]) == expected_layer_categories
-    layer_line_types_data_list = LineLayerSelector.get_combobox_data_list(line_selector.comboboxes["type"])
+    layer_line_types_data_list = list(get_combobox_items_dict(line_selector.comboboxes["type"]).keys())
     assert set(layer_line_types_data_list[1:]) == expected_layer_line_types
 
     # Act 2 - Select a category
-    line_selector.set_combobox_index_by_data(line_selector.comboboxes["category"], category)
+    set_combobox_index_by_data(line_selector.comboboxes["category"], category)
 
     # Assert 2 - Check that line_types are from given category
-    category_line_types_data_list = LineLayerSelector.get_combobox_data_list(line_selector.comboboxes["type"])
+    category_line_types_data_list = list(get_combobox_items_dict(line_selector.comboboxes["type"]).keys())
     assert set(category_line_types_data_list[1:]) == expected_category_line_types
 
 
@@ -163,7 +142,7 @@ def test_default_reset(
 
     # Act
     # Select a different value which should reset some comboboxes
-    line_selector.set_combobox_index_by_data(line_selector.comboboxes[line_attribute_modify], new_value)
+    set_combobox_index_by_data(line_selector.comboboxes[line_attribute_modify], new_value)
 
     # Assert
     for line_attribute in comboboxes_reset:

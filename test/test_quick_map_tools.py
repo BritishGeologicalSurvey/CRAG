@@ -13,7 +13,6 @@ from typing import (
 import pytest
 from qgis.core import (
     QgsFeature,
-    QgsGeometry,
     QgsProject,
     QgsVectorLayer,
 )
@@ -31,6 +30,7 @@ from plugin.quick_map_tools import (
     QuickDeleteTool,
 )
 from plugin.utils import ipdb_breakpoint  # noqa
+from conftest import create_empty_geometry_feature
 
 COMMON_TOOLS = (
     ["layer_names", "expected_tool", "expected_tool_name"],
@@ -54,21 +54,6 @@ LINE_TYPE_CODES = (
     # terrain_line
     "convex_break_of_slope",
 )
-
-
-def create_empty_geometry_feature(wkt_str: str) -> QgsFeature:
-    """
-    Create a new and empty QgsFeature, with just a geometry made from the given WKT string.
-    """
-    geometry = QgsGeometry.fromWkt(wkt_str)
-    geometry_feature = QgsFeature()
-    geometry_feature.setGeometry(geometry)
-    return geometry_feature
-
-
-@pytest.fixture()
-def empty_geometry_feature_polygon() -> QgsFeature:
-    return create_empty_geometry_feature("Polygon ((-3.06646639970546664 56.02224055154277949, -0.86620852862676745 52.89687413861690857, -1.3338961920444623 52.75580097369699217, -3.55541259327851167 55.88561238892003047, -3.06646639970546664 56.02224055154277949))")  # noqa
 
 
 @pytest.fixture()
