@@ -22,11 +22,11 @@ http://ogc.bgs.ac.uk/sld/CGI-inspire-lithologyTextURI.sld
 BEGIN TRANSACTION;
 
 CREATE TABLE IF NOT EXISTS "_simple_lithology" (
-	"simple_lithology_uri"	TEXT,
-	"name"	TEXT,
-	"parents"	TEXT,
-	"hex_colour"	TEXT,
-	PRIMARY KEY("simple_lithology_uri")
+    "simple_lithology_uri" TEXT,
+    "name" TEXT,
+    "parents" TEXT,
+    "hex_colour" TEXT,
+    PRIMARY KEY("simple_lithology_uri")
 );
 
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/acidic_igneous_material','acidic igneous material','["acidic igneous material", "compound material", "igneous material"]','#FFCCB3');
@@ -296,8 +296,8 @@ INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_co
 INSERT INTO "_simple_lithology" ("simple_lithology_uri","name","parents","hex_colour") VALUES ('http://resource.geosciml.org/classifier/cgi/lithology/wacke','wacke','["clastic sedimentary material", "clastic sedimentary rock", "compound material", "generic sandstone", "rock", "sandstone", "sedimentary material", "sedimentary rock", "wacke"]','#BDDBF1');
 
 CREATE TABLE IF NOT EXISTS "_simple_lithology_categories" (
-	"simple_lithology_category"	TEXT,
-	"simple_lithology"	TEXT
+    "simple_lithology_category" TEXT,
+    "simple_lithology" TEXT
 );
 
 INSERT INTO "_simple_lithology_categories" ("simple_lithology_category","simple_lithology") VALUES ('sedimentary rock','biogenic silica sedimentary rock');
