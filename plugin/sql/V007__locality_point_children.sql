@@ -35,7 +35,11 @@ CREATE TABLE IF NOT EXISTS "manmade_landform" (
   "length" INTEGER,
   "width" INTEGER,
   "notes" TEXT,
-  "user_entered" TEXT NOT NULL, "date_entered" DATETIME NOT NULL, "user_updated" TEXT, "date_updated" DATETIME, FOREIGN KEY("manmade_type_code") REFERENCES "dic_manmade_landform"("code"),
+  "user_entered" TEXT NOT NULL,
+  "date_entered" DATETIME NOT NULL,
+  "user_updated" TEXT,
+  "date_updated" DATETIME,
+  FOREIGN KEY("manmade_type_code") REFERENCES "dic_manmade_landform"("code"),
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),
   PRIMARY KEY("fid" AUTOINCREMENT)
 );
@@ -193,3 +197,4 @@ CREATE TRIGGER "superficial_landform_clear_updated"
       WHERE fid = NEW."fid"; END;
 
 COMMIT;
+
