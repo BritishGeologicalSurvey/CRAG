@@ -159,8 +159,29 @@ class FieldDataCaptureProject:
         }
 
 
-    @staticmethod
-    def project_is_active() -> bool:
+    def get_fdc_layer(self, layer_name: str, warn: bool = True) -> Optional[QgsVectorLayer]:
+        """
+        Get the Field Data Capture layer with the given name.
+        Checks will ensure the found layer comes from the main GeoPackage of the project.
+        By default will show a QMessageBox.warning if the layer is not found.
+        """
+        valid_layers = [
+            layer
+            for layer in QgsProject.instance().mapLayersByName(layer_name)
+            # Valid layers are determined by their data source path being equal to the main GeoPackage
+            # This filepath can include the layer name e.g. (field-data-capture.gpkg|locality_point)
+            if Path(layer.dataProvider().dataSourceUri().split("|")[0]) == self.db_file.absolute()
+        ]
+
+        if len(valid_layers) == 1:
+            return valid_layers[0]
+
+        if warn:
+            QMessageBox.warning(None, "Layer Not Found", f"Could not find the required layer: {layer_name}")
+        return None
+
+
+    def project_is_active(self) -> bool:
         """
         Check if a saved project is currently open.
         """
@@ -171,26 +192,24 @@ class FieldDataCaptureProject:
             return False
 
 
-    @staticmethod
-    def check_layer_exists(layer_name: str) -> bool:
+    def check_layer_exists(self, layer_name: str) -> bool:
         """
         Check if a given layer name exists in the list of current layers.
         """
-        if len(QgsProject.instance().mapLayersByName(layer_name)) > 0:
+        if self.get_fdc_layer(layer_name, warn=False) is not None:
             return True
         else:
             return False
 
 
-    @staticmethod
-    def check_fdc_layers_exist() -> bool:
+    def check_fdc_layers_exist(self) -> bool:
         """
         Check if the Field Data Capture layers exist in the current layers.
         """
         missing_layers = [
             table_name
             for table_name in TABLE_LIST
-            if not FieldDataCaptureProject.check_layer_exists(table_name)
+            if not self.check_layer_exists(table_name)
         ]
         if len(missing_layers) == 0:
             return True
@@ -198,17 +217,16 @@ class FieldDataCaptureProject:
             return False
 
 
-    @staticmethod
-    def check_field_project_exists() -> bool:
+    def check_field_project_exists(self) -> bool:
         """
         Check that the field_project layer has a saved feature.
         """
         layer_name = "field_project"
         # If the layer does not exist, it will have no features
-        if not FieldDataCaptureProject.check_layer_exists(layer_name):
+        if not self.check_layer_exists(layer_name):
             return False
 
-        field_project_layer = QgsProject.instance().mapLayersByName("field_project")[0]
+        field_project_layer = self.get_fdc_layer("field_project")
         fp_features = list(field_project_layer.getFeatures())
 
         # If the number of features is less than 1 or the first feature has an unsaved fid value

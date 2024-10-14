@@ -668,7 +668,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                 "view_superficial_landform": "superficial_landform",
             }
             if vector_layer.name() in layer_dependencies:
-                dependent_layer = QgsProject.instance().mapLayersByName(layer_dependencies[vector_layer.name()])[0]
+                dependent_layer = self.get_fdc_layer(layer_dependencies[vector_layer.name()])
                 dependency = QgsMapLayerDependency(layerId=dependent_layer.id())
                 vector_layer.setDependencies([dependency])
 
@@ -799,7 +799,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         See this stackexchange post for solution details:
         https://gis.stackexchange.com/questions/435463/rule-based-renderer-in-pyqgis?noredirect=1&lq=1
         """
-        view_lithology_layer = QgsProject.instance().mapLayersByName("view_lithology")[0]
+        view_lithology_layer = self.get_fdc_layer("view_lithology")
 
         symbol = QgsSymbol.defaultSymbol(view_lithology_layer.geometryType())
         renderer = QgsRuleBasedRenderer(symbol)
@@ -959,7 +959,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                 exported_styles += 1
 
                 # Save the style of the current layer
-                layer = QgsProject.instance().mapLayersByName(table_name)[0]
+                layer = self.get_fdc_layer(table_name)
                 layer.saveNamedStyle(
                     str(layer_style_path),
                     categories=QgsMapLayer.Symbology | QgsMapLayer.Labeling | QgsMapLayer.Fields | QgsMapLayer.Forms | QgsMapLayer.MapTips,  # noqa
@@ -1060,11 +1060,11 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         if isinstance(layer_name, str):
             toggled_quick_map_tool_name = f"fdc_{layer_name}_{mode}"
-            layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+            layer = self.get_fdc_layer(layer_name)
         else:
             toggled_quick_map_tool_name = f"fdc_{layers_ref}_{mode}"
             layer = [
-                QgsProject.instance().mapLayersByName(layer_name_)[0]
+                self.get_fdc_layer(layer_name_)
                 for layer_name_ in layer_name
             ]
 
@@ -1150,13 +1150,13 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         # Check the parent layer
         parent_layer_name = "locality_point"
-        parent_layer = QgsProject.instance().mapLayersByName(parent_layer_name)[0]
+        parent_layer = self.get_fdc_layer(parent_layer_name)
         if parent_layer.isModified():
             unsaved_layers.append(parent_layer_name)
 
         # Check the child layers
         for layer_name in LOCALITY_POINT_CHILDREN:
-            layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+            layer = self.get_fdc_layer(layer_name)
             if layer.isModified():
                 unsaved_layers.append(layer_name)
 

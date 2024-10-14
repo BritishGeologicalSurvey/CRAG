@@ -1,6 +1,5 @@
 from typing import Optional
 
-from qgis.core import QgsProject
 from qgis.PyQt.QtCore import (
     pyqtSignal,
     Qt,
@@ -18,12 +17,13 @@ from qgis.PyQt.QtWidgets import (
 
 from .config import FEATURE_TABLES_LINES
 from .utils import (  # noqa
+    FieldDataCaptureProject,
     set_combobox_index_by_data,
     ipdb_breakpoint,
 )
 
 
-class LineLayerSelector(QDialog):
+class LineLayerSelector(QDialog, FieldDataCaptureProject):
     """
     Simple PyQt dialog which allows the user to select a line layer,
     and then a line type within that layer.
@@ -50,8 +50,7 @@ class LineLayerSelector(QDialog):
             self.apply_preselect_line_type(preselect_line_type)
 
 
-    @staticmethod
-    def get_layers_to_categories_to_types() -> dict[str, dict[str, list[str]]]:
+    def get_layers_to_categories_to_types(self) -> dict[str, dict[str, list[str]]]:
         """
         Generate a dictionary where the keys are names of each line layer,
         and the values more dictionaries where the keys are line categories from the above layer
@@ -64,7 +63,7 @@ class LineLayerSelector(QDialog):
             line_name = line_table.replace("_line", "")
             dic_table = f"dic_line_type_{line_name}"
 
-            dic_layer = QgsProject.instance().mapLayersByName(dic_table)[0]
+            dic_layer = self.get_fdc_layer(dic_table)
             # Get line categories and types from dic layer
             cats_to_codes = {}
             for feature in dic_layer.getFeatures():
