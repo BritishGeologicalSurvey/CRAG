@@ -1,5 +1,6 @@
 import logging
 import sqlite3
+import sys
 from pathlib import Path
 from typing import (
     Any,
@@ -364,6 +365,9 @@ def ipdb_breakpoint():
             logging.getLogger(lib).setLevel(logging.WARNING)
 
         pyqtRemoveInputHook()
-        ipdb.set_trace()
+        # Manually get the frame, so that we can get set_trace at the point this function was called
+        # Rather than set_trace in this function itself
+        frame = sys._getframe().f_back
+        ipdb.set_trace(frame=frame)
     except ModuleNotFoundError:
         pass
