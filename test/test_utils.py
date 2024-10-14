@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Any
 
 import pytest
@@ -5,15 +6,18 @@ import pytest
 from qgis.core import (
     QgsGeometry,
     QgsProject,
+    QgsVectorLayer,
 )
 from qgis.PyQt.QtWidgets import QComboBox
 
+from plugin.config import TABLE_LIST
 from plugin.field_data_capture import FieldDataCapture
-from plugin.utils import (
+from plugin.utils import (  # noqa
     create_prepopulated_feature,
     get_table_rows,
     get_combobox_items_dict,
     set_combobox_index_by_data,
+    ipdb_breakpoint,
 )
 
 COMBOBOX_DATA = {
@@ -157,3 +161,28 @@ def test_create_prepopulated_feature(
     for attribute, value in prepopulate.items():
         assert feature.attribute(attribute) == value
     assert feature.geometry().asWkt() == wkt
+
+
+@pytest.mark.parametrize("layer_name", TABLE_LIST)
+def test_get_fdc_layer_good(layer_name: str, fdc_project: FieldDataCapture):
+    # Arrange
+    # Create a temporary layer with the same name as the target layer
+    # The test should still pass because the get_fdc_layer method checks the data source path
+    temp_layer = QgsVectorLayer("Point?crs=epsg:4326", layer_name, "memory")
+    QgsProject.instance().addMapLayer(temp_layer)
+
+    # Act
+    layer = fdc_project.get_fdc_layer(layer_name)
+
+    # Assert
+    assert isinstance(layer, QgsVectorLayer)
+    assert Path(layer.dataProvider().dataSourceUri().split("|")[0]) == fdc_project.db_file.absolute()
+
+
+@pytest.mark.parametrize("layer_name", TABLE_LIST)
+def test_get_fdc_layer_bad(layer_name: str, fdc: FieldDataCapture):
+    # Act
+    layer = fdc.get_fdc_layer(layer_name)
+
+    # Assert
+    assert layer is None
