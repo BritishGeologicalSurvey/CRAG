@@ -1,9 +1,6 @@
 import datetime as dt
 from pathlib import Path
-from typing import (
-    Any,
-    Callable,
-)
+from typing import Any
 
 import pytest
 from qgis.core import (
@@ -255,18 +252,20 @@ def assert_widgets_dict_types(widgets_dict: dict[str, Any]) -> None:
 
 
 @pytest.mark.parametrize(
-    ["create_combobox", "expected_items"],
+    ["create_combobox_method", "expected_items"],
     (
-        (FileLinker.create_combobox_locality, EXPECTED_COMBOBOX_ITEMS["QComboBox_locality"]),
-        (FileLinker.create_combobox_media_type, EXPECTED_COMBOBOX_ITEMS["QComboBox_media_type"]),
+        ("create_combobox_locality", EXPECTED_COMBOBOX_ITEMS["QComboBox_locality"]),
+        ("create_combobox_media_type", EXPECTED_COMBOBOX_ITEMS["QComboBox_media_type"]),
     ),
 )
 def test_create_comboboxes(
-    create_combobox: Callable[[], QComboBox],
+    create_combobox_method: str,
     expected_items: dict[str, Any],
     fdc_project: FieldDataCapture,
 ):
     # Act 1
+    file_linker = FileLinker()
+    create_combobox = getattr(file_linker, create_combobox_method)
     combobox = create_combobox()
 
     # Assert 1

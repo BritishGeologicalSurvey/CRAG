@@ -32,7 +32,7 @@ def test_default_state(line_selector: LineLayerSelector, default_data: dict[str,
     for key, value in default_data.items():
         default_data[key] = [value]
     # The layer combobox should always have values as well as it's default data
-    layers_to_cats_to_types = LineLayerSelector.get_layers_to_categories_to_types()
+    layers_to_cats_to_types = line_selector.get_layers_to_categories_to_types()
     default_data["layer"].extend(list(layers_to_cats_to_types.keys()))
 
     # Assert
@@ -58,7 +58,7 @@ def test_selection_all_comboboxes(
     line_selector: LineLayerSelector,
 ):
     # Arrange
-    layers_to_cats_to_types = LineLayerSelector.get_layers_to_categories_to_types()
+    layers_to_cats_to_types = line_selector.get_layers_to_categories_to_types()
     # The layer selection can update the category and type options
     expected_layer_categories = set(layers_to_cats_to_types[layer].keys())
     expected_layer_line_types = {
