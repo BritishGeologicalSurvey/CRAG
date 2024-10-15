@@ -5,6 +5,7 @@ BEGIN TRANSACTION;
 CREATE VIEW IF NOT EXISTS "view_structural_measurement" AS
   SELECT
     fp.short_name as field_project,
+    fp.uuid as field_project_fuid,
     lp.name as locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
@@ -40,6 +41,7 @@ VALUES('view_structural_measurement','geometry','POINT',4326,1,0);
 CREATE VIEW IF NOT EXISTS "view_lithology" AS
  SELECT
     fp.short_name AS field_project,
+    fp.uuid as field_project_fuid,
     lp.name AS locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
@@ -73,6 +75,7 @@ VALUES('view_lithology','geometry','POINT',4326,1,0);
 CREATE VIEW IF NOT EXISTS "view_superficial_landform" AS
   SELECT
     fp.short_name AS field_project,
+    fp.uuid as field_project_fuid,
     lp.name AS locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
@@ -109,6 +112,7 @@ VALUES('view_superficial_landform','geometry','POINT',4326,1,0);
 CREATE VIEW IF NOT EXISTS "view_manmade_landform" AS
   SELECT
     fp.short_name AS field_project,
+    fp.uuid as field_project_fuid,
     lp.name AS locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
@@ -144,6 +148,7 @@ VALUES('view_manmade_landform','geometry','POINT',4326,1,0);
 CREATE VIEW IF NOT EXISTS "view_photo" AS
  SELECT
     fp.short_name AS field_project,
+    fp.uuid as field_project_fuid,
     lp.name AS locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
@@ -173,6 +178,7 @@ VALUES('view_photo','geometry','POINT',4326,1,0);
 CREATE VIEW IF NOT EXISTS "view_media" AS
  SELECT
     fp.short_name AS field_project,
+    fp.uuid as field_project_fuid,
     lp.name AS locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
@@ -203,6 +209,7 @@ VALUES('view_media','geometry','POINT',4326,1,0);
 CREATE VIEW IF NOT EXISTS "view_sample" AS
  SELECT
     fp.short_name AS field_project,
+    fp.uuid as field_project_fuid,
     lp.name AS locality_point,
     ST_X(ST_Transform(lp.geometry, fp.local_epsg)) AS x,
     ST_Y(ST_Transform(lp.geometry, fp.local_epsg)) AS y,
