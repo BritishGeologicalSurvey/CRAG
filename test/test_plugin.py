@@ -144,6 +144,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         Path(qml_file.parent.name) / qml_file.name
         for qml_file in Path("plugin/styles").glob("*.qml")
     ]
+    expected_slyr_style = Path("sigmaQ_2024_v2.xml")
 
     # Act
     fdc.add_gpkg_layers_to_project()
@@ -184,6 +185,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         for qml_file in fdc.styles_dir.glob("*.qml")
     ]
     assert expected_qml_files == actual_qml_files
+    assert (fdc.styles_dir / expected_slyr_style).exists()
 
     # Check that the empty user directories have been created
     for directory in [fdc.photos_dir, fdc.media_dir]:
