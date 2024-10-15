@@ -770,6 +770,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             for vector_layer in vector_layers
         }
         self.copy_plugin_files_to_project(plugin_src="styles", project_dest="styles")
+        self.copy_plugin_files_to_project(plugin_src="slyr_styles/sigmaQ_2024_v2.xml", project_dest="styles")
 
         for qml_file in self.styles_dir.glob("*"):
             if qml_file.stem in vector_layer_names:
@@ -911,16 +912,29 @@ class FieldDataCapture(FieldDataCaptureProject):
         return True
 
 
-    def copy_plugin_files_to_project(self, plugin_src: Path, project_dest: Path) -> None:
+    def copy_plugin_files_to_project(self, plugin_src: Path | str, project_dest: Path | str) -> None:
         """
         Copy the files from the given plugin source directory into the given project destination directory.
-        """
-        plugin_src_dir = WORKDIR / plugin_src
-        project_dest_dir = self.project_dir / project_dest
-        project_dest_dir.mkdir(parents=True, exist_ok=True)
+        If the src filepath is a directory, all files within it will be copied to the dest filepath directory.
+        If the src filepath is a file, it will be copied to the dest filepath directory.
 
-        for src_file in plugin_src_dir.glob("*"):
-            dest_file = project_dest_dir / src_file.name
+        The project_dest filepath must always be a directory.
+
+        The plugin_src filepath must be relative to the plugin/ directory within the repository.
+        The project_dest filepath must be relative to the project directory.
+        """
+        # Use given relative paths to create full paths
+        plugin_src_path = WORKDIR / plugin_src
+        project_dest_path = self.project_dir / project_dest
+        project_dest_path.mkdir(parents=True, exist_ok=True)
+
+        if plugin_src_path.is_dir():
+            src_files = list(plugin_src_path.glob("*"))
+        else:
+            src_files = [plugin_src_path]
+
+        for src_file in src_files:
+            dest_file = project_dest_path / src_file.name
             dest_file.write_bytes(src_file.read_bytes())
 
 
