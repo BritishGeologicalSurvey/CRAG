@@ -140,10 +140,10 @@
     <alias field="uuid" index="1" name=""></alias>
     <alias field="locality_fuid" index="2" name=""></alias>
     <alias field="manmade_type_code" index="3" name=""></alias>
-    <alias field="dip" index="4" name=""></alias>
-    <alias field="azimuth" index="5" name=""></alias>
-    <alias field="length" index="6" name=""></alias>
-    <alias field="width" index="7" name=""></alias>
+    <alias field="dip" index="4" name="dip (°)"></alias>
+    <alias field="azimuth" index="5" name="azimuth (°)"></alias>
+    <alias field="length" index="6" name="length (m)"></alias>
+    <alias field="width" index="7" name="width (m)"></alias>
     <alias field="notes" index="8" name=""></alias>
     <alias field="user_entered" index="9" name=""></alias>
     <alias field="date_entered" index="10" name=""></alias>
