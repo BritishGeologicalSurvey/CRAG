@@ -35,12 +35,13 @@ from .config import (
     TABLE_LIST,
 )
 from .utils import (  # noqa
+    FieldDataCaptureProject,
     create_prepopulated_feature,
     ipdb_breakpoint,
 )
 
 
-class QuickMapToolBase:
+class QuickMapToolBase(FieldDataCaptureProject):
     """
     Base class for QuickMapTools used in FieldDataCapture.
     """
@@ -444,7 +445,7 @@ class QuickDeleteTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIden
             if feature_layer.name() == "locality_point":
                 # Save the child layers first
                 for child_layer_name in LOCALITY_POINT_CHILDREN:
-                    child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
+                    child_layer = self.get_fdc_layer(child_layer_name)
                     if child_layer.isModified():
                         child_layer.commitChanges()
 

@@ -9,7 +9,6 @@ from typing import (
 import exifread
 from qgis.core import (
     QgsFeature,
-    QgsProject,
     QgsVectorLayer,
 )
 from qgis.PyQt.QtCore import (
@@ -208,7 +207,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         if self.validate_selection():
             linked_files = 0
             for layer_name, files_to_widgets in self.layers_to_files_to_widgets.items():
-                layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+                layer = self.get_fdc_layer(layer_name)
                 layer.startEditing()
 
                 for filepath, widgets_dict in files_to_widgets.items():
@@ -261,7 +260,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         files_dir = self.layers_to_dirs[layer_name]
         file_attribute = self.layers_to_file_attributes[layer_name]
-        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        layer = self.get_fdc_layer(layer_name)
         linked_files = {
             Path(feature.attribute(file_attribute))
             for feature in layer.getFeatures()
@@ -280,16 +279,15 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         return unlinked_files
 
 
-    @staticmethod
-    def create_combobox_locality() -> QComboBox:
+    def create_combobox_locality(self) -> QComboBox:
         """
         Create a QComboBox which lists the existing locality_point features by name and date_entered.
         Returns the QComboBox object.
         """
-        locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+        locality_point_layer = self.get_fdc_layer("locality_point")
 
         combobox = QComboBox()
-        FileLinker.configure_combobox_style(combobox)
+        self.configure_combobox_style(combobox)
 
         # Add default value
         combobox.addItem("Select Locality Point", userData=None)
@@ -526,13 +524,12 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         return row_layout, widgets_dict
 
 
-    @staticmethod
-    def create_combobox_media_type() -> QComboBox:
+    def create_combobox_media_type(self) -> QComboBox:
         """
         Create a combobox which lists the media type codes.
         Returns the QComboBox object.
         """
-        dic_media_layer = QgsProject.instance().mapLayersByName("dic_media")[0]
+        dic_media_layer = self.get_fdc_layer("dic_media")
 
         combobox = QComboBox()
         FileLinker.configure_combobox_style(combobox)
