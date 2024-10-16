@@ -676,6 +676,10 @@ class FieldDataCapture(FieldDataCaptureProject):
             if vector_layer.name().startswith("dic"):
                 vector_layer.setReadOnly()
 
+            # Set default flags for field_project layer other than Identifiable
+            if vector_layer.name() == "field_project":
+                vector_layer.setFlags(QgsMapLayer.LayerFlag.Searchable | QgsMapLayer.LayerFlag.Removable)
+
             # Hide certain layers
             hide_layers = {
                 "view_media",
