@@ -4,6 +4,7 @@ which depend on a running QGIS version which is supplied by the 'fdc_project' fi
 """
 import os
 import pwd
+from copy import deepcopy
 from typing import (
     Any,
     Iterable,
@@ -18,6 +19,8 @@ from qgis.core import (
     QgsVectorLayer,
 )
 from qgis.gui import QgsMapTool
+from qgis.PyQt.QtCore import pyqtSignal
+from qgis.PyQt.QtWidgets import QDialog
 from plugin.config import (
     FEATURE_TABLES_LINES,
     LAYER_TREE_STRUCTURE_INDEXED,
@@ -73,41 +76,61 @@ def monkeypatch_feature_form(
     attributes: Optional[dict[str, Any]] = None,
 ) -> None:
     """
-    Apply a monkeypatch to the open_feature_form method of QuickMapToolsBase which
-    calls the callback method for the buttons manually.
+    Apply a monkeypatch to the open_custom_feature_form and open_feature_form methods of QuickMapToolsBase which
+    setup the real signals but trigger them manually.
     Arguments can be given to specify if the form should save and any attribute changes
     that should be applied to the forms feature.
     """
-    # Create mock function for opening feature form which calls the callback method manually
-    def mock_open_feature_form(
+    # Create real class with signals for dialog to ensure they trigger the correct methods later
+    class TempDialog(QDialog):
+        accepted = pyqtSignal()
+        rejected = pyqtSignal()
+
+    def mock_open_custom_feature_form(
+        self: QuickMapToolBase,
+        feature: QgsFeature,
+        feature_layer: QgsVectorLayer,
+    ) -> None:
+        """
+        We have to create a new instance of the TempDialog every time the method to get the dialog is called.
+        This ensures that when we create signal connections, the most recent set of arguments in the lambdas are used,
+        instead of the original lambda arguments.
+        For this same reason, we save the instance as a new QuickMapToolBase attribute just for the test,
+        so we can emit the correct signal later.
+        """
+        self.temp_dialog = TempDialog()
+        self.temp_dialog.feature = Mock(return_value=feature)
+        return self.temp_dialog
+
+    monkeypatch.setattr(QuickMapToolBase, "open_custom_feature_form", mock_open_custom_feature_form)
+
+    # Save the actual method before applying monkeypatch so we can still call it manually
+    actual_open_feature_form = deepcopy(QuickMapToolBase.open_feature_form)
+
+    def new_open_feature_form(
         self: QuickMapToolBase,
         feature: QgsFeature,
         feature_layer: QgsVectorLayer,
         reopen_form_on_add_locality: bool = True,
     ) -> None:
+        # Call the actual method first to ensure the signals are setup correctly
+        actual_open_feature_form(self, feature, feature_layer, reopen_form_on_add_locality)
 
-        # Apply attribute changes to the forms feature
+        # Apply attribute changes to the forms feature like a user would
         if attributes is not None:
             for field_name, field_value in attributes.items():
                 field_index = [field.name() for field in feature_layer.fields()].index(field_name)
                 # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
                 feature_layer.changeAttributeValue(fid=feature.id(), field=field_index, newValue=field_value)
 
-        # Create mock dialog object
-        dialog = Mock(
-            result=Mock(return_value=save),
-            feature=Mock(return_value=feature)
-        )
+        # Trigger the respective signal to save/rollback the dialog changes
+        signals = {
+            True: self.temp_dialog.accepted,
+            False: self.temp_dialog.rejected,
+        }
+        signals[save].emit()
 
-        # Call the callback method as if the user pressed a button
-        self.feature_form_callback(
-            dialog,
-            feature,
-            feature_layer,
-            reopen_form_on_add_locality,
-        )
-
-    monkeypatch.setattr(QuickMapToolBase, "open_feature_form", mock_open_feature_form)
+    monkeypatch.setattr(QuickMapToolBase, "open_feature_form", new_open_feature_form)
 
 
 def assert_tool_enabled(
