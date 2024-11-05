@@ -27,7 +27,6 @@ from qgis.PyQt.QtWidgets import (
     QAction,
     QDesktopWidget,
     QMessageBox,
-    QPushButton,
 )
 
 from .config import (
@@ -174,63 +173,17 @@ class QuickMapToolBase(FieldDataCaptureProject):
         """
         dialog = self.open_custom_feature_form(feature, feature_layer)
 
-        # Connect appropriate buttons to callback function
-        # Buttons are children of the dialog's attribute form
-        # So we can find them using dialog.attributeForm().findChildren(QPushButton)
-        # And then checking that the text on the button is what we want
-        buttons_text = {"Close", "Cancel", "OK"}
-        for button in dialog.attributeForm().findChildren(QPushButton):
-            if button.text() in buttons_text:
-                button.clicked.connect(lambda: self.feature_form_callback(
-                    dialog,
-                    feature,
-                    feature_layer,
-                    reopen_form_on_add_locality,
-                ))
-
-
-    def feature_form_callback(
-        self,
-        dialog: QgsAttributeDialog,
-        feature: QgsFeature,
-        feature_layer: QgsVectorLayer,
-        reopen_form_on_add_locality: bool = True,
-    ) -> None:
-        # Handle saving or rollback
-        save = dialog.result()
-        if save:
-            # Update the feature with the attributes from the dialog's feature
-            feature.setAttributes(dialog.feature().attributes())
-            # Get the uuid of the new feature so we can find the new feature again after saving
-            # We can't use the fid as this will be set once it is saved
-            new_feature_uuid = feature.attribute("uuid")
-            feature_layer.commitChanges(stopEditing=False)
-            # Get the saved new feature
-            new_feature = list(feature_layer.getFeatures(expression=f""""uuid" = '{new_feature_uuid}'"""))[0]
-
-        else:
-            feature_layer.rollBack()
-            # Re-enable editing and the current tool
-            # rollBack disables editing which then triggers the tool to deactivate too
-            feature_layer.startEditing()
-            self.iface.mapCanvas().setMapTool(self)
-
-        # Post digitization operations
-        self.canvas().refresh()
-
-        # Special handling for locality_point
-        if feature_layer.name() == "locality_point":
-            # Reopen the form for a new point to show all tabs
-            if save and self.quick_mode == "add" and reopen_form_on_add_locality:
-                # Set reopen_form to False to prevent an infinite loop
-                self.open_feature_form(new_feature, feature_layer, reopen_form_on_add_locality=False)
-            else:
-                self.warn_unsaved_locality_data.emit()
-
-        # Special handling for field_project
-        # Deactivate the tool after adding a new feature
-        if feature_layer.name() == "field_project" and save and self.quick_mode == "add":
-            self.to_deactivate.emit()
+        # Connect accpeted/rejected signals to their callback functions
+        # One of these signals is always sent when the dialog is closed, regardless of how it is closed
+        # Which means they are more reliable than the form button signals
+        # Because the user can press their 'Esc' key to not press any form buttons
+        dialog.accepted.connect(lambda: self.save_feature_form(
+            dialog,
+            feature,
+            feature_layer,
+            reopen_form_on_add_locality,
+        ))
+        dialog.rejected.connect(lambda: self.rollback_feature_form(feature_layer))
 
 
     def open_custom_feature_form(self, feature: QgsFeature, feature_layer: QgsFeature) -> QgsAttributeDialog:
@@ -264,6 +217,59 @@ class QuickMapToolBase(FieldDataCaptureProject):
         dialog.show()
 
         return dialog
+
+
+    def save_feature_form(
+        self,
+        dialog: QgsAttributeDialog,
+        feature: QgsFeature,
+        feature_layer: QgsVectorLayer,
+        reopen_form_on_add_locality: bool = True,
+    ) -> None:
+        """
+        Save the changes from the given dialog for the given feature.
+        This also runs any special handling for specific layers after saving.
+        """
+        # Update the feature with the attributes from the dialog's feature
+        feature.setAttributes(dialog.feature().attributes())
+        # Get the uuid of the new feature so we can find the new feature again after saving
+        # We can't use the fid as this will be set once it is saved
+        new_feature_uuid = feature.attribute("uuid")
+        feature_layer.commitChanges(stopEditing=False)
+        # Get the saved new feature
+        new_feature = list(feature_layer.getFeatures(expression=f""""uuid" = '{new_feature_uuid}'"""))[0]
+
+        # Post digitization operations
+        self.canvas().refresh()
+
+        # Special handling for locality_point
+        if feature_layer.name() == "locality_point":
+            # Reopen the form for a new point to show all tabs
+            if self.quick_mode == "add" and reopen_form_on_add_locality:
+                # Set reopen_form to False to prevent an infinite loop
+                self.open_feature_form(new_feature, feature_layer, reopen_form_on_add_locality=False)
+            else:
+                self.warn_unsaved_locality_data.emit()
+
+        # Special handling for field_project
+        # Deactivate the tool after adding a new feature
+        if feature_layer.name() == "field_project" and self.quick_mode == "add":
+            self.to_deactivate.emit()
+
+
+    def rollback_feature_form(self, feature_layer: QgsVectorLayer) -> None:
+        """
+        Rollback the changes after a feature dialog has been rejected for the given layer.
+        This also reactivates the current map tool.
+        """
+        feature_layer.rollBack()
+        # Re-enable editing and the current tool
+        # rollBack disables editing which then triggers the tool to deactivate too
+        feature_layer.startEditing()
+        self.iface.mapCanvas().setMapTool(self)
+
+        # Post digitization operations
+        self.canvas().refresh()
 
 
     def get_layer_from_feature(self, feature: QgsFeature) -> QgsVectorLayer:
