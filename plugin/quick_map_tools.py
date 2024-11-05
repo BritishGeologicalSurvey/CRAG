@@ -13,6 +13,7 @@ from qgis.core import (
 )
 from qgis.gui import (
     QgisInterface,
+    QgsAttributeDialog,
     QgsMapToolDigitizeFeature,
     QgsMapToolIdentify,
 )
@@ -26,6 +27,7 @@ from qgis.PyQt.QtWidgets import (
     QAction,
     QDesktopWidget,
     QMessageBox,
+    QPushButton,
 )
 
 from .config import (
@@ -164,16 +166,41 @@ class QuickMapToolBase(FieldDataCaptureProject):
         feature: QgsFeature,
         feature_layer: QgsVectorLayer,
         reopen_form_on_add_locality: bool = True,
-    ):
+    ) -> None:
         """
         Open the feature form for the given feature in a modal state.
         Also handles the auto saving of the layer if the user confirms the form.
         If the tool is locality_point_add, then the option to reopen the form can be used too.
         """
-        save = self.open_custom_feature_form(feature, feature_layer)
+        dialog = self.open_custom_feature_form(feature, feature_layer)
 
+        # Connect appropriate buttons to callback function
+        # Buttons are children of the dialog's attribute form
+        # So we can find them using dialog.attributeForm().findChildren(QPushButton)
+        # And then checking that the text on the button is what we want
+        buttons_text = {"Close", "Cancel", "OK"}
+        for button in dialog.attributeForm().findChildren(QPushButton):
+            if button.text() in buttons_text:
+                button.clicked.connect(lambda: self.feature_form_callback(
+                    dialog,
+                    feature,
+                    feature_layer,
+                    reopen_form_on_add_locality,
+                ))
+
+
+    def feature_form_callback(
+        self,
+        dialog: QgsAttributeDialog,
+        feature: QgsFeature,
+        feature_layer: QgsVectorLayer,
+        reopen_form_on_add_locality: bool = True,
+    ) -> None:
         # Handle saving or rollback
+        save = dialog.result()
         if save:
+            # Update the feature with the attributes from the dialog's feature
+            feature.setAttributes(dialog.feature().attributes())
             # Get the uuid of the new feature so we can find the new feature again after saving
             # We can't use the fid as this will be set once it is saved
             new_feature_uuid = feature.attribute("uuid")
@@ -206,12 +233,12 @@ class QuickMapToolBase(FieldDataCaptureProject):
             self.to_deactivate.emit()
 
 
-    def open_custom_feature_form(self, feature: QgsFeature, feature_layer: QgsFeature) -> bool:
+    def open_custom_feature_form(self, feature: QgsFeature, feature_layer: QgsFeature) -> QgsAttributeDialog:
         """
         Open the required feature form the the given feature.
         This will set the dialog to be modal and have a dynamic size according to the screen resolution.
         Any changes to the given feature are made by this form.
-        Returns a boolean indicating True if the user pressed Ok or False if the user pressed Cancel.
+        Returns the newly created dialog.
         """
         # Get the dialog from the iface
         # This ensures the dialog is setup properly for the given layer and feature
@@ -231,12 +258,12 @@ class QuickMapToolBase(FieldDataCaptureProject):
         # The simplest way to do this is to set the parent to None
         dialog.layout().menuBar().setParent(None)
 
-        # Use exec so it is modal
-        result = dialog.exec()
-        # Update the feature with the attributes from the dialog's feature
-        feature.setAttributes(dialog.feature().attributes())
+        # Don't use exec due to a QGIS bug/change with forms
+        # Opening a child feature form from the parent closes them both
+        dialog.setModal(True)
+        dialog.show()
 
-        return result
+        return dialog
 
 
     def get_layer_from_feature(self, feature: QgsFeature) -> QgsVectorLayer:
