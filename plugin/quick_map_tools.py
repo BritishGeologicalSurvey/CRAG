@@ -25,7 +25,6 @@ from qgis.PyQt.QtCore import (
 )
 from qgis.PyQt.QtWidgets import (
     QAction,
-    QDesktopWidget,
     QMessageBox,
 )
 
@@ -196,25 +195,39 @@ class QuickMapToolBase(FieldDataCaptureProject):
         # Get the dialog from the iface
         # This ensures the dialog is setup properly for the given layer and feature
         dialog = self.iface.getFeatureForm(feature_layer, feature)
-        # Get the screen size of the primary screen
-        screen_size = QDesktopWidget().screenGeometry(0).size()
-        # Set the dialog size based on the screen size
-        size_modifier = 0.75
-        # We either use a modified dimension size based on the screen size
-        # or a set maximum size for the dimension, whichever is smaller
-        width = int(min(screen_size.width() * size_modifier, 1000))
-        height = int(min(screen_size.height() * size_modifier, 800))
-        dialog.setMinimumSize(width, height)
 
         # Remove the menu bar from the dialog
         # Removing the widget from the layout does not actually remove it from display
         # The simplest way to do this is to set the parent to None
         dialog.layout().menuBar().setParent(None)
 
+        # Adjust the minimum size of the dialog
+        screen_geometry = self.iface.mainWindow().screen().availableGeometry()
+        # Set the dialog size based on the screen size
+        size_modifier = 0.75
+        # We either use a modified dimension size based on the screen size
+        # or a set maximum size for the dimension, whichever is smaller
+        dialog_width_min = int(min(screen_geometry.width() * size_modifier, 1000))
+        dialog_height_min = int(min(screen_geometry.height() * size_modifier, 800))
+        dialog.setMinimumSize(dialog_width_min, dialog_height_min)
+
         # Don't use exec due to a QGIS bug/change with forms
         # Opening a child feature form from the parent closes them both
         dialog.setModal(True)
         dialog.show()
+
+        # Adjust the position of the dialog to be in the centre of the current screen
+        # This means it will be at the centre of QGIS when full screen,
+        # and still in an optimial position for sizing when QGIS is shrunk to a smaller size
+        # Moving or resizing the dialog does not work unless the dialog is already being shown
+        # We add the screen left/top coordinates to the result to account for multiple screens
+        x_pos = int((screen_geometry.width() - dialog_width_min) / 2) + screen_geometry.left()
+        y_pos = int((screen_geometry.height() - dialog_height_min) / 2) + screen_geometry.top()
+        dialog.move(x_pos, y_pos)
+        # Resize the dialog to the minimum for the screen after moving it
+        # This ensures that Windows does not resize the dialog automatically if
+        # we have moved it across different screens with different resolutions
+        dialog.resize(dialog_width_min, dialog_height_min)
 
         return dialog
 
