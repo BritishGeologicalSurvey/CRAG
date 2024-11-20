@@ -13,6 +13,7 @@ from qgis.core import (
 )
 from qgis.gui import (
     QgisInterface,
+    QgsAttributeDialog,
     QgsMapToolDigitizeFeature,
     QgsMapToolIdentify,
 )
@@ -24,7 +25,6 @@ from qgis.PyQt.QtCore import (
 )
 from qgis.PyQt.QtWidgets import (
     QAction,
-    QDesktopWidget,
     QMessageBox,
 )
 
@@ -164,29 +164,93 @@ class QuickMapToolBase(FieldDataCaptureProject):
         feature: QgsFeature,
         feature_layer: QgsVectorLayer,
         reopen_form_on_add_locality: bool = True,
-    ):
+    ) -> None:
         """
         Open the feature form for the given feature in a modal state.
         Also handles the auto saving of the layer if the user confirms the form.
         If the tool is locality_point_add, then the option to reopen the form can be used too.
         """
-        save = self.open_custom_feature_form(feature, feature_layer)
+        dialog = self.open_custom_feature_form(feature, feature_layer)
 
-        # Handle saving or rollback
-        if save:
-            # Get the uuid of the new feature so we can find the new feature again after saving
-            # We can't use the fid as this will be set once it is saved
-            new_feature_uuid = feature.attribute("uuid")
-            feature_layer.commitChanges(stopEditing=False)
-            # Get the saved new feature
-            new_feature = list(feature_layer.getFeatures(expression=f""""uuid" = '{new_feature_uuid}'"""))[0]
+        # Connect accpeted/rejected signals to their callback functions
+        # One of these signals is always sent when the dialog is closed, regardless of how it is closed
+        # Which means they are more reliable than the form button signals
+        # Because the user can press their 'Esc' key to not press any form buttons
+        dialog.accepted.connect(lambda: self.save_feature_form(
+            dialog,
+            feature,
+            feature_layer,
+            reopen_form_on_add_locality,
+        ))
+        dialog.rejected.connect(lambda: self.rollback_feature_form(feature_layer))
 
-        else:
-            feature_layer.rollBack()
-            # Re-enable editing and the current tool
-            # rollBack disables editing which then triggers the tool to deactivate too
-            feature_layer.startEditing()
-            self.iface.mapCanvas().setMapTool(self)
+
+    def open_custom_feature_form(self, feature: QgsFeature, feature_layer: QgsFeature) -> QgsAttributeDialog:
+        """
+        Open the required feature form the the given feature.
+        This will set the dialog to be modal and have a dynamic size according to the screen resolution.
+        Any changes to the given feature are made by this form.
+        Returns the newly created dialog.
+        """
+        # Get the dialog from the iface
+        # This ensures the dialog is setup properly for the given layer and feature
+        dialog = self.iface.getFeatureForm(feature_layer, feature)
+
+        # Remove the menu bar from the dialog
+        # Removing the widget from the layout does not actually remove it from display
+        # The simplest way to do this is to set the parent to None
+        dialog.layout().menuBar().setParent(None)
+
+        # Adjust the minimum size of the dialog
+        screen_geometry = self.iface.mainWindow().screen().availableGeometry()
+        # Set the dialog size based on the screen size
+        size_modifier = 0.75
+        # We either use a modified dimension size based on the screen size
+        # or a set maximum size for the dimension, whichever is smaller
+        dialog_width_min = int(min(screen_geometry.width() * size_modifier, 1000))
+        dialog_height_min = int(min(screen_geometry.height() * size_modifier, 800))
+        dialog.setMinimumSize(dialog_width_min, dialog_height_min)
+
+        # Don't use exec due to a QGIS bug/change with forms
+        # Opening a child feature form from the parent closes them both
+        dialog.setModal(True)
+        dialog.show()
+
+        # Adjust the position of the dialog to be in the centre of the current screen
+        # This means it will be at the centre of QGIS when full screen,
+        # and still in an optimial position for sizing when QGIS is shrunk to a smaller size
+        # Moving or resizing the dialog does not work unless the dialog is already being shown
+        # We add the screen left/top coordinates to the result to account for multiple screens
+        x_pos = int((screen_geometry.width() - dialog_width_min) / 2) + screen_geometry.left()
+        y_pos = int((screen_geometry.height() - dialog_height_min) / 2) + screen_geometry.top()
+        dialog.move(x_pos, y_pos)
+        # Resize the dialog to the minimum for the screen after moving it
+        # This ensures that Windows does not resize the dialog automatically if
+        # we have moved it across different screens with different resolutions
+        dialog.resize(dialog_width_min, dialog_height_min)
+
+        return dialog
+
+
+    def save_feature_form(
+        self,
+        dialog: QgsAttributeDialog,
+        feature: QgsFeature,
+        feature_layer: QgsVectorLayer,
+        reopen_form_on_add_locality: bool = True,
+    ) -> None:
+        """
+        Save the changes from the given dialog for the given feature.
+        This also runs any special handling for specific layers after saving.
+        """
+        # Update the feature with the attributes from the dialog's feature
+        feature.setAttributes(dialog.feature().attributes())
+        # Get the uuid of the new feature so we can find the new feature again after saving
+        # We can't use the fid as this will be set once it is saved
+        new_feature_uuid = feature.attribute("uuid")
+        feature_layer.commitChanges(stopEditing=False)
+        # Get the saved new feature
+        new_feature = list(feature_layer.getFeatures(expression=f""""uuid" = '{new_feature_uuid}'"""))[0]
 
         # Post digitization operations
         self.canvas().refresh()
@@ -194,7 +258,7 @@ class QuickMapToolBase(FieldDataCaptureProject):
         # Special handling for locality_point
         if feature_layer.name() == "locality_point":
             # Reopen the form for a new point to show all tabs
-            if save and self.quick_mode == "add" and reopen_form_on_add_locality:
+            if self.quick_mode == "add" and reopen_form_on_add_locality:
                 # Set reopen_form to False to prevent an infinite loop
                 self.open_feature_form(new_feature, feature_layer, reopen_form_on_add_locality=False)
             else:
@@ -202,41 +266,23 @@ class QuickMapToolBase(FieldDataCaptureProject):
 
         # Special handling for field_project
         # Deactivate the tool after adding a new feature
-        if feature_layer.name() == "field_project" and save and self.quick_mode == "add":
+        if feature_layer.name() == "field_project" and self.quick_mode == "add":
             self.to_deactivate.emit()
 
 
-    def open_custom_feature_form(self, feature: QgsFeature, feature_layer: QgsFeature) -> bool:
+    def rollback_feature_form(self, feature_layer: QgsVectorLayer) -> None:
         """
-        Open the required feature form the the given feature.
-        This will set the dialog to be modal and have a dynamic size according to the screen resolution.
-        Any changes to the given feature are made by this form.
-        Returns a boolean indicating True if the user pressed Ok or False if the user pressed Cancel.
+        Rollback the changes after a feature dialog has been rejected for the given layer.
+        This also reactivates the current map tool.
         """
-        # Get the dialog from the iface
-        # This ensures the dialog is setup properly for the given layer and feature
-        dialog = self.iface.getFeatureForm(feature_layer, feature)
-        # Get the screen size of the primary screen
-        screen_size = QDesktopWidget().screenGeometry(0).size()
-        # Set the dialog size based on the screen size
-        size_modifier = 0.75
-        # We either use a modified dimension size based on the screen size
-        # or a set maximum size for the dimension, whichever is smaller
-        width = int(min(screen_size.width() * size_modifier, 1000))
-        height = int(min(screen_size.height() * size_modifier, 800))
-        dialog.setMinimumSize(width, height)
+        feature_layer.rollBack()
+        # Re-enable editing and the current tool
+        # rollBack disables editing which then triggers the tool to deactivate too
+        feature_layer.startEditing()
+        self.iface.mapCanvas().setMapTool(self)
 
-        # Remove the menu bar from the dialog
-        # Removing the widget from the layout does not actually remove it from display
-        # The simplest way to do this is to set the parent to None
-        dialog.layout().menuBar().setParent(None)
-
-        # Use exec so it is modal
-        result = dialog.exec()
-        # Update the feature with the attributes from the dialog's feature
-        feature.setAttributes(dialog.feature().attributes())
-
-        return result
+        # Post digitization operations
+        self.canvas().refresh()
 
 
     def get_layer_from_feature(self, feature: QgsFeature) -> QgsVectorLayer:

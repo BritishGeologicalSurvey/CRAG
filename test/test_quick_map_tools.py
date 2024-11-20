@@ -4,11 +4,13 @@ which depend on a running QGIS version which is supplied by the 'fdc_project' fi
 """
 import os
 import pwd
+from copy import deepcopy
 from typing import (
     Any,
     Iterable,
     Optional,
 )
+from unittest.mock import Mock
 
 import pytest
 from qgis.core import (
@@ -17,6 +19,8 @@ from qgis.core import (
     QgsVectorLayer,
 )
 from qgis.gui import QgsMapTool
+from qgis.PyQt.QtCore import pyqtSignal
+from qgis.PyQt.QtWidgets import QDialog
 from plugin.config import (
     FEATURE_TABLES_LINES,
     LAYER_TREE_STRUCTURE_INDEXED,
@@ -66,40 +70,67 @@ def empty_geometry_feature_line() -> QgsFeature:
     return create_empty_geometry_feature("LineString (-3 55, 55 -3)")
 
 
-@pytest.fixture()
-def monkeypatch_feature_form_true(monkeypatch: pytest.MonkeyPatch) -> None:
-    """
-    Apply monkeypatch for open feature form, which confirms the form like a user would.
-    """
-    monkeypatch.setattr(QuickMapToolBase, "open_custom_feature_form", lambda *args: True)
-
-
-@pytest.fixture()
-def monkeypatch_feature_form_false(monkeypatch: pytest.MonkeyPatch) -> None:
-    """
-    Apply monkeypatch for open feature form, which cancels the form like a user would.
-    """
-    monkeypatch.setattr(QuickMapToolBase, "open_custom_feature_form", lambda *args: False)
-
-
-def monkeypatch_feature_form_modify_attributes(
-    attributes: dict[str, Any],
-    fdc: FieldDataCapture,
+def monkeypatch_feature_form(
     monkeypatch: pytest.MonkeyPatch,
+    save: bool,
+    attributes: Optional[dict[str, Any]] = None,
 ) -> None:
     """
-    Apply a monkeypatch function to the open_custom_feature_form method of QuickMapTools.
-    The new function will modify a given feature from a given layer, and modify the attributes given
-    in the dictionary.
+    Apply a monkeypatch to the open_custom_feature_form and open_feature_form methods of QuickMapToolsBase which
+    setup the real signals but trigger them manually.
+    Arguments can be given to specify if the form should save and any attribute changes
+    that should be applied to the forms feature.
     """
-    def modify_attributes(feature: QgsFeature, layer: QgsVectorLayer) -> bool:
-        for field_name, field_value in attributes.items():
-            field_index = [field.name() for field in layer.fields()].index(field_name)
-            # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
-            layer.changeAttributeValue(fid=feature.id(), field=field_index, newValue=field_value)
-        # Return True to confirm the change
-        return True
-    monkeypatch.setattr(fdc.quick_map_tool, "open_custom_feature_form", modify_attributes)
+    # Create real class with signals for dialog to ensure they trigger the correct methods later
+    class TempDialog(QDialog):
+        accepted = pyqtSignal()
+        rejected = pyqtSignal()
+
+    def mock_open_custom_feature_form(
+        self: QuickMapToolBase,
+        feature: QgsFeature,
+        feature_layer: QgsVectorLayer,
+    ) -> None:
+        """
+        We have to create a new instance of the TempDialog every time the method to get the dialog is called.
+        This ensures that when we create signal connections, the most recent set of arguments in the lambdas are used,
+        instead of the original lambda arguments.
+        For this same reason, we save the instance as a new QuickMapToolBase attribute just for the test,
+        so we can emit the correct signal later.
+        """
+        self.temp_dialog = TempDialog()
+        self.temp_dialog.feature = Mock(return_value=feature)
+        return self.temp_dialog
+
+    monkeypatch.setattr(QuickMapToolBase, "open_custom_feature_form", mock_open_custom_feature_form)
+
+    # Save the actual method before applying monkeypatch so we can still call it manually
+    actual_open_feature_form = deepcopy(QuickMapToolBase.open_feature_form)
+
+    def new_open_feature_form(
+        self: QuickMapToolBase,
+        feature: QgsFeature,
+        feature_layer: QgsVectorLayer,
+        reopen_form_on_add_locality: bool = True,
+    ) -> None:
+        # Call the actual method first to ensure the signals are setup correctly
+        actual_open_feature_form(self, feature, feature_layer, reopen_form_on_add_locality)
+
+        # Apply attribute changes to the forms feature like a user would
+        if attributes is not None:
+            for field_name, field_value in attributes.items():
+                field_index = [field.name() for field in feature_layer.fields()].index(field_name)
+                # Even though it is a temporary feature, we can use it's negative fid value from .id() to identify it
+                feature_layer.changeAttributeValue(fid=feature.id(), field=field_index, newValue=field_value)
+
+        # Trigger the respective signal to save/rollback the dialog changes
+        signals = {
+            True: self.temp_dialog.accepted,
+            False: self.temp_dialog.rejected,
+        }
+        signals[save].emit()
+
+    monkeypatch.setattr(QuickMapToolBase, "open_feature_form", new_open_feature_form)
 
 
 def assert_tool_enabled(
@@ -362,12 +393,12 @@ def test_field_project_add_confirm(
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
     assert not layer.isModified()
 
-    # Arrange 2
+    # Arrange 2 - apply changes to feature
     attributes = {
         "short_name": "test_field_project",
         "local_epsg": 27700,
     }
-    monkeypatch_feature_form_modify_attributes(attributes, fdc, monkeypatch)
+    monkeypatch_feature_form(monkeypatch, save=True, attributes=attributes)
 
     # Act 2 - add a new project
     fdc.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_polygon)
@@ -386,13 +417,15 @@ def test_field_project_add_confirm(
 
 def test_field_project_add_cancel(
     fdc: FieldDataCapture,
+    monkeypatch: pytest.MonkeyPatch,
     qgs_project,
-    monkeypatch_feature_form_false,
     empty_geometry_feature_polygon: QgsFeature,
 ):
     # Arrange
     layer_name = "field_project"
     expected_tool_name = f"fdc_{layer_name}_add"
+
+    monkeypatch_feature_form(monkeypatch, save=False)
 
     # Act
     fdc.button_setup_project.trigger()
@@ -406,7 +439,6 @@ def test_locality_add_confirm(
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_point: QgsFeature,
-    monkeypatch_feature_form_true,
 ):
     # Arrange
     layer_name = "locality_point"
@@ -416,6 +448,8 @@ def test_locality_add_confirm(
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
+    monkeypatch_feature_form(monkeypatch, save=True)
 
     # Act
     fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_point)
@@ -433,7 +467,7 @@ def test_locality_add_confirm(
 
 def test_locality_add_cancel(
     fdc_project: FieldDataCapture,
-    monkeypatch_feature_form_false,
+    monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_point: QgsFeature,
 ):
     # Arrange
@@ -442,6 +476,8 @@ def test_locality_add_cancel(
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
+    monkeypatch_feature_form(monkeypatch, save=False)
 
     # Act
     fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_point)
@@ -467,7 +503,7 @@ def test_locality_edit_confirm(fdc_project: FieldDataCapture, monkeypatch: pytes
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
-    monkeypatch_feature_form_modify_attributes({edit_field: new_value}, fdc_project, monkeypatch)
+    monkeypatch_feature_form(monkeypatch, save=True, attributes={edit_field: new_value})
 
     # Act
     # Emit the signal which would open the form and auto save afterwards
@@ -483,7 +519,7 @@ def test_locality_edit_confirm(fdc_project: FieldDataCapture, monkeypatch: pytes
 
 def test_locality_edit_cancel(
     fdc_project: FieldDataCapture,
-    monkeypatch_feature_form_false,
+    monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
     layer_name = "locality_point"
@@ -493,6 +529,8 @@ def test_locality_edit_cancel(
     # Enable edit quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
+    monkeypatch_feature_form(monkeypatch, save=False)
 
     # Act
     # Emit the signal which would open the form and auto save afterwards
@@ -591,13 +629,14 @@ def test_lines_add_confirm(
     fdc_project: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_line: QgsFeature,
-    monkeypatch_feature_form_true,
 ):
     # Arrange
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick line mode for given layer
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
+    monkeypatch_feature_form(monkeypatch, save=True)
 
     # Emit signal as if user selected a line type
     fdc_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
@@ -626,7 +665,7 @@ def test_lines_add_cancel(
     layer_name: str,
     line_type_code: str,
     fdc_project: FieldDataCapture,
-    monkeypatch_feature_form_false,
+    monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_line: QgsFeature,
 ):
     # Arrange
@@ -634,6 +673,8 @@ def test_lines_add_cancel(
     # Enable add quick line mode for given layer
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
+    monkeypatch_feature_form(monkeypatch, save=False)
 
     # Emit signal as if user selected a line type
     fdc_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
@@ -666,7 +707,7 @@ def test_lines_edit_confirm(
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
 
-    monkeypatch_feature_form_modify_attributes({edit_field: new_value}, fdc_project, monkeypatch)
+    monkeypatch_feature_form(monkeypatch, save=True, attributes={edit_field: new_value})
 
     # Act
     # Emit the signal which would open the form and auto save afterwards
@@ -702,7 +743,7 @@ def test_lines_edit_cancel(
     layer_name: str,
     old_value: str,
     fdc_project: FieldDataCapture,
-    monkeypatch_feature_form_false,
+    monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
     edit_field = "line_label"
@@ -710,6 +751,8 @@ def test_lines_edit_cancel(
     # Enable edit quick line mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+
+    monkeypatch_feature_form(monkeypatch, save=False)
 
     # Act
     # Emit the signal which would open the form and auto save afterwards
