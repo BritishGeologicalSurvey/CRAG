@@ -79,6 +79,13 @@ def test_validate_project_bad(fdc_project_bad: Path):
             ],
         ),
         ValidationResult(
+            validation_function="check_attached_filepaths_not_null",
+            status=ValidationStatus.FAIL,
+            messages=[
+                "File referenced in 'photo' table is NULL, feature ID: 3",
+            ],
+        ),
+        ValidationResult(
             validation_function="check_attached_filepaths_exist",
             status=ValidationStatus.FAIL,
             messages=[

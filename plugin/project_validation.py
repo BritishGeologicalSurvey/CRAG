@@ -191,7 +191,7 @@ def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> Valid
             result.status = ValidationStatus.FAIL
             for fid in null_attachments:
                 result.messages.append(
-                    f"File referenced in '{table}' is null, feature ID: {fid}"
+                    f"File referenced in '{table}' table is NULL, feature ID: {fid}"
                 )
 
     return result
