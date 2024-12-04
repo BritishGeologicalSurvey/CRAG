@@ -146,7 +146,7 @@ class QuickMapToolBase(FieldDataCaptureProject):
 
     def get_local_version(self) -> str:
         """
-        Get the plugin version from the metadat.txt file written at deployment.
+        Get the plugin version from the metadata.txt file written at deployment.
         The metadata file is at the same level as this Python file.
         """
         local_metadata_file = Path(__file__).parent / 'metadata.txt'
