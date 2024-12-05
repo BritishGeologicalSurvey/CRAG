@@ -20,6 +20,50 @@ logging.basicConfig(
 logger = logging.getLogger("".join([word.capitalize() for word in Path(__file__).stem.split("_")]))
 logger.setLevel(logging.INFO)
 
+CODE_TRANSLATIONS: dict[str, str | dict[str, str]] = {
+    "manmade_landform": {
+        "code_column": "manmade_type_code",
+        "translations": {},
+    },
+    "sample": {
+        "code_column": "sample_type_code",
+        "translations": {
+            "bedrock_sample": "rock",
+        },
+    },
+    "structural_measurement": {
+        "code_column": "structure_type_code",
+        "translations": {
+            "fault_plane_dip": "fault_plane_inclined",
+        },
+    },
+    "superficial_landform": {
+        "code_column": "superficial_type_code",
+        "translations": {},
+    },
+}
+COLUMN_NAME_CHANGES: dict[str, dict[str, str | None]] = {
+    # If the value is None, it means it is removed
+    "field_project": {
+        "field_project_type": None,
+        "status_code": None,
+    },
+    "locality_point": {
+        "exposure_type_code": "locality_type_code",
+        "notes": "geology_description",
+    },
+    "media": {
+        "notes": "media_description",
+    },
+    "photo": {
+        "notes": "caption",
+    },
+    "sample": {
+        "notes": "sample_description",
+    },
+}
+
+
 
 class ProjectDataUpdater:
     def __init__(self, src_gpkg: Path, dest_gpkg: Path):
@@ -84,36 +128,9 @@ class ProjectDataUpdater:
         Create the required transform function for the given table.
         The resulting transform function will:
         - Remove the 'objectid' column
-        - Rename/drop columns as specified in the 'alter_columns' dictionary
-        - Use a translation function to translate old '..._type_code' values
+        - Rename/drop columns as specified in the 'COLUMN_NAME_CHANGES' dictionary
+        - Translate old '..._type_code' values as specified in the 'CODE_TRANSLATIONS' dictionary
         """
-        alter_columns: dict[str, dict] = {
-            # If the value is None, it means it is removed
-            "field_project": {
-                "field_project_type": None,
-                "status_code": None,
-            },
-            "locality_point": {
-                "exposure_type_code": "locality_type_code",
-                "notes": "geology_description",
-            },
-            "media": {
-                "notes": "media_description",
-            },
-            "photo": {
-                "notes": "caption",
-            },
-            "sample": {
-                "notes": "sample_description",
-            },
-        }
-        translate_code_functions = {
-            "manmade_landform": self.translate_manmade_landform_code,
-            "sample": self.translate_sample_code,
-            "structural_measurement": self.translate_structure_code,
-            "superficial_landform": self.translate_superficial_landform_code,
-        }
-
         def current_table_transform(rows: list[dict]) -> list[dict]:
             # etlhelper returns a generator, so convert it to a list first
             rows = list(rows)
@@ -122,8 +139,8 @@ class ProjectDataUpdater:
                 row.pop("objectid")
 
                 # Rename columns
-                if table in alter_columns:
-                    for old_col, new_col in alter_columns[table].items():
+                if table in COLUMN_NAME_CHANGES:
+                    for old_col, new_col in COLUMN_NAME_CHANGES[table].items():
                         # If no new name is given, then it should be removed
                         if new_col is None:
                             row.pop(old_col)
@@ -131,42 +148,14 @@ class ProjectDataUpdater:
                             row[new_col] = row.pop(old_col)
 
                 # Translate code column values
-                if table in translate_code_functions:
-                    translate_code_functions[table](row)
+                if table in CODE_TRANSLATIONS:
+                    code_column = CODE_TRANSLATIONS[table]["code_column"]
+                    translations = CODE_TRANSLATIONS[table]["translations"]
+                    if row[code_column] in translations:
+                        row[code_column] = translations[row[code_column]]
             return rows
 
         return current_table_transform
-
-
-    def translate_manmade_landform_code(self, row: dict) -> None:
-        old_to_new_codes = {}
-        self.translate_code(row, old_to_new_codes, code_column="manmade_type_code")
-
-    def translate_sample_code(self, row: dict) -> None:
-        old_to_new_codes = {
-            "bedrock_sample": "rock",
-        }
-        self.translate_code(row, old_to_new_codes, code_column="sample_type_code")
-
-    def translate_structure_code(self, row: dict) -> None:
-        old_to_new_codes = {
-            "fault_plane_dip": "fault_plane_inclined",
-        }
-        self.translate_code(row, old_to_new_codes, code_column="structure_type_code")
-
-    def translate_superficial_landform_code(self, row: dict) -> None:
-        old_to_new_codes = {}
-        self.translate_code(row, old_to_new_codes, code_column="superficial_type_code")
-
-
-    def translate_code(self, row: dict, old_to_new_codes: dict[str, str], code_column: str):
-        """
-        Translate the code_column value in the given row using the given old_to_new_codes dictionary
-        of translations.
-        Modifies the dictionary row in-place.
-        """
-        if row[code_column] in old_to_new_codes:
-            row[code_column] = old_to_new_codes[row[code_column]]
 
 
 if __name__ == "__main__":
