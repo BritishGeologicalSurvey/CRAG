@@ -3,7 +3,10 @@ import logging
 import sqlite3
 import datetime as dt
 from pathlib import Path
-from typing import Callable
+from typing import (
+    Any,
+    Callable,
+)
 
 import etlhelper as etl
 
@@ -123,7 +126,7 @@ class ProjectDataUpdater:
             )
 
 
-    def create_transform_function(self, table: str) -> Callable:
+    def create_transform_function(self, table: str) -> Callable[[list[dict[str, Any]]], list[dict[str, Any]]]:
         """
         Create the required transform function for the given table.
         The resulting transform function will:
@@ -131,7 +134,7 @@ class ProjectDataUpdater:
         - Rename/drop columns as specified in the 'COLUMN_NAME_CHANGES' dictionary
         - Translate old '..._type_code' values as specified in the 'CODE_TRANSLATIONS' dictionary
         """
-        def current_table_transform(rows: list[dict]) -> list[dict]:
+        def current_table_transform(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
             # etlhelper returns a generator, so convert it to a list first
             rows = list(rows)
             for row in rows:
