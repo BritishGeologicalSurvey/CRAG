@@ -137,7 +137,7 @@ class ReportBuilder(FieldDataCaptureProject):
         destCrs = QgsCoordinateReferenceSystem.fromEpsgId(local_epsg)
         tr = QgsCoordinateTransform(sourceCrs, destCrs, QgsProject.instance())
 
-        sql = "SELECT *, AsText(CastAutomagic(geometry)) as geom FROM locality_point"
+        sql = "SELECT *, AsText(CastAutomagic(geometry)) as geom FROM locality_point ORDER BY name"
         rows = get_table_rows(self.db_file, sql)
         rows = self.remove_microseconds_by_row(rows)
 
