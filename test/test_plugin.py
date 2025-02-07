@@ -188,7 +188,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     assert (fdc.styles_dir / expected_slyr_style).exists()
 
     # Check that the empty user directories have been created
-    for directory in [fdc.photos_dir, fdc.media_dir]:
+    for directory in [fdc.photos_dir, fdc.media_dir, fdc.baseline_data_dir]:
         assert directory.exists()
         assert list(directory.glob("*"))[0].name == fdc.placeholder_filename.name
 

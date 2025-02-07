@@ -99,6 +99,13 @@ class FieldDataCaptureProject:
         return self.project_dir / "media"
 
     @property
+    def baseline_data_dir(self) -> Path:
+        """
+        Get the baseline data directory path from the current project.
+        """
+        return self.project_dir / "baseline_data"
+
+    @property
     def icons_dir(self) -> Path:
         """
         Get the icons directory path from the plugin folder.
