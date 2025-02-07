@@ -8,10 +8,8 @@ from qgis.PyQt.QtWidgets import (
     QComboBox,
     QCompleter,
     QDialog,
-    QHBoxLayout,
     QLabel,
     QMessageBox,
-    QPushButton,
     QVBoxLayout,
 )
 
@@ -109,19 +107,9 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         line_attributes_layout.addWidget(line_type_label)
         line_attributes_layout.addWidget(self.comboboxes["type"])
 
-        # Create buttons
-        self.ok_button = QPushButton("OK")
-        self.cancel_button = QPushButton("Cancel")
-
-        # Create buttons layout
-        button_layout = QHBoxLayout()
-        button_layout.addWidget(self.ok_button)
-        button_layout.addWidget(self.cancel_button)
-
         # Create dialog layout
         dialog_layout = QVBoxLayout()
         dialog_layout.addLayout(line_attributes_layout)
-        dialog_layout.addLayout(button_layout)
         self.setLayout(dialog_layout)
 
 
@@ -216,13 +204,15 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         """
         Function for connecting signals and slots of buttons and input boxes.
         """
-        # The line_layer_combobox connects to both the line_cat_combobox and line_type_combobox
-        # because a user does not have to select a category, they can just select a layer and type
+        # The line_layer_combobox connects to only the line_cat_combobox and not the line_type_combobox
+        # This is because when the line_layer_combobox is updated,
+        # it has a cascading effect which triggers the line_cat_combobox to update,
+        # and then that update triggers the line_type_combobox to update,
+        # thus meaning they are all updated accordingly
         self.comboboxes["layer"].currentTextChanged.connect(self.update_line_cat_combobox)
-        self.comboboxes["layer"].currentTextChanged.connect(self.update_line_type_combobox)
         self.comboboxes["category"].currentTextChanged.connect(self.update_line_type_combobox)
-        self.ok_button.clicked.connect(self.confirm_selection)
-        self.cancel_button.clicked.connect(self.close)
+        # We use the activated signal here because it ignores programmatically changing the combobox
+        self.comboboxes["type"].activated.connect(self.confirm_selection)
 
 
     def confirm_selection(self) -> None:

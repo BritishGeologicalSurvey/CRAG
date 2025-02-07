@@ -1,3 +1,5 @@
+from unittest.mock import Mock
+
 import pytest
 
 from plugin.field_data_capture import FieldDataCapture
@@ -147,3 +149,38 @@ def test_default_reset(
     # Assert
     for line_attribute in comboboxes_reset:
         assert line_selector.comboboxes[line_attribute].currentData() is None
+
+
+@pytest.mark.parametrize(
+    ["layer", "line_type"],
+    (
+        ("artificial_line", "small_quarry_or_pit"),
+        ("artificial_line", "cliffline_quarry"),
+        ("bedrock_line", "base_of_lava_flow"),
+        ("terrain_line", "concave_break_of_slope"),
+    ),
+)
+def test_line_type_selected(
+    layer: str,
+    line_type: str,
+    fdc_project: FieldDataCapture,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    # Arrange
+    # Apply monkeypatch to LineLayerSelector.confirm_selection so we can check if it is called
+    confirm_mock = Mock()
+    monkeypatch.setattr(LineLayerSelector, "confirm_selection", confirm_mock)
+    # Get LineLayerSelector manually after applying monkeypatch
+    line_selector = LineLayerSelector()
+    # Select a line layer so line type options are available
+    set_combobox_index_by_data(line_selector.comboboxes["layer"], layer)
+
+    # Act
+    # Select a line type
+    set_combobox_index_by_data(line_selector.comboboxes["type"], line_type)
+    # Manually emit the activated signal because it ignores programmatic calls
+    # The signal requires an integer, which is meant to represent an index but we do not use it
+    line_selector.comboboxes["type"].activated.emit(0)
+
+    # Assert
+    confirm_mock.assert_called_once()
