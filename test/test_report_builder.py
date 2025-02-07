@@ -83,7 +83,7 @@ def test_get_locality_data(report_builder: ReportBuilder):
     localities = report_builder.get_locality_data(local_epsg)
 
     # Assert
-    assert set(localities.keys()) == {'test_point_001', 'test_point_002'}
+    assert list(localities.keys()) == ['test_point_001', 'test_point_002']
     for locality in localities.values():
         assert EXPECTED_COMMON_COLUMNS < set(locality.keys())
         assert EXPECTED_LOCALITY_COLUMNS < set(locality.keys())

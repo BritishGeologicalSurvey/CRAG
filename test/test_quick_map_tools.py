@@ -443,7 +443,8 @@ def test_locality_add_confirm(
     # Arrange
     layer_name = "locality_point"
     locality_type_field = "locality_type_code"
-    last_locality_type_value = "outcrop"
+    # test_point_002 is added to the DB before test_point_001, so the last point is now an auger_borehole
+    last_locality_type_value = "auger_borehole"
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
@@ -524,7 +525,8 @@ def test_locality_edit_cancel(
     # Arrange
     layer_name = "locality_point"
     edit_field = "map_face_note"
-    old_value = "test_point_001 note"
+    # test_point_002 is added to the DB before test_point_001
+    old_value = "test_point_002 note"
     expected_tool_name = f"fdc_{layer_name}_edit"
     # Enable edit quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
