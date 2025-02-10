@@ -1,5 +1,3 @@
-from typing import Optional
-
 from qgis.PyQt.QtCore import (
     pyqtSignal,
     Qt,
@@ -8,15 +6,14 @@ from qgis.PyQt.QtWidgets import (
     QComboBox,
     QCompleter,
     QDialog,
+    QFrame,
     QLabel,
-    QMessageBox,
     QVBoxLayout,
 )
 
 from .config import FEATURE_TABLES_LINES
 from .utils import (  # noqa
     FieldDataCaptureProject,
-    set_combobox_index_by_data,
     ipdb_breakpoint,
 )
 
@@ -29,7 +26,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
     line_layer_selector_confirm = pyqtSignal(str, str)
     line_layer_selector_closed = pyqtSignal()
 
-    def __init__(self, preselect_line_type: Optional[dict[str, str]] = None):
+    def __init__(self, recent_line_types: list[dict[str, str]] = []):
         super().__init__()
 
         self.setWindowTitle("Select Line Type")
@@ -44,8 +41,8 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.setup_ui_elements()
         self.connect_signals_and_slots()
 
-        if preselect_line_type is not None:
-            self.apply_preselect_line_type(preselect_line_type)
+        if len(recent_line_types) > 0:
+            self.apply_recent_line_types(recent_line_types)
 
 
     def get_layers_to_categories_to_types(self) -> dict[str, dict[str, list[str]]]:
@@ -85,7 +82,18 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         Create the elements of the line layer selector User Interface.
         Also sets the layout for the dialog box.
         """
-        # Create comboboxes
+        # Create recent line types combobox with default value and disabled
+        recent_label = QLabel("Recent Line Types")
+        self.comboboxes["recent"] = QComboBox()
+        self.comboboxes["recent"].addItem("Select Line Type", userData=None)
+        self.comboboxes["recent"].setDisabled(True)
+
+        # Create separator line
+        separator_line = QFrame()
+        separator_line.setFrameShape(QFrame.HLine | QFrame.Sunken)
+        separator_line.setStyleSheet("background-color: silver")
+
+        # Create main comboboxes
         line_layer_label = QLabel("Line Layer")
         self.comboboxes["layer"] = QComboBox()
         line_cat_label = QLabel("Line Category")
@@ -100,6 +108,9 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
 
         # Create layout for lines attributes input
         line_attributes_layout = QVBoxLayout()
+        line_attributes_layout.addWidget(recent_label)
+        line_attributes_layout.addWidget(self.comboboxes["recent"])
+        line_attributes_layout.addWidget(separator_line)
         line_attributes_layout.addWidget(line_layer_label)
         line_attributes_layout.addWidget(self.comboboxes["layer"])
         line_attributes_layout.addWidget(line_cat_label)
@@ -182,22 +193,14 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
                         self.comboboxes["type"].addItem(line_type, userData=line_type)
 
 
-    def apply_preselect_line_type(self, preselect_line_type: dict[str, str]) -> None:
+    def apply_recent_line_types(self, recent_line_types: list[dict[str, str]]) -> None:
         """
-        Update the combobox selection to match a given preselection.
+        Add the given recent line types to the recent lines combobox,
+        and enable the recent lines combobox.
         """
-        preselected = preselect_line_type.copy()
-
-        # Get category of line type and add it to dictionary
-        preselected["category"] = [
-            category
-            for category, types in self.layers_to_cats_to_types[preselected["layer"]].items()
-            if preselected["type"] in types
-        ][0]
-
-        # Set the current index of each combobox to be the given preselection
-        for line_attribute, combobox in self.comboboxes.items():
-            set_combobox_index_by_data(combobox, preselected[line_attribute])
+        self.comboboxes["recent"].setEnabled(True)
+        for recent_line in recent_line_types:
+            self.comboboxes["recent"].addItem(recent_line["type"], userData=recent_line)
 
 
     def connect_signals_and_slots(self) -> None:
@@ -213,18 +216,24 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.comboboxes["category"].currentTextChanged.connect(self.update_line_type_combobox)
         # We use the activated signal here because it ignores programmatically changing the combobox
         self.comboboxes["type"].activated.connect(self.confirm_selection)
+        self.comboboxes["recent"].activated.connect(self.confirm_selection)
 
 
     def confirm_selection(self) -> None:
         """
         Confirm the current line selection, emit a signal to plugin if it is valid.
         """
+        recent_line_dict = self.comboboxes["recent"].currentData()
         line_layer = self.comboboxes["layer"].currentData()
         line_type = self.comboboxes["type"].currentData()
-        if line_layer is not None and line_type is not None:
+
+        # If a recent line type is selected
+        if recent_line_dict is not None:
+            self.line_layer_selector_confirm.emit(recent_line_dict["layer"], recent_line_dict["type"])
+
+        # If a new line type is selected
+        elif line_layer is not None and line_type is not None:
             self.line_layer_selector_confirm.emit(line_layer, line_type)
-        else:
-            QMessageBox.warning(None, "Warning", "Please select a line layer and line type.")
 
 
     def closeEvent(self, event=None) -> None:
