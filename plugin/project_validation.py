@@ -69,6 +69,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
         check_features_valid_parents,
         check_locality_children_valid_parents,
         check_field_project_plugin_version,
+        check_attached_filepaths_not_null,
         check_attached_filepaths_exist,
         check_attachment_filepaths_recorded,
         check_no_conflict_gpkg_exists,
@@ -169,6 +170,33 @@ def check_field_project_plugin_version(project: FieldDataCaptureProject) -> Vali
     return result
 
 
+def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that all filepaths which are saved into the given project (e.g. photos/media)
+    are not null.
+    """
+    result = ValidationResult(validation_function=check_attached_filepaths_not_null.__name__)
+
+    for table, attachment_col in ATTACHMENT_TABLES.items():
+        # Perform check
+        null_attachments = [
+            row["fid"]
+            for row in get_table_rows(project.db_file, f"SELECT fid, {attachment_col} FROM {table}")
+            if row[attachment_col] is None
+        ]
+
+        # Prepare results
+        # If failed
+        if len(null_attachments) > 0:
+            result.status = ValidationStatus.FAIL
+            for fid in null_attachments:
+                result.messages.append(
+                    f"File referenced in '{table}' table is NULL, feature ID: {fid}"
+                )
+
+    return result
+
+
 def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> ValidationResult:
     """
     Check that all filepaths which are saved into the given project (e.g. photos/media)
@@ -183,7 +211,8 @@ def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> Validati
         non_existing_attachments = [
             row[attachment_col]
             for row in get_table_rows(project.db_file, f"SELECT {attachment_col} FROM {table}")
-            if not (attachment_dir / row[attachment_col]).exists()
+            # If the attachment_column has a valid value but the filepath does not exist
+            if row[attachment_col] is not None and not (attachment_dir / row[attachment_col]).exists()
         ]
 
         # Prepare results
@@ -212,6 +241,7 @@ def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> Val
         recorded_attachments = {
             Path(row[attachment_col])
             for row in get_table_rows(project.db_file, f"SELECT {attachment_col} FROM {table}")
+            if row[attachment_col] is not None
         }
 
         unrecorded_attachments = [
