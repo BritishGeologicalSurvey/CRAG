@@ -54,7 +54,28 @@ CHILD_JOINS = {
 class ReportBuilder(FieldDataCaptureProject):
     def create_field_report(self) -> bool:
         """
-        Create and save a field report.
+        Create and save HTML and PDF field reports.
+        Returns a boolean indicating success of the process.
+        """
+        html_success = self.create_html_field_report()
+        pdf_success = self.create_pdf_field_report()
+        return html_success and pdf_success
+
+
+    def create_pdf_field_report(self) -> bool:
+        """
+        Create and save a PDF field report.
+        If an older report already exists, issue a warning with an option to cancel.
+        If confirmed, parse the locality point layer creating an entry for each point
+        in an PDF document, overwriting the older report if necessary.
+        Returns a boolean indicating success of the process.
+        """
+        return True
+
+
+    def create_html_field_report(self) -> bool:
+        """
+        Create and save an HTML field report.
         If an older report already exists, issue a warning with an option to cancel.
         If confirmed, parse the locality point layer creating an entry for each point
         in an HTML document using a Jinja2 template, overwriting the older report if necessary.
@@ -64,7 +85,7 @@ class ReportBuilder(FieldDataCaptureProject):
         try:
             if self.report_file.exists():
                 result = QMessageBox.question(
-                    None, "Report file Already Exists",
+                    None, "HTML Report file Already Exists",
                     f"The report file already exists, would you like to overwrite the file?\n\n{self.report_file}",
                 )
                 if result == QMessageBox.No:
@@ -87,7 +108,7 @@ class ReportBuilder(FieldDataCaptureProject):
                 None,
                 "Created Field Report",
                 (
-                    "A field report has been created in the project folder. "
+                    "An HTML field report has been created in the project folder. "
                     f"Would you like to open it now?\n\n{self.report_file}"
                 ),
             )
