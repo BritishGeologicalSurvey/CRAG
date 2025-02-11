@@ -59,7 +59,7 @@ class ReportBuilder(FieldDataCaptureProject):
         """
         html_success = self.create_html_field_report()
         pdf_success = self.create_pdf_field_report()
-        return html_success and pdf_success
+        return html_success, pdf_success
 
 
     def create_pdf_field_report(self) -> bool:

@@ -27,6 +27,15 @@ EXPECTED_CHILD_COLUMNS = {
 }
 
 
+def test_create_field_report(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_yes):
+    # Act
+    html_success, pdf_success = fdc_project.create_field_report()
+
+    # Assert
+    assert html_success
+    assert pdf_success
+
+
 def test_create_html_field_report(fdc_project: FieldDataCapture, report_builder: ReportBuilder,
                                   monkeypatch_qmsgbox_question_yes):
     # Act
