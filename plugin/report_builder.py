@@ -7,6 +7,7 @@ from jinja2 import (
     Environment,
     FileSystemLoader,
 )
+from reportlab.pdfgen.canvas import Canvas
 from qgis.core import (
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
@@ -70,6 +71,40 @@ class ReportBuilder(FieldDataCaptureProject):
         in an PDF document, overwriting the older report if necessary.
         Returns a boolean indicating success of the process.
         """
+        try:
+            if self.html_report_file.exists():
+                result = QMessageBox.question(
+                    None, "HTML Report file Already Exists",
+                    f"The report file already exists, would you like to overwrite the file?\n\n{self.html_report_file}",
+                )
+                if result == QMessageBox.No:
+                    return False
+
+            canvas = Canvas(str(self.pdf_report_file))
+            canvas.drawString(72, 72, "Hello, World!")
+            canvas.save()
+
+            result = QMessageBox.question(
+                None,
+                "Created PDF Field Report",
+                (
+                    "A PDF field report has been created in the project folder. "
+                    f"Would you like to open it now?\n\n{self.pdf_report_file}"
+                ),
+            )
+            if result == QMessageBox.Yes:
+                self.open_local_filepath(self.pdf_report_file)
+
+        except Exception as exc:
+            msg = ""
+            if isinstance(exc, sqlite3.OperationalError):
+                msg = "Unable to access the geopackage\n"
+            elif isinstance(exc, OSError):
+                msg = "Unable to write report file\n"
+            logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
+            QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
+            return False
+
         return True
 
 
