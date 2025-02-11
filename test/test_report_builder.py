@@ -27,16 +27,18 @@ EXPECTED_CHILD_COLUMNS = {
 }
 
 
-def test_create_field_report(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_yes):
+def test_create_html_field_report(fdc_project: FieldDataCapture, report_builder: ReportBuilder,
+                                  monkeypatch_qmsgbox_question_yes):
     # Act
-    fdc_project.create_field_report()
+    success = report_builder.create_html_field_report()
 
     # Assert
+    assert success
     # Check file exists and is not empty
-    assert fdc_project.report_file.exists()
-    assert fdc_project.report_file.stat().st_size > 0
+    assert fdc_project.html_report_file.exists()
+    assert fdc_project.html_report_file.stat().st_size > 0
     # Confirm the correct number of sections has been created
-    soup = BeautifulSoup(fdc_project.report_file.read_text(encoding="utf-8"), 'lxml')
+    soup = BeautifulSoup(fdc_project.html_report_file.read_text(encoding="utf-8"), 'lxml')
     project_sections = soup.findAll('section', {'class': "project"})
     assert len(project_sections) == 1
     locality_sections = soup.findAll('section', {'class': "locality_point"})
@@ -47,7 +49,7 @@ def test_create_field_report(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_
         assert len(child_sections) > 0
 
     # Check that the method to open the file after creation was called
-    FieldDataCaptureProject.open_local_filepath.assert_called_once_with(fdc_project.report_file)
+    FieldDataCaptureProject.open_local_filepath.assert_called_once_with(fdc_project.html_report_file)
 
 
 def test_get_report_data(fdc_project: FieldDataCapture, report_builder: ReportBuilder):
@@ -124,13 +126,13 @@ def test_remove_microseconds_by_row(report_builder: ReportBuilder):
     assert expected == result
 
 
-def test_create_field_report_no_db(report_builder: ReportBuilder, caplog):
+def test_create_html_field_report_no_db(report_builder: ReportBuilder, caplog):
     # Arrange
     # Remove database to force error
     report_builder.db_file.unlink()
 
     # Act
-    result = report_builder.create_field_report()
+    result = report_builder.create_html_field_report()
 
     # Assert
     assert not result
@@ -138,7 +140,7 @@ def test_create_field_report_no_db(report_builder: ReportBuilder, caplog):
     assert 'Unable to access the geopackage' in caplog.text
 
 
-def test_create_field_report_file_not_writeable(report_builder: ReportBuilder, monkeypatch, caplog):
+def test_create_field_html_report_file_not_writeable(report_builder: ReportBuilder, monkeypatch, caplog):
     # Arrange
     # Force open to throw an OSError, covering several failure types
     def mock_open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None):
@@ -147,7 +149,7 @@ def test_create_field_report_file_not_writeable(report_builder: ReportBuilder, m
     monkeypatch.setattr(builtins, 'open', mock_open)
 
     # Act
-    result = report_builder.create_field_report()
+    result = report_builder.create_html_field_report()
 
     # Assert
     assert not result
