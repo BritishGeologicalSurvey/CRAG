@@ -545,7 +545,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         # self.set_view_lithology_rules()
 
         # Create empty user directories
-        for directory in [self.photos_dir, self.media_dir]:
+        for directory in [self.photos_dir, self.media_dir, self.baseline_data_dir]:
             directory.mkdir(parents=True, exist_ok=True)
             (directory / self.placeholder_filename).touch()
 
