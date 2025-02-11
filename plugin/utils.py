@@ -41,7 +41,8 @@ class FieldDataCaptureProject:
     _project_dir: Optional[Path] = None
     gpkg_filename = Path("field-data-capture.gpkg")
     placeholder_filename = Path(".placeholder")
-    report_filename = Path("field-report.html")
+    html_report_filename = Path("field-report.html")
+    pdf_report_filename = Path("field-report.pdf")
     css_filename = Path("style.css")
     # Using locally downloaded woff2 of Google's Material Symbols Outlined font
     # See: https://fonts.google.com/icons
@@ -119,11 +120,18 @@ class FieldDataCaptureProject:
         return WORKDIR / "icons"
 
     @property
-    def report_file(self) -> Path:
+    def html_report_file(self) -> Path:
         """
-        Get the field report file path from the current project.
+        Get the HTML field report file path from the current project.
         """
-        return self.project_dir / self.report_filename
+        return self.project_dir / self.html_report_filename
+
+    @property
+    def pdf_report_file(self) -> Path:
+        """
+        Get the PDF field report file path from the current project.
+        """
+        return self.project_dir / self.pdf_report_filename
 
     @property
     def css_src_file(self) -> Path:

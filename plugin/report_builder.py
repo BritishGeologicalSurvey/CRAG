@@ -83,10 +83,10 @@ class ReportBuilder(FieldDataCaptureProject):
         """
 
         try:
-            if self.report_file.exists():
+            if self.html_report_file.exists():
                 result = QMessageBox.question(
                     None, "HTML Report file Already Exists",
-                    f"The report file already exists, would you like to overwrite the file?\n\n{self.report_file}",
+                    f"The report file already exists, would you like to overwrite the file?\n\n{self.html_report_file}",
                 )
                 if result == QMessageBox.No:
                     return False
@@ -96,7 +96,7 @@ class ReportBuilder(FieldDataCaptureProject):
             context = self.get_report_data()
             content = template.render(context)
 
-            with open(self.report_file, mode="w", encoding="utf-8") as report:
+            with open(self.html_report_file, mode="w", encoding="utf-8") as report:
                 report.write(content)
             # Copy CSS and font files to project directory
             self.css_dest_dir.mkdir(parents=True, exist_ok=True)
@@ -109,11 +109,11 @@ class ReportBuilder(FieldDataCaptureProject):
                 "Created Field Report",
                 (
                     "An HTML field report has been created in the project folder. "
-                    f"Would you like to open it now?\n\n{self.report_file}"
+                    f"Would you like to open it now?\n\n{self.html_report_file}"
                 ),
             )
             if result == QMessageBox.Yes:
-                self.open_local_filepath(self.report_file)
+                self.open_local_filepath(self.html_report_file)
 
         except Exception as exc:
             msg = ""
@@ -121,7 +121,7 @@ class ReportBuilder(FieldDataCaptureProject):
                 msg = "Unable to access the geopackage\n"
             elif isinstance(exc, OSError):
                 msg = "Unable to write report file\n"
-            logger.exception(f"Failed to create field report: {self.report_file}\n{msg}")
+            logger.exception(f"Failed to create field report: {self.html_report_file}\n{msg}")
             QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
             return False
 
