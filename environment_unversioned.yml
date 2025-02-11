@@ -14,6 +14,7 @@ dependencies:
   - lxml
   - pandas
   - rdflib
+  - reportlab
   - pip:
       - eralchemy2
       - etlhelper
