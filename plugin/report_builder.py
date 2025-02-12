@@ -74,7 +74,7 @@ class ReportBuilder(FieldDataCaptureProject):
         try:
             if self.html_report_file.exists():
                 result = QMessageBox.question(
-                    None, "HTML Report file Already Exists",
+                    None, "PDF Report file Already Exists",
                     f"The report file already exists, would you like to overwrite the file?\n\n{self.html_report_file}",
                 )
                 if result == QMessageBox.No:
@@ -141,7 +141,7 @@ class ReportBuilder(FieldDataCaptureProject):
 
             result = QMessageBox.question(
                 None,
-                "Created Field Report",
+                "Created HTML Field Report",
                 (
                     "An HTML field report has been created in the project folder. "
                     f"Would you like to open it now?\n\n{self.html_report_file}"
