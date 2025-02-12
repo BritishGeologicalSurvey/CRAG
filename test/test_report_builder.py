@@ -29,15 +29,13 @@ EXPECTED_CHILD_COLUMNS = {
 
 def test_create_field_report(fdc_project: FieldDataCapture, monkeypatch_qmsgbox_question_yes):
     # Act
-    html_success, pdf_success = fdc_project.create_field_report()
+    success = fdc_project.create_field_report()
 
     # Assert
-    assert html_success
-    assert pdf_success
+    assert success
 
 
-def test_create_html_field_report(fdc_project: FieldDataCapture, report_builder: ReportBuilder,
-                                  monkeypatch_qmsgbox_question_yes):
+def test_create_html_field_report(fdc_project: FieldDataCapture, report_builder: ReportBuilder):
     # Act
     success = report_builder.create_html_field_report()
 
@@ -57,8 +55,16 @@ def test_create_html_field_report(fdc_project: FieldDataCapture, report_builder:
         child_sections = soup.findAll('section', {'class': child})
         assert len(child_sections) > 0
 
-    # Check that the method to open the file after creation was called
-    FieldDataCaptureProject.open_local_filepath.assert_called_once_with(fdc_project.html_report_file)
+
+def test_create_pdf_field_report(fdc_project: FieldDataCapture, report_builder: ReportBuilder):
+    # Act
+    success = report_builder.create_pdf_field_report()
+
+    # Assert
+    assert success
+    # Check file exists and is not empty
+    assert fdc_project.pdf_report_file.exists()
+    assert fdc_project.pdf_report_file.stat().st_size > 0
 
 
 def test_get_report_data(fdc_project: FieldDataCapture, report_builder: ReportBuilder):

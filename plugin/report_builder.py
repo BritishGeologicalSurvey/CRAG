@@ -60,7 +60,22 @@ class ReportBuilder(FieldDataCaptureProject):
         """
         html_success = self.create_html_field_report()
         pdf_success = self.create_pdf_field_report()
-        return html_success, pdf_success
+
+        if html_success or pdf_success:
+            msg = "Field reports have been created in the project folder:\n"
+            if html_success:
+                msg += f"\n{self.html_report_file}"
+            if pdf_success:
+                msg += f"\n{self.pdf_report_file}"
+            msg += "\n\nWould you like to open them now?"
+            result = QMessageBox.question(None, "Created Field Reports", msg)
+            if result == QMessageBox.Yes:
+                if html_success:
+                    self.open_local_filepath(self.html_report_file)
+                if pdf_success:
+                    self.open_local_filepath(self.pdf_report_file)
+
+        return True
 
 
     def create_pdf_field_report(self) -> bool:
@@ -83,17 +98,6 @@ class ReportBuilder(FieldDataCaptureProject):
             canvas = Canvas(str(self.pdf_report_file))
             canvas.drawString(72, 72, "Hello, World!")
             canvas.save()
-
-            result = QMessageBox.question(
-                None,
-                "Created PDF Field Report",
-                (
-                    "A PDF field report has been created in the project folder. "
-                    f"Would you like to open it now?\n\n{self.pdf_report_file}"
-                ),
-            )
-            if result == QMessageBox.Yes:
-                self.open_local_filepath(self.pdf_report_file)
 
         except Exception as exc:
             msg = ""
@@ -138,17 +142,6 @@ class ReportBuilder(FieldDataCaptureProject):
             self.font_dest_dir.mkdir(parents=True, exist_ok=True)
             shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
             shutil.copy(self.font_src_file, self.font_dest_dir / self.font_filename)
-
-            result = QMessageBox.question(
-                None,
-                "Created HTML Field Report",
-                (
-                    "An HTML field report has been created in the project folder. "
-                    f"Would you like to open it now?\n\n{self.html_report_file}"
-                ),
-            )
-            if result == QMessageBox.Yes:
-                self.open_local_filepath(self.html_report_file)
 
         except Exception as exc:
             msg = ""
