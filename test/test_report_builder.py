@@ -27,10 +27,19 @@ EXPECTED_CHILD_COLUMNS = {
 
 def test_create_field_report(report_builder: ReportBuilder, monkeypatch_qmsgbox_question_yes):
     # Act
-    success = report_builder.create_field_report()
+    html_success, pdf_success = report_builder.create_field_report()
 
     # Assert
-    assert success
+    if html_success:
+        assert report_builder.html_report_file.exists()
+        assert report_builder.html_report_file.stat().st_size > 0
+        # Check that the method to open the file after creation was called
+        report_builder.open_local_filepath.assert_called()
+    if pdf_success:
+        assert report_builder.pdf_report_file.exists()
+        assert report_builder.pdf_report_file.stat().st_size > 0
+        # Check that the method to open the file after creation was called
+        report_builder.open_local_filepath.assert_called()
 
 
 def test_create_html_field_report(report_builder: ReportBuilder):

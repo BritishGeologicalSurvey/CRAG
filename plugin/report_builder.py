@@ -53,7 +53,7 @@ CHILD_JOINS = {
 
 
 class ReportBuilder(FieldDataCaptureProject):
-    def create_field_report(self) -> bool:
+    def create_field_report(self) -> tuple[bool, bool]:
         """
         Create and save HTML and PDF field reports.
         Returns a boolean indicating success of the process.
@@ -75,7 +75,7 @@ class ReportBuilder(FieldDataCaptureProject):
                 if pdf_success:
                     self.open_local_filepath(self.pdf_report_file)
 
-        return True
+        return html_success, pdf_success
 
 
     def create_pdf_field_report(self) -> bool:
