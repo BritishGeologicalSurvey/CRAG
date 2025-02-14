@@ -238,7 +238,7 @@ def test_line_selector_add_recent(fdc_project: FieldDataCapture):
 
     # Assert 2
     # Both selected line types should be added to recents
-    assert fdc_project.recent_quick_line_types == [line_dict_1, line_dict_2]
+    assert fdc_project.recent_quick_line_types == [line_dict_2, line_dict_1]
 
 
 def test_line_selector_add_recent_duplicate(fdc_project: FieldDataCapture):
@@ -248,9 +248,12 @@ def test_line_selector_add_recent_duplicate(fdc_project: FieldDataCapture):
     line_dict_duplicate = first_line_dicts[0]
     # Define the expected line types in the recent lines
     # The selected line should be added to recents only once
-    # But the order will change so that the duplicate is at the end of the list
-    # Instead of the start
-    expected_line_dicts = first_line_dicts[1:] + [line_dict_duplicate]
+    # But the order will change so that the duplicate is at the start of the list
+    # Instead of the end
+    # The list of first_line_dicts is also reversed as the newest line type will be at the start, not the end
+    expected_end_line_dicts = first_line_dicts[1:]
+    expected_end_line_dicts.reverse()
+    expected_line_dicts = [line_dict_duplicate] + expected_end_line_dicts
 
     # Select 3 line types so that duplicate is moved
     for line_dict in first_line_dicts:
@@ -280,10 +283,12 @@ def test_line_selector_add_recent_multiple(fdc_project: FieldDataCapture):
     # Arrange
     # Selecting first 4 line types will reach the limit of recents
     first_line_dicts = LINE_LAYER_TYPE[:4]
-    # Selecting 5th line type will remove 1st from start and add 5th to the end
+    expected_first_line_dicts = first_line_dicts.copy()
+    expected_first_line_dicts.reverse()
+    # Selecting 5th line type will remove 1st from end and add 5th to the start
     # Making it still 4 line types in total
     final_line_type_dict = LINE_LAYER_TYPE[4]
-    second_line_dicts = first_line_dicts[1:] + [final_line_type_dict]
+    expected_second_line_dicts = [final_line_type_dict] + expected_first_line_dicts[:3]
 
     # Act 1
     # Select the first 4 line types to reach the limited number of recent saved line types
@@ -297,7 +302,7 @@ def test_line_selector_add_recent_multiple(fdc_project: FieldDataCapture):
         )
 
     # Assert 1
-    assert fdc_project.recent_quick_line_types == first_line_dicts
+    assert fdc_project.recent_quick_line_types == expected_first_line_dicts
 
     # Act 2
     # Select a 5th line type to go over the 4 recents limit
@@ -310,4 +315,4 @@ def test_line_selector_add_recent_multiple(fdc_project: FieldDataCapture):
     )
 
     # Assert
-    assert fdc_project.recent_quick_line_types == second_line_dicts
+    assert fdc_project.recent_quick_line_types == expected_second_line_dicts

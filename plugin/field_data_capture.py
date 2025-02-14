@@ -1030,16 +1030,16 @@ class FieldDataCapture(FieldDataCaptureProject):
             "type": line_type,
         }
         # If the new line is already in the list of recent lines,
-        # remove the existing one and re-add it to the end of the list
+        # remove the existing one and re-add it to the start of the list
         if new_recent_line_type in self.recent_quick_line_types:
             self.recent_quick_line_types.remove(new_recent_line_type)
 
-        # If 4 recents are already saved, remove the first (oldest) one
+        # If 4 recents are already saved, remove the 4th (oldest) one
         if len(self.recent_quick_line_types) == 4:
-            self.recent_quick_line_types.pop(0)
+            self.recent_quick_line_types.pop(3)
 
-        # Add selected line type to recent list
-        self.recent_quick_line_types.append(new_recent_line_type)
+        # Add selected line type to start of recent list
+        self.recent_quick_line_types.insert(0, new_recent_line_type)
 
         self.close_line_layer_selector(reset_buttons=False)
         self.toggle_quick_map_tool(
