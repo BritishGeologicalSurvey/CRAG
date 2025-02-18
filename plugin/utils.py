@@ -11,6 +11,7 @@ from qgis.core import (
     QgsGeometry,
     QgsFeature,
     QgsProject,
+    QgsRuleBasedLabeling,
     QgsVectorLayer,
     QgsVectorLayerUtils,
 )
@@ -303,6 +304,19 @@ class FieldDataCaptureProject:
         else:
             QMessageBox.warning(None, "File Not Found", f"Could not find file: {filepath}")
             return False
+
+
+    def get_layer_label_rule(self, layer: str, label_description: str) -> QgsRuleBasedLabeling.Rule:
+        """
+        Get the Rule that is applied to generate the map label for the given layer.
+        """
+        layer = self.get_fdc_layer(layer)
+        rule = [
+            rule
+            for rule in layer.labeling().rootRule().children()
+            if rule.description() == label_description
+        ][0]
+        return rule
 
 
 def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:
