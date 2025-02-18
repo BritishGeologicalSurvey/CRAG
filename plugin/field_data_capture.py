@@ -139,7 +139,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         self.quick_map_tool: Optional[QgsMapTool] = None
         self.file_linker: Optional[FileLinker] = None
         self.line_layer_selector: Optional[LineLayerSelector] = None
-        self.last_quick_add_line_type: Optional[dict[str, str]] = None
+        self.recent_quick_line_types: list[dict[str, str]] = []
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -1012,7 +1012,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         self.quick_map_tool_buttons["fdc_lines_add"].setChecked(True)
 
         # Open line layer selector tool
-        self.line_layer_selector = LineLayerSelector(self.last_quick_add_line_type)
+        self.line_layer_selector = LineLayerSelector(self.recent_quick_line_types)
         self.line_layer_selector.line_layer_selector_confirm.connect(self.confirm_line_layer_selector)
         self.line_layer_selector.line_layer_selector_closed.connect(self.close_line_layer_selector)
         # Show it in a modal state
@@ -1025,10 +1025,21 @@ class FieldDataCapture(FieldDataCaptureProject):
         Confirm the selection from the line layer selector and toggling the required tool.
         """
         # Save selection
-        self.last_quick_add_line_type = {
+        new_recent_line_type = {
             "layer": line_layer,
             "type": line_type,
         }
+        # If the new line is already in the list of recent lines,
+        # remove the existing one and re-add it to the start of the list
+        if new_recent_line_type in self.recent_quick_line_types:
+            self.recent_quick_line_types.remove(new_recent_line_type)
+
+        # If 4 recents are already saved, remove the 4th (oldest) one
+        if len(self.recent_quick_line_types) == 4:
+            self.recent_quick_line_types.pop(3)
+
+        # Add selected line type to start of recent list
+        self.recent_quick_line_types.insert(0, new_recent_line_type)
 
         self.close_line_layer_selector(reset_buttons=False)
         self.toggle_quick_map_tool(
