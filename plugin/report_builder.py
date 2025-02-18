@@ -196,12 +196,13 @@ class ReportBuilder(FieldDataCaptureProject):
             # Get point co-ordinates for Google link
             geom = QgsGeometry().fromWkt(row['geom'])
             point = geom.asPoint()
-            google_link = (f'<a href="https://www.google.co.uk/maps/place/{point.y()},{point.x()}'
-                           '" target="_blank">Open Google Map</a>')
+            google_ref = f'https://www.google.co.uk/maps/place/{point.y()},{point.x()}'
+            google_link = (f'<a href="{google_ref}" target="_blank">Open Google Map</a>')
             # Get point co-ordinates in local EPSG
             geom.transform(tr)
             point = geom.asPoint()
             row['geometry'] = f'{(int(point.x()), int(point.y()))} - {google_link}'
+            row['pdf_geometry'] = f'{(int(point.x()), int(point.y()))} - {google_ref}'
 
             locality_points[row['name']] = row
             locality_points[row['name']]['children'] = self.get_child_data(row['name'])
