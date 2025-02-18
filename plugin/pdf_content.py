@@ -1,5 +1,5 @@
-from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle as PS
+from reportlab.lib import colors
 from reportlab.platypus import PageBreak, Paragraph, Table
 from reportlab.platypus.doctemplate import PageTemplate, BaseDocTemplate
 from reportlab.platypus.tableofcontents import TableOfContents
