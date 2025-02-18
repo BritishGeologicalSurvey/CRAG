@@ -31,7 +31,9 @@ class ReportTemplate(BaseDocTemplate):
                 self.notify('TOCEntry', (1, text, self.page))
 
     def get_locality_point_table(self, locality_point):
-
+        """
+        Build and return table with locality point data
+        """
         table_data = [
             ['Locality type',
                 Paragraph(locality_point['locality_type_code'])],
@@ -48,7 +50,8 @@ class ReportTemplate(BaseDocTemplate):
         ]
         table_style = [('GRID', (0, 0), (2, 6), 1, colors.blue),
                        ('VALIGN', (0, 0), (2, 6), 'TOP')]
-        table = Table(table_data, colWidths=[5 * cm, 12 * cm],
+        table = Table(table_data,
+                      colWidths=[5 * cm, 12 * cm],
                       style=table_style,
                       hAlign='LEFT',
                       spaceBefore=6,
@@ -56,6 +59,9 @@ class ReportTemplate(BaseDocTemplate):
         return table
 
     def render(self, content):
+        """
+        Build the full report
+        """
         report = []
         toc = TableOfContents()
         toc.levelStyles = [self.h2, self.toc_entry]
@@ -64,6 +70,7 @@ class ReportTemplate(BaseDocTemplate):
         report.append(PageBreak())
         report.append(Paragraph('Field Report: ' + content['project']['title'], self.h1))
         report.append(Paragraph('Project information', self.h2))
+
         report.append(Paragraph('Locality Points', self.h2))
         for locality_point_key, locality_point in content['locality_points'].items():
             report.append(Paragraph('Locality point: ' + locality_point_key, self.h3))
