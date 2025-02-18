@@ -1,6 +1,7 @@
 from unittest.mock import Mock
 
 import pytest
+from qgis.PyQt.QtWidgets import QRadioButton
 
 from plugin.field_data_capture import FieldDataCapture
 from plugin.line_layer_selector import LineLayerSelector
@@ -37,7 +38,6 @@ LINE_LAYER_TYPE = [
 @pytest.fixture()
 def default_data() -> dict[str, str]:
     return {
-        "recent": "Select Line Type",
         "layer": "Select Line Layer",
         "category": "Select Line Category",
         "type": "Select Line Type",
@@ -67,8 +67,8 @@ def test_default_state(line_selector: LineLayerSelector, default_data: dict[str,
         assert combobox.currentData() is None
         assert list(get_combobox_items_dict(combobox).keys()) == default_data[line_attribute]
 
-    # Check that recent combobox starts disabled as no recent line selection is provided
-    assert not line_selector.comboboxes["recent"].isEnabled()
+    # Check that no recent line widgets are added by default
+    assert line_selector.recent_lines_layout.isEmpty()
 
 
 @pytest.mark.parametrize(
@@ -233,10 +233,18 @@ def test_line_selector_add_recent(fdc_project: FieldDataCapture):
     # Act 2
     # Open line selector
     fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
+
+    # Assert 2
+    # Ensure the recent line layout is not empty, it should have new widgets
+    assert not fdc_project.line_layer_selector.recent_lines_layout.isEmpty()
+    recent_line_button = fdc_project.line_layer_selector.recent_line_buttons[line_dict_1["type"]]
+    assert isinstance(recent_line_button, QRadioButton)
+
+    # Act 3
     # Emit signal as if user selected a line type
     fdc_project.line_layer_selector.line_layer_selector_confirm.emit(line_dict_2["layer"], line_dict_2["type"])
 
-    # Assert 2
+    # Assert 3
     # Both selected line types should be added to recents
     assert fdc_project.recent_quick_line_types == [line_dict_2, line_dict_1]
 

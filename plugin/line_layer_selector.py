@@ -8,6 +8,7 @@ from qgis.PyQt.QtWidgets import (
     QDialog,
     QFrame,
     QLabel,
+    QRadioButton,
     QVBoxLayout,
 )
 
@@ -38,11 +39,12 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.layers_to_cats_to_types = self.get_layers_to_categories_to_types()
 
         self.comboboxes: dict[str, QComboBox] = {}
+        self.recent_line_buttons: dict[str, QRadioButton] = {}
         self.setup_ui_elements()
         self.connect_signals_and_slots()
 
         if len(recent_line_types) > 0:
-            self.apply_recent_line_types(recent_line_types)
+            self.add_recent_line_types(recent_line_types)
 
 
     def get_layers_to_categories_to_types(self) -> dict[str, dict[str, list[str]]]:
@@ -82,17 +84,6 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         Create the elements of the line layer selector User Interface.
         Also sets the layout for the dialog box.
         """
-        # Create recent line types combobox with default value and disabled
-        recent_label = QLabel("Recent Line Types")
-        self.comboboxes["recent"] = QComboBox()
-        self.comboboxes["recent"].addItem("Select Line Type", userData=None)
-        self.comboboxes["recent"].setDisabled(True)
-
-        # Create separator line
-        separator_line = QFrame()
-        separator_line.setFrameShape(QFrame.HLine | QFrame.Sunken)
-        separator_line.setStyleSheet("background-color: silver")
-
         # Create main comboboxes
         line_layer_label = QLabel("Line Layer")
         self.comboboxes["layer"] = QComboBox()
@@ -106,11 +97,12 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.update_line_cat_combobox()
         self.update_line_type_combobox()
 
-        # Create layout for lines attributes input
+        # Create layout
+        # Add layout for recent lines widgets, so it can be added to later
+        self.recent_lines_layout = QVBoxLayout()
         line_attributes_layout = QVBoxLayout()
-        line_attributes_layout.addWidget(recent_label)
-        line_attributes_layout.addWidget(self.comboboxes["recent"])
-        line_attributes_layout.addWidget(separator_line)
+        line_attributes_layout.addLayout(self.recent_lines_layout)
+
         line_attributes_layout.addWidget(line_layer_label)
         line_attributes_layout.addWidget(self.comboboxes["layer"])
         line_attributes_layout.addWidget(line_cat_label)
@@ -193,14 +185,37 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
                         self.comboboxes["type"].addItem(line_type, userData=line_type)
 
 
-    def apply_recent_line_types(self, recent_line_types: list[dict[str, str]]) -> None:
+    def add_recent_line_types(self, recent_line_types: list[dict[str, str]]) -> None:
         """
-        Add the given recent line types to the recent lines combobox,
-        and enable the recent lines combobox.
+        Add the given recent line types to the selection options.
         """
-        self.comboboxes["recent"].setEnabled(True)
-        for recent_line in recent_line_types:
-            self.comboboxes["recent"].addItem(recent_line["type"], userData=recent_line)
+        recent_label = QLabel("Recent Line Types")
+        self.recent_lines_layout.addWidget(recent_label)
+
+        for recent_line_dict in recent_line_types:
+            recent_line_button = self.create_recent_line_button(recent_line_dict)
+            self.recent_lines_layout.addWidget(recent_line_button)
+            self.recent_line_buttons[recent_line_dict["type"]] = recent_line_button
+
+        # Create separator line
+        separator_line = QFrame()
+        separator_line.setFrameShape(QFrame.HLine | QFrame.Sunken)
+        separator_line.setStyleSheet("background-color: silver")
+        self.recent_lines_layout.addWidget(separator_line)
+
+
+    def create_recent_line_button(self, line_dict: dict[str, str]) -> QRadioButton:
+        """
+        Create a button to automatically select the given line type.
+        """
+        line_button = QRadioButton(line_dict["type"])
+
+        def button_callback():
+            if line_button.isChecked():
+                self.line_layer_selector_confirm.emit(line_dict["layer"], line_dict["type"])
+
+        line_button.toggled.connect(button_callback)
+        return line_button
 
 
     def connect_signals_and_slots(self) -> None:
@@ -216,23 +231,17 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.comboboxes["category"].currentTextChanged.connect(self.update_line_type_combobox)
         # We use the activated signal here because it ignores programmatically changing the combobox
         self.comboboxes["type"].activated.connect(self.confirm_selection)
-        self.comboboxes["recent"].activated.connect(self.confirm_selection)
 
 
     def confirm_selection(self) -> None:
         """
         Confirm the current line selection, emit a signal to plugin if it is valid.
         """
-        recent_line_dict = self.comboboxes["recent"].currentData()
         line_layer = self.comboboxes["layer"].currentData()
         line_type = self.comboboxes["type"].currentData()
 
-        # If a recent line type is selected
-        if recent_line_dict is not None:
-            self.line_layer_selector_confirm.emit(recent_line_dict["layer"], recent_line_dict["type"])
-
         # If a new line type is selected
-        elif line_layer is not None and line_type is not None:
+        if line_layer is not None and line_type is not None:
             self.line_layer_selector_confirm.emit(line_layer, line_type)
 
 
