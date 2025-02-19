@@ -129,8 +129,9 @@ class ReportTemplate(BaseDocTemplate):
             self.report.append(Paragraph('Locality point: ' + locality_point_key, self.h3))
             self.append_table(locality_point, LOCALITY_POINT_TABLE)
             for table_section in SIMPLE_TABLES.keys():
-                self.report.append(Paragraph(TABLE_SECTION_HEADINGS[table_section], self.h3))
-                for table in locality_point['children'][table_section]:
-                    self.append_table(table, SIMPLE_TABLES[table_section])
+                if locality_point['children'][table_section]:
+                    self.report.append(Paragraph(TABLE_SECTION_HEADINGS[table_section], self.h3))
+                    for table in locality_point['children'][table_section]:
+                        self.append_table(table, SIMPLE_TABLES[table_section])
 
         self.multiBuild(self.report)
