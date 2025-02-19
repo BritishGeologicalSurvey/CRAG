@@ -3,6 +3,7 @@ from reportlab.lib import colors
 from reportlab.platypus import Paragraph, Table
 from reportlab.platypus.doctemplate import PageTemplate, BaseDocTemplate
 from reportlab.platypus.frames import Frame
+from reportlab.platypus.flowables import KeepTogether
 from reportlab.lib.units import cm
 
 
@@ -62,8 +63,8 @@ class ReportTemplate(BaseDocTemplate):
                       hAlign='LEFT',
                       spaceBefore=6,
                       spaceAfter=12)
-
-        self.report.append(table)
+        # Use KeepTogether to prevent table splitting over pages
+        self.report.append(KeepTogether(table))
 
     def render(self, content):
         """
