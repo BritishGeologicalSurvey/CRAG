@@ -95,6 +95,12 @@ class ReportTemplate(BaseDocTemplate):
             Paragraph(data['user_entered'] + ' at ' + data['date_entered'])
         ]
         table_data.append(entered)
+        if data['user_updated'] is not None:
+            updated = [
+                'Updated',
+                Paragraph(data['user_updated'] + ' at ' + data['date_updated'])
+            ]
+            table_data.append(updated)
 
         # Define and style the table
         rows = len(table_data)
