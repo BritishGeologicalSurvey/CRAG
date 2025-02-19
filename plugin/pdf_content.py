@@ -42,8 +42,10 @@ class ReportTemplate(BaseDocTemplate):
         """
         table_data = []
         for field, title in fields.items():
-            row = [title, Paragraph(data[field])]
-            table_data.append(row)
+            field_text = ''
+            if data[field] is not None:
+                field_text = Paragraph(data[field])
+            table_data.append([title, field_text])
         entered = [
             'Entered',
             Paragraph(data['user_entered'] + ' at ' + data['date_entered'])
