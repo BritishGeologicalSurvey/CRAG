@@ -88,10 +88,10 @@ class ReportBuilder(FieldDataCaptureProject):
         Returns a boolean indicating success of the process.
         """
         try:
-            if self.html_report_file.exists():
+            if self.pdf_report_file.exists():
                 result = QMessageBox.question(
                     None, "PDF Report file Already Exists",
-                    f"The report file already exists, would you like to overwrite the file?\n\n{self.html_report_file}",
+                    f"The report file already exists, would you like to overwrite the file?\n\n{self.pdf_report_file}",
                 )
                 if result == QMessageBox.No:
                     return False
