@@ -308,7 +308,11 @@ class FieldDataCaptureProject:
 
     def get_layer_label_rule(self, layer: str, label_description: str) -> QgsRuleBasedLabeling.Rule:
         """
-        Get the Rule that is applied to generate the map label for the given layer.
+        Get the Rule that is applied to generate the map label for the given layer, where QgsRuleBasedLabeling is used.
+        NOTE: when modifying the expression of a label, the `rule.settings().fieldName` attribute should be used,
+        not the `rule.settings().getLabelExpression().expression()` methods.
+        If you try to change the expression with the latter, nothing happens,
+        but if you use the former and include `rule.settings().isExpression = True`, it works as expected.
         """
         layer = self.get_fdc_layer(layer)
         rule = [

@@ -22,7 +22,7 @@ from .utils import (  # noqa
 
 class RadioButtonGroup:
     """
-    Class for automatically creating a group of QRadioButton widgets.
+    Class for automatically creating a group of QRadioButton widgets in a QVBoxLayout.
     """
     def __init__(self, label: str, options: list[str], default: Optional[str] = None):
         # Create layout
