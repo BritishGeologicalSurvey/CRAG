@@ -1,8 +1,7 @@
 from reportlab.lib.styles import ParagraphStyle as PS
 from reportlab.lib import colors
-from reportlab.platypus import PageBreak, Paragraph, Table
+from reportlab.platypus import Paragraph, Table
 from reportlab.platypus.doctemplate import PageTemplate, BaseDocTemplate
-from reportlab.platypus.tableofcontents import TableOfContents
 from reportlab.platypus.frames import Frame
 from reportlab.lib.units import cm
 
@@ -28,7 +27,6 @@ class ReportTemplate(BaseDocTemplate):
     h1 = PS(name='Heading1', fontSize=18, spaceAfter=18)
     h2 = PS(name='Heading2', fontSize=16, spaceAfter=16)
     h3 = PS(name='Heading3', fontSize=14, spaceAfter=8)
-    toc_entry = PS(name='TOCLocalityPoint', fontSize=12, spaceAfter=6)
     table_text = PS(name='TableTText', fontSize=12, spaceAfter=6)
     report = []
 
@@ -37,16 +35,6 @@ class ReportTemplate(BaseDocTemplate):
         BaseDocTemplate.__init__(self, filename, **kw)
         template = PageTemplate('normal', [Frame(2 * cm, 2.5 * cm, 20 * cm, 25 * cm, id='F1')])
         self.addPageTemplates(template)
-
-    def afterFlowable(self, flowable):
-        "Registers TOC entries."
-        if flowable.__class__.__name__ == 'Paragraph':
-            text = flowable.getPlainText()
-            style = flowable.style.name
-            if style == 'Heading2':
-                self.notify('TOCEntry', (0, text, self.page))
-            if style == 'Heading3':
-                self.notify('TOCEntry', (1, text, self.page))
 
     def append_table(self, data, fields):
         """
@@ -79,11 +67,6 @@ class ReportTemplate(BaseDocTemplate):
         """
         Build the full report
         """
-        toc = TableOfContents()
-        toc.levelStyles = [self.h2, self.toc_entry]
-
-        self.report.append(toc)
-        self.report.append(PageBreak())
         self.report.append(Paragraph('Field Report: ' + content['project']['title'], self.h1))
 
         self.report.append(Paragraph('Project information', self.h2))
