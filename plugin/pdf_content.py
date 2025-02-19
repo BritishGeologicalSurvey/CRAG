@@ -23,6 +23,49 @@ LOCALITY_POINT_TABLE = {
     'geology_description': 'Geology description'
 }
 
+STRUCTURAL_MEASUREMENT_TABLE = {
+    'measurement_type': 'Structure type',
+    'dip_azimuth': 'Dip / Azimuth',
+    'notes': 'Notes'
+}
+
+LITHOLOGY_TABLE = {
+    'lithology': 'Lithology',
+    'notes': 'Notes'
+}
+
+SAMPLE_TABLE = {
+    'sample_id': 'Sample ID',
+    'description': 'Sample type',
+    'sample_description': 'Sample description'
+}
+
+SUPERFICIAL_TABLE = {
+    'description': 'Superficial landform type',
+    'notes': 'Notes'
+}
+
+MANMADE_TABLE = {
+    'description': 'Manmade landform type',
+    'notes': 'Notes'
+}
+
+SIMPLE_TABLES = {
+    'structural_measurement': STRUCTURAL_MEASUREMENT_TABLE,
+    'lithology': LITHOLOGY_TABLE,
+    'sample': SAMPLE_TABLE,
+    'superficial_landform': SUPERFICIAL_TABLE,
+    'manmade_landform': MANMADE_TABLE
+}
+
+TABLE_SECTION_HEADINGS = {
+    'structural_measurement': 'Structural measurements',
+    'lithology': 'Lithologies',
+    'sample': 'Samples',
+    'superficial_landform': 'Superficial landforms',
+    'manmade_landform': 'Manmade landforms'
+}
+
 
 class ReportTemplate(BaseDocTemplate):
     h1 = PS(name='Heading1', fontSize=18, spaceAfter=18)
@@ -79,5 +122,9 @@ class ReportTemplate(BaseDocTemplate):
         for locality_point_key, locality_point in content['locality_points'].items():
             self.report.append(Paragraph('Locality point: ' + locality_point_key, self.h3))
             self.append_table(locality_point, LOCALITY_POINT_TABLE)
+            for table_section in SIMPLE_TABLES.keys():
+                self.report.append(Paragraph(TABLE_SECTION_HEADINGS[table_section], self.h3))
+                for table in locality_point['children'][table_section]:
+                    self.append_table(table, SIMPLE_TABLES[table_section])
 
         self.multiBuild(self.report)

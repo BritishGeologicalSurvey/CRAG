@@ -219,9 +219,23 @@ class ReportBuilder(FieldDataCaptureProject):
             children[child_table_name] = []
             child_rows = self.get_child_rows_for_locality_from_table(child_table_name, locality_name)
             for child in child_rows:
+                child = self.modify_child(child, child_table_name)
                 children[child_table_name].append(child)
 
         return children
+
+
+    def modify_child(self, child: dict[str, Any], child_table_name: str) -> dict[str, Any]:
+        if child_table_name == 'lithology':
+            child['lithology'] = f"{child['label']} ({child['lithology_code']})"
+        if child_table_name == 'structural_measurement':
+            child['dip_azimuth'] = f"{child['dip']} / {child['azimuth']}"
+            child['measurement_type'] = child['description']
+            if child['secondary_description'] is not None:
+                child['measurement_type'] += f"; {child['secondary_description']}"
+            if child['third_description'] is not None:
+                child['measurement_type'] += f"; {child['thirdy_description']}"
+        return child
 
 
     def get_child_rows_for_locality_from_table(self, table: str, locality_name: str) -> dict[str, Any]:
