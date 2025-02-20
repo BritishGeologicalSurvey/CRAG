@@ -120,7 +120,7 @@ class ReportTemplate(BaseDocTemplate):
         rows = len(table_data)
         table_style = [('GRID', (0, 0), (2, rows), 0.5, colors.black),
                        ('VALIGN', (0, 0), (2, rows), 'TOP')]
-        column_widths = [5 * cm, 12 * cm]
+        column_widths = [3.5 * cm, 13 * cm]
 
         # These parts are conditional on whether it is the photo table
         # The additional first column must be spanned over all rows
@@ -128,7 +128,7 @@ class ReportTemplate(BaseDocTemplate):
         # of the remaining rows having an empty string value inserted.
         if photo:
             table_style.append(('SPAN', (0, 0), (0, rows - 1)))
-            column_widths = [7.5 * cm, 2.5 * cm, 7 * cm]
+            column_widths = [7.5 * cm, 2 * cm, 7 * cm]
             image_path = thumbnails_dir / data['photo_file']
             try:
                 table_data[0].insert(0, Image(str(image_path)))
