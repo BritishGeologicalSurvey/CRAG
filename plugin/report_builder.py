@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 import shutil
 import sqlite3
 from typing import Any
@@ -7,6 +8,8 @@ from jinja2 import (
     Environment,
     FileSystemLoader,
 )
+
+from PIL import Image, UnidentifiedImageError
 
 from qgis.core import (
     QgsCoordinateReferenceSystem,
@@ -59,6 +62,7 @@ class ReportBuilder(FieldDataCaptureProject):
         Create and save HTML and PDF field reports.
         Returns a boolean indicating success of the process.
         """
+        self.create_thumbnails()
         html_success = self.create_html_field_report()
         pdf_success = self.create_pdf_field_report()
 
@@ -266,3 +270,42 @@ class ReportBuilder(FieldDataCaptureProject):
                 row['date_updated'] = row['date_updated'].split('.')[0]
 
         return rows
+
+
+    def create_thumbnails(self):
+        """
+        Create a thumbnail for each photo if it does not exist.
+        Remove any stale paths and thumbnails.
+        """
+        if not self.thumbnails_dir.exists():
+            self.thumbnails_dir.mkdir()
+
+        # Create directories in thumbnails that are in photos
+        for path in list(self.photos_dir.rglob('*/')):
+            tn_path = Path(str(path).replace('photos', 'thumbnails'))
+            if path.is_dir() and not tn_path.exists():
+                tn_path.mkdir()
+
+        # Remove directories in thumbnails that are no longer in photos
+        for tn_path in list(self.thumbnails_dir.rglob('*/')):
+            path = Path(str(tn_path).replace('thumbnails', 'photos'))
+            if tn_path.is_dir() and not path.exists():
+                shutil.rmtree(tn_path)
+
+        # Create thumbnails if needed
+        for path in list(self.photos_dir.rglob('*.*')):
+            tn_path = Path(str(path).replace('photos', 'thumbnails'))
+            if path.is_file() and not tn_path.exists():
+                try:
+                    im = Image.open(path)
+                    im.thumbnail((200, 200))
+                    im.save(tn_path)
+                except UnidentifiedImageError:
+                    # not an image
+                    pass
+
+        # Remove redundant thumnails
+        for tn_path in list(self.thumbnails_dir.rglob('*.*')):
+            path = Path(str(tn_path).replace('thumbnails', 'photos'))
+            if tn_path.is_file() and not path.exists():
+                tn_path.unlink()
