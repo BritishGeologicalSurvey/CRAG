@@ -62,9 +62,30 @@ class ReportBuilder(FieldDataCaptureProject):
         Create and save HTML and PDF field reports.
         Returns a boolean indicating success of the process.
         """
-        self.create_thumbnails()
-        html_success = self.create_html_field_report()
-        pdf_success = self.create_pdf_field_report()
+        create_html = True
+        create_pdf = True
+        if self.html_report_file.exists():
+            result = QMessageBox.question(
+                None, "HTML Report file Already Exists",
+                f"The report file already exists, would you like to overwrite the file?\n\n{self.html_report_file}",
+            )
+            if result == QMessageBox.No:
+                create_html = False
+
+        if self.pdf_report_file.exists():
+            result = QMessageBox.question(
+                None, "PDF Report file Already Exists",
+                f"The report file already exists, would you like to overwrite the file?\n\n{self.pdf_report_file}",
+            )
+            if result == QMessageBox.No:
+                create_pdf = False
+
+        if create_html or create_pdf:
+            self.create_thumbnails()
+        if create_html:
+            html_success = self.create_html_field_report()
+        if create_pdf:
+            pdf_success = self.create_pdf_field_report()
 
         if html_success or pdf_success:
             msg = "Field reports have been created in the project folder:\n"
@@ -92,14 +113,6 @@ class ReportBuilder(FieldDataCaptureProject):
         Returns a boolean indicating success of the process.
         """
         try:
-            if self.pdf_report_file.exists():
-                result = QMessageBox.question(
-                    None, "PDF Report file Already Exists",
-                    f"The report file already exists, would you like to overwrite the file?\n\n{self.pdf_report_file}",
-                )
-                if result == QMessageBox.No:
-                    return False
-
             report = ReportTemplate(str(self.pdf_report_file))
             content = self.get_report_data()
             report.render(content, self.thumbnails_dir)
@@ -109,7 +122,7 @@ class ReportBuilder(FieldDataCaptureProject):
             if isinstance(exc, sqlite3.OperationalError):
                 msg = "Unable to access the geopackage\n"
             elif isinstance(exc, OSError):
-                msg = "Unable to write report file\n"
+                msg = "Unable to write report file\nCheck that the file is not already open\n"
             logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
             QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
             return False
@@ -127,14 +140,6 @@ class ReportBuilder(FieldDataCaptureProject):
         """
 
         try:
-            if self.html_report_file.exists():
-                result = QMessageBox.question(
-                    None, "HTML Report file Already Exists",
-                    f"The report file already exists, would you like to overwrite the file?\n\n{self.html_report_file}",
-                )
-                if result == QMessageBox.No:
-                    return False
-
             environment = Environment(loader=FileSystemLoader(self.templates_dir))
             template = environment.get_template("report.html")
             context = self.get_report_data()
