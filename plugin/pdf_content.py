@@ -85,7 +85,8 @@ class ReportTemplate(BaseDocTemplate):
     h1 = PS(name='Heading1', fontSize=18, spaceAfter=18)
     h2 = PS(name='Heading2', fontSize=16, spaceAfter=16)
     h3 = PS(name='Heading3', fontSize=14, spaceAfter=8)
-    error_text = PS(name='ErrorText', fontSize=14, spaceAfter=6, textColor=colors.red)
+    default_text = PS(name='DefaultText', fontSize=10, spaceBefore=0, spaceAfter=0)
+    error_text = PS(name='ErrorText', fontSize=14, textColor=colors.red)
     report = []
 
     def __init__(self, filename, **kw):
@@ -100,19 +101,20 @@ class ReportTemplate(BaseDocTemplate):
         """
         table_data = []
         for field, title in fields.items():
-            field_text = ''
+            title_text = Paragraph(title, self.default_text)
+            field_text = Paragraph('', self.default_text)
             if data[field] is not None:
-                field_text = Paragraph(data[field])
-            table_data.append([title, field_text])
+                field_text = Paragraph(data[field], self.default_text)
+            table_data.append([title_text, field_text])
         entered = [
-            'Entered',
-            Paragraph(data['user_entered'] + ' at ' + data['date_entered'])
+            Paragraph('Entered', self.default_text),
+            Paragraph(data['user_entered'] + ' at ' + data['date_entered'], self.default_text)
         ]
         table_data.append(entered)
         if data['user_updated'] is not None:
             updated = [
-                'Updated',
-                Paragraph(data['user_updated'] + ' at ' + data['date_updated'])
+                Paragraph('Updated', self.default_text),
+                Paragraph(data['user_updated'] + ' at ' + data['date_updated'], self.default_text)
             ]
             table_data.append(updated)
 
