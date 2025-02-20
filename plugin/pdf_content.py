@@ -3,7 +3,7 @@ from reportlab.lib import colors
 from reportlab.platypus import Image, Paragraph, Table
 from reportlab.platypus.doctemplate import PageTemplate, BaseDocTemplate
 from reportlab.platypus.frames import Frame
-from reportlab.platypus.flowables import KeepTogether
+from reportlab.platypus.flowables import KeepTogether, PageBreak
 from reportlab.lib.units import cm
 
 
@@ -155,9 +155,9 @@ class ReportTemplate(BaseDocTemplate):
         Build the full report
         """
         self.report.append(Paragraph('Field Report: ' + content['project']['title'], self.h1))
-
         self.report.append(Paragraph('Project information', self.h2))
         self.append_table(content['project'], PROJECT_TABLE)
+        self.report.append(PageBreak())
 
         self.report.append(Paragraph('Locality Points', self.h2))
         for locality_point_key, locality_point in content['locality_points'].items():
@@ -180,5 +180,8 @@ class ReportTemplate(BaseDocTemplate):
                             self.append_table(table, TABLES[table_section], photo=True, thumbnails_dir=thumbnails_dir)
                         else:
                             self.append_table(table, TABLES[table_section])
-
+            # Begin each set of locality point data on a new page...
+            self.report.append(PageBreak())
+        # ...but avoid a final empty page
+        self.report.pop()
         self.multiBuild(self.report)
