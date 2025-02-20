@@ -85,7 +85,7 @@ class ReportTemplate(BaseDocTemplate):
     h1 = PS(name='Heading1', fontSize=18, spaceAfter=18)
     h2 = PS(name='Heading2', fontSize=16, spaceAfter=16)
     h3 = PS(name='Heading3', fontSize=14, spaceAfter=8)
-    table_text = PS(name='TableTText', fontSize=12, spaceAfter=6)
+    error_text = PS(name='ErrorText', fontSize=14, spaceAfter=6, textColor=colors.red)
     report = []
 
     def __init__(self, filename, **kw):
@@ -130,7 +130,10 @@ class ReportTemplate(BaseDocTemplate):
             table_style.append(('SPAN', (0, 0), (0, rows - 1)))
             column_widths = [7.5 * cm, 2.5 * cm, 7 * cm]
             image_path = thumbnails_dir / data['photo_file']
-            table_data[0].insert(0, Image(str(image_path)))
+            try:
+                table_data[0].insert(0, Image(str(image_path)))
+            except IOError:
+                table_data[0].insert(0, Paragraph('Broken or missing thumbnail', self.error_text))
             for row in table_data[1:]:
                 row.insert(0, '')
 
