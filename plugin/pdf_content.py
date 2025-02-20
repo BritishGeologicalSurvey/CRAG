@@ -94,7 +94,7 @@ class ReportTemplate(BaseDocTemplate):
         template = PageTemplate('normal', [Frame(2 * cm, 2.5 * cm, 20 * cm, 25 * cm, id='F1')])
         self.addPageTemplates(template)
 
-    def append_table(self, data, fields, photo=False, thumbnails_dir=None):
+    def append_table(self, data, fields, header=None, photo=False, thumbnails_dir=None):
         """
         Build and return a table with data using fields as a template
         """
@@ -143,8 +143,12 @@ class ReportTemplate(BaseDocTemplate):
                       hAlign='LEFT',
                       spaceBefore=6,
                       spaceAfter=12)
+
         # Use KeepTogether to prevent table splitting over pages
-        self.report.append(KeepTogether(table))
+        if header:
+            self.report.append(KeepTogether([header, table]))
+        else:
+            self.report.append(KeepTogether(table))
 
     def render(self, content, thumbnails_dir):
         """
@@ -157,12 +161,21 @@ class ReportTemplate(BaseDocTemplate):
 
         self.report.append(Paragraph('Locality Points', self.h2))
         for locality_point_key, locality_point in content['locality_points'].items():
-            self.report.append(Paragraph('Locality point: ' + locality_point_key, self.h3))
-            self.append_table(locality_point, LOCALITY_POINT_TABLE)
+            header = Paragraph('Locality point: ' + locality_point_key, self.h3)
+            self.append_table(locality_point, LOCALITY_POINT_TABLE, header=header)
             for table_section in TABLES.keys():
                 if locality_point['children'][table_section]:
-                    self.report.append(Paragraph(TABLE_SECTION_HEADINGS[table_section], self.h3))
-                    for table in locality_point['children'][table_section]:
+                    # First table of a section needs a header
+                    table = locality_point['children'][table_section][0]
+                    header = Paragraph(TABLE_SECTION_HEADINGS[table_section], self.h3)
+                    if table_section == 'photo':
+                        self.append_table(table, TABLES[table_section], header=header,
+                                          photo=True, thumbnails_dir=thumbnails_dir)
+                    else:
+                        self.append_table(table, TABLES[table_section], header=header)
+
+                    # Remaining tables, if any
+                    for table in locality_point['children'][table_section][1:]:
                         if table_section == 'photo':
                             self.append_table(table, TABLES[table_section], photo=True, thumbnails_dir=thumbnails_dir)
                         else:
