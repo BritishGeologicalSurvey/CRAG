@@ -102,7 +102,7 @@ class ReportBuilder(FieldDataCaptureProject):
 
             report = ReportTemplate(str(self.pdf_report_file))
             content = self.get_report_data()
-            report.render(content)
+            report.render(content, self.thumbnails_dir)
 
         except Exception as exc:
             msg = ""
