@@ -81,6 +81,10 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
             "Off": "map_face_note",
             "On": """concat("map_face_note", '\\n', "geology_description")""",
         }
+        self.options_to_bools = {
+            "Off": False,
+            "On": True,
+        }
 
         self.setup_ui_elements()
         self.connect_signals_and_slots()
@@ -93,10 +97,12 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         """
         # Create radio buttons
         self.map_note_radio_group = self.create_map_note_radio_group()
+        self.lines_form_radio_group = self.create_lines_form_radio_group()
 
         # Radio buttons layout
         settings_layout = QVBoxLayout()
         settings_layout.addLayout(self.map_note_radio_group.layout)
+        settings_layout.addLayout(self.lines_form_radio_group.layout)
 
         # Create buttons
         self.ok_button = QPushButton("OK")
@@ -152,6 +158,36 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         self.get_fdc_layer(layer).triggerRepaint()
 
 
+    def create_lines_form_radio_group(self) -> RadioButtonGroup:
+        """
+        Create the Radio Button Group for the lines form options.
+        """
+        # Swap dict keys and values
+        bools_to_options = dict((v, k) for k, v in self.options_to_bools.items())
+        settings_value = self.get_plugin_setting("show_lines_form")
+        # The default value is True, because that is the default behaviour if no current setting exists
+        current_option = bools_to_options.get(settings_value, bools_to_options[True])
+
+        lines_form_radio_group = RadioButtonGroup(
+            label="Show attribute form for new lines",
+            options=list(self.options_to_bools.keys()),
+            default=current_option,
+        )
+        return lines_form_radio_group
+
+
+    def apply_lines_form_option(self) -> None:
+        """
+        Apply the selected lines form option.
+        """
+        option = self.lines_form_radio_group.get_selection()
+        # If the setting was not changed
+        if option == self.lines_form_radio_group.default:
+            return
+
+        self.set_plugin_setting("show_lines_form", self.options_to_bools[option])
+
+
     def connect_signals_and_slots(self) -> None:
         """
         Function for connecting signals and slots of buttons and input boxes.
@@ -165,6 +201,7 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         Apply the selected settings in the dialog.
         """
         self.apply_map_note_option()
+        self.apply_lines_form_option()
         self.close()
 
 

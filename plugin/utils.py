@@ -12,6 +12,7 @@ from qgis.core import (
     QgsFeature,
     QgsProject,
     QgsRuleBasedLabeling,
+    QgsSettings,
     QgsVectorLayer,
     QgsVectorLayerUtils,
 )
@@ -47,6 +48,7 @@ class FieldDataCaptureProject:
         "photo": "photo_file",
         "media": "media_link",
     }
+    plugin_settings_prefix = "FieldDataCapture"
 
 
     def __init__(self, project_dir: Optional[Path] = None):
@@ -321,6 +323,36 @@ class FieldDataCaptureProject:
             if rule.description() == label_description
         ][0]
         return rule
+
+
+    def get_plugin_setting(self, name: str) -> Any:
+        """
+        Get the plugin setting with the given name from the QgsSettings.
+        This will also try to convert the value from a string if required.
+        Returns None if the value does not exist.
+        """
+        value = QgsSettings().value(f"{self.plugin_settings_prefix}/{name}", defaultValue=None)
+
+        # If no setting is found
+        if value is None:
+            return value
+
+        # Convert to bool
+        bools = {
+            "true": True,
+            "false": False,
+        }
+        if isinstance(value, str) and value.lower() in bools:
+            return bools[value.lower()]
+
+        return value
+
+
+    def set_plugin_setting(self, name: str, value: Any) -> None:
+        """
+        Save the given setting to the QgsSettings.
+        """
+        QgsSettings().setValue(f"{self.plugin_settings_prefix}/{name}", value)
 
 
 def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:

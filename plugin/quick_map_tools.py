@@ -381,7 +381,16 @@ class QuickAddTool(QuickMapToolBase, QgsMapToolDigitizeFeature):
         )
 
         self._layer.addFeature(feature)
-        self.open_feature_form(feature, feature_layer=self._layer)
+
+        # Checking for Quick Lines show form setting
+        # We check that the value `is False` rather than just `not True`,
+        # because otherwise it also accepts `None` values, where the setting is not set
+        if self._layer.name() in FEATURE_TABLES_LINES and self.get_plugin_setting("show_lines_form") is False:
+            # Automatically save the line and continue editing
+            self._layer.commitChanges(stopEditing=False)
+
+        else:
+            self.open_feature_form(feature, feature_layer=self._layer)
 
 
     def get_default_values(self) -> dict[str, Any]:
