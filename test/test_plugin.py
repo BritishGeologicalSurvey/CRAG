@@ -193,6 +193,21 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         assert list(directory.glob("*"))[0].name == fdc.placeholder_filename.name
 
 
+def test_open_create_field_project_already_exists(fdc_project: FieldDataCapture):
+    # Arrange
+    expected_args = [
+        None,
+        "Warning",
+        "A Field Project feature already exists, there should only be one per Field Data Capture project.",
+    ]
+
+    # Act
+    fdc_project.open_create_field_project()
+
+    # Assert
+    QMessageBox.warning.assert_called_with(*expected_args)
+
+
 def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Arrange
     fdc.add_gpkg_to_project()
