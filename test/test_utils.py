@@ -6,6 +6,7 @@ import pytest
 from qgis.core import (
     QgsGeometry,
     QgsProject,
+    QgsSettings,
     QgsVectorLayer,
 )
 from qgis.PyQt.QtWidgets import QComboBox
@@ -197,3 +198,57 @@ def test_get_layer_label_rule(fdc_project: FieldDataCapture):
 
     # Assert
     assert rule.settings().fieldName == expected_expression
+
+
+@pytest.mark.parametrize(
+    ["name", "value", "expected_value", "set_value"],
+    (
+        # Set the value to True, we expect True back
+        ("quack", True, True, True),
+        # Set the value to 100, we expect 100 back
+        ("honk", 100, 100, True),
+        # Don't set the value, we expect None back
+        ("duck", "not set", None, False),
+        # Set the value to "false", we expect False back as it gets converted
+        ("goose", "false", False, True)
+    ),
+)
+def test_get_plugin_setting(
+    name: str,
+    value: Any,
+    expected_value: Any,
+    set_value: bool,
+    fdc_project: FieldDataCapture,
+):
+    # Arrange
+    # Set the value if specified
+    # We test some values that are not set
+    if set_value:
+        fdc_project.set_plugin_setting(name, value)
+
+    # Act
+    actual_value = fdc_project.get_plugin_setting(name)
+
+    # Assert
+    assert actual_value == expected_value
+
+
+@pytest.mark.parametrize(
+    ["name", "value"],
+    (
+        ("quack", True),
+        ("honk", 100),
+        ("duck", "goose"),
+    ),
+)
+def test_set_plugin_setting(
+    name: str,
+    value: Any,
+    fdc_project: FieldDataCapture,
+):
+    # Act
+    fdc_project.set_plugin_setting(name, value)
+
+    # Assert
+    # Get the value from QgsSettings
+    assert QgsSettings().value(f"{fdc_project.plugin_settings_prefix}/{name}") == value

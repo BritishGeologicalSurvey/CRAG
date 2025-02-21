@@ -695,6 +695,49 @@ def test_lines_add_cancel(
     assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
 
 
+@pytest.mark.parametrize(
+    ["layer_name", "line_type_code"],
+    zip(
+        sorted(FEATURE_TABLES_LINES),
+        LINE_TYPE_CODES,
+    ),
+)
+def test_lines_add_hide_form(
+    layer_name: str,
+    line_type_code: str,
+    fdc_project: FieldDataCapture,
+    monkeypatch: pytest.MonkeyPatch,
+    empty_geometry_feature_line: QgsFeature,
+):
+    # Arrange
+    expected_tool_name = f"fdc_{layer_name}_add"
+    # Enable add quick line mode for given layer
+    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    # Update the plugin setting to hide the form
+    fdc_project.set_plugin_setting("show_lines_form", False)
+    # Apply monkeypatch for open_feature_form, to ensure it was not called
+    open_feature_form_mock = Mock()
+    monkeypatch.setattr(QuickMapToolBase, "open_feature_form", open_feature_form_mock)
+
+    # Emit signal as if user selected a line type
+    fdc_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
+
+    # Act
+    # The line should be auto saved as soon as digitizing is complete
+    fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_line)
+
+    # Assert
+    # Check that the new feature has the correct attributes and geometry
+    expected_fid = 2
+    new_feature: QgsFeature = list(layer.getFeatures())[-1]
+    assert new_feature.attribute("fid") == expected_fid
+    assert new_feature.attribute("line_type_code") == line_type_code
+    assert new_feature.geometry().asWkt() == empty_geometry_feature_line.geometry().asWkt()
+    open_feature_form_mock.assert_not_called()
+    assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
+
+
 @pytest.mark.parametrize("layer_name", FEATURE_TABLES_LINES)
 def test_lines_edit_confirm(
     layer_name: str,
