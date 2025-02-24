@@ -198,7 +198,7 @@ def test_open_create_field_project_already_exists(fdc_project: FieldDataCapture)
     expected_args = [
         None,
         "Warning",
-        "A Field Project feature already exists, there should only be one per Field Data Capture project.",
+        "A Field Project feature already exists for this project.",
     ]
 
     # Act
