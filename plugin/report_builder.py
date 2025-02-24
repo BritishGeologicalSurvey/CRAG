@@ -62,29 +62,18 @@ class ReportBuilder(FieldDataCaptureProject):
         Create and save HTML and PDF field reports.
         Returns a boolean indicating success of the process.
         """
-        create_html = True
-        create_pdf = True
-        if self.html_report_file.exists():
+        create_reports = True
+        if self.html_report_file.exists() or self.pdf_report_file.exists():
             result = QMessageBox.question(
-                None, "HTML Report file Already Exists",
-                f"The report file already exists, would you like to overwrite the file?\n\n{self.html_report_file}",
+                None, "HTML and/or PDF Report files already exist",
+                f"Would you like to overwrite the file(s)?\n\n{self.html_report_file}\n{self.pdf_report_file}",
             )
             if result == QMessageBox.No:
-                create_html = False
+                create_reports = False
 
-        if self.pdf_report_file.exists():
-            result = QMessageBox.question(
-                None, "PDF Report file Already Exists",
-                f"The report file already exists, would you like to overwrite the file?\n\n{self.pdf_report_file}",
-            )
-            if result == QMessageBox.No:
-                create_pdf = False
-
-        if create_html or create_pdf:
+        if create_reports:
             self.create_thumbnails()
-        if create_html:
             html_success = self.create_html_field_report()
-        if create_pdf:
             pdf_success = self.create_pdf_field_report()
 
         if html_success or pdf_success:
