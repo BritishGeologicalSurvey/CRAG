@@ -43,8 +43,11 @@ def test_create_field_report(report_builder: ReportBuilder, monkeypatch_qmsgbox_
 
 
 def test_create_html_field_report(report_builder: ReportBuilder):
+    # Arrange
+    report_data = report_builder.get_report_data()
+
     # Act
-    success = report_builder.create_html_field_report()
+    success = report_builder.create_html_field_report(report_data)
 
     # Assert
     assert success
@@ -64,8 +67,11 @@ def test_create_html_field_report(report_builder: ReportBuilder):
 
 
 def test_create_pdf_field_report(report_builder: ReportBuilder):
+    # Arrange
+    report_data = report_builder.get_report_data()
+
     # Act
-    success = report_builder.create_pdf_field_report()
+    success = report_builder.create_pdf_field_report(report_data)
 
     # Assert
     assert success
@@ -148,16 +154,16 @@ def test_remove_microseconds_by_row(report_builder: ReportBuilder):
     assert expected == result
 
 
-def test_create_html_field_report_no_db(report_builder: ReportBuilder, caplog):
+def test_create_field_report_no_db(report_builder: ReportBuilder, caplog):
     # Arrange
     # Remove database to force error
     report_builder.db_file.unlink()
 
     # Act
-    result = report_builder.create_html_field_report()
+    result = report_builder.create_field_report()
 
     # Assert
-    assert not result
+    assert result == (False, False)
     assert 'Failed to create field report' in caplog.text
     assert 'Unable to access the geopackage' in caplog.text
 
@@ -169,9 +175,10 @@ def test_create_field_html_report_file_not_writeable(report_builder: ReportBuild
         raise OSError()
 
     monkeypatch.setattr(builtins, 'open', mock_open)
+    report_data = report_builder.get_report_data
 
     # Act
-    result = report_builder.create_html_field_report()
+    result = report_builder.create_html_field_report(report_data)
 
     # Assert
     assert not result

@@ -73,8 +73,17 @@ class ReportBuilder(FieldDataCaptureProject):
 
         if create_reports:
             self.create_thumbnails()
-            html_success = self.create_html_field_report()
-            pdf_success = self.create_pdf_field_report()
+            try:
+                report_data = self.get_report_data()
+            except sqlite3.OperationalError:
+                msg = "Unable to access the geopackage\n"
+                logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
+                QMessageBox.information(None, "Error",
+                                        f"Failed to create field report\n{msg}See logs for more information")
+                return False, False
+
+            html_success = self.create_html_field_report(report_data)
+            pdf_success = self.create_pdf_field_report(report_data)
 
         if html_success or pdf_success:
             msg = "Field reports have been created in the project folder:\n"
@@ -93,7 +102,7 @@ class ReportBuilder(FieldDataCaptureProject):
         return html_success, pdf_success
 
 
-    def create_pdf_field_report(self) -> bool:
+    def create_pdf_field_report(self, report_data) -> bool:
         """
         Create and save a PDF field report.
         If an older report already exists, issue a warning with an option to cancel.
@@ -103,15 +112,10 @@ class ReportBuilder(FieldDataCaptureProject):
         """
         try:
             report = ReportTemplate(str(self.pdf_report_file))
-            content = self.get_report_data()
-            report.render(content, self.thumbnails_dir)
+            report.render(report_data, self.thumbnails_dir)
 
-        except Exception as exc:
-            msg = ""
-            if isinstance(exc, sqlite3.OperationalError):
-                msg = "Unable to access the geopackage\n"
-            elif isinstance(exc, OSError):
-                msg = "Unable to write report file\nCheck that the file is not already open\n"
+        except OSError:
+            msg = "Unable to write report file\nCheck that the file is not already open\n"
             logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
             QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
             return False
@@ -119,7 +123,7 @@ class ReportBuilder(FieldDataCaptureProject):
         return True
 
 
-    def create_html_field_report(self) -> bool:
+    def create_html_field_report(self, report_data) -> bool:
         """
         Create and save an HTML field report.
         If an older report already exists, issue a warning with an option to cancel.
@@ -131,8 +135,7 @@ class ReportBuilder(FieldDataCaptureProject):
         try:
             environment = Environment(loader=FileSystemLoader(self.templates_dir))
             template = environment.get_template("report.html")
-            context = self.get_report_data()
-            content = template.render(context)
+            content = template.render(report_data)
 
             with open(self.html_report_file, mode="w", encoding="utf-8") as report:
                 report.write(content)
@@ -142,12 +145,8 @@ class ReportBuilder(FieldDataCaptureProject):
             shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
             shutil.copy(self.font_src_file, self.font_dest_dir / self.font_filename)
 
-        except Exception as exc:
-            msg = ""
-            if isinstance(exc, sqlite3.OperationalError):
-                msg = "Unable to access the geopackage\n"
-            elif isinstance(exc, OSError):
-                msg = "Unable to write report file\n"
+        except OSError:
+            msg = "Unable to write report file\n"
             logger.exception(f"Failed to create field report: {self.html_report_file}\n{msg}")
             QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
             return False
