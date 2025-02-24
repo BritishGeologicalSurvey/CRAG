@@ -85,7 +85,9 @@ class ReportTemplate(BaseDocTemplate):
     h1 = PS(name='Heading1', fontSize=18, spaceAfter=18)
     h2 = PS(name='Heading2', fontSize=16, spaceAfter=16)
     h3 = PS(name='Heading3', fontSize=14, spaceAfter=8)
-    default_text = PS(name='DefaultText', fontSize=10, spaceBefore=0, spaceAfter=0)
+    default_text = PS(name='DefaultText', fontSize=10,
+                      spaceBefore=0, spaceAfter=0,
+                      linkUnderline=1, underlineColor=colors.blue)
     error_text = PS(name='ErrorText', fontSize=14, textColor=colors.red)
     report = []
 
