@@ -59,8 +59,9 @@ CHILD_JOINS = {
 class ReportBuilder(FieldDataCaptureProject):
     def create_field_report(self) -> tuple[bool, bool]:
         """
-        Create and save HTML and PDF field reports.
-        Returns a boolean indicating success of the process.
+        Create and save HTML and PDF field reports. If either older report already exists,
+        issue a warning with an option to cancel.
+        Returns a tuple of booleans indicating success of the process.
         """
         create_reports = True
         if self.html_report_file.exists() or self.pdf_report_file.exists():
@@ -105,8 +106,7 @@ class ReportBuilder(FieldDataCaptureProject):
     def create_pdf_field_report(self, report_data) -> bool:
         """
         Create and save a PDF field report.
-        If an older report already exists, issue a warning with an option to cancel.
-        If confirmed, parse the locality point layer creating an entry for each point
+        Parse the report_data creating an entry for the project and for each point
         in an PDF document, overwriting the older report if necessary.
         Returns a boolean indicating success of the process.
         """
@@ -126,8 +126,7 @@ class ReportBuilder(FieldDataCaptureProject):
     def create_html_field_report(self, report_data) -> bool:
         """
         Create and save an HTML field report.
-        If an older report already exists, issue a warning with an option to cancel.
-        If confirmed, parse the locality point layer creating an entry for each point
+        Parse the report_data creating an entry for the project and for each point
         in an HTML document using a Jinja2 template, overwriting the older report if necessary.
         Returns a boolean indicating success of the process.
         """
