@@ -1,6 +1,8 @@
 import builtins
+import pathlib
 
 from bs4 import BeautifulSoup
+import pytest
 
 from conftest import locality_point_count
 
@@ -168,17 +170,44 @@ def test_create_field_report_no_db(report_builder: ReportBuilder, caplog):
     assert 'Unable to access the geopackage' in caplog.text
 
 
-def test_create_field_html_report_file_not_writeable(report_builder: ReportBuilder, monkeypatch, caplog):
+def test_create_field_report_pdf_file_open(report_builder: ReportBuilder, monkeypatch, caplog,
+                                           monkeypatch_qmsgbox_question_yes):
+    # Arrange
+    # Force rename to throw an OSError, uses underlying os.rename which
+    # takes two arguments.
+    def mock_rename(file1, file2):
+        raise OSError()
+    monkeypatch.setattr(pathlib.Path, 'rename', mock_rename)
+
+    # The file must also exist for rename to be tried, which means the
+    # qmsgbox needs to be acknowledged
+    def mock_exists(file):
+        return True
+    monkeypatch.setattr(pathlib.Path, 'exists', mock_exists)
+
+    # Act
+    result = report_builder.create_field_report()
+
+    # Assert
+    assert result == (False, False)
+    assert 'Failed to create field report' in caplog.text
+    assert 'PDF Report file is open by another process' in caplog.text
+
+
+@pytest.mark.parametrize("method_name", ["create_html_field_report", "create_pdf_field_report"])
+def test_create_reports_file_not_writeable(method_name, report_builder: ReportBuilder,
+                                           monkeypatch, caplog):
     # Arrange
     # Force open to throw an OSError, covering several failure types
     def mock_open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None):
         raise OSError()
 
     monkeypatch.setattr(builtins, 'open', mock_open)
-    report_data = report_builder.get_report_data
+    report_data = report_builder.get_report_data()
+    create_report_call = getattr(report_builder, method_name)
 
     # Act
-    result = report_builder.create_html_field_report(report_data)
+    result = create_report_call(report_data)
 
     # Assert
     assert not result

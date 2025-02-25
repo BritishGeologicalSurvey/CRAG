@@ -63,28 +63,42 @@ class ReportBuilder(FieldDataCaptureProject):
         issue a warning with an option to cancel.
         Returns a tuple of booleans indicating success of the process.
         """
-        create_reports = True
         if self.html_report_file.exists() or self.pdf_report_file.exists():
             result = QMessageBox.question(
                 None, "HTML and/or PDF Report files already exist",
                 f"Would you like to overwrite the file(s)?\n\n{self.html_report_file}\n{self.pdf_report_file}",
             )
             if result == QMessageBox.No:
-                create_reports = False
-
-        if create_reports:
-            self.create_thumbnails()
-            try:
-                report_data = self.get_report_data()
-            except sqlite3.OperationalError:
-                msg = "Unable to access the geopackage\n"
-                logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
-                QMessageBox.information(None, "Error",
-                                        f"Failed to create field report\n{msg}See logs for more information")
                 return False, False
 
-            html_success = self.create_html_field_report(report_data)
-            pdf_success = self.create_pdf_field_report(report_data)
+        # If the PDF report file is already open it cannot be written to.
+        # Attempting to rename the file to itself causes an OSError if the
+        # file is open. This hack is an alternative to checking using the
+        # package psutil which is not available in QGIS
+        if self.pdf_report_file.exists():
+            try:
+                self.pdf_report_file.rename(self.pdf_report_file)
+            except OSError:
+                msg = "PDF Report file is open by another process\n"
+                logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
+                QMessageBox.critical(
+                    None, "Error",
+                    f"{msg}\nPlease close {self.pdf_report_file} before creating a report",
+                )
+                return False, False
+
+        self.create_thumbnails()
+        try:
+            report_data = self.get_report_data()
+        except sqlite3.OperationalError:
+            msg = "Unable to access the geopackage\n"
+            logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
+            QMessageBox.information(None, "Error",
+                                    f"Failed to create field report\n{msg}See logs for more information")
+            return False, False
+
+        html_success = self.create_html_field_report(report_data)
+        pdf_success = self.create_pdf_field_report(report_data)
 
         if html_success or pdf_success:
             msg = "Field reports have been created in the project folder:\n"
@@ -115,7 +129,7 @@ class ReportBuilder(FieldDataCaptureProject):
             report.render(report_data, self.thumbnails_dir)
 
         except OSError:
-            msg = "Unable to write report file\nCheck that the file is not already open\n"
+            msg = "Unable to write report file\n"
             logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
             QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
             return False
