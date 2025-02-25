@@ -1,5 +1,5 @@
 import builtins
-import pathlib
+from pathlib import Path
 
 from bs4 import BeautifulSoup
 import pytest
@@ -177,13 +177,13 @@ def test_create_field_report_pdf_file_open(report_builder: ReportBuilder, monkey
     # takes two arguments.
     def mock_rename(file1, file2):
         raise OSError()
-    monkeypatch.setattr(pathlib.Path, 'rename', mock_rename)
+    monkeypatch.setattr(Path, 'rename', mock_rename)
 
     # The file must also exist for rename to be tried, which means the
     # qmsgbox needs to be acknowledged
     def mock_exists(file):
         return True
-    monkeypatch.setattr(pathlib.Path, 'exists', mock_exists)
+    monkeypatch.setattr(Path, 'exists', mock_exists)
 
     # Act
     result = report_builder.create_field_report()
@@ -213,3 +213,37 @@ def test_create_reports_file_not_writeable(method_name, report_builder: ReportBu
     assert not result
     assert 'Failed to create field report' in caplog.text
     assert 'Unable to write report file' in caplog.text
+
+
+def test_create_thumbnails(report_builder: ReportBuilder):
+    def assert_photos_match_thumbnails(expected_number_of_thumbnails: int):
+        assert report_builder.thumbnails_dir.exists()
+        photos = list(report_builder.photos_dir.rglob('*'))
+        photo_names = [p.name for p in photos if not p.name == '.placeholder']
+        thumbnails = list(report_builder.thumbnails_dir.rglob('*'))
+        thumbnail_names = [t.name for t in thumbnails]
+        assert len(thumbnails) == expected_number_of_thumbnails
+        assert photo_names == thumbnail_names
+
+    # Assert initial state
+    assert not report_builder.thumbnails_dir.exists()
+
+    # Test for basic creation from scratch
+    report_builder.create_thumbnails()
+    assert_photos_match_thumbnails(2)
+
+    # Test for running again
+    report_builder.create_thumbnails()
+    assert_photos_match_thumbnails(2)
+
+    # Remove one thumbnail to force thumbnail creation
+    list(report_builder.thumbnails_dir.rglob('*'))[0].unlink()
+    assert len(list(report_builder.thumbnails_dir.rglob('*'))) == 1
+    report_builder.create_thumbnails()
+    assert_photos_match_thumbnails(2)
+
+    # Remove one photo to force thumbnail deletion
+    list(report_builder.photos_dir.rglob('*'))[0].unlink()
+    assert len(list(report_builder.photos_dir.rglob('*'))) == 2  # includes .placeholder
+    report_builder.create_thumbnails()
+    assert_photos_match_thumbnails(1)
