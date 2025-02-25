@@ -1050,9 +1050,9 @@ class FieldDataCapture(FieldDataCaptureProject):
         if new_recent_line_type in self.recent_quick_line_types:
             self.recent_quick_line_types.remove(new_recent_line_type)
 
-        # If 4 recents are already saved, remove the 4th (oldest) one
-        if len(self.recent_quick_line_types) == 4:
-            self.recent_quick_line_types.pop(3)
+        # If 4 recents are already saved, remove the last (oldest) one
+        if len(self.recent_quick_line_types) == 6:
+            self.recent_quick_line_types.pop(-1)
 
         # Add selected line type to start of recent list
         self.recent_quick_line_types.insert(0, new_recent_line_type)

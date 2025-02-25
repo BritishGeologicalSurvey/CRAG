@@ -2,6 +2,7 @@ from qgis.PyQt.QtCore import (
     pyqtSignal,
     Qt,
 )
+from qgis.PyQt.QtGui import QFont
 from qgis.PyQt.QtWidgets import (
     QComboBox,
     QCompleter,
@@ -40,11 +41,8 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
 
         self.comboboxes: dict[str, QComboBox] = {}
         self.recent_line_buttons: dict[str, QRadioButton] = {}
-        self.setup_ui_elements()
+        self.setup_ui_elements(recent_line_types)
         self.connect_signals_and_slots()
-
-        if len(recent_line_types) > 0:
-            self.add_recent_line_types(recent_line_types)
 
 
     def get_layers_to_categories_to_types(self) -> dict[str, dict[str, list[str]]]:
@@ -79,41 +77,31 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         return layers_to_cats_to_types
 
 
-    def setup_ui_elements(self) -> None:
+    def setup_ui_elements(self, recent_line_types: list[dict[str, str]]) -> None:
         """
         Create the elements of the line layer selector User Interface.
         Also sets the layout for the dialog box.
         """
         # Create main comboboxes
-        line_layer_label = QLabel("Line Layer")
         self.comboboxes["layer"] = QComboBox()
-        line_cat_label = QLabel("Line Category")
         self.comboboxes["category"] = QComboBox()
-        line_type_label = QLabel("Line Type")
         self.comboboxes["type"] = self.create_searchable_combobox()
-
         # Initial population of comboboxes
         self.update_line_layer_combobox()
         self.update_line_cat_combobox()
         self.update_line_type_combobox()
 
-        # Create layout
-        # Add layout for recent lines widgets, so it can be added to later
-        self.recent_lines_layout = QVBoxLayout()
-        line_attributes_layout = QVBoxLayout()
-        line_attributes_layout.addLayout(self.recent_lines_layout)
-
-        line_attributes_layout.addWidget(line_layer_label)
-        line_attributes_layout.addWidget(self.comboboxes["layer"])
-        line_attributes_layout.addWidget(line_cat_label)
-        line_attributes_layout.addWidget(self.comboboxes["category"])
-        line_attributes_layout.addWidget(line_type_label)
-        line_attributes_layout.addWidget(self.comboboxes["type"])
-
         # Create dialog layout
         dialog_layout = QVBoxLayout()
-        dialog_layout.addLayout(line_attributes_layout)
         self.setLayout(dialog_layout)
+
+        # Only add the layout for recent line types if some are provided
+        if len(recent_line_types) > 0:
+            recent_lines_layout = self.create_recent_lines_layout(recent_line_types)
+            dialog_layout.addLayout(recent_lines_layout)
+
+        all_lines_layout = self.create_all_lines_layout()
+        dialog_layout.addLayout(all_lines_layout)
 
 
     def create_searchable_combobox(self) -> QComboBox:
@@ -185,23 +173,25 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
                         self.comboboxes["type"].addItem(line_type, userData=line_type)
 
 
-    def add_recent_line_types(self, recent_line_types: list[dict[str, str]]) -> None:
+    def create_recent_lines_layout(self, recent_line_types: list[dict[str, str]]) -> QVBoxLayout:
         """
-        Add the given recent line types to the selection options.
+        Create the layout for the recent lines widgets.
         """
-        recent_label = QLabel("Recent Line Types")
-        self.recent_lines_layout.addWidget(recent_label)
-
+        # Inner layout is used later to add buttons, and is placed into a frame for styling
+        recent_lines_buttons_layout = QVBoxLayout()
+        recent_lines_frame = self.create_bordered_frame()
+        recent_lines_frame.setLayout(recent_lines_buttons_layout)
+        # This is the outer layout which contains all widgets for recent lines
+        recent_lines_layout = QVBoxLayout()
+        recent_lines_label = self.create_bold_label("Recent Line Types")
+        recent_lines_layout.addWidget(recent_lines_label)
+        recent_lines_layout.addWidget(recent_lines_frame)
+        # Add recent lines buttons
         for recent_line_dict in recent_line_types:
             recent_line_button = self.create_recent_line_button(recent_line_dict)
-            self.recent_lines_layout.addWidget(recent_line_button)
+            recent_lines_buttons_layout.addWidget(recent_line_button)
             self.recent_line_buttons[recent_line_dict["type"]] = recent_line_button
-
-        # Create separator line
-        separator_line = QFrame()
-        separator_line.setFrameShape(QFrame.HLine | QFrame.Sunken)
-        separator_line.setStyleSheet("background-color: silver")
-        self.recent_lines_layout.addWidget(separator_line)
+        return recent_lines_layout
 
 
     def create_recent_line_button(self, line_dict: dict[str, str]) -> QRadioButton:
@@ -216,6 +206,55 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
 
         line_button.toggled.connect(button_callback)
         return line_button
+
+
+    def create_all_lines_layout(self) -> QVBoxLayout:
+        """
+        Create the layout for all line types widgets.
+        """
+        # Create labels
+        line_layer_label = QLabel("Line Layer")
+        line_cat_label = QLabel("Line Category")
+        line_type_label = QLabel("Line Type")
+        # Inner layout for all line types drop down buttons
+        all_lines_buttons_layout = QVBoxLayout()
+        all_lines_frame = self.create_bordered_frame()
+        all_lines_frame.setLayout(all_lines_buttons_layout)
+        # Add button widgets
+        all_lines_buttons_layout.addWidget(line_layer_label)
+        all_lines_buttons_layout.addWidget(self.comboboxes["layer"])
+        all_lines_buttons_layout.addWidget(line_cat_label)
+        all_lines_buttons_layout.addWidget(self.comboboxes["category"])
+        all_lines_buttons_layout.addWidget(line_type_label)
+        all_lines_buttons_layout.addWidget(self.comboboxes["type"])
+        # Create outer layout for all line types
+        all_lines_layout = QVBoxLayout()
+        all_lines_label = self.create_bold_label("All Line Types")
+        all_lines_layout.addWidget(all_lines_label)
+        all_lines_layout.addWidget(all_lines_frame)
+        return all_lines_layout
+
+
+    def create_bordered_frame(self) -> QFrame:
+        """
+        Create a QFrame with a styled border.
+        """
+        frame = QFrame()
+        frame.setObjectName("MainFrame")
+        frame.setFrameShape(QFrame.StyledPanel | QFrame.Plain)
+        frame.setStyleSheet("#MainFrame { border: 1px solid silver; }")
+        return frame
+
+
+    def create_bold_label(self, text: str) -> QLabel:
+        """
+        Create a label with the given text in bold font.
+        """
+        font = QFont()
+        font.setBold(True)
+        label = QLabel(text)
+        label.setFont(font)
+        return label
 
 
     def connect_signals_and_slots(self) -> None:
