@@ -284,24 +284,27 @@ class ReportBuilder(FieldDataCaptureProject):
         Create a thumbnail for each photo if it does not exist.
         Remove any stale paths and thumbnails.
         """
+        photos_str = str(self.project_dir / 'photos')
+        thumbnails_str = str(self.project_dir / 'thumbnails')
+
         if not self.thumbnails_dir.exists():
             self.thumbnails_dir.mkdir()
 
         # Create directories in thumbnails that are in photos
         for path in list(self.photos_dir.rglob('*/')):
-            tn_path = Path(str(path).replace('photos', 'thumbnails'))
+            tn_path = Path(str(path).replace(photos_str, thumbnails_str))
             if path.is_dir() and not tn_path.exists():
                 tn_path.mkdir()
 
         # Remove directories in thumbnails that are no longer in photos
         for tn_path in list(self.thumbnails_dir.rglob('*/')):
-            path = Path(str(tn_path).replace('thumbnails', 'photos'))
+            path = Path(str(tn_path).replace(thumbnails_str, photos_str))
             if tn_path.is_dir() and not path.exists():
                 shutil.rmtree(tn_path)
 
         # Create thumbnails if needed
         for path in list(self.photos_dir.rglob('*.*')):
-            tn_path = Path(str(path).replace('photos', 'thumbnails'))
+            tn_path = Path(str(path).replace(photos_str, thumbnails_str))
             if path.is_file() and not tn_path.exists():
                 try:
                     im = Image.open(path)
@@ -313,6 +316,6 @@ class ReportBuilder(FieldDataCaptureProject):
 
         # Remove redundant thumnails
         for tn_path in list(self.thumbnails_dir.rglob('*.*')):
-            path = Path(str(tn_path).replace('thumbnails', 'photos'))
+            path = Path(str(tn_path).replace(thumbnails_str, photos_str))
             if tn_path.is_file() and not path.exists():
                 tn_path.unlink()
