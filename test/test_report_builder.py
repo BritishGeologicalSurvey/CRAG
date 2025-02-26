@@ -3,6 +3,7 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 import pytest
+from PIL import Image
 
 from conftest import locality_point_count
 
@@ -231,6 +232,10 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Test for basic creation from scratch
     report_builder.create_thumbnails()
     assert_photos_match_thumbnails(2)
+    # A thumbnail's maximum dimension should be 200 pixels
+    for path in list(report_builder.thumbnails_dir.rglob('*')):
+        im = Image.open(path)
+        assert 200 == max(im.size)
 
     # Test for running again
     report_builder.create_thumbnails()
