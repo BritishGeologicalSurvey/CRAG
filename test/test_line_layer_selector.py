@@ -32,6 +32,14 @@ LINE_LAYER_TYPE = [
         "layer": "terrain_line",
         "type": "convex_break_of_slope",
     },
+    {
+        "layer": "artificial_line",
+        "type": "artificial_geology_boundary",
+    },
+    {
+        "layer": "bedrock_line",
+        "type": "bone_bed",
+    },
 ]
 
 
@@ -67,8 +75,8 @@ def test_default_state(line_selector: LineLayerSelector, default_data: dict[str,
         assert combobox.currentData() is None
         assert list(get_combobox_items_dict(combobox).keys()) == default_data[line_attribute]
 
-    # Check that no recent line widgets are added by default
-    assert line_selector.recent_lines_layout.isEmpty()
+    # Check that there is only 1 item in the dialog layout, the all line types layout
+    assert line_selector.layout().count() == 1
 
 
 @pytest.mark.parametrize(
@@ -235,8 +243,8 @@ def test_line_selector_add_recent(fdc_project: FieldDataCapture):
     fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
 
     # Assert 2
-    # Ensure the recent line layout is not empty, it should have new widgets
-    assert not fdc_project.line_layer_selector.recent_lines_layout.isEmpty()
+    # Ensure the main layout has 2 items, the all line types and recent line types
+    assert fdc_project.line_layer_selector.layout().count() == 2
     recent_line_button = fdc_project.line_layer_selector.recent_line_buttons[line_dict_1["type"]]
     assert isinstance(recent_line_button, QRadioButton)
 
@@ -289,17 +297,17 @@ def test_line_selector_add_recent_duplicate(fdc_project: FieldDataCapture):
 
 def test_line_selector_add_recent_multiple(fdc_project: FieldDataCapture):
     # Arrange
-    # Selecting first 4 line types will reach the limit of recents
-    first_line_dicts = LINE_LAYER_TYPE[:4]
+    # Selecting first 6 line types will reach the limit of recents
+    first_line_dicts = LINE_LAYER_TYPE[:6]
     expected_first_line_dicts = first_line_dicts.copy()
     expected_first_line_dicts.reverse()
-    # Selecting 5th line type will remove 1st from end and add 5th to the start
-    # Making it still 4 line types in total
-    final_line_type_dict = LINE_LAYER_TYPE[4]
-    expected_second_line_dicts = [final_line_type_dict] + expected_first_line_dicts[:3]
+    # Selecting a 7th line type will remove the first one from the end and add the new one to the start
+    # Making it still 6 line types in total
+    final_line_type_dict = LINE_LAYER_TYPE[6]
+    expected_second_line_dicts = [final_line_type_dict] + expected_first_line_dicts[:5]
 
     # Act 1
-    # Select the first 4 line types to reach the limited number of recent saved line types
+    # Select the first 6 line types to reach the limited number of recent saved line types
     for line_dict in first_line_dicts:
         # Open line selector
         fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
@@ -313,7 +321,7 @@ def test_line_selector_add_recent_multiple(fdc_project: FieldDataCapture):
     assert fdc_project.recent_quick_line_types == expected_first_line_dicts
 
     # Act 2
-    # Select a 5th line type to go over the 4 recents limit
+    # Select a 7th line type to go over the 6 recents limit
     # Open line selector
     fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
     # Emit signal as if user selected a line type
