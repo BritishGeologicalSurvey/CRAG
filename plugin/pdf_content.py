@@ -89,13 +89,13 @@ class ReportTemplate(BaseDocTemplate):
                       spaceBefore=0, spaceAfter=0,
                       linkUnderline=1, underlineColor=colors.blue)
     error_text = PS(name='ErrorText', fontSize=14, textColor=colors.red)
-    report = []
 
     def __init__(self, filename, **kw):
         self.allowSplitting = 0
         BaseDocTemplate.__init__(self, filename, **kw)
         template = PageTemplate('normal', [Frame(2 * cm, 2.5 * cm, 20 * cm, 25 * cm, id='F1')])
         self.addPageTemplates(template)
+        self.report = []
 
     def append_table(self, data, fields, header=None, photo=False, thumbnails_dir=None):
         """

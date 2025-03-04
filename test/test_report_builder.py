@@ -97,6 +97,11 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
     assert 'Locality point: test_point_002' in pdf.pages[4].extract_text()
     assert len(pdf.pages[5].images) == 1
 
+    # Calling twice should not concatenate to existing PDF report
+    success = report_builder.create_pdf_field_report(report_data)
+    pdf = PdfReader(report_builder.pdf_report_file)
+    assert len(pdf.pages) == 6
+
 
 def test_get_report_data(report_builder: ReportBuilder):
     # Act
