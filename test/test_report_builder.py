@@ -5,6 +5,8 @@ import shutil
 from bs4 import BeautifulSoup
 import pytest
 from PIL import Image
+from pypdf import PdfReader
+from pypdf.errors import PdfReadError
 
 from conftest import locality_point_count
 
@@ -48,6 +50,7 @@ def test_create_field_report(report_builder: ReportBuilder, monkeypatch_qmsgbox_
 
 def test_create_html_field_report(report_builder: ReportBuilder):
     # Arrange
+    report_builder.create_thumbnails()
     report_data = report_builder.get_report_data()
 
     # Act
@@ -72,6 +75,7 @@ def test_create_html_field_report(report_builder: ReportBuilder):
 
 def test_create_pdf_field_report(report_builder: ReportBuilder):
     # Arrange
+    report_builder.create_thumbnails()
     report_data = report_builder.get_report_data()
 
     # Act
@@ -82,6 +86,16 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
     # Check file exists and is not empty
     assert report_builder.pdf_report_file.exists()
     assert report_builder.pdf_report_file.stat().st_size > 0
+    try:
+        pdf = PdfReader(report_builder.pdf_report_file)
+    except PdfReadError as exc:
+        assert False, f"Invalid PDF {exc}"
+    assert len(pdf.pages) == 6
+    assert 'Field Report: test field project title' in pdf.pages[0].extract_text()
+    assert 'Locality Points\nLocality point: test_point_001' in pdf.pages[1].extract_text()
+    assert len(pdf.pages[3].images) == 1
+    assert 'Locality point: test_point_002' in pdf.pages[4].extract_text()
+    assert len(pdf.pages[5].images) == 1
 
 
 def test_get_report_data(report_builder: ReportBuilder):

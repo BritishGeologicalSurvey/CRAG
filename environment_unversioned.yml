@@ -15,6 +15,7 @@ dependencies:
   - pandas
   - rdflib
   - reportlab
+  - pypdf
   - pip:
       - eralchemy2
       - etlhelper
