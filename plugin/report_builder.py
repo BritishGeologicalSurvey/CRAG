@@ -19,7 +19,7 @@ from qgis.core import (
 )
 from qgis.PyQt.QtWidgets import QMessageBox
 
-from .config import LOCALITY_POINT_CHILDREN
+from .config import LOCALITY_POINT_CHILDREN, THUMBNAIL_SIZE
 from .pdf_content import ReportTemplate
 from .utils import (  # noqa
     FieldDataCaptureProject,
@@ -308,7 +308,7 @@ class ReportBuilder(FieldDataCaptureProject):
             if path.is_file() and not tn_path.exists():
                 try:
                     im = Image.open(path)
-                    im.thumbnail((200, 200))
+                    im.thumbnail((THUMBNAIL_SIZE, THUMBNAIL_SIZE))
                     im.save(tn_path)
                 except UnidentifiedImageError:
                     # not an image

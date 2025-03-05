@@ -10,6 +10,7 @@ from pypdf.errors import PdfReadError
 
 from conftest import locality_point_count
 
+from plugin.config import THUMBNAIL_SIZE
 from plugin.report_builder import ReportBuilder
 from plugin.utils import (  # noqa
     ipdb_breakpoint,
@@ -273,10 +274,10 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     report_builder.create_thumbnails()
     assert report_builder.thumbnails_dir.exists()
     assert_images_and_subdirs_match()
-    # A thumbnail's maximum dimension should be 200 pixels
+    # A thumbnail's maximum dimension should be THUMBNAIL_SIZE pixels
     for path in report_builder.thumbnails_dir.rglob('*.jpeg'):
         im = Image.open(path)
-        assert 200 == max(im.size)
+        assert THUMBNAIL_SIZE == max(im.size)
 
     # Test for running again with no changes
     report_builder.create_thumbnails()

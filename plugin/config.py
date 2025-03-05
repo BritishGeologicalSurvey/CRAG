@@ -142,3 +142,5 @@ LAYER_TREE_STRUCTURE_INDEXED = {
         ]
     },
 }
+
+THUMBNAIL_SIZE = 200
