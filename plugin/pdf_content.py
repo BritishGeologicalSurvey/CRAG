@@ -137,7 +137,8 @@ class ReportTemplate(BaseDocTemplate):
             try:
                 table_data[0].insert(0, Image(str(image_path)))
             except IOError:
-                table_data[0].insert(0, Paragraph('Broken or missing thumbnail', self.error_text))
+                table_data[0].insert(0, Paragraph(f'Broken or missing thumbnail: {data['photo_file']}',
+                                                  self.error_text))
             for row in table_data[1:]:
                 row.insert(0, '')
 

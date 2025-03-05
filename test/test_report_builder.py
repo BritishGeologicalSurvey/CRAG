@@ -76,6 +76,8 @@ def test_create_html_field_report(report_builder: ReportBuilder):
 def test_create_pdf_field_report(report_builder: ReportBuilder):
     # Arrange
     report_builder.create_thumbnails()
+    # Remove one thumbnail to create broken image
+    list(report_builder.thumbnails_dir.rglob('*.jpeg'))[0].unlink()
     report_data = report_builder.get_report_data()
 
     # Act
@@ -90,17 +92,22 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
         pdf = PdfReader(report_builder.pdf_report_file)
     except PdfReadError as exc:
         assert False, f"Invalid PDF {exc}"
-    assert len(pdf.pages) == 6
+    assert len(pdf.pages) == 5
     assert 'Field Report: test field project title' in pdf.pages[0].extract_text()
+
     assert 'Locality Points\nLocality point: test_point_001' in pdf.pages[1].extract_text()
-    assert len(pdf.pages[3].images) == 1
-    assert 'Locality point: test_point_002' in pdf.pages[4].extract_text()
-    assert len(pdf.pages[5].images) == 1
+    # The first image should be absent and replaced by message
+    assert len(pdf.pages[2].images) == 0
+    assert 'Broken or missing thumbnail:' in pdf.pages[2].extract_text()
+    assert 'test_point_001.jpeg' in pdf.pages[2].extract_text()
+    assert 'Locality point: test_point_002' in pdf.pages[3].extract_text()
+    # The second image should be present
+    assert len(pdf.pages[4].images) == 1
 
     # Calling twice should not concatenate to existing PDF report
     success = report_builder.create_pdf_field_report(report_data)
     pdf = PdfReader(report_builder.pdf_report_file)
-    assert len(pdf.pages) == 6
+    assert len(pdf.pages) == 5
 
 
 def test_get_report_data(report_builder: ReportBuilder):
