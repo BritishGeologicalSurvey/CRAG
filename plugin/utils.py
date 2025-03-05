@@ -103,7 +103,7 @@ class FieldDataCaptureProject:
         """
         Get the thumbnails directory path from the current project.
         """
-        return self.project_dir / "thumbnails"
+        return self.project_dir / ".thumbnails"
 
     @property
     def media_dir(self) -> Path:

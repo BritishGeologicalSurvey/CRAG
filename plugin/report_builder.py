@@ -284,8 +284,8 @@ class ReportBuilder(FieldDataCaptureProject):
         Create a thumbnail for each photo if it does not exist.
         Remove any stale paths and thumbnails.
         """
-        photos_str = str(self.project_dir / 'photos')
-        thumbnails_str = str(self.project_dir / 'thumbnails')
+        photos_str = str(self.photos_dir)
+        thumbnails_str = str(self.thumbnails_dir)
 
         if not self.thumbnails_dir.exists():
             self.thumbnails_dir.mkdir()
