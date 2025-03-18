@@ -2,6 +2,17 @@ import dataclasses
 from enum import Enum
 from pathlib import Path
 
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtWidgets import (
+    QDialog,
+    QHBoxLayout,
+    QLabel,
+    QMessageBox,
+    QPushButton,
+    QTextEdit,
+    QVBoxLayout,
+)
+
 from .config import (
     FEATURE_STR_IDENTIFIERS,
     FEATURE_TABLES,
@@ -10,6 +21,7 @@ from .config import (
 from .utils import (  # noqa
     FieldDataCaptureProject,
     get_table_rows,
+    get_msgbox_icon_pixmap,
     ipdb_breakpoint,
 )
 
@@ -59,6 +71,98 @@ class ValidationResult:
     status: ValidationStatus = dataclasses.field(default_factory=lambda: ValidationStatus.PASS)
     # Make the list of messages default to an empty list
     messages: list[str] = dataclasses.field(default_factory=list)
+
+
+class ValidationDialog(QDialog, FieldDataCaptureProject):
+    """
+    QDialog for displaying the results of validating a Field Data Capture project.
+    """
+    def __init__(self, results: list[ValidationResult]):
+        super().__init__()
+
+        self.status_to_str = {
+            ValidationStatus.FAIL: "failed",
+            ValidationStatus.WARNING: "warning",
+            ValidationStatus.PASS: "passed",
+        }
+        self.status_to_icon = {
+            ValidationStatus.FAIL: QMessageBox.Critical,
+            ValidationStatus.WARNING: QMessageBox.Warning,
+            ValidationStatus.PASS: QMessageBox.Information,
+        }
+
+        self.setWindowTitle("Project Validation")
+        self.setWindowFlags(
+            Qt.Window | Qt.WindowCloseButtonHint
+        )
+
+        self.setup_ui_elements()
+        self.add_validation_results(results)
+        self.exec()
+
+
+    def setup_ui_elements(self) -> None:
+        """
+        Create the elements of the Validation Dialog window.
+        Also sets the layout for the dialog box.
+        """
+        self.result_icon = QLabel()
+        self.result_label = QLabel()
+
+        self.text_edit = QTextEdit()
+        self.text_edit.setReadOnly(True)
+        self.text_edit.hide()
+
+        self.ok_button = QPushButton("Ok")
+        self.ok_button.clicked.connect(lambda: self.closeEvent(None))
+
+        # Create layout for icon and main label
+        icon_layout = QHBoxLayout()
+        icon_layout.addWidget(self.result_icon)
+        icon_layout.addSpacing(10)
+        icon_layout.addWidget(self.result_label)
+        icon_layout.addStretch(1)
+        icon_layout.setContentsMargins(*(10,) * 4)
+
+        # Create dialog layout
+        dialog_layout = QVBoxLayout()
+        dialog_layout.addLayout(icon_layout)
+        dialog_layout.addWidget(self.text_edit)
+        dialog_layout.addWidget(self.ok_button, alignment=Qt.AlignRight)
+        self.setLayout(dialog_layout)
+
+
+    def add_validation_results(self, results: list[ValidationResult]) -> None:
+        """
+        Add the given list of validation results to the dialog widgets.
+        This includes setting the dialog width, filling the text edit widget
+        with warning and fail messages, and applying the correct icon.
+        """
+        all_messages: list[str] = []
+        result_statuses: set[ValidationStatus] = set()
+        for result in results:
+            result_statuses.add(result.status)
+
+            if result.status < ValidationStatus.PASS:
+                display_messages = [
+                    # Add bullet point before each message
+                    "• " + message
+                    for message in result.messages
+                ]
+                all_messages.append("\n".join(display_messages))
+
+        # Get final status
+        final_status = min(result_statuses)
+
+        if final_status < ValidationStatus.PASS:
+            self.setMinimumWidth(500)
+            self.text_edit.setText("\n\n".join(all_messages))
+            self.text_edit.show()
+
+        self.result_icon.setPixmap(get_msgbox_icon_pixmap(self.status_to_icon[final_status]))
+        self.result_label.setText(
+            f"Validation for project '{self.project_dir.name}': {self.status_to_str[final_status].upper()}",
+        )
 
 
 def validate_project(project_dir: Path) -> list[ValidationResult]:
