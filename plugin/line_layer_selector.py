@@ -1,3 +1,4 @@
+from collections import defaultdict
 from qgis.PyQt.QtCore import (
     pyqtSignal,
     Qt,
@@ -59,17 +60,14 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
             dic_table = f"dic_line_type_{line_name}"
 
             dic_layer = self.get_fdc_layer(dic_table)
-            # Get line categories and types from dic layer
-            cats_to_codes = {}
+
+            # Get line categories and type codes from dic layer
+            # defaultdict creates new list when categories first appear
+            cats_to_codes = defaultdict(list)
             for feature in dic_layer.getFeatures():
-
-                # Add category to dictionary first
                 line_category = feature.attribute("category")
-                if line_category not in cats_to_codes:
-                    cats_to_codes[line_category] = []
-
-                # Add type to category list
-                cats_to_codes[line_category].append(feature.attribute("code"))
+                line_code = feature.attribute("code")
+                cats_to_codes[line_category].append(line_code)
 
             # Add category dictionary to layer dictionary
             layers_to_cats_to_types[line_table] = cats_to_codes
