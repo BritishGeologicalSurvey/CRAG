@@ -1,13 +1,16 @@
+from collections import defaultdict
 from qgis.PyQt.QtCore import (
     pyqtSignal,
     Qt,
 )
+from qgis.PyQt.QtGui import QFont
 from qgis.PyQt.QtWidgets import (
     QComboBox,
     QCompleter,
     QDialog,
     QFrame,
     QLabel,
+    QRadioButton,
     QVBoxLayout,
 )
 
@@ -38,12 +41,26 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.layers_to_cats_to_types = self.get_layers_to_categories_to_types()
 
         self.comboboxes: dict[str, QComboBox] = {}
-        self.setup_ui_elements()
+        self.recent_line_buttons: dict[str, QRadioButton] = {}
+        self.setup_ui_elements(recent_line_types)
         self.connect_signals_and_slots()
 
-        if len(recent_line_types) > 0:
-            self.apply_recent_line_types(recent_line_types)
+    def get_line_type_layers(self) -> dict[str, str]:
+        """
+        Return a lookup dictionary of the line layer that contains each line code.
+        """
+        layer_cat_types = self.get_layers_to_categories_to_types()
 
+        line_type_layers = {}
+        for layer in layer_cat_types:
+            for line_category in layer_cat_types[layer]:
+                for line_type in layer_cat_types[layer][line_category]:
+                    # Line types should be unique, but assert just in case
+                    assert line_type not in line_type_layers
+                    line_type_layers[line_type] = layer
+
+        line_type_layers = dict(sorted(line_type_layers.items()))
+        return line_type_layers
 
     def get_layers_to_categories_to_types(self) -> dict[str, dict[str, list[str]]]:
         """
@@ -59,69 +76,45 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
             dic_table = f"dic_line_type_{line_name}"
 
             dic_layer = self.get_fdc_layer(dic_table)
-            # Get line categories and types from dic layer
-            cats_to_codes = {}
+
+            # Get line categories and type codes from dic layer
+            # defaultdict creates new list when categories first appear
+            cats_to_codes = defaultdict(list)
             for feature in dic_layer.getFeatures():
-
-                # Add category to dictionary first
                 line_category = feature.attribute("category")
-                if line_category not in cats_to_codes:
-                    cats_to_codes[line_category] = []
-
-                # Add type to category list
-                cats_to_codes[line_category].append(feature.attribute("code"))
+                line_code = feature.attribute("code")
+                cats_to_codes[line_category].append(line_code)
 
             # Add category dictionary to layer dictionary
             layers_to_cats_to_types[line_table] = cats_to_codes
 
         return layers_to_cats_to_types
 
-
-    def setup_ui_elements(self) -> None:
+    def setup_ui_elements(self, recent_line_types: list[dict[str, str]]) -> None:
         """
         Create the elements of the line layer selector User Interface.
         Also sets the layout for the dialog box.
         """
-        # Create recent line types combobox with default value and disabled
-        recent_label = QLabel("Recent Line Types")
-        self.comboboxes["recent"] = QComboBox()
-        self.comboboxes["recent"].addItem("Select Line Type", userData=None)
-        self.comboboxes["recent"].setDisabled(True)
-
-        # Create separator line
-        separator_line = QFrame()
-        separator_line.setFrameShape(QFrame.HLine | QFrame.Sunken)
-        separator_line.setStyleSheet("background-color: silver")
-
         # Create main comboboxes
-        line_layer_label = QLabel("Line Layer")
         self.comboboxes["layer"] = QComboBox()
-        line_cat_label = QLabel("Line Category")
         self.comboboxes["category"] = QComboBox()
-        line_type_label = QLabel("Line Type")
         self.comboboxes["type"] = self.create_searchable_combobox()
-
         # Initial population of comboboxes
         self.update_line_layer_combobox()
         self.update_line_cat_combobox()
         self.update_line_type_combobox()
 
-        # Create layout for lines attributes input
-        line_attributes_layout = QVBoxLayout()
-        line_attributes_layout.addWidget(recent_label)
-        line_attributes_layout.addWidget(self.comboboxes["recent"])
-        line_attributes_layout.addWidget(separator_line)
-        line_attributes_layout.addWidget(line_layer_label)
-        line_attributes_layout.addWidget(self.comboboxes["layer"])
-        line_attributes_layout.addWidget(line_cat_label)
-        line_attributes_layout.addWidget(self.comboboxes["category"])
-        line_attributes_layout.addWidget(line_type_label)
-        line_attributes_layout.addWidget(self.comboboxes["type"])
-
         # Create dialog layout
         dialog_layout = QVBoxLayout()
-        dialog_layout.addLayout(line_attributes_layout)
         self.setLayout(dialog_layout)
+
+        # Only add the layout for recent line types if some are provided
+        if len(recent_line_types) > 0:
+            recent_lines_layout = self.create_recent_lines_layout(recent_line_types)
+            dialog_layout.addLayout(recent_lines_layout)
+
+        all_lines_layout = self.create_all_lines_layout()
+        dialog_layout.addLayout(all_lines_layout)
 
 
     def create_searchable_combobox(self) -> QComboBox:
@@ -158,6 +151,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         # Remove all items and then add default one
         self.comboboxes["category"].clear()
         self.comboboxes["category"].addItem("Select Line Category", userData=None)
+
         # Reset the line_type_combobox
         self.update_line_type_combobox()
 
@@ -174,11 +168,14 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         """
         # Remove all items and then add default one
         self.comboboxes["type"].clear()
-        self.comboboxes["type"].addItem("Select Line Type", userData=None)
+        self.comboboxes["type"].addItem("Select or search for line type", userData=None)
 
         line_layer = self.comboboxes["layer"].currentData()
         line_category = self.comboboxes["category"].currentData()
-        # If a valid line layer is given
+
+        line_type_layers = self.get_line_type_layers()
+
+        # If a valid line layer is given for filtering
         if isinstance(line_layer, str):
 
             # If a valid category is given, only show line types from the category
@@ -192,15 +189,102 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
                     for line_type in self.layers_to_cats_to_types[line_layer][line_category]:
                         self.comboboxes["type"].addItem(line_type, userData=line_type)
 
+        else:
+            # With no filtering, add all line types
+            for line_type in line_type_layers:
+                self.comboboxes["type"].addItem(line_type, userData=line_type)
 
-    def apply_recent_line_types(self, recent_line_types: list[dict[str, str]]) -> None:
+
+    def create_recent_lines_layout(self, recent_line_types: list[dict[str, str]]) -> QVBoxLayout:
         """
-        Add the given recent line types to the recent lines combobox,
-        and enable the recent lines combobox.
+        Create the layout for the recent lines widgets.
         """
-        self.comboboxes["recent"].setEnabled(True)
-        for recent_line in recent_line_types:
-            self.comboboxes["recent"].addItem(recent_line["type"], userData=recent_line)
+        # This is the outer layout which contains all widgets for recent lines
+        recent_lines_layout = QVBoxLayout()
+
+        # Add label
+        recent_lines_label = self.create_bold_label("Recent Line Types")
+        recent_lines_layout.addWidget(recent_lines_label)
+
+        # Add frame for buttons
+        recent_lines_frame = self.create_bordered_frame()
+        recent_lines_layout.addWidget(recent_lines_frame)
+
+        # Populate inner layout with buttons
+        recent_lines_buttons_layout = QVBoxLayout()
+
+        for recent_line_dict in recent_line_types:
+            recent_line_button = self.create_recent_line_button(recent_line_dict)
+            recent_lines_buttons_layout.addWidget(recent_line_button)
+            self.recent_line_buttons[recent_line_dict["type"]] = recent_line_button
+
+        # Put buttons layout into frame
+        recent_lines_frame.setLayout(recent_lines_buttons_layout)
+
+        return recent_lines_layout
+
+
+    def create_recent_line_button(self, line_dict: dict[str, str]) -> QRadioButton:
+        """
+        Create a button to automatically select the given line type.
+        """
+        line_button = QRadioButton(line_dict["type"])
+
+        def button_callback():
+            if line_button.isChecked():
+                self.line_layer_selector_confirm.emit(line_dict["layer"], line_dict["type"])
+
+        line_button.toggled.connect(button_callback)
+        return line_button
+
+
+    def create_all_lines_layout(self) -> QVBoxLayout:
+        """
+        Create the layout for all line types widgets.
+        """
+        # Create labels
+        line_layer_label = QLabel("Line Layer")
+        line_cat_label = QLabel("Line Category")
+        line_type_label = QLabel("Line Type")
+        # Inner layout for all line types drop down buttons
+        all_lines_buttons_layout = QVBoxLayout()
+        all_lines_frame = self.create_bordered_frame()
+        all_lines_frame.setLayout(all_lines_buttons_layout)
+        # Add button widgets
+        all_lines_buttons_layout.addWidget(line_layer_label)
+        all_lines_buttons_layout.addWidget(self.comboboxes["layer"])
+        all_lines_buttons_layout.addWidget(line_cat_label)
+        all_lines_buttons_layout.addWidget(self.comboboxes["category"])
+        all_lines_buttons_layout.addWidget(line_type_label)
+        all_lines_buttons_layout.addWidget(self.comboboxes["type"])
+        # Create outer layout for all line types
+        all_lines_layout = QVBoxLayout()
+        all_lines_label = self.create_bold_label("All Line Types")
+        all_lines_layout.addWidget(all_lines_label)
+        all_lines_layout.addWidget(all_lines_frame)
+        return all_lines_layout
+
+
+    def create_bordered_frame(self) -> QFrame:
+        """
+        Create a QFrame with a styled border.
+        """
+        frame = QFrame()
+        frame.setObjectName("MainFrame")
+        frame.setFrameShape(QFrame.StyledPanel | QFrame.Plain)
+        frame.setStyleSheet("#MainFrame { border: 1px solid silver; }")
+        return frame
+
+
+    def create_bold_label(self, text: str) -> QLabel:
+        """
+        Create a label with the given text in bold font.
+        """
+        font = QFont()
+        font.setBold(True)
+        label = QLabel(text)
+        label.setFont(font)
+        return label
 
 
     def connect_signals_and_slots(self) -> None:
@@ -216,23 +300,20 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.comboboxes["category"].currentTextChanged.connect(self.update_line_type_combobox)
         # We use the activated signal here because it ignores programmatically changing the combobox
         self.comboboxes["type"].activated.connect(self.confirm_selection)
-        self.comboboxes["recent"].activated.connect(self.confirm_selection)
 
 
     def confirm_selection(self) -> None:
         """
         Confirm the current line selection, emit a signal to plugin if it is valid.
         """
-        recent_line_dict = self.comboboxes["recent"].currentData()
         line_layer = self.comboboxes["layer"].currentData()
         line_type = self.comboboxes["type"].currentData()
 
-        # If a recent line type is selected
-        if recent_line_dict is not None:
-            self.line_layer_selector_confirm.emit(recent_line_dict["layer"], recent_line_dict["type"])
-
-        # If a new line type is selected
-        elif line_layer is not None and line_type is not None:
+        # Emit a signal if a line type has been chosen
+        if line_type is not None:
+            if line_layer is None:
+                # If we don't know the line layer, we have to look it up
+                line_layer = self.get_line_type_layers()[line_type]
             self.line_layer_selector_confirm.emit(line_layer, line_type)
 
 
