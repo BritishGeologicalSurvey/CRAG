@@ -44,15 +44,6 @@ LINE_LAYER_TYPE = [
 
 
 @pytest.fixture()
-def default_data() -> dict[str, str]:
-    return {
-        "layer": "Select Line Layer",
-        "category": "Select Line Category",
-        "type": "Select Line Type",
-    }
-
-
-@pytest.fixture()
 def line_selector(fdc_project: FieldDataCapture) -> LineLayerSelector:
     """
     Return an instance of the line layer selector, with a Field Data Capture project ready to use.
@@ -60,14 +51,25 @@ def line_selector(fdc_project: FieldDataCapture) -> LineLayerSelector:
     return LineLayerSelector()
 
 
-def test_default_state(line_selector: LineLayerSelector, default_data: dict[str, str]):
+def test_default_state(line_selector: LineLayerSelector):
     # Arrange
+    default_data = {
+        "layer": "Select Line Layer",
+        "category": "Select Line Category",
+        "type": "Select or search for line type",
+    }
+
     # Put default values into lists
     for key, value in default_data.items():
         default_data[key] = [value]
-    # The layer combobox should always have values as well as it's default data
+
+    # The layer combobox should default to include all line layers
     layers_to_cats_to_types = line_selector.get_layers_to_categories_to_types()
     default_data["layer"].extend(list(layers_to_cats_to_types.keys()))
+
+    # The line type combobox default to include all line types
+    line_type_layers = line_selector.get_line_type_layers()
+    default_data["type"].extend(list(line_type_layers.keys()))
 
     # Assert
     for line_attribute, combobox in line_selector.comboboxes.items():

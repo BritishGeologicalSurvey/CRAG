@@ -45,6 +45,22 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.setup_ui_elements(recent_line_types)
         self.connect_signals_and_slots()
 
+    def get_line_type_layers(self) -> dict[str, str]:
+        """
+        Return a lookup dictionary of the line layer that contains each line code.
+        """
+        layer_cat_types = self.get_layers_to_categories_to_types()
+
+        line_type_layers = {}
+        for layer in layer_cat_types:
+            for line_category in layer_cat_types[layer]:
+                for line_type in layer_cat_types[layer][line_category]:
+                    # Line types should be unique, but assert just in case
+                    assert line_type not in line_type_layers
+                    line_type_layers[line_type] = layer
+
+        line_type_layers = dict(sorted(line_type_layers.items()))
+        return line_type_layers
 
     def get_layers_to_categories_to_types(self) -> dict[str, dict[str, list[str]]]:
         """
@@ -73,7 +89,6 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
             layers_to_cats_to_types[line_table] = cats_to_codes
 
         return layers_to_cats_to_types
-
 
     def setup_ui_elements(self, recent_line_types: list[dict[str, str]]) -> None:
         """
@@ -153,11 +168,14 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         """
         # Remove all items and then add default one
         self.comboboxes["type"].clear()
-        self.comboboxes["type"].addItem("Select Line Type", userData=None)
+        self.comboboxes["type"].addItem("Select or search for line type", userData=None)
 
         line_layer = self.comboboxes["layer"].currentData()
         line_category = self.comboboxes["category"].currentData()
-        # If a valid line layer is given
+
+        line_type_layers = self.get_line_type_layers()
+
+        # If a valid line layer is given for filtering
         if isinstance(line_layer, str):
 
             # If a valid category is given, only show line types from the category
@@ -170,6 +188,11 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
                 for line_category in self.layers_to_cats_to_types[line_layer]:
                     for line_type in self.layers_to_cats_to_types[line_layer][line_category]:
                         self.comboboxes["type"].addItem(line_type, userData=line_type)
+
+        else:
+            # With no filtering, add all line types
+            for line_type in line_type_layers:
+                self.comboboxes["type"].addItem(line_type, userData=line_type)
 
 
     def create_recent_lines_layout(self, recent_line_types: list[dict[str, str]]) -> QVBoxLayout:
@@ -286,8 +309,11 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         line_layer = self.comboboxes["layer"].currentData()
         line_type = self.comboboxes["type"].currentData()
 
-        # If a new line type is selected
-        if line_layer is not None and line_type is not None:
+        # Emit a signal if a line type has been chosen
+        if line_type is not None:
+            if line_layer is None:
+                # If we don't know the line layer, we have to look it up
+                line_layer = self.get_line_type_layers()[line_type]
             self.line_layer_selector_confirm.emit(line_layer, line_type)
 
 
