@@ -188,7 +188,7 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     # Apply monkeypatch for getting plugin metadata in QuickMapTools
     monkeypatch.setattr(QuickMapToolBase, "get_local_version", lambda *args: "fdc_test_fixture")
 
-    # Apply monkeypatch for all QDialogs which includes: FileLinker, LineLayerSelector, SettingsDialog
+    # Apply monkeypatch for all QDialogs
     monkeypatch.setattr(QDialog, "exec", Mock(return_value=True))
 
     # Apply monkeypatch for searching GUI elements in QuickMapTools

@@ -17,7 +17,10 @@ from qgis.core import (
     QgsVectorLayerUtils,
 )
 from qgis.PyQt.QtCore import QUrl
-from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtGui import (
+    QDesktopServices,
+    QPixmap,
+)
 from qgis.PyQt.QtWidgets import (
     QComboBox,
     QMessageBox,
@@ -425,6 +428,19 @@ def create_prepopulated_feature(
         attributes=prepopulate_indexed,
     )
     return feature
+
+
+def get_msgbox_icon_pixmap(icon: QMessageBox.Icon) -> QPixmap:
+    """
+    Get the pixmap of the given QMessageBox icon.
+    This is required because the QMessageBox.Icon object is not a standard QIcon.
+    Therefore the simplest way to access it's pixmap is by adding it to a temporary QMessageBox,
+    and then get the icon pixmap from that QMessageBox.
+    """
+    tmp_msgbox = QMessageBox()
+    tmp_msgbox.setIcon(icon)
+    pixmap = tmp_msgbox.iconPixmap()
+    return pixmap
 
 
 def ipdb_breakpoint():
