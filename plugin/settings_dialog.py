@@ -79,12 +79,18 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
 
         self.map_note_options = {
             "Off": "map_face_note",
-            "On": """concat("map_face_note", '\\n', "geology_description")""",
+            "On": """
+                if(
+                    "geology_description" is not null,
+                    concat("map_face_note",
+                           '\n',
+                           "geology_description"),
+                    "map_face_note"
+                )""",
         }
 
         self.setup_ui_elements()
         self.connect_signals_and_slots()
-
 
     def setup_ui_elements(self) -> None:
         """
@@ -113,7 +119,6 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         dialog_layout.addLayout(button_layout)
         self.setLayout(dialog_layout)
 
-
     def create_map_note_radio_group(self) -> RadioButtonGroup:
         """
         Create the Radio Button Group for the map face note options.
@@ -134,7 +139,6 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         )
         return map_note_radio_group
 
-
     def apply_map_note_option(self) -> None:
         """
         Apply the selected option for the map face note.
@@ -151,7 +155,6 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         rule.settings().fieldName = self.map_note_options[option]
         self.get_fdc_layer(layer).triggerRepaint()
 
-
     def connect_signals_and_slots(self) -> None:
         """
         Function for connecting signals and slots of buttons and input boxes.
@@ -159,14 +162,12 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         self.ok_button.clicked.connect(self.apply_settings)
         self.cancel_button.clicked.connect(self.close)
 
-
     def apply_settings(self) -> None:
         """
         Apply the selected settings in the dialog.
         """
         self.apply_map_note_option()
         self.close()
-
 
     def closeEvent(self, event=None) -> None:
         """

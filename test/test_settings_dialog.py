@@ -89,7 +89,14 @@ def test_close_settings_dialog(fdc_project: FieldDataCapture):
 
 def test_apply_map_note_option(fdc_project: FieldDataCapture):
     # Arrange
-    expected_expression = """concat("map_face_note", '\\n', "geology_description")"""
+    expected_expression = """
+                if(
+                    "geology_description" is not null,
+                    concat("map_face_note",
+                           '\n',
+                           "geology_description"),
+                    "map_face_note"
+                )"""
     fdc_project.open_settings_dialog()
 
     # Act
