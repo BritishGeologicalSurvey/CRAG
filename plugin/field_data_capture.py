@@ -885,9 +885,16 @@ class FieldDataCapture(FieldDataCaptureProject):
         Returns a boolean indicating success of the process.
         """
         layer_name = "field_project"
-        if not self.validate_qgis_state(project_active=True, db_file_exists=True, layer_name_exists=layer_name) or not self.toggle_quick_map_tool(layer_name, mode="add"):  # noqa
-            return False
-        return True
+        # If the QGIS state is valid
+        if self.validate_qgis_state(project_active=True, db_file_exists=True, layer_name_exists=layer_name):
+            # If a field_project feature already exists
+            if self.check_field_project_exists():
+                msg = "A Field Project feature already exists for this project."
+                QMessageBox.warning(None, "Warning", msg)
+            # If the tool is enabled correctly
+            elif self.toggle_quick_map_tool(layer_name, mode="add"):
+                return True
+        return False
 
 
     def create_field_report(self) -> bool:

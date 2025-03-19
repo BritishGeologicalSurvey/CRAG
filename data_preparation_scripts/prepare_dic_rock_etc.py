@@ -31,7 +31,7 @@ CGI_BASE_URL = "http://resource.geosciml.org/classifier/cgi/lithology/"
 
 BGSPROD = etl.DbParams(
     dbtype='ORACLE',
-    host='kwxdb-prod.ad.nerc.ac.uk',
+    host='bgsoracle.ad.nerc.ac.uk',
     port=1521,
     dbname='bgsprod',
     user='reader')
