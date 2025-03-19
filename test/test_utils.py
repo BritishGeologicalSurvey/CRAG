@@ -193,7 +193,7 @@ def test_get_layer_label_rule(fdc_project: FieldDataCapture):
     expected_expression = "map_face_note"
 
     # Act
-    rule = fdc_project.get_layer_label_rule("locality_point", "geological note")
+    rule = fdc_project.get_layer_label_rule("locality_point", "map face note")
 
     # Assert
     assert rule.settings().fieldName == expected_expression

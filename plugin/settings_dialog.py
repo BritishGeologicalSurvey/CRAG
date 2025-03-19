@@ -123,7 +123,7 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         """
         Create the Radio Button Group for the map face note options.
         """
-        rule = self.get_layer_label_rule(layer="locality_point", label_description="geological note")
+        rule = self.get_layer_label_rule(layer="locality_point", label_description="map face note")
         current_expression = rule.settings().fieldName
 
         # Swap dict keys and values
@@ -149,7 +149,7 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
             return
 
         layer = "locality_point"
-        rule = self.get_layer_label_rule(layer=layer, label_description="geological note")
+        rule = self.get_layer_label_rule(layer=layer, label_description="map face note")
         # Ensure that it is treated as an expression
         rule.settings().isExpression = True
         rule.settings().fieldName = self.map_note_options[option]

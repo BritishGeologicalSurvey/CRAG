@@ -105,6 +105,6 @@ def test_apply_map_note_option(fdc_project: FieldDataCapture):
     fdc_project.settings_dialog.ok_button.click()
 
     # Assert
-    rule = fdc_project.get_layer_label_rule("locality_point", "geological note")
+    rule = fdc_project.get_layer_label_rule("locality_point", "map face note")
     assert rule.settings().isExpression
     assert rule.settings().fieldName == expected_expression
