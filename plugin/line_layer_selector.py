@@ -136,6 +136,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         # Remove all items and then add default one
         self.comboboxes["category"].clear()
         self.comboboxes["category"].addItem("Select Line Category", userData=None)
+
         # Reset the line_type_combobox
         self.update_line_type_combobox()
 
@@ -175,20 +176,28 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         """
         Create the layout for the recent lines widgets.
         """
-        # Inner layout is used later to add buttons, and is placed into a frame for styling
-        recent_lines_buttons_layout = QVBoxLayout()
-        recent_lines_frame = self.create_bordered_frame()
-        recent_lines_frame.setLayout(recent_lines_buttons_layout)
         # This is the outer layout which contains all widgets for recent lines
         recent_lines_layout = QVBoxLayout()
+
+        # Add label
         recent_lines_label = self.create_bold_label("Recent Line Types")
         recent_lines_layout.addWidget(recent_lines_label)
+
+        # Add frame for buttons
+        recent_lines_frame = self.create_bordered_frame()
         recent_lines_layout.addWidget(recent_lines_frame)
-        # Add recent lines buttons
+
+        # Populate inner layout with buttons
+        recent_lines_buttons_layout = QVBoxLayout()
+
         for recent_line_dict in recent_line_types:
             recent_line_button = self.create_recent_line_button(recent_line_dict)
             recent_lines_buttons_layout.addWidget(recent_line_button)
             self.recent_line_buttons[recent_line_dict["type"]] = recent_line_button
+
+        # Put buttons layout into frame
+        recent_lines_frame.setLayout(recent_lines_buttons_layout)
+
         return recent_lines_layout
 
 
