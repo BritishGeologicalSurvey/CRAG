@@ -113,7 +113,7 @@ class ValidationDialog(QDialog, FieldDataCaptureProject):
         self.text_edit.setReadOnly(True)
         self.text_edit.hide()
 
-        self.ok_button = QPushButton("Ok")
+        self.ok_button = QPushButton("OK")
         self.ok_button.clicked.connect(lambda: self.closeEvent(None))
 
         # Create layout for icon and main label
