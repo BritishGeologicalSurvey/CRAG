@@ -11,6 +11,7 @@ from qgis.core import (
     QgsGeometry,
     QgsFeature,
     QgsProject,
+    QgsRuleBasedLabeling,
     QgsVectorLayer,
     QgsVectorLayerUtils,
 )
@@ -303,6 +304,23 @@ class FieldDataCaptureProject:
         else:
             QMessageBox.warning(None, "File Not Found", f"Could not find file: {filepath}")
             return False
+
+
+    def get_layer_label_rule(self, layer: str, label_description: str) -> QgsRuleBasedLabeling.Rule:
+        """
+        Get the Rule that is applied to generate the map label for the given layer, where QgsRuleBasedLabeling is used.
+        NOTE: when modifying the expression of a label, the `rule.settings().fieldName` attribute should be used,
+        not the `rule.settings().getLabelExpression().expression()` methods.
+        If you try to change the expression with the latter, nothing happens,
+        but if you use the former and include `rule.settings().isExpression = True`, it works as expected.
+        """
+        layer = self.get_fdc_layer(layer)
+        rule = [
+            rule
+            for rule in layer.labeling().rootRule().children()
+            if rule.description() == label_description
+        ][0]
+        return rule
 
 
 def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:

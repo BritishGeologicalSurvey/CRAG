@@ -84,12 +84,13 @@ from .project_validation import (
     ValidationStatus,
     validate_project,
 )
-from .report_builder import ReportBuilder
 from .quick_map_tools import (
     QuickAddTool,
     QuickEditTool,
     QuickDeleteTool,
 )
+from .report_builder import ReportBuilder
+from .settings_dialog import SettingsDialog
 from .utils import (  # noqa
     FieldDataCaptureProject,
     ipdb_breakpoint,
@@ -140,6 +141,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         self.file_linker: Optional[FileLinker] = None
         self.line_layer_selector: Optional[LineLayerSelector] = None
         self.recent_quick_line_types: list[dict[str, str]] = []
+        self.settings_dialog: Optional[SettingsDialog] = None
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -354,6 +356,13 @@ class FieldDataCapture(FieldDataCaptureProject):
             None,
             text=self.tr(u'Validate Current Project'),
             callback=self.run_project_validation,
+            parent=self.iface.mainWindow(),
+        )
+
+        self.add_action(
+            None,
+            text=self.tr("Plugin Settings"),
+            callback=self.open_settings_dialog,
             parent=self.iface.mainWindow(),
         )
 
@@ -1286,3 +1295,26 @@ class FieldDataCapture(FieldDataCaptureProject):
             ] + all_messages)
 
             status_to_qmsgbox[final_status](None, "Project Validation", qmsgbox_msg)
+
+
+    def open_settings_dialog(self) -> bool:
+        """
+        Open the Settings Dialog of the plugin.
+        Returns a boolean indicating the success of the process.
+        """
+        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
+            return False
+
+        self.settings_dialog = SettingsDialog()
+        self.settings_dialog.settings_dialog_closed.connect(self.close_settings_dialog)
+        self.settings_dialog.exec()
+        return True
+
+
+    def close_settings_dialog(self) -> None:
+        """
+        Delete the current Settings Dialog object if there is one.
+        """
+        if self.settings_dialog is not None:
+            del self.settings_dialog
+            self.settings_dialog = None

@@ -12,15 +12,16 @@ from qgis.core import (
     QgsProject,
 )
 from qgis.gui import QgsAdvancedDigitizingDockWidget
-from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt.QtWidgets import (
+    QDialog,
+    QMessageBox,
+)
 from qgis.testing.mocked import get_iface
 
 from plugin.config import TABLE_LIST
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
 from plugin.create_gpkg_from_sql import add_test_data
 from plugin.field_data_capture import FieldDataCapture
-from plugin.line_layer_selector import LineLayerSelector
-from plugin.file_linker import FileLinker
 from plugin.quick_map_tools import QuickMapToolBase
 from plugin.report_builder import ReportBuilder
 from plugin.utils import FieldDataCaptureProject
@@ -187,8 +188,8 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     # Apply monkeypatch for getting plugin metadata in QuickMapTools
     monkeypatch.setattr(QuickMapToolBase, "get_local_version", lambda *args: "fdc_test_fixture")
 
-    # Apply monkeypatch for LineLayerSelector
-    monkeypatch.setattr(LineLayerSelector, "exec", Mock())
+    # Apply monkeypatch for all QDialogs which includes: FileLinker, LineLayerSelector, SettingsDialog
+    monkeypatch.setattr(QDialog, "exec", Mock(return_value=True))
 
     # Apply monkeypatch for searching GUI elements in QuickMapTools
     monkeypatch.setattr(
@@ -197,9 +198,6 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
         lambda *args, **kwargs: {table: None for table in TABLE_LIST},
     )
     monkeypatch.setattr(iface, "layerTreeView", lambda *args: Mock())
-
-    # Apply monkeypatch for FileLinker
-    monkeypatch.setattr(FileLinker, "exec", lambda *args: True)
 
     # Mute exifread logging
     exifread_logger = logging.getLogger("exifread")

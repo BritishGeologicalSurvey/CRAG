@@ -186,3 +186,14 @@ def test_get_fdc_layer_bad(layer_name: str, fdc: FieldDataCapture):
 
     # Assert
     assert layer is None
+
+
+def test_get_layer_label_rule(fdc_project: FieldDataCapture):
+    # Arrange
+    expected_expression = "map_face_note"
+
+    # Act
+    rule = fdc_project.get_layer_label_rule("locality_point", "map face note")
+
+    # Assert
+    assert rule.settings().fieldName == expected_expression

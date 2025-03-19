@@ -244,7 +244,7 @@
           </callout>
         </settings>
       </rule>
-      <rule description="geological note" key="{cd7f8de5-f696-47b6-9638-21e3fd13de35}">
+      <rule description="map face note" key="{cd7f8de5-f696-47b6-9638-21e3fd13de35}">
         <settings calloutType="balloon">
           <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="map_face_note" fontFamily="Sans Serif" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="9" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="" previewBkgrdColor="255,255,255,255" textColor="50,50,50,255" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
             <families></families>
