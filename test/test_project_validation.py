@@ -5,11 +5,15 @@ from qgis.PyQt.QtWidgets import QMessageBox
 
 from plugin.field_data_capture import FieldDataCapture
 from plugin.project_validation import (
+    ValidationDialog,
     ValidationResult,
     ValidationStatus,
     validate_project,
 )
-from plugin.utils import ipdb_breakpoint  # noqa
+from plugin.utils import (  # noqa
+    get_msgbox_icon_pixmap,
+    ipdb_breakpoint,
+)
 from conftest import create_fdc_project_files
 
 
@@ -117,35 +121,45 @@ def test_validate_project_bad(fdc_project_bad: Path):
     assert expected_results == results
 
 
-def test_validate_project_plugin_pass(fdc_project: FieldDataCapture):
+def test_validation_dialog_pass(fdc_project: FieldDataCapture):
+    # Arrange
+    expected_image = get_msgbox_icon_pixmap(QMessageBox.Information).toImage()
+    expected_result_label = "Validation for project 'test_project_dir': PASSED"
+
     # Act
-    fdc_project.run_project_validation()
+    results = validate_project(project_dir=fdc_project.project_dir)
+    dialog = ValidationDialog(results)
 
     # Assert
-    # The main messsage types have been monkeypatched to be a Mock object
-    QMessageBox.information.assert_called_with(
-        None,
-        "Project Validation",
-        "Validation for project 'test_project_dir': PASSED",
-    )
+    assert dialog.result_label.text() == expected_result_label
+    assert dialog.result_icon.pixmap().toImage() == expected_image
+    assert dialog.text_edit.isHidden()
 
 
-def test_validate_project_plugin_warning(fdc_project: FieldDataCapture):
+def test_validation_dialog_fail(fdc_project: FieldDataCapture):
     # Arrange
+    # Add unlinked photo to the project
+    dummy_photo = fdc_project.photos_dir / "not_a_photo.png"
+    dummy_photo.touch()
     # Add a dummy conflict GeoPackage to the project
     dummy_conflict_gpkg = fdc_project.project_dir / "field-data-capture (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
+    expected_image = get_msgbox_icon_pixmap(QMessageBox.Critical).toImage()
+    expected_result_label = "Validation for project 'test_project_dir': FAILED"
+    expected_minimum_width = 500
+    expected_text_edit_str = "\n".join([
+        f"• Unlinked file in 'photo' directory: {dummy_photo}",
+        "\n• Conflict GeoPackage file found: field-data-capture (conflicted copy).gpkg"
+    ])
+
     # Act
-    fdc_project.run_project_validation()
+    results = validate_project(project_dir=fdc_project.project_dir)
+    dialog = ValidationDialog(results)
 
     # Assert
-    # The main messsage types have been monkeypatched to be a Mock object
-    QMessageBox.warning.assert_called_with(
-        None,
-        "Project Validation",
-        (
-            "Validation for project 'test_project_dir': WARNING\n\n"
-            "• Conflict GeoPackage file found: field-data-capture (conflicted copy).gpkg"
-        ),
-    )
+    assert dialog.result_label.text() == expected_result_label
+    assert dialog.result_icon.pixmap().toImage() == expected_image
+    assert not dialog.text_edit.isHidden()
+    assert dialog.minimumWidth() == expected_minimum_width
+    assert dialog.text_edit.toPlainText() == expected_text_edit_str
