@@ -6,6 +6,7 @@ from qgis.PyQt.QtCore import (
 )
 from qgis.PyQt.QtWidgets import (
     QButtonGroup,
+    QCheckBox,
     QDialog,
     QHBoxLayout,
     QLabel,
@@ -78,8 +79,8 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         )
 
         self.map_note_options = {
-            "Off": "map_face_note",
-            "On": """
+            False: "map_face_note",
+            True: """
                 if(
                     "geology_description" is not null,
                     concat("map_face_note",
@@ -102,13 +103,13 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         Also sets the layout for the dialog box.
         """
         # Create radio buttons
-        self.map_note_radio_group = self.create_map_note_radio_group()
-        self.lines_form_radio_group = self.create_lines_form_radio_group()
+        self.map_note_checkbox = self.create_map_note_checkbox()
+        self.lines_form_checkbox = self.create_lines_form_checkbox()
 
         # Radio buttons layout
         settings_layout = QVBoxLayout()
-        settings_layout.addLayout(self.map_note_radio_group.layout)
-        settings_layout.addLayout(self.lines_form_radio_group.layout)
+        settings_layout.addWidget(self.map_note_checkbox)
+        settings_layout.addWidget(self.lines_form_checkbox)
 
         # Create buttons
         self.ok_button = QPushButton("OK")
@@ -125,71 +126,57 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         dialog_layout.addLayout(button_layout)
         self.setLayout(dialog_layout)
 
-    def create_map_note_radio_group(self) -> RadioButtonGroup:
+    def create_map_note_checkbox(self) -> QCheckBox:
         """
-        Create the Radio Button Group for the map face note options.
+        Create the CheckBox for the map face note options.
         """
         rule = self.get_layer_label_rule(layer="locality_point", label_description="map face note")
         current_expression = rule.settings().fieldName
 
         # Swap dict keys and values
         expressions_to_options = dict((v, k) for k, v in self.map_note_options.items())
-        # We allow the current options to be None
-        # because users could change the label manually to something else
-        current_option = expressions_to_options.get(current_expression, None)
+        # Default option is False
+        current_option = expressions_to_options.get(current_expression, False)
 
-        map_note_radio_group = RadioButtonGroup(
-            label="Extended map face notes",
-            options=list(self.map_note_options.keys()),
-            default=current_option,
-        )
-        return map_note_radio_group
+        map_note_checkbox = QCheckBox(text="Extended map face notes")
+        map_note_checkbox.setChecked(current_option)
+        return map_note_checkbox
 
     def apply_map_note_option(self) -> None:
         """
         Apply the selected option for the map face note.
         """
-        option = self.map_note_radio_group.get_selection()
-        # If the setting was not changed
-        if option == self.map_note_radio_group.default:
-            return
-
+        option = self.map_note_checkbox.isChecked()
         layer = "locality_point"
         rule = self.get_layer_label_rule(layer=layer, label_description="map face note")
-        # Ensure that it is treated as an expression
-        rule.settings().isExpression = True
-        rule.settings().fieldName = self.map_note_options[option]
-        self.get_fdc_layer(layer).triggerRepaint()
+        # If the selection is different, update it
+        if rule.settings().fieldName != self.map_note_options[option]:
+            # Ensure that it is treated as an expression
+            rule.settings().isExpression = True
+            rule.settings().fieldName = self.map_note_options[option]
+            self.get_fdc_layer(layer).triggerRepaint()
 
 
-    def create_lines_form_radio_group(self) -> RadioButtonGroup:
+    def create_lines_form_checkbox(self) -> QCheckBox:
         """
-        Create the Radio Button Group for the lines form options.
+        Create the Check Box for the lines form options.
         """
-        # Swap dict keys and values
-        bools_to_options = dict((v, k) for k, v in self.options_to_bools.items())
-        settings_value = self.get_plugin_setting("show_lines_form")
-        # The default value is True, because that is the default behaviour if no current setting exists
-        current_option = bools_to_options.get(settings_value, bools_to_options[True])
+        current_option = self.get_plugin_setting("show_lines_form")
+        # Default option is True
+        if current_option is None:
+            current_option = True
 
-        lines_form_radio_group = RadioButtonGroup(
-            label="Show attribute form for new lines",
-            options=list(self.options_to_bools.keys()),
-            default=current_option,
-        )
-        return lines_form_radio_group
+        lines_form_checkbox = QCheckBox(text="Show attribute form for new lines")
+        lines_form_checkbox.setChecked(current_option)
+        return lines_form_checkbox
 
 
     def apply_lines_form_option(self) -> None:
         """
         Apply the selected lines form option.
         """
-        option = self.lines_form_radio_group.get_selection()
-        # If the setting was not changed
-        if option == self.lines_form_radio_group.default:
-            return
-
-        self.set_plugin_setting("show_lines_form", self.options_to_bools[option])
+        option = self.lines_form_checkbox.isChecked()
+        self.set_plugin_setting("show_lines_form", option)
 
 
     def connect_signals_and_slots(self) -> None:
