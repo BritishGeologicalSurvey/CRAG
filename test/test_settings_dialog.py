@@ -97,14 +97,40 @@ def test_apply_map_note_option(fdc_project: FieldDataCapture):
                            "geology_description"),
                     "map_face_note"
                 )"""
+
+    # Act 1
     fdc_project.open_settings_dialog()
 
-    # Act
+    # Assert 1
+    # Default should be False
+    assert not fdc_project.settings_dialog.map_note_checkbox.isChecked()
+
+    # Act 2
     # Enable extended map face notes and confirm settings
-    fdc_project.settings_dialog.map_note_radio_group.radio_buttons[1].toggle()
+    fdc_project.settings_dialog.map_note_checkbox.setChecked(True)
     fdc_project.settings_dialog.ok_button.click()
 
-    # Assert
+    # Assert 2
     rule = fdc_project.get_layer_label_rule("locality_point", "map face note")
     assert rule.settings().isExpression
     assert rule.settings().fieldName == expected_expression
+
+
+def test_apply_lines_form_option(fdc_project: FieldDataCapture):
+    # Arrange
+    expected_option = False
+
+    # Act 1
+    fdc_project.open_settings_dialog()
+
+    # Assert 1
+    # Default should be True
+    assert fdc_project.settings_dialog.lines_form_checkbox.isChecked()
+
+    # Act 2
+    # Disable lines form
+    fdc_project.settings_dialog.lines_form_checkbox.setChecked(expected_option)
+    fdc_project.settings_dialog.ok_button.click()
+
+    # Assert 2
+    assert fdc_project.get_plugin_setting("show_lines_form") is expected_option

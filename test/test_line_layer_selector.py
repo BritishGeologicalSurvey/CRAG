@@ -1,3 +1,4 @@
+import json
 from unittest.mock import Mock
 
 import pytest
@@ -10,37 +11,6 @@ from plugin.utils import (  # noqa
     set_combobox_index_by_data,
     ipdb_breakpoint,
 )
-
-LINE_LAYER_TYPE = [
-    {
-        "layer": "artificial_line",
-        "type": "cliffline_quarry",
-    },
-    {
-        "layer": "bedrock_line",
-        "type": "base_of_lava_flow",
-    },
-    {
-        "layer": "mass_move_line",
-        "type": "landslide_head_zone_limit",
-    },
-    {
-        "layer": "superficial_line",
-        "type": "axis_of_megagroove",
-    },
-    {
-        "layer": "terrain_line",
-        "type": "convex_break_of_slope",
-    },
-    {
-        "layer": "artificial_line",
-        "type": "artificial_geology_boundary",
-    },
-    {
-        "layer": "bedrock_line",
-        "type": "bone_bed",
-    },
-]
 
 
 @pytest.fixture()
@@ -56,7 +26,7 @@ def test_default_state(line_selector: LineLayerSelector):
     default_data = {
         "layer": "Select Line Layer",
         "category": "Select Line Category",
-        "type": "Select or search for line type",
+        "type": "",
     }
 
     # Put default values into lists
@@ -77,8 +47,15 @@ def test_default_state(line_selector: LineLayerSelector):
         assert combobox.currentData() is None
         assert list(get_combobox_items_dict(combobox).keys()) == default_data[line_attribute]
 
-    # Check that there is only 1 item in the dialog layout, the all line types layout
-    assert line_selector.layout().count() == 1
+    # Check radio buttons
+    for line_dict in LineLayerSelector.default_types:
+        assert line_dict["type"] in line_selector.recent_line_buttons
+        recent_line_button = line_selector.recent_line_buttons[line_dict["type"]]
+        assert isinstance(recent_line_button, QRadioButton)
+        assert recent_line_button.text() == line_dict["type"]
+
+    # Check that there are 2 items in the dialog layout, the all line types layout and the recent line types
+    assert line_selector.layout().count() == 2
 
 
 @pytest.mark.parametrize(
@@ -200,7 +177,7 @@ def test_line_selector_open(fdc_project: FieldDataCapture):
     # Tool should be saved to FDC class
     assert isinstance(fdc_project.line_layer_selector, LineLayerSelector)
     # There should be no recent line types
-    assert len(fdc_project.recent_quick_line_types) == 0
+    assert fdc_project.get_plugin_setting("recent_line_types") is None
 
 
 def test_line_selector_close(fdc_project: FieldDataCapture):
@@ -218,119 +195,39 @@ def test_line_selector_close(fdc_project: FieldDataCapture):
     # Tool should be deleted from FDC class
     assert fdc_project.line_layer_selector is None
     # There should be no recent line types
-    assert len(fdc_project.recent_quick_line_types) == 0
+    assert fdc_project.get_plugin_setting("recent_line_types") is None
 
 
-def test_line_selector_add_recent(fdc_project: FieldDataCapture):
-    # Arrange
-    line_dict_1 = LINE_LAYER_TYPE[0]
-    line_dict_2 = LINE_LAYER_TYPE[1]
-
-    # Act 1
+@pytest.mark.parametrize(
+    ["line_dict", "expected_recent_line_types"],
+    (
+        # Select a new line type
+        (
+            {"layer": "artificial_line", "type": "cliffline_quarry"},
+            [{"layer": "artificial_line", "type": "cliffline_quarry"}] + LineLayerSelector.default_types[:5]),  # noqa
+        # Select an already existing duplicate line type
+        (
+            LineLayerSelector.default_types[3],
+            [LineLayerSelector.default_types[3]] + LineLayerSelector.default_types[:3] + LineLayerSelector.default_types[4:6],  # noqa
+        ),
+    ),
+)
+def test_line_selector_add_recent(
+    line_dict: dict[str, str],
+    expected_recent_line_types: list[dict[str, str]],
+    fdc_project: FieldDataCapture,
+):
+    # Act
     # Open line selector
     fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
-    # Emit signal as if user selected a line type
-    fdc_project.line_layer_selector.line_layer_selector_confirm.emit(line_dict_1["layer"], line_dict_1["type"])
+    # Call the confirm method as if user selected a line type
+    fdc_project.line_layer_selector.confirm_selection(line_layer=line_dict["layer"], line_type=line_dict["type"])
 
-    # Assert 1
+    # Assert
     # Button should remain toggled
     assert fdc_project.quick_map_tool_buttons["fdc_lines_add"].isChecked()
     # Tool should be deleted from FDC class
     assert fdc_project.line_layer_selector is None
     # Selected line type should be added to recents
-    assert fdc_project.recent_quick_line_types == [line_dict_1]
-
-    # Act 2
-    # Open line selector
-    fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
-
-    # Assert 2
-    # Ensure the main layout has 2 items, the all line types and recent line types
-    assert fdc_project.line_layer_selector.layout().count() == 2
-    recent_line_button = fdc_project.line_layer_selector.recent_line_buttons[line_dict_1["type"]]
-    assert isinstance(recent_line_button, QRadioButton)
-
-    # Act 3
-    # Emit signal as if user selected a line type
-    fdc_project.line_layer_selector.line_layer_selector_confirm.emit(line_dict_2["layer"], line_dict_2["type"])
-
-    # Assert 3
-    # Both selected line types should be added to recents
-    assert fdc_project.recent_quick_line_types == [line_dict_2, line_dict_1]
-
-
-def test_line_selector_add_recent_duplicate(fdc_project: FieldDataCapture):
-    # Arrange
-    # Define first 3 line types to select and the duplicate line
-    first_line_dicts = LINE_LAYER_TYPE[:3]
-    line_dict_duplicate = first_line_dicts[0]
-    # Define the expected line types in the recent lines
-    # The selected line should be added to recents only once
-    # But the order will change so that the duplicate is at the start of the list
-    # Instead of the end
-    # The list of first_line_dicts is also reversed as the newest line type will be at the start, not the end
-    expected_end_line_dicts = first_line_dicts[1:]
-    expected_end_line_dicts.reverse()
-    expected_line_dicts = [line_dict_duplicate] + expected_end_line_dicts
-
-    # Select 3 line types so that duplicate is moved
-    for line_dict in first_line_dicts:
-        # Open line selector
-        fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
-        # Emit signal as if user selected a line type
-        fdc_project.line_layer_selector.line_layer_selector_confirm.emit(
-            line_dict["layer"],
-            line_dict["type"],
-        )
-
-    # Act
-    # Select the first line type again so that it is a duplicate
-    # Open line selector
-    fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
-    # Emit signal as if user selected the same line type
-    fdc_project.line_layer_selector.line_layer_selector_confirm.emit(
-        line_dict_duplicate["layer"],
-        line_dict_duplicate["type"],
-    )
-
-    # Assert
-    assert fdc_project.recent_quick_line_types == expected_line_dicts
-
-
-def test_line_selector_add_recent_multiple(fdc_project: FieldDataCapture):
-    # Arrange
-    # Selecting first 6 line types will reach the limit of recents
-    first_line_dicts = LINE_LAYER_TYPE[:6]
-    expected_first_line_dicts = first_line_dicts.copy()
-    expected_first_line_dicts.reverse()
-    # Selecting a 7th line type will remove the first one from the end and add the new one to the start
-    # Making it still 6 line types in total
-    final_line_type_dict = LINE_LAYER_TYPE[6]
-    expected_second_line_dicts = [final_line_type_dict] + expected_first_line_dicts[:5]
-
-    # Act 1
-    # Select the first 6 line types to reach the limited number of recent saved line types
-    for line_dict in first_line_dicts:
-        # Open line selector
-        fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
-        # Emit signal as if user selected a line type
-        fdc_project.line_layer_selector.line_layer_selector_confirm.emit(
-            line_dict["layer"],
-            line_dict["type"],
-        )
-
-    # Assert 1
-    assert fdc_project.recent_quick_line_types == expected_first_line_dicts
-
-    # Act 2
-    # Select a 7th line type to go over the 6 recents limit
-    # Open line selector
-    fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
-    # Emit signal as if user selected a line type
-    fdc_project.line_layer_selector.line_layer_selector_confirm.emit(
-        final_line_type_dict["layer"],
-        final_line_type_dict["type"],
-    )
-
-    # Assert
-    assert fdc_project.recent_quick_line_types == expected_second_line_dicts
+    recent_line_types = json.loads(fdc_project.get_plugin_setting("recent_line_types"))
+    assert recent_line_types == expected_recent_line_types

@@ -10,6 +10,7 @@ from qgis.core import (
     QgsGeometry,
     QgsFeature,
     QgsProject,
+    QgsSettings,
 )
 from qgis.gui import QgsAdvancedDigitizingDockWidget
 from qgis.PyQt.QtWidgets import (
@@ -158,6 +159,9 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     """
     # Setup plugin
     iface = get_iface()
+    # Clear all preset QGIS settings
+    # These can carry over during the test session otherwise
+    QgsSettings().clear()
     field_data_capture = FieldDataCapture(iface)
 
     # Apply monkeypatch for QMessageBox
