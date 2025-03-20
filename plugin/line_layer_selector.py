@@ -325,9 +325,10 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.comboboxes["type"].activated.connect(self.confirm_selection)
 
 
-    def confirm_selection(self, line_layer: Optional[str] = None, line_type: Optional[str] = None) -> None:
+    def confirm_selection(self, *args, line_layer: Optional[str] = None, line_type: Optional[str] = None) -> None:
         """
         Confirm the current line selection, emit a signal to plugin if it is valid.
+        The method takes *args first as it can be called by a button which passes an event.
         """
         # If no values are given, get them from the comboboxes
         if line_layer is None and line_type is None:
