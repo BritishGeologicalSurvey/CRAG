@@ -42,8 +42,8 @@ def test_default_state(line_selector: LineLayerSelector):
     default_data["type"].extend(list(line_type_layers.keys()))
 
     # Assert
+    # Check comboboxes
     for line_attribute, combobox in line_selector.comboboxes.items():
-        # All comboboxes should start with no selection
         assert combobox.currentData() is None
         assert list(get_combobox_items_dict(combobox).keys()) == default_data[line_attribute]
 
@@ -85,6 +85,10 @@ def test_selection_main_comboboxes(
     # The category selection can only update the type options
     expected_category_line_types = set(layers_to_cats_to_types[layer][category])
 
+    # Assert 0
+    # Category combobox should be disabled to start with
+    assert line_selector.comboboxes["category"].isEnabled() is False
+
     # Act 1 - Select a layer
     set_combobox_index_by_data(line_selector.comboboxes["layer"], layer)
 
@@ -93,6 +97,7 @@ def test_selection_main_comboboxes(
     assert set(layer_categories_data_list[1:]) == expected_layer_categories
     layer_line_types_data_list = list(get_combobox_items_dict(line_selector.comboboxes["type"]).keys())
     assert set(layer_line_types_data_list[1:]) == expected_layer_line_types
+    assert line_selector.comboboxes["category"].isEnabled() is True
 
     # Act 2 - Select a category
     set_combobox_index_by_data(line_selector.comboboxes["category"], category)

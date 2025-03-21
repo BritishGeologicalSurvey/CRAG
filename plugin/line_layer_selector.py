@@ -184,8 +184,11 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
 
         line_layer = self.comboboxes["layer"].currentData()
         if isinstance(line_layer, str):
+            self.comboboxes["category"].setEnabled(True)
             for line_category in self.layers_to_cats_to_types[line_layer]:
                 self.comboboxes["category"].addItem(line_category, userData=line_category)
+        else:
+            self.comboboxes["category"].setEnabled(False)
 
 
     def update_line_type_combobox(self) -> None:
