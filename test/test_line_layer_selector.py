@@ -24,8 +24,8 @@ def line_selector(fdc_project: FieldDataCapture) -> LineLayerSelector:
 def test_default_state(line_selector: LineLayerSelector):
     # Arrange
     default_data = {
-        "layer": "Select Line Layer",
-        "category": "Select Line Category",
+        "layer": "Filter by parent line layer",
+        "category": "Filter by category",
         "type": "",
     }
 

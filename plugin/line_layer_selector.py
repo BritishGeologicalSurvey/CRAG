@@ -164,7 +164,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         Populate the line_layer_combobox with line layer names.
         """
         # Add default value
-        self.comboboxes["layer"].addItem("Select Line Layer", userData=None)
+        self.comboboxes["layer"].addItem("Filter by parent line layer", userData=None)
         for line_layer in self.layers_to_cats_to_types:
             self.comboboxes["layer"].addItem(line_layer, userData=line_layer)
 
@@ -177,7 +177,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         """
         # Remove all items and then add default one
         self.comboboxes["category"].clear()
-        self.comboboxes["category"].addItem("Select Line Category", userData=None)
+        self.comboboxes["category"].addItem("Filter by category", userData=None)
 
         # Reset the line_type_combobox
         self.update_line_type_combobox()
@@ -230,7 +230,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         recent_lines_layout = QVBoxLayout()
 
         # Add label
-        recent_lines_label = self.create_bold_label("Recent Line Types")
+        recent_lines_label = self.create_bold_label("Recent line types")
         recent_lines_layout.addWidget(recent_lines_label)
 
         # Add frame for buttons
@@ -270,7 +270,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         Create the layout for all line types widgets.
         """
         # Create labels
-        line_type_label = QLabel("Select or search for line type")
+        line_type_label = QLabel("Search or select line type")
         # Inner layout for all line types drop down buttons
         all_lines_buttons_layout = QVBoxLayout()
         all_lines_frame = self.create_bordered_frame()
@@ -282,7 +282,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         all_lines_buttons_layout.addWidget(self.comboboxes["category"])
         # Create outer layout for all line types
         all_lines_layout = QVBoxLayout()
-        all_lines_label = self.create_bold_label("All Line Types")
+        all_lines_label = self.create_bold_label("All line types")
         all_lines_layout.addWidget(all_lines_label)
         all_lines_layout.addWidget(all_lines_frame)
         return all_lines_layout
