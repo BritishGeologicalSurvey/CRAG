@@ -57,6 +57,11 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.setup_ui_elements(self.recent_line_types)
         self.connect_signals_and_slots()
 
+        # Select the text in the type box so that it disappears when users start typing.
+        self.comboboxes["type"].setFocus()
+        self.comboboxes["type"].lineEdit().selectAll()
+
+
     def get_line_type_layers(self) -> dict[str, str]:
         """
         Return a lookup dictionary of the line layer that contains each line code.
@@ -198,7 +203,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         """
         # Remove all items and then add default one
         self.comboboxes["type"].clear()
-        self.comboboxes["type"].addItem("", userData=None)
+        self.comboboxes["type"].addItem("Search or select line type", userData=None)
 
         line_layer = self.comboboxes["layer"].currentData()
         line_category = self.comboboxes["category"].currentData()
@@ -223,7 +228,6 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
             # With no filtering, add all line types
             for line_type in line_type_layers:
                 self.comboboxes["type"].addItem(line_type, userData=line_type)
-
 
     def create_recent_lines_layout(self, recent_line_types: list[dict[str, str]]) -> QVBoxLayout:
         """
@@ -272,14 +276,11 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         """
         Create the layout for all line types widgets.
         """
-        # Create labels
-        line_type_label = QLabel("Search or select line type")
         # Inner layout for all line types drop down buttons
         all_lines_buttons_layout = QVBoxLayout()
         all_lines_frame = self.create_bordered_frame()
         all_lines_frame.setLayout(all_lines_buttons_layout)
         # Add button widgets
-        all_lines_buttons_layout.addWidget(line_type_label)
         all_lines_buttons_layout.addWidget(self.comboboxes["type"])
         all_lines_buttons_layout.addWidget(self.comboboxes["layer"])
         all_lines_buttons_layout.addWidget(self.comboboxes["category"])

@@ -26,7 +26,7 @@ def test_default_state(line_selector: LineLayerSelector):
     default_data = {
         "layer": "Filter by parent line layer",
         "category": "Filter by category",
-        "type": "",
+        "type": "Search or select line type",
     }
 
     # Put default values into lists
@@ -46,6 +46,9 @@ def test_default_state(line_selector: LineLayerSelector):
     for line_attribute, combobox in line_selector.comboboxes.items():
         assert combobox.currentData() is None
         assert list(get_combobox_items_dict(combobox).keys()) == default_data[line_attribute]
+
+    # Check line text is selected, ready to delete.  A test for `hasFocus` didn't work in pytest.
+    assert line_selector.comboboxes["type"].lineEdit().selectedText() == default_data["type"][0]
 
     # Check radio buttons
     for line_dict in LineLayerSelector.default_types:
