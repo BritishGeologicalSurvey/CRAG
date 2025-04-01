@@ -34,12 +34,10 @@ def test_default_state(line_selector: LineLayerSelector):
         default_data[key] = [value]
 
     # The layer combobox should default to include all line layers
-    layers_to_cats_to_types = line_selector.get_layers_to_categories_to_types()
-    default_data["layer"].extend(list(layers_to_cats_to_types.keys()))
+    default_data["layer"].extend(list(line_selector.layers_to_cats_to_types.keys()))
 
     # The line type combobox default to include all line types
-    line_type_layers = line_selector.get_line_type_layers()
-    default_data["type"].extend(list(line_type_layers.keys()))
+    default_data["type"].extend(list(line_selector.line_type_layers.keys()))
 
     # Assert
     # Check comboboxes
@@ -77,16 +75,15 @@ def test_selection_main_comboboxes(
     line_selector: LineLayerSelector,
 ):
     # Arrange
-    layers_to_cats_to_types = line_selector.get_layers_to_categories_to_types()
     # The layer selection can update the category and type options
-    expected_layer_categories = set(layers_to_cats_to_types[layer].keys())
+    expected_layer_categories = set(line_selector.layers_to_cats_to_types[layer].keys())
     expected_layer_line_types = {
         line_type
         for line_category in expected_layer_categories
-        for line_type in layers_to_cats_to_types[layer][line_category]
+        for line_type in line_selector.layers_to_cats_to_types[layer][line_category]
     }
     # The category selection can only update the type options
-    expected_category_line_types = set(layers_to_cats_to_types[layer][category])
+    expected_category_line_types = set(line_selector.layers_to_cats_to_types[layer][category])
 
     # Assert 0
     # Category combobox should be disabled to start with
