@@ -42,7 +42,6 @@ class FieldDataCaptureProject:
     gpkg_filename = Path("field-data-capture.gpkg")
     placeholder_filename = Path(".placeholder")
     html_report_filename = Path("field-report.html")
-    pdf_report_filename = Path("field-report.pdf")
     css_filename = Path("style.css")
     # Using locally downloaded woff2 of Google's Material Symbols Outlined font
     # See: https://fonts.google.com/icons
@@ -83,6 +82,14 @@ class FieldDataCaptureProject:
         Get the db file path from the current project.
         """
         return self.project_dir / self.gpkg_filename
+
+    @property
+    def qgz_file(self) -> Path:
+        """
+        Get the qgz file from the current project.  We assume that only one .qgz file is present
+        in the project folder as this is a requirement for Mergin Maps syncing.
+        """
+        return next(self.project_dir.glob('*.qgz'))
 
     @property
     def styles_dir(self) -> Path:
@@ -138,7 +145,7 @@ class FieldDataCaptureProject:
         """
         Get the PDF field report file path from the current project.
         """
-        return self.project_dir / self.pdf_report_filename
+        return self.project_dir / f"{self.qgz_file.stem}_field_report.pdf"
 
     @property
     def css_src_file(self) -> Path:
