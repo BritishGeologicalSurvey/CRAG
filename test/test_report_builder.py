@@ -78,7 +78,8 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
     # Arrange
     report_builder.create_thumbnails()
     # Remove one thumbnail to create broken image
-    list(report_builder.thumbnails_dir.rglob('*.jpeg'))[0].unlink()
+    Path(report_builder.thumbnails_dir / 'test_point_001.jpeg').unlink()
+
     report_data = report_builder.get_report_data()
 
     # Act
