@@ -192,7 +192,7 @@ class FieldDataCaptureProject:
         """
         Get the icons directory path from the plugin folder.
         """
-        return WORKDIR / "qthelp" / Path("index.html")
+        return WORKDIR / "help" / Path("index.html")
 
     @property
     def layers_to_dirs(self) -> dict[str, Path]:
