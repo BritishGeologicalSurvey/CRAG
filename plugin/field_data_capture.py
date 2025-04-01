@@ -897,7 +897,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         return False
 
 
-    def create_field_report(self) -> (bool, bool):
+    def create_field_report(self) -> tuple[bool, bool]:
         """
         Create and save a field report.
         If an older report already exists, issue a warning with an option to cancel.

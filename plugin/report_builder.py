@@ -307,11 +307,11 @@ class ReportBuilder(FieldDataCaptureProject):
             tn_path = Path(str(path).replace(photos_str, thumbnails_str))
             if path.is_file() and not tn_path.exists():
                 try:
-                    im = Image.open(path)
-                    im.thumbnail((THUMBNAIL_SIZE, THUMBNAIL_SIZE))
-                    im.save(tn_path)
+                    with Image.open(path) as im:
+                        im.thumbnail((THUMBNAIL_SIZE, THUMBNAIL_SIZE))
+                        im.save(tn_path)
                 except UnidentifiedImageError:
-                    # not an image
+                    # not an image readable by PIL (e.g. HEIC file)
                     pass
 
         # Remove redundant thumnails
