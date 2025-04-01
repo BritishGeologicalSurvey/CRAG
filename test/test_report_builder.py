@@ -88,6 +88,7 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
     # Assert
     assert success
     # Check file exists and is not empty
+    assert report_builder.pdf_report_file.name == "test_project_field_report.pdf"
     assert report_builder.pdf_report_file.exists()
     assert report_builder.pdf_report_file.stat().st_size > 0
     try:
