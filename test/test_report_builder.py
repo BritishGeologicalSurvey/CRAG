@@ -77,9 +77,6 @@ def test_create_html_field_report(report_builder: ReportBuilder):
 def test_create_pdf_field_report(report_builder: ReportBuilder):
     # Arrange
     report_builder.create_thumbnails()
-    # Remove one thumbnail to create broken image
-    Path(report_builder.thumbnails_dir / 'test_point_001.jpeg').unlink()
-
     report_data = report_builder.get_report_data()
 
     # Act
@@ -102,7 +99,7 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
     # The first image should be absent and replaced by message
     assert len(pdf.pages[2].images) == 0
     assert 'Broken or missing thumbnail:' in pdf.pages[2].extract_text()
-    assert 'test_point_001.jpeg' in pdf.pages[2].extract_text()
+    assert 'test_point_001.heic' in pdf.pages[2].extract_text()
     assert 'Locality point: test_point_002' in pdf.pages[3].extract_text()
     # The second image should be present
     assert len(pdf.pages[4].images) == 1
