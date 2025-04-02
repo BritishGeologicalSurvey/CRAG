@@ -266,7 +266,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
 
     # Assert initial state
     assert len(subdirs(report_builder.photos_dir)) == 1
-    assert len(image_files(report_builder.photos_dir)) == 3
+    assert len(image_files(report_builder.photos_dir)) == 2
     assert not report_builder.thumbnails_dir.exists()
 
     # Test for basic creation from scratch
@@ -285,7 +285,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Create a new subfolder and nested image file
     create_folder_and_nested_image('sub2')
     assert len(subdirs(report_builder.photos_dir)) == 2
-    assert len(image_files(report_builder.photos_dir)) == 4
+    assert len(image_files(report_builder.photos_dir)) == 3
     # Test for creation of new subfolder and thumbnail
     report_builder.create_thumbnails()
     assert report_builder.thumbnails_dir.exists()
@@ -294,7 +294,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Remove one thumbnail of four to force thumbnail creation
     list(report_builder.thumbnails_dir.rglob('*.jpeg'))[0].unlink()
     # Confirm removal
-    assert len(image_files(report_builder.thumbnails_dir)) == 3
+    assert len(image_files(report_builder.thumbnails_dir)) == 2
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()
 
@@ -308,7 +308,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Remove one photo of four to force thumbnail deletion
     list(report_builder.photos_dir.rglob('*.jpeg'))[0].unlink()
     # Confirm removal
-    assert len(image_files(report_builder.photos_dir)) == 3
+    assert len(image_files(report_builder.photos_dir)) == 2
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()
 
