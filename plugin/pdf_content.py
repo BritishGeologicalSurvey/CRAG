@@ -134,9 +134,9 @@ class ReportTemplate(BaseDocTemplate):
             table_style.append(('SPAN', (0, 0), (0, rows - 1)))
             column_widths = [7.5 * cm, 2 * cm, 7 * cm]
             image_path = thumbnails_dir / data['photo_file']
-            try:
+            if image_path.exists():
                 table_data[0].insert(0, Image(str(image_path)))
-            except IOError:
+            else:
                 table_data[0].insert(0, Paragraph(f'Broken or missing thumbnail: {data['photo_file']}',
                                                   self.error_text))
             for row in table_data[1:]:
