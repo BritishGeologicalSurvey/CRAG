@@ -1,3 +1,4 @@
+import PIL
 from reportlab.lib.styles import ParagraphStyle as PS
 from reportlab.lib import colors
 from reportlab.platypus import Image, Paragraph, Table
@@ -6,6 +7,7 @@ from reportlab.platypus.frames import Frame
 from reportlab.platypus.flowables import KeepTogether, PageBreak
 from reportlab.lib.units import cm
 
+from .config import PDF_THUMBNAIL_SCALE
 
 PROJECT_TABLE = {
     'project_lead': 'Project lead',
@@ -135,7 +137,11 @@ class ReportTemplate(BaseDocTemplate):
             column_widths = [7.5 * cm, 2 * cm, 7 * cm]
             image_path = thumbnails_dir / data['photo_file']
             if image_path.exists():
-                table_data[0].insert(0, Image(str(image_path)))
+                with PIL.Image.open(image_path) as im:
+                    width, height = im.size
+                    width *= PDF_THUMBNAIL_SCALE
+                    height *= PDF_THUMBNAIL_SCALE
+                table_data[0].insert(0, Image(str(image_path), width=width, height=height))
             else:
                 table_data[0].insert(0, Paragraph(f'Broken or missing thumbnail: {data['photo_file']}',
                                                   self.error_text))
