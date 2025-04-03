@@ -92,9 +92,16 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
         pdf = PdfReader(report_builder.pdf_report_file)
     except PdfReadError as exc:
         assert False, f"Invalid PDF {exc}"
+
+    # Check document metadata
+    assert 'Field Report: test_field_project' == pdf.metadata['/Title']
+    assert 'test_user' == pdf.metadata['/Author']
+    assert 'test field project title' == pdf.metadata['/Subject']
+    assert 'geology; QGIS; British Geological Survey; BGS' == pdf.metadata['/Keywords']
+
+    # Check document contents
     assert len(pdf.pages) == 5
     assert 'Field Report: test field project title' in pdf.pages[0].extract_text()
-
     assert 'Locality Points\nLocality point: test_point_001' in pdf.pages[1].extract_text()
     # The first image should be absent and replaced by message
     assert len(pdf.pages[2].images) == 0

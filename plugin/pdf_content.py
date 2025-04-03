@@ -165,6 +165,13 @@ class ReportTemplate(BaseDocTemplate):
         """
         Build the full report
         """
+        # Set PDF metadata
+        self.title = f"Field Report: {content['project']['short_name']}"
+        self.subject = content['project']['title']
+        self.author = content['project']['project_lead']
+        self.keywords = "geology; QGIS; British Geological Survey; BGS"
+
+        # Create report content
         self.report.append(Paragraph('Field Report: ' + content['project']['title'], self.h1))
         self.report.append(Paragraph('Project information', self.h2))
         self.append_table(content['project'], PROJECT_TABLE)
