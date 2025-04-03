@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:24.4.0-0
+FROM continuumio/miniconda3:25.1.1-2
 
 # Install operating system dependencies
 RUN apt-get update -y \
@@ -17,6 +17,16 @@ RUN apt-get update -y \
       libsqlite3-dev \
     && apt-get clean
 
-COPY environment.yml /environment.yml
+RUN conda config --set solver libmamba
 
-RUN conda env create -f /environment.yml
+# This section is used to generate an environment.yml that is
+# suitable for use in the container.  One from the WSL or Windows
+# environment is not compatible.  Once created, start the container
+# to extract the environment settings.
+#COPY environment_unversioned.yml /environment_unversioned.yml
+#RUN conda env create -f /environment_unversioned.yml
+
+COPY environment_docker.yml /environment_docker.yml
+RUN conda env create -f /environment_docker.yml
+
+

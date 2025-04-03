@@ -1,3 +1,4 @@
+# Environment file with the packages that we require.
 name: fdc
 channels:
   - https://nexus-internal.bgs.ac.uk/repository/conda-forge
