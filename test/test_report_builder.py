@@ -254,6 +254,12 @@ def test_create_thumbnails(report_builder: ReportBuilder):
         assert image_files(report_builder.photos_dir) == image_files(report_builder.thumbnails_dir)
         assert subdirs(report_builder.photos_dir) == subdirs(report_builder.thumbnails_dir)
 
+    def assert_thumbnail_sizes(thumbnail_size):
+        # A thumbnail's maximum dimension should be THUMBNAIL_SIZE pixels
+        for path in report_builder.thumbnails_dir.rglob('*.jpeg'):
+            im = Image.open(path)
+            assert thumbnail_size == max(im.size)
+
     def create_folder_and_nested_image(name):
         existing_image = list(report_builder.photos_dir.rglob('*.jpeg'))[0]
         sub1 = report_builder.photos_dir / name
@@ -269,18 +275,21 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     assert len(image_files(report_builder.photos_dir)) == 2
     assert not report_builder.thumbnails_dir.exists()
 
-    # Test for basic creation from scratch
-    report_builder.create_thumbnails()
+    # Test for basic creation from scratch using reduced thumbnail size
+    new_thumbnail_size = int(THUMBNAIL_SIZE / 2)
+    report_builder.create_thumbnails(thumbnail_size=new_thumbnail_size)
     assert report_builder.thumbnails_dir.exists()
     assert_images_and_subdirs_match()
-    # A thumbnail's maximum dimension should be THUMBNAIL_SIZE pixels
-    for path in report_builder.thumbnails_dir.rglob('*.jpeg'):
-        im = Image.open(path)
-        assert THUMBNAIL_SIZE == max(im.size)
+    assert_thumbnail_sizes(new_thumbnail_size)
+
+    # Test for recreation after change of thumbnail size back to default
+    report_builder.create_thumbnails()
+    assert_thumbnail_sizes(THUMBNAIL_SIZE)
 
     # Test for running again with no changes
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()
+    assert_thumbnail_sizes(THUMBNAIL_SIZE)
 
     # Create a new subfolder and nested image file
     create_folder_and_nested_image('sub2')

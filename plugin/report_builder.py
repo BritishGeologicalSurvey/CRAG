@@ -279,11 +279,20 @@ class ReportBuilder(FieldDataCaptureProject):
         return rows
 
 
-    def create_thumbnails(self):
+    def create_thumbnails(self, thumbnail_size=THUMBNAIL_SIZE):
         """
         Create a thumbnail for each photo if it does not exist.
         Remove any stale paths and thumbnails.
         """
+        def make_thumbnail(path):
+            try:
+                with Image.open(path) as im:
+                    im.thumbnail((thumbnail_size, thumbnail_size))
+                    im.save(tn_path)
+            except UnidentifiedImageError:
+                # not an image readable by PIL (e.g. HEIC file)
+                pass
+
         photos_str = str(self.photos_dir)
         thumbnails_str = str(self.thumbnails_dir)
 
@@ -305,14 +314,15 @@ class ReportBuilder(FieldDataCaptureProject):
         # Create thumbnails if needed
         for path in list(self.photos_dir.rglob('*.*')):
             tn_path = Path(str(path).replace(photos_str, thumbnails_str))
-            if path.is_file() and not tn_path.exists():
-                try:
-                    with Image.open(path) as im:
-                        im.thumbnail((THUMBNAIL_SIZE, THUMBNAIL_SIZE))
-                        im.save(tn_path)
-                except UnidentifiedImageError:
-                    # not an image readable by PIL (e.g. HEIC file)
-                    pass
+            if path.is_file():
+                if tn_path.exists():
+                    # Create resized thumbnail
+                    with Image.open(tn_path) as tn:
+                        if max(tn.size) != thumbnail_size:
+                            make_thumbnail(path)
+                else:
+                    # Create completely new thumbnail
+                    make_thumbnail(path)
 
         # Remove redundant thumnails
         for tn_path in list(self.thumbnails_dir.rglob('*.*')):
