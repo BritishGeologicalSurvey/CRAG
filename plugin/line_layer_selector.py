@@ -51,22 +51,26 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         )
         self.recent_line_types = self.get_recent_line_types()
         self.layers_to_cats_to_types = self.get_layers_to_categories_to_types()
+        self.line_type_layers = self.get_line_type_layers()
 
         self.comboboxes: dict[str, QComboBox] = {}
         self.recent_line_buttons: dict[str, QRadioButton] = {}
         self.setup_ui_elements(self.recent_line_types)
         self.connect_signals_and_slots()
 
+        # Select the text in the type box so that it disappears when users start typing.
+        self.comboboxes["type"].setFocus()
+        self.comboboxes["type"].lineEdit().selectAll()
+
+
     def get_line_type_layers(self) -> dict[str, str]:
         """
         Return a lookup dictionary of the line layer that contains each line code.
         """
-        layer_cat_types = self.get_layers_to_categories_to_types()
-
         line_type_layers = {}
-        for layer in layer_cat_types:
-            for line_category in layer_cat_types[layer]:
-                for line_type in layer_cat_types[layer][line_category]:
+        for layer in self.layers_to_cats_to_types:
+            for line_category in self.layers_to_cats_to_types[layer]:
+                for line_type in self.layers_to_cats_to_types[layer][line_category]:
                     # Line types should be unique, but assert just in case
                     assert line_type not in line_type_layers
                     line_type_layers[line_type] = layer
@@ -113,7 +117,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         else:
             recent_line_types = json.loads(recent_line_types)
 
-        # Ensure that there are 6 line types by combining all recents with required number of defaults
+        # Ensure that there are X line types by combining all recents with required number of defaults
         recent_line_types = recent_line_types + self.default_types[:self.recent_lines_no - len(recent_line_types)]
         return recent_line_types
 
@@ -135,10 +139,8 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         dialog_layout = QVBoxLayout()
         self.setLayout(dialog_layout)
 
-        # Only add the layout for recent line types if some are provided
-        if len(recent_line_types) > 0:
-            recent_lines_layout = self.create_recent_lines_layout(recent_line_types)
-            dialog_layout.addLayout(recent_lines_layout)
+        recent_lines_layout = self.create_recent_lines_layout(recent_line_types)
+        dialog_layout.addLayout(recent_lines_layout)
 
         all_lines_layout = self.create_all_lines_layout()
         dialog_layout.addLayout(all_lines_layout)
@@ -164,7 +166,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         Populate the line_layer_combobox with line layer names.
         """
         # Add default value
-        self.comboboxes["layer"].addItem("Select Line Layer", userData=None)
+        self.comboboxes["layer"].addItem("Filter by parent line layer", userData=None)
         for line_layer in self.layers_to_cats_to_types:
             self.comboboxes["layer"].addItem(line_layer, userData=line_layer)
 
@@ -177,15 +179,18 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         """
         # Remove all items and then add default one
         self.comboboxes["category"].clear()
-        self.comboboxes["category"].addItem("Select Line Category", userData=None)
+        self.comboboxes["category"].addItem("Filter by category", userData=None)
 
         # Reset the line_type_combobox
         self.update_line_type_combobox()
 
         line_layer = self.comboboxes["layer"].currentData()
         if isinstance(line_layer, str):
+            self.comboboxes["category"].setEnabled(True)
             for line_category in self.layers_to_cats_to_types[line_layer]:
                 self.comboboxes["category"].addItem(line_category, userData=line_category)
+        else:
+            self.comboboxes["category"].setEnabled(False)
 
 
     def update_line_type_combobox(self) -> None:
@@ -195,12 +200,10 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         """
         # Remove all items and then add default one
         self.comboboxes["type"].clear()
-        self.comboboxes["type"].addItem("", userData=None)
+        self.comboboxes["type"].addItem("Search or select line type", userData=None)
 
         line_layer = self.comboboxes["layer"].currentData()
         line_category = self.comboboxes["category"].currentData()
-
-        line_type_layers = self.get_line_type_layers()
 
         # If a valid line layer is given for filtering
         if isinstance(line_layer, str):
@@ -218,9 +221,8 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
 
         else:
             # With no filtering, add all line types
-            for line_type in line_type_layers:
+            for line_type in self.line_type_layers:
                 self.comboboxes["type"].addItem(line_type, userData=line_type)
-
 
     def create_recent_lines_layout(self, recent_line_types: list[dict[str, str]]) -> QVBoxLayout:
         """
@@ -230,7 +232,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         recent_lines_layout = QVBoxLayout()
 
         # Add label
-        recent_lines_label = self.create_bold_label("Recent Line Types")
+        recent_lines_label = self.create_bold_label("Recent line types")
         recent_lines_layout.addWidget(recent_lines_label)
 
         # Add frame for buttons
@@ -269,20 +271,17 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         """
         Create the layout for all line types widgets.
         """
-        # Create labels
-        line_type_label = QLabel("Select or search for line type")
         # Inner layout for all line types drop down buttons
         all_lines_buttons_layout = QVBoxLayout()
         all_lines_frame = self.create_bordered_frame()
         all_lines_frame.setLayout(all_lines_buttons_layout)
         # Add button widgets
-        all_lines_buttons_layout.addWidget(line_type_label)
         all_lines_buttons_layout.addWidget(self.comboboxes["type"])
         all_lines_buttons_layout.addWidget(self.comboboxes["layer"])
         all_lines_buttons_layout.addWidget(self.comboboxes["category"])
         # Create outer layout for all line types
         all_lines_layout = QVBoxLayout()
-        all_lines_label = self.create_bold_label("All Line Types")
+        all_lines_label = self.create_bold_label("All line types")
         all_lines_layout.addWidget(all_lines_label)
         all_lines_layout.addWidget(all_lines_frame)
         return all_lines_layout
@@ -339,7 +338,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         if line_type is not None:
             if line_layer is None:
                 # If we don't know the line layer, we have to look it up
-                line_layer = self.get_line_type_layers()[line_type]
+                line_layer = self.line_type_layers[line_type]
 
             self.update_recent_line_types(line_layer, line_type)
             self.line_layer_selector_confirm.emit(line_layer, line_type)
@@ -358,8 +357,8 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         if new_recent_line_type in self.recent_line_types:
             self.recent_line_types.remove(new_recent_line_type)
 
-        # If 4 recents are already saved, remove the last (oldest) one
-        if len(self.recent_line_types) == 6:
+        # If X recents are already saved, remove the last (oldest) one
+        if len(self.recent_line_types) == self.recent_lines_no:
             self.recent_line_types.pop(-1)
 
         # Add selected line type to start of recent list

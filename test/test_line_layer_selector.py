@@ -24,9 +24,9 @@ def line_selector(fdc_project: FieldDataCapture) -> LineLayerSelector:
 def test_default_state(line_selector: LineLayerSelector):
     # Arrange
     default_data = {
-        "layer": "Select Line Layer",
-        "category": "Select Line Category",
-        "type": "",
+        "layer": "Filter by parent line layer",
+        "category": "Filter by category",
+        "type": "Search or select line type",
     }
 
     # Put default values into lists
@@ -34,18 +34,19 @@ def test_default_state(line_selector: LineLayerSelector):
         default_data[key] = [value]
 
     # The layer combobox should default to include all line layers
-    layers_to_cats_to_types = line_selector.get_layers_to_categories_to_types()
-    default_data["layer"].extend(list(layers_to_cats_to_types.keys()))
+    default_data["layer"].extend(list(line_selector.layers_to_cats_to_types.keys()))
 
     # The line type combobox default to include all line types
-    line_type_layers = line_selector.get_line_type_layers()
-    default_data["type"].extend(list(line_type_layers.keys()))
+    default_data["type"].extend(list(line_selector.line_type_layers.keys()))
 
     # Assert
+    # Check comboboxes
     for line_attribute, combobox in line_selector.comboboxes.items():
-        # All comboboxes should start with no selection
         assert combobox.currentData() is None
         assert list(get_combobox_items_dict(combobox).keys()) == default_data[line_attribute]
+
+    # Check line text is selected, ready to delete.  A test for `hasFocus` didn't work in pytest.
+    assert line_selector.comboboxes["type"].lineEdit().selectedText() == default_data["type"][0]
 
     # Check radio buttons
     for line_dict in LineLayerSelector.default_types:
@@ -74,16 +75,19 @@ def test_selection_main_comboboxes(
     line_selector: LineLayerSelector,
 ):
     # Arrange
-    layers_to_cats_to_types = line_selector.get_layers_to_categories_to_types()
     # The layer selection can update the category and type options
-    expected_layer_categories = set(layers_to_cats_to_types[layer].keys())
+    expected_layer_categories = set(line_selector.layers_to_cats_to_types[layer].keys())
     expected_layer_line_types = {
         line_type
         for line_category in expected_layer_categories
-        for line_type in layers_to_cats_to_types[layer][line_category]
+        for line_type in line_selector.layers_to_cats_to_types[layer][line_category]
     }
     # The category selection can only update the type options
-    expected_category_line_types = set(layers_to_cats_to_types[layer][category])
+    expected_category_line_types = set(line_selector.layers_to_cats_to_types[layer][category])
+
+    # Assert 0
+    # Category combobox should be disabled to start with
+    assert line_selector.comboboxes["category"].isEnabled() is False
 
     # Act 1 - Select a layer
     set_combobox_index_by_data(line_selector.comboboxes["layer"], layer)
@@ -93,6 +97,7 @@ def test_selection_main_comboboxes(
     assert set(layer_categories_data_list[1:]) == expected_layer_categories
     layer_line_types_data_list = list(get_combobox_items_dict(line_selector.comboboxes["type"]).keys())
     assert set(layer_line_types_data_list[1:]) == expected_layer_line_types
+    assert line_selector.comboboxes["category"].isEnabled() is True
 
     # Act 2 - Select a category
     set_combobox_index_by_data(line_selector.comboboxes["category"], category)
