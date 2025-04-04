@@ -75,6 +75,11 @@ def test_create_html_field_report(report_builder: ReportBuilder):
 
 
 def test_create_pdf_field_report(report_builder: ReportBuilder):
+    """
+    Tests for contents of pdf file.  Note the pdf results are structured by page
+    and that page numbers vary depending on contents of the geopackage, so these
+    tests may need updating if there are changes to the test data.
+    """
     # Arrange
     report_builder.create_thumbnails()
     report_data = report_builder.get_report_data()
@@ -98,23 +103,37 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
     assert 'test_user' == pdf.metadata['/Author']
     assert 'test field project title' == pdf.metadata['/Subject']
     assert 'geology; QGIS; British Geological Survey; BGS' == pdf.metadata['/Keywords']
+    assert len(pdf.pages) == 6
 
-    # Check document contents
-    assert len(pdf.pages) == 5
-    assert 'Field Report: test field project title' in pdf.pages[0].extract_text()
-    assert 'Locality Points\nLocality point: test_point_001' in pdf.pages[1].extract_text()
-    # The first image should be absent and replaced by message
-    assert len(pdf.pages[2].images) == 0
-    assert 'Broken or missing thumbnail:' in pdf.pages[2].extract_text()
-    assert 'test_point_001.heic' in pdf.pages[2].extract_text()
-    assert 'Locality point: test_point_002' in pdf.pages[3].extract_text()
-    # The second image should be present
-    assert len(pdf.pages[4].images) == 1
+    # Page 1 - Project information
+    page = pdf.pages[0]
+    assert 'Field Report: test field project title' in page.extract_text()
+
+    # Page 2 - Start of locality points section.
+    page = pdf.pages[1]
+    assert 'Locality Points\nLocality point: test_point_001' in page.extract_text()
+    assert 'Locality point: test_point_001' in page.extract_text()
+
+    # Page 4 - Photos for test_point_001
+    page = pdf.pages[3]
+    # Only the jpeg image is valid
+    assert len(page.images) == 1
+    # The heic image should be absent and replaced by message
+    assert 'Broken or missing thumbnail:' in page.extract_text()
+    assert 'test_point_001.heic' in page.extract_text()
+
+    # Page 5 - Start of test_point_002
+    page = pdf.pages[4]
+    assert 'Locality point: test_point_002' in page.extract_text()
+
+    # Page 6 - Photos for test_point_002
+    page = pdf.pages[5]
+    assert len(page.images) == 1
 
     # Calling twice should not concatenate to existing PDF report
     success = report_builder.create_pdf_field_report(report_data)
     pdf = PdfReader(report_builder.pdf_report_file)
-    assert len(pdf.pages) == 5
+    assert len(pdf.pages) == 6
 
 
 def test_get_report_data(report_builder: ReportBuilder):
@@ -279,7 +298,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
 
     # Assert initial state
     assert len(subdirs(report_builder.photos_dir)) == 1
-    assert len(image_files(report_builder.photos_dir)) == 2
+    assert len(image_files(report_builder.photos_dir)) == 3
     assert not report_builder.thumbnails_dir.exists()
 
     # Test for basic creation from scratch using reduced thumbnail size
@@ -301,7 +320,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Create a new subfolder and nested image file
     create_folder_and_nested_image('sub2')
     assert len(subdirs(report_builder.photos_dir)) == 2
-    assert len(image_files(report_builder.photos_dir)) == 3
+    assert len(image_files(report_builder.photos_dir)) == 4
     # Test for creation of new subfolder and thumbnail
     report_builder.create_thumbnails()
     assert report_builder.thumbnails_dir.exists()
@@ -310,7 +329,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Remove one thumbnail of four to force thumbnail creation
     list(report_builder.thumbnails_dir.rglob('*.jpeg'))[0].unlink()
     # Confirm removal
-    assert len(image_files(report_builder.thumbnails_dir)) == 2
+    assert len(image_files(report_builder.thumbnails_dir)) == 3
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()
 
@@ -324,7 +343,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Remove one photo of four to force thumbnail deletion
     list(report_builder.photos_dir.rglob('*.jpeg'))[0].unlink()
     # Confirm removal
-    assert len(image_files(report_builder.photos_dir)) == 2
+    assert len(image_files(report_builder.photos_dir)) == 3
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()
 
