@@ -1,27 +1,30 @@
+# Environment file with the packages that we require.
 name: fdc
 channels:
-  - https://nexus-internal.bgs.ac.uk/repository/conda/main
   - https://nexus-internal.bgs.ac.uk/repository/conda-forge
 dependencies:
   # Correspond to current long-term support versions in Windows
   - python=3.12
-  - pip=23.2
-  - qgis=3.34
-  - sqlite=3.41.2
+  - qgis=3.40
+
   - beautifulsoup4
-  - cx_oracle
+  - eralchemy2
+  - exifread
+  - flake8
+  - ipdb
+  - ipython
   - Jinja2
   - lxml
   - pandas
+  - pillow
+  - pip  # Required to make sure that conda uses the correct pip
+  - pytest
   - rdflib
+  - reportlab
+  - sqlalchemy
+  - pypdf
+
   - pip:
-      - eralchemy2
       - etlhelper
-      - exifread
-      - flake8
-      - ipdb
-      - ipython
       - mergin-client
       - pb_tool
-      - pytest
-      - sqlalchemy

@@ -897,7 +897,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         return False
 
 
-    def create_field_report(self) -> bool:
+    def create_field_report(self) -> tuple[bool, bool]:
         """
         Create and save a field report.
         If an older report already exists, issue a warning with an option to cancel.
@@ -908,7 +908,8 @@ class FieldDataCapture(FieldDataCaptureProject):
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        ReportBuilder().create_field_report()
+        success = ReportBuilder().create_field_report()
+        return success
 
 
     def add_test_data_to_project(self) -> bool:

@@ -6,20 +6,14 @@
                     {% for measurement in point.children.structural_measurement %}
                     <table>
                         <tr>
-                            <td>Measurement type</td>
+                            <td>Structure type</td>
                             <td>
-                                {{ measurement.description }}
-                                {% if measurement.secondary_description is not none %}
-                                    ; {{ measurement.secondary_description }}
-                                    {% if measurement.third_description is not none %}
-                                        ; {{ measurement.third_description }}
-                                    {% endif %}
-                                {% endif %}
+                                {{ measurement.measurement_type }}
                             </td>
                         </tr>
                         <tr>
                             <td>Dip / Azimuth</td>
-                            <td>{{ measurement.dip }} / {{ measurement.azimuth }}</td>
+                            <td>{{ measurement.dip_azimuth }}</td>
                         </tr>
                         <tr>
                             <td>Notes</td>

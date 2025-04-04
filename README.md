@@ -95,11 +95,12 @@ conda activate fdc
 
 There are some dependency issues with the environment which can be fixed with the following:
 
-> There is a dependency version issue in the environment with QGIS and Python.  This can be fixed by symlinking the installed version of libgsl to the required one.
+> In previous environments, there have been issues with the library versions between QGIS and Python.
+> For Python 3.12 and QGIS 3.40 this is not an issue.  If they arise in future, they
+> can be fixed with a command with teh following form.
 
 ```bash
-ln -s ${CONDA_PREFIX}/lib/libgsl.so.27  ${CONDA_PREFIX}/lib/libgsl.so.25
-ln -s ${CONDA_PREFIX}/lib/libdraco.so.8  ${CONDA_PREFIX}/lib/libdraco.so.9
+ln -s ${CONDA_PREFIX}/lib/lib-version.so.1.2.3  ${CONDA_PREFIX}/lib/some-lib.so.1
 ```
 
 > When building the wheels for `geodiff`, you may encounter a CMake error which can be fixed with the following solution: https://stackoverflow.com/questions/65485116/sqlite3-not-found-on-cmake
@@ -114,6 +115,13 @@ When re-creating the environment with a new dependency, you should follow these 
 - Re-export your new local environment with: `conda env export > environment.yml`
 - Remove any extra channels/prefix values from the updated `environment.yml`
 - Add both environment files to git and commit them
+
+There is an additional issue with building dependencies for the Docker container,
+as libraries that we use in WSL may not have the same versions in the container OS.
+For this reason, to update `environment_docker.yml` we have to build the unversioned
+environment within the container and then get a shell within it to run the
+export command.
+
 
 ### Bin Scripts
 

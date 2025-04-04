@@ -41,7 +41,7 @@ class FieldDataCaptureProject:
     _project_dir: Optional[Path] = None
     gpkg_filename = Path("field-data-capture.gpkg")
     placeholder_filename = Path(".placeholder")
-    report_filename = Path("field-report.html")
+    html_report_filename = Path("field-report.html")
     css_filename = Path("style.css")
     # Using locally downloaded woff2 of Google's Material Symbols Outlined font
     # See: https://fonts.google.com/icons
@@ -84,6 +84,14 @@ class FieldDataCaptureProject:
         return self.project_dir / self.gpkg_filename
 
     @property
+    def qgz_file(self) -> Path:
+        """
+        Get the qgz file from the current project.  We assume that only one .qgz file is present
+        in the project folder as this is a requirement for Mergin Maps syncing.
+        """
+        return next(self.project_dir.glob('*.qgz'))
+
+    @property
     def styles_dir(self) -> Path:
         """
         Get the styles directory path from the current project.
@@ -96,6 +104,13 @@ class FieldDataCaptureProject:
         Get the photos directory path from the current project.
         """
         return self.project_dir / "photos"
+
+    @property
+    def thumbnails_dir(self) -> Path:
+        """
+        Get the thumbnails directory path from the current project.
+        """
+        return self.project_dir / ".thumbnails"
 
     @property
     def media_dir(self) -> Path:
@@ -119,11 +134,18 @@ class FieldDataCaptureProject:
         return WORKDIR / "icons"
 
     @property
-    def report_file(self) -> Path:
+    def html_report_file(self) -> Path:
         """
-        Get the field report file path from the current project.
+        Get the HTML field report file path from the current project.
         """
-        return self.project_dir / self.report_filename
+        return self.project_dir / self.html_report_filename
+
+    @property
+    def pdf_report_file(self) -> Path:
+        """
+        Get the PDF field report file path from the current project.
+        """
+        return self.project_dir / f"{self.qgz_file.stem}_field_report.pdf"
 
     @property
     def css_src_file(self) -> Path:

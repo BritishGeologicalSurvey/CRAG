@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 import shutil
 import sqlite3
 from typing import Any
@@ -7,6 +8,9 @@ from jinja2 import (
     Environment,
     FileSystemLoader,
 )
+
+from PIL import Image, UnidentifiedImageError
+
 from qgis.core import (
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
@@ -15,7 +19,8 @@ from qgis.core import (
 )
 from qgis.PyQt.QtWidgets import QMessageBox
 
-from .config import LOCALITY_POINT_CHILDREN
+from .config import LOCALITY_POINT_CHILDREN, THUMBNAIL_SIZE
+from .pdf_content import ReportTemplate
 from .utils import (  # noqa
     FieldDataCaptureProject,
     get_table_rows,
@@ -52,30 +57,100 @@ CHILD_JOINS = {
 
 
 class ReportBuilder(FieldDataCaptureProject):
-    def create_field_report(self) -> bool:
+    def create_field_report(self) -> tuple[bool, bool]:
         """
-        Create and save a field report.
-        If an older report already exists, issue a warning with an option to cancel.
-        If confirmed, parse the locality point layer creating an entry for each point
+        Create and save HTML and PDF field reports. If either older report already exists,
+        issue a warning with an option to cancel.
+        Returns a tuple of booleans indicating success of the process.
+        """
+        if self.html_report_file.exists() or self.pdf_report_file.exists():
+            result = QMessageBox.question(
+                None, "HTML and/or PDF Report files already exist",
+                f"Would you like to overwrite the file(s)?\n\n{self.html_report_file}\n{self.pdf_report_file}",
+            )
+            if result == QMessageBox.No:
+                return False, False
+
+        # If the PDF report file is already open it cannot be written to.
+        # Attempting to rename the file to itself causes an OSError if the
+        # file is open. This hack is an alternative to checking using the
+        # package psutil which is not available in QGIS
+        if self.pdf_report_file.exists():
+            try:
+                self.pdf_report_file.rename(self.pdf_report_file)
+            except OSError:
+                msg = "PDF Report file is open by another process\n"
+                logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
+                QMessageBox.critical(
+                    None, "Error",
+                    f"{msg}\nPlease close {self.pdf_report_file} before creating a report",
+                )
+                return False, False
+
+        self.create_thumbnails()
+        try:
+            report_data = self.get_report_data()
+        except sqlite3.OperationalError:
+            msg = "Unable to access the geopackage\n"
+            logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
+            QMessageBox.information(None, "Error",
+                                    f"Failed to create field report\n{msg}See logs for more information")
+            return False, False
+
+        html_success = self.create_html_field_report(report_data)
+        pdf_success = self.create_pdf_field_report(report_data)
+
+        if html_success or pdf_success:
+            msg = "Field reports have been created in the project folder:\n"
+            if html_success:
+                msg += f"\n{self.html_report_file}"
+            if pdf_success:
+                msg += f"\n{self.pdf_report_file}"
+            msg += "\n\nWould you like to open them now?"
+            result = QMessageBox.question(None, "Created Field Reports", msg)
+            if result == QMessageBox.Yes:
+                if html_success:
+                    self.open_local_filepath(self.html_report_file)
+                if pdf_success:
+                    self.open_local_filepath(self.pdf_report_file)
+
+        return html_success, pdf_success
+
+
+    def create_pdf_field_report(self, report_data) -> bool:
+        """
+        Create and save a PDF field report.
+        Parse the report_data creating an entry for the project and for each point
+        in an PDF document, overwriting the older report if necessary.
+        Returns a boolean indicating success of the process.
+        """
+        try:
+            report = ReportTemplate(str(self.pdf_report_file))
+            report.render(report_data, self.thumbnails_dir)
+
+        except OSError:
+            msg = "Unable to write report file\n"
+            logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
+            QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
+            return False
+
+        return True
+
+
+    def create_html_field_report(self, report_data) -> bool:
+        """
+        Create and save an HTML field report.
+        Parse the report_data creating an entry for the project and for each point
         in an HTML document using a Jinja2 template, overwriting the older report if necessary.
         Returns a boolean indicating success of the process.
         """
 
         try:
-            if self.report_file.exists():
-                result = QMessageBox.question(
-                    None, "Report file Already Exists",
-                    f"The report file already exists, would you like to overwrite the file?\n\n{self.report_file}",
-                )
-                if result == QMessageBox.No:
-                    return False
-
             environment = Environment(loader=FileSystemLoader(self.templates_dir))
             template = environment.get_template("report.html")
-            context = self.get_report_data()
-            content = template.render(context)
+            content = template.render(report_data)
 
-            with open(self.report_file, mode="w", encoding="utf-8") as report:
+            with open(self.html_report_file, mode="w", encoding="utf-8") as report:
                 report.write(content)
             # Copy CSS and font files to project directory
             self.css_dest_dir.mkdir(parents=True, exist_ok=True)
@@ -83,24 +158,9 @@ class ReportBuilder(FieldDataCaptureProject):
             shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
             shutil.copy(self.font_src_file, self.font_dest_dir / self.font_filename)
 
-            result = QMessageBox.question(
-                None,
-                "Created Field Report",
-                (
-                    "A field report has been created in the project folder. "
-                    f"Would you like to open it now?\n\n{self.report_file}"
-                ),
-            )
-            if result == QMessageBox.Yes:
-                self.open_local_filepath(self.report_file)
-
-        except Exception as exc:
-            msg = ""
-            if isinstance(exc, sqlite3.OperationalError):
-                msg = "Unable to access the geopackage\n"
-            elif isinstance(exc, OSError):
-                msg = "Unable to write report file\n"
-            logger.exception(f"Failed to create field report: {self.report_file}\n{msg}")
+        except OSError:
+            msg = "Unable to write report file\n"
+            logger.exception(f"Failed to create field report: {self.html_report_file}\n{msg}")
             QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
             return False
 
@@ -146,12 +206,14 @@ class ReportBuilder(FieldDataCaptureProject):
             # Get point co-ordinates for Google link
             geom = QgsGeometry().fromWkt(row['geom'])
             point = geom.asPoint()
-            google_link = (f'<a href="https://www.google.co.uk/maps/place/{point.y()},{point.x()}'
-                           '" target="_blank">Open Google Map</a>')
+            google_ref = f'https://www.google.co.uk/maps/place/{point.y()},{point.x()}'
+            pdf_link = (f'<link href="{google_ref}">Open Google Map</link>')
+            html_link = (f'<a href="{google_ref}" target="_blank">Open Google Map</a>')
             # Get point co-ordinates in local EPSG
             geom.transform(tr)
             point = geom.asPoint()
-            row['geometry'] = f'{(int(point.x()), int(point.y()))} - {google_link}'
+            row['geometry'] = f'{(int(point.x()), int(point.y()))} - {html_link}'
+            row['pdf_geometry'] = f'{(int(point.x()), int(point.y()))} - {pdf_link}'
 
             locality_points[row['name']] = row
             locality_points[row['name']]['children'] = self.get_child_data(row['name'])
@@ -168,9 +230,23 @@ class ReportBuilder(FieldDataCaptureProject):
             children[child_table_name] = []
             child_rows = self.get_child_rows_for_locality_from_table(child_table_name, locality_name)
             for child in child_rows:
+                child = self.modify_child(child, child_table_name)
                 children[child_table_name].append(child)
 
         return children
+
+
+    def modify_child(self, child: dict[str, Any], child_table_name: str) -> dict[str, Any]:
+        if child_table_name == 'lithology':
+            child['lithology'] = f"{child['label']} ({child['lithology_code']})"
+        if child_table_name == 'structural_measurement':
+            child['dip_azimuth'] = f"{child['dip']} / {child['azimuth']}"
+            child['measurement_type'] = child['description']
+            if child['secondary_description'] is not None:
+                child['measurement_type'] += f"; {child['secondary_description']}"
+            if child['third_description'] is not None:
+                child['measurement_type'] += f"; {child['thirdy_description']}"
+        return child
 
 
     def get_child_rows_for_locality_from_table(self, table: str, locality_name: str) -> dict[str, Any]:
@@ -201,3 +277,55 @@ class ReportBuilder(FieldDataCaptureProject):
                 row['date_updated'] = row['date_updated'].split('.')[0]
 
         return rows
+
+
+    def create_thumbnails(self, thumbnail_size=THUMBNAIL_SIZE):
+        """
+        Create a thumbnail for each photo if it does not exist.
+        Remove any stale paths and thumbnails.
+        """
+        def make_thumbnail(path):
+            try:
+                with Image.open(path) as im:
+                    im.thumbnail((thumbnail_size, thumbnail_size))
+                    im.save(tn_path)
+            except UnidentifiedImageError:
+                # not an image readable by PIL (e.g. HEIC file)
+                pass
+
+        photos_str = str(self.photos_dir)
+        thumbnails_str = str(self.thumbnails_dir)
+
+        if not self.thumbnails_dir.exists():
+            self.thumbnails_dir.mkdir()
+
+        # Create directories in thumbnails that are in photos
+        for path in list(self.photos_dir.rglob('*/')):
+            tn_path = Path(str(path).replace(photos_str, thumbnails_str))
+            if path.is_dir() and not tn_path.exists():
+                tn_path.mkdir()
+
+        # Remove directories in thumbnails that are no longer in photos
+        for tn_path in list(self.thumbnails_dir.rglob('*/')):
+            path = Path(str(tn_path).replace(thumbnails_str, photos_str))
+            if tn_path.is_dir() and not path.exists():
+                shutil.rmtree(tn_path)
+
+        # Create thumbnails if needed
+        for path in list(self.photos_dir.rglob('*.*')):
+            tn_path = Path(str(path).replace(photos_str, thumbnails_str))
+            if path.is_file():
+                if tn_path.exists():
+                    # Create resized thumbnail
+                    with Image.open(tn_path) as tn:
+                        if max(tn.size) != thumbnail_size:
+                            make_thumbnail(path)
+                else:
+                    # Create completely new thumbnail
+                    make_thumbnail(path)
+
+        # Remove redundant thumnails
+        for tn_path in list(self.thumbnails_dir.rglob('*.*')):
+            path = Path(str(tn_path).replace(thumbnails_str, photos_str))
+            if tn_path.is_file() and not path.exists():
+                tn_path.unlink()
