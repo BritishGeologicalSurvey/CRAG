@@ -245,7 +245,7 @@ class ReportBuilder(FieldDataCaptureProject):
             if child['secondary_description'] is not None:
                 child['measurement_type'] += f"; {child['secondary_description']}"
             if child['third_description'] is not None:
-                child['measurement_type'] += f"; {child['thirdy_description']}"
+                child['measurement_type'] += f"; {child['third_description']}"
         return child
 
 
