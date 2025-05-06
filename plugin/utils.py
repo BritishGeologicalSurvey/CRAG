@@ -63,6 +63,13 @@ class FieldDataCaptureProject:
             # This means the instance attribute is no longer shared with other instances
             self._project_dir = project_dir
 
+    @property
+    def project_instance(self) -> QgsProject:
+        """
+        Get the current project instance.
+        """
+        # This always returns a QgsProject, even if no project is open.
+        return QgsProject.instance()
 
     @property
     def project_dir(self) -> Path:

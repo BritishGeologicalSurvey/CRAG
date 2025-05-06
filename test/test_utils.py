@@ -36,6 +36,7 @@ def test_validation_good(fdc_project: FieldDataCapture):
         fdc_layers_exist=True,
         field_project_exists=True,
     )
+    assert not fdc_project.project_instance.isDirty()
 
 
 def test_validation_bad(fdc: FieldDataCapture):

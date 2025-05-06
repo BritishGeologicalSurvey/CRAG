@@ -162,7 +162,8 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
             rule.settings().isExpression = True
             rule.settings().fieldName = self.map_note_options[option]
             self.get_fdc_layer(layer).triggerRepaint()
-
+            # Mark project as dirty so that users are asked to save changes
+            self.project_instance.setDirty()
 
     def create_lines_form_checkbox(self) -> QCheckBox:
         """
