@@ -8,7 +8,7 @@ from PIL import Image
 from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
-from conftest import locality_point_count
+from conftest import locality_point_count, setup_db_conn
 
 from plugin.config import THUMBNAIL_SIZE
 from plugin.report_builder import ReportBuilder
@@ -134,6 +134,33 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
     success = report_builder.create_pdf_field_report(report_data)
     pdf = PdfReader(report_builder.pdf_report_file)
     assert len(pdf.pages) == 6
+
+
+def test_create_field_report_no_title(report_builder: ReportBuilder, monkeypatch_qmsgbox_question_yes):
+    """
+    Tests that creating reports with the title set to NULL succeeds
+    and that the short_name is used in place of the title.
+    """
+    # Arrange
+    update_sql = "UPDATE field_project SET title = NULL WHERE fid = 1;"
+    with setup_db_conn(report_builder.db_file) as conn:
+        conn.executescript(update_sql)
+
+    # Act
+    html_success, pdf_success = report_builder.create_field_report()
+
+    # Assert
+    assert html_success and pdf_success
+
+    # Confirm short name used for title in HTML
+    soup = BeautifulSoup(report_builder.html_report_file.read_text(encoding="utf-8"), 'lxml')
+    report_heading = soup.findAll('h1')
+    assert 'Field Report: test_field_project' in report_heading[0]
+
+    # Confirm short name used for title in PDF
+    pdf = PdfReader(report_builder.pdf_report_file)
+    assert 'test_field_project' == pdf.metadata['/Subject']
+    assert 'Field Report: test_field_project' in pdf.pages[0].extract_text()
 
 
 def test_get_report_data(report_builder: ReportBuilder):
