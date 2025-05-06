@@ -8,6 +8,7 @@ from qgis.PyQt.QtWidgets import (
     QButtonGroup,
     QCheckBox,
     QDialog,
+    QGroupBox,
     QHBoxLayout,
     QLabel,
     QPushButton,
@@ -106,10 +107,15 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
         self.map_note_checkbox = self.create_map_note_checkbox()
         self.lines_form_checkbox = self.create_lines_form_checkbox()
 
-        # Radio buttons layout
-        settings_layout = QVBoxLayout()
-        settings_layout.addWidget(self.map_note_checkbox)
-        settings_layout.addWidget(self.lines_form_checkbox)
+        # Radio buttons groupbox settings
+        project_settings_group = QGroupBox("Project Settings")
+        project_settings_layout = QVBoxLayout()
+        project_settings_layout.addWidget(self.map_note_checkbox)
+        project_settings_group.setLayout(project_settings_layout)
+        user_settings_group = QGroupBox("User Settings")
+        user_settings_layout = QVBoxLayout()
+        user_settings_layout.addWidget(self.lines_form_checkbox)
+        user_settings_group.setLayout(user_settings_layout)
 
         # Create buttons
         self.ok_button = QPushButton("OK")
@@ -122,7 +128,8 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
 
         # Create dialog layout
         dialog_layout = QVBoxLayout()
-        dialog_layout.addLayout(settings_layout)
+        dialog_layout.addWidget(project_settings_group)
+        dialog_layout.addWidget(user_settings_group)
         dialog_layout.addLayout(button_layout)
         self.setLayout(dialog_layout)
 
