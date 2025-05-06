@@ -195,28 +195,14 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="user_entered">
+    <field configurationFlags="NoFlag" name="recorded_by">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="date_entered">
-      <editWidget type="Hidden">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="user_updated">
-      <editWidget type="Hidden">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="date_updated">
+    <field configurationFlags="NoFlag" name="recorded_on">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
@@ -243,10 +229,8 @@
     <alias field="local_epsg" index="10" name=""></alias>
     <alias field="notes" index="11" name=""></alias>
     <alias field="mapped_scale" index="12" name=""></alias>
-    <alias field="user_entered" index="13" name=""></alias>
-    <alias field="date_entered" index="14" name=""></alias>
-    <alias field="user_updated" index="15" name=""></alias>
-    <alias field="date_updated" index="16" name=""></alias>
+    <alias field="recorded_by" index="13" name=""></alias>
+    <alias field="recorded_on" index="14" name=""></alias>
     <alias field="qgis_plugin_version" index="17" name=""></alias>
   </aliases>
   <splitPolicies>
@@ -261,10 +245,8 @@
     <policy field="local_epsg" policy="Duplicate"></policy>
     <policy field="notes" policy="Duplicate"></policy>
     <policy field="mapped_scale" policy="Duplicate"></policy>
-    <policy field="user_entered" policy="Duplicate"></policy>
-    <policy field="date_entered" policy="Duplicate"></policy>
-    <policy field="user_updated" policy="Duplicate"></policy>
-    <policy field="date_updated" policy="Duplicate"></policy>
+    <policy field="recorded_by" policy="Duplicate"></policy>
+    <policy field="recorded_on" policy="Duplicate"></policy>
     <policy field="qgis_plugin_version" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
@@ -279,10 +261,8 @@
     <default applyOnUpdate="0" expression="" field="local_epsg"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
     <default applyOnUpdate="0" expression="10000" field="mapped_scale"></default>
-    <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_entered"></default>
-    <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
-    <default applyOnUpdate="1" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_updated"></default>
-    <default applyOnUpdate="1" expression="now()" field="date_updated"></default>
+    <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="recorded_by"></default>
+    <default applyOnUpdate="0" expression="now()" field="recorded_on"></default>
     <default applyOnUpdate="0" expression="" field="qgis_plugin_version"></default>
   </defaults>
   <constraints>
@@ -297,10 +277,8 @@
     <constraint constraints="1" exp_strength="0" field="local_epsg" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="mapped_scale" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="recorded_on" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="qgis_plugin_version" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
@@ -315,10 +293,8 @@
     <constraint desc="" exp="" field="local_epsg"></constraint>
     <constraint desc="" exp="" field="notes"></constraint>
     <constraint desc="" exp="" field="mapped_scale"></constraint>
-    <constraint desc="" exp="" field="user_entered"></constraint>
-    <constraint desc="" exp="" field="date_entered"></constraint>
-    <constraint desc="" exp="" field="user_updated"></constraint>
-    <constraint desc="" exp="" field="date_updated"></constraint>
+    <constraint desc="" exp="" field="recorded_by"></constraint>
+    <constraint desc="" exp="" field="recorded_on"></constraint>
     <constraint desc="" exp="" field="qgis_plugin_version"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
@@ -396,8 +372,7 @@ def my_form_open(dialog, layer, feature):
     </attributeEditorField>
   </attributeEditorForm>
   <editable>
-    <field editable="1" name="date_entered"></field>
-    <field editable="1" name="date_updated"></field>
+    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="description"></field>
     <field editable="1" name="end_date"></field>
     <field editable="1" name="fid"></field>
@@ -409,13 +384,11 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="short_name"></field>
     <field editable="1" name="start_date"></field>
     <field editable="1" name="title"></field>
-    <field editable="1" name="user_entered"></field>
-    <field editable="1" name="user_updated"></field>
+    <field editable="1" name="recorded_by"></field>
     <field editable="1" name="uuid"></field>
   </editable>
   <labelOnTop>
-    <field labelOnTop="0" name="date_entered"></field>
-    <field labelOnTop="0" name="date_updated"></field>
+    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="description"></field>
     <field labelOnTop="0" name="end_date"></field>
     <field labelOnTop="0" name="fid"></field>
@@ -427,13 +400,11 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="short_name"></field>
     <field labelOnTop="0" name="start_date"></field>
     <field labelOnTop="0" name="title"></field>
-    <field labelOnTop="0" name="user_entered"></field>
-    <field labelOnTop="0" name="user_updated"></field>
+    <field labelOnTop="0" name="recorded_by"></field>
     <field labelOnTop="0" name="uuid"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="date_entered" reuseLastValue="0"></field>
-    <field name="date_updated" reuseLastValue="0"></field>
+    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="description" reuseLastValue="0"></field>
     <field name="end_date" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
@@ -445,8 +416,7 @@ def my_form_open(dialog, layer, feature):
     <field name="short_name" reuseLastValue="0"></field>
     <field name="start_date" reuseLastValue="0"></field>
     <field name="title" reuseLastValue="0"></field>
-    <field name="user_entered" reuseLastValue="0"></field>
-    <field name="user_updated" reuseLastValue="0"></field>
+    <field name="recorded_by" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>

@@ -25,10 +25,8 @@ CREATE TABLE IF NOT EXISTS "field_project" (
     "local_epsg" INTEGER NOT NULL,
     "notes" TEXT,
     "mapped_scale" INTEGER NOT NULL,
-    "user_entered" TEXT NOT NULL,
-    "date_entered" DATETIME NOT NULL,
-    "user_updated" TEXT,
-    "date_updated" DATETIME,
+    "recorded_by" TEXT NOT NULL,
+    "recorded_on" DATETIME NOT NULL,
     "qgis_plugin_version" TEXT,
     "geometry" POLYGON NOT NULL,
     PRIMARY KEY("fid" AUTOINCREMENT)
@@ -116,12 +114,6 @@ DELETE
 FROM "rtree_field_project_geometry"
 WHERE id = OLD."fid"; END;
 
-
-CREATE TRIGGER "field_project_clear_updated"
-  AFTER INSERT ON "field_project" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
-    BEGIN
-      UPDATE "field_project" SET user_updated = NULL, date_updated = NULL
-      WHERE fid = NEW."fid"; END;
 
 CREATE TRIGGER "field_project_limit_1"
     BEFORE INSERT ON "field_project" WHEN (SELECT COUNT(1) FROM "field_project") >= 1

@@ -21,14 +21,8 @@
                         </tr>
                         <tr>
                             <td>Entered</td>
-                            <td>{{ measurement.user_entered }} at {{ measurement.date_entered }}</td>
+                            <td>{{ measurement.recorded_by }} at {{ measurement.recorded_on }}</td>
                         </tr>
-                        {% if measurement.user_updated is not none %}
-                        <tr>
-                            <td>Updated</td>
-                            <td>{{ measurement.user_updated }} at {{ measurement.date_updated }}</td>
-                        </tr>
-                        {% endif %}
                     </table>
                     {% endfor %}
                 </section>

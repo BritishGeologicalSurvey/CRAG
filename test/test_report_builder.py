@@ -17,7 +17,7 @@ from plugin.utils import (  # noqa
 )
 
 # Minimum set of columns needed to produce a report using the templates
-EXPECTED_COMMON_COLUMNS = {"user_entered", "date_entered", "user_updated", "date_updated"}
+EXPECTED_COMMON_COLUMNS = {"recorded_by", "recorded_on"}
 EXPECTED_PROJECT_COLUMNS = {"project_lead", "start_date", "end_date", "description"}
 EXPECTED_LOCALITY_COLUMNS = {"name", "locality_type_code", "geometry",
                              "locality_description", "map_face_note", "geology_description"}
@@ -196,12 +196,12 @@ def test_get_child_rows_for_locality_from_table(report_builder: ReportBuilder):
 
 def test_remove_microseconds_by_row(report_builder: ReportBuilder):
     # Arrange
-    fixture = [{'date_entered': '2023-10-31T16:54:28.908', 'date_updated': '2023-10-31T16:54:28.908'},
-               {'date_entered': '2023-10-31T16:54:28', 'date_updated': '2023-10-31T16:54:28'},
-               {'date_entered': '2023-10-31T16:54:28.908', 'date_updated': None}]
-    expected = [{'date_entered': '2023-10-31T16:54:28', 'date_updated': '2023-10-31T16:54:28'},
-                {'date_entered': '2023-10-31T16:54:28', 'date_updated': '2023-10-31T16:54:28'},
-                {'date_entered': '2023-10-31T16:54:28', 'date_updated': None}]
+    fixture = [{'recorded_on': '2023-10-31T16:54:28.908'},
+               {'recorded_on': '2023-10-31T16:54:28'},
+               {'recorded_on': '2023-10-31T16:54:28.908'}]
+    expected = [{'recorded_on': '2023-10-31T16:54:28'},
+                {'recorded_on': '2023-10-31T16:54:28'},
+                {'recorded_on': '2023-10-31T16:54:28'}]
 
     # Act
     result = report_builder.remove_microseconds_by_row(fixture)

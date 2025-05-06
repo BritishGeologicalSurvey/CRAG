@@ -112,15 +112,9 @@ class ReportTemplate(BaseDocTemplate):
             table_data.append([title_text, field_text])
         entered = [
             Paragraph('Entered', self.default_text),
-            Paragraph(data['user_entered'] + ' at ' + data['date_entered'], self.default_text)
+            Paragraph(data['recorded_by'] + ' at ' + data['recorded_on'], self.default_text)
         ]
         table_data.append(entered)
-        if data['user_updated'] is not None:
-            updated = [
-                Paragraph('Updated', self.default_text),
-                Paragraph(data['user_updated'] + ' at ' + data['date_updated'], self.default_text)
-            ]
-            table_data.append(updated)
 
         # Define the table style
         rows = len(table_data)

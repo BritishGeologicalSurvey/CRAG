@@ -272,9 +272,7 @@ class ReportBuilder(FieldDataCaptureProject):
         Remove any microseconds from the two date strings
         """
         for row in rows:
-            row['date_entered'] = row['date_entered'].split('.')[0]
-            if row['date_updated']:
-                row['date_updated'] = row['date_updated'].split('.')[0]
+            row['recorded_on'] = row['recorded_on'].split('.')[0]
 
         return rows
 

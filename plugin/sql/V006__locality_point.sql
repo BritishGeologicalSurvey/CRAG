@@ -22,10 +22,8 @@ CREATE TABLE IF NOT EXISTS "locality_point" (
     "locality_description" TEXT,
     "map_face_note" TEXT,
     "geology_description" TEXT,
-    "user_entered" TEXT NOT NULL,
-    "date_entered" DATETIME NOT NULL,
-    "user_updated" TEXT,
-    "date_updated" DATETIME,
+    "recorded_by" TEXT NOT NULL,
+    "recorded_on" DATETIME NOT NULL,
     "geometry" POINT NOT NULL,
     FOREIGN KEY("locality_type_code") REFERENCES "dic_locality_type"("code"),
     FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
@@ -114,12 +112,6 @@ DELETE
 FROM "rtree_locality_point_geometry"
 WHERE id = OLD."fid"; END;
 
-
-CREATE TRIGGER "locality_point_clear_updated"
-  AFTER INSERT ON "locality_point" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
-    BEGIN
-      UPDATE "locality_point" SET user_updated = NULL, date_updated = NULL
-      WHERE fid = NEW."fid"; END;
 
 PRAGMA writable_schema=OFF;
 

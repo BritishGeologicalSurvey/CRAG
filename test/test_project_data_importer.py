@@ -104,10 +104,8 @@ def test_copy_project_data_good(
         "local_epsg: 27700",
         "notes: test field project notes",
         "mapped_scale: 25000",
-        "user_entered: leorud",
-        "date_entered: 2024-04-17T14:10:40.374",
-        "user_updated: None",
-        "date_updated: None",
+        "recorded_by: leorud",
+        "recorded_on: 2024-04-17T14:10:40.374",
         "qgis_plugin_version: test_plugin_version",
     ]
     expected_field_project_notes_metadata = "\n".join(expected_field_project_notes_metadata_lines)

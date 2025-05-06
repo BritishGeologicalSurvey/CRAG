@@ -6,11 +6,7 @@
                     {% for photo in point.children.photo %}
                     <table>
                         <tr>
-                            {% if photo.user_updated is none %}
                             <td class="photo" rowspan="4">
-                            {% else %}
-                            <td class="photo" rowspan="5">
-                            {% endif %}
                                 <a target="_blank" href="photos/{{ photo.photo_file }}">
                                     <img src=".thumbnails/{{ photo.photo_file }}">
                                 </a>
@@ -26,14 +22,8 @@
                         </tr>
                         <tr>
                             <td>Entered</td>
-                            <td>{{ photo.user_entered }} at {{ photo.date_entered }}</td>
+                            <td>{{ photo.recorded_by }} at {{ photo.recorded_on }}</td>
                         </tr>
-                        {% if photo.user_updated is not none %}
-                        <tr>
-                            <td>Updated</td>
-                            <td>{{ photo.user_updated }} at {{ photo.date_updated }}</td>
-                        </tr>
-                        {% endif %}
                     </table>
                     {% endfor %}
                 </section>

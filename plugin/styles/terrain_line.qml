@@ -1647,28 +1647,14 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="user_entered">
+    <field configurationFlags="NoFlag" name="recorded_by">
       <editWidget type="TextEdit">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="date_entered">
-      <editWidget type="DateTime">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="user_updated">
-      <editWidget type="TextEdit">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="date_updated">
+    <field configurationFlags="NoFlag" name="recorded_on">
       <editWidget type="DateTime">
         <config>
           <Option></Option>
@@ -1684,10 +1670,8 @@
     <alias field="line_label" index="4" name=""></alias>
     <alias field="notes" index="5" name=""></alias>
     <alias field="mapped_scale" index="6" name=""></alias>
-    <alias field="user_entered" index="7" name=""></alias>
-    <alias field="date_entered" index="8" name=""></alias>
-    <alias field="user_updated" index="9" name=""></alias>
-    <alias field="date_updated" index="10" name=""></alias>
+    <alias field="recorded_by" index="7" name=""></alias>
+    <alias field="recorded_on" index="8" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -1697,10 +1681,8 @@
     <policy field="line_label" policy="Duplicate"></policy>
     <policy field="notes" policy="Duplicate"></policy>
     <policy field="mapped_scale" policy="Duplicate"></policy>
-    <policy field="user_entered" policy="Duplicate"></policy>
-    <policy field="date_entered" policy="Duplicate"></policy>
-    <policy field="user_updated" policy="Duplicate"></policy>
-    <policy field="date_updated" policy="Duplicate"></policy>
+    <policy field="recorded_by" policy="Duplicate"></policy>
+    <policy field="recorded_on" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
@@ -1710,10 +1692,8 @@
     <default applyOnUpdate="0" expression="" field="line_label"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
     <default applyOnUpdate="1" expression="attribute(get_feature('field_project', 'uuid', attribute(@feature, 'field_project_fuid')), 'mapped_scale')" field="mapped_scale"></default>
-    <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_entered"></default>
-    <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
-    <default applyOnUpdate="1" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_updated"></default>
-    <default applyOnUpdate="1" expression="now()" field="date_updated"></default>
+    <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="recorded_by"></default>
+    <default applyOnUpdate="0" expression="now()" field="recorded_on"></default>
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
@@ -1723,10 +1703,8 @@
     <constraint constraints="0" exp_strength="0" field="line_label" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="mapped_scale" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="recorded_on" notnull_strength="1" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
@@ -1736,10 +1714,8 @@
     <constraint desc="" exp="" field="line_label"></constraint>
     <constraint desc="" exp="" field="notes"></constraint>
     <constraint desc="" exp="" field="mapped_scale"></constraint>
-    <constraint desc="" exp="" field="user_entered"></constraint>
-    <constraint desc="" exp="" field="date_entered"></constraint>
-    <constraint desc="" exp="" field="user_updated"></constraint>
-    <constraint desc="" exp="" field="date_updated"></constraint>
+    <constraint desc="" exp="" field="recorded_by"></constraint>
+    <constraint desc="" exp="" field="recorded_on"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
@@ -1776,7 +1752,7 @@ def my_form_open(dialog, layer, feature):
       <attributeEditorTextElement horizontalStretch="0" name="created" showLabel="0" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-        </labelStyle>Created by [% "user_entered" %] on: [%  format_date("date_entered", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
+        </labelStyle>Created by [% "recorded_by" %] on: [%  format_date("recorded_on", 'ddd dd MMM yyyy, hh:mm') %]</attributeEditorTextElement>
       <attributeEditorTextElement horizontalStretch="0" name="line stats" showLabel="0" verticalStretch="0">
         <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
           <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
@@ -1817,42 +1793,36 @@ azimuth: [% format_number(&#xD;
     </attributeEditorField>
   </attributeEditorForm>
   <editable>
-    <field editable="1" name="date_entered"></field>
-    <field editable="1" name="date_updated"></field>
+    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="fid"></field>
     <field editable="1" name="field_project_fuid"></field>
     <field editable="1" name="line_label"></field>
     <field editable="1" name="line_type_code"></field>
     <field editable="1" name="mapped_scale"></field>
     <field editable="1" name="notes"></field>
-    <field editable="1" name="user_entered"></field>
-    <field editable="1" name="user_updated"></field>
+    <field editable="1" name="recorded_by"></field>
     <field editable="1" name="uuid"></field>
   </editable>
   <labelOnTop>
-    <field labelOnTop="0" name="date_entered"></field>
-    <field labelOnTop="0" name="date_updated"></field>
+    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="field_project_fuid"></field>
     <field labelOnTop="0" name="line_label"></field>
     <field labelOnTop="0" name="line_type_code"></field>
     <field labelOnTop="0" name="mapped_scale"></field>
     <field labelOnTop="0" name="notes"></field>
-    <field labelOnTop="0" name="user_entered"></field>
-    <field labelOnTop="0" name="user_updated"></field>
+    <field labelOnTop="0" name="recorded_by"></field>
     <field labelOnTop="0" name="uuid"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="date_entered" reuseLastValue="0"></field>
-    <field name="date_updated" reuseLastValue="0"></field>
+    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="field_project_fuid" reuseLastValue="1"></field>
     <field name="line_label" reuseLastValue="0"></field>
     <field name="line_type_code" reuseLastValue="1"></field>
     <field name="mapped_scale" reuseLastValue="0"></field>
     <field name="notes" reuseLastValue="0"></field>
-    <field name="user_entered" reuseLastValue="0"></field>
-    <field name="user_updated" reuseLastValue="0"></field>
+    <field name="recorded_by" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>

@@ -22,10 +22,8 @@ CREATE TABLE IF NOT EXISTS "bedrock_line" (
   "line_label" TEXT,
   "notes" TEXT,
   "mapped_scale" INTEGER NOT NULL,
-  "user_entered" TEXT NOT NULL,
-  "date_entered" DATETIME NOT NULL,
-  "user_updated" TEXT,
-  "date_updated" DATETIME,
+  "recorded_by" TEXT NOT NULL,
+  "recorded_on" DATETIME NOT NULL,
   "geometry" LINESTRING NOT NULL,
   FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_bedrock"("code"),
@@ -116,12 +114,6 @@ FROM "rtree_bedrock_line_geometry"
 WHERE id = OLD."fid"; END;
 
 
-CREATE TRIGGER "bedrock_line_clear_updated"
-  AFTER INSERT ON "bedrock_line" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
-    BEGIN
-      UPDATE "bedrock_line" SET user_updated = NULL, date_updated = NULL
-      WHERE fid = NEW."fid"; END;
-
 PRAGMA writable_schema=OFF;
 
 -- Superficial line
@@ -146,10 +138,8 @@ CREATE TABLE IF NOT EXISTS "superficial_line" (
   "line_label" TEXT,
   "notes" TEXT,
   "mapped_scale" INTEGER NOT NULL,
-  "user_entered" TEXT NOT NULL,
-  "date_entered" DATETIME NOT NULL,
-  "user_updated" TEXT,
-  "date_updated" DATETIME,
+  "recorded_by" TEXT NOT NULL,
+  "recorded_on" DATETIME NOT NULL,
   "geometry" LINESTRING NOT NULL,
   FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_superficial"("code"),
@@ -240,12 +230,6 @@ FROM "rtree_superficial_line_geometry"
 WHERE id = OLD."fid"; END;
 
 
-CREATE TRIGGER "superficial_line_clear_updated"
-  AFTER INSERT ON "superficial_line" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
-    BEGIN
-      UPDATE "superficial_line" SET user_updated = NULL, date_updated = NULL
-      WHERE fid = NEW."fid"; END;
-
 PRAGMA writable_schema=OFF;
 
 -- Artificial line
@@ -270,10 +254,8 @@ CREATE TABLE IF NOT EXISTS "artificial_line" (
   "line_label" TEXT,
   "notes" TEXT,
   "mapped_scale" INTEGER NOT NULL,
-  "user_entered" TEXT NOT NULL,
-  "date_entered" DATETIME NOT NULL,
-  "user_updated" TEXT,
-  "date_updated" DATETIME,
+  "recorded_by" TEXT NOT NULL,
+  "recorded_on" DATETIME NOT NULL,
   "geometry" LINESTRING NOT NULL,
   FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_artificial"("code"),
@@ -364,12 +346,6 @@ FROM "rtree_artificial_line_geometry"
 WHERE id = OLD."fid"; END;
 
 
-CREATE TRIGGER "artificial_line_clear_updated"
-  AFTER INSERT ON "artificial_line" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
-    BEGIN
-      UPDATE "artificial_line" SET user_updated = NULL, date_updated = NULL
-      WHERE fid = NEW."fid"; END;
-
 PRAGMA writable_schema=OFF;
 
 -- Mass movement line
@@ -394,10 +370,8 @@ CREATE TABLE IF NOT EXISTS "mass_move_line" (
   "line_label" TEXT,
   "notes" TEXT,
   "mapped_scale" INTEGER NOT NULL,
-  "user_entered" TEXT NOT NULL,
-  "date_entered" DATETIME NOT NULL,
-  "user_updated" TEXT,
-  "date_updated" DATETIME,
+  "recorded_by" TEXT NOT NULL,
+  "recorded_on" DATETIME NOT NULL,
   "geometry" LINESTRING NOT NULL,
   FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_mass_move"("code"),
@@ -488,12 +462,6 @@ FROM "rtree_mass_move_line_geometry"
 WHERE id = OLD."fid"; END;
 
 
-CREATE TRIGGER "mass_move_line_clear_updated"
-  AFTER INSERT ON "mass_move_line" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
-    BEGIN
-      UPDATE "mass_move_line" SET user_updated = NULL, date_updated = NULL
-      WHERE fid = NEW."fid"; END;
-
 PRAGMA writable_schema=OFF;
 
 -- Terrain line
@@ -518,10 +486,8 @@ CREATE TABLE IF NOT EXISTS "terrain_line" (
   "line_label" TEXT,
   "notes" TEXT,
   "mapped_scale" INTEGER NOT NULL,
-  "user_entered" TEXT NOT NULL,
-  "date_entered" DATETIME NOT NULL,
-  "user_updated" TEXT,
-  "date_updated" DATETIME,
+  "recorded_by" TEXT NOT NULL,
+  "recorded_on" DATETIME NOT NULL,
   "geometry" LINESTRING NOT NULL,
   FOREIGN KEY("field_project_fuid") REFERENCES "field_project"("uuid"),
   FOREIGN KEY("line_type_code") REFERENCES "dic_line_type_terrain"("code"),
@@ -611,12 +577,6 @@ DELETE
 FROM "rtree_terrain_line_geometry"
 WHERE id = OLD."fid"; END;
 
-
-CREATE TRIGGER "terrain_line_clear_updated"
-  AFTER INSERT ON "terrain_line" WHEN (NEW."user_updated" NOT NULL AND NEW."date_updated" NOT NULL)
-    BEGIN
-      UPDATE "terrain_line" SET user_updated = NULL, date_updated = NULL
-      WHERE fid = NEW."fid"; END;
 
 PRAGMA writable_schema=OFF;
 COMMIT;

@@ -15,14 +15,8 @@
                         </tr>
                         <tr>
                             <td>Entered</td>
-                            <td>{{ landform.user_entered }} at {{ landform.date_entered }}</td>
+                            <td>{{ landform.recorded_by }} at {{ landform.recorded_on }}</td>
                         </tr>
-                        {% if landform.user_updated is not none %}
-                        <tr>
-                            <td>Updated</td>
-                            <td>{{ landform.user_updated }} at {{ landform.date_updated }}</td>
-                        </tr>
-                        {% endif %}
                     </table>
                     {% endfor %}
                 </section>

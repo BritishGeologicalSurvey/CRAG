@@ -19,14 +19,8 @@
                         </tr>
                         <tr>
                             <td>Entered</td>
-                            <td>{{ sample.user_entered }} at {{ sample.date_entered }}</td>
+                            <td>{{ sample.recorded_by }} at {{ sample.recorded_on }}</td>
                         </tr>
-                        {% if sample.user_updated is not none %}
-                        <tr>
-                            <td>Updated</td>
-                            <td>{{ sample.user_updated }} at {{ sample.date_updated }}</td>
-                        </tr>
-                        {% endif %}
                     </table>
                     {% endfor %}
                 </section>

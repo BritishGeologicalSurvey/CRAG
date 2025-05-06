@@ -80,10 +80,8 @@ def create_tables(conn: sqlite3.Connection):
             "translation"	TEXT,
             "status"	TEXT,
             "rcs_status"  TEXT,
-            "user_entered"	TEXT NOT NULL,
-            "date_entered"	DATETIME NOT NULL,
-            "user_updated"	TEXT,
-            "date_updated"	DATETIME,
+            "recorded_by"	TEXT NOT NULL,
+            "recorded_on"	DATETIME NOT NULL,
             PRIMARY KEY("fid" AUTOINCREMENT)
         );
     """
@@ -98,10 +96,8 @@ def create_tables(conn: sqlite3.Connection):
             "label" TEXT,
             "description"	TEXT,
             "translation"	TEXT,
-            "user_entered"	TEXT NOT NULL,
-            "date_entered"	DATETIME NOT NULL,
-            "user_updated"	TEXT,
-            "date_updated"	DATETIME,
+            "recorded_by"	TEXT NOT NULL,
+            "recorded_on"	DATETIME NOT NULL,
             FOREIGN KEY("code") REFERENCES "_dic_rock_all"("code"),
             PRIMARY KEY("fid" AUTOINCREMENT)
         );
@@ -140,9 +136,7 @@ def import_dic_rock_all(conn: sqlite3.Connection):
           STATUS,
           RCS_STATUS,
           USER_ENTERED,
-          DATE_ENTERED,
-          USER_UPDATED,
-          DATE_UPDATED
+          DATE_ENTERED
         FROM BGS.DIC_ROCK_ALL
     """
 
@@ -234,8 +228,8 @@ def import_dic_rock_field_rcs(conn: sqlite3.Connection):
             row['code'] = row.pop('rcs_code')
             row['category'] = row.pop('category_mergin').lower()
             row['label'] = row.pop('rcs_translation_lowercase')
-            row['user_entered'] = 'jostev'
-            row['date_entered'] = dt.datetime(2024, 3, 5, 9, 0, 0)
+            row['recorded_by'] = 'jostev'
+            row['recorded_on'] = dt.datetime(2024, 3, 5, 9, 0, 0)
             # Set these rows to be the default lithologies
             row['is_default'] = 1
 
@@ -352,9 +346,9 @@ def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
 
     dic_rock_field_upsert_sql = """
         INSERT INTO dic_rock_field
-            (code, label, description, user_entered, date_entered)
+            (code, label, description, recorded_by, recorded_on)
         VALUES
-            (:code, :translation, :description, :user_entered, :date_entered)
+            (:code, :translation, :description, :recorded_by, :recorded_on)
         ON CONFLICT
             (code)
         DO
@@ -368,8 +362,8 @@ def extend_dic_rock_field(conn: sqlite3.Connection) -> None:
     for dic_rock_all_row in dic_rock_all_rows:
         # Add user and date entered
         # Dictionaries are updated in place
-        dic_rock_all_row["user_entered"] = "leorud"
-        dic_rock_all_row["date_entered"] = dt.datetime(2024, 3, 5, 16, 0, 0)
+        dic_rock_all_row["recorded_by"] = "leorud"
+        dic_rock_all_row["recorded_on"] = dt.datetime(2024, 3, 5, 16, 0, 0)
 
     etl.executemany(dic_rock_field_upsert_sql, conn, dic_rock_all_rows)
 

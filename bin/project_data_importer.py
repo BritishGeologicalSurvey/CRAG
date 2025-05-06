@@ -198,10 +198,8 @@ class ProjectDataImporter:
                     local_epsg,
                     notes,
                     mapped_scale,
-                    user_entered,
-                    date_entered,
-                    user_updated,
-                    date_updated,
+                    recorded_by,
+                    recorded_on,
                     qgis_plugin_version
                 FROM
                     field_project

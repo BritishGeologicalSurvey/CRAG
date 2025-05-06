@@ -281,7 +281,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
 
     def create_combobox_locality(self) -> QComboBox:
         """
-        Create a QComboBox which lists the existing locality_point features by name and date_entered.
+        Create a QComboBox which lists the existing locality_point features by name and recorded_on.
         Returns the QComboBox object.
         """
         locality_point_layer = self.get_fdc_layer("locality_point")
@@ -294,7 +294,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
 
         for feature in locality_point_layer.getFeatures():
             # Convert to Python datetime object and remove miliseconds
-            locality_date = feature.attribute("date_entered").toPyDateTime().replace(microsecond=0)
+            locality_date = feature.attribute("recorded_on").toPyDateTime().replace(microsecond=0)
             combobox.addItem(
                 f"{feature.attribute('name')} | {locality_date}",
                 userData=feature.attribute("uuid"),

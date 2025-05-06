@@ -75,28 +75,14 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="user_entered">
+    <field configurationFlags="NoFlag" name="recorded_by">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="date_entered">
-      <editWidget type="Hidden">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="user_updated">
-      <editWidget type="Hidden">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="date_updated">
+    <field configurationFlags="NoFlag" name="recorded_on">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
@@ -111,10 +97,8 @@
     <alias field="sample_id" index="3" name=""></alias>
     <alias field="sample_type_code" index="4" name=""></alias>
     <alias field="sample_description" index="5" name=""></alias>
-    <alias field="user_entered" index="6" name=""></alias>
-    <alias field="date_entered" index="7" name=""></alias>
-    <alias field="user_updated" index="8" name=""></alias>
-    <alias field="date_updated" index="9" name=""></alias>
+    <alias field="recorded_by" index="6" name=""></alias>
+    <alias field="recorded_on" index="7" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -123,10 +107,8 @@
     <policy field="sample_id" policy="DefaultValue"></policy>
     <policy field="sample_type_code" policy="DefaultValue"></policy>
     <policy field="sample_description" policy="DefaultValue"></policy>
-    <policy field="user_entered" policy="Duplicate"></policy>
-    <policy field="date_entered" policy="Duplicate"></policy>
-    <policy field="user_updated" policy="Duplicate"></policy>
-    <policy field="date_updated" policy="Duplicate"></policy>
+    <policy field="recorded_by" policy="Duplicate"></policy>
+    <policy field="recorded_on" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
@@ -135,10 +117,8 @@
     <default applyOnUpdate="0" expression="" field="sample_id"></default>
     <default applyOnUpdate="0" expression="'rock'" field="sample_type_code"></default>
     <default applyOnUpdate="0" expression="" field="sample_description"></default>
-    <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_entered"></default>
-    <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
-    <default applyOnUpdate="1" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_updated"></default>
-    <default applyOnUpdate="1" expression="now()" field="date_updated"></default>
+    <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="recorded_by"></default>
+    <default applyOnUpdate="0" expression="now()" field="recorded_on"></default>
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
@@ -147,10 +127,8 @@
     <constraint constraints="1" exp_strength="0" field="sample_id" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="sample_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="sample_description" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="recorded_on" notnull_strength="1" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
@@ -159,10 +137,8 @@
     <constraint desc="" exp="" field="sample_id"></constraint>
     <constraint desc="" exp="" field="sample_type_code"></constraint>
     <constraint desc="" exp="" field="sample_description"></constraint>
-    <constraint desc="" exp="" field="user_entered"></constraint>
-    <constraint desc="" exp="" field="date_entered"></constraint>
-    <constraint desc="" exp="" field="user_updated"></constraint>
-    <constraint desc="" exp="" field="date_updated"></constraint>
+    <constraint desc="" exp="" field="recorded_by"></constraint>
+    <constraint desc="" exp="" field="recorded_on"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
@@ -219,39 +195,33 @@ def my_form_open(dialog, layer, feature):
     </attributeEditorContainer>
   </attributeEditorForm>
   <editable>
-    <field editable="1" name="date_entered"></field>
-    <field editable="1" name="date_updated"></field>
+    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="fid"></field>
     <field editable="1" name="locality_fuid"></field>
     <field editable="1" name="sample_description"></field>
     <field editable="1" name="sample_id"></field>
     <field editable="1" name="sample_type_code"></field>
-    <field editable="1" name="user_entered"></field>
-    <field editable="1" name="user_updated"></field>
+    <field editable="1" name="recorded_by"></field>
     <field editable="1" name="uuid"></field>
   </editable>
   <labelOnTop>
-    <field labelOnTop="0" name="date_entered"></field>
-    <field labelOnTop="0" name="date_updated"></field>
+    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="locality_fuid"></field>
     <field labelOnTop="0" name="sample_description"></field>
     <field labelOnTop="0" name="sample_id"></field>
     <field labelOnTop="0" name="sample_type_code"></field>
-    <field labelOnTop="0" name="user_entered"></field>
-    <field labelOnTop="0" name="user_updated"></field>
+    <field labelOnTop="0" name="recorded_by"></field>
     <field labelOnTop="0" name="uuid"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="date_entered" reuseLastValue="0"></field>
-    <field name="date_updated" reuseLastValue="0"></field>
+    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="locality_fuid" reuseLastValue="0"></field>
     <field name="sample_description" reuseLastValue="0"></field>
     <field name="sample_id" reuseLastValue="0"></field>
     <field name="sample_type_code" reuseLastValue="1"></field>
-    <field name="user_entered" reuseLastValue="0"></field>
-    <field name="user_updated" reuseLastValue="0"></field>
+    <field name="recorded_by" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>

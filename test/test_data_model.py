@@ -18,10 +18,8 @@ COLUMN_CONSTRAINTS = {
     "fid": "INTEGER NOT NULL,",  # include the comma to ensure extra constraints aren't added
     "uuid": "TEXT NOT NULL UNIQUE",
     "code": "TEXT NOT NULL UNIQUE",  # this only applies to dictionaries
-    "user_entered": "TEXT NOT NULL",
-    "date_entered": "DATETIME NOT NULL",
-    "user_updated": "TEXT",
-    "date_updated": "DATETIME",
+    "recorded_by": "TEXT NOT NULL",
+    "recorded_on": "DATETIME NOT NULL",
 }
 
 
@@ -35,12 +33,11 @@ def test_data_loading(test_data_gpkg):
     [
         (   # Spatial (feature) tables
             FEATURE_TABLES,
-            {"fid", "uuid", "geometry", "user_entered", "date_entered", "user_updated",
-             "date_updated"},
+            {"fid", "uuid", "geometry", "recorded_by", "recorded_on"},
         ),
         (   # Non-spatial (attribute) tables
             ATTRIBUTE_TABLES,
-            {"fid", "uuid", "user_entered", "date_entered", "user_updated", "date_updated"},
+            {"fid", "uuid", "recorded_by", "recorded_on"},
         ),
         (   # Dictionary tables
             DICTIONARIES,
@@ -84,8 +81,8 @@ def assert_column_constraints(
     for col_name, col_constraints in COLUMN_CONSTRAINTS.items():
 
         if table in DICTIONARIES:
-            # Don't check uuid for dictionaries
-            if col_name in {"uuid"}:
+            # Don't check these for dictionaries
+            if col_name in {"uuid", "recorded_by", "recorded_on"}:
                 continue
         else:
             # Don't check code for non-dictionaries
@@ -235,35 +232,6 @@ def test_view_next_locality_id(test_data_gpkg: sqlite3.Connection):
     assert result_3 == expected_3
 
 
-@pytest.mark.parametrize('table', FEATURE_TABLES | ATTRIBUTE_TABLES)
-def test_clear_update_field_on_insert_trigger(test_data_gpkg: sqlite3.Connection, table: str):
-    # The script that loads test data inserts values for the user_updated and date_updated fields.
-    # The table_clear_updated triggers fire for inserts, so these values should have been cleared.
-    insert_result = etl.fetchone(
-        f"SELECT user_updated, date_updated FROM {table} WHERE fid = 1",
-        test_data_gpkg,
-        row_factory=etl.row_factories.tuple_row_factory,
-    )
-
-    assert insert_result == (None, None)
-
-    # Next we confirm that the trigger doesn't fire for updates
-    # Update the existing project to include new user_updated and date_updated values
-    etl.execute(
-        f"UPDATE {table} SET user_updated = 'leorud', date_updated = '2023-11-31T16:20:11.012'",
-        test_data_gpkg
-    )
-
-    # Assert that data were not wiped
-    update_result = etl.fetchone(
-        f"SELECT user_updated, date_updated FROM {table} WHERE fid = 1",
-        test_data_gpkg,
-        row_factory=etl.row_factories.tuple_row_factory,
-    )
-
-    assert update_result == ("leorud", "2023-11-31T16:20:11.012")
-
-
 def test_lnk_rock_project_trigger_fires_on_new_project(test_data_gpkg: sqlite3.Connection):
     # Loading the test data creates a project, which should result in
     # records being populated into the _lnk_rock_project table.
@@ -300,8 +268,8 @@ def test_field_project_limit_1_trigger(test_data_gpkg: sqlite3.Connection):
         "short_name": "extra_field_project",
         "local_epsg": 27700,
         "mapped_scale": 25000,
-        "user_entered": "leorud",
-        "date_entered": "2024-03-13T10:16:12.011",
+        "recorded_by": "leorud",
+        "recorded_on": "2024-03-13T10:16:12.011",
     }
 
     # Act

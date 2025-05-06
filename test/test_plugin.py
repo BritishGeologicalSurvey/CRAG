@@ -355,7 +355,7 @@ def test_warn_unsaved_locality_data(
     point_edit_field = "map_face_note"
     point_new_value = "dummy_value"
     child_fid = 1
-    child_edit_field = "user_entered"  # Every table has user_entered with no on_update rules
+    child_edit_field = "recorded_by"  # Every table has recorded_by with no on_update rules
     child_new_value = "dummy_user"
     unsaved_layers = ["locality_point", child_layer_name]
 
@@ -393,21 +393,13 @@ def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
     hidden_widgets = {
         "fid",
         "uuid",
-        "user_entered",
-        "date_entered",
-        "user_updated",
-        "date_updated",
-    }
-    apply_on_update_widgets = {
-        "user_updated",
-        "date_updated",
+        "recorded_by",
+        "recorded_on",
     }
     expected_expressions = {
         "uuid": "uuid()",
-        "user_entered": "coalesce(nullif(@mergin_username, ''), @user_account_name)",
-        "date_entered": "now()",
-        "user_updated": "coalesce(nullif(@mergin_username, ''), @user_account_name)",
-        "date_updated": "now()",
+        "recorded_by": "coalesce(nullif(@mergin_username, ''), @user_account_name)",
+        "recorded_on": "now()",
     }
 
     # Assert
@@ -420,9 +412,6 @@ def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
         widget = layer.editorWidgetSetup(field_idx)
         # Get the default config
         default = layer.defaultValueDefinition(field_idx)
-
-        if field_name in apply_on_update_widgets:
-            assert default.applyOnUpdate()
 
         if field_name in expected_expressions:
             assert default.expression() == expected_expressions[field_name]
