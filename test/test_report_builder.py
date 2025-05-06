@@ -64,6 +64,9 @@ def test_create_html_field_report(report_builder: ReportBuilder):
     assert report_builder.html_report_file.stat().st_size > 0
     # Confirm the correct number of sections has been created
     soup = BeautifulSoup(report_builder.html_report_file.read_text(encoding="utf-8"), 'lxml')
+    report_headings = soup.findAll('h1')
+    assert len(report_headings) == 1
+    assert 'Field Report: test field project title' in report_headings[0]
     project_sections = soup.findAll('section', {'class': "project"})
     assert len(project_sections) == 1
     locality_sections = soup.findAll('section', {'class': "locality_point"})
