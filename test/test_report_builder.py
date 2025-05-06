@@ -64,16 +64,16 @@ def test_create_html_field_report(report_builder: ReportBuilder):
     assert report_builder.html_report_file.stat().st_size > 0
     # Confirm the correct number of sections has been created
     soup = BeautifulSoup(report_builder.html_report_file.read_text(encoding="utf-8"), 'lxml')
-    report_headings = soup.findAll('h1')
+    report_headings = soup.find_all('h1')
     assert len(report_headings) == 1
     assert 'Field Report: test field project title' in report_headings[0]
-    project_sections = soup.findAll('section', {'class': "project"})
+    project_sections = soup.find_all('section', {'class': "project"})
     assert len(project_sections) == 1
-    locality_sections = soup.findAll('section', {'class': "locality_point"})
+    locality_sections = soup.find_all('section', {'class': "locality_point"})
     row_count = locality_point_count(report_builder)
     assert len(locality_sections) == row_count
     for child in EXPECTED_CHILD_COLUMNS.keys():
-        child_sections = soup.findAll('section', {'class': child})
+        child_sections = soup.find_all('section', {'class': child})
         assert len(child_sections) > 0
 
 
@@ -157,7 +157,7 @@ def test_create_field_report_no_title(report_builder: ReportBuilder, monkeypatch
 
     # Confirm short name used for title in HTML
     soup = BeautifulSoup(report_builder.html_report_file.read_text(encoding="utf-8"), 'lxml')
-    report_heading = soup.findAll('h1')
+    report_heading = soup.find_all('h1')
     assert 'Field Report: test_field_project' in report_heading[0]
 
     # Confirm short name used for title in PDF
