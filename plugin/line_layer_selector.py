@@ -37,8 +37,8 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         {"layer": "bedrock_line", "type": "bedrock_geology_boundary_obs"},
         {"layer": "bedrock_line", "type": "fracture_obs"},
         {"layer": "superficial_line", "type": "superficial_geology_boundary"},
-        {"layer": "terrain_line", "type": "concave_break_in_slope"},
-        {"layer": "terrain_line", "type": "convex_break_in_slope"},
+        {"layer": "terrain_line", "type": "concave_break_of_slope"},
+        {"layer": "terrain_line", "type": "convex_break_of_slope"},
     ]
 
     def __init__(self):
