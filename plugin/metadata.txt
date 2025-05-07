@@ -4,11 +4,11 @@
 
 [general]
 name=Field Data Capture
-qgisMinimumVersion=3.0
+qgisMinimumVersion=3.40
 description=This plugin aids with field capture of geological data.
 version=local_development
 author=BGS Informatics
-email=enquiries@bgs.ac.uk
+email=digitalmapping@bgs.ac.uk
 
 about=This plugin aids with field capture of geological data.
 
@@ -25,7 +25,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=python,geopackage,geology
 
-homepage=http://homepage
+homepage=http://field-data-capture.glpages.ad.nerc.ac.uk/sigma-q-user-guide/
 category=Database
 icon=icon.png
 # experimental flag

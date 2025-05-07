@@ -12,7 +12,7 @@ TEMPLATE = dedent("""
       <pyqgis_plugin name='{name}' version='{version}'>
         <description>{description}</description>
         <version>{version}</version>
-        <qgis_minimum_version>3.28</qgis_minimum_version>
+        <qgis_minimum_version>{qgisminimumversion}</qgis_minimum_version>
         <homepage>{homepage}</homepage>
         <file_name>{file_name}</file_name>
         <author_name>{author}</author_name>
@@ -27,6 +27,29 @@ TEMPLATE = dedent("""
 REPOSITORY_ROOT = "http://field-data-capture.glpages.ad.nerc.ac.uk/model-and-forms/"
 ZIPFILE_NAME = "field_data_capture.zip"
 CREATE_DATE = "2023-09-28"
+
+
+def update_metadata(metadata_file):
+    """
+    Recreate the metadata file with an updated version number.
+    """
+    metadata = ConfigParser()
+    metadata.read(metadata_file)
+    metadata['general']['version'] = _get_version()
+    with open(metadata_file, 'wt') as f:
+        metadata.write(f)
+
+
+def _get_version():
+    """
+    Return version number based on timestamp and git commit.
+    :return:
+    """
+    result = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'],
+                            check=True, capture_output=True, text=True)
+    commit = result.stdout.strip()
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    return '{}_{}'.format(timestamp, commit)
 
 
 def write_plugins_xml(metadata_file):
@@ -44,29 +67,6 @@ def write_plugins_xml(metadata_file):
             update_date=datetime.now().isoformat(),
             **metadata
         ))
-
-
-def update_metadata(metadata_file):
-    """
-    Recreate the metadata file with an updated version number.
-    """
-    metadata = ConfigParser()
-    metadata.read(metadata_file)
-    metadata['general']['version'] = get_version()
-    with open(metadata_file, 'wt') as f:
-        metadata.write(f)
-
-
-def get_version():
-    """
-    Return version number based on timestamp and git commit.
-    :return:
-    """
-    result = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'],
-                            check=True, capture_output=True, text=True)
-    commit = result.stdout.strip()
-    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-    return '{}_{}'.format(timestamp, commit)
 
 
 if __name__ == "__main__":
