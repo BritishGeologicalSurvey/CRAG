@@ -3,12 +3,9 @@
 name: fdc
 channels:
   - https://nexus-internal.bgs.ac.uk/repository/conda-forge
-  - https://repo.anaconda.com/pkgs/main
-  - https://repo.anaconda.com/pkgs/r
 dependencies:
   - _libgcc_mutex=0.1=conda_forge
   - _openmp_mutex=4.5=2_gnu
-  - _x86_64-microarch-level=3=2_skylake
   - adwaita-icon-theme=48.0=unix_0
   - alsa-lib=1.2.13=hb9d3cd8_0
   - aom=3.9.1=hac33072_0

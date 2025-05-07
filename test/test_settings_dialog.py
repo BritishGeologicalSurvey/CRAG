@@ -114,6 +114,8 @@ def test_apply_map_note_option(fdc_project: FieldDataCapture):
     rule = fdc_project.get_layer_label_rule("locality_point", "map face note")
     assert rule.settings().isExpression
     assert rule.settings().fieldName == expected_expression
+    # Map face note changes are stored in the project
+    assert fdc_project.project_instance.isDirty()
 
 
 def test_apply_lines_form_option(fdc_project: FieldDataCapture):
@@ -134,3 +136,5 @@ def test_apply_lines_form_option(fdc_project: FieldDataCapture):
 
     # Assert 2
     assert fdc_project.get_plugin_setting("show_lines_form") is expected_option
+    # Line tool changes aren't store in the project
+    assert not fdc_project.project_instance.isDirty()

@@ -259,6 +259,8 @@ def fdc_project(fdc: FieldDataCapture, qgs_project: Path) -> FieldDataCapture:
     fdc.add_gpkg_to_project()
     fdc.add_gpkg_layers_to_project()
     fdc.add_test_data_to_project()
+    # Write project data to ensure clean state (e.g. isDirty is False)
+    fdc.project_instance.write()
     return fdc
 
 

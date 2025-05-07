@@ -185,7 +185,11 @@ class ReportBuilder(FieldDataCaptureProject):
         sql = "SELECT * FROM field_project"
         rows = get_table_rows(self.db_file, sql)
         rows = self.remove_microseconds_by_row(rows)
-        return rows[0]
+        project_data = rows[0]
+        if not project_data['title']:
+            project_data['title'] = project_data['short_name']
+
+        return project_data
 
 
     def get_locality_data(self, local_epsg: int) -> dict[str, Any]:
