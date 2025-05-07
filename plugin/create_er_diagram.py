@@ -1,4 +1,5 @@
 import os
+import logging
 import requests
 
 from eralchemy2 import render_er
@@ -9,6 +10,8 @@ from sqlalchemy import (
 )
 
 from plugin.config import TABLE_LIST
+
+logger = logging.getLogger("create_er_diagram")
 
 
 def main(
@@ -29,6 +32,7 @@ def main(
         conn.enable_load_extension(False)
 
     # Connect and read metadata
+    logger.info("Reading database table structure")
     meta = MetaData()
     meta.reflect(bind=engine, views=True)
 
@@ -38,7 +42,8 @@ def main(
         if table.name in TABLE_LIST:
             table.to_metadata(new_meta)
 
-    # Render mermaid markdown file
+    # Render mermaid markdown file, which contains URL for web generation.
+    logger.info("Rendering ER diagram")
     render_er(
         new_meta,
         md_filepath,
@@ -51,7 +56,7 @@ def main(
         ],
     )
 
-    # Download mermaid image from url in md file and save to png file
+    # Extract url in md file
     with open(md_filepath, "r") as md_file:
         lines = md_file.readlines()
         url_line = lines[len(lines) - 1]
@@ -62,10 +67,16 @@ def main(
     # Set background colour for png file
     url += '?bgColor=!LemonChiffon'
 
+    # Download png using URL
     response = requests.get(url)
-    with open(png_filepath, "wb") as png_file:
-        png_file.write(response.content)
+    if response.status_code == 200:
+        logger.info("Downloading png")
+        with open(png_filepath, "wb") as png_file:
+            png_file.write(response.content)
+    else:
+        logger.error("Failed to render ER diagram")
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
     main()
