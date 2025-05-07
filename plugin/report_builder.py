@@ -186,7 +186,7 @@ class ReportBuilder(FieldDataCaptureProject):
         rows = get_table_rows(self.db_file, sql)
         rows = self.remove_microseconds_by_row(rows)
         project_data = rows[0]
-        if project_data['title'] is None:
+        if not project_data['title']:
             project_data['title'] = project_data['short_name']
 
         return project_data
