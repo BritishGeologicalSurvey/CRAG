@@ -395,7 +395,6 @@ def test_field_project_add_confirm(
 
     # Arrange 2 - apply changes to feature
     attributes = {
-        "short_name": "test_field_project",
         "local_epsg": 27700,
     }
     monkeypatch_feature_form(monkeypatch, save=True, attributes=attributes)
