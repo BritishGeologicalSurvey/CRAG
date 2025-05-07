@@ -53,12 +53,12 @@ def test_project_data_importer_fixtures(
     for project_dir in [src_fdc_project, dest_fdc_project]:
         # Check the files exist
         assert project_dir.exists()
-        for subpath in ["field-data-capture.gpkg", "photos", "media"]:
+        for subpath in ["test_project.gpkg", "photos", "media"]:
             assert (project_dir / subpath).exists()
         # Check that some photos exist
         assert len(list((project_dir / "photos").rglob("*[!.placeholder]"))) > 0
         # Check that a field_project row exists
-        with setup_db_conn(project_dir / "field-data-capture.gpkg") as conn:
+        with setup_db_conn(project_dir / "test_project.gpkg") as conn:
             field_project_count = etl.fetchone(
                 "SELECT COUNT() AS count FROM field_project",
                 conn,
@@ -109,7 +109,7 @@ def test_copy_project_data_good(
         "qgis_plugin_version: test_plugin_version",
     ]
     expected_field_project_notes_metadata = "\n".join(expected_field_project_notes_metadata_lines)
-    dest_db = dest_fdc_project / "field-data-capture.gpkg"
+    dest_db = dest_fdc_project / "test_project.gpkg"
 
     # Configure test case where project notes are null
     if null_field_project_notes:
@@ -186,7 +186,7 @@ def test_copy_project_data_bad(
     dest_fdc_project: Path,
 ):
     # Break the database in some way
-    dest_db = dest_fdc_project / "field-data-capture.gpkg"
+    dest_db = dest_fdc_project / "test_project.gpkg"
     with setup_db_conn(dest_db) as conn:
         etl.execute(sql_break_db_query, conn)
 
@@ -211,7 +211,7 @@ def test_copy_project_data_failed_metadata(
     monkeypatch
 ):
     # Record original state of database and photos folder
-    dest_db = dest_fdc_project / "field-data-capture.gpkg"
+    dest_db = dest_fdc_project / "test_project.gpkg"
     dest_db_original_contents = dest_db.read_bytes()
     photo_folder_original_contents = list((src_fdc_project / "photos").rglob("*"))
 
@@ -238,7 +238,7 @@ def test_validate_projects_good(
     # Arrange
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
     # Act 1
-    result = project_data_importer.validate_projects()
+    result = project_data_importer.validate_project_databases()
     # Assert 1
     assert result
     # Act 2
@@ -255,9 +255,9 @@ def test_validate_projects_bad_db_missing(
     # Arrange
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
     # Delete the database file in the destination project
-    (dest_fdc_project / "field-data-capture.gpkg").unlink()
+    (dest_fdc_project / "test_project.gpkg").unlink()
     # Act 1
-    result = project_data_importer.validate_projects()
+    result = project_data_importer.validate_project_databases()
     # Assert 1
     assert not result
     assert "Database file is missing from the dest project" in caplog.text
@@ -271,8 +271,8 @@ def test_validate_projects_bad_db_missing(
 @pytest.mark.parametrize(
     "open_db_file",
     (
-        Path("field-data-capture.gpkg-shm"),
-        Path("field-data-capture.gpkg-wal"),
+        Path("test_project.gpkg-shm"),
+        Path("test_project.gpkg-wal"),
     ),
 )
 def test_validate_projects_bad_db_open(
@@ -286,7 +286,7 @@ def test_validate_projects_bad_db_open(
     # Create a dummy open database file
     (dest_fdc_project / open_db_file).touch()
     # Act 1
-    result = project_data_importer.validate_projects()
+    result = project_data_importer.validate_project_databases()
     # Assert 1
     assert not result
     assert "The database file in the dest project may be open" in caplog.text
@@ -305,29 +305,27 @@ def test_validate_projects_bad_path_not_a_folder(
     caplog,
 ):
     # Arrange
-    # Pass geopackage name instead of project folder
-    src_geopackage = src_fdc_project / 'field-data-capture.gpkg'
-    project_data_importer = ProjectDataImporter(src_geopackage, dest_fdc_project)
+    src_geopackage = src_fdc_project / 'test_project.gpkg'
+    dest_geopackage = dest_fdc_project / 'test_project.gpkg'
 
     # Act
-    valid_projects = project_data_importer.validate_projects()
+    # Pass geopackage names instead of project folders
+    with pytest.raises(ValueError):
+        ProjectDataImporter(src_geopackage, dest_geopackage)
 
     # Assert
-    assert not valid_projects
     assert f"src project {src_geopackage} is not a directory" in caplog.text
+    assert f"dest project {dest_geopackage} is not a directory" in caplog.text
 
 
 def test_validate_projects_bad_path_src_and_dest_the_same(
     src_fdc_project: Path,
     caplog,
 ):
-    # Arrange
-    # Pass the src as both arguments
-    project_data_importer = ProjectDataImporter(src_fdc_project, src_fdc_project)
-
     # Act
-    valid_projects = project_data_importer.validate_projects()
+    # Pass the src as both arguments
+    with pytest.raises(ValueError):
+        ProjectDataImporter(src_fdc_project, src_fdc_project)
 
     # Assert
-    assert not valid_projects
     assert "Source and destination are the same, they must be different projects" in caplog.text

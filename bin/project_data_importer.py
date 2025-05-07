@@ -30,10 +30,13 @@ class ProjectDataImporter:
         logger.info("Destination: %s", dest)
         self.src_dir = src
         self.dest_dir = dest
+        self._validate_project_directories()
         self.src_conn: sqlite3.Connection
         self.dest_conn: sqlite3.Connection
         self.field_project_fuid_col = "field_project_fuid"
         self.field_project_fuid_dest: str
+        self.qgz_file = next(self.src_dir.glob('*.qgz'))
+        self.db_file = f'{self.qgz_file.stem}.gpkg'
 
 
     def copy_project_data(self) -> bool:
@@ -43,16 +46,15 @@ class ProjectDataImporter:
         Returns a boolean indicating the success of the process.
         """
         # Run initial checks before copying
-        if not self.validate_projects():
+        if not self.validate_project_databases():
             return False
 
-        db_file = "field-data-capture.gpkg"
-        src_db = self.src_dir / db_file
-        dest_db = self.dest_dir / db_file
+        src_db = self.src_dir / self.db_file
+        dest_db = self.dest_dir / self.db_file
         # Create copy of dest database before making changes
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_dir = Path(tmp_dir)
-            dest_db_file_backup = tmp_dir / db_file
+            dest_db_file_backup = tmp_dir / self.db_file
             dest_db_file_backup.write_bytes(dest_db.read_bytes())
 
             # Setup database transactions
@@ -82,23 +84,34 @@ class ProjectDataImporter:
         return True
 
 
-    def validate_projects(self) -> bool:
+    def _validate_project_directories(self) -> bool:
         """
-        Checks if the source and destination project are both ready for importing data.
-        This includes checking that a database exists, and that it is not open.
+        Checks if the source and destination project directories are valid and distinct.
         """
+        raise_value_error = False
+
         if self.src_dir == self.dest_dir:
             logger.error("Source and destination are the same, they must be different projects")
-            return False
+            raise_value_error = True
 
         for target, project_dir in [('src', self.src_dir), ('dest', self.dest_dir)]:
             # Ensure project_dir is a directory
             if not project_dir.is_dir():
                 logger.error("%s project %s is not a directory", target, project_dir)
-                return False
+                raise_value_error = True
 
+        if raise_value_error:
+            raise ValueError()
+
+
+    def validate_project_databases(self) -> bool:
+        """
+        Checks if the source and destination project are both ready for importing data.
+        This includes checking that a database exists, and that it is not open.
+        """
+        for target, project_dir in [('src', self.src_dir), ('dest', self.dest_dir)]:
             # Ensure database files exist
-            if not (project_dir / "field-data-capture.gpkg").exists():
+            if not (project_dir / self.db_file).exists():
                 logger.error("Database file is missing from the %s project", target)
                 return False
 
