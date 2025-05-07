@@ -71,8 +71,12 @@ def create_fdc_project_files(
     # Make the project directory
     project_dir.mkdir(exist_ok=True)
 
+    # Create qgz file
+    qgz_file = project_dir / "test_project.qgz"
+    qgz_file.touch()
+
     # Make database file
-    db_file = project_dir / "field-data-capture.gpkg"
+    db_file = project_dir / "test_project.gpkg"
     gpkg_from_sql(db_file=db_file)
     with setup_db_conn(db_file) as conn:
         conn.executescript(insert_data_sql.read_text())
@@ -132,7 +136,7 @@ def data_model_gpkg(project_dir: Path) -> Generator[sqlite3.Connection, None, No
     Create a connection to the test GeoPackage and enable spatialite.
     """
     # Create geopackage file
-    db_file = project_dir / "field-data-capture.gpkg"
+    db_file = project_dir / "test_project.gpkg"
     gpkg_from_sql(db_file=db_file)
 
     conn = setup_db_conn(db_file)

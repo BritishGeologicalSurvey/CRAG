@@ -39,7 +39,6 @@ class FieldDataCaptureProject:
     """
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
-    gpkg_filename = Path("field-data-capture.gpkg")
     placeholder_filename = Path(".placeholder")
     html_report_filename = Path("field-report.html")
     css_filename = Path("style.css")
@@ -88,7 +87,7 @@ class FieldDataCaptureProject:
         """
         Get the db file path from the current project.
         """
-        return self.project_dir / self.gpkg_filename
+        return self.project_dir / f"{self.qgz_file.stem}.gpkg"
 
     @property
     def qgz_file(self) -> Path:

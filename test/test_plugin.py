@@ -114,7 +114,7 @@ def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
     fdc.add_gpkg_to_project()
 
     # Check file exists
-    assert Path(fdc.project_dir / fdc.gpkg_filename).exists()
+    assert Path(fdc.db_file).exists()
 
     # Check tables are in file
     conn = setup_db_conn(fdc.db_file)
