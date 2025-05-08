@@ -170,6 +170,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
     Run all checks against the given project directory.
     """
     checks = [
+        check_project_name,
         check_features_valid_parents,
         check_locality_children_valid_parents,
         check_field_project_plugin_version,
@@ -185,6 +186,25 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
     ]
 
     return results
+
+
+def check_project_name(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that the field_project.short_name is the basename for the qgz and gpkg files
+    """
+    result = ValidationResult(validation_function=check_project_name.__name__)
+
+    field_project_short_name = get_table_rows(project.db_file, "SELECT short_name FROM field_project")[0]["short_name"]
+
+    # Check all feature tables other than field_project
+    for file in (project.db_file, project.qgz_file):
+        if file.stem != field_project_short_name:
+            result.status = ValidationStatus.FAIL
+            result.messages.append(
+                f"File name '{file}' does not match 'field_project.short_name': {field_project_short_name}"
+            )
+
+    return result
 
 
 def check_features_valid_parents(project: FieldDataCaptureProject) -> ValidationResult:

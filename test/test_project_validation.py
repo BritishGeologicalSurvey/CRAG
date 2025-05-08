@@ -60,6 +60,16 @@ def test_validate_project_bad(fdc_project_bad: Path):
     # Arrange
     expected_results = [
         ValidationResult(
+            validation_function='check_project_name',
+            status=ValidationStatus.FAIL,
+            messages=[
+                (f"File name '{fdc_project_bad / "test_project.gpkg"}' "
+                 "does not match 'field_project.short_name': leos_test_project"),
+                (f"File name '{fdc_project_bad / "test_project.qgz"}' "
+                 "does not match 'field_project.short_name': leos_test_project"),
+            ]
+        ),
+        ValidationResult(
             validation_function="check_features_valid_parents",
             status=ValidationStatus.FAIL,
             messages=[
