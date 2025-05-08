@@ -399,6 +399,15 @@ class FieldDataCapture(FieldDataCaptureProject):
             submenu=advanced_submenu
         )
 
+        if self.help_file.exists():
+            self.add_action(
+                None,
+                text=self.tr(u'Help'),
+                callback=self.show_help,
+                parent=self.iface.mainWindow(),
+                submenu=advanced_submenu
+            )
+
         advanced_submenu.addSeparator()
 
         self.add_action(
