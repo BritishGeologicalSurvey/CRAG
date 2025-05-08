@@ -95,7 +95,7 @@ def test_copy_project_data_good(
         "These are some empty notes honk",
         "",
         "--- Imported Project Metadata ---",
-        "short_name: test_field_project",
+        "short_name: test_project",
         "title: test field project title",
         "description: test field project description",
         "project_lead: test_user",
