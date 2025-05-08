@@ -405,9 +405,9 @@ def test_field_project_add_confirm(
     # Assert 2 - confirm tool teardown and project creation
     assert_no_tool_enabled(fdc, layer)
     # Check that the new feature has the correct attributes and geometry
-    expected_fid = 1
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
-    assert new_feature.attribute("fid") == expected_fid
+    assert new_feature.attribute("fid") == 1
+    assert new_feature.attribute("short_name") == "test_project"
     assert new_feature.attribute("qgis_plugin_version") == "fdc_test_fixture"
     for field_name, field_value in attributes.items():
         assert new_feature.attribute(field_name) == field_value
