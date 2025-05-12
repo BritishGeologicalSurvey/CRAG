@@ -26,7 +26,6 @@ import os.path
 import pprint
 import sqlite3
 from collections import defaultdict
-from pathlib import Path
 from typing import (
     Any,
     Callable,
@@ -75,10 +74,7 @@ from .config import (
     LAYER_TREE_STRUCTURE,
 )
 from .create_gpkg_from_sql import main as gpkg_from_sql
-from .create_gpkg_from_sql import (
-    add_test_data,
-    WORKDIR,
-)
+from .create_gpkg_from_sql import add_test_data
 from .line_layer_selector import LineLayerSelector
 from .file_linker import FileLinker
 from .project_validation import (
@@ -575,9 +571,21 @@ class FieldDataCapture(FieldDataCaptureProject):
         # self.set_view_lithology_rules()
 
         # Create empty user directories
-        for directory in [self.photos_dir, self.media_dir, self.baseline_data_dir]:
+        create_dirs = [
+            self.photos_dir,
+            self.media_dir,
+            self.baseline_data_dir,
+            # Unlinked media dirs
+            self.photos_dir / "unlinked",
+            self.media_dir / "unlinked",
+        ]
+        for directory in create_dirs:
             directory.mkdir(parents=True, exist_ok=True)
-            (directory / self.placeholder_filename).touch()
+            placeholder_txt = directory / self.placeholder_filename
+            placeholder_txt.write_text("This is a placeholder file to ensure the parent folder is uploaded to Mergin.")
+
+        # Copy BGS logo for default photo
+        self.copy_plugin_files_to_project(self.icons_dir / self.bgs_logo_filename, self.photos_dir)
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)

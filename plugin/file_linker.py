@@ -257,6 +257,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
     def get_unlinked_files(self, layer_name: str) -> list[Path]:
         """
         Get the unlinked files for the given layer from the given directory.
+        Ignores files in the unlinked sub-directory.
         """
         files_dir = self.layers_to_dirs[layer_name]
         file_attribute = self.layers_to_file_attributes[layer_name]
@@ -269,10 +270,12 @@ class FileLinker(QDialog, FieldDataCaptureProject):
 
         unlinked_files = []
         for filepath in files_dir.rglob("*"):
+            relative_filepath = filepath.relative_to(files_dir)
             if all((
                 filepath.is_file(),
-                filepath.relative_to(files_dir) not in linked_files,
-                filepath.name != self.placeholder_filename.name,
+                relative_filepath not in linked_files,
+                filepath.name not in {self.placeholder_filename.name, self.bgs_logo_filename.name},
+                relative_filepath.parts[0] != "unlinked",
             )):
                 unlinked_files.append(filepath)
 

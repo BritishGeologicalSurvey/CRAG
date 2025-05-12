@@ -112,7 +112,7 @@
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
-    <default applyOnUpdate="0" expression="" field="photo_file"></default>
+    <default applyOnUpdate="0" expression="'BGS-placeholder.png'" field="photo_file"></default>
     <default applyOnUpdate="0" expression="" field="caption"></default>
     <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="recorded_by"></default>
     <default applyOnUpdate="0" expression="now()" field="recorded_on"></default>

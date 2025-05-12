@@ -308,7 +308,10 @@ def test_create_thumbnails(report_builder: ReportBuilder):
 
     def assert_images_and_subdirs_match():
         assert image_files(report_builder.photos_dir) == image_files(report_builder.thumbnails_dir)
-        assert subdirs(report_builder.photos_dir) == subdirs(report_builder.thumbnails_dir)
+        photo_dirs = subdirs(report_builder.photos_dir)
+        # Remove unlinked dir as it should not be in the thumbnail dir
+        photo_dirs.remove(Path("unlinked"))
+        assert photo_dirs == subdirs(report_builder.thumbnails_dir)
 
     def assert_thumbnail_sizes(thumbnail_size):
         # A thumbnail's maximum dimension should be THUMBNAIL_SIZE pixels
@@ -327,7 +330,8 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     create_folder_and_nested_image('sub1')
 
     # Assert initial state
-    assert len(subdirs(report_builder.photos_dir)) == 1
+    # There should be the new subdir and the unlinked subdir
+    assert len(subdirs(report_builder.photos_dir)) == 2
     assert len(image_files(report_builder.photos_dir)) == 3
     assert not report_builder.thumbnails_dir.exists()
 
@@ -349,7 +353,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
 
     # Create a new subfolder and nested image file
     create_folder_and_nested_image('sub2')
-    assert len(subdirs(report_builder.photos_dir)) == 2
+    assert len(subdirs(report_builder.photos_dir)) == 3
     assert len(image_files(report_builder.photos_dir)) == 4
     # Test for creation of new subfolder and thumbnail
     report_builder.create_thumbnails()
@@ -380,6 +384,6 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Remove one photo folder of two to force folder deletion
     shutil.rmtree([p for p in report_builder.photos_dir.rglob('*') if p.is_dir()][0])
     # Confirm removal
-    assert len(subdirs(report_builder.photos_dir)) == 1
+    assert len(subdirs(report_builder.photos_dir)) == 2
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()

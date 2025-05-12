@@ -39,8 +39,10 @@ class FieldDataCaptureProject:
     """
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
-    placeholder_filename = Path(".placeholder")
+    placeholder_filename = Path("placeholder.txt")
+    html_report_filename = Path("field-report.html")
     css_filename = Path("style.css")
+    bgs_logo_filename = Path("BGS-placeholder.png")
     # Using locally downloaded woff2 of Google's Material Symbols Outlined font
     # See: https://fonts.google.com/icons
     # Licence: https://www.apache.org/licenses/LICENSE-2.0.html

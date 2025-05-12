@@ -301,7 +301,7 @@ class ReportBuilder(FieldDataCaptureProject):
         # Create directories in thumbnails that are in photos
         for path in list(self.photos_dir.rglob('*/')):
             tn_path = Path(str(path).replace(photos_str, thumbnails_str))
-            if path.is_dir() and not tn_path.exists():
+            if path.is_dir() and not tn_path.exists() and path.name != "unlinked":
                 tn_path.mkdir()
 
         # Remove directories in thumbnails that are no longer in photos
@@ -312,8 +312,8 @@ class ReportBuilder(FieldDataCaptureProject):
 
         # Create thumbnails if needed
         for path in list(self.photos_dir.rglob('*.*')):
-            tn_path = Path(str(path).replace(photos_str, thumbnails_str))
-            if path.is_file():
+            if path.is_file() and path.relative_to(self.photos_dir).parts[0] != "unlinked":
+                tn_path = Path(str(path).replace(photos_str, thumbnails_str))
                 if tn_path.exists():
                     # Create resized thumbnail
                     with Image.open(tn_path) as tn:
