@@ -25,15 +25,6 @@ from .utils import (  # noqa
     ipdb_breakpoint,
 )
 
-ATTACHMENT_TABLES = {
-    "media": "media_link",
-    "photo": "photo_file",
-}
-ATTACHMENT_DIRS = {
-    "media": "media",
-    "photo": "photos",
-}
-
 
 class ValidationStatus(Enum):
     """
@@ -301,7 +292,7 @@ def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> Valid
     """
     result = ValidationResult(validation_function=check_attached_filepaths_not_null.__name__)
 
-    for table, attachment_col in ATTACHMENT_TABLES.items():
+    for table, attachment_col in project.layers_to_file_attributes.items():
         # Perform check
         null_attachments = [
             row["fid"]
@@ -328,8 +319,8 @@ def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> Validati
     """
     result = ValidationResult(validation_function=check_attached_filepaths_exist.__name__)
 
-    for table, attachment_col in ATTACHMENT_TABLES.items():
-        attachment_dir: Path = getattr(project, f"{ATTACHMENT_DIRS[table]}_dir")
+    for table, attachment_col in project.layers_to_file_attributes.items():
+        attachment_dir = project.layers_to_dirs[table]
 
         # Perform check
         non_existing_attachments = [
@@ -358,25 +349,8 @@ def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> Val
     """
     result = ValidationResult(validation_function=check_attachment_filepaths_recorded.__name__)
 
-    for table, attachment_col in ATTACHMENT_TABLES.items():
-        attachment_dir: Path = getattr(project, f"{ATTACHMENT_DIRS[table]}_dir")
-
-        # Perform check
-        recorded_attachments = {
-            Path(row[attachment_col])
-            for row in get_table_rows(project.db_file, f"SELECT {attachment_col} FROM {table}")
-            if row[attachment_col] is not None
-        }
-
-        unrecorded_attachments = [
-            attachment
-            for attachment in attachment_dir.rglob("*")
-            if all((
-                attachment.is_file(),
-                attachment.name != project.placeholder_filename.name,
-                attachment.relative_to(attachment_dir) not in recorded_attachments,
-            ))
-        ]
+    for table in ["media", "photo"]:
+        unrecorded_attachments = project.get_unlinked_files(table)
 
         # Prepare results
         # If failed

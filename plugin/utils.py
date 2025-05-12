@@ -48,8 +48,8 @@ class FieldDataCaptureProject:
     # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
     font_filename = Path("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2")
     layers_to_file_attributes = {
-        "photo": "photo_file",
         "media": "media_link",
+        "photo": "photo_file",
     }
     plugin_settings_prefix = "FieldDataCapture"
 
@@ -202,8 +202,8 @@ class FieldDataCaptureProject:
         Dictionary of layer names to their corresponding directories.
         """
         return {
-            "photo": self.photos_dir,
             "media": self.media_dir,
+            "photo": self.photos_dir,
         }
 
 
@@ -417,6 +417,36 @@ class FieldDataCaptureProject:
         Save the given setting to the QgsSettings.
         """
         QgsSettings().setValue(f"{self.plugin_settings_prefix}/{name}", value)
+
+
+    def get_unlinked_files(self, layer_name: str) -> list[Path]:
+        """
+        Get the unlinked files for the given layer.
+        The given layer should be from: photos, media.
+        Ignores files in the unlinked sub-directory.
+        """
+        attachment_dir = self.layers_to_dirs[layer_name]
+        attachment_col = self.layers_to_file_attributes[layer_name]
+
+        # First get actual recorded paths
+        recorded_attachments = {
+            Path(row[attachment_col])
+            for row in get_table_rows(self.db_file, f"SELECT {attachment_col} FROM {layer_name}")
+            if row[attachment_col] is not None
+        }
+
+        unrecorded_attachments = [
+            attachment
+            for attachment in attachment_dir.rglob("*")
+            if all((
+                attachment.is_file(),
+                attachment.relative_to(attachment_dir) not in recorded_attachments,
+                attachment.name not in {self.placeholder_filename.name, self.bgs_logo_filename.name},
+                attachment.parts[0] != "unlinked",  # If it is not in the unlinked dir
+            ))
+        ]
+
+        return unrecorded_attachments
 
 
 def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:

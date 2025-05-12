@@ -254,34 +254,6 @@ class FileLinker(QDialog, FieldDataCaptureProject):
     """Methods used for all file types."""
 
 
-    def get_unlinked_files(self, layer_name: str) -> list[Path]:
-        """
-        Get the unlinked files for the given layer from the given directory.
-        Ignores files in the unlinked sub-directory.
-        """
-        files_dir = self.layers_to_dirs[layer_name]
-        file_attribute = self.layers_to_file_attributes[layer_name]
-        layer = self.get_fdc_layer(layer_name)
-        linked_files = {
-            Path(feature.attribute(file_attribute))
-            for feature in layer.getFeatures()
-            if feature.attribute(file_attribute) is not None
-        }
-
-        unlinked_files = []
-        for filepath in files_dir.rglob("*"):
-            relative_filepath = filepath.relative_to(files_dir)
-            if all((
-                filepath.is_file(),
-                relative_filepath not in linked_files,
-                filepath.name not in {self.placeholder_filename.name, self.bgs_logo_filename.name},
-                relative_filepath.parts[0] != "unlinked",
-            )):
-                unlinked_files.append(filepath)
-
-        return unlinked_files
-
-
     def create_combobox_locality(self) -> QComboBox:
         """
         Create a QComboBox which lists the existing locality_point features by name and recorded_on.
