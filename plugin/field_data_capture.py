@@ -954,32 +954,6 @@ class FieldDataCapture(FieldDataCaptureProject):
         return True
 
 
-    def copy_plugin_files_to_project(self, plugin_src: Path | str, project_dest: Path | str) -> None:
-        """
-        Copy the files from the given plugin source directory into the given project destination directory.
-        If the src filepath is a directory, all files within it will be copied to the dest filepath directory.
-        If the src filepath is a file, it will be copied to the dest filepath directory.
-
-        The project_dest filepath must always be a directory.
-
-        The plugin_src filepath must be relative to the plugin/ directory within the repository.
-        The project_dest filepath must be relative to the project directory.
-        """
-        # Use given relative paths to create full paths
-        plugin_src_path = WORKDIR / plugin_src
-        project_dest_path = self.project_dir / project_dest
-        project_dest_path.mkdir(parents=True, exist_ok=True)
-
-        if plugin_src_path.is_dir():
-            src_files = list(plugin_src_path.glob("*"))
-        else:
-            src_files = [plugin_src_path]
-
-        for src_file in src_files:
-            dest_file = project_dest_path / src_file.name
-            dest_file.write_bytes(src_file.read_bytes())
-
-
     def export_qml_styles(self) -> bool:
         """
         Export the QML styles for layers which belong to the Field Data Capture project.

@@ -152,11 +152,8 @@ class ReportBuilder(FieldDataCaptureProject):
 
             with open(self.html_report_file, mode="w", encoding="utf-8") as report:
                 report.write(content)
-            # Copy CSS and font files to project directory
-            self.css_dest_dir.mkdir(parents=True, exist_ok=True)
-            self.font_dest_dir.mkdir(parents=True, exist_ok=True)
-            shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
-            shutil.copy(self.font_src_file, self.font_dest_dir / self.font_filename)
+            self.copy_plugin_files_to_project(self.css_src_file, self.css_dest_dir)
+            self.copy_plugin_files_to_project(self.font_src_file, self.font_dest_dir)
 
         except OSError:
             msg = "Unable to write report file\n"
