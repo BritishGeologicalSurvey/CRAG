@@ -1,16 +1,16 @@
 from pathlib import Path
+from unittest.mock import Mock
 
 import pytest
-from qgis.PyQt.QtWidgets import QMessageBox
 
 from plugin.field_data_capture import FieldDataCapture
 from plugin.project_validation import (
-    ValidationDialog,
     ValidationResult,
     ValidationStatus,
     validate_project,
 )
 from plugin.utils import (  # noqa
+    MultilineMessageBox,
     get_msgbox_icon_pixmap,
     ipdb_breakpoint,
 )
@@ -138,22 +138,21 @@ def test_validate_project_bad(fdc_project_bad: Path):
     assert expected_results == results
 
 
-def test_validation_dialog_pass(fdc_project: FieldDataCapture):
+def test_validation_dialog_pass(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
     # Arrange
-    expected_image = get_msgbox_icon_pixmap(QMessageBox.Information).toImage()
-    expected_result_label = "Validation for project 'test_project_dir': PASSED"
+    expected_title = "Project Validation"
+    expected_message = "Validation for project 'test_project_dir': PASSED"
+    expected_text = None
+    monkeypatch.setattr(MultilineMessageBox, "information", Mock())
 
     # Act
-    results = validate_project(project_dir=fdc_project.project_dir)
-    dialog = ValidationDialog(results)
+    fdc_project.run_project_validation()
 
     # Assert
-    assert dialog.result_label.text() == expected_result_label
-    assert dialog.result_icon.pixmap().toImage() == expected_image
-    assert dialog.text_edit.isHidden()
+    MultilineMessageBox.information.assert_called_once_with(expected_title, expected_message, expected_text)
 
 
-def test_validation_dialog_fail(fdc_project: FieldDataCapture):
+def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
     # Arrange
     # Add unlinked photo to the project
     dummy_photo = fdc_project.photos_dir / "not_a_photo.png"
@@ -162,21 +161,16 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture):
     dummy_conflict_gpkg = fdc_project.project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
-    expected_image = get_msgbox_icon_pixmap(QMessageBox.Critical).toImage()
-    expected_result_label = "Validation for project 'test_project_dir': FAILED"
-    expected_minimum_width = 500
-    expected_text_edit_str = "\n".join([
+    expected_title = "Project Validation"
+    expected_message = "Validation for project 'test_project_dir': FAILED"
+    expected_text = "\n".join([
         f"• Unlinked file in 'photo' directory: {dummy_photo}",
         "\n• Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
     ])
+    monkeypatch.setattr(MultilineMessageBox, "critical", Mock())
 
     # Act
-    results = validate_project(project_dir=fdc_project.project_dir)
-    dialog = ValidationDialog(results)
+    fdc_project.run_project_validation()
 
     # Assert
-    assert dialog.result_label.text() == expected_result_label
-    assert dialog.result_icon.pixmap().toImage() == expected_image
-    assert not dialog.text_edit.isHidden()
-    assert dialog.minimumWidth() == expected_minimum_width
-    assert dialog.text_edit.toPlainText() == expected_text_edit_str
+    MultilineMessageBox.critical.assert_called_once_with(expected_title, expected_message, expected_text)

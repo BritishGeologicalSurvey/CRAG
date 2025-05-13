@@ -16,14 +16,23 @@ from qgis.core import (
     QgsVectorLayer,
     QgsVectorLayerUtils,
 )
-from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtCore import (
+    Qt,
+    QUrl,
+)
 from qgis.PyQt.QtGui import (
     QDesktopServices,
     QPixmap,
 )
 from qgis.PyQt.QtWidgets import (
     QComboBox,
+    QDialog,
+    QHBoxLayout,
+    QLabel,
     QMessageBox,
+    QPushButton,
+    QTextEdit,
+    QVBoxLayout,
 )
 from PyQt5.QtCore import pyqtRemoveInputHook
 
@@ -464,6 +473,78 @@ class FieldDataCaptureProject:
         ]
 
         return unrecorded_attachments
+
+
+class MultilineMessageBox(QDialog):
+    """
+    QDialog for displaying a message with additional multiline text.
+    If the given text is None, will display a dialog without the multiline text widget.
+    """
+    def __init__(self, title: str, icon: QMessageBox.Icon, message: str, text: Optional[str] = None):
+        super().__init__()
+        self.setWindowTitle(title)
+        self.setWindowFlags(
+            Qt.Window | Qt.WindowCloseButtonHint
+        )
+        self.setup_ui_elements()
+        self.apply_message(icon, message, text)
+        self.exec()
+
+    @staticmethod
+    def information(title: str, message: str, text: Optional[str] = None) -> None:
+        return MultilineMessageBox(title, QMessageBox.Information, message, text)
+
+    @staticmethod
+    def warning(title: str, message: str, text: Optional[str] = None) -> None:
+        return MultilineMessageBox(title, QMessageBox.Warning, message, text)
+
+    @staticmethod
+    def critical(title: str, message: str, text: Optional[str] = None) -> None:
+        return MultilineMessageBox(title, QMessageBox.Critical, message, text)
+
+
+    def setup_ui_elements(self) -> None:
+        """
+        Create the elements of the MultilineMessageBox window.
+        Also sets the layout for the dialog box.
+        """
+        self.message_icon = QLabel()
+        self.message_label = QLabel()
+
+        self.text_edit = QTextEdit()
+        self.text_edit.setReadOnly(True)
+        self.text_edit.hide()
+
+        self.ok_button = QPushButton("OK")
+        self.ok_button.clicked.connect(lambda: self.closeEvent(None))
+
+        # Create layout for icon and main label
+        icon_layout = QHBoxLayout()
+        icon_layout.addWidget(self.message_icon)
+        icon_layout.addSpacing(10)
+        icon_layout.addWidget(self.message_label)
+        icon_layout.addStretch(1)
+        icon_layout.setContentsMargins(*(10,) * 4)
+
+        # Create dialog layout
+        dialog_layout = QVBoxLayout()
+        dialog_layout.addLayout(icon_layout)
+        dialog_layout.addWidget(self.text_edit)
+        dialog_layout.addWidget(self.ok_button, alignment=Qt.AlignRight)
+        self.setLayout(dialog_layout)
+
+
+    def apply_message(self, icon: QMessageBox.Icon, message: str, text: Optional[str]) -> None:
+        """
+        Update the widgets with the given message and text.
+        """
+        self.message_icon.setPixmap(get_msgbox_icon_pixmap(icon))
+        self.message_label.setText(message)
+        # Only show the multiline area if there is multiline text
+        if text:
+            self.setMinimumWidth(500)
+            self.text_edit.setText(text)
+            self.text_edit.show()
 
 
 def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:

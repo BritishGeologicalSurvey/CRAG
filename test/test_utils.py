@@ -1,5 +1,9 @@
 from pathlib import Path
-from typing import Any
+from typing import (
+    Any,
+    Callable,
+    Optional,
+)
 
 import pytest
 
@@ -9,15 +13,20 @@ from qgis.core import (
     QgsSettings,
     QgsVectorLayer,
 )
-from qgis.PyQt.QtWidgets import QComboBox
+from qgis.PyQt.QtWidgets import (
+    QComboBox,
+    QMessageBox,
+)
 
 from plugin.config import TABLE_LIST
 from plugin.field_data_capture import FieldDataCapture
 from plugin.utils import (  # noqa
+    MultilineMessageBox,
     create_prepopulated_feature,
     get_table_rows,
     get_combobox_items_dict,
     set_combobox_index_by_data,
+    get_msgbox_icon_pixmap,
     ipdb_breakpoint,
 )
 
@@ -253,3 +262,43 @@ def test_set_plugin_setting(
     # Assert
     # Get the value from QgsSettings
     assert QgsSettings().value(f"{fdc_project.plugin_settings_prefix}/{name}") == value
+
+
+@pytest.mark.parametrize(
+    ["msgbox_method", "title", "message", "text"],
+    (
+        (MultilineMessageBox.information, "This is a duck", "Duck goes quack", "Multiline\nDuck\nQuacking"),
+        (MultilineMessageBox.warning, "This is a goose", "Goose goes honk", "Multiline\nGoose\nHonking"),
+        (MultilineMessageBox.critical, "This is not a duck", "Duck does not go quack", None),
+    ),
+)
+def test_multiline_messagebox(
+    msgbox_method: Callable[[str, str, Optional[str]], MultilineMessageBox],
+    title: str,
+    message: str,
+    text: str,
+    fdc: FieldDataCapture,
+):
+    # Arrange
+    methods_to_icons = {
+        MultilineMessageBox.information: QMessageBox.Information,
+        MultilineMessageBox.warning: QMessageBox.Warning,
+        MultilineMessageBox.critical: QMessageBox.Critical,
+    }
+    expected_image = get_msgbox_icon_pixmap(methods_to_icons[msgbox_method]).toImage()
+    expected_minimum_width = 500
+
+    # Act
+    msgbox = msgbox_method(title, message, text)
+
+    # Assert
+    assert msgbox.windowTitle() == title
+    assert msgbox.message_icon.pixmap().toImage() == expected_image
+    assert msgbox.message_label.text() == message
+    if text is None:
+        assert msgbox.text_edit.toPlainText() == ""
+        assert msgbox.text_edit.isHidden()
+    else:
+        assert msgbox.text_edit.toPlainText() == text
+        assert not msgbox.text_edit.isHidden()
+        assert msgbox.minimumWidth() == expected_minimum_width

@@ -78,7 +78,7 @@ from .create_gpkg_from_sql import add_test_data
 from .line_layer_selector import LineLayerSelector
 from .file_linker import FileLinker
 from .project_validation import (
-    ValidationDialog,
+    ValidationStatus,
     validate_project,
 )
 from .quick_map_tools import (
@@ -90,6 +90,7 @@ from .report_builder import ReportBuilder
 from .settings_dialog import SettingsDialog
 from .utils import (  # noqa
     FieldDataCaptureProject,
+    MultilineMessageBox,
     ipdb_breakpoint,
 )
 
@@ -1245,14 +1246,49 @@ class FieldDataCapture(FieldDataCaptureProject):
 
     def run_project_validation(self) -> bool:
         """
-        Run the project validation against the current QGIS project.
+        Run the project validation against the current QGIS project and display the results in a message box.
         Returns a boolean indicating the success of the process.
         """
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
             return False
 
         results = validate_project(self.project_dir)
-        ValidationDialog(results)
+
+        status_to_str = {
+            ValidationStatus.FAIL: "failed",
+            ValidationStatus.WARNING: "warning",
+            ValidationStatus.PASS: "passed",
+        }
+        status_to_msgbox = {
+            ValidationStatus.FAIL: MultilineMessageBox.critical,
+            ValidationStatus.WARNING: MultilineMessageBox.warning,
+            ValidationStatus.PASS: MultilineMessageBox.information,
+        }
+
+        all_messages: list[str] = []
+        result_statuses: set[ValidationStatus] = set()
+        for result in results:
+            result_statuses.add(result.status)
+
+            if result.status < ValidationStatus.PASS:
+                display_messages = [
+                    # Add bullet point before each message
+                    "• " + message
+                    for message in result.messages
+                ]
+                all_messages.append("\n".join(display_messages))
+
+        # Get final status
+        final_status = min(result_statuses)
+
+        msgbox_method = status_to_msgbox[final_status]
+        message = f"Validation for project '{self.project_dir.name}': {status_to_str[final_status].upper()}"
+        text = None
+        if final_status < ValidationStatus.PASS:
+            text = "\n\n".join(all_messages)
+
+        msgbox_method("Project Validation", message, text)
+
         return True
 
 
