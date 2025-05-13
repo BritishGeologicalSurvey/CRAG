@@ -261,7 +261,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         self.toolbar.setObjectName("".join(toolbar_text))
 
         self.quick_map_tool_buttons["fdc_locality_point_add"] = self.add_action(
-            str(self.icons_dir / "quick_locality_add.png"),
+            str(self.icons_src_dir / "quick_locality_add.png"),
             text=self.tr(u'Quick Add Locality Point'),
             callback=lambda: self.toggle_quick_map_tool(layer_name="locality_point", mode="add"),
             add_to_toolbar=True,
@@ -270,7 +270,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
 
         self.quick_map_tool_buttons["fdc_locality_point_edit"] = self.add_action(
-            str(self.icons_dir / "quick_locality_edit.png"),
+            str(self.icons_src_dir / "quick_locality_edit.png"),
             text=self.tr(u'Quick Edit Locality Point'),
             callback=lambda: self.toggle_quick_map_tool(layer_name="locality_point", mode="edit"),
             add_to_toolbar=True,
@@ -279,7 +279,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
 
         self.quick_map_tool_buttons["fdc_locality_point_delete"] = self.add_action(
-            str(self.icons_dir / "quick_locality_delete.png"),
+            str(self.icons_src_dir / "quick_locality_delete.png"),
             text=self.tr(u'Quick Delete Locality Point'),
             callback=lambda: self.toggle_quick_map_tool(layer_name="locality_point", mode="delete"),
             add_to_toolbar=True,
@@ -289,7 +289,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         # Create a single add/edit/delete button for all line tables
         self.quick_map_tool_buttons["fdc_lines_add"] = self.add_action(
-            str(self.icons_dir / "quick_lines_add.png"),
+            str(self.icons_src_dir / "quick_lines_add.png"),
             text=self.tr(u'Quick Add Line'),
             callback=self.select_quick_line_layer_add,
             add_to_toolbar=True,
@@ -298,7 +298,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
 
         self.quick_map_tool_buttons["fdc_lines_edit"] = self.add_action(
-            str(self.icons_dir / "quick_lines_edit.png"),
+            str(self.icons_src_dir / "quick_lines_edit.png"),
             text=self.tr(u'Quick Edit Line'),
             callback=lambda: self.toggle_quick_map_tool(
                 layer_name=FEATURE_TABLES_LINES,
@@ -311,7 +311,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
 
         self.quick_map_tool_buttons["fdc_lines_delete"] = self.add_action(
-            str(self.icons_dir / "quick_lines_delete.png"),
+            str(self.icons_src_dir / "quick_lines_delete.png"),
             text=self.tr(u'Quick Delete Line'),
             callback=lambda: self.toggle_quick_map_tool(
                 layer_name=FEATURE_TABLES_LINES,
@@ -328,7 +328,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             self.quick_map_tool_buttons[f"fdc_{line_table}_add"] = self.quick_map_tool_buttons["fdc_lines_add"]
 
         self.add_action(
-            str(self.icons_dir / "open_project_folder.png"),
+            str(self.icons_src_dir / "open_project_folder.png"),
             text=self.tr(u'Open Project Folder'),
             callback=lambda: self.open_local_filepath(self.project_dir),
             add_to_toolbar=True,
@@ -585,7 +585,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             placeholder_txt.write_text("This is a placeholder file to ensure the parent folder is uploaded to Mergin.")
 
         # Copy BGS logo for default photo
-        self.copy_plugin_files_to_project(self.icons_dir / self.bgs_logo_filename, self.photos_dir)
+        self.copy_plugin_files_to_project(self.icons_src_dir / self.bgs_logo_filename, self.icons_dest_dir)
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)

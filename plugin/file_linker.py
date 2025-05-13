@@ -398,7 +398,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         image_widget = self.create_image_widget(photo, self.thumbnail_size, photo_tags=photo_tags)
         # Some photos (e.g. HEIC) are loaded as NULL pixmap objects, so we use a no photography icon instead
         if image_widget.pixmap().isNull():
-            image_widget = self.create_image_widget(self.icons_dir / "no_photography.png", self.thumbnail_size)
+            image_widget = self.create_image_widget(self.icons_src_dir / "no_photography.png", self.thumbnail_size)
         row_vbox_1 = QVBoxLayout()
         row_vbox_1.addWidget(filepath_label)
         row_vbox_1.addWidget(file_date_label)
@@ -464,7 +464,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         filepath_label = self.create_filepath_widget(media)
         file_date_label = self.create_file_date_widget(media)
         media_label = QLabel("Media")
-        image_widget = self.create_image_widget(self.icons_dir / "document.png", image_size)
+        image_widget = self.create_image_widget(self.icons_src_dir / "document.png", image_size)
         row_vbox_1 = QVBoxLayout()
         row_vbox_1.addWidget(filepath_label)
         row_vbox_1.addWidget(file_date_label)

@@ -44,6 +44,7 @@ class FieldDataCaptureProject:
     css_filename = Path("style.css")
     bgs_logo_filename = Path("BGS-placeholder.png")
     unlinked_dir_name = Path("unlinked")
+    icons_dir_name = Path("icons")
     # Using locally downloaded woff2 of Google's Material Symbols Outlined font
     # See: https://fonts.google.com/icons
     # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -135,11 +136,18 @@ class FieldDataCaptureProject:
         return self.project_dir / "baseline_data"
 
     @property
-    def icons_dir(self) -> Path:
+    def icons_src_dir(self) -> Path:
         """
         Get the icons directory path from the plugin folder.
         """
-        return WORKDIR / "icons"
+        return WORKDIR / self.icons_dir_name
+
+    @property
+    def icons_dest_dir(self) -> Path:
+        """
+        Get the icons directory path from the project folder.
+        """
+        return self.project_dir / self.icons_dir_name
 
     @property
     def html_report_file(self) -> Path:

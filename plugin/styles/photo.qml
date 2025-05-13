@@ -112,7 +112,7 @@
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
-    <default applyOnUpdate="0" expression="'BGS-placeholder.png'" field="photo_file"></default>
+    <default applyOnUpdate="0" expression="'../icons/BGS-placeholder.png'" field="photo_file"></default>
     <default applyOnUpdate="0" expression="" field="caption"></default>
     <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="recorded_by"></default>
     <default applyOnUpdate="0" expression="now()" field="recorded_on"></default>
@@ -130,7 +130,7 @@
     <constraint desc="" exp="" field="fid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
-    <constraint desc="" exp="-- Photos must be within project photos folder&#xD;&#xA;&#xD;&#xA;-- Don't match absolute windows paths (e.g. starting with &quot;C:/&quot;)&#xD;&#xA;not(regexp_match(lower(&quot;photo_file&quot;), '^[a-z]:/'))&#xD;&#xA;and&#xD;&#xA;-- Don't match absolute Linux paths (starting with &quot;/&quot;)&#xD;&#xA;not(regexp_match(&quot;photo_file&quot;, '^/'))&#xD;&#xA;and&#xD;&#xA;-- Don't match filepaths from parent directories (e.g. starting with &quot;../&quot;)&#xD;&#xA;not(regexp_match(&quot;photo_file&quot;, '^\\.\\./'))" field="photo_file"></constraint>
+    <constraint desc="" exp="-- Photo is the placeholder image&#xD;&#xA;&quot;photo_file&quot;='../icons/BGS-placeholder.png'&#xD;&#xA;or&#xD;&#xA;(&#xD;&#xA;&#x9;-- Photos must be within project photos folder&#xD;&#xA;&#xD;&#xA;&#x9;-- Don't match absolute windows paths (e.g. starting with &quot;C:/&quot;)&#xD;&#xA;&#x9;not(regexp_match(lower(&quot;photo_file&quot;), '^[a-z]:/'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match absolute Linux paths (starting with &quot;/&quot;)&#xD;&#xA;&#x9;not(regexp_match(&quot;photo_file&quot;, '^/'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match filepaths from parent directories (e.g. starting with &quot;../&quot;)&#xD;&#xA;&#x9;not(regexp_match(&quot;photo_file&quot;, '^\\.\\./'))&#xD;&#xA;)" field="photo_file"></constraint>
     <constraint desc="" exp="" field="caption"></constraint>
     <constraint desc="" exp="" field="recorded_by"></constraint>
     <constraint desc="" exp="" field="recorded_on"></constraint>

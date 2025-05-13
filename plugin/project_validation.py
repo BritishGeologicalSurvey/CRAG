@@ -166,6 +166,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
         check_locality_children_valid_parents,
         check_field_project_plugin_version,
         check_attached_filepaths_not_null,
+        # check_attached_filepaths_not_placeholder,
         check_attached_filepaths_exist,
         check_attachment_filepaths_recorded,
         check_no_conflict_gpkg_exists,
