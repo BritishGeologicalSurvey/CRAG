@@ -5,7 +5,6 @@ from typing import Any
 import pytest
 from qgis.core import (
     QgsFeature,
-    QgsProject,
     QgsVectorLayerUtils,
 )
 from qgis.PyQt.QtGui import QPixmap
@@ -204,7 +203,7 @@ def test_select_files(
 ):
     # Arrange
     # Add a new photo feature with a NULL photo_file attribute to ensure it is not picked up or breaks the linker
-    photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
+    photo_layer = fdc_project.get_fdc_layer("photo")
     photo_layer.startEditing()
     photo_feature = QgsVectorLayerUtils.createFeature(photo_layer)
     photo_layer.addFeature(photo_feature)
@@ -381,7 +380,7 @@ def test_save_links(
     assert fdc_project.file_linker is None
 
     for layer_name in unlinked_test_files:
-        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        layer = fdc_project.get_fdc_layer(layer_name)
         # Check that the layer has been saved
         assert not layer.isModified()
 

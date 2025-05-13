@@ -146,11 +146,11 @@ def assert_tool_enabled(
     # Get layer(s) for checking
     # If a single layer is given for the tool
     if isinstance(layer_names, str):
-        expected_layers = [QgsProject.instance().mapLayersByName(layer_names)[0]]
+        expected_layers = [fdc.get_fdc_layer(layer_names)]
     # If a list of layers is given for the tool
     else:
         expected_layers = [
-            QgsProject.instance().mapLayersByName(layer)[0]
+            fdc.get_fdc_layer(layer)
             for layer in layer_names
         ]
 
@@ -250,7 +250,7 @@ def test_disable_bad(
 
     # Act
     # Remove the lithology layer so that the state is invalid for the plugin
-    lithology_layer = QgsProject.instance().mapLayersByName("lithology")[0]
+    lithology_layer = fdc_project.get_fdc_layer("lithology")
     QgsProject.instance().removeMapLayer(lithology_layer)
     # Try to disable quick tool
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
@@ -356,7 +356,7 @@ def test_locality_warn_edits(mode: str, fdc_project: FieldDataCapture):
     new_value = "dummy_value"
     expected_tool_name = f"fdc_{layer_name}_{mode}"
     # Manually make an edit without any tools and do not save it
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
     layer.startEditing()
     edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
     layer.changeAttributeValue(fid=point_fid, field=edit_field_index, newValue=new_value)
@@ -390,7 +390,7 @@ def test_field_project_add_confirm(
     # Assert 1 - confirm tool setup
     assert_tool_enabled(fdc, layer_name, QuickAddTool, expected_tool_name)
     # Check that the layer is not modified yet
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc.get_fdc_layer(layer_name)
     assert not layer.isModified()
 
     # Arrange 2 - apply changes to feature
@@ -447,7 +447,7 @@ def test_locality_add_confirm(
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=True)
 
@@ -475,7 +475,7 @@ def test_locality_add_cancel(
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=False)
 
@@ -501,7 +501,7 @@ def test_locality_edit_confirm(fdc_project: FieldDataCapture, monkeypatch: pytes
     expected_tool_name = f"fdc_{layer_name}_edit"
     # Enable edit quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=True, attributes={edit_field: new_value})
 
@@ -529,7 +529,7 @@ def test_locality_edit_cancel(
     expected_tool_name = f"fdc_{layer_name}_edit"
     # Enable edit quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=False)
 
@@ -549,7 +549,7 @@ def test_locality_delete_confirm(fdc_project: FieldDataCapture, monkeypatch_qmsg
     # Arrange
     layer_name = "locality_point"
     expected_tool_name = f"fdc_{layer_name}_delete"
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
     # Enable delete quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     delete_feature_fid = 1
@@ -570,7 +570,7 @@ def test_locality_delete_confirm(fdc_project: FieldDataCapture, monkeypatch_qmsg
 
     # Check that the deleted feature children do not exist
     for child_layer_name in LAYER_TREE_STRUCTURE_INDEXED["locality_data"]:
-        child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
+        child_layer = fdc_project.get_fdc_layer(child_layer_name)
         # The child layer should have been autosaved
         assert not child_layer.isEditable()
         assert not child_layer.isModified()
@@ -585,7 +585,7 @@ def test_locality_delete_cancel(fdc_project: FieldDataCapture, monkeypatch_qmsgb
     # Arrange
     layer_name = "locality_point"
     expected_tool_name = f"fdc_{layer_name}_delete"
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
     # Enable delete quick locality point mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     delete_feature_fid = 1
@@ -606,7 +606,7 @@ def test_locality_delete_cancel(fdc_project: FieldDataCapture, monkeypatch_qmsgb
 
     # Check that the child features have not been deleted
     for child_layer_name in LAYER_TREE_STRUCTURE_INDEXED["locality_data"]:
-        child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
+        child_layer = fdc_project.get_fdc_layer(child_layer_name)
         # The child layer should not have been changed
         assert not child_layer.isEditable()
         assert not child_layer.isModified()
@@ -635,7 +635,7 @@ def test_lines_add_confirm(
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick line mode for given layer
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=True)
 
@@ -673,7 +673,7 @@ def test_lines_add_cancel(
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick line mode for given layer
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=False)
 
@@ -712,7 +712,7 @@ def test_lines_add_hide_form(
     expected_tool_name = f"fdc_{layer_name}_add"
     # Enable add quick line mode for given layer
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
     # Update the plugin setting to hide the form
     fdc_project.set_plugin_setting("show_lines_form", False)
     # Apply monkeypatch for open_feature_form, to ensure it was not called
@@ -749,7 +749,7 @@ def test_lines_edit_confirm(
     expected_tool_name = "fdc_lines_edit"
     # Enable edit quick line mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=True, attributes={edit_field: new_value})
 
@@ -794,7 +794,7 @@ def test_lines_edit_cancel(
     expected_tool_name = "fdc_lines_edit"
     # Enable edit quick line mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=False)
 
@@ -818,7 +818,7 @@ def test_lines_delete_confirm(
 ):
     # Arrange
     expected_tool_name = "fdc_lines_delete"
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
     # Enable delete quick lines mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     delete_feature_fid = 1
@@ -843,7 +843,7 @@ def test_lines_delete_cancel(
 ):
     # Arrange
     expected_tool_name = "fdc_lines_delete"
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
     # Enable delete quick lines mode
     fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
     delete_feature_fid = 1

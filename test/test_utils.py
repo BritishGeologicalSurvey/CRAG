@@ -59,7 +59,7 @@ def test_check_field_project_exists(
     assert not fdc.check_field_project_exists()
 
     # Act 2, add an unsaved field_project
-    layer = QgsProject.instance().mapLayersByName("field_project")[0]
+    layer = fdc.get_fdc_layer("field_project")
     layer.startEditing()
     # Create new feature
     feature = create_prepopulated_feature(
@@ -153,7 +153,7 @@ def test_create_prepopulated_feature(
     fdc_project: FieldDataCapture,
 ):
     # Arrange
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
     geometry = QgsGeometry.fromWkt(wkt)
 
     # Act
