@@ -332,7 +332,7 @@ def check_attached_filepaths_not_placeholder(project: FieldDataCaptureProject) -
         # Prepare results
         # If failed
         if len(placeholder_attachments) > 0:
-            result.status = ValidationStatus.WARNING
+            result.status = ValidationStatus.FAIL
             for fid in placeholder_attachments:
                 result.messages.append(
                     f"File referenced in '{table}' table is placeholder image, feature ID: {fid}"
