@@ -310,7 +310,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
         assert image_files(report_builder.photos_dir) == image_files(report_builder.thumbnails_dir)
         photo_dirs = subdirs(report_builder.photos_dir)
         # Remove unlinked dir as it should not be in the thumbnail dir
-        photo_dirs.remove(Path("unlinked"))
+        photo_dirs.remove(report_builder.unlinked_dir_name)
         assert photo_dirs == subdirs(report_builder.thumbnails_dir)
 
     def assert_thumbnail_sizes(thumbnail_size):

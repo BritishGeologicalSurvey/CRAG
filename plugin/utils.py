@@ -43,6 +43,7 @@ class FieldDataCaptureProject:
     html_report_filename = Path("field-report.html")
     css_filename = Path("style.css")
     bgs_logo_filename = Path("BGS-placeholder.png")
+    unlinked_dir_name = Path("unlinked")
     # Using locally downloaded woff2 of Google's Material Symbols Outlined font
     # See: https://fonts.google.com/icons
     # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -442,7 +443,7 @@ class FieldDataCaptureProject:
                 attachment.is_file(),
                 attachment.relative_to(attachment_dir) not in recorded_attachments,
                 attachment.name not in {self.placeholder_filename.name, self.bgs_logo_filename.name},
-                attachment.parts[0] != "unlinked",  # If it is not in the unlinked dir
+                attachment.parts[0] != self.unlinked_dir_name.name,  # If it is not in the unlinked dir
             ))
         ]
 

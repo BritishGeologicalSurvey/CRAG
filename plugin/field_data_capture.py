@@ -576,8 +576,8 @@ class FieldDataCapture(FieldDataCaptureProject):
             self.media_dir,
             self.baseline_data_dir,
             # Unlinked media dirs
-            self.photos_dir / "unlinked",
-            self.media_dir / "unlinked",
+            self.photos_dir / self.unlinked_dir_name,
+            self.media_dir / self.unlinked_dir_name,
         ]
         for directory in create_dirs:
             directory.mkdir(parents=True, exist_ok=True)
