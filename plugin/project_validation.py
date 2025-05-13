@@ -325,7 +325,7 @@ def check_attached_filepaths_not_placeholder(project: FieldDataCaptureProject) -
             row["fid"]
             for row in get_table_rows(
                 project.db_file,
-                f"SELECT fid FROM {table} WHERE {attachment_col} = '../icons/BGS-placeholder.png'",
+                f"SELECT fid FROM {table} WHERE {attachment_col} = '{project.default_attachment_str}'",
             )
         ]
 
@@ -354,7 +354,10 @@ def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> Validati
         # Perform check
         non_existing_attachments = [
             row[attachment_col]
-            for row in get_table_rows(project.db_file, f"SELECT {attachment_col} FROM {table}")
+            for row in get_table_rows(
+                project.db_file,
+                f"SELECT {attachment_col} FROM {table} WHERE {attachment_col} != '{project.default_attachment_str}'",
+            )
             # If the attachment_column has a valid value but the filepath does not exist
             if row[attachment_col] is not None and not (attachment_dir / row[attachment_col]).exists()
         ]

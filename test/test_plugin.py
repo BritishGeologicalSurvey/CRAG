@@ -483,7 +483,6 @@ def test_default_field_project_fuid_attribute(fdc_project: FieldDataCapture, lay
 @pytest.mark.parametrize("layer_name", ("photo", "media"))
 def test_default_attachment_bgs_placeholder(fdc_project: FieldDataCapture, layer_name: str):
     # Arrange
-    expected_attachment_path = f"../{fdc_project.icons_dir_name}/{fdc_project.bgs_logo_filename}"
     layer = fdc_project.get_fdc_layer(layer_name)
     attachment_col = fdc_project.layers_to_file_attributes[layer_name]
 
@@ -492,4 +491,4 @@ def test_default_attachment_bgs_placeholder(fdc_project: FieldDataCapture, layer
     feature = QgsVectorLayerUtils.createFeature(layer)
 
     # Assert
-    assert expected_attachment_path == feature.attribute(attachment_col)
+    assert fdc_project.default_attachment_str == feature.attribute(attachment_col)

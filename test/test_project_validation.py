@@ -100,6 +100,13 @@ def test_validate_project_bad(fdc_project_bad: Path):
             ],
         ),
         ValidationResult(
+            validation_function="check_attached_filepaths_not_placeholder",
+            status=ValidationStatus.WARNING,
+            messages=[
+                "File referenced in 'media' table is placeholder image, feature ID: 2",
+            ],
+        ),
+        ValidationResult(
             validation_function="check_attached_filepaths_exist",
             status=ValidationStatus.FAIL,
             messages=[

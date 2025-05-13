@@ -216,6 +216,14 @@ class FieldDataCaptureProject:
         }
 
 
+    @property
+    def default_attachment_str(self) -> str:
+        """
+        The default string used to populate attachment filepaths in the forms.
+        """
+        return f"../{self.icons_dir_name}/{self.bgs_logo_filename}"
+
+
     def copy_plugin_files_to_project(self, plugin_src: Path | str, project_dest: Path | str) -> None:
         """
         Copy the files from the given plugin source directory into the given project destination directory.
