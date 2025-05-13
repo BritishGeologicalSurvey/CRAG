@@ -166,7 +166,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
         check_locality_children_valid_parents,
         check_field_project_plugin_version,
         check_attached_filepaths_not_null,
-        # check_attached_filepaths_not_placeholder,
+        check_attached_filepaths_not_placeholder,
         check_attached_filepaths_exist,
         check_attachment_filepaths_recorded,
         check_no_conflict_gpkg_exists,
@@ -297,8 +297,7 @@ def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> Valid
         # Perform check
         null_attachments = [
             row["fid"]
-            for row in get_table_rows(project.db_file, f"SELECT fid, {attachment_col} FROM {table}")
-            if row[attachment_col] is None
+            for row in get_table_rows(project.db_file, f"SELECT fid FROM {table} WHERE {attachment_col} IS NULL")
         ]
 
         # Prepare results
@@ -308,6 +307,35 @@ def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> Valid
             for fid in null_attachments:
                 result.messages.append(
                     f"File referenced in '{table}' table is NULL, feature ID: {fid}"
+                )
+
+    return result
+
+
+def check_attached_filepaths_not_placeholder(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that all filepaths which are saved into the given project (e.g. photos/media)
+    are not the BGS placeholder image.
+    """
+    result = ValidationResult(validation_function=check_attached_filepaths_not_placeholder.__name__)
+
+    for table, attachment_col in project.layers_to_file_attributes.items():
+        # Perform check
+        placeholder_attachments = [
+            row["fid"]
+            for row in get_table_rows(
+                project.db_file,
+                f"SELECT fid FROM {table} WHERE {attachment_col} = '../icons/BGS-placeholder.png'",
+            )
+        ]
+
+        # Prepare results
+        # If failed
+        if len(placeholder_attachments) > 0:
+            result.status = ValidationStatus.WARNING
+            for fid in placeholder_attachments:
+                result.messages.append(
+                    f"File referenced in '{table}' table is placeholder image, feature ID: {fid}"
                 )
 
     return result
