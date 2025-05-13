@@ -145,6 +145,13 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         for qml_file in Path("plugin/styles").glob("*.qml")
     ]
     expected_slyr_style = Path("sigmaQ_2024_v2.xml")
+    expected_user_dirs = [
+        fdc.photos_dir,
+        fdc.media_dir,
+        fdc.baseline_data_dir,
+        fdc.photos_dir / fdc.unlinked_dir_name,
+        fdc.media_dir / fdc.unlinked_dir_name,
+    ]
 
     # Act
     fdc.add_gpkg_layers_to_project()
@@ -188,7 +195,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     assert (fdc.styles_dir / expected_slyr_style).exists()
 
     # Check that the empty user directories have been created
-    for directory in [fdc.photos_dir, fdc.media_dir, fdc.baseline_data_dir]:
+    for directory in expected_user_dirs:
         assert directory.exists()
         assert list(directory.glob("*"))[0].name == fdc.placeholder_filename.name
 
@@ -471,3 +478,18 @@ def test_default_field_project_fuid_attribute(fdc_project: FieldDataCapture, lay
 
     # Assert
     assert expected_field_project_fuid == feature.attribute("field_project_fuid")
+
+
+@pytest.mark.parametrize("layer_name", ("photo", "media"))
+def test_default_attachment_bgs_placeholder(fdc_project: FieldDataCapture, layer_name: str):
+    # Arrange
+    expected_attachment_path = f"../{fdc_project.icons_dir_name}/{fdc_project.bgs_logo_filename}"
+    layer = fdc_project.get_fdc_layer(layer_name)
+    attachment_col = fdc_project.layers_to_file_attributes[layer_name]
+
+    # Act
+    # Create a new feature with the default values applied
+    feature = QgsVectorLayerUtils.createFeature(layer)
+
+    # Assert
+    assert expected_attachment_path == feature.attribute(attachment_col)
