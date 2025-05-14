@@ -42,6 +42,7 @@ def dest_fdc_project(tmp_path: Path) -> Path:
         project_dir=project_dir,
         insert_data_sql=Path("test/data/dest_fdc_project.sql"),
         feature_filepaths=feature_filepaths,
+        short_name="dest_fdc_project"
     )
     return project_dir
 
@@ -50,21 +51,22 @@ def test_project_data_importer_fixtures(
     src_fdc_project: Path,
     dest_fdc_project: Path,
 ):
-    for project_dir in [src_fdc_project, dest_fdc_project]:
+    for project_dir, short_name in [(src_fdc_project, "test_project"),
+                                    (dest_fdc_project, "dest_fdc_project")]:
         # Check the files exist
         assert project_dir.exists()
-        for subpath in ["test_project.gpkg", "photos", "media"]:
+        for subpath in [f"{short_name}.gpkg", "photos", "media"]:
             assert (project_dir / subpath).exists()
         # Check that some photos exist
         assert len(list((project_dir / "photos").rglob("*[!.placeholder]"))) > 0
         # Check that a field_project row exists
-        with setup_db_conn(project_dir / "test_project.gpkg") as conn:
-            field_project_count = etl.fetchone(
-                "SELECT COUNT() AS count FROM field_project",
+        with setup_db_conn(project_dir / f"{short_name}.gpkg") as conn:
+            rows = etl.fetchall(
+                "SELECT short_name FROM field_project",
                 conn,
-                row_factory=etl.row_factories.tuple_row_factory,
-            )[0]
-            assert field_project_count == 1
+            )
+            assert len(rows) == 1
+            assert rows[0]['short_name'] == short_name
 
 
 @pytest.mark.parametrize('null_field_project_notes', [False, True])
