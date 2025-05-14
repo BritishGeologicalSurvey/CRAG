@@ -14,6 +14,8 @@ from conftest import (
 )
 from plugin.utils import ipdb_breakpoint  # noqa
 
+DEST_SHORT_NAME = "dest_fdc_project"
+
 
 @pytest.fixture()
 def src_fdc_project(fdc_project: FieldDataCapture) -> Path:
@@ -30,7 +32,7 @@ def dest_fdc_project(tmp_path: Path) -> Path:
     Fixture to setup a test destination project for merging 2 projects together.
     Creates a project with a database which contains some data and photo files.
     """
-    project_dir = tmp_path / "dest_fdc_project"
+    project_dir = tmp_path / DEST_SHORT_NAME
     feature_filepaths = {
         "photos": [
             Path("test/data/photos/exif_data.jpg"),
@@ -42,7 +44,7 @@ def dest_fdc_project(tmp_path: Path) -> Path:
         project_dir=project_dir,
         insert_data_sql=Path("test/data/dest_fdc_project.sql"),
         feature_filepaths=feature_filepaths,
-        short_name="dest_fdc_project"
+        short_name=DEST_SHORT_NAME
     )
     return project_dir
 
@@ -52,7 +54,7 @@ def test_project_data_importer_fixtures(
     dest_fdc_project: Path,
 ):
     for project_dir, short_name in [(src_fdc_project, "test_project"),
-                                    (dest_fdc_project, "dest_fdc_project")]:
+                                    (dest_fdc_project, DEST_SHORT_NAME)]:
         # Check the files exist
         assert project_dir.exists()
         for subpath in [f"{short_name}.gpkg", "photos", "media"]:
@@ -111,7 +113,7 @@ def test_copy_project_data_good(
         "qgis_plugin_version: test_plugin_version",
     ]
     expected_field_project_notes_metadata = "\n".join(expected_field_project_notes_metadata_lines)
-    dest_db = dest_fdc_project / "dest_fdc_project.gpkg"
+    dest_db = dest_fdc_project / f"{DEST_SHORT_NAME}.gpkg"
 
     # Configure test case where project notes are null
     if null_field_project_notes:
@@ -188,7 +190,7 @@ def test_copy_project_data_bad(
     dest_fdc_project: Path,
 ):
     # Break the database in some way
-    dest_db = dest_fdc_project / "dest_fdc_project.gpkg"
+    dest_db = dest_fdc_project / f"{DEST_SHORT_NAME}.gpkg"
     with setup_db_conn(dest_db) as conn:
         etl.execute(sql_break_db_query, conn)
 
@@ -213,7 +215,7 @@ def test_copy_project_data_failed_metadata(
     monkeypatch
 ):
     # Record original state of database and photos folder
-    dest_db = dest_fdc_project / "dest_fdc_project.gpkg"
+    dest_db = dest_fdc_project / f"{DEST_SHORT_NAME}.gpkg"
     dest_db_original_contents = dest_db.read_bytes()
     photo_folder_original_contents = list((src_fdc_project / "photos").rglob("*"))
 
@@ -257,7 +259,7 @@ def test_validate_projects_bad_db_missing(
     # Arrange
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
     # Delete the database file in the destination project
-    (dest_fdc_project / "dest_fdc_project.gpkg").unlink()
+    (dest_fdc_project / f"{DEST_SHORT_NAME}.gpkg").unlink()
     # Act 1
     result = project_data_importer.validate_project_databases()
     # Assert 1
@@ -273,8 +275,8 @@ def test_validate_projects_bad_db_missing(
 @pytest.mark.parametrize(
     "open_db_file",
     (
-        Path("test_project.gpkg-shm"),
-        Path("test_project.gpkg-wal"),
+        Path(f"{DEST_SHORT_NAME}.gpkg-shm"),
+        Path(f"{DEST_SHORT_NAME}.gpkg-wal"),
     ),
 )
 def test_validate_projects_bad_db_open(
@@ -308,7 +310,7 @@ def test_validate_projects_bad_path_not_a_folder(
 ):
     # Arrange
     src_geopackage = src_fdc_project / 'test_project.gpkg'
-    dest_geopackage = dest_fdc_project / 'test_project.gpkg'
+    dest_geopackage = dest_fdc_project / f'{DEST_SHORT_NAME}.gpkg'
 
     # Act
     # Pass geopackage names instead of project folders
