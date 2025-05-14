@@ -35,8 +35,10 @@ class ProjectDataImporter:
         self.dest_conn: sqlite3.Connection
         self.field_project_fuid_col = "field_project_fuid"
         self.field_project_fuid_dest: str
-        self.qgz_file = next(self.src_dir.glob('*.qgz'))
-        self.db_file = f'{self.qgz_file.stem}.gpkg'
+        src_qgz_file = next(self.src_dir.glob('*.qgz'))
+        self.src_db_file = f'{src_qgz_file.stem}.gpkg'
+        dest_qgz_file = next(self.dest_dir.glob('*.qgz'))
+        self.dest_db_file = f'{dest_qgz_file.stem}.gpkg'
 
 
     def copy_project_data(self) -> bool:
@@ -49,12 +51,12 @@ class ProjectDataImporter:
         if not self.validate_project_databases():
             return False
 
-        src_db = self.src_dir / self.db_file
-        dest_db = self.dest_dir / self.db_file
+        src_db = self.src_dir / self.src_db_file
+        dest_db = self.dest_dir / self.dest_db_file
         # Create copy of dest database before making changes
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_dir = Path(tmp_dir)
-            dest_db_file_backup = tmp_dir / self.db_file
+            dest_db_file_backup = tmp_dir / self.dest_db_file
             dest_db_file_backup.write_bytes(dest_db.read_bytes())
 
             # Setup database transactions
@@ -109,12 +111,15 @@ class ProjectDataImporter:
         Checks if the source and destination project are both ready for importing data.
         This includes checking that a database exists, and that it is not open.
         """
-        for target, project_dir in [('src', self.src_dir), ('dest', self.dest_dir)]:
-            # Ensure database files exist
-            if not (project_dir / self.db_file).exists():
-                logger.error("Database file is missing from the %s project", target)
-                return False
+        # Ensure database files exist
+        if not (self.src_dir / self.src_db_file).exists():
+            logger.error("Database file is missing from the src project")
+            return False
+        if not (self.dest_dir / self.dest_db_file).exists():
+            logger.error("Database file is missing from the dest project")
+            return False
 
+        for target, project_dir in [('src', self.src_dir), ('dest', self.dest_dir)]:
             # Ensure the database file is not open in QGIS
             open_db_files = [
                 file
