@@ -35,10 +35,8 @@ class ProjectDataImporter:
         self.dest_conn: sqlite3.Connection
         self.field_project_fuid_col = "field_project_fuid"
         self.field_project_fuid_dest: str
-        src_qgz_file = next(self.src_dir.glob('*.qgz'))
-        self.src_db_file = f'{src_qgz_file.stem}.gpkg'
-        dest_qgz_file = next(self.dest_dir.glob('*.qgz'))
-        self.dest_db_file = f'{dest_qgz_file.stem}.gpkg'
+        self.src_db_file = next(self.src_dir.glob('*.gpkg'))
+        self.dest_db_file = next(self.dest_dir.glob('*.gpkg'))
 
 
     def copy_project_data(self) -> bool:
