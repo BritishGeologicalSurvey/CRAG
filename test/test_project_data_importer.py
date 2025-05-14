@@ -111,7 +111,7 @@ def test_copy_project_data_good(
         "qgis_plugin_version: test_plugin_version",
     ]
     expected_field_project_notes_metadata = "\n".join(expected_field_project_notes_metadata_lines)
-    dest_db = dest_fdc_project / "test_project.gpkg"
+    dest_db = dest_fdc_project / "dest_fdc_project.gpkg"
 
     # Configure test case where project notes are null
     if null_field_project_notes:
@@ -188,7 +188,7 @@ def test_copy_project_data_bad(
     dest_fdc_project: Path,
 ):
     # Break the database in some way
-    dest_db = dest_fdc_project / "test_project.gpkg"
+    dest_db = dest_fdc_project / "dest_fdc_project.gpkg"
     with setup_db_conn(dest_db) as conn:
         etl.execute(sql_break_db_query, conn)
 
@@ -213,7 +213,7 @@ def test_copy_project_data_failed_metadata(
     monkeypatch
 ):
     # Record original state of database and photos folder
-    dest_db = dest_fdc_project / "test_project.gpkg"
+    dest_db = dest_fdc_project / "dest_fdc_project.gpkg"
     dest_db_original_contents = dest_db.read_bytes()
     photo_folder_original_contents = list((src_fdc_project / "photos").rglob("*"))
 
@@ -257,7 +257,7 @@ def test_validate_projects_bad_db_missing(
     # Arrange
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
     # Delete the database file in the destination project
-    (dest_fdc_project / "test_project.gpkg").unlink()
+    (dest_fdc_project / "dest_fdc_project.gpkg").unlink()
     # Act 1
     result = project_data_importer.validate_project_databases()
     # Assert 1
