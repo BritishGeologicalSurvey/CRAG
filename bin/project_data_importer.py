@@ -49,16 +49,14 @@ class ProjectDataImporter:
         if not self.validate_project_databases():
             return False
 
-        src_db = self.src_dir / self.src_db_file
-        dest_db = self.dest_dir / self.dest_db_file
         # Create copy of dest database before making changes
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_dir = Path(tmp_dir)
-            dest_db_file_backup = tmp_dir / self.dest_db_file
-            dest_db_file_backup.write_bytes(dest_db.read_bytes())
+            dest_db_file_backup = tmp_dir / self.dest_db_file.name
+            dest_db_file_backup.write_bytes(self.dest_db_file.read_bytes())
 
             # Setup database transactions
-            with sqlite3.connect(src_db) as self.src_conn, sqlite3.connect(dest_db) as self.dest_conn:  # noqa
+            with sqlite3.connect(self.src_db_file) as self.src_conn, sqlite3.connect(self.dest_db_file) as self.dest_conn:  # noqa
                 for conn in self.src_conn, self.dest_conn:
                     conn.enable_load_extension(True)
                     etl.execute("""SELECT load_extension("mod_spatialite")""", conn)
@@ -73,7 +71,7 @@ class ProjectDataImporter:
                 except Exception:
                     # Restore backup destination database
                     logger.error("Cancelling copy and rolling back destination database")
-                    dest_db.write_bytes(dest_db_file_backup.read_bytes())
+                    self.dest_db_file.write_bytes(dest_db_file_backup.read_bytes())
                     return False
 
             for conn in self.src_conn, self.dest_conn:
