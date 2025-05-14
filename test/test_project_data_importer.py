@@ -1,3 +1,4 @@
+import re
 import sqlite3
 from mock import Mock
 from pathlib import Path
@@ -293,14 +294,15 @@ def test_validate_projects_bad_db_open(
     result = project_data_importer.validate_project_databases()
     # Assert 1
     assert not result
-    assert "The database file in the dest project may be open" in caplog.text
-    assert "sqlite3 dest vacuum" in caplog.text
+    assert f"The database file in the '{dest_fdc_project.name}' project may be open" in caplog.text
+    assert re.search(r'sqlite3 .+\.gpkg vacuum', caplog.text)
+
     # Act 2
     result = project_data_importer.copy_project_data()
     # Assert 2
     assert not result
-    assert "The database file in the dest project may be open" in caplog.text
-    assert "sqlite3 dest vacuum" in caplog.text
+    assert f"The database file in the '{dest_fdc_project.name}' project may be open" in caplog.text
+    assert re.search(r'sqlite3 .+\.gpkg vacuum', caplog.text)
 
 
 def test_validate_projects_bad_path_not_a_folder(

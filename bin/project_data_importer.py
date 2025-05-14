@@ -117,19 +117,19 @@ class ProjectDataImporter:
             logger.error("Database file is missing from the dest project")
             return False
 
-        for target, project_dir in [('src', self.src_dir), ('dest', self.dest_dir)]:
+        for db_file in (self.src_db_file, self.dest_db_file):
             # Ensure the database file is not open in QGIS
             open_db_files = [
                 file
-                for file in project_dir.glob("*")
+                for file in db_file.parent.glob("*")
                 if file.suffix in {".gpkg-shm", ".gpkg-wal"}
             ]
             if len(open_db_files) > 0:
-                logger.error(("The database file in the %s project may be open, "
-                              "please ensure they are closed before importing data"), target)
+                logger.error(("The database file in the '%s' project may be open, "
+                              "please ensure they are closed before importing data"), db_file.stem)
                 logger.error("If the database is closed then stale temporary database "
-                             "files can be removed using the following command:")
-                logger.error("    sqlite3 %s vacuum", target)
+                             "files can be removed using the following command:\n"
+                             "    sqlite3 %s vacuum", db_file.absolute())
                 return False
 
         return True
