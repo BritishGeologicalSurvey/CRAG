@@ -26,14 +26,8 @@
                             </tr>
                             <tr>
                                 <td>Entered</td>
-                                <td>{{ point.user_entered }} at {{ point.date_entered }}</td>
+                                <td>{{ point.recorded_by }} at {{ point.recorded_on }}</td>
                             </tr>
-                            {% if point.user_updated is not none %}
-                            <tr>
-                                <td>Updated</td>
-                                <td>{{ point.user_updated }} at {{ point.date_updated }}</td>
-                            </tr>
-                            {% endif %}
                         </table>
                         {% include "_structural_measurements.html" %}
                         {% include "_lithologies.html" %}

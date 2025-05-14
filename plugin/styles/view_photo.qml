@@ -160,28 +160,14 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="user_entered">
+    <field configurationFlags="NoFlag" name="recorded_by">
       <editWidget type="">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="date_entered">
-      <editWidget type="">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="user_updated">
-      <editWidget type="">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="date_updated">
+    <field configurationFlags="NoFlag" name="recorded_on">
       <editWidget type="">
         <config>
           <Option></Option>
@@ -200,10 +186,8 @@
     <alias field="caption" index="7" name=""></alias>
     <alias field="photo_uuid" index="8" name=""></alias>
     <alias field="locality_uuid" index="9" name=""></alias>
-    <alias field="user_entered" index="10" name=""></alias>
-    <alias field="date_entered" index="11" name=""></alias>
-    <alias field="user_updated" index="12" name=""></alias>
-    <alias field="date_updated" index="13" name=""></alias>
+    <alias field="recorded_by" index="10" name=""></alias>
+    <alias field="recorded_on" index="11" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="field_project" policy="Duplicate"></policy>
@@ -216,10 +200,8 @@
     <policy field="caption" policy="Duplicate"></policy>
     <policy field="photo_uuid" policy="Duplicate"></policy>
     <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="user_entered" policy="Duplicate"></policy>
-    <policy field="date_entered" policy="Duplicate"></policy>
-    <policy field="user_updated" policy="Duplicate"></policy>
-    <policy field="date_updated" policy="Duplicate"></policy>
+    <policy field="recorded_by" policy="Duplicate"></policy>
+    <policy field="recorded_on" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="field_project"></default>
@@ -232,10 +214,8 @@
     <default applyOnUpdate="0" expression="" field="caption"></default>
     <default applyOnUpdate="0" expression="" field="photo_uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_uuid"></default>
-    <default applyOnUpdate="0" expression="" field="user_entered"></default>
-    <default applyOnUpdate="0" expression="" field="date_entered"></default>
-    <default applyOnUpdate="0" expression="" field="user_updated"></default>
-    <default applyOnUpdate="0" expression="" field="date_updated"></default>
+    <default applyOnUpdate="0" expression="" field="recorded_by"></default>
+    <default applyOnUpdate="0" expression="" field="recorded_on"></default>
   </defaults>
   <constraints>
     <constraint constraints="0" exp_strength="0" field="field_project" notnull_strength="0" unique_strength="0"></constraint>
@@ -248,10 +228,8 @@
     <constraint constraints="0" exp_strength="0" field="caption" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="photo_uuid" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="locality_uuid" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="user_entered" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="date_entered" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="recorded_by" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="0" exp_strength="0" field="recorded_on" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="field_project"></constraint>
@@ -264,10 +242,8 @@
     <constraint desc="" exp="" field="caption"></constraint>
     <constraint desc="" exp="" field="photo_uuid"></constraint>
     <constraint desc="" exp="" field="locality_uuid"></constraint>
-    <constraint desc="" exp="" field="user_entered"></constraint>
-    <constraint desc="" exp="" field="date_entered"></constraint>
-    <constraint desc="" exp="" field="user_updated"></constraint>
-    <constraint desc="" exp="" field="date_updated"></constraint>
+    <constraint desc="" exp="" field="recorded_by"></constraint>
+    <constraint desc="" exp="" field="recorded_on"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>

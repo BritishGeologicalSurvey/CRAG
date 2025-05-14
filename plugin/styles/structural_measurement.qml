@@ -133,28 +133,14 @@
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="user_entered">
+    <field configurationFlags="NoFlag" name="recorded_by">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
         </config>
       </editWidget>
     </field>
-    <field configurationFlags="NoFlag" name="date_entered">
-      <editWidget type="Hidden">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="user_updated">
-      <editWidget type="Hidden">
-        <config>
-          <Option></Option>
-        </config>
-      </editWidget>
-    </field>
-    <field configurationFlags="NoFlag" name="date_updated">
+    <field configurationFlags="NoFlag" name="recorded_on">
       <editWidget type="Hidden">
         <config>
           <Option></Option>
@@ -172,10 +158,8 @@
     <alias field="secondary_attribute" index="6" name=""></alias>
     <alias field="third_attribute" index="7" name=""></alias>
     <alias field="notes" index="8" name=""></alias>
-    <alias field="user_entered" index="9" name=""></alias>
-    <alias field="date_entered" index="10" name=""></alias>
-    <alias field="user_updated" index="11" name=""></alias>
-    <alias field="date_updated" index="12" name=""></alias>
+    <alias field="recorded_by" index="9" name=""></alias>
+    <alias field="recorded_on" index="10" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -187,10 +171,8 @@
     <policy field="secondary_attribute" policy="DefaultValue"></policy>
     <policy field="third_attribute" policy="DefaultValue"></policy>
     <policy field="notes" policy="DefaultValue"></policy>
-    <policy field="user_entered" policy="Duplicate"></policy>
-    <policy field="date_entered" policy="Duplicate"></policy>
-    <policy field="user_updated" policy="Duplicate"></policy>
-    <policy field="date_updated" policy="Duplicate"></policy>
+    <policy field="recorded_by" policy="Duplicate"></policy>
+    <policy field="recorded_on" policy="Duplicate"></policy>
   </splitPolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
@@ -202,10 +184,8 @@
     <default applyOnUpdate="0" expression="" field="secondary_attribute"></default>
     <default applyOnUpdate="0" expression="" field="third_attribute"></default>
     <default applyOnUpdate="0" expression="" field="notes"></default>
-    <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_entered"></default>
-    <default applyOnUpdate="0" expression="now()" field="date_entered"></default>
-    <default applyOnUpdate="1" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="user_updated"></default>
-    <default applyOnUpdate="1" expression="now()" field="date_updated"></default>
+    <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="recorded_by"></default>
+    <default applyOnUpdate="0" expression="now()" field="recorded_on"></default>
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
@@ -217,10 +197,8 @@
     <constraint constraints="0" exp_strength="0" field="secondary_attribute" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="third_attribute" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="user_entered" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="date_entered" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="user_updated" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="date_updated" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="1" exp_strength="0" field="recorded_on" notnull_strength="1" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
@@ -232,10 +210,8 @@
     <constraint desc="" exp="" field="secondary_attribute"></constraint>
     <constraint desc="" exp="" field="third_attribute"></constraint>
     <constraint desc="" exp="" field="notes"></constraint>
-    <constraint desc="" exp="" field="user_entered"></constraint>
-    <constraint desc="" exp="" field="date_entered"></constraint>
-    <constraint desc="" exp="" field="user_updated"></constraint>
-    <constraint desc="" exp="" field="date_updated"></constraint>
+    <constraint desc="" exp="" field="recorded_by"></constraint>
+    <constraint desc="" exp="" field="recorded_on"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>
@@ -308,8 +284,7 @@ def my_form_open(dialog, layer, feature):
   </attributeEditorForm>
   <editable>
     <field editable="1" name="azimuth"></field>
-    <field editable="1" name="date_entered"></field>
-    <field editable="1" name="date_updated"></field>
+    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="dip"></field>
     <field editable="0" name="fid"></field>
     <field editable="1" name="locality_fuid"></field>
@@ -318,14 +293,12 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="structure_type_category"></field>
     <field editable="1" name="structure_type_code"></field>
     <field editable="1" name="third_attribute"></field>
-    <field editable="1" name="user_entered"></field>
-    <field editable="1" name="user_updated"></field>
+    <field editable="1" name="recorded_by"></field>
     <field editable="0" name="uuid"></field>
   </editable>
   <labelOnTop>
     <field labelOnTop="0" name="azimuth"></field>
-    <field labelOnTop="0" name="date_entered"></field>
-    <field labelOnTop="0" name="date_updated"></field>
+    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="dip"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="locality_fuid"></field>
@@ -334,14 +307,12 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="structure_type_category"></field>
     <field labelOnTop="0" name="structure_type_code"></field>
     <field labelOnTop="0" name="third_attribute"></field>
-    <field labelOnTop="0" name="user_entered"></field>
-    <field labelOnTop="0" name="user_updated"></field>
+    <field labelOnTop="0" name="recorded_by"></field>
     <field labelOnTop="0" name="uuid"></field>
   </labelOnTop>
   <reuseLastValue>
     <field name="azimuth" reuseLastValue="0"></field>
-    <field name="date_entered" reuseLastValue="0"></field>
-    <field name="date_updated" reuseLastValue="0"></field>
+    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="dip" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="locality_fuid" reuseLastValue="0"></field>
@@ -350,8 +321,7 @@ def my_form_open(dialog, layer, feature):
     <field name="structure_type_category" reuseLastValue="0"></field>
     <field name="structure_type_code" reuseLastValue="1"></field>
     <field name="third_attribute" reuseLastValue="0"></field>
-    <field name="user_entered" reuseLastValue="0"></field>
-    <field name="user_updated" reuseLastValue="0"></field>
+    <field name="recorded_by" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>

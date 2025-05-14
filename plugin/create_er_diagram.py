@@ -49,10 +49,8 @@ def main(
         md_filepath,
         exclude_columns=[
             "fid",
-            "user_entered",
-            "date_entered",
-            "user_updated",
-            "date_updated"
+            "recorded_by",
+            "recorded_on",
         ],
     )
 

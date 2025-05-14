@@ -6,11 +6,7 @@
                     {% for media in point.children.media %}
                     <table>
                         <tr>
-                            {% if media.user_updated is none %}
                             <td class="media" rowspan="5">
-                            {% else %}
-                            <td class="media" rowspan="6">
-                            {% endif %}
                                 {% if media.media_type_code == 'video' %}
                                 <a target="_blank" href="media/{{ media.media_link }}">
                                     <span class="material-symbols-outlined size-48">smart_display</span>
@@ -53,14 +49,8 @@
                         </tr>
                         <tr>
                             <td>Entered</td>
-                            <td>{{ media.user_entered }} at {{ media.date_entered }}</td>
+                            <td>{{ media.recorded_by }} at {{ media.recorded_on }}</td>
                         </tr>
-                        {% if media.user_updated is not none %}
-                        <tr>
-                            <td>Updated</td>
-                            <td>{{ media.user_updated }} at {{ media.date_updated }}</td>
-                        </tr>
-                        {% endif %}
                     </table>
                     {% endfor %}
                 </section>

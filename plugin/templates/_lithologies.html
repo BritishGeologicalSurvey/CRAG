@@ -15,14 +15,8 @@
                         </tr>
                         <tr>
                             <td>Entered</td>
-                            <td>{{ lithology.user_entered }} at {{ lithology.date_entered }}</td>
+                            <td>{{ lithology.recorded_by }} at {{ lithology.recorded_on }}</td>
                         </tr>
-                        {% if lithology.user_updated is not none %}
-                        <tr>
-                            <td>Updated</td>
-                            <td>{{ lithology.user_updated }} at {{ lithology.date_updated }}</td>
-                        </tr>
-                        {% endif %}
                     </table>
                     {% endfor %}
                 </section>

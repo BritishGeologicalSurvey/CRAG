@@ -25,13 +25,7 @@
                     </tr>
                     <tr>
                         <td>Entered</td>
-                        <td>{{ project.user_entered }} at {{ project.date_entered }}</td>
+                        <td>{{ project.recorded_by }} at {{ project.recorded_on }}</td>
                     </tr>
-                    {% if project.user_updated is not none %}
-                    <tr>
-                        <td>Updated</td>
-                        <td>{{ project.user_updated }} at {{ project.date_updated }}</td>
-                    </tr>
-                    {% endif %}
                 </table>
             </section>
