@@ -468,7 +468,8 @@ class FieldDataCaptureProject:
                 attachment.is_file(),
                 attachment.relative_to(attachment_dir) not in recorded_attachments,
                 attachment.name not in {self.placeholder_filename.name, self.bgs_logo_filename.name},
-                attachment.parts[0] != self.unlinked_dir_name.name,  # If it is not in the unlinked dir
+                # If it is not in the unlinked dir
+                attachment.relative_to(attachment_dir).parts[0] != self.unlinked_dir_name.name,
             ))
         ]
 

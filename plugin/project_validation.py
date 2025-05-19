@@ -61,6 +61,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
         check_features_valid_parents,
         check_locality_children_valid_parents,
         check_field_project_plugin_version,
+        check_unlinked_attachment_files,
         check_attached_filepaths_not_null,
         check_attached_filepaths_not_placeholder,
         check_attached_filepaths_exist,
@@ -178,6 +179,33 @@ def check_field_project_plugin_version(project: FieldDataCaptureProject) -> Vali
     if plugin_version is None:
         result.status = ValidationStatus.FAIL
         result.messages.append("The 'field_project' record does not include a valid 'qgis_plugin_version'")
+
+    return result
+
+
+def check_unlinked_attachment_files(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that there are no unlinked files in the photos/media unlinked sub-directory.
+    """
+    result = ValidationResult(validation_function=check_unlinked_attachment_files.__name__)
+
+    for table, table_dir in project.layers_to_dirs.items():
+        # Perform check
+        unlinked_dir = table_dir / project.unlinked_dir_name
+        unlinked_files = [
+            filepath
+            for filepath in unlinked_dir.rglob("*")
+            if filepath.name != project.placeholder_filename.name
+        ]
+
+        # Prepare results
+        # If failed
+        number_unlinked_files = len(unlinked_files)
+        if number_unlinked_files > 0:
+            result.status = ValidationStatus.FAIL
+            result.messages.append(
+                f"Unlinked directory for '{table}' table contains {number_unlinked_files} files."
+            )
 
     return result
 

@@ -2,7 +2,10 @@ from pathlib import Path
 
 import pytest
 
-from plugin.field_data_capture import FieldDataCapture
+from plugin.field_data_capture import (
+    FieldDataCapture,
+    FieldDataCaptureProject,
+)
 from plugin.project_validation import (
     ValidationResult,
     ValidationStatus,
@@ -23,6 +26,7 @@ def fdc_project_bad(tmp_path: Path) -> Path:
     Creates a project with a database which contains some data and photo files.
     """
     project_dir = tmp_path / "fdc_project_invalid"
+    project = FieldDataCaptureProject(project_dir)
     feature_filepaths = {
         "photos": [
             Path("test/data/photos/exif_data.jpg"),
@@ -41,6 +45,15 @@ def fdc_project_bad(tmp_path: Path) -> Path:
     # Add a dummy conflict GeoPackage to the project
     dummy_conflict_gpkg = project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
+
+    dummy_unlinked_files = [
+        project.photos_dir / project.unlinked_dir_name / "dummy_a.png",
+        project.photos_dir / project.unlinked_dir_name / "dummy_b.png",
+        project.media_dir / project.unlinked_dir_name / "dummy_c.csv",
+    ]
+    for dummy_unlinked_file in dummy_unlinked_files:
+        dummy_unlinked_file.parent.mkdir(exist_ok=True, parents=True)
+        dummy_unlinked_file.touch()
 
     return project_dir
 
@@ -89,6 +102,14 @@ def test_validate_project_bad(fdc_project_bad: Path):
             status=ValidationStatus.FAIL,
             messages=[
                 "The 'field_project' record does not include a valid 'qgis_plugin_version'",
+            ],
+        ),
+        ValidationResult(
+            validation_function="check_unlinked_attachment_files",
+            status=ValidationStatus.FAIL,
+            messages=[
+                "Unlinked directory for 'media' table contains 1 files.",
+                "Unlinked directory for 'photo' table contains 2 files.",
             ],
         ),
         ValidationResult(
