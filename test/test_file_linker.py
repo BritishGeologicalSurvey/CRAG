@@ -18,6 +18,8 @@ from qgis.PyQt.QtWidgets import (
 from plugin.field_data_capture import FieldDataCapture
 from plugin.file_linker import FileLinker
 from plugin.utils import (  # noqa
+    MultilineMessageBox,
+    create_prepopulated_feature,
     get_combobox_items_dict,
     set_combobox_index_by_data,
     ipdb_breakpoint,
@@ -144,6 +146,7 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
 def test_open_file_linker_good(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
+    monkeypatch_multiline_msgbox,
 ):
     # Act
     result = fdc_project.open_file_linker()
@@ -152,6 +155,7 @@ def test_open_file_linker_good(
     assert result
     assert isinstance(fdc_project.file_linker, FileLinker)
     assert fdc_project.photos_dir == fdc_project.file_linker.photos_dir
+    MultilineMessageBox.warning.assert_not_called()
 
 
 def test_open_file_linker_bad(fdc_project: FieldDataCapture):
@@ -165,6 +169,30 @@ def test_open_file_linker_bad(fdc_project: FieldDataCapture):
         None,
         "All Files Linked",
         "All of the project files are already linked.",
+    )
+
+
+def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
+    # Arrange
+    # Add a new feature to the photo layer with the default placeholder image
+    layer = fdc_project.get_fdc_layer("photo")
+    feature = create_prepopulated_feature(
+        layer,
+        prepopulate={"locality_fuid": "{abc43098-fe9b-4da0-b008-7518694466bb}"},
+    )
+    layer.startEditing()
+    layer.addFeature(feature)
+    layer.commitChanges()
+
+    # Act
+    fdc_project.open_file_linker()
+
+    # Assert
+    MultilineMessageBox.warning.assert_called_with(
+        "Placeholder attachments found.",
+        ("Some locality points have media/photo records which are still using the default placeholder image."
+         " You may need to update these existing links instead of creating new ones."),
+        "• test_point_001",
     )
 
 

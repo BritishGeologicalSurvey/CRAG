@@ -25,7 +25,10 @@ from plugin.create_gpkg_from_sql import add_test_data
 from plugin.field_data_capture import FieldDataCapture
 from plugin.quick_map_tools import QuickMapToolBase
 from plugin.report_builder import ReportBuilder
-from plugin.utils import FieldDataCaptureProject
+from plugin.utils import (
+    MultilineMessageBox,
+    FieldDataCaptureProject,
+)
 
 
 def setup_db_conn(db_file: Path) -> sqlite3.Connection:
@@ -254,6 +257,16 @@ def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
     Instead, calls to it will return QMessageBox.No.
     """
     monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.No)
+
+
+@pytest.fixture()
+def monkeypatch_multiline_msgbox(monkeypatch: pytest.MonkeyPatch) -> None:
+    """
+    A monkeypatch to replace MultilineMessageBox methods with Mock objects,
+    meaning that their calls can be checked.
+    """
+    for method in ["information", "warning", "critical"]:
+        monkeypatch.setattr(MultilineMessageBox, method, Mock())
 
 
 @pytest.fixture()

@@ -1,5 +1,4 @@
 from pathlib import Path
-from unittest.mock import Mock
 
 import pytest
 
@@ -138,12 +137,11 @@ def test_validate_project_bad(fdc_project_bad: Path):
     assert expected_results == results
 
 
-def test_validation_dialog_pass(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
+def test_validation_dialog_pass(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
     # Arrange
     expected_title = "Project Validation"
     expected_message = "Validation for project 'test_project_dir': PASSED"
     expected_text = None
-    monkeypatch.setattr(MultilineMessageBox, "information", Mock())
 
     # Act
     fdc_project.run_project_validation()
@@ -152,7 +150,7 @@ def test_validation_dialog_pass(fdc_project: FieldDataCapture, monkeypatch: pyte
     MultilineMessageBox.information.assert_called_once_with(expected_title, expected_message, expected_text)
 
 
-def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
+def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
     # Arrange
     # Add unlinked photo to the project
     dummy_photo = fdc_project.photos_dir / "not_a_photo.png"
@@ -167,7 +165,6 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch: pyte
         f"• Unlinked file in 'photo' directory: {dummy_photo}",
         "\n• Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
     ])
-    monkeypatch.setattr(MultilineMessageBox, "critical", Mock())
 
     # Act
     fdc_project.run_project_validation()

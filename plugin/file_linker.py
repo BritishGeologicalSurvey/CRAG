@@ -37,7 +37,9 @@ from qgis.PyQt.QtWidgets import (
 
 from .utils import (  # noqa
     FieldDataCaptureProject,
+    MultilineMessageBox,
     create_prepopulated_feature,
+    get_table_rows,
     ipdb_breakpoint,
 )
 
@@ -72,6 +74,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         self.layers_to_files_to_widgets: dict[str, dict[Path, WidgetsDict]] = {}
         self.thumbnail_size = 200
         self.add_file_rows()
+        self.warn_placeholder_attachments()
 
 
     @property
@@ -84,6 +87,28 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             for files_to_widgets in self.layers_to_files_to_widgets.values()
         ])
         return file_count
+
+
+    def warn_placeholder_attachments(self) -> None:
+        """
+        Warn the user if there are locality points which have media/photo records which are still
+        using the default placeholder image.
+        """
+        locality_point_names = set()
+        for table, attachment_col in self.layers_to_file_attributes.items():
+            for row in get_table_rows(
+                self.db_file,
+                f"SELECT locality_point FROM view_{table} WHERE {attachment_col} = '{self.default_attachment_str}'",
+            ):
+                locality_point_names.add("• " + row["locality_point"])
+
+        if len(locality_point_names) > 0:
+            MultilineMessageBox.warning(
+                "Placeholder attachments found.",
+                ("Some locality points have media/photo records which are still using the default placeholder image."
+                 " You may need to update these existing links instead of creating new ones."),
+                "\n".join(locality_point_names),
+            )
 
 
     def setup_ui_elements(self) -> None:
