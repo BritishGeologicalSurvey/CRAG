@@ -1,3 +1,4 @@
+import re
 import sqlite3
 from mock import Mock
 from pathlib import Path
@@ -13,6 +14,8 @@ from conftest import (
     setup_db_conn,
 )
 from plugin.utils import ipdb_breakpoint  # noqa
+
+DEST_SHORT_NAME = "dest_fdc_project"
 
 
 @pytest.fixture()
@@ -30,7 +33,7 @@ def dest_fdc_project(tmp_path: Path) -> Path:
     Fixture to setup a test destination project for merging 2 projects together.
     Creates a project with a database which contains some data and photo files.
     """
-    project_dir = tmp_path / "dest_fdc_project"
+    project_dir = tmp_path / DEST_SHORT_NAME
     feature_filepaths = {
         "photos": [
             Path("test/data/photos/exif_data.jpg"),
@@ -42,6 +45,7 @@ def dest_fdc_project(tmp_path: Path) -> Path:
         project_dir=project_dir,
         insert_data_sql=Path("test/data/dest_fdc_project.sql"),
         feature_filepaths=feature_filepaths,
+        short_name=DEST_SHORT_NAME
     )
     return project_dir
 
@@ -50,21 +54,22 @@ def test_project_data_importer_fixtures(
     src_fdc_project: Path,
     dest_fdc_project: Path,
 ):
-    for project_dir in [src_fdc_project, dest_fdc_project]:
+    for project_dir, short_name in [(src_fdc_project, "test_project"),
+                                    (dest_fdc_project, DEST_SHORT_NAME)]:
         # Check the files exist
         assert project_dir.exists()
-        for subpath in ["field-data-capture.gpkg", "photos", "media"]:
+        for subpath in [f"{short_name}.gpkg", "photos", "media"]:
             assert (project_dir / subpath).exists()
         # Check that some photos exist
         assert len(list((project_dir / "photos").rglob("*[!.placeholder]"))) > 0
         # Check that a field_project row exists
-        with setup_db_conn(project_dir / "field-data-capture.gpkg") as conn:
-            field_project_count = etl.fetchone(
-                "SELECT COUNT() AS count FROM field_project",
+        with setup_db_conn(project_dir / f"{short_name}.gpkg") as conn:
+            rows = etl.fetchall(
+                "SELECT short_name FROM field_project",
                 conn,
-                row_factory=etl.row_factories.tuple_row_factory,
-            )[0]
-            assert field_project_count == 1
+            )
+            assert len(rows) == 1
+            assert rows[0]['short_name'] == short_name
 
 
 @pytest.mark.parametrize('null_field_project_notes', [False, True])
@@ -95,7 +100,7 @@ def test_copy_project_data_good(
         "These are some empty notes honk",
         "",
         "--- Imported Project Metadata ---",
-        "short_name: test_field_project",
+        "short_name: test_project",
         "title: test field project title",
         "description: test field project description",
         "project_lead: test_user",
@@ -109,7 +114,7 @@ def test_copy_project_data_good(
         "qgis_plugin_version: test_plugin_version",
     ]
     expected_field_project_notes_metadata = "\n".join(expected_field_project_notes_metadata_lines)
-    dest_db = dest_fdc_project / "field-data-capture.gpkg"
+    dest_db = dest_fdc_project / f"{DEST_SHORT_NAME}.gpkg"
 
     # Configure test case where project notes are null
     if null_field_project_notes:
@@ -186,7 +191,7 @@ def test_copy_project_data_bad(
     dest_fdc_project: Path,
 ):
     # Break the database in some way
-    dest_db = dest_fdc_project / "field-data-capture.gpkg"
+    dest_db = dest_fdc_project / f"{DEST_SHORT_NAME}.gpkg"
     with setup_db_conn(dest_db) as conn:
         etl.execute(sql_break_db_query, conn)
 
@@ -211,7 +216,7 @@ def test_copy_project_data_failed_metadata(
     monkeypatch
 ):
     # Record original state of database and photos folder
-    dest_db = dest_fdc_project / "field-data-capture.gpkg"
+    dest_db = dest_fdc_project / f"{DEST_SHORT_NAME}.gpkg"
     dest_db_original_contents = dest_db.read_bytes()
     photo_folder_original_contents = list((src_fdc_project / "photos").rglob("*"))
 
@@ -238,7 +243,7 @@ def test_validate_projects_good(
     # Arrange
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
     # Act 1
-    result = project_data_importer.validate_projects()
+    result = project_data_importer.validate_project_databases()
     # Assert 1
     assert result
     # Act 2
@@ -255,9 +260,9 @@ def test_validate_projects_bad_db_missing(
     # Arrange
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
     # Delete the database file in the destination project
-    (dest_fdc_project / "field-data-capture.gpkg").unlink()
+    (dest_fdc_project / f"{DEST_SHORT_NAME}.gpkg").unlink()
     # Act 1
-    result = project_data_importer.validate_projects()
+    result = project_data_importer.validate_project_databases()
     # Assert 1
     assert not result
     assert "Database file is missing from the dest project" in caplog.text
@@ -271,8 +276,8 @@ def test_validate_projects_bad_db_missing(
 @pytest.mark.parametrize(
     "open_db_file",
     (
-        Path("field-data-capture.gpkg-shm"),
-        Path("field-data-capture.gpkg-wal"),
+        Path(f"{DEST_SHORT_NAME}.gpkg-shm"),
+        Path(f"{DEST_SHORT_NAME}.gpkg-wal"),
     ),
 )
 def test_validate_projects_bad_db_open(
@@ -286,17 +291,18 @@ def test_validate_projects_bad_db_open(
     # Create a dummy open database file
     (dest_fdc_project / open_db_file).touch()
     # Act 1
-    result = project_data_importer.validate_projects()
+    result = project_data_importer.validate_project_databases()
     # Assert 1
     assert not result
-    assert "The database file in the dest project may be open" in caplog.text
-    assert "sqlite3 dest vacuum" in caplog.text
+    assert f"The database file in the '{dest_fdc_project.name}' project may be open" in caplog.text
+    assert re.search(r'sqlite3 .+\.gpkg vacuum', caplog.text)
+
     # Act 2
     result = project_data_importer.copy_project_data()
     # Assert 2
     assert not result
-    assert "The database file in the dest project may be open" in caplog.text
-    assert "sqlite3 dest vacuum" in caplog.text
+    assert f"The database file in the '{dest_fdc_project.name}' project may be open" in caplog.text
+    assert re.search(r'sqlite3 .+\.gpkg vacuum', caplog.text)
 
 
 def test_validate_projects_bad_path_not_a_folder(
@@ -305,29 +311,27 @@ def test_validate_projects_bad_path_not_a_folder(
     caplog,
 ):
     # Arrange
-    # Pass geopackage name instead of project folder
-    src_geopackage = src_fdc_project / 'field-data-capture.gpkg'
-    project_data_importer = ProjectDataImporter(src_geopackage, dest_fdc_project)
+    src_geopackage = src_fdc_project / 'test_project.gpkg'
+    dest_geopackage = dest_fdc_project / f'{DEST_SHORT_NAME}.gpkg'
 
     # Act
-    valid_projects = project_data_importer.validate_projects()
+    # Pass geopackage names instead of project folders
+    with pytest.raises(ValueError):
+        ProjectDataImporter(src_geopackage, dest_geopackage)
 
     # Assert
-    assert not valid_projects
     assert f"src project {src_geopackage} is not a directory" in caplog.text
+    assert f"dest project {dest_geopackage} is not a directory" in caplog.text
 
 
 def test_validate_projects_bad_path_src_and_dest_the_same(
     src_fdc_project: Path,
     caplog,
 ):
-    # Arrange
-    # Pass the src as both arguments
-    project_data_importer = ProjectDataImporter(src_fdc_project, src_fdc_project)
-
     # Act
-    valid_projects = project_data_importer.validate_projects()
+    # Pass the src as both arguments
+    with pytest.raises(ValueError):
+        ProjectDataImporter(src_fdc_project, src_fdc_project)
 
     # Assert
-    assert not valid_projects
     assert "Source and destination are the same, they must be different projects" in caplog.text

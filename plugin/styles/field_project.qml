@@ -249,10 +249,28 @@
     <policy field="recorded_on" policy="Duplicate"></policy>
     <policy field="qgis_plugin_version" policy="Duplicate"></policy>
   </splitPolicies>
+  <duplicatePolicies>
+    <policy field="fid" policy="Duplicate"></policy>
+    <policy field="uuid" policy="Duplicate"></policy>
+    <policy field="short_name" policy="Duplicate"></policy>
+    <policy field="title" policy="Duplicate"></policy>
+    <policy field="description" policy="Duplicate"></policy>
+    <policy field="project_lead" policy="Duplicate"></policy>
+    <policy field="start_date" policy="Duplicate"></policy>
+    <policy field="end_date" policy="Duplicate"></policy>
+    <policy field="local_epsg" policy="Duplicate"></policy>
+    <policy field="notes" policy="Duplicate"></policy>
+    <policy field="mapped_scale" policy="Duplicate"></policy>
+    <policy field="user_entered" policy="Duplicate"></policy>
+    <policy field="date_entered" policy="Duplicate"></policy>
+    <policy field="user_updated" policy="Duplicate"></policy>
+    <policy field="date_updated" policy="Duplicate"></policy>
+    <policy field="qgis_plugin_version" policy="Duplicate"></policy>
+  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
-    <default applyOnUpdate="0" expression="" field="short_name"></default>
+    <default applyOnUpdate="0" expression=" @project_basename" field="short_name"></default>
     <default applyOnUpdate="0" expression="" field="title"></default>
     <default applyOnUpdate="0" expression="" field="description"></default>
     <default applyOnUpdate="0" expression="" field="project_lead"></default>
@@ -325,11 +343,6 @@ def my_form_open(dialog, layer, feature):
     <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
       <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
-    <attributeEditorField horizontalStretch="0" index="2" name="short_name" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
-      </labelStyle>
-    </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="3" name="title" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>

@@ -40,7 +40,7 @@ def fdc_project_bad(tmp_path: Path) -> Path:
     )
 
     # Add a dummy conflict GeoPackage to the project
-    dummy_conflict_gpkg = project_dir / "field-data-capture (conflicted copy).gpkg"
+    dummy_conflict_gpkg = project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
     return project_dir
@@ -59,6 +59,16 @@ def test_validate_project_good(fdc_project: FieldDataCapture):
 def test_validate_project_bad(fdc_project_bad: Path):
     # Arrange
     expected_results = [
+        ValidationResult(
+            validation_function='check_project_name',
+            status=ValidationStatus.FAIL,
+            messages=[
+                (f"File name '{fdc_project_bad / "test_project.gpkg"}' "
+                 "does not match 'field_project.short_name': leos_test_project"),
+                (f"File name '{fdc_project_bad / "test_project.qgz"}' "
+                 "does not match 'field_project.short_name': leos_test_project"),
+            ]
+        ),
         ValidationResult(
             validation_function="check_features_valid_parents",
             status=ValidationStatus.FAIL,
@@ -109,7 +119,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
             validation_function="check_no_conflict_gpkg_exists",
             status=ValidationStatus.WARNING,
             messages=[
-                "Conflict GeoPackage file found: field-data-capture (conflicted copy).gpkg",
+                "Conflict GeoPackage file found: test_project (conflicted copy).gpkg",
             ],
         ),
     ]
@@ -142,7 +152,7 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture):
     dummy_photo = fdc_project.photos_dir / "not_a_photo.png"
     dummy_photo.touch()
     # Add a dummy conflict GeoPackage to the project
-    dummy_conflict_gpkg = fdc_project.project_dir / "field-data-capture (conflicted copy).gpkg"
+    dummy_conflict_gpkg = fdc_project.project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
     expected_image = get_msgbox_icon_pixmap(QMessageBox.Critical).toImage()
@@ -150,7 +160,7 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture):
     expected_minimum_width = 500
     expected_text_edit_str = "\n".join([
         f"• Unlinked file in 'photo' directory: {dummy_photo}",
-        "\n• Conflict GeoPackage file found: field-data-capture (conflicted copy).gpkg"
+        "\n• Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
     ])
 
     # Act

@@ -922,7 +922,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         with sqlite3.connect(self.db_file) as conn:
             conn.enable_load_extension(True)
-            add_test_data(conn)
+            add_test_data(conn, short_name=self.db_file.stem)
         conn.close()
 
         # Copy test data media files across into current project

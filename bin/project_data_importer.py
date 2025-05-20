@@ -30,10 +30,13 @@ class ProjectDataImporter:
         logger.info("Destination: %s", dest)
         self.src_dir = src
         self.dest_dir = dest
+        self._validate_project_directories()
         self.src_conn: sqlite3.Connection
         self.dest_conn: sqlite3.Connection
         self.field_project_fuid_col = "field_project_fuid"
         self.field_project_fuid_dest: str
+        self.src_db_file = next(self.src_dir.glob('*.gpkg'))
+        self.dest_db_file = next(self.dest_dir.glob('*.gpkg'))
 
 
     def copy_project_data(self) -> bool:
@@ -43,20 +46,17 @@ class ProjectDataImporter:
         Returns a boolean indicating the success of the process.
         """
         # Run initial checks before copying
-        if not self.validate_projects():
+        if not self.validate_project_databases():
             return False
 
-        db_file = "field-data-capture.gpkg"
-        src_db = self.src_dir / db_file
-        dest_db = self.dest_dir / db_file
         # Create copy of dest database before making changes
         with tempfile.TemporaryDirectory() as tmp_dir:
             tmp_dir = Path(tmp_dir)
-            dest_db_file_backup = tmp_dir / db_file
-            dest_db_file_backup.write_bytes(dest_db.read_bytes())
+            dest_db_file_backup = tmp_dir / self.dest_db_file.name
+            dest_db_file_backup.write_bytes(self.dest_db_file.read_bytes())
 
             # Setup database transactions
-            with sqlite3.connect(src_db) as self.src_conn, sqlite3.connect(dest_db) as self.dest_conn:  # noqa
+            with sqlite3.connect(self.src_db_file) as self.src_conn, sqlite3.connect(self.dest_db_file) as self.dest_conn:  # noqa
                 for conn in self.src_conn, self.dest_conn:
                     conn.enable_load_extension(True)
                     etl.execute("""SELECT load_extension("mod_spatialite")""", conn)
@@ -71,7 +71,7 @@ class ProjectDataImporter:
                 except Exception:
                     # Restore backup destination database
                     logger.error("Cancelling copy and rolling back destination database")
-                    dest_db.write_bytes(dest_db_file_backup.read_bytes())
+                    self.dest_db_file.write_bytes(dest_db_file_backup.read_bytes())
                     return False
 
             for conn in self.src_conn, self.dest_conn:
@@ -82,38 +82,52 @@ class ProjectDataImporter:
         return True
 
 
-    def validate_projects(self) -> bool:
+    def _validate_project_directories(self) -> bool:
         """
-        Checks if the source and destination project are both ready for importing data.
-        This includes checking that a database exists, and that it is not open.
+        Checks if the source and destination project directories are valid and distinct.
         """
+        raise_value_error = False
+
         if self.src_dir == self.dest_dir:
             logger.error("Source and destination are the same, they must be different projects")
-            return False
+            raise_value_error = True
 
         for target, project_dir in [('src', self.src_dir), ('dest', self.dest_dir)]:
             # Ensure project_dir is a directory
             if not project_dir.is_dir():
                 logger.error("%s project %s is not a directory", target, project_dir)
-                return False
+                raise_value_error = True
 
-            # Ensure database files exist
-            if not (project_dir / "field-data-capture.gpkg").exists():
-                logger.error("Database file is missing from the %s project", target)
-                return False
+        if raise_value_error:
+            raise ValueError()
 
+
+    def validate_project_databases(self) -> bool:
+        """
+        Checks if the source and destination project are both ready for importing data.
+        This includes checking that a database exists, and that it is not open.
+        """
+        # Ensure database files exist
+        if not (self.src_dir / self.src_db_file).exists():
+            logger.error("Database file is missing from the src project")
+            return False
+        if not (self.dest_dir / self.dest_db_file).exists():
+            logger.error("Database file is missing from the dest project")
+            return False
+
+        for db_file in (self.src_db_file, self.dest_db_file):
             # Ensure the database file is not open in QGIS
             open_db_files = [
                 file
-                for file in project_dir.glob("*")
+                for file in db_file.parent.glob("*")
                 if file.suffix in {".gpkg-shm", ".gpkg-wal"}
             ]
             if len(open_db_files) > 0:
-                logger.error(("The database file in the %s project may be open, "
-                              "please ensure they are closed before importing data"), target)
+                logger.error(("The database file in the '%s' project may be open, "
+                              "please ensure they are closed before importing data"), db_file.stem)
                 logger.error("If the database is closed then stale temporary database "
-                             "files can be removed using the following command:")
-                logger.error("    sqlite3 %s vacuum", target)
+                             "files can be removed using the following command:\n"
+                             "    sqlite3 %s vacuum", db_file.absolute())
                 return False
 
         return True

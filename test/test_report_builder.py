@@ -102,7 +102,7 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
         assert False, f"Invalid PDF {exc}"
 
     # Check document metadata
-    assert 'Field Report: test_field_project' == pdf.metadata['/Title']
+    assert 'Field Report: test_project' == pdf.metadata['/Title']
     assert 'test_user' == pdf.metadata['/Author']
     assert 'test field project title' == pdf.metadata['/Subject']
     assert 'geology; QGIS; British Geological Survey; BGS' == pdf.metadata['/Keywords']
@@ -158,12 +158,12 @@ def test_create_field_report_no_title(report_builder: ReportBuilder, monkeypatch
     # Confirm short name used for title in HTML
     soup = BeautifulSoup(report_builder.html_report_file.read_text(encoding="utf-8"), 'lxml')
     report_heading = soup.find_all('h1')
-    assert 'Field Report: test_field_project' in report_heading[0]
+    assert 'Field Report: test_project' in report_heading[0]
 
     # Confirm short name used for title in PDF
     pdf = PdfReader(report_builder.pdf_report_file)
-    assert 'test_field_project' == pdf.metadata['/Subject']
-    assert 'Field Report: test_field_project' in pdf.pages[0].extract_text()
+    assert 'test_project' == pdf.metadata['/Subject']
+    assert 'Field Report: test_project' in pdf.pages[0].extract_text()
 
 
 def test_get_report_data(report_builder: ReportBuilder):
@@ -185,7 +185,7 @@ def test_get_project_data(report_builder: ReportBuilder):
     result = report_builder.get_project_data()
 
     # Assert
-    assert result['short_name'] == 'test_field_project'
+    assert result['short_name'] == 'test_project'
     assert EXPECTED_COMMON_COLUMNS < set(result.keys())
     assert EXPECTED_PROJECT_COLUMNS < set(result.keys())
 
