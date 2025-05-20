@@ -399,14 +399,13 @@ class FieldDataCapture(FieldDataCaptureProject):
             submenu=advanced_submenu
         )
 
-        if self.help_file.exists():
-            self.add_action(
-                None,
-                text=self.tr(u'Help'),
-                callback=self.show_help,
-                parent=self.iface.mainWindow(),
-                submenu=advanced_submenu
-            )
+        self.add_action(
+            None,
+            text=self.tr(u'Help'),
+            callback=self.show_help,
+            parent=self.iface.mainWindow(),
+            submenu=advanced_submenu
+        )
 
         advanced_submenu.addSeparator()
 
@@ -461,14 +460,14 @@ class FieldDataCapture(FieldDataCaptureProject):
             submenu=advanced_submenu,
         )
 
-        if self.help_file.exists():
-            self.help_action = self.add_action(
-                None,
-                text=self.tr(u'Field Data Capture'),
-                callback=self.show_help,
-                add_to_menu=False,
-            )
-            self.iface.pluginHelpMenu().addAction(self.help_action)
+        # Additionally, add action to main QGIS Help -> Plugins menu
+        self.help_action = self.add_action(
+            None,
+            text=self.tr(u'Field Data Capture'),
+            callback=self.show_help,
+            add_to_menu=False,
+        )
+        self.iface.pluginHelpMenu().addAction(self.help_action)
 
         # will be set False in run()
         self.first_start = True
