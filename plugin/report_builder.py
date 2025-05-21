@@ -152,8 +152,8 @@ class ReportBuilder(FieldDataCaptureProject):
 
             with open(self.html_report_file, mode="w", encoding="utf-8") as report:
                 report.write(content)
-            self.copy_plugin_files_to_project(self.css_src_file, self.css_dest_dir)
-            self.copy_plugin_files_to_project(self.font_src_file, self.font_dest_dir)
+            self.copy_plugin_files_to_project(plugin_src=self.css_src_file, project_dest=self.css_dest_dir)
+            self.copy_plugin_files_to_project(plugin_src=self.font_src_file, project_dest=self.font_dest_dir)
 
         except OSError:
             msg = "Unable to write report file\n"
