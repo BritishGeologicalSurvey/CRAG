@@ -813,8 +813,8 @@ class FieldDataCapture(FieldDataCaptureProject):
             vector_layer.name(): vector_layer
             for vector_layer in vector_layers
         }
-        self.copy_plugin_files_to_project(plugin_src="styles", project_dest="styles")
-        self.copy_plugin_files_to_project(plugin_src="slyr_styles/sigmaQ_2024_v2.xml", project_dest="styles")
+        self.copy_plugin_files_to_project(plugin_src="styles", project_dest=self.styles_dir)
+        self.copy_plugin_files_to_project(plugin_src="slyr_styles/sigmaQ_2024_v2.xml", project_dest=self.styles_dir)
 
         for qml_file in self.styles_dir.glob("*"):
             if qml_file.stem in vector_layer_names:
@@ -957,8 +957,8 @@ class FieldDataCapture(FieldDataCaptureProject):
         conn.close()
 
         # Copy test data media files across into current project
-        self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest="photos")
-        self.copy_plugin_files_to_project(plugin_src="test/data/media", project_dest="media")
+        self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest=self.photos_dir)
+        self.copy_plugin_files_to_project(plugin_src="test/data/media", project_dest=self.media_dir)
         self.iface.mapCanvas().refresh()
         QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
         return True

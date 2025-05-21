@@ -241,21 +241,27 @@ class FieldDataCaptureProject:
 
         The project_dest filepath must always be a directory.
 
-        The plugin_src filepath must be relative to the plugin/ directory within the repository.
-        The project_dest filepath must be relative to the project directory.
+        If plugin_src is a Path, it must be an absolute filepath in the plugin/ directory within the repository,
+        If plugin_src is a a string, it must be relative to the plugin/ directory within the repository.
+        If project_dest is a Path, it must be an absolute filepath in the project directory.
+        If project_dest is a string, it must be relative to the project directory.
         """
         # Use given relative paths to create full paths
-        plugin_src_path = WORKDIR / plugin_src
-        project_dest_path = self.project_dir / project_dest
-        project_dest_path.mkdir(parents=True, exist_ok=True)
+        if isinstance(plugin_src, str):
+            plugin_src = WORKDIR / plugin_src
 
-        if plugin_src_path.is_dir():
-            src_files = list(plugin_src_path.glob("*"))
+        if isinstance(project_dest, str):
+            project_dest = self.project_dir / project_dest
+
+        project_dest.mkdir(parents=True, exist_ok=True)
+
+        if plugin_src.is_dir():
+            src_files = list(plugin_src.glob("*"))
         else:
-            src_files = [plugin_src_path]
+            src_files = [plugin_src]
 
         for src_file in src_files:
-            dest_file = project_dest_path / src_file.name
+            dest_file = project_dest / src_file.name
             dest_file.write_bytes(src_file.read_bytes())
 
 
