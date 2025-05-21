@@ -202,9 +202,10 @@ def check_unlinked_attachment_files(project: FieldDataCaptureProject) -> Validat
         # If failed
         number_unlinked_files = len(unlinked_files)
         if number_unlinked_files > 0:
-            result.status = ValidationStatus.FAIL
+            result.status = ValidationStatus.WARNING
             result.messages.append(
-                f"Unlinked directory for '{table}' table contains {number_unlinked_files} files."
+                f"Directory 'unlinked' for '{table}' table contains {number_unlinked_files} file(s), "
+                "these files will not be included in reports or visible in QGIS forms."
             )
 
     return result
