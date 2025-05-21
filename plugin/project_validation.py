@@ -68,6 +68,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
         check_attachment_filepaths_recorded,
         check_no_conflict_gpkg_exists,
         check_required_filepaths_in_project_dir,
+        check_no_user_filepaths_in_project_dir,
     ]
 
     results = [
@@ -362,5 +363,38 @@ def check_required_filepaths_in_project_dir(project: FieldDataCaptureProject) ->
         for filepath in required_filepaths:
             if filepath not in all_files:
                 result.messages.append(f"Required file or directory missing from project directory: {filepath.name}")
+
+    return result
+
+
+def check_no_user_filepaths_in_project_dir(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that no user files are directly in the project directory.
+    """
+    result = ValidationResult(validation_function=check_no_user_filepaths_in_project_dir.__name__)
+    # Files and directories required by the project
+    valid_filepaths = [project.db_file, project.qgz_file, project.photos_dir, project.media_dir,
+                       project.baseline_data_dir, project.system_files_dir]
+    # Files and directories defined py the project
+    valid_filepaths.extend([project.html_report_file, project.pdf_report_file])
+    # Additional file and directories that may be created
+    valid_filepaths.append(project.project_dir / "proj")
+    valid_filepaths.append(project.project_dir / ".mergin")
+    valid_filepaths.append(project.project_dir / f"{project.qgz_file.stem}.gpkg-shm")
+    valid_filepaths.append(project.project_dir / f"{project.qgz_file.stem}.gpkg-wal")
+
+    # Perform check
+    all_files = list(project.project_dir.glob("*"))
+    # Conflict GeoPackage files are not user files
+    all_files = [filepath for filepath in all_files if "conflicted copy" not in filepath.name]
+    user_files = [filepath.name for filepath in all_files if filepath not in valid_filepaths]
+
+    # Prepare results
+    # If failed
+    if len(user_files) > 0:
+        result.status = ValidationStatus.WARNING
+        for user_file in user_files:
+            result.messages.append(f"User file found in project dir: {user_file}; "
+                                   "all user files should be in media, photos or baseline_data")
 
     return result

@@ -48,6 +48,10 @@ def fdc_project_bad(tmp_path: Path) -> Path:
     dummy_conflict_gpkg = project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
+    # Add a dummy user file to the project
+    dummy_user_file = project_dir / "test_project.doc"
+    dummy_user_file.touch()
+
     dummy_unlinked_files = [
         project.photos_dir / project.unlinked_dir_name / "dummy_a.png",
         project.photos_dir / project.unlinked_dir_name / "dummy_b.png",
@@ -157,7 +161,15 @@ def test_validate_project_bad(fdc_project_bad: Path):
             validation_function='check_required_filepaths_in_project_dir',
             status=ValidationStatus.FAIL,
             messages=[
-                'Required file or directory missing from project directory: baseline_data',
+                "Required file or directory missing from project directory: baseline_data",
+            ],
+        ),
+        ValidationResult(
+            validation_function='check_no_user_filepaths_in_project_dir',
+            status=ValidationStatus.WARNING,
+            messages=[
+                "User file found in project dir: test_project.doc; "
+                "all user files should be in media, photos or baseline_data",
             ],
         ),
     ]
