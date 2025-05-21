@@ -308,11 +308,11 @@ def test_create_thumbnails(report_builder: ReportBuilder):
 
     def assert_images_and_subdirs_match():
         assert image_files(report_builder.photos_dir) == image_files(report_builder.thumbnails_dir)
-        photo_dirs = subdirs(report_builder.photos_dir)
+        photo_dirs = [str(sub) for sub in subdirs(report_builder.photos_dir)]
         # Remove unlinked dir as it should not be in the thumbnail dir
         if report_builder.unlinked_dir_name in photo_dirs:
             photo_dirs.remove(report_builder.unlinked_dir_name)
-        assert photo_dirs == subdirs(report_builder.thumbnails_dir)
+        assert photo_dirs == [str(sub) for sub in subdirs(report_builder.thumbnails_dir)]
 
     def assert_thumbnail_sizes(thumbnail_size):
         # A thumbnail's maximum dimension should be THUMBNAIL_SIZE pixels

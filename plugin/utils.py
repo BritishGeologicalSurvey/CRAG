@@ -39,6 +39,8 @@ from PyQt5.QtCore import pyqtRemoveInputHook
 from .config import TABLE_LIST
 from .create_gpkg_from_sql import WORKDIR
 
+SYSTEM_DIR_NAME = ".field_data_capture"
+
 
 class FieldDataCaptureProject:
     """
@@ -48,12 +50,9 @@ class FieldDataCaptureProject:
     """
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
-    system_dir_name = Path(".field_data_capture")
-    placeholder_filename = Path(".placeholder.txt")
-    css_filename = Path("style.css")
-    bgs_logo_filename = Path("BGS-placeholder.png")
-    unlinked_dir_name = Path("unlinked")
-    icons_dir_name = Path("icons")
+    placeholder_filename = ".placeholder.txt"
+    bgs_logo_filename = "BGS-placeholder.png"
+    unlinked_dir_name = "unlinked"
     # Using locally downloaded woff2 of Google's Material Symbols Outlined font
     # See: https://fonts.google.com/icons
     # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -114,7 +113,7 @@ class FieldDataCaptureProject:
         """
         Get the styles directory path from the current project.
         """
-        return self.project_dir / self.system_dir_name / "styles"
+        return self.project_dir / SYSTEM_DIR_NAME / "styles"
 
     @property
     def photos_dir(self) -> Path:
@@ -128,7 +127,7 @@ class FieldDataCaptureProject:
         """
         Get the thumbnails directory path from the current project.
         """
-        return self.project_dir / self.system_dir_name / ".thumbnails"
+        return self.project_dir / SYSTEM_DIR_NAME / ".thumbnails"
 
     @property
     def media_dir(self) -> Path:
@@ -149,14 +148,14 @@ class FieldDataCaptureProject:
         """
         Get the icons directory path from the plugin folder.
         """
-        return WORKDIR / self.icons_dir_name
+        return WORKDIR / "icons"
 
     @property
     def icons_dest_dir(self) -> Path:
         """
         Get the icons directory path from the project folder.
         """
-        return self.project_dir / self.system_dir_name / self.icons_dir_name
+        return self.project_dir / SYSTEM_DIR_NAME / "icons"
 
     @property
     def html_report_file(self) -> Path:
@@ -177,14 +176,14 @@ class FieldDataCaptureProject:
         """
         Get the ccs file path from the plugin folder.
         """
-        return WORKDIR / "css" / self.css_filename
+        return WORKDIR / "css" / "style.css"
 
     @property
     def css_dest_dir(self) -> Path:
         """
         Get the ccs directory from the current project.
         """
-        return self.project_dir / self.system_dir_name / "css"
+        return self.project_dir / SYSTEM_DIR_NAME / "css"
 
     @property
     def font_src_file(self) -> Path:
@@ -198,7 +197,7 @@ class FieldDataCaptureProject:
         """
         Get the ccs directory from the current project.
         """
-        return self.project_dir / self.system_dir_name / "fonts"
+        return self.project_dir / SYSTEM_DIR_NAME / "fonts"
 
     @property
     def templates_dir(self) -> Path:
@@ -212,7 +211,7 @@ class FieldDataCaptureProject:
         """
         Get the icons directory path from the plugin folder.
         """
-        return WORKDIR / "help" / Path("index.html")
+        return WORKDIR / "help" / "index.html"
 
     @property
     def layers_to_dirs(self) -> dict[str, Path]:
@@ -230,7 +229,7 @@ class FieldDataCaptureProject:
         """
         The default string used to populate attachment filepaths in the forms.
         """
-        return f"../{self.system_dir_name}/{self.icons_dir_name}/{self.bgs_logo_filename}"
+        return f"../{SYSTEM_DIR_NAME}/icons/{self.bgs_logo_filename}"
 
 
     def copy_plugin_files_to_project(self, plugin_src: Path | str, project_dest: Path | str) -> None:
@@ -473,9 +472,9 @@ class FieldDataCaptureProject:
             if all((
                 attachment.is_file(),
                 attachment.relative_to(attachment_dir) not in recorded_attachments,
-                attachment.name not in {self.placeholder_filename.name, self.bgs_logo_filename.name},
+                attachment.name not in {self.placeholder_filename, self.bgs_logo_filename},
                 # If it is not in the unlinked dir
-                attachment.relative_to(attachment_dir).parts[0] != self.unlinked_dir_name.name,
+                attachment.relative_to(attachment_dir).parts[0] != self.unlinked_dir_name,
             ))
         ]
 

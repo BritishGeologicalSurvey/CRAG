@@ -195,7 +195,7 @@ def check_unlinked_attachment_files(project: FieldDataCaptureProject) -> Validat
         unlinked_files = [
             filepath
             for filepath in unlinked_dir.rglob("*")
-            if filepath.name != project.placeholder_filename.name
+            if filepath.name != project.placeholder_filename
         ]
 
         # Prepare results
