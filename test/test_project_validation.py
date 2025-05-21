@@ -183,8 +183,8 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch_multi
     expected_title = "Project Validation"
     expected_message = "Validation for project 'test_project_dir': FAILED"
     expected_text = "\n".join([
-        f"• Unlinked file in 'photo' directory: {dummy_photo}",
-        "\n• Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
+        f"• FAILED: Unlinked file in 'photo' directory: {dummy_photo}",
+        "\n• WARNING: Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
     ])
 
     # Act
