@@ -187,6 +187,12 @@ class FieldDataCaptureProject:
         """
         return WORKDIR / "templates"
 
+    @property
+    def help_file(self) -> Path:
+        """
+        Get the icons directory path from the plugin folder.
+        """
+        return WORKDIR / "help" / Path("index.html")
 
     @property
     def layers_to_dirs(self) -> dict[str, Path]:

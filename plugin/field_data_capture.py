@@ -51,10 +51,11 @@ from qgis.gui import (
     QgisInterface,
     QgsMapTool,
 )
-from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import QCoreApplication, QUrl
 from qgis.PyQt.QtGui import (
     QColor,
     QIcon,
+    QDesktopServices,
 )
 from qgis.PyQt.QtWidgets import (
     QAction,
@@ -141,6 +142,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         self.file_linker: Optional[FileLinker] = None
         self.line_layer_selector: Optional[LineLayerSelector] = None
         self.settings_dialog: Optional[SettingsDialog] = None
+        self.help_action: Optional[QAction] = None
 
         logger.debug("Field Data Capture plugin initialised.")
 
@@ -397,6 +399,14 @@ class FieldDataCapture(FieldDataCaptureProject):
             submenu=advanced_submenu
         )
 
+        self.add_action(
+            None,
+            text=self.tr(u'Help'),
+            callback=self.show_help,
+            parent=self.iface.mainWindow(),
+            submenu=advanced_submenu
+        )
+
         advanced_submenu.addSeparator()
 
         self.add_action(
@@ -450,6 +460,15 @@ class FieldDataCapture(FieldDataCaptureProject):
             submenu=advanced_submenu,
         )
 
+        # Additionally, add action to main QGIS Help -> Plugins menu
+        self.help_action = self.add_action(
+            None,
+            text=self.tr(u'Field Data Capture'),
+            callback=self.show_help,
+            add_to_menu=False,
+        )
+        self.iface.pluginHelpMenu().addAction(self.help_action)
+
         # will be set False in run()
         self.first_start = True
 
@@ -466,7 +485,9 @@ class FieldDataCapture(FieldDataCaptureProject):
                 action)
             self.iface.removeToolBarIcon(action)
 
-        # Delete the Field Data Capture toolbar
+        if self.help_action:
+            self.iface.pluginHelpMenu().removeAction(self.help_action)
+
         del self.toolbar
 
 
@@ -1274,3 +1295,8 @@ class FieldDataCapture(FieldDataCaptureProject):
         if self.settings_dialog is not None:
             del self.settings_dialog
             self.settings_dialog = None
+
+
+    def show_help(self):
+        """ Open the online help. """
+        QDesktopServices.openUrl(QUrl(f"file:///{self.help_file}"))
