@@ -106,10 +106,12 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_unlinked_attachment_files",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.WARNING,
             messages=[
-                "Unlinked directory for 'media' table contains 1 files.",
-                "Unlinked directory for 'photo' table contains 2 files.",
+                ("Directory 'unlinked' for 'media' table contains 1 file(s), "
+                 "these files will not be included in reports or visible in QGIS forms."),
+                ("Directory 'unlinked' for 'photo' table contains 2 file(s), "
+                 "these files will not be included in reports or visible in QGIS forms."),
             ],
         ),
         ValidationResult(
