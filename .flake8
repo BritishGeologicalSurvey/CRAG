@@ -1,6 +1,6 @@
 [flake8]
 max-line-length = 120
 # The below files were automatically generated using the QGIS plugin builder
-exclude = plugin/__init__.py,plugin/resources.py
+exclude = plugin/__init__.py,plugin/resources.py,plugin/zip_build
 # This refers to a rule that there can only be 1 line of spacing between class methods
 ignore = E303
