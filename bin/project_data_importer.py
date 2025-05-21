@@ -12,7 +12,7 @@ import etlhelper as etl
 
 from plugin.config import (
     FEATURE_TABLES,
-    LOCALITY_POINT_CHILDREN,
+    ATTRIBUTE_TABLES,
 )
 from plugin.utils import ipdb_breakpoint  # noqa
 
@@ -151,7 +151,7 @@ class ProjectDataImporter:
         """
         # Don't copy field_project
         feature_tables = FEATURE_TABLES - {"field_project"}  # locality_point plus line layers
-        for table_set in [feature_tables, LOCALITY_POINT_CHILDREN]:
+        for table_set in [feature_tables, ATTRIBUTE_TABLES]:
             for table in table_set:
                 try:
                     # If there are rows to copy

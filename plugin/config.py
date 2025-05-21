@@ -68,8 +68,6 @@ ATTRIBUTE_TABLES = {table for table in TABLES['attributes']
 
 TABLE_LIST = sorted(TABLES["features"] + TABLES["attributes"])
 
-LOCALITY_POINT_CHILDREN = ATTRIBUTE_TABLES - {"field_project"}
-
 FEATURE_STR_IDENTIFIERS = {
     **{
         "locality_point": "name",
@@ -114,7 +112,7 @@ LAYER_TREE_STRUCTURE = [
     },
     {
         "group": "locality_data",
-        "tables": sorted(list(LOCALITY_POINT_CHILDREN)),
+        "tables": sorted(list(ATTRIBUTE_TABLES)),
     },
     {
         "group": "metadata",

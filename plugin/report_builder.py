@@ -19,7 +19,7 @@ from qgis.core import (
 )
 from qgis.PyQt.QtWidgets import QMessageBox
 
-from .config import LOCALITY_POINT_CHILDREN, THUMBNAIL_SIZE
+from .config import ATTRIBUTE_TABLES, THUMBNAIL_SIZE
 from .pdf_content import ReportTemplate
 from .utils import (  # noqa
     FieldDataCaptureProject,
@@ -227,7 +227,7 @@ class ReportBuilder(FieldDataCaptureProject):
         Get the child data for each attribute for a given locality
         """
         children = {}
-        for child_table_name in LOCALITY_POINT_CHILDREN:
+        for child_table_name in ATTRIBUTE_TABLES:
             children[child_table_name] = []
             child_rows = self.get_child_rows_for_locality_from_table(child_table_name, locality_name)
             for child in child_rows:

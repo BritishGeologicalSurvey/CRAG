@@ -69,7 +69,7 @@ from .resources import *  # noqa
 
 from .config import (
     FEATURE_TABLES_LINES,
-    LOCALITY_POINT_CHILDREN,
+    ATTRIBUTE_TABLES,
     TABLE_LIST,
     LAYER_TREE_STRUCTURE,
 )
@@ -1189,7 +1189,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             unsaved_layers.append(parent_layer_name)
 
         # Check the child layers
-        for layer_name in LOCALITY_POINT_CHILDREN:
+        for layer_name in ATTRIBUTE_TABLES:
             layer = self.get_fdc_layer(layer_name)
             if layer.isModified():
                 unsaved_layers.append(layer_name)

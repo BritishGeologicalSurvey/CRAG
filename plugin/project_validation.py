@@ -5,7 +5,7 @@ from pathlib import Path
 from .config import (
     FEATURE_STR_IDENTIFIERS,
     FEATURE_TABLES,
-    LOCALITY_POINT_CHILDREN,
+    ATTRIBUTE_TABLES,
 )
 from .utils import (  # noqa
     FieldDataCaptureProject,
@@ -139,7 +139,7 @@ def check_locality_children_valid_parents(project: FieldDataCaptureProject) -> V
         for row in get_table_rows(project.db_file, "SELECT uuid FROM locality_point")
     }
 
-    for table in sorted(LOCALITY_POINT_CHILDREN):
+    for table in sorted(ATTRIBUTE_TABLES):
         feature_identifier = FEATURE_STR_IDENTIFIERS[table]
         rows = get_table_rows(project.db_file, f"SELECT locality_fuid, {feature_identifier} FROM {table}")
 
