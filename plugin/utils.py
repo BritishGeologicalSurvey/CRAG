@@ -109,11 +109,18 @@ class FieldDataCaptureProject:
         return next(self.project_dir.glob('*.qgz'))
 
     @property
+    def system_files_dir(self) -> Path:
+        """
+        Get the system files directory path from the current project.
+        """
+        return self.project_dir / SYSTEM_DIR_NAME
+
+    @property
     def styles_dir(self) -> Path:
         """
         Get the styles directory path from the current project.
         """
-        return self.project_dir / SYSTEM_DIR_NAME / "styles"
+        return self.system_files_dir / "styles"
 
     @property
     def photos_dir(self) -> Path:
@@ -127,7 +134,7 @@ class FieldDataCaptureProject:
         """
         Get the thumbnails directory path from the current project.
         """
-        return self.project_dir / SYSTEM_DIR_NAME / ".thumbnails"
+        return self.system_files_dir / ".thumbnails"
 
     @property
     def media_dir(self) -> Path:
@@ -155,7 +162,7 @@ class FieldDataCaptureProject:
         """
         Get the icons directory path from the project folder.
         """
-        return self.project_dir / SYSTEM_DIR_NAME / "icons"
+        return self.system_files_dir / "icons"
 
     @property
     def html_report_file(self) -> Path:
@@ -183,7 +190,7 @@ class FieldDataCaptureProject:
         """
         Get the ccs directory from the current project.
         """
-        return self.project_dir / SYSTEM_DIR_NAME / "css"
+        return self.system_files_dir / "css"
 
     @property
     def font_src_file(self) -> Path:
@@ -197,7 +204,7 @@ class FieldDataCaptureProject:
         """
         Get the ccs directory from the current project.
         """
-        return self.project_dir / SYSTEM_DIR_NAME / "fonts"
+        return self.system_files_dir / "fonts"
 
     @property
     def templates_dir(self) -> Path:
