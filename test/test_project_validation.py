@@ -194,3 +194,27 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch_multi
 
     # Assert
     MultilineMessageBox.critical.assert_called_once_with(expected_title, expected_message, expected_text)
+
+
+def test_validation_dialog_warning(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
+    # Arrange
+    # Add unlinked photo to the project
+    dummy_photo = fdc_project.photos_dir / "unlinked" / "not_a_photo.png"
+    dummy_photo.touch()
+    # Add a dummy conflict GeoPackage to the project
+    dummy_conflict_gpkg = fdc_project.project_dir / "test_project (conflicted copy).gpkg"
+    dummy_conflict_gpkg.touch()
+
+    expected_title = "Project Validation"
+    expected_message = "Validation for project 'test_project_dir': WARNING"
+    expected_text = "\n".join([
+        ("• WARNING: Directory 'unlinked' for 'photo' table contains 1 file(s), "
+         "these files will not be included in reports or visible in QGIS forms."),
+        "\n• WARNING: Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
+    ])
+
+    # Act
+    fdc_project.run_project_validation()
+
+    # Assert
+    MultilineMessageBox.warning.assert_called_once_with(expected_title, expected_message, expected_text)
