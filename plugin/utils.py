@@ -48,6 +48,7 @@ class FieldDataCaptureProject:
     """
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
+    system_dir_name = Path(".field_data_capture")
     placeholder_filename = Path(".placeholder.txt")
     css_filename = Path("style.css")
     bgs_logo_filename = Path("BGS-placeholder.png")
@@ -113,7 +114,7 @@ class FieldDataCaptureProject:
         """
         Get the styles directory path from the current project.
         """
-        return self.project_dir / "styles"
+        return self.project_dir / self.system_dir_name / "styles"
 
     @property
     def photos_dir(self) -> Path:
@@ -127,7 +128,7 @@ class FieldDataCaptureProject:
         """
         Get the thumbnails directory path from the current project.
         """
-        return self.project_dir / ".thumbnails"
+        return self.project_dir / self.system_dir_name / ".thumbnails"
 
     @property
     def media_dir(self) -> Path:
@@ -155,7 +156,7 @@ class FieldDataCaptureProject:
         """
         Get the icons directory path from the project folder.
         """
-        return self.project_dir / self.icons_dir_name
+        return self.project_dir / self.system_dir_name / self.icons_dir_name
 
     @property
     def html_report_file(self) -> Path:
@@ -183,7 +184,7 @@ class FieldDataCaptureProject:
         """
         Get the ccs directory from the current project.
         """
-        return self.project_dir / "css"
+        return self.project_dir / self.system_dir_name / "css"
 
     @property
     def font_src_file(self) -> Path:
@@ -197,7 +198,7 @@ class FieldDataCaptureProject:
         """
         Get the ccs directory from the current project.
         """
-        return self.project_dir / "fonts"
+        return self.project_dir / self.system_dir_name / "fonts"
 
     @property
     def templates_dir(self) -> Path:
@@ -229,7 +230,7 @@ class FieldDataCaptureProject:
         """
         The default string used to populate attachment filepaths in the forms.
         """
-        return f"../{self.icons_dir_name}/{self.bgs_logo_filename}"
+        return f"../{self.system_dir_name}/{self.icons_dir_name}/{self.bgs_logo_filename}"
 
 
     def copy_plugin_files_to_project(self, plugin_src: Path | str, project_dest: Path | str) -> None:

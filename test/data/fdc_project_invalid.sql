@@ -10,7 +10,7 @@ INSERT INTO "locality_point" VALUES (2,'{5967418c-ca0e-466e-b21a-2d826500e5cf}',
 INSERT INTO "lithology" VALUES (1,'{1fe7ea1e-f57c-4a52-9818-e531664c0728}','{b41f8f98-6cc8-40f1-acfe-d5102714db18}','RY',NULL,'leorud','2024-07-30T13:32:28.706');
 INSERT INTO "lithology" VALUES (2,'{f9adb006-edb7-402b-b1ff-03128dbacc38}','{5967418c-ca0e-466e-b21a-2d826500e5cf}','BA',NULL,'leorud','2024-07-30T13:32:53.647');
 INSERT INTO "media" VALUES(1,'{ac267d95-db70-4299-b019-c52599ca1e5f}','{not-a-valid-locality_point_fuid}','video','file_does_no_exist.mov','Media with invalid locality_point parent','leorud','2024-07-30T13:34:39.807');
-INSERT INTO "media" VALUES(2,'{bc267d95-db70-4299-b019-c52599ca1e5f}','{b41f8f98-6cc8-40f1-acfe-d5102714db18}','image','../icons/BGS-placeholder.png','Media with BGS placeholder image','leorud','2024-07-30T13:34:39.807');
+INSERT INTO "media" VALUES(2,'{bc267d95-db70-4299-b019-c52599ca1e5f}','{b41f8f98-6cc8-40f1-acfe-d5102714db18}','image','../.field_data_capture/icons/BGS-placeholder.png','Media with BGS placeholder image','leorud','2024-07-30T13:34:39.807');
 INSERT INTO "photo" VALUES (1,'{70d7ed67-97ab-41ca-867d-a3865fcd94bc}','{5967418c-ca0e-466e-b21a-2d826500e5cf}','sub_dir/exif_data.jpg','This is not a goose','leorud','2024-07-30T13:34:39.776');
 INSERT INTO "photo" VALUES (2,'{1ad55965-8412-4140-92d2-e8bc8f514e6f}','{b41f8f98-6cc8-40f1-acfe-d5102714db18}','file_does_no_exist.jpg','This is not a duck','leorud','2024-07-30T13:34:39.807');
 INSERT INTO "photo" VALUES (3,'{3ad55965-8412-4140-92d2-e8bc8f514e6f}','{b41f8f98-6cc8-40f1-acfe-d5102714db18}',NULL,'This is not a goose or a duck','leorud','2024-07-30T13:34:39.807');
