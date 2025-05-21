@@ -93,6 +93,9 @@ class FieldDataCaptureProject:
         else:
             return self._project_dir
 
+    #
+    # Files and paths visible in the project directory
+    #
     @property
     def db_file(self) -> Path:
         """
@@ -109,32 +112,11 @@ class FieldDataCaptureProject:
         return next(self.project_dir.glob('*.qgz'))
 
     @property
-    def system_files_dir(self) -> Path:
-        """
-        Get the system files directory path from the current project.
-        """
-        return self.project_dir / SYSTEM_DIR_NAME
-
-    @property
-    def styles_dir(self) -> Path:
-        """
-        Get the styles directory path from the current project.
-        """
-        return self.system_files_dir / "styles"
-
-    @property
     def photos_dir(self) -> Path:
         """
         Get the photos directory path from the current project.
         """
         return self.project_dir / "photos"
-
-    @property
-    def thumbnails_dir(self) -> Path:
-        """
-        Get the thumbnails directory path from the current project.
-        """
-        return self.system_files_dir / ".thumbnails"
 
     @property
     def media_dir(self) -> Path:
@@ -151,20 +133,6 @@ class FieldDataCaptureProject:
         return self.project_dir / "baseline_data"
 
     @property
-    def icons_src_dir(self) -> Path:
-        """
-        Get the icons directory path from the plugin folder.
-        """
-        return WORKDIR / "icons"
-
-    @property
-    def icons_dest_dir(self) -> Path:
-        """
-        Get the icons directory path from the project folder.
-        """
-        return self.system_files_dir / "icons"
-
-    @property
     def html_report_file(self) -> Path:
         """
         Get the HTML field report file path from the current project.
@@ -179,11 +147,35 @@ class FieldDataCaptureProject:
         return self.project_dir / f"{self.qgz_file.stem}_field_report.pdf"
 
     @property
-    def css_src_file(self) -> Path:
+    def system_files_dir(self) -> Path:
         """
-        Get the ccs file path from the plugin folder.
+        Get the system files directory path from the current project.
         """
-        return WORKDIR / "css" / "style.css"
+        return self.project_dir / SYSTEM_DIR_NAME
+
+    #
+    # Files and paths hidden in the system files directory
+    #
+    @property
+    def styles_dir(self) -> Path:
+        """
+        Get the styles directory path from the current project.
+        """
+        return self.system_files_dir / "styles"
+
+    @property
+    def thumbnails_dir(self) -> Path:
+        """
+        Get the thumbnails directory path from the current project.
+        """
+        return self.system_files_dir / ".thumbnails"
+
+    @property
+    def icons_dest_dir(self) -> Path:
+        """
+        Get the icons directory path from the project folder.
+        """
+        return self.system_files_dir / "icons"
 
     @property
     def css_dest_dir(self) -> Path:
@@ -193,18 +185,35 @@ class FieldDataCaptureProject:
         return self.system_files_dir / "css"
 
     @property
-    def font_src_file(self) -> Path:
-        """
-        Get the font file path from the plugin folder.
-        """
-        return WORKDIR / "fonts" / FONT_FILENAME
-
-    @property
     def font_dest_dir(self) -> Path:
         """
         Get the ccs directory from the current project.
         """
         return self.system_files_dir / "fonts"
+
+    #
+    # Files and paths in the plugin directory
+    #
+    @property
+    def icons_src_dir(self) -> Path:
+        """
+        Get the icons directory path from the plugin folder.
+        """
+        return WORKDIR / "icons"
+
+    @property
+    def css_src_file(self) -> Path:
+        """
+        Get the ccs file path from the plugin folder.
+        """
+        return WORKDIR / "css" / "style.css"
+
+    @property
+    def font_src_file(self) -> Path:
+        """
+        Get the font file path from the plugin folder.
+        """
+        return WORKDIR / "fonts" / FONT_FILENAME
 
     @property
     def templates_dir(self) -> Path:
