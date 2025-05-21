@@ -40,6 +40,10 @@ from .config import TABLE_LIST
 from .create_gpkg_from_sql import WORKDIR
 
 SYSTEM_DIR_NAME = ".field_data_capture"
+# Using locally downloaded woff2 of Google's Material Symbols Outlined font
+# See: https://fonts.google.com/icons
+# Licence: https://www.apache.org/licenses/LICENSE-2.0.html
+FONT_FILENAME = "MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2"
 
 
 class FieldDataCaptureProject:
@@ -53,10 +57,6 @@ class FieldDataCaptureProject:
     placeholder_filename = ".placeholder.txt"
     bgs_logo_filename = "BGS-placeholder.png"
     unlinked_dir_name = "unlinked"
-    # Using locally downloaded woff2 of Google's Material Symbols Outlined font
-    # See: https://fonts.google.com/icons
-    # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
-    font_filename = Path("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2")
     layers_to_file_attributes = {
         "media": "media_link",
         "photo": "photo_file",
@@ -190,7 +190,7 @@ class FieldDataCaptureProject:
         """
         Get the font file path from the plugin folder.
         """
-        return WORKDIR / "fonts" / self.font_filename
+        return WORKDIR / "fonts" / FONT_FILENAME
 
     @property
     def font_dest_dir(self) -> Path:
