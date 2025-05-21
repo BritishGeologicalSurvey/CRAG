@@ -34,6 +34,8 @@ def fdc_project_bad(tmp_path: Path) -> Path:
             Path("test/data/photos/no_exif_data.jpg"),
         ],
         "media": [],
+        ".field_data_capture": [],
+        # baseline_data omitted for test
     }
 
     create_fdc_project_files(
@@ -149,6 +151,13 @@ def test_validate_project_bad(fdc_project_bad: Path):
             status=ValidationStatus.WARNING,
             messages=[
                 "Conflict GeoPackage file found: test_project (conflicted copy).gpkg",
+            ],
+        ),
+        ValidationResult(
+            validation_function='check_required_filepaths_in_project_dir',
+            status=ValidationStatus.FAIL,
+            messages=[
+                'Required file or directory missing from project directory: baseline_data',
             ],
         ),
     ]

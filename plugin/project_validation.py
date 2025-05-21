@@ -67,6 +67,7 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
         check_attached_filepaths_exist,
         check_attachment_filepaths_recorded,
         check_no_conflict_gpkg_exists,
+        check_required_filepaths_in_project_dir,
     ]
 
     results = [
@@ -337,5 +338,29 @@ def check_no_conflict_gpkg_exists(project: FieldDataCaptureProject) -> Validatio
         result.status = ValidationStatus.WARNING
         for conflict_file in conflict_files:
             result.messages.append(f"Conflict GeoPackage file found: {conflict_file.name}")
+
+    return result
+
+
+def check_required_filepaths_in_project_dir(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that all required files and paths are in the project directory.
+    """
+    result = ValidationResult(validation_function=check_required_filepaths_in_project_dir.__name__)
+
+    # Files and directories required by the project
+    required_filepaths = {project.db_file, project.qgz_file, project.photos_dir, project.media_dir,
+                          project.baseline_data_dir, project.system_files_dir}
+
+    # Perform check
+    all_files = set(project.project_dir.glob("*"))
+
+    # Prepare results
+    # If failed
+    if not required_filepaths.issubset(all_files):
+        result.status = ValidationStatus.FAIL
+        for filepath in required_filepaths:
+            if filepath not in all_files:
+                result.messages.append(f"Required file or directory missing from project directory: {filepath.name}")
 
     return result
