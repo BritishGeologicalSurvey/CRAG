@@ -187,7 +187,7 @@ class FieldDataCaptureProject:
     @property
     def font_dest_dir(self) -> Path:
         """
-        Get the ccs directory from the current project.
+        Get the font directory from the current project.
         """
         return self.system_files_dir / "fonts"
 
@@ -225,7 +225,7 @@ class FieldDataCaptureProject:
     @property
     def help_file(self) -> Path:
         """
-        Get the icons directory path from the plugin folder.
+        Get the help directory path from the plugin folder.
         """
         return WORKDIR / "help" / "index.html"
 
