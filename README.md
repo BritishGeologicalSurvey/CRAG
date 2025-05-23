@@ -24,16 +24,17 @@ See the [Versions and Feedback](https://kwvmxgit.ad.nerc.ac.uk/field-data-captur
 
 ## File Downloads
 
-- [ER Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram.png?job=publish_artifacts)
 - [Field Data Capture GPKG](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/field-data-capture.gpkg?job=publish_artifacts)
 
-## ER Diagram
+### ER Diagram
 
 There are 2 "primary key" columns on the data tables.  `fid` is used by QGIS/Geopackage.  We let the respective tool populate those and consider them unstable as the `fid` can change during Mergin Maps syncing process.  The `uuid` column is the unique key used to define parent-child relationships.
 
 Note that all non-dictionary tables also have `recorded_by` and `recorded_on` columns.
 
-![ER Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram.png?job=publish_artifacts)
+- [Locality Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram-locality.png?job=publish_artifacts)
+- [Lines Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram-lines.png?job=publish_artifacts)
+- [Views Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram-views.png?job=publish_artifacts)
 
 ## Overall philosophy
 
