@@ -583,7 +583,8 @@ class FieldDataCapture(FieldDataCaptureProject):
         for directory in create_dirs:
             directory.mkdir(parents=True, exist_ok=True)
             placeholder_txt = directory / self.placeholder_filename
-            placeholder_txt.write_text("This is a placeholder file to ensure the parent folder is uploaded to Mergin.")
+            placeholder_txt.write_text("This is a placeholder file to ensure that the parent folder "
+                                       "is included if synchronised via Mergin Maps.")
 
         # Copy BGS logo for default photo
         self.copy_plugin_files_to_project(self.icons_src_dir / self.bgs_logo_filename, self.icons_dest_dir)

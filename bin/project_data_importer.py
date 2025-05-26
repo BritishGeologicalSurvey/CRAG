@@ -255,7 +255,7 @@ class ProjectDataImporter:
         for feature_dir in ["photos", "media"]:
             logger.info("Copying feature files from directory: %s", feature_dir)
             # For each feature file in the source project directory (excluding placeholders)
-            for src_file in (self.src_dir / feature_dir).rglob("*[!placeholder.txt]"):
+            for src_file in (self.src_dir / feature_dir).rglob("*[!.placeholder.txt]"):
                 # Ignore directories
                 if src_file.is_file():
                     relative_src_file = src_file.relative_to(self.src_dir / feature_dir)

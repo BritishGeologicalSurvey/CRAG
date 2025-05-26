@@ -48,7 +48,7 @@ class FieldDataCaptureProject:
     """
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
-    placeholder_filename = Path("placeholder.txt")
+    placeholder_filename = Path(".placeholder.txt")
     css_filename = Path("style.css")
     bgs_logo_filename = Path("BGS-placeholder.png")
     unlinked_dir_name = Path("unlinked")
