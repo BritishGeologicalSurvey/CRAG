@@ -26,7 +26,6 @@ import os.path
 import pprint
 import sqlite3
 from collections import defaultdict
-from pathlib import Path
 from typing import (
     Any,
     Callable,
@@ -75,14 +74,11 @@ from .config import (
     LAYER_TREE_STRUCTURE,
 )
 from .create_gpkg_from_sql import main as gpkg_from_sql
-from .create_gpkg_from_sql import (
-    add_test_data,
-    WORKDIR,
-)
+from .create_gpkg_from_sql import add_test_data
 from .line_layer_selector import LineLayerSelector
 from .file_linker import FileLinker
 from .project_validation import (
-    ValidationDialog,
+    ValidationStatus,
     validate_project,
 )
 from .quick_map_tools import (
@@ -94,6 +90,7 @@ from .report_builder import ReportBuilder
 from .settings_dialog import SettingsDialog
 from .utils import (  # noqa
     FieldDataCaptureProject,
+    MultilineMessageBox,
     ipdb_breakpoint,
 )
 
@@ -265,7 +262,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         self.toolbar.setObjectName("".join(toolbar_text))
 
         self.quick_map_tool_buttons["fdc_locality_point_add"] = self.add_action(
-            str(self.icons_dir / "quick_locality_add.png"),
+            str(self.icons_src_dir / "quick_locality_add.png"),
             text=self.tr(u'Quick Add Locality Point'),
             callback=lambda: self.toggle_quick_map_tool(layer_name="locality_point", mode="add"),
             add_to_toolbar=True,
@@ -274,7 +271,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
 
         self.quick_map_tool_buttons["fdc_locality_point_edit"] = self.add_action(
-            str(self.icons_dir / "quick_locality_edit.png"),
+            str(self.icons_src_dir / "quick_locality_edit.png"),
             text=self.tr(u'Quick Edit Locality Point'),
             callback=lambda: self.toggle_quick_map_tool(layer_name="locality_point", mode="edit"),
             add_to_toolbar=True,
@@ -283,7 +280,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
 
         self.quick_map_tool_buttons["fdc_locality_point_delete"] = self.add_action(
-            str(self.icons_dir / "quick_locality_delete.png"),
+            str(self.icons_src_dir / "quick_locality_delete.png"),
             text=self.tr(u'Quick Delete Locality Point'),
             callback=lambda: self.toggle_quick_map_tool(layer_name="locality_point", mode="delete"),
             add_to_toolbar=True,
@@ -293,7 +290,7 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         # Create a single add/edit/delete button for all line tables
         self.quick_map_tool_buttons["fdc_lines_add"] = self.add_action(
-            str(self.icons_dir / "quick_lines_add.png"),
+            str(self.icons_src_dir / "quick_lines_add.png"),
             text=self.tr(u'Quick Add Line'),
             callback=self.select_quick_line_layer_add,
             add_to_toolbar=True,
@@ -302,7 +299,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
 
         self.quick_map_tool_buttons["fdc_lines_edit"] = self.add_action(
-            str(self.icons_dir / "quick_lines_edit.png"),
+            str(self.icons_src_dir / "quick_lines_edit.png"),
             text=self.tr(u'Quick Edit Line'),
             callback=lambda: self.toggle_quick_map_tool(
                 layer_name=FEATURE_TABLES_LINES,
@@ -315,7 +312,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
 
         self.quick_map_tool_buttons["fdc_lines_delete"] = self.add_action(
-            str(self.icons_dir / "quick_lines_delete.png"),
+            str(self.icons_src_dir / "quick_lines_delete.png"),
             text=self.tr(u'Quick Delete Line'),
             callback=lambda: self.toggle_quick_map_tool(
                 layer_name=FEATURE_TABLES_LINES,
@@ -332,7 +329,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             self.quick_map_tool_buttons[f"fdc_{line_table}_add"] = self.quick_map_tool_buttons["fdc_lines_add"]
 
         self.add_action(
-            str(self.icons_dir / "open_project_folder.png"),
+            str(self.icons_src_dir / "open_project_folder.png"),
             text=self.tr(u'Open Project Folder'),
             callback=lambda: self.open_local_filepath(self.project_dir),
             add_to_toolbar=True,
@@ -575,9 +572,22 @@ class FieldDataCapture(FieldDataCaptureProject):
         # self.set_view_lithology_rules()
 
         # Create empty user directories
-        for directory in [self.photos_dir, self.media_dir, self.baseline_data_dir]:
+        create_dirs = [
+            self.photos_dir,
+            self.media_dir,
+            self.baseline_data_dir,
+            # Unlinked media dirs
+            self.photos_dir / self.unlinked_dir_name,
+            self.media_dir / self.unlinked_dir_name,
+        ]
+        for directory in create_dirs:
             directory.mkdir(parents=True, exist_ok=True)
-            (directory / self.placeholder_filename).touch()
+            placeholder_txt = directory / self.placeholder_filename
+            placeholder_txt.write_text("This is a placeholder file to ensure that the parent folder "
+                                       "is included if synchronised via Mergin Maps.")
+
+        # Copy BGS logo for default photo
+        self.copy_plugin_files_to_project(self.icons_src_dir / self.bgs_logo_filename, self.icons_dest_dir)
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
@@ -954,32 +964,6 @@ class FieldDataCapture(FieldDataCaptureProject):
         return True
 
 
-    def copy_plugin_files_to_project(self, plugin_src: Path | str, project_dest: Path | str) -> None:
-        """
-        Copy the files from the given plugin source directory into the given project destination directory.
-        If the src filepath is a directory, all files within it will be copied to the dest filepath directory.
-        If the src filepath is a file, it will be copied to the dest filepath directory.
-
-        The project_dest filepath must always be a directory.
-
-        The plugin_src filepath must be relative to the plugin/ directory within the repository.
-        The project_dest filepath must be relative to the project directory.
-        """
-        # Use given relative paths to create full paths
-        plugin_src_path = WORKDIR / plugin_src
-        project_dest_path = self.project_dir / project_dest
-        project_dest_path.mkdir(parents=True, exist_ok=True)
-
-        if plugin_src_path.is_dir():
-            src_files = list(plugin_src_path.glob("*"))
-        else:
-            src_files = [plugin_src_path]
-
-        for src_file in src_files:
-            dest_file = project_dest_path / src_file.name
-            dest_file.write_bytes(src_file.read_bytes())
-
-
     def export_qml_styles(self) -> bool:
         """
         Export the QML styles for layers which belong to the Field Data Capture project.
@@ -1263,14 +1247,49 @@ class FieldDataCapture(FieldDataCaptureProject):
 
     def run_project_validation(self) -> bool:
         """
-        Run the project validation against the current QGIS project.
+        Run the project validation against the current QGIS project and display the results in a message box.
         Returns a boolean indicating the success of the process.
         """
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True):
             return False
 
         results = validate_project(self.project_dir)
-        ValidationDialog(results)
+
+        status_to_str = {
+            ValidationStatus.FAIL: "FAILED",
+            ValidationStatus.WARNING: "WARNING",
+            ValidationStatus.PASS: "PASSED",
+        }
+        status_to_msgbox = {
+            ValidationStatus.FAIL: MultilineMessageBox.critical,
+            ValidationStatus.WARNING: MultilineMessageBox.warning,
+            ValidationStatus.PASS: MultilineMessageBox.information,
+        }
+
+        all_messages: list[str] = []
+        result_statuses: set[ValidationStatus] = set()
+        for result in results:
+            result_statuses.add(result.status)
+
+            if result.status < ValidationStatus.PASS:
+                display_messages = [
+                    # Add bullet point before each message
+                    f"• {status_to_str[result.status]}: " + message
+                    for message in result.messages
+                ]
+                all_messages.append("\n".join(display_messages))
+
+        # Get final status
+        final_status = min(result_statuses)
+
+        msgbox_method = status_to_msgbox[final_status]
+        message = f"Validation for project '{self.project_dir.name}': {status_to_str[final_status]}"
+        text = None
+        if final_status < ValidationStatus.PASS:
+            text = "\n\n".join(all_messages)
+
+        msgbox_method("Project Validation", message, text)
+
         return True
 
 

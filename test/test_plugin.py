@@ -145,6 +145,13 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         for qml_file in Path("plugin/styles").glob("*.qml")
     ]
     expected_slyr_style = Path("sigmaQ_2024_v2.xml")
+    expected_user_dirs = [
+        fdc.photos_dir,
+        fdc.media_dir,
+        fdc.baseline_data_dir,
+        fdc.photos_dir / fdc.unlinked_dir_name,
+        fdc.media_dir / fdc.unlinked_dir_name,
+    ]
 
     # Act
     fdc.add_gpkg_layers_to_project()
@@ -188,9 +195,9 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     assert (fdc.styles_dir / expected_slyr_style).exists()
 
     # Check that the empty user directories have been created
-    for directory in [fdc.photos_dir, fdc.media_dir, fdc.baseline_data_dir]:
+    for directory in expected_user_dirs:
         assert directory.exists()
-        assert list(directory.glob("*"))[0].name == fdc.placeholder_filename.name
+        assert list(directory.glob("*.*"))[0].name == fdc.placeholder_filename.name
 
 
 def test_open_create_field_project_already_exists(fdc_project: FieldDataCapture):
@@ -314,7 +321,7 @@ def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
     ]
 
     # Act
-    layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    layer = fdc_project.get_fdc_layer("locality_point")
     for expected_name in expected_locality_point_names:
         layer.startEditing()
         # Create a new feature with automatically generated values from the layer
@@ -360,13 +367,13 @@ def test_warn_unsaved_locality_data(
     unsaved_layers = ["locality_point", child_layer_name]
 
     # Manually make an edit to the locality_point layer and do not save it
-    locality_point_layer = QgsProject.instance().mapLayersByName("locality_point")[0]
+    locality_point_layer = fdc_project.get_fdc_layer("locality_point")
     locality_point_layer.startEditing()
     point_edit_field_index = [field.name() for field in locality_point_layer.fields()].index(point_edit_field)
     locality_point_layer.changeAttributeValue(fid=point_fid, field=point_edit_field_index, newValue=point_new_value)
 
     # Manually make an edit to the given child layer and do not save it
-    child_layer = QgsProject.instance().mapLayersByName(child_layer_name)[0]
+    child_layer = fdc_project.get_fdc_layer(child_layer_name)
     child_layer.startEditing()
     child_edit_field_index = [field.name() for field in child_layer.fields()].index(child_edit_field)
     child_layer.changeAttributeValue(fid=child_fid, field=child_edit_field_index, newValue=child_new_value)
@@ -405,7 +412,7 @@ def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
     # Assert
     hidden_type_widgets = set()
     # Check the layer fields directly
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
     for field_idx, field_name in enumerate(layer.fields().names()):
 
         # Get the widget config
@@ -463,7 +470,7 @@ def recursive_search_form(
 def test_default_field_project_fuid_attribute(fdc_project: FieldDataCapture, layer_name: str):
     # Arrange
     expected_field_project_fuid = "{85d48fd4-e66f-4436-833b-9e37691a7d4f}"
-    layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+    layer = fdc_project.get_fdc_layer(layer_name)
 
     # Act
     # Create a new feature with the default values applied
@@ -471,3 +478,17 @@ def test_default_field_project_fuid_attribute(fdc_project: FieldDataCapture, lay
 
     # Assert
     assert expected_field_project_fuid == feature.attribute("field_project_fuid")
+
+
+@pytest.mark.parametrize("layer_name", ("photo", "media"))
+def test_default_attachment_bgs_placeholder(fdc_project: FieldDataCapture, layer_name: str):
+    # Arrange
+    layer = fdc_project.get_fdc_layer(layer_name)
+    attachment_col = fdc_project.layers_to_file_attributes[layer_name]
+
+    # Act
+    # Create a new feature with the default values applied
+    feature = QgsVectorLayerUtils.createFeature(layer)
+
+    # Assert
+    assert fdc_project.default_attachment_str == feature.attribute(attachment_col)

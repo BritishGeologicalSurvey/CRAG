@@ -152,11 +152,8 @@ class ReportBuilder(FieldDataCaptureProject):
 
             with open(self.html_report_file, mode="w", encoding="utf-8") as report:
                 report.write(content)
-            # Copy CSS and font files to project directory
-            self.css_dest_dir.mkdir(parents=True, exist_ok=True)
-            self.font_dest_dir.mkdir(parents=True, exist_ok=True)
-            shutil.copy(self.css_src_file, self.css_dest_dir / self.css_filename)
-            shutil.copy(self.font_src_file, self.font_dest_dir / self.font_filename)
+            self.copy_plugin_files_to_project(self.css_src_file, self.css_dest_dir)
+            self.copy_plugin_files_to_project(self.font_src_file, self.font_dest_dir)
 
         except OSError:
             msg = "Unable to write report file\n"
@@ -304,7 +301,7 @@ class ReportBuilder(FieldDataCaptureProject):
         # Create directories in thumbnails that are in photos
         for path in list(self.photos_dir.rglob('*/')):
             tn_path = Path(str(path).replace(photos_str, thumbnails_str))
-            if path.is_dir() and not tn_path.exists():
+            if path.is_dir() and not tn_path.exists() and path.name != self.unlinked_dir_name.name:
                 tn_path.mkdir()
 
         # Remove directories in thumbnails that are no longer in photos
@@ -315,8 +312,8 @@ class ReportBuilder(FieldDataCaptureProject):
 
         # Create thumbnails if needed
         for path in list(self.photos_dir.rglob('*.*')):
-            tn_path = Path(str(path).replace(photos_str, thumbnails_str))
-            if path.is_file():
+            if path.is_file() and path.relative_to(self.photos_dir).parts[0] != self.unlinked_dir_name.name:
+                tn_path = Path(str(path).replace(photos_str, thumbnails_str))
                 if tn_path.exists():
                     # Create resized thumbnail
                     with Image.open(tn_path) as tn:

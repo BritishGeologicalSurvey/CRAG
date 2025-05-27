@@ -2,17 +2,6 @@ import dataclasses
 from enum import Enum
 from pathlib import Path
 
-from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtWidgets import (
-    QDialog,
-    QHBoxLayout,
-    QLabel,
-    QMessageBox,
-    QPushButton,
-    QTextEdit,
-    QVBoxLayout,
-)
-
 from .config import (
     FEATURE_STR_IDENTIFIERS,
     FEATURE_TABLES,
@@ -21,18 +10,8 @@ from .config import (
 from .utils import (  # noqa
     FieldDataCaptureProject,
     get_table_rows,
-    get_msgbox_icon_pixmap,
     ipdb_breakpoint,
 )
-
-ATTACHMENT_TABLES = {
-    "media": "media_link",
-    "photo": "photo_file",
-}
-ATTACHMENT_DIRS = {
-    "media": "media",
-    "photo": "photos",
-}
 
 
 class ValidationStatus(Enum):
@@ -73,98 +52,6 @@ class ValidationResult:
     messages: list[str] = dataclasses.field(default_factory=list)
 
 
-class ValidationDialog(QDialog, FieldDataCaptureProject):
-    """
-    QDialog for displaying the results of validating a Field Data Capture project.
-    """
-    def __init__(self, results: list[ValidationResult]):
-        super().__init__()
-
-        self.status_to_str = {
-            ValidationStatus.FAIL: "failed",
-            ValidationStatus.WARNING: "warning",
-            ValidationStatus.PASS: "passed",
-        }
-        self.status_to_icon = {
-            ValidationStatus.FAIL: QMessageBox.Critical,
-            ValidationStatus.WARNING: QMessageBox.Warning,
-            ValidationStatus.PASS: QMessageBox.Information,
-        }
-
-        self.setWindowTitle("Project Validation")
-        self.setWindowFlags(
-            Qt.Window | Qt.WindowCloseButtonHint
-        )
-
-        self.setup_ui_elements()
-        self.add_validation_results(results)
-        self.exec()
-
-
-    def setup_ui_elements(self) -> None:
-        """
-        Create the elements of the Validation Dialog window.
-        Also sets the layout for the dialog box.
-        """
-        self.result_icon = QLabel()
-        self.result_label = QLabel()
-
-        self.text_edit = QTextEdit()
-        self.text_edit.setReadOnly(True)
-        self.text_edit.hide()
-
-        self.ok_button = QPushButton("OK")
-        self.ok_button.clicked.connect(lambda: self.closeEvent(None))
-
-        # Create layout for icon and main label
-        icon_layout = QHBoxLayout()
-        icon_layout.addWidget(self.result_icon)
-        icon_layout.addSpacing(10)
-        icon_layout.addWidget(self.result_label)
-        icon_layout.addStretch(1)
-        icon_layout.setContentsMargins(*(10,) * 4)
-
-        # Create dialog layout
-        dialog_layout = QVBoxLayout()
-        dialog_layout.addLayout(icon_layout)
-        dialog_layout.addWidget(self.text_edit)
-        dialog_layout.addWidget(self.ok_button, alignment=Qt.AlignRight)
-        self.setLayout(dialog_layout)
-
-
-    def add_validation_results(self, results: list[ValidationResult]) -> None:
-        """
-        Add the given list of validation results to the dialog widgets.
-        This includes setting the dialog width, filling the text edit widget
-        with warning and fail messages, and applying the correct icon.
-        """
-        all_messages: list[str] = []
-        result_statuses: set[ValidationStatus] = set()
-        for result in results:
-            result_statuses.add(result.status)
-
-            if result.status < ValidationStatus.PASS:
-                display_messages = [
-                    # Add bullet point before each message
-                    "• " + message
-                    for message in result.messages
-                ]
-                all_messages.append("\n".join(display_messages))
-
-        # Get final status
-        final_status = min(result_statuses)
-
-        if final_status < ValidationStatus.PASS:
-            self.setMinimumWidth(500)
-            self.text_edit.setText("\n\n".join(all_messages))
-            self.text_edit.show()
-
-        self.result_icon.setPixmap(get_msgbox_icon_pixmap(self.status_to_icon[final_status]))
-        self.result_label.setText(
-            f"Validation for project '{self.project_dir.name}': {self.status_to_str[final_status].upper()}",
-        )
-
-
 def validate_project(project_dir: Path) -> list[ValidationResult]:
     """
     Run all checks against the given project directory.
@@ -174,7 +61,9 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
         check_features_valid_parents,
         check_locality_children_valid_parents,
         check_field_project_plugin_version,
+        check_unlinked_attachment_files,
         check_attached_filepaths_not_null,
+        check_attached_filepaths_not_placeholder,
         check_attached_filepaths_exist,
         check_attachment_filepaths_recorded,
         check_no_conflict_gpkg_exists,
@@ -294,6 +183,34 @@ def check_field_project_plugin_version(project: FieldDataCaptureProject) -> Vali
     return result
 
 
+def check_unlinked_attachment_files(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that there are no unlinked files in the photos/media unlinked sub-directory.
+    """
+    result = ValidationResult(validation_function=check_unlinked_attachment_files.__name__)
+
+    for table, table_dir in project.layers_to_dirs.items():
+        # Perform check
+        unlinked_dir = table_dir / project.unlinked_dir_name
+        unlinked_files = [
+            filepath
+            for filepath in unlinked_dir.rglob("*")
+            if filepath.name != project.placeholder_filename.name
+        ]
+
+        # Prepare results
+        # If failed
+        number_unlinked_files = len(unlinked_files)
+        if number_unlinked_files > 0:
+            result.status = ValidationStatus.WARNING
+            result.messages.append(
+                f"Directory 'unlinked' for '{table}' table contains {number_unlinked_files} file(s), "
+                "these files will not be included in reports or visible in QGIS forms."
+            )
+
+    return result
+
+
 def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> ValidationResult:
     """
     Check that all filepaths which are saved into the given project (e.g. photos/media)
@@ -301,12 +218,11 @@ def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> Valid
     """
     result = ValidationResult(validation_function=check_attached_filepaths_not_null.__name__)
 
-    for table, attachment_col in ATTACHMENT_TABLES.items():
+    for table, attachment_col in project.layers_to_file_attributes.items():
         # Perform check
         null_attachments = [
             row["fid"]
-            for row in get_table_rows(project.db_file, f"SELECT fid, {attachment_col} FROM {table}")
-            if row[attachment_col] is None
+            for row in get_table_rows(project.db_file, f"SELECT fid FROM {table} WHERE {attachment_col} IS NULL")
         ]
 
         # Prepare results
@@ -321,6 +237,35 @@ def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> Valid
     return result
 
 
+def check_attached_filepaths_not_placeholder(project: FieldDataCaptureProject) -> ValidationResult:
+    """
+    Check that all filepaths which are saved into the given project (e.g. photos/media)
+    are not the BGS placeholder image.
+    """
+    result = ValidationResult(validation_function=check_attached_filepaths_not_placeholder.__name__)
+
+    for table, attachment_col in project.layers_to_file_attributes.items():
+        # Perform check
+        placeholder_attachments = [
+            row["fid"]
+            for row in get_table_rows(
+                project.db_file,
+                f"SELECT fid FROM {table} WHERE {attachment_col} = '{project.default_attachment_str}'",
+            )
+        ]
+
+        # Prepare results
+        # If failed
+        if len(placeholder_attachments) > 0:
+            result.status = ValidationStatus.FAIL
+            for fid in placeholder_attachments:
+                result.messages.append(
+                    f"File referenced in '{table}' table is placeholder image, feature ID: {fid}"
+                )
+
+    return result
+
+
 def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> ValidationResult:
     """
     Check that all filepaths which are saved into the given project (e.g. photos/media)
@@ -328,13 +273,16 @@ def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> Validati
     """
     result = ValidationResult(validation_function=check_attached_filepaths_exist.__name__)
 
-    for table, attachment_col in ATTACHMENT_TABLES.items():
-        attachment_dir: Path = getattr(project, f"{ATTACHMENT_DIRS[table]}_dir")
+    for table, attachment_col in project.layers_to_file_attributes.items():
+        attachment_dir = project.layers_to_dirs[table]
 
         # Perform check
         non_existing_attachments = [
             row[attachment_col]
-            for row in get_table_rows(project.db_file, f"SELECT {attachment_col} FROM {table}")
+            for row in get_table_rows(
+                project.db_file,
+                f"SELECT {attachment_col} FROM {table} WHERE {attachment_col} != '{project.default_attachment_str}'",
+            )
             # If the attachment_column has a valid value but the filepath does not exist
             if row[attachment_col] is not None and not (attachment_dir / row[attachment_col]).exists()
         ]
@@ -358,25 +306,8 @@ def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> Val
     """
     result = ValidationResult(validation_function=check_attachment_filepaths_recorded.__name__)
 
-    for table, attachment_col in ATTACHMENT_TABLES.items():
-        attachment_dir: Path = getattr(project, f"{ATTACHMENT_DIRS[table]}_dir")
-
-        # Perform check
-        recorded_attachments = {
-            Path(row[attachment_col])
-            for row in get_table_rows(project.db_file, f"SELECT {attachment_col} FROM {table}")
-            if row[attachment_col] is not None
-        }
-
-        unrecorded_attachments = [
-            attachment
-            for attachment in attachment_dir.rglob("*")
-            if all((
-                attachment.is_file(),
-                attachment.name != project.placeholder_filename.name,
-                attachment.relative_to(attachment_dir) not in recorded_attachments,
-            ))
-        ]
+    for table in ["media", "photo"]:
+        unrecorded_attachments = project.get_unlinked_files(table)
 
         # Prepare results
         # If failed

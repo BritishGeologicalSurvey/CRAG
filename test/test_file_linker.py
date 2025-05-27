@@ -5,7 +5,6 @@ from typing import Any
 import pytest
 from qgis.core import (
     QgsFeature,
-    QgsProject,
     QgsVectorLayerUtils,
 )
 from qgis.PyQt.QtGui import QPixmap
@@ -19,6 +18,8 @@ from qgis.PyQt.QtWidgets import (
 from plugin.field_data_capture import FieldDataCapture
 from plugin.file_linker import FileLinker
 from plugin.utils import (  # noqa
+    MultilineMessageBox,
+    create_prepopulated_feature,
     get_combobox_items_dict,
     set_combobox_index_by_data,
     ipdb_breakpoint,
@@ -93,6 +94,7 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
     Returns a dictionary of layer names as keys, where the values are another dictionary
     which contains unlinked filepaths as keys, where the values are another dictionary
     which contains widget_dict labels as keys, and expected string values for the widgets.
+    Also adds some dummy files to the unlinked sub-directories.
     """
     # Make some sub-directories
     for layer_dir in fdc_project.layers_to_dirs.values():
@@ -116,6 +118,15 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
     new_media_a.write_bytes((fdc_project.media_dir / "test_point_001.csv").read_bytes())
     new_media_b = fdc_project.media_dir / sub_dir_b / "test_txt_001.txt"
     new_media_b.write_bytes((fdc_project.media_dir / "test_point_001.txt").read_bytes())
+
+    # Make dummy files in the sub-directory unlinked
+    dummy_unlinked_files = [
+        fdc_project.photos_dir / fdc_project.unlinked_dir_name / "unlinked_dummy_1.png",
+        fdc_project.photos_dir / fdc_project.unlinked_dir_name / "unlinked_dummy_2.png",
+        fdc_project.media_dir / fdc_project.unlinked_dir_name / "unlinked_dummy_3.csv",
+    ]
+    for dummy_unlinked_file in dummy_unlinked_files:
+        dummy_unlinked_file.touch()
 
     unlinked_files = {
         "photo": {
@@ -145,6 +156,7 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
 def test_open_file_linker_good(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
+    monkeypatch_multiline_msgbox,
 ):
     # Act
     result = fdc_project.open_file_linker()
@@ -153,6 +165,7 @@ def test_open_file_linker_good(
     assert result
     assert isinstance(fdc_project.file_linker, FileLinker)
     assert fdc_project.photos_dir == fdc_project.file_linker.photos_dir
+    MultilineMessageBox.warning.assert_not_called()
 
 
 def test_open_file_linker_bad(fdc_project: FieldDataCapture):
@@ -166,6 +179,30 @@ def test_open_file_linker_bad(fdc_project: FieldDataCapture):
         None,
         "All Files Linked",
         "All of the project files are already linked.",
+    )
+
+
+def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
+    # Arrange
+    # Add a new feature to the photo layer with the default placeholder image
+    layer = fdc_project.get_fdc_layer("photo")
+    feature = create_prepopulated_feature(
+        layer,
+        prepopulate={"locality_fuid": "{abc43098-fe9b-4da0-b008-7518694466bb}"},
+    )
+    layer.startEditing()
+    layer.addFeature(feature)
+    layer.commitChanges()
+
+    # Act
+    fdc_project.open_file_linker()
+
+    # Assert
+    MultilineMessageBox.warning.assert_called_with(
+        "Placeholder attachments found.",
+        ("Some locality points have media/photo records which are still using the default placeholder image."
+         " You may need to update these existing links instead of creating new ones."),
+        "• test_point_001",
     )
 
 
@@ -204,7 +241,7 @@ def test_select_files(
 ):
     # Arrange
     # Add a new photo feature with a NULL photo_file attribute to ensure it is not picked up or breaks the linker
-    photo_layer = QgsProject.instance().mapLayersByName("photo")[0]
+    photo_layer = fdc_project.get_fdc_layer("photo")
     photo_layer.startEditing()
     photo_feature = QgsVectorLayerUtils.createFeature(photo_layer)
     photo_layer.addFeature(photo_feature)
@@ -381,7 +418,7 @@ def test_save_links(
     assert fdc_project.file_linker is None
 
     for layer_name in unlinked_test_files:
-        layer = QgsProject.instance().mapLayersByName(layer_name)[0]
+        layer = fdc_project.get_fdc_layer(layer_name)
         # Check that the layer has been saved
         assert not layer.isModified()
 

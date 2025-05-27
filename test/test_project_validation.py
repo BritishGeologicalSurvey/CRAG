@@ -1,16 +1,18 @@
 from pathlib import Path
 
 import pytest
-from qgis.PyQt.QtWidgets import QMessageBox
 
-from plugin.field_data_capture import FieldDataCapture
+from plugin.field_data_capture import (
+    FieldDataCapture,
+    FieldDataCaptureProject,
+)
 from plugin.project_validation import (
-    ValidationDialog,
     ValidationResult,
     ValidationStatus,
     validate_project,
 )
 from plugin.utils import (  # noqa
+    MultilineMessageBox,
     get_msgbox_icon_pixmap,
     ipdb_breakpoint,
 )
@@ -24,6 +26,7 @@ def fdc_project_bad(tmp_path: Path) -> Path:
     Creates a project with a database which contains some data and photo files.
     """
     project_dir = tmp_path / "fdc_project_invalid"
+    project = FieldDataCaptureProject(project_dir)
     feature_filepaths = {
         "photos": [
             Path("test/data/photos/exif_data.jpg"),
@@ -42,6 +45,15 @@ def fdc_project_bad(tmp_path: Path) -> Path:
     # Add a dummy conflict GeoPackage to the project
     dummy_conflict_gpkg = project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
+
+    dummy_unlinked_files = [
+        project.photos_dir / project.unlinked_dir_name / "dummy_a.png",
+        project.photos_dir / project.unlinked_dir_name / "dummy_b.png",
+        project.media_dir / project.unlinked_dir_name / "dummy_c.csv",
+    ]
+    for dummy_unlinked_file in dummy_unlinked_files:
+        dummy_unlinked_file.parent.mkdir(exist_ok=True, parents=True)
+        dummy_unlinked_file.touch()
 
     return project_dir
 
@@ -93,10 +105,27 @@ def test_validate_project_bad(fdc_project_bad: Path):
             ],
         ),
         ValidationResult(
+            validation_function="check_unlinked_attachment_files",
+            status=ValidationStatus.WARNING,
+            messages=[
+                ("Directory 'unlinked' for 'media' table contains 1 file(s), "
+                 "these files will not be included in reports or visible in QGIS forms."),
+                ("Directory 'unlinked' for 'photo' table contains 2 file(s), "
+                 "these files will not be included in reports or visible in QGIS forms."),
+            ],
+        ),
+        ValidationResult(
             validation_function="check_attached_filepaths_not_null",
             status=ValidationStatus.FAIL,
             messages=[
                 "File referenced in 'photo' table is NULL, feature ID: 3",
+            ],
+        ),
+        ValidationResult(
+            validation_function="check_attached_filepaths_not_placeholder",
+            status=ValidationStatus.FAIL,
+            messages=[
+                "File referenced in 'media' table is placeholder image, feature ID: 2",
             ],
         ),
         ValidationResult(
@@ -131,22 +160,20 @@ def test_validate_project_bad(fdc_project_bad: Path):
     assert expected_results == results
 
 
-def test_validation_dialog_pass(fdc_project: FieldDataCapture):
+def test_validation_dialog_pass(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
     # Arrange
-    expected_image = get_msgbox_icon_pixmap(QMessageBox.Information).toImage()
-    expected_result_label = "Validation for project 'test_project_dir': PASSED"
+    expected_title = "Project Validation"
+    expected_message = "Validation for project 'test_project_dir': PASSED"
+    expected_text = None
 
     # Act
-    results = validate_project(project_dir=fdc_project.project_dir)
-    dialog = ValidationDialog(results)
+    fdc_project.run_project_validation()
 
     # Assert
-    assert dialog.result_label.text() == expected_result_label
-    assert dialog.result_icon.pixmap().toImage() == expected_image
-    assert dialog.text_edit.isHidden()
+    MultilineMessageBox.information.assert_called_once_with(expected_title, expected_message, expected_text)
 
 
-def test_validation_dialog_fail(fdc_project: FieldDataCapture):
+def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
     # Arrange
     # Add unlinked photo to the project
     dummy_photo = fdc_project.photos_dir / "not_a_photo.png"
@@ -155,21 +182,39 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture):
     dummy_conflict_gpkg = fdc_project.project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
-    expected_image = get_msgbox_icon_pixmap(QMessageBox.Critical).toImage()
-    expected_result_label = "Validation for project 'test_project_dir': FAILED"
-    expected_minimum_width = 500
-    expected_text_edit_str = "\n".join([
-        f"• Unlinked file in 'photo' directory: {dummy_photo}",
-        "\n• Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
+    expected_title = "Project Validation"
+    expected_message = "Validation for project 'test_project_dir': FAILED"
+    expected_text = "\n".join([
+        f"• FAILED: Unlinked file in 'photo' directory: {dummy_photo}",
+        "\n• WARNING: Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
     ])
 
     # Act
-    results = validate_project(project_dir=fdc_project.project_dir)
-    dialog = ValidationDialog(results)
+    fdc_project.run_project_validation()
 
     # Assert
-    assert dialog.result_label.text() == expected_result_label
-    assert dialog.result_icon.pixmap().toImage() == expected_image
-    assert not dialog.text_edit.isHidden()
-    assert dialog.minimumWidth() == expected_minimum_width
-    assert dialog.text_edit.toPlainText() == expected_text_edit_str
+    MultilineMessageBox.critical.assert_called_once_with(expected_title, expected_message, expected_text)
+
+
+def test_validation_dialog_warning(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
+    # Arrange
+    # Add unlinked photo to the project
+    dummy_photo = fdc_project.photos_dir / "unlinked" / "not_a_photo.png"
+    dummy_photo.touch()
+    # Add a dummy conflict GeoPackage to the project
+    dummy_conflict_gpkg = fdc_project.project_dir / "test_project (conflicted copy).gpkg"
+    dummy_conflict_gpkg.touch()
+
+    expected_title = "Project Validation"
+    expected_message = "Validation for project 'test_project_dir': WARNING"
+    expected_text = "\n".join([
+        ("• WARNING: Directory 'unlinked' for 'photo' table contains 1 file(s), "
+         "these files will not be included in reports or visible in QGIS forms."),
+        "\n• WARNING: Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
+    ])
+
+    # Act
+    fdc_project.run_project_validation()
+
+    # Assert
+    MultilineMessageBox.warning.assert_called_once_with(expected_title, expected_message, expected_text)

@@ -37,7 +37,9 @@ from qgis.PyQt.QtWidgets import (
 
 from .utils import (  # noqa
     FieldDataCaptureProject,
+    MultilineMessageBox,
     create_prepopulated_feature,
+    get_table_rows,
     ipdb_breakpoint,
 )
 
@@ -72,6 +74,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         self.layers_to_files_to_widgets: dict[str, dict[Path, WidgetsDict]] = {}
         self.thumbnail_size = 200
         self.add_file_rows()
+        self.warn_placeholder_attachments()
 
 
     @property
@@ -84,6 +87,28 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             for files_to_widgets in self.layers_to_files_to_widgets.values()
         ])
         return file_count
+
+
+    def warn_placeholder_attachments(self) -> None:
+        """
+        Warn the user if there are locality points which have media/photo records which are still
+        using the default placeholder image.
+        """
+        locality_point_names = set()
+        for table, attachment_col in self.layers_to_file_attributes.items():
+            for row in get_table_rows(
+                self.db_file,
+                f"SELECT locality_point FROM view_{table} WHERE {attachment_col} = '{self.default_attachment_str}'",
+            ):
+                locality_point_names.add("• " + row["locality_point"])
+
+        if len(locality_point_names) > 0:
+            MultilineMessageBox.warning(
+                "Placeholder attachments found.",
+                ("Some locality points have media/photo records which are still using the default placeholder image."
+                 " You may need to update these existing links instead of creating new ones."),
+                "\n".join(locality_point_names),
+            )
 
 
     def setup_ui_elements(self) -> None:
@@ -254,31 +279,6 @@ class FileLinker(QDialog, FieldDataCaptureProject):
     """Methods used for all file types."""
 
 
-    def get_unlinked_files(self, layer_name: str) -> list[Path]:
-        """
-        Get the unlinked files for the given layer from the given directory.
-        """
-        files_dir = self.layers_to_dirs[layer_name]
-        file_attribute = self.layers_to_file_attributes[layer_name]
-        layer = self.get_fdc_layer(layer_name)
-        linked_files = {
-            Path(feature.attribute(file_attribute))
-            for feature in layer.getFeatures()
-            if feature.attribute(file_attribute) is not None
-        }
-
-        unlinked_files = []
-        for filepath in files_dir.rglob("*"):
-            if all((
-                filepath.is_file(),
-                filepath.relative_to(files_dir) not in linked_files,
-                filepath.name != self.placeholder_filename.name,
-            )):
-                unlinked_files.append(filepath)
-
-        return unlinked_files
-
-
     def create_combobox_locality(self) -> QComboBox:
         """
         Create a QComboBox which lists the existing locality_point features by name and recorded_on.
@@ -423,7 +423,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         image_widget = self.create_image_widget(photo, self.thumbnail_size, photo_tags=photo_tags)
         # Some photos (e.g. HEIC) are loaded as NULL pixmap objects, so we use a no photography icon instead
         if image_widget.pixmap().isNull():
-            image_widget = self.create_image_widget(self.icons_dir / "no_photography.png", self.thumbnail_size)
+            image_widget = self.create_image_widget(self.icons_src_dir / "no_photography.png", self.thumbnail_size)
         row_vbox_1 = QVBoxLayout()
         row_vbox_1.addWidget(filepath_label)
         row_vbox_1.addWidget(file_date_label)
@@ -489,7 +489,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         filepath_label = self.create_filepath_widget(media)
         file_date_label = self.create_file_date_widget(media)
         media_label = QLabel("Media")
-        image_widget = self.create_image_widget(self.icons_dir / "document.png", image_size)
+        image_widget = self.create_image_widget(self.icons_src_dir / "document.png", image_size)
         row_vbox_1 = QVBoxLayout()
         row_vbox_1.addWidget(filepath_label)
         row_vbox_1.addWidget(file_date_label)

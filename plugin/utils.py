@@ -16,14 +16,23 @@ from qgis.core import (
     QgsVectorLayer,
     QgsVectorLayerUtils,
 )
-from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtCore import (
+    Qt,
+    QUrl,
+)
 from qgis.PyQt.QtGui import (
     QDesktopServices,
     QPixmap,
 )
 from qgis.PyQt.QtWidgets import (
     QComboBox,
+    QDialog,
+    QHBoxLayout,
+    QLabel,
     QMessageBox,
+    QPushButton,
+    QTextEdit,
+    QVBoxLayout,
 )
 from PyQt5.QtCore import pyqtRemoveInputHook
 
@@ -39,15 +48,18 @@ class FieldDataCaptureProject:
     """
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
-    placeholder_filename = Path(".placeholder")
+    placeholder_filename = Path(".placeholder.txt")
     css_filename = Path("style.css")
+    bgs_logo_filename = Path("BGS-placeholder.png")
+    unlinked_dir_name = Path("unlinked")
+    icons_dir_name = Path("icons")
     # Using locally downloaded woff2 of Google's Material Symbols Outlined font
     # See: https://fonts.google.com/icons
     # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
     font_filename = Path("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2")
     layers_to_file_attributes = {
-        "photo": "photo_file",
         "media": "media_link",
+        "photo": "photo_file",
     }
     plugin_settings_prefix = "FieldDataCapture"
 
@@ -132,11 +144,18 @@ class FieldDataCaptureProject:
         return self.project_dir / "baseline_data"
 
     @property
-    def icons_dir(self) -> Path:
+    def icons_src_dir(self) -> Path:
         """
         Get the icons directory path from the plugin folder.
         """
-        return WORKDIR / "icons"
+        return WORKDIR / self.icons_dir_name
+
+    @property
+    def icons_dest_dir(self) -> Path:
+        """
+        Get the icons directory path from the project folder.
+        """
+        return self.project_dir / self.icons_dir_name
 
     @property
     def html_report_file(self) -> Path:
@@ -200,9 +219,43 @@ class FieldDataCaptureProject:
         Dictionary of layer names to their corresponding directories.
         """
         return {
-            "photo": self.photos_dir,
             "media": self.media_dir,
+            "photo": self.photos_dir,
         }
+
+
+    @property
+    def default_attachment_str(self) -> str:
+        """
+        The default string used to populate attachment filepaths in the forms.
+        """
+        return f"../{self.icons_dir_name}/{self.bgs_logo_filename}"
+
+
+    def copy_plugin_files_to_project(self, plugin_src: Path | str, project_dest: Path | str) -> None:
+        """
+        Copy the files from the given plugin source directory into the given project destination directory.
+        If the src filepath is a directory, all files within it will be copied to the dest filepath directory.
+        If the src filepath is a file, it will be copied to the dest filepath directory.
+
+        The project_dest filepath must always be a directory.
+
+        The plugin_src filepath must be relative to the plugin/ directory within the repository.
+        The project_dest filepath must be relative to the project directory.
+        """
+        # Use given relative paths to create full paths
+        plugin_src_path = WORKDIR / plugin_src
+        project_dest_path = self.project_dir / project_dest
+        project_dest_path.mkdir(parents=True, exist_ok=True)
+
+        if plugin_src_path.is_dir():
+            src_files = list(plugin_src_path.glob("*"))
+        else:
+            src_files = [plugin_src_path]
+
+        for src_file in src_files:
+            dest_file = project_dest_path / src_file.name
+            dest_file.write_bytes(src_file.read_bytes())
 
 
     def get_fdc_layer(self, layer_name: str, warn: bool = True) -> Optional[QgsVectorLayer]:
@@ -389,6 +442,109 @@ class FieldDataCaptureProject:
         Save the given setting to the QgsSettings.
         """
         QgsSettings().setValue(f"{self.plugin_settings_prefix}/{name}", value)
+
+
+    def get_unlinked_files(self, layer_name: str) -> list[Path]:
+        """
+        Get the unlinked files for the given layer.
+        The given layer should be from: photos, media.
+        Ignores files in the unlinked sub-directory.
+        """
+        attachment_dir = self.layers_to_dirs[layer_name]
+        attachment_col = self.layers_to_file_attributes[layer_name]
+
+        # First get actual recorded paths
+        recorded_attachments = {
+            Path(row[attachment_col])
+            for row in get_table_rows(self.db_file, f"SELECT {attachment_col} FROM {layer_name}")
+            if row[attachment_col] is not None
+        }
+
+        unrecorded_attachments = [
+            attachment
+            for attachment in attachment_dir.rglob("*")
+            if all((
+                attachment.is_file(),
+                attachment.relative_to(attachment_dir) not in recorded_attachments,
+                attachment.name not in {self.placeholder_filename.name, self.bgs_logo_filename.name},
+                # If it is not in the unlinked dir
+                attachment.relative_to(attachment_dir).parts[0] != self.unlinked_dir_name.name,
+            ))
+        ]
+
+        return unrecorded_attachments
+
+
+class MultilineMessageBox(QDialog):
+    """
+    QDialog for displaying a message with additional multiline text.
+    If the given text is None, will display a dialog without the multiline text widget.
+    """
+    def __init__(self, title: str, icon: QMessageBox.Icon, message: str, text: Optional[str] = None):
+        super().__init__()
+        self.setWindowTitle(title)
+        self.setWindowFlags(
+            Qt.Window | Qt.WindowCloseButtonHint
+        )
+        self.setup_ui_elements()
+        self.apply_message(icon, message, text)
+        self.exec()
+
+    @staticmethod
+    def information(title: str, message: str, text: Optional[str] = None) -> None:
+        return MultilineMessageBox(title, QMessageBox.Information, message, text)
+
+    @staticmethod
+    def warning(title: str, message: str, text: Optional[str] = None) -> None:
+        return MultilineMessageBox(title, QMessageBox.Warning, message, text)
+
+    @staticmethod
+    def critical(title: str, message: str, text: Optional[str] = None) -> None:
+        return MultilineMessageBox(title, QMessageBox.Critical, message, text)
+
+
+    def setup_ui_elements(self) -> None:
+        """
+        Create the elements of the MultilineMessageBox window.
+        Also sets the layout for the dialog box.
+        """
+        self.message_icon = QLabel()
+        self.message_label = QLabel()
+
+        self.text_edit = QTextEdit()
+        self.text_edit.setReadOnly(True)
+        self.text_edit.hide()
+
+        self.ok_button = QPushButton("OK")
+        self.ok_button.clicked.connect(lambda: self.closeEvent(None))
+
+        # Create layout for icon and main label
+        icon_layout = QHBoxLayout()
+        icon_layout.addWidget(self.message_icon)
+        icon_layout.addSpacing(10)
+        icon_layout.addWidget(self.message_label)
+        icon_layout.addStretch(1)
+        icon_layout.setContentsMargins(*(10,) * 4)
+
+        # Create dialog layout
+        dialog_layout = QVBoxLayout()
+        dialog_layout.addLayout(icon_layout)
+        dialog_layout.addWidget(self.text_edit)
+        dialog_layout.addWidget(self.ok_button, alignment=Qt.AlignRight)
+        self.setLayout(dialog_layout)
+
+
+    def apply_message(self, icon: QMessageBox.Icon, message: str, text: Optional[str]) -> None:
+        """
+        Update the widgets with the given message and text.
+        """
+        self.message_icon.setPixmap(get_msgbox_icon_pixmap(icon))
+        self.message_label.setText(message)
+        # Only show the multiline area if there is multiline text
+        if text:
+            self.setMinimumWidth(500)
+            self.text_edit.setText(text)
+            self.text_edit.show()
 
 
 def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:
