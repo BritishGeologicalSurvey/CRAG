@@ -20,9 +20,9 @@ class ValidationStatus(Enum):
     Includes some methods for comparing values according to this discussion:
     https://stackoverflow.com/questions/39268052/how-to-compare-enums-in-python
     """
-    FAIL = 0
+    FAILED = 0
     WARNING = 10
-    PASS = 20
+    PASSED = 20
 
     def __lt__(self, other) -> bool:
         """
@@ -47,7 +47,7 @@ class ValidationStatus(Enum):
 class ValidationResult:
     validation_function: str
     # Set the status to PASS initially and change it later if required
-    status: ValidationStatus = dataclasses.field(default_factory=lambda: ValidationStatus.PASS)
+    status: ValidationStatus = dataclasses.field(default_factory=lambda: ValidationStatus.PASSED)
     # Make the list of messages default to an empty list
     messages: list[str] = dataclasses.field(default_factory=list)
 
@@ -90,7 +90,7 @@ def check_project_name(project: FieldDataCaptureProject) -> ValidationResult:
     # Check all feature tables other than field_project
     for file in (project.db_file, project.qgz_file):
         if file.stem != field_project_short_name:
-            result.status = ValidationStatus.FAIL
+            result.status = ValidationStatus.FAILED
             result.messages.append(
                 f"File name '{file}' does not match 'field_project.short_name': {field_project_short_name}"
             )
@@ -121,7 +121,7 @@ def check_features_valid_parents(project: FieldDataCaptureProject) -> Validation
         # Prepare results
         # If failed
         if len(bad_rows) > 0:
-            result.status = ValidationStatus.FAIL
+            result.status = ValidationStatus.FAILED
             for bad_row in bad_rows:
                 result.messages.append(
                     f"Record in '{table}' with invalid parent 'field_project' found: {bad_row[feature_identifier]}"
@@ -155,7 +155,7 @@ def check_locality_children_valid_parents(project: FieldDataCaptureProject) -> V
         # Prepare results
         # If failed
         if len(bad_rows) > 0:
-            result.status = ValidationStatus.FAIL
+            result.status = ValidationStatus.FAILED
             for bad_row in bad_rows:
                 result.messages.append(
                     f"Record in '{table}' with invalid parent 'locality_point' found: {bad_row[feature_identifier]}"
@@ -179,7 +179,7 @@ def check_field_project_plugin_version(project: FieldDataCaptureProject) -> Vali
     # Prepare results
     # If failed
     if plugin_version is None:
-        result.status = ValidationStatus.FAIL
+        result.status = ValidationStatus.FAILED
         result.messages.append("The 'field_project' record does not include a valid 'qgis_plugin_version'")
 
     return result
@@ -230,7 +230,7 @@ def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> Valid
         # Prepare results
         # If failed
         if len(null_attachments) > 0:
-            result.status = ValidationStatus.FAIL
+            result.status = ValidationStatus.FAILED
             for fid in null_attachments:
                 result.messages.append(
                     f"File referenced in '{table}' table is NULL, feature ID: {fid}"
@@ -259,7 +259,7 @@ def check_attached_filepaths_not_placeholder(project: FieldDataCaptureProject) -
         # Prepare results
         # If failed
         if len(placeholder_attachments) > 0:
-            result.status = ValidationStatus.FAIL
+            result.status = ValidationStatus.FAILED
             for fid in placeholder_attachments:
                 result.messages.append(
                     f"File referenced in '{table}' table is placeholder image, feature ID: {fid}"
@@ -292,7 +292,7 @@ def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> Validati
         # Prepare results
         # If failed
         if len(non_existing_attachments) > 0:
-            result.status = ValidationStatus.FAIL
+            result.status = ValidationStatus.FAILED
             for attachment in non_existing_attachments:
                 result.messages.append(
                     f"File referenced in '{table}' table not found: {attachment}"
@@ -314,7 +314,7 @@ def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> Val
         # Prepare results
         # If failed
         if len(unrecorded_attachments) > 0:
-            result.status = ValidationStatus.FAIL
+            result.status = ValidationStatus.FAILED
             for attachment in unrecorded_attachments:
                 result.messages.append(
                     f"Unlinked file in '{table}' directory: {attachment}"
@@ -359,7 +359,7 @@ def check_required_filepaths_in_project_dir(project: FieldDataCaptureProject) ->
     # Prepare results
     # If failed
     if not required_filepaths.issubset(all_files):
-        result.status = ValidationStatus.FAIL
+        result.status = ValidationStatus.FAILED
         for filepath in required_filepaths:
             if filepath not in all_files:
                 result.messages.append(f"Required file or directory missing from project directory: {filepath.name}")

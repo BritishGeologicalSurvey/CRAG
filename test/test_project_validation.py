@@ -70,7 +70,7 @@ def test_validate_project_good(fdc_project: FieldDataCapture):
 
     # Assert
     for result in results:
-        assert result.status == ValidationStatus.PASS
+        assert result.status == ValidationStatus.PASSED
         assert result.messages == []
 
 
@@ -79,7 +79,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
     expected_results = [
         ValidationResult(
             validation_function='check_project_name',
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 (f"File name '{fdc_project_bad / "test_project.gpkg"}' "
                  "does not match 'field_project.short_name': leos_test_project"),
@@ -89,7 +89,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_features_valid_parents",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "Record in 'bedrock_line' with invalid parent 'field_project' found: algal_band",
                 "Record in 'locality_point' with invalid parent 'field_project' found: leorudczenko_002",
@@ -97,7 +97,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_locality_children_valid_parents",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "Record in 'media' with invalid parent 'locality_point' found: file_does_no_exist.mov",
                 "Record in 'sample' with invalid parent 'locality_point' found: sample_001",
@@ -105,7 +105,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_field_project_plugin_version",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "The 'field_project' record does not include a valid 'qgis_plugin_version'",
             ],
@@ -122,21 +122,21 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_attached_filepaths_not_null",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "File referenced in 'photo' table is NULL, feature ID: 3",
             ],
         ),
         ValidationResult(
             validation_function="check_attached_filepaths_not_placeholder",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "File referenced in 'media' table is placeholder image, feature ID: 2",
             ],
         ),
         ValidationResult(
             validation_function="check_attached_filepaths_exist",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "File referenced in 'media' table not found: file_does_no_exist.mov",
                 "File referenced in 'photo' table not found: file_does_no_exist.jpg",
@@ -144,7 +144,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_attachment_filepaths_recorded",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             # Project path here is dynamic because it comes from the tmp_path fixture
             messages=[
                 f"Unlinked file in 'photo' directory: {fdc_project_bad / 'photos/no_exif_data.jpg'}",
@@ -159,7 +159,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function='check_required_filepaths_in_project_dir',
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "Required file or directory missing from project directory: baseline_data",
             ],

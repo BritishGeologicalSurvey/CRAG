@@ -1255,15 +1255,10 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         results = validate_project(self.project_dir)
 
-        status_to_str = {
-            ValidationStatus.FAIL: "FAILED",
-            ValidationStatus.WARNING: "WARNING",
-            ValidationStatus.PASS: "PASSED",
-        }
         status_to_msgbox = {
-            ValidationStatus.FAIL: MultilineMessageBox.critical,
+            ValidationStatus.FAILED: MultilineMessageBox.critical,
             ValidationStatus.WARNING: MultilineMessageBox.warning,
-            ValidationStatus.PASS: MultilineMessageBox.information,
+            ValidationStatus.PASSED: MultilineMessageBox.information,
         }
 
         all_messages: list[str] = []
@@ -1271,10 +1266,10 @@ class FieldDataCapture(FieldDataCaptureProject):
         for result in results:
             result_statuses.add(result.status)
 
-            if result.status < ValidationStatus.PASS:
+            if result.status < ValidationStatus.PASSED:
                 display_messages = [
                     # Add bullet point before each message
-                    f"• {status_to_str[result.status]}: " + message
+                    f"• {result.status.name}: " + message
                     for message in result.messages
                 ]
                 all_messages.append("\n".join(display_messages))
@@ -1283,9 +1278,9 @@ class FieldDataCapture(FieldDataCaptureProject):
         final_status = min(result_statuses)
 
         msgbox_method = status_to_msgbox[final_status]
-        message = f"Validation for project '{self.project_dir.name}': {status_to_str[final_status]}"
+        message = f"Validation for project '{self.project_dir.name}': {final_status.name}"
         text = None
-        if final_status < ValidationStatus.PASS:
+        if final_status < ValidationStatus.PASSED:
             text = "\n\n".join(all_messages)
 
         msgbox_method("Project Validation", message, text)
