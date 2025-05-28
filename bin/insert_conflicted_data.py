@@ -6,19 +6,17 @@ It is only for use if the changes to be merged are INSERTS only!
 """
 import argparse
 import logging
+import re
 import sqlite3
 import tempfile
 from pathlib import Path
-from typing import (
-    Any,
-    Generator,
-)
+from typing import Iterator
 
 import etlhelper as etl
 
 from plugin.config import (
     FEATURE_TABLES,
-    LOCALITY_POINT_CHILDREN,
+    ATTRIBUTE_TABLES,
 )
 from plugin.utils import ipdb_breakpoint  # noqa
 
@@ -46,6 +44,7 @@ def insert_conflicted_data(src_db: Path, dest_db: Path):
         logger.error(exc.args[0])
         logger.error("Cancelling copy and rolling back destination database")
         _restore_dest_db(dest_db, dest_db_backup)
+        raise
 
     return
 
@@ -56,14 +55,37 @@ def copy_inserted_rows(src_conn: sqlite3.Connection, dest_conn: sqlite3.Connecti
     skipping any that already have the same `uuid`.  Errors on other columns
     are still raised.
     """
-    return
+    # Table order matters - attribute tables are children of locality_point
+    tables_to_copy = list(FEATURE_TABLES) + list(ATTRIBUTE_TABLES)
+    tables_to_copy.remove('field_project')
+
+    for table in tables_to_copy:
+        etl.copy_table_rows(table, src_conn, dest_conn,
+                            transform=_remove_fid,
+                            on_error=_skip_duplicate_uuid_errors)
+
+
+def _remove_fid(chunk: Iterator[dict]) -> Iterator[dict]:
+    for row in chunk:
+        row.pop('fid')
+        yield row
+
+
+def _skip_duplicate_uuid_errors(failed_rows: list[tuple[dict, Exception]]) -> None:
+    # Duplicate UUID means that the row is already in both databases from a
+    # previous sync session.  We can ignore this row and continue.
+    pattern = r"UNIQUE constraint failed: \w+\.uuid"
+    for row, exception in failed_rows:
+        if re.search(pattern, exception.args[0]):
+            pass
+        else:
+            breakpoint()
+            raise exception
 
 
 def _backup_dest_db(dest_db: Path) -> Path:
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        tmp_dir = Path(tmp_dir)
-        dest_db_backup = tmp_dir / dest_db.name
-        dest_db_backup.write_bytes(dest_db.read_bytes())
+    dest_db_backup = dest_db.parent / f"{dest_db.name}.backup"
+    dest_db_backup.write_bytes(dest_db.read_bytes())
     return dest_db_backup
 
 
@@ -87,6 +109,7 @@ def _setup_connections(src_db: Path, dest_db: Path) -> list[sqlite3.Connection, 
 
 def _restore_dest_db(dest_db: Path, dest_db_backup: Path):
     dest_db.write_bytes(dest_db_backup.read_bytes())
+    dest_db_backup.unlink()
 
 
 if __name__ == "__main__":
