@@ -82,10 +82,8 @@ def _remove_fid(chunk: Iterator[dict]) -> Iterator[dict]:
 
 class DuplicateUuidSkipper:
     """
-    Check UUID data for target table so that UNIQUE constraint failures on
-    UUID column can be ignored and the row safely skipped.  We can't just
-    check the error message because a row with multiple failing constraints
-    may report a different column as failing first.
+    Hold a set of existing "uuid" values for a table to allow a check if
+    a row with an error is already in the target table.
     """
     def __init__(self, table: str, dest_conn: sqlite3.Connection) -> None:
         self.dest_uuids = set(
@@ -93,13 +91,17 @@ class DuplicateUuidSkipper:
         )
 
     def skip_duplicate_uuid_errors(self, failed_rows: list[tuple[dict, Exception]]) -> None:
-        # Duplicate UUID means that the row is already in both databases from a
-        # previous sync session.  We can ignore this row and continue.
-        # Otherwise the exception is raised.
+        # The error message for a row that already exists in the destination
+        # may name any column that has a UNIQUE constraint failure.  Here we
+        # check that the UUID already exists so that the row can be safely
+        # skipped.
         for row, exception in failed_rows:
             if re.search(r"UNIQUE constraint failed", exception.args[0]):
                 if row["uuid"] in self.dest_uuids:
+                    # Row already exists and can be skipped
                     continue
+
+            # Row is new and has a genuine constraint failure
             raise exception
 
 
