@@ -51,6 +51,9 @@ def test_insert_conflicted_data_happy_path(project_dir: Path,
             rows = etl.fetchall(f"SELECT fid FROM {table}", conn)
             assert len(rows) == expected_row_count
 
+    # Ensure backup database is cleaned up
+    assert len(list(dest.parent.glob("*backup"))) == 0
+
 
 def test_insert_conflicted_data_duplicate_locality_id(project_dir: Path,
                                                       test_data_gpkg: sqlite3.Connection):
@@ -66,8 +69,9 @@ def test_insert_conflicted_data_duplicate_locality_id(project_dir: Path,
     with pytest.raises(Exception, match="UNIQUE constraint failed: locality_point.name"):
         insert_conflicted_data(src, dest)
 
-    # Ensure original database is unchanged
+    # Ensure original database is unchanged and backup is removed
     assert dest.read_bytes() == original_dest_data
+    assert len(list(dest.parent.glob("*backup"))) == 0
 
 
 def _prepare_test_databases(project_dir: Path,

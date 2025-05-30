@@ -45,6 +45,8 @@ def insert_conflicted_data(src_db: Path, dest_db: Path):
         logger.error("Cancelling copy and rolling back destination database")
         _restore_dest_db(dest_db, dest_db_backup)
         raise
+    finally:
+        dest_db_backup.unlink()
 
     return
 
@@ -129,7 +131,6 @@ def _setup_connections(src_db: Path, dest_db: Path) -> list[sqlite3.Connection, 
 
 def _restore_dest_db(dest_db: Path, dest_db_backup: Path):
     dest_db.write_bytes(dest_db_backup.read_bytes())
-    dest_db_backup.unlink()
 
 
 if __name__ == "__main__":
