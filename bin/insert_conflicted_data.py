@@ -8,7 +8,6 @@ import argparse
 import logging
 import re
 import sqlite3
-import tempfile
 from pathlib import Path
 from typing import Iterator
 
@@ -26,6 +25,7 @@ logging.basicConfig(
     datefmt="{%Y-%m-%d %H:%M:%S}",
 )
 logger = logging.getLogger("insert_conflicted_data")
+logging.getLogger('etlhelper').setLevel(logging.WARNING)
 
 
 def insert_conflicted_data(src_db: Path, dest_db: Path):
@@ -70,10 +70,8 @@ def copy_inserted_rows(src_conn: sqlite3.Connection, dest_conn: sqlite3.Connecti
             transform=_remove_fid,
             on_error=duplicate_uuid_skipper.skip_duplicate_uuid_errors,
         )
-
-    logger.info("Table %s updated.  %s processed, %s skipped",
-                table, processed, failed)
-
+        logger.info("Table %s updated.  %s processed, %s skipped",
+                    table, processed, failed)
 
 
 def _remove_fid(chunk: Iterator[dict]) -> Iterator[dict]:
