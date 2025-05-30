@@ -60,9 +60,18 @@ def copy_inserted_rows(src_conn: sqlite3.Connection, dest_conn: sqlite3.Connecti
     tables_to_copy.remove('field_project')
 
     for table in tables_to_copy:
-        etl.copy_table_rows(table, src_conn, dest_conn,
-                            transform=_remove_fid,
-                            on_error=_skip_duplicate_uuid_errors)
+        duplicate_uuid_skipper = DuplicateUuidSkipper(table, dest_conn)
+        processed, failed = etl.copy_table_rows(
+            table,
+            src_conn,
+            dest_conn,
+            transform=_remove_fid,
+            on_error=duplicate_uuid_skipper.skip_duplicate_uuid_errors,
+        )
+
+    logger.info("Table %s updated.  %s processed, %s skipped",
+                table, processed, failed)
+
 
 
 def _remove_fid(chunk: Iterator[dict]) -> Iterator[dict]:
@@ -71,15 +80,26 @@ def _remove_fid(chunk: Iterator[dict]) -> Iterator[dict]:
         yield row
 
 
-def _skip_duplicate_uuid_errors(failed_rows: list[tuple[dict, Exception]]) -> None:
-    # Duplicate UUID means that the row is already in both databases from a
-    # previous sync session.  We can ignore this row and continue.
-    pattern = r"UNIQUE constraint failed: \w+\.uuid"
-    for row, exception in failed_rows:
-        if re.search(pattern, exception.args[0]):
-            pass
-        else:
-            breakpoint()
+class DuplicateUuidSkipper:
+    """
+    Check UUID data for target table so that UNIQUE constraint failures on
+    UUID column can be ignored and the row safely skipped.  We can't just
+    check the error message because a row with multiple failing constraints
+    may report a different column as failing first.
+    """
+    def __init__(self, table: str, dest_conn: sqlite3.Connection) -> None:
+        self.dest_uuids = set(
+            row["uuid"] for row in etl.iter_rows(f"SELECT uuid FROM {table}", dest_conn)
+        )
+
+    def skip_duplicate_uuid_errors(self, failed_rows: list[tuple[dict, Exception]]) -> None:
+        # Duplicate UUID means that the row is already in both databases from a
+        # previous sync session.  We can ignore this row and continue.
+        # Otherwise the exception is raised.
+        for row, exception in failed_rows:
+            if re.search(r"UNIQUE constraint failed", exception.args[0]):
+                if row["uuid"] in self.dest_uuids:
+                    continue
             raise exception
 
 
