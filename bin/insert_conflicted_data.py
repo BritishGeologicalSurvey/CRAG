@@ -6,7 +6,6 @@ It is only for use if the changes to be merged are INSERTS only!
 """
 import argparse
 import logging
-import re
 import sqlite3
 from pathlib import Path
 from typing import Iterator
