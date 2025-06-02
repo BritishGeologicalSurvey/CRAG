@@ -62,53 +62,39 @@ def copy_inserted_rows(src_conn: sqlite3.Connection, dest_conn: sqlite3.Connecti
     tables_to_copy.remove('field_project')
 
     for table in tables_to_copy:
-        duplicate_uuid_skipper = DuplicateUuidSkipper(table, dest_conn)
+        # Create new transform per table with UUIDs from local scope.
+        dest_uuids = set(
+            row["uuid"] for row in etl.iter_rows(f"SELECT uuid FROM {table}", dest_conn)
+        )
+
+        def transform(chunk: Iterator[dict]) -> Iterator[dict]:
+            for row in chunk:
+                if row["uuid"] in dest_uuids:
+                    # Row exists and can be skipped
+                    continue
+
+                row.pop('fid')
+                yield row
+
+        # Copy data
         processed, failed = etl.copy_table_rows(
             table,
             src_conn,
             dest_conn,
-            transform=_remove_fid,
-            on_error=duplicate_uuid_skipper.skip_duplicate_uuid_errors,
+            transform=transform,
         )
         logger.info("Table %s updated.  %s processed, %s skipped",
                     table, processed, failed)
-
-
-def _remove_fid(chunk: Iterator[dict]) -> Iterator[dict]:
-    for row in chunk:
-        row.pop('fid')
-        yield row
-
-
-class DuplicateUuidSkipper:
-    """
-    Hold a set of existing "uuid" values for a table to allow a check if
-    a row with an error is already in the target table.
-    """
-    def __init__(self, table: str, dest_conn: sqlite3.Connection) -> None:
-        self.dest_uuids = set(
-            row["uuid"] for row in etl.iter_rows(f"SELECT uuid FROM {table}", dest_conn)
-        )
-
-    def skip_duplicate_uuid_errors(self, failed_rows: list[tuple[dict, Exception]]) -> None:
-        # The error message for a row that already exists in the destination
-        # may name any column that has a UNIQUE constraint failure.  Here we
-        # check that the UUID already exists so that the row can be safely
-        # skipped.
-        for row, exception in failed_rows:
-            if re.search(r"UNIQUE constraint failed", exception.args[0]):
-                if row["uuid"] in self.dest_uuids:
-                    # Row already exists and can be skipped
-                    continue
-
-            # Row is new and has a genuine constraint failure
-            raise exception
 
 
 def _backup_dest_db(dest_db: Path) -> Path:
     dest_db_backup = dest_db.parent / f"{dest_db.name}.backup"
     dest_db_backup.write_bytes(dest_db.read_bytes())
     return dest_db_backup
+
+
+def _restore_dest_db(dest_db: Path, dest_db_backup: Path):
+    dest_db.write_bytes(dest_db_backup.read_bytes())
 
 
 def _setup_connections(src_db: Path, dest_db: Path) -> list[sqlite3.Connection, sqlite3.Connection]:
@@ -127,10 +113,6 @@ def _setup_connections(src_db: Path, dest_db: Path) -> list[sqlite3.Connection, 
         except (FileNotFoundError, sqlite3.Error):
             logger.exception("Couldn't setup connection on %s", db)
     return connections
-
-
-def _restore_dest_db(dest_db: Path, dest_db_backup: Path):
-    dest_db.write_bytes(dest_db_backup.read_bytes())
 
 
 if __name__ == "__main__":
