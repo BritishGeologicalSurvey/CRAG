@@ -12,7 +12,7 @@ import etlhelper as etl
 
 from plugin.config import (
     FEATURE_TABLES,
-    LOCALITY_POINT_CHILDREN,
+    ATTRIBUTE_TABLES,
 )
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
 
@@ -116,7 +116,7 @@ class ProjectDataUpdater:
         # To do this, we also have to convert sets to lists to ensure their order is retained
         feature_tables = list(FEATURE_TABLES)
         field_project = feature_tables.pop(feature_tables.index("field_project"))
-        for table in [field_project] + feature_tables + list(LOCALITY_POINT_CHILDREN):
+        for table in [field_project] + feature_tables + list(ATTRIBUTE_TABLES):
             logger.info("Copying table '%s' to: %s", table, self.dest_gpkg)
             etl.copy_table_rows(
                 table=table,

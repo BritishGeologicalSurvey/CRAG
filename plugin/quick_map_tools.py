@@ -31,7 +31,7 @@ from qgis.PyQt.QtWidgets import (
 from .config import (
     FEATURE_STR_IDENTIFIERS,
     FEATURE_TABLES_LINES,
-    LOCALITY_POINT_CHILDREN,
+    ATTRIBUTE_TABLES,
     TABLE_LIST,
 )
 from .utils import (  # noqa
@@ -499,7 +499,7 @@ class QuickDeleteTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIden
             # Save the child layers first for locality_point deletions
             if feature_layer.name() == "locality_point":
                 # Save the child layers first
-                for child_layer_name in LOCALITY_POINT_CHILDREN:
+                for child_layer_name in ATTRIBUTE_TABLES:
                     child_layer = self.get_fdc_layer(child_layer_name)
                     if child_layer.isModified():
                         child_layer.commitChanges()
