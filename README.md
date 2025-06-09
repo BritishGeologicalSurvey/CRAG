@@ -24,16 +24,17 @@ See the [Versions and Feedback](https://kwvmxgit.ad.nerc.ac.uk/field-data-captur
 
 ## File Downloads
 
-- [ER Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram.png?job=publish_artifacts)
 - [Field Data Capture GPKG](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/field-data-capture.gpkg?job=publish_artifacts)
 
-## ER Diagram
+### ER Diagram
 
 There are 2 "primary key" columns on the data tables.  `fid` is used by QGIS/Geopackage.  We let the respective tool populate those and consider them unstable as the `fid` can change during Mergin Maps syncing process.  The `uuid` column is the unique key used to define parent-child relationships.
 
 Note that all non-dictionary tables also have `recorded_by` and `recorded_on` columns.
 
-![ER Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram.png?job=publish_artifacts)
+- [Locality Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram-locality.png?job=publish_artifacts)
+- [Lines Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram-lines.png?job=publish_artifacts)
+- [Views Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram-views.png?job=publish_artifacts)
 
 ## Overall philosophy
 
@@ -91,13 +92,16 @@ Activate the environment:
 conda activate fdc
 ```
 
+Some issues to do with `microarch-level` or `amd` package can be resolved by ensuring that the `archspec` package is available in the environment from which you are running `conda env create`.
+This may require you to add it to the `base` environment and create the environment from there.
+
 #### Dependency Issues
 
 There are some dependency issues with the environment which can be fixed with the following:
 
 > In previous environments, there have been issues with the library versions between QGIS and Python.
 > For Python 3.12 and QGIS 3.40 this is not an issue.  If they arise in future, they
-> can be fixed with a command with teh following form.
+> can be fixed with a command with the following form.
 
 ```bash
 ln -s ${CONDA_PREFIX}/lib/lib-version.so.1.2.3  ${CONDA_PREFIX}/lib/some-lib.so.1
@@ -109,7 +113,7 @@ ln -s ${CONDA_PREFIX}/lib/lib-version.so.1.2.3  ${CONDA_PREFIX}/lib/some-lib.so.
 
 When re-creating the environment with a new dependency, you should follow these steps:
 
-- Add your knew library to `environment_unversioned.yml`
+- Add your new library to `environment_unversioned.yml`
 - Delete your existing locality environment with: `conda remove -n fdc --all -y`
 - Re-build your local environment with your change using: `conda env create -f environment_unversioned.yml -y`
 - Re-export your new local environment with: `conda env export > environment.yml`

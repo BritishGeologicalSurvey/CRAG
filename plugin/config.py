@@ -60,6 +60,11 @@ FEATURE_TABLES_LINES = {table for table in FEATURE_TABLES
 DICTIONARIES = {table for table in TABLES['attributes']
                 if table.startswith('dic_')}
 
+LINE_DICTIONARIES = {table for table in DICTIONARIES
+                     if table.startswith("dic_line_")}
+
+LOCALITY_DICTIONARIES = DICTIONARIES.difference(LINE_DICTIONARIES)
+
 INTERNAL_TABLES = {table for table in TABLES['attributes']
                    if table.startswith('_')}
 

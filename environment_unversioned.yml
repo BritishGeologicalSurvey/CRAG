@@ -8,7 +8,7 @@ dependencies:
   - qgis=3.40
 
   - beautifulsoup4
-  - eralchemy2
+  - eralchemy
   - exifread
   - flake8
   - ipdb

@@ -1,24 +1,24 @@
-import os
 import logging
-import requests
 
-from eralchemy2 import render_er
+from eralchemy import render_er
 from sqlalchemy import (
     MetaData,
     create_engine,
     event
 )
 
-from plugin.config import TABLE_LIST
+from plugin.config import (
+    ATTRIBUTE_TABLES,
+    FEATURE_TABLES_LINES,
+    LINE_DICTIONARIES,
+    LOCALITY_DICTIONARIES,
+    VIEWS,
+)
 
 logger = logging.getLogger("create_er_diagram")
 
 
-def main(
-    gpkg_filepath: str = "field-data-capture.gpkg",
-    md_filepath: str = "er-diagram.md",
-    png_filepath: str = "er-diagram.png",
-) -> None:
+def main(gpkg_filepath: str = "field-data-capture.gpkg") -> None:
     engine = create_engine(f"sqlite:///{gpkg_filepath}")
 
     # Define a hook to run as soon as engine connects.
@@ -36,17 +36,28 @@ def main(
     meta = MetaData()
     meta.reflect(bind=engine, views=True)
 
-    # Only include the given tables in the diagram
+    sub_tables = {
+        "er-diagram-locality.png": ATTRIBUTE_TABLES | LOCALITY_DICTIONARIES | {"field_project", "locality_point"},
+        "er-diagram-lines.png": FEATURE_TABLES_LINES | LINE_DICTIONARIES | {"field_project"},
+        "er-diagram-views.png": VIEWS,
+    }
+    for img_filepath, tables in sub_tables.items():
+        render_tables_diagram(meta, tables, img_filepath)
+
+
+def render_tables_diagram(meta: MetaData, tables: set[str], img_filepath: str) -> None:
+    """
+    Render an ER diagram for just the given list of tables in the given metadata object.
+    """
     new_meta = MetaData()
     for table in meta.sorted_tables:
-        if table.name in TABLE_LIST:
+        if table.name in tables:
             table.to_metadata(new_meta)
 
-    # Render mermaid markdown file, which contains URL for web generation.
-    logger.info("Rendering ER diagram")
+    logger.info("Rendering ER diagram for %s tables: %s", len(tables), img_filepath)
     render_er(
         new_meta,
-        md_filepath,
+        img_filepath,
         exclude_columns=[
             "fid",
             "recorded_by",
@@ -54,27 +65,7 @@ def main(
         ],
     )
 
-    # Extract url in md file
-    with open(md_filepath, "r") as md_file:
-        lines = md_file.readlines()
-        url_line = lines[len(lines) - 1]
-    # Remove markdown formatting around url
-    url = url_line[4:-2]
-    os.remove(md_filepath)
-
-    # Set background colour for png file
-    url += '?bgColor=!LemonChiffon'
-
-    # Download png using URL
-    response = requests.get(url)
-    if response.status_code == 200:
-        logger.info("Downloading png")
-        with open(png_filepath, "wb") as png_file:
-            png_file.write(response.content)
-    else:
-        logger.error("Failed to render ER diagram")
-
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+    logger.setLevel(logging.INFO)
     main()

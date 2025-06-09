@@ -8,7 +8,7 @@ plugin/zip_build
 field-data-capture.gpkg
 *.gpkg-journal
 *.sqlite-journal
-er-diagram.png
+er-diagram*.png
 er-diagram.md
 simple_lithology_parents.csv
 ttl-graph.png
