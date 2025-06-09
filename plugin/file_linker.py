@@ -51,11 +51,13 @@ ValidationFunction = Callable[[WidgetsDict], tuple[bool, Optional[str]]]
 
 class NoScrollQComboBox(QComboBox):
     """
-    Sub-class of QComboBox to disable mouse wheel scrolling.
+    Sub-class of QComboBox to disable mouse wheel scrolling.  This QComboBox
+    is used where users scrolling through the dialog with the mouse button can
+    accidentally change the QComboBox value if the cursor is over the box.
     """
     def wheelEvent(self, e: QEvent):
         """
-        Overwritten QComboBox method to disable mouse wheel scrolling.
+        Overwritten QComboBox method does nothing on mouse wheel scrolling.
         """
         pass
 
@@ -543,7 +545,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         dic_media_layer = self.get_fdc_layer("dic_media")
 
-        combobox = QComboBox()
+        combobox = NoScrollQComboBox()
         FileLinker.configure_combobox_style(combobox)
 
         # Add default value
