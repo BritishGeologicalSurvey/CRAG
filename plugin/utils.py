@@ -386,7 +386,7 @@ class FieldDataCaptureProject:
         Open the given filepath with the OS native software.
         Returns a boolean indicating success of the process.
         """
-        if not self.validate_qgis_state(project_active=True, db_file_exists=True, fdc_layers_exist=True, field_project_exists=True):  # noqa
+        if not self.validate_qgis_state(project_active=True):
             return False
 
         if filepath.exists():
