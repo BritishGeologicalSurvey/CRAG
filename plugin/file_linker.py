@@ -14,6 +14,7 @@ from qgis.core import (
 from qgis.PyQt.QtCore import (
     pyqtSignal,
     Qt,
+    QEvent,
     QSize,
     QUrl,
 )
@@ -46,6 +47,17 @@ from .utils import (  # noqa
 WidgetsDict = dict[str, QWidget]
 CreateFeatureFunction = Callable[[QgsVectorLayer, Path, WidgetsDict], QgsFeature]
 ValidationFunction = Callable[[WidgetsDict], tuple[bool, Optional[str]]]
+
+
+class NoScrollQComboBox(QComboBox):
+    """
+    Sub-class of QComboBox to disable mouse wheel scrolling.
+    """
+    def wheelEvent(self, e: QEvent):
+        """
+        Overwritten QComboBox method to disable mouse wheel scrolling.
+        """
+        pass
 
 
 class FileLinker(QDialog, FieldDataCaptureProject):
@@ -286,7 +298,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         locality_point_layer = self.get_fdc_layer("locality_point")
 
-        combobox = QComboBox()
+        combobox = NoScrollQComboBox()
         self.configure_combobox_style(combobox)
 
         # Add default value
