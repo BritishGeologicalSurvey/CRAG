@@ -98,7 +98,7 @@ There are some dependency issues with the environment which can be fixed with th
 
 > In previous environments, there have been issues with the library versions between QGIS and Python.
 > For Python 3.12 and QGIS 3.40 this is not an issue.  If they arise in future, they
-> can be fixed with a command with teh following form.
+> can be fixed with a command with the following form.
 
 ```bash
 ln -s ${CONDA_PREFIX}/lib/lib-version.so.1.2.3  ${CONDA_PREFIX}/lib/some-lib.so.1
@@ -110,7 +110,7 @@ ln -s ${CONDA_PREFIX}/lib/lib-version.so.1.2.3  ${CONDA_PREFIX}/lib/some-lib.so.
 
 When re-creating the environment with a new dependency, you should follow these steps:
 
-- Add your knew library to `environment_unversioned.yml`
+- Add your new library to `environment_unversioned.yml`
 - Delete your existing locality environment with: `conda remove -n fdc --all -y`
 - Re-build your local environment with your change using: `conda env create -f environment_unversioned.yml -y`
 - Re-export your new local environment with: `conda env export > environment.yml`

@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:25.1.1-2
+FROM continuumio/miniconda3:25.1.1-2@sha256:0c1494093f919a36ba4cf543abf5e2e426deb3e8aa61c9d4074bcc267d264fe5
 
 # Install operating system dependencies
 RUN apt-get update -y \
