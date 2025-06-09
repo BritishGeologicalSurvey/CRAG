@@ -92,6 +92,9 @@ Activate the environment:
 conda activate fdc
 ```
 
+Some issues to do with `microarch-level` or `amd` package can be resolved by ensuring that the `archspec` package is available in the environment from which you are running `conda env create`.
+This may require you to add it to the `base` environment and create the environment from there.
+
 #### Dependency Issues
 
 There are some dependency issues with the environment which can be fixed with the following:
