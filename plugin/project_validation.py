@@ -187,28 +187,26 @@ def check_field_project_plugin_version(project: FieldDataCaptureProject) -> Vali
 
 def check_unlinked_attachment_files(project: FieldDataCaptureProject) -> ValidationResult:
     """
-    Check that there are no unlinked files in the photos/media unlinked sub-directory.
+    Check that there are no files in the unlinked sub-directory.
     """
     result = ValidationResult(validation_function=check_unlinked_attachment_files.__name__)
 
-    for table, table_dir in project.layers_to_dirs.items():
-        # Perform check
-        unlinked_dir = table_dir / project.unlinked_dir_name
-        unlinked_files = [
-            filepath
-            for filepath in unlinked_dir.rglob("*")
-            if filepath.name != project.placeholder_filename
-        ]
+    # Perform check
+    unlinked_files = [
+        filepath
+        for filepath in project.unlinked_files_dir.rglob("*")
+        if filepath.name != project.placeholder_filename
+    ]
 
-        # Prepare results
-        # If failed
-        number_unlinked_files = len(unlinked_files)
-        if number_unlinked_files > 0:
-            result.status = ValidationStatus.WARNING
-            result.messages.append(
-                f"Directory 'unlinked' for '{table}' table contains {number_unlinked_files} file(s), "
-                "these files will not be included in reports or visible in QGIS forms."
-            )
+    # Prepare results
+    # If failed
+    number_unlinked_files = len(unlinked_files)
+    if number_unlinked_files > 0:
+        result.status = ValidationStatus.WARNING
+        result.messages.append(
+            f"Directory '{project.unlinked_files_dir.name}' contains {number_unlinked_files} file(s), "
+            "these files will not be included in reports or visible in QGIS forms."
+        )
 
     return result
 
@@ -374,7 +372,7 @@ def check_no_user_filepaths_in_project_dir(project: FieldDataCaptureProject) -> 
     result = ValidationResult(validation_function=check_no_user_filepaths_in_project_dir.__name__)
     # Files and directories required by the project
     valid_filepaths = [project.db_file, project.qgz_file, project.photos_dir, project.media_dir,
-                       project.baseline_data_dir, project.system_files_dir]
+                       project.unlinked_files_dir, project.baseline_data_dir, project.system_files_dir]
     # Files and directories defined py the project
     valid_filepaths.extend([project.html_report_file, project.pdf_report_file])
     # Additional file and directories that may be created

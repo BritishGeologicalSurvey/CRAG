@@ -53,9 +53,9 @@ def fdc_project_bad(tmp_path: Path) -> Path:
     dummy_user_file.touch()
 
     dummy_unlinked_files = [
-        project.photos_dir / project.unlinked_dir_name / "dummy_a.png",
-        project.photos_dir / project.unlinked_dir_name / "dummy_b.png",
-        project.media_dir / project.unlinked_dir_name / "dummy_c.csv",
+        project.unlinked_files_dir / "dummy_a.png",
+        project.unlinked_files_dir / "dummy_b.png",
+        project.unlinked_files_dir / "dummy_c.csv",
     ]
     for dummy_unlinked_file in dummy_unlinked_files:
         dummy_unlinked_file.parent.mkdir(exist_ok=True, parents=True)
@@ -114,9 +114,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
             validation_function="check_unlinked_attachment_files",
             status=ValidationStatus.WARNING,
             messages=[
-                ("Directory 'unlinked' for 'media' table contains 1 file(s), "
-                 "these files will not be included in reports or visible in QGIS forms."),
-                ("Directory 'unlinked' for 'photo' table contains 2 file(s), "
+                ("Directory 'unlinked_files' contains 3 file(s), "
                  "these files will not be included in reports or visible in QGIS forms."),
             ],
         ),
@@ -220,7 +218,7 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch_multi
 def test_validation_dialog_warning(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
     # Arrange
     # Add unlinked photo to the project
-    dummy_photo = fdc_project.photos_dir / "unlinked" / "not_a_photo.png"
+    dummy_photo = fdc_project.unlinked_files_dir / "not_a_photo.png"
     dummy_photo.touch()
     # Add a dummy conflict GeoPackage to the project
     dummy_conflict_gpkg = fdc_project.project_dir / "test_project (conflicted copy).gpkg"
@@ -229,7 +227,7 @@ def test_validation_dialog_warning(fdc_project: FieldDataCapture, monkeypatch_mu
     expected_title = "Project Validation"
     expected_message = "Validation for project 'test_project_dir': WARNING"
     expected_text = "\n".join([
-        ("• WARNING: Directory 'unlinked' for 'photo' table contains 1 file(s), "
+        ("• WARNING: Directory 'unlinked_files' contains 1 file(s), "
          "these files will not be included in reports or visible in QGIS forms."),
         "\n• WARNING: Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
     ])

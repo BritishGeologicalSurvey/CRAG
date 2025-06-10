@@ -56,7 +56,6 @@ class FieldDataCaptureProject:
     _project_dir: Optional[Path] = None
     placeholder_filename = ".placeholder.txt"
     bgs_logo_filename = "BGS-placeholder.png"
-    unlinked_dir_name = "unlinked"
     layers_to_file_attributes = {
         "media": "media_link",
         "photo": "photo_file",
@@ -124,6 +123,13 @@ class FieldDataCaptureProject:
         Get the media directory path from the current project.
         """
         return self.project_dir / "media"
+
+    @property
+    def unlinked_files_dir(self) -> Path:
+        """
+        Get the unlinked files directory path from the current project.
+        """
+        return self.project_dir / "unlinked_files"
 
     @property
     def baseline_data_dir(self) -> Path:
@@ -489,8 +495,6 @@ class FieldDataCaptureProject:
                 attachment.is_file(),
                 attachment.relative_to(attachment_dir) not in recorded_attachments,
                 attachment.name not in {self.placeholder_filename, self.bgs_logo_filename},
-                # If it is not in the unlinked dir
-                attachment.relative_to(attachment_dir).parts[0] != self.unlinked_dir_name,
             ))
         ]
 

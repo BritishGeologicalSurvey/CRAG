@@ -149,8 +149,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         fdc.photos_dir,
         fdc.media_dir,
         fdc.baseline_data_dir,
-        fdc.photos_dir / fdc.unlinked_dir_name,
-        fdc.media_dir / fdc.unlinked_dir_name,
+        fdc.unlinked_files_dir,
     ]
 
     # Act
