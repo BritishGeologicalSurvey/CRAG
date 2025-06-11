@@ -212,7 +212,9 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch_multi
     expected_title = "Project Validation"
     expected_message = "Validation for project 'test_project_dir': FAILED"
     expected_text = "\n".join([
-        f"• FAILED: Unlinked file in 'photo' directory: {dummy_photo}",
+        ("• WARNING: Directory 'unlinked_files' contains 1 file(s), "
+         "these files will not be included in reports or visible in QGIS forms."),
+        f"\n• FAILED: Unlinked file in 'photo' directory: {dummy_photo}",
         "\n• WARNING: Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
     ])
 
