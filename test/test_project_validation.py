@@ -79,6 +79,20 @@ def test_validate_project_good(fdc_project: FieldDataCapture):
         assert result.messages == []
 
 
+def test_validate_project_warn(fdc_project: FieldDataCapture):
+    # Act
+    results = validate_project(project_dir=fdc_project.project_dir)
+
+    # Assert
+    for result in results:
+        assert result.status in (ValidationStatus.PASSED, ValidationStatus.WARNING)
+        if result.status == ValidationStatus.WARNING:
+            assert result.messages == [
+                "Directory 'unlinked_files' contains 1 file(s), "
+                "these files will not be included in reports or visible in QGIS forms."
+            ]
+
+
 def test_validate_project_bad(fdc_project_bad: Path):
     # Arrange
     expected_results = [
