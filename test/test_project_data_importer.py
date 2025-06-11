@@ -40,6 +40,9 @@ def dest_fdc_project(tmp_path: Path) -> Path:
             Path("test/data/photos/no_exif_data.jpg"),
         ],
         "media": [],
+        "unlinked_files": [
+            Path("test/data/unlinked_files/unlinked_photo.jpg"),
+        ],
     }
     create_fdc_project_files(
         project_dir=project_dir,

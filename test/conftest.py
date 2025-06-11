@@ -70,6 +70,9 @@ def create_fdc_project_files(
             Path("test/data/photos/no_exif_data.jpg"),
         ],
         "media": [],
+        "unlinked_files": [
+            Path("test/data/unlinked_files/unlinked_photo.jpg"),
+        ],
     }
     """
     # Make the project directory
