@@ -393,6 +393,7 @@ def check_no_user_filepaths_in_project_dir(project: FieldDataCaptureProject) -> 
         result.status = ValidationStatus.WARNING
         for user_file in user_files:
             result.messages.append(f"User file found in project dir: {user_file}; "
-                                   "all user files should be in media, photos or baseline_data")
+                                   "all user files should be in media, photos, "
+                                   "baseline_data or unlinked files")
 
     return result

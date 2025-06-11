@@ -186,7 +186,8 @@ def test_validate_project_bad(fdc_project_bad: Path):
             status=ValidationStatus.WARNING,
             messages=[
                 "User file found in project dir: test_project.doc; "
-                "all user files should be in media, photos or baseline_data",
+                "all user files should be in media, photos, baseline_data "
+                "or unlinked files",
             ],
         ),
     ]
