@@ -121,9 +121,9 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
 
     # Make dummy files in the sub-directory unlinked
     dummy_unlinked_files = [
-        fdc_project.photos_dir / fdc_project.unlinked_dir_name / "unlinked_dummy_1.png",
-        fdc_project.photos_dir / fdc_project.unlinked_dir_name / "unlinked_dummy_2.png",
-        fdc_project.media_dir / fdc_project.unlinked_dir_name / "unlinked_dummy_3.csv",
+        fdc_project.unlinked_files_dir / "unlinked_dummy_1.png",
+        fdc_project.unlinked_files_dir / "unlinked_dummy_2.png",
+        fdc_project.unlinked_files_dir / "unlinked_dummy_3.csv",
     ]
     for dummy_unlinked_file in dummy_unlinked_files:
         dummy_unlinked_file.touch()

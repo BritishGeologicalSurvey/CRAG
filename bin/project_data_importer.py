@@ -77,7 +77,7 @@ class ProjectDataImporter:
             for conn in self.src_conn, self.dest_conn:
                 conn.close()
 
-        self.copy_feature_files()
+        self.copy_files()
 
         return True
 
@@ -247,19 +247,20 @@ class ProjectDataImporter:
             raise
 
 
-    def copy_feature_files(self) -> None:
+    def copy_files(self) -> None:
         """
-        Copy the files referenced in feature layers from the source to the destination project.
-        This includes the 'photos' and 'media' directories.
+        Copy the files referenced in feature layers from the source to the destination project,
+        these include the 'photos' and 'media' directories.
+        Additionally, copy across the unreferenced files in the 'unlinked_files' directory.
         """
-        for feature_dir in ["photos", "media"]:
-            logger.info("Copying feature files from directory: %s", feature_dir)
-            # For each feature file in the source project directory (excluding placeholders)
+        for feature_dir in ["photos", "media", "unlinked_files"]:
+            logger.info("Copying files from directory: %s", feature_dir)
+            # For each file in the source project directory (excluding placeholders)
             for src_file in (self.src_dir / feature_dir).rglob("*[!.placeholder.txt]"):
                 # Ignore directories
                 if src_file.is_file():
                     relative_src_file = src_file.relative_to(self.src_dir / feature_dir)
-                    # Create the new file in the destintation project with the same relative path
+                    # Create the new file in the destitation project with the same relative path
                     dest_file = self.dest_dir / feature_dir / relative_src_file
                     # Copy the file
                     dest_file.parent.mkdir(parents=True, exist_ok=True)

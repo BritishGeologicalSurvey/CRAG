@@ -40,6 +40,9 @@ def dest_fdc_project(tmp_path: Path) -> Path:
             Path("test/data/photos/no_exif_data.jpg"),
         ],
         "media": [],
+        "unlinked_files": [
+            Path("test/data/unlinked_files/unlinked_photo.jpg"),
+        ],
     }
     create_fdc_project_files(
         project_dir=project_dir,
@@ -58,10 +61,11 @@ def test_project_data_importer_fixtures(
                                     (dest_fdc_project, DEST_SHORT_NAME)]:
         # Check the files exist
         assert project_dir.exists()
-        for subpath in [f"{short_name}.gpkg", "photos", "media"]:
+        for subpath in [f"{short_name}.gpkg", "photos", "media", "unlinked_files"]:
             assert (project_dir / subpath).exists()
-        # Check that some photos exist
+        # Check that some photos and unlinked files exist
         assert len(list((project_dir / "photos").rglob("*[!.placeholder.txt]"))) > 0
+        assert len(list((project_dir / "unlinked_files").rglob("*[!.placeholder.txt]"))) > 0
         # Check that a field_project row exists
         with setup_db_conn(project_dir / f"{short_name}.gpkg") as conn:
             rows = etl.fetchall(
@@ -165,6 +169,9 @@ def test_copy_project_data_good(
     # Check that the photo files have been copied across
     for photo_file in (src_fdc_project / "photos").rglob("*[!.placeholder.txt]"):
         assert (dest_fdc_project / photo_file.relative_to(src_fdc_project)).exists()
+    # Check that the unlinked files have been copied across
+    for unlinked_file in (src_fdc_project / "unlinked_files").rglob("*[!.placeholder.txt]"):
+        assert (dest_fdc_project / unlinked_file.relative_to(src_fdc_project)).exists()
 
 
 @pytest.mark.parametrize(
@@ -195,19 +202,22 @@ def test_copy_project_data_bad(
     with setup_db_conn(dest_db) as conn:
         etl.execute(sql_break_db_query, conn)
 
-    # Record original state of database and photos folder
+    # Record original state of database, photos folder and unlinked files
     dest_db_original_contents = dest_db.read_bytes()
     photo_folder_original_contents = list((src_fdc_project / "photos").rglob("*"))
+    unlinked_files_original_contents = list((src_fdc_project / "unlinked_files").rglob("*"))
 
     # Act
     project_data_importer = ProjectDataImporter(src_fdc_project, dest_fdc_project)
     result = project_data_importer.copy_project_data()
     photo_folder_contents = list((src_fdc_project / "photos").rglob("*"))
+    unlinked_files_contents = list((src_fdc_project / "unlinked_files").rglob("*"))
 
     # Assert that function returns False and original state is unchanged
     assert not result
     assert dest_db.read_bytes() == dest_db_original_contents
     assert photo_folder_contents == photo_folder_original_contents
+    assert unlinked_files_contents == unlinked_files_original_contents
 
 
 def test_copy_project_data_failed_metadata(

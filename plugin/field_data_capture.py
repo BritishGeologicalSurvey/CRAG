@@ -576,9 +576,8 @@ class FieldDataCapture(FieldDataCaptureProject):
             self.photos_dir,
             self.media_dir,
             self.baseline_data_dir,
-            # Unlinked media dirs
-            self.photos_dir / self.unlinked_dir_name,
-            self.media_dir / self.unlinked_dir_name,
+            # Unlinked media dir
+            self.unlinked_files_dir,
         ]
         for directory in create_dirs:
             directory.mkdir(parents=True, exist_ok=True)
@@ -813,8 +812,8 @@ class FieldDataCapture(FieldDataCaptureProject):
             vector_layer.name(): vector_layer
             for vector_layer in vector_layers
         }
-        self.copy_plugin_files_to_project(plugin_src="styles", project_dest="styles")
-        self.copy_plugin_files_to_project(plugin_src="slyr_styles/sigmaQ_2024_v2.xml", project_dest="styles")
+        self.copy_plugin_files_to_project(plugin_src="styles", project_dest=self.styles_dir)
+        self.copy_plugin_files_to_project(plugin_src="slyr_styles/sigmaQ_2024_v2.xml", project_dest=self.styles_dir)
 
         for qml_file in self.styles_dir.glob("*"):
             if qml_file.stem in vector_layer_names:
@@ -957,8 +956,9 @@ class FieldDataCapture(FieldDataCaptureProject):
         conn.close()
 
         # Copy test data media files across into current project
-        self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest="photos")
-        self.copy_plugin_files_to_project(plugin_src="test/data/media", project_dest="media")
+        self.copy_plugin_files_to_project(plugin_src="test/data/photos", project_dest=self.photos_dir)
+        self.copy_plugin_files_to_project(plugin_src="test/data/media", project_dest=self.media_dir)
+        self.copy_plugin_files_to_project(plugin_src="test/data/unlinked_files", project_dest=self.unlinked_files_dir)
         self.iface.mapCanvas().refresh()
         QMessageBox.information(None, "Information", f"Added test data set to:\n\n{self.db_file}")
         return True
@@ -1255,15 +1255,10 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         results = validate_project(self.project_dir)
 
-        status_to_str = {
-            ValidationStatus.FAIL: "FAILED",
-            ValidationStatus.WARNING: "WARNING",
-            ValidationStatus.PASS: "PASSED",
-        }
         status_to_msgbox = {
-            ValidationStatus.FAIL: MultilineMessageBox.critical,
+            ValidationStatus.FAILED: MultilineMessageBox.critical,
             ValidationStatus.WARNING: MultilineMessageBox.warning,
-            ValidationStatus.PASS: MultilineMessageBox.information,
+            ValidationStatus.PASSED: MultilineMessageBox.information,
         }
 
         all_messages: list[str] = []
@@ -1271,10 +1266,10 @@ class FieldDataCapture(FieldDataCaptureProject):
         for result in results:
             result_statuses.add(result.status)
 
-            if result.status < ValidationStatus.PASS:
+            if result.status < ValidationStatus.PASSED:
                 display_messages = [
                     # Add bullet point before each message
-                    f"• {status_to_str[result.status]}: " + message
+                    f"• {result.status.name}: " + message
                     for message in result.messages
                 ]
                 all_messages.append("\n".join(display_messages))
@@ -1283,9 +1278,9 @@ class FieldDataCapture(FieldDataCaptureProject):
         final_status = min(result_statuses)
 
         msgbox_method = status_to_msgbox[final_status]
-        message = f"Validation for project '{self.project_dir.name}': {status_to_str[final_status]}"
+        message = f"Validation for project '{self.project_dir.name}': {final_status.name}"
         text = None
-        if final_status < ValidationStatus.PASS:
+        if final_status < ValidationStatus.PASSED:
             text = "\n\n".join(all_messages)
 
         msgbox_method("Project Validation", message, text)

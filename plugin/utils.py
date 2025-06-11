@@ -39,6 +39,12 @@ from PyQt5.QtCore import pyqtRemoveInputHook
 from .config import TABLE_LIST
 from .create_gpkg_from_sql import WORKDIR
 
+SYSTEM_DIR_NAME = ".field_data_capture"
+# Using locally downloaded woff2 of Google's Material Symbols Outlined font
+# See: https://fonts.google.com/icons
+# Licence: https://www.apache.org/licenses/LICENSE-2.0.html
+FONT_FILENAME = "MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2"
+
 
 class FieldDataCaptureProject:
     """
@@ -48,15 +54,8 @@ class FieldDataCaptureProject:
     """
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
-    placeholder_filename = Path(".placeholder.txt")
-    css_filename = Path("style.css")
-    bgs_logo_filename = Path("BGS-placeholder.png")
-    unlinked_dir_name = Path("unlinked")
-    icons_dir_name = Path("icons")
-    # Using locally downloaded woff2 of Google's Material Symbols Outlined font
-    # See: https://fonts.google.com/icons
-    # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
-    font_filename = Path("MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2")
+    placeholder_filename = ".placeholder.txt"
+    bgs_logo_filename = "BGS-placeholder.png"
     layers_to_file_attributes = {
         "media": "media_link",
         "photo": "photo_file",
@@ -93,6 +92,9 @@ class FieldDataCaptureProject:
         else:
             return self._project_dir
 
+    #
+    # Files and paths visible in the project directory
+    #
     @property
     def db_file(self) -> Path:
         """
@@ -109,25 +111,11 @@ class FieldDataCaptureProject:
         return next(self.project_dir.glob('*.qgz'))
 
     @property
-    def styles_dir(self) -> Path:
-        """
-        Get the styles directory path from the current project.
-        """
-        return self.project_dir / "styles"
-
-    @property
     def photos_dir(self) -> Path:
         """
         Get the photos directory path from the current project.
         """
         return self.project_dir / "photos"
-
-    @property
-    def thumbnails_dir(self) -> Path:
-        """
-        Get the thumbnails directory path from the current project.
-        """
-        return self.project_dir / ".thumbnails"
 
     @property
     def media_dir(self) -> Path:
@@ -137,25 +125,18 @@ class FieldDataCaptureProject:
         return self.project_dir / "media"
 
     @property
+    def unlinked_files_dir(self) -> Path:
+        """
+        Get the unlinked files directory path from the current project.
+        """
+        return self.project_dir / "unlinked_files"
+
+    @property
     def baseline_data_dir(self) -> Path:
         """
         Get the baseline data directory path from the current project.
         """
         return self.project_dir / "baseline_data"
-
-    @property
-    def icons_src_dir(self) -> Path:
-        """
-        Get the icons directory path from the plugin folder.
-        """
-        return WORKDIR / self.icons_dir_name
-
-    @property
-    def icons_dest_dir(self) -> Path:
-        """
-        Get the icons directory path from the project folder.
-        """
-        return self.project_dir / self.icons_dir_name
 
     @property
     def html_report_file(self) -> Path:
@@ -172,32 +153,73 @@ class FieldDataCaptureProject:
         return self.project_dir / f"{self.qgz_file.stem}_field_report.pdf"
 
     @property
-    def css_src_file(self) -> Path:
+    def system_files_dir(self) -> Path:
         """
-        Get the ccs file path from the plugin folder.
+        Get the system files directory path from the current project.
         """
-        return WORKDIR / "css" / self.css_filename
+        return self.project_dir / SYSTEM_DIR_NAME
+
+    #
+    # Files and paths hidden in the system files directory
+    #
+    @property
+    def styles_dir(self) -> Path:
+        """
+        Get the styles directory path from the current project.
+        """
+        return self.system_files_dir / "styles"
+
+    @property
+    def thumbnails_dir(self) -> Path:
+        """
+        Get the thumbnails directory path from the current project.
+        """
+        return self.system_files_dir / ".thumbnails"
+
+    @property
+    def icons_dest_dir(self) -> Path:
+        """
+        Get the icons directory path from the project folder.
+        """
+        return self.system_files_dir / "icons"
 
     @property
     def css_dest_dir(self) -> Path:
         """
         Get the ccs directory from the current project.
         """
-        return self.project_dir / "css"
+        return self.system_files_dir / "css"
+
+    @property
+    def font_dest_dir(self) -> Path:
+        """
+        Get the font directory from the current project.
+        """
+        return self.system_files_dir / "fonts"
+
+    #
+    # Files and paths in the plugin directory
+    #
+    @property
+    def icons_src_dir(self) -> Path:
+        """
+        Get the icons directory path from the plugin folder.
+        """
+        return WORKDIR / "icons"
+
+    @property
+    def css_src_file(self) -> Path:
+        """
+        Get the ccs file path from the plugin folder.
+        """
+        return WORKDIR / "css" / "style.css"
 
     @property
     def font_src_file(self) -> Path:
         """
         Get the font file path from the plugin folder.
         """
-        return WORKDIR / "fonts" / self.font_filename
-
-    @property
-    def font_dest_dir(self) -> Path:
-        """
-        Get the ccs directory from the current project.
-        """
-        return self.project_dir / "fonts"
+        return WORKDIR / "fonts" / FONT_FILENAME
 
     @property
     def templates_dir(self) -> Path:
@@ -209,9 +231,9 @@ class FieldDataCaptureProject:
     @property
     def help_file(self) -> Path:
         """
-        Get the icons directory path from the plugin folder.
+        Get the help directory path from the plugin folder.
         """
-        return WORKDIR / "help" / Path("index.html")
+        return WORKDIR / "help" / "index.html"
 
     @property
     def layers_to_dirs(self) -> dict[str, Path]:
@@ -229,7 +251,7 @@ class FieldDataCaptureProject:
         """
         The default string used to populate attachment filepaths in the forms.
         """
-        return f"../{self.icons_dir_name}/{self.bgs_logo_filename}"
+        return f"../{SYSTEM_DIR_NAME}/icons/{self.bgs_logo_filename}"
 
 
     def copy_plugin_files_to_project(self, plugin_src: Path | str, project_dest: Path | str) -> None:
@@ -240,21 +262,27 @@ class FieldDataCaptureProject:
 
         The project_dest filepath must always be a directory.
 
-        The plugin_src filepath must be relative to the plugin/ directory within the repository.
-        The project_dest filepath must be relative to the project directory.
+        If plugin_src is a Path, it must be an absolute filepath in the plugin/ directory within the repository,
+        If plugin_src is a a string, it must be relative to the plugin/ directory within the repository.
+        If project_dest is a Path, it must be an absolute filepath in the project directory.
+        If project_dest is a string, it must be relative to the project directory.
         """
         # Use given relative paths to create full paths
-        plugin_src_path = WORKDIR / plugin_src
-        project_dest_path = self.project_dir / project_dest
-        project_dest_path.mkdir(parents=True, exist_ok=True)
+        if isinstance(plugin_src, str):
+            plugin_src = WORKDIR / plugin_src
 
-        if plugin_src_path.is_dir():
-            src_files = list(plugin_src_path.glob("*"))
+        if isinstance(project_dest, str):
+            project_dest = self.project_dir / project_dest
+
+        project_dest.mkdir(parents=True, exist_ok=True)
+
+        if plugin_src.is_dir():
+            src_files = list(plugin_src.glob("*"))
         else:
-            src_files = [plugin_src_path]
+            src_files = [plugin_src]
 
         for src_file in src_files:
-            dest_file = project_dest_path / src_file.name
+            dest_file = project_dest / src_file.name
             dest_file.write_bytes(src_file.read_bytes())
 
 
@@ -466,9 +494,7 @@ class FieldDataCaptureProject:
             if all((
                 attachment.is_file(),
                 attachment.relative_to(attachment_dir) not in recorded_attachments,
-                attachment.name not in {self.placeholder_filename.name, self.bgs_logo_filename.name},
-                # If it is not in the unlinked dir
-                attachment.relative_to(attachment_dir).parts[0] != self.unlinked_dir_name.name,
+                attachment.name not in {self.placeholder_filename, self.bgs_logo_filename},
             ))
         ]
 

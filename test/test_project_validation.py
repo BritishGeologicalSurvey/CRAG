@@ -34,6 +34,8 @@ def fdc_project_bad(tmp_path: Path) -> Path:
             Path("test/data/photos/no_exif_data.jpg"),
         ],
         "media": [],
+        ".field_data_capture": [],
+        # baseline_data omitted for test
     }
 
     create_fdc_project_files(
@@ -46,10 +48,14 @@ def fdc_project_bad(tmp_path: Path) -> Path:
     dummy_conflict_gpkg = project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
+    # Add a dummy user file to the project
+    dummy_user_file = project_dir / "test_project.doc"
+    dummy_user_file.touch()
+
     dummy_unlinked_files = [
-        project.photos_dir / project.unlinked_dir_name / "dummy_a.png",
-        project.photos_dir / project.unlinked_dir_name / "dummy_b.png",
-        project.media_dir / project.unlinked_dir_name / "dummy_c.csv",
+        project.unlinked_files_dir / "dummy_a.png",
+        project.unlinked_files_dir / "dummy_b.png",
+        project.unlinked_files_dir / "dummy_c.csv",
     ]
     for dummy_unlinked_file in dummy_unlinked_files:
         dummy_unlinked_file.parent.mkdir(exist_ok=True, parents=True)
@@ -59,13 +65,32 @@ def fdc_project_bad(tmp_path: Path) -> Path:
 
 
 def test_validate_project_good(fdc_project: FieldDataCapture):
+    # Arrange
+    # Delete unlinked file in test project to get passing validation
+    unlinked_file = fdc_project.unlinked_files_dir / "test_unlinked_photo.jpeg"
+    unlinked_file.unlink()
+
     # Act
     results = validate_project(project_dir=fdc_project.project_dir)
 
     # Assert
     for result in results:
-        assert result.status == ValidationStatus.PASS
+        assert result.status == ValidationStatus.PASSED
         assert result.messages == []
+
+
+def test_validate_project_warn(fdc_project: FieldDataCapture):
+    # Act
+    results = validate_project(project_dir=fdc_project.project_dir)
+
+    # Assert
+    for result in results:
+        assert result.status in (ValidationStatus.PASSED, ValidationStatus.WARNING)
+        if result.status == ValidationStatus.WARNING:
+            assert result.messages == [
+                "Directory 'unlinked_files' contains 1 file(s), "
+                "these files will not be included in reports or visible in QGIS forms."
+            ]
 
 
 def test_validate_project_bad(fdc_project_bad: Path):
@@ -73,7 +98,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
     expected_results = [
         ValidationResult(
             validation_function='check_project_name',
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 (f"File name '{fdc_project_bad / "test_project.gpkg"}' "
                  "does not match 'field_project.short_name': leos_test_project"),
@@ -83,7 +108,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_features_valid_parents",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "Record in 'bedrock_line' with invalid parent 'field_project' found: algal_band",
                 "Record in 'locality_point' with invalid parent 'field_project' found: leorudczenko_002",
@@ -91,7 +116,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_locality_children_valid_parents",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "Record in 'media' with invalid parent 'locality_point' found: file_does_no_exist.mov",
                 "Record in 'sample' with invalid parent 'locality_point' found: sample_001",
@@ -99,7 +124,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_field_project_plugin_version",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "The 'field_project' record does not include a valid 'qgis_plugin_version'",
             ],
@@ -108,29 +133,27 @@ def test_validate_project_bad(fdc_project_bad: Path):
             validation_function="check_unlinked_attachment_files",
             status=ValidationStatus.WARNING,
             messages=[
-                ("Directory 'unlinked' for 'media' table contains 1 file(s), "
-                 "these files will not be included in reports or visible in QGIS forms."),
-                ("Directory 'unlinked' for 'photo' table contains 2 file(s), "
+                ("Directory 'unlinked_files' contains 3 file(s), "
                  "these files will not be included in reports or visible in QGIS forms."),
             ],
         ),
         ValidationResult(
             validation_function="check_attached_filepaths_not_null",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "File referenced in 'photo' table is NULL, feature ID: 3",
             ],
         ),
         ValidationResult(
             validation_function="check_attached_filepaths_not_placeholder",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "File referenced in 'media' table is placeholder image, feature ID: 2",
             ],
         ),
         ValidationResult(
             validation_function="check_attached_filepaths_exist",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             messages=[
                 "File referenced in 'media' table not found: file_does_no_exist.mov",
                 "File referenced in 'photo' table not found: file_does_no_exist.jpg",
@@ -138,7 +161,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
         ),
         ValidationResult(
             validation_function="check_attachment_filepaths_recorded",
-            status=ValidationStatus.FAIL,
+            status=ValidationStatus.FAILED,
             # Project path here is dynamic because it comes from the tmp_path fixture
             messages=[
                 f"Unlinked file in 'photo' directory: {fdc_project_bad / 'photos/no_exif_data.jpg'}",
@@ -149,6 +172,22 @@ def test_validate_project_bad(fdc_project_bad: Path):
             status=ValidationStatus.WARNING,
             messages=[
                 "Conflict GeoPackage file found: test_project (conflicted copy).gpkg",
+            ],
+        ),
+        ValidationResult(
+            validation_function='check_required_filepaths_in_project_dir',
+            status=ValidationStatus.FAILED,
+            messages=[
+                "Required file or directory missing from project directory: baseline_data",
+            ],
+        ),
+        ValidationResult(
+            validation_function='check_no_user_filepaths_in_project_dir',
+            status=ValidationStatus.WARNING,
+            messages=[
+                "User file found in project dir: test_project.doc; "
+                "all user files should be in media, photos, baseline_data "
+                "or unlinked files",
             ],
         ),
     ]
@@ -162,6 +201,9 @@ def test_validate_project_bad(fdc_project_bad: Path):
 
 def test_validation_dialog_pass(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
     # Arrange
+    # Delete unlinked file in test project to get passing validation
+    unlinked_file = fdc_project.unlinked_files_dir / "test_unlinked_photo.jpeg"
+    unlinked_file.unlink()
     expected_title = "Project Validation"
     expected_message = "Validation for project 'test_project_dir': PASSED"
     expected_text = None
@@ -185,7 +227,9 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch_multi
     expected_title = "Project Validation"
     expected_message = "Validation for project 'test_project_dir': FAILED"
     expected_text = "\n".join([
-        f"• FAILED: Unlinked file in 'photo' directory: {dummy_photo}",
+        ("• WARNING: Directory 'unlinked_files' contains 1 file(s), "
+         "these files will not be included in reports or visible in QGIS forms."),
+        f"\n• FAILED: Unlinked file in 'photo' directory: {dummy_photo}",
         "\n• WARNING: Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
     ])
 
@@ -198,9 +242,6 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch_multi
 
 def test_validation_dialog_warning(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
     # Arrange
-    # Add unlinked photo to the project
-    dummy_photo = fdc_project.photos_dir / "unlinked" / "not_a_photo.png"
-    dummy_photo.touch()
     # Add a dummy conflict GeoPackage to the project
     dummy_conflict_gpkg = fdc_project.project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
@@ -208,7 +249,7 @@ def test_validation_dialog_warning(fdc_project: FieldDataCapture, monkeypatch_mu
     expected_title = "Project Validation"
     expected_message = "Validation for project 'test_project_dir': WARNING"
     expected_text = "\n".join([
-        ("• WARNING: Directory 'unlinked' for 'photo' table contains 1 file(s), "
+        ("• WARNING: Directory 'unlinked_files' contains 1 file(s), "
          "these files will not be included in reports or visible in QGIS forms."),
         "\n• WARNING: Conflict GeoPackage file found: test_project (conflicted copy).gpkg"
     ])

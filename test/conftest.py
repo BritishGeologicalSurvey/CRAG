@@ -70,6 +70,9 @@ def create_fdc_project_files(
             Path("test/data/photos/no_exif_data.jpg"),
         ],
         "media": [],
+        "unlinked_files": [
+            Path("test/data/unlinked_files/unlinked_photo.jpg"),
+        ],
     }
     """
     # Make the project directory
@@ -88,6 +91,8 @@ def create_fdc_project_files(
     for feature_dir, feature_files in feature_filepaths.items():
         project_feature_dir = project_dir / feature_dir
         project_feature_dir.mkdir(exist_ok=True)
+        placeholder = project_feature_dir / ".placeholder.txt"
+        placeholder.touch()
 
         for idx, feature_file in enumerate(feature_files):
             # Put the first file into a sub directory of the feature directory to ensure it is still copied

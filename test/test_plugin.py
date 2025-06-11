@@ -149,8 +149,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         fdc.photos_dir,
         fdc.media_dir,
         fdc.baseline_data_dir,
-        fdc.photos_dir / fdc.unlinked_dir_name,
-        fdc.media_dir / fdc.unlinked_dir_name,
+        fdc.unlinked_files_dir,
     ]
 
     # Act
@@ -197,7 +196,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Check that the empty user directories have been created
     for directory in expected_user_dirs:
         assert directory.exists()
-        assert list(directory.glob("*.*"))[0].name == fdc.placeholder_filename.name
+        assert list(directory.glob("*.*"))[0].name == fdc.placeholder_filename
 
 
 def test_open_create_field_project_already_exists(fdc_project: FieldDataCapture):
