@@ -27,6 +27,7 @@ from qgis.PyQt.QtGui import (
 from qgis.PyQt.QtWidgets import (
     QComboBox,
     QDialog,
+    QFrame,
     QHBoxLayout,
     QLabel,
     QMessageBox,
@@ -575,7 +576,6 @@ class MultilineMessageBox(QDialog):
             self.text_edit.show()
 
 
-# TODO: check button works
 class CollapsibleWidget(QWidget):
     """
     QWidget object to create a custom collapsible style widget in PyQt5.
@@ -593,7 +593,7 @@ class CollapsibleWidget(QWidget):
         Create the elements of the CollapsibleWidget with a public facing layout.
         """
         self.toggle_button = QToolButton(text=title, checkable=True)
-        self.toggle_button.setStyleSheet("QToolButton { border: none; }")
+        self.toggle_button.setStyleSheet("QToolButton {border: none;}")
         self.toggle_button.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
         self.toggle_button.setArrowType(Qt.RightArrow)
 
@@ -602,32 +602,40 @@ class CollapsibleWidget(QWidget):
         self.collapsible_layout_widget.setHidden(True)
         self.collapsible_layout_widget.setLayout(self.collapsible_layout)
 
+        # Put the layout into a frame for a border
+        frame_layout = QVBoxLayout()
+        frame = QFrame()
+        frame.setFrameStyle(QFrame.Panel)
+        frame.setStyleSheet("QFrame {border: 1px solid gray;}")
+        frame.setLayout(frame_layout)
+
+        frame_layout.addWidget(self.toggle_button)
+        frame_layout.addWidget(self.collapsible_layout_widget)
+
         layout = QVBoxLayout()
+        layout.addWidget(frame)
         self.setLayout(layout)
-        layout.addWidget(self.toggle_button)
-        layout.addWidget(self.collapsible_layout_widget)
 
 
     def connect_signals_and_slots(self) -> None:
         """
         Function for connecting signals and slots of buttons and input boxes.
         """
-        self.toggle_button.pressed.connect(self.on_click)
+        self.toggle_button.toggled.connect(self.on_click)
 
 
     def on_click(self, *args) -> None:
         """
-        Switch the arrow type and hide/show the main layout.
+        Switch the arrow type and hide/show the collapsible layout.
         """
         if self.toggle_button.isChecked():
-            arrow = Qt.RightArrow
-            hide = True
-        else:
             arrow = Qt.DownArrow
             hide = False
+        else:
+            arrow = Qt.RightArrow
+            hide = True
         self.collapsible_layout_widget.setHidden(hide)
         self.toggle_button.setArrowType(arrow)
-        self.toggle_button.setChecked(not hide)
 
 
 def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:
