@@ -72,7 +72,7 @@
               <Option name="properties" type="Map">
                 <Option name="documentViewerContent" type="Map">
                   <Option name="active" type="bool" value="true"></Option>
-                  <Option name="expression" type="QString" value="if(&quot;media_link&quot;='../.field_data_capture/icons/BGS-placeholder.png', 'Image', 'NoContent')"></Option>
+                  <Option name="expression" type="QString" value="if(&quot;media_link&quot;='../field_data_capture/icons/BGS-placeholder.png', 'Image', 'NoContent')"></Option>
                   <Option name="type" type="int" value="3"></Option>
                 </Option>
                 <Option name="propertyRootPath" type="Map">
@@ -142,7 +142,7 @@
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
     <default applyOnUpdate="0" expression="" field="media_type_code"></default>
-    <default applyOnUpdate="0" expression="'../.field_data_capture/icons/BGS-placeholder.png'" field="media_link"></default>
+    <default applyOnUpdate="0" expression="'../field_data_capture/icons/BGS-placeholder.png'" field="media_link"></default>
     <default applyOnUpdate="0" expression="" field="media_description"></default>
     <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="recorded_by"></default>
     <default applyOnUpdate="0" expression="now()" field="recorded_on"></default>
@@ -162,7 +162,7 @@
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="locality_fuid"></constraint>
     <constraint desc="" exp="" field="media_type_code"></constraint>
-    <constraint desc="" exp="-- Media is the placeholder image&#xD;&#xA;&quot;media_link&quot;='../.field_data_capture/icons/BGS-placeholder.png'&#xD;&#xA;or&#xD;&#xA;(&#xD;&#xA;&#x9;-- Media must be within project media folder&#xD;&#xA;&#xD;&#xA;&#x9;-- Don't match absolute windows paths (e.g. starting with &quot;C:/&quot;)&#xD;&#xA;&#x9;not(regexp_match(lower(&quot;media_link&quot;), '^[a-z]:/'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match absolute Linux paths (starting with &quot;/&quot;)&#xD;&#xA;&#x9;not(regexp_match(&quot;media_link&quot;, '^/'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match filepaths from parent directories (e.g. starting with &quot;../&quot;)&#xD;&#xA;&#x9;not(regexp_match(&quot;media_link&quot;, '^\\.\\./'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match files in the unlinked directory&#xD;&#xA;&#x9;not(regexp_match(lower(&quot;media_link&quot;), '^unlinked'))&#xD;&#xA;)" field="media_link"></constraint>
+    <constraint desc="" exp="-- Media is the placeholder image&#xD;&#xA;&quot;media_link&quot;='../field_data_capture/icons/BGS-placeholder.png'&#xD;&#xA;or&#xD;&#xA;(&#xD;&#xA;&#x9;-- Media must be within project media folder&#xD;&#xA;&#xD;&#xA;&#x9;-- Don't match absolute windows paths (e.g. starting with &quot;C:/&quot;)&#xD;&#xA;&#x9;not(regexp_match(lower(&quot;media_link&quot;), '^[a-z]:/'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match absolute Linux paths (starting with &quot;/&quot;)&#xD;&#xA;&#x9;not(regexp_match(&quot;media_link&quot;, '^/'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match filepaths from parent directories (e.g. starting with &quot;../&quot;)&#xD;&#xA;&#x9;not(regexp_match(&quot;media_link&quot;, '^\\.\\./'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match files in the unlinked directory&#xD;&#xA;&#x9;not(regexp_match(lower(&quot;media_link&quot;), '^unlinked'))&#xD;&#xA;)" field="media_link"></constraint>
     <constraint desc="" exp="" field="media_description"></constraint>
     <constraint desc="" exp="" field="recorded_by"></constraint>
     <constraint desc="" exp="" field="recorded_on"></constraint>

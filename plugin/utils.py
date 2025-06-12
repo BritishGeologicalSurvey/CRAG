@@ -39,7 +39,7 @@ from PyQt5.QtCore import pyqtRemoveInputHook
 from .config import TABLE_LIST
 from .create_gpkg_from_sql import WORKDIR
 
-SYSTEM_DIR_NAME = ".field_data_capture"
+SYSTEM_DIR_NAME = "field_data_capture"
 # Using locally downloaded woff2 of Google's Material Symbols Outlined font
 # See: https://fonts.google.com/icons
 # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
@@ -54,7 +54,7 @@ class FieldDataCaptureProject:
     """
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
-    placeholder_filename = ".placeholder.txt"
+    placeholder_filename = "placeholder.txt"
     bgs_logo_filename = "BGS-placeholder.png"
     layers_to_file_attributes = {
         "media": "media_link",
@@ -174,7 +174,7 @@ class FieldDataCaptureProject:
         """
         Get the thumbnails directory path from the current project.
         """
-        return self.system_files_dir / ".thumbnails"
+        return self.system_files_dir / "thumbnails"
 
     @property
     def icons_dest_dir(self) -> Path:
