@@ -1,4 +1,4 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.36.2-Maidenhead">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.40.7-Bratislava">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -25,7 +25,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_ce58af9d_caae_4d8c_8d4c_36b2c34cda61"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_4bb76b3f_42c7_4fd0_a75a_9419ceaf18b6"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_manmade_landform"></Option>
@@ -46,7 +46,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_manmade_landform"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_manmade_landform_77369061_dee9_40cc_8b76_c89d2e4a5d66"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_manmade_landform_88ce7937_4e47_492e_a42f_fe3208bed685"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_manmade_landform"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_manmade_landform_manmade_landform_2"></Option>
@@ -147,6 +147,19 @@
     <policy field="recorded_by" policy="Duplicate"></policy>
     <policy field="recorded_on" policy="Duplicate"></policy>
   </splitPolicies>
+  <duplicatePolicies>
+    <policy field="fid" policy="Duplicate"></policy>
+    <policy field="uuid" policy="Duplicate"></policy>
+    <policy field="locality_fuid" policy="Duplicate"></policy>
+    <policy field="manmade_type_code" policy="Duplicate"></policy>
+    <policy field="dip" policy="Duplicate"></policy>
+    <policy field="azimuth" policy="Duplicate"></policy>
+    <policy field="length" policy="Duplicate"></policy>
+    <policy field="width" policy="Duplicate"></policy>
+    <policy field="notes" policy="Duplicate"></policy>
+    <policy field="recorded_by" policy="Duplicate"></policy>
+    <policy field="recorded_on" policy="Duplicate"></policy>
+  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
@@ -212,7 +225,7 @@ def my_form_open(dialog, layer, feature):
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
     <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
-      <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      <labelFont bold="0" description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
     <attributeEditorField horizontalStretch="0" index="3" name="manmade_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
@@ -267,7 +280,6 @@ def my_form_open(dialog, layer, feature):
   </attributeEditorForm>
   <editable>
     <field editable="1" name="azimuth"></field>
-    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="dip"></field>
     <field editable="1" name="fid"></field>
     <field editable="1" name="length"></field>
@@ -275,12 +287,12 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="manmade_type_code"></field>
     <field editable="1" name="notes"></field>
     <field editable="1" name="recorded_by"></field>
+    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="uuid"></field>
     <field editable="1" name="width"></field>
   </editable>
   <labelOnTop>
     <field labelOnTop="0" name="azimuth"></field>
-    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="dip"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="length"></field>
@@ -288,12 +300,12 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="manmade_type_code"></field>
     <field labelOnTop="0" name="notes"></field>
     <field labelOnTop="0" name="recorded_by"></field>
+    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="uuid"></field>
     <field labelOnTop="0" name="width"></field>
   </labelOnTop>
   <reuseLastValue>
     <field name="azimuth" reuseLastValue="0"></field>
-    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="dip" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="length" reuseLastValue="0"></field>
@@ -301,6 +313,7 @@ def my_form_open(dialog, layer, feature):
     <field name="manmade_type_code" reuseLastValue="1"></field>
     <field name="notes" reuseLastValue="0"></field>
     <field name="recorded_by" reuseLastValue="0"></field>
+    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>
     <field name="width" reuseLastValue="0"></field>
   </reuseLastValue>

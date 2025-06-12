@@ -1,4 +1,4 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.6-Prizren">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.40.7-Bratislava">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="TextEdit">
@@ -18,7 +18,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\Users\jostev\mergin\jostev-minimal2\field-data-capture.gpkg|layername=field_project"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="field_project_5311793e_5036_4f39_9e1d_e580c1ce8499"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_bf449975_8c64_4d2d_9b3f_01eb6769ebba"></Option>
             <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="field_project__lnk_rock_project"></Option>
@@ -39,7 +39,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\Users\jostev\mergin\jostev-minimal2\field-data-capture.gpkg|layername=dic_rock_field"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_90593d80_f3ac_4f94_a6cb_2b0edb356888"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_8c3352ee_b401_446c_8bab_bb1afdb353af"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_rock_field"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_rock_field__lnk_rock_project_2"></Option>
@@ -84,6 +84,13 @@
     <policy field="category" policy="DefaultValue"></policy>
     <policy field="simple_lithology" policy="DefaultValue"></policy>
   </splitPolicies>
+  <duplicatePolicies>
+    <policy field="fid" policy="Duplicate"></policy>
+    <policy field="field_project_uuid" policy="Duplicate"></policy>
+    <policy field="rock_code" policy="Duplicate"></policy>
+    <policy field="category" policy="Duplicate"></policy>
+    <policy field="simple_lithology" policy="Duplicate"></policy>
+  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="field_project_uuid"></default>

@@ -1,4 +1,4 @@
-<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.34.6-Prizren">
+<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.40.7-Bratislava">
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="singleSymbol">
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="fill">
@@ -12,12 +12,12 @@
         <layer class="SimpleFill" enabled="1" id="{9b282ba5-512f-4d18-87ac-b2f6378e9037}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="color" type="QString" value="183,72,75,255"></Option>
+            <Option name="color" type="QString" value="183,72,75,255,rgb:0.71764705882352942,0.28235294117647058,0.29411764705882354,1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="183,72,75,255"></Option>
+            <Option name="outline_color" type="QString" value="183,72,75,255,rgb:0.71764705882352942,0.28235294117647058,0.29411764705882354,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0.86"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
@@ -35,6 +35,13 @@
     </symbols>
     <rotation></rotation>
     <sizescale></sizescale>
+    <data-defined-properties>
+      <Option type="Map">
+        <Option name="name" type="QString" value=""></Option>
+        <Option name="properties"></Option>
+        <Option name="type" type="QString" value="collection"></Option>
+      </Option>
+    </data-defined-properties>
   </renderer-v2>
   <selection mode="Default">
     <selectionColor invalid="1"></selectionColor>
@@ -50,12 +57,12 @@
         <layer class="SimpleFill" enabled="1" id="{5a2a39b2-1afe-4f2a-9da9-95d799b3060a}" locked="0" pass="0">
           <Option type="Map">
             <Option name="border_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="color" type="QString" value="0,0,255,255"></Option>
+            <Option name="color" type="QString" value="0,0,255,255,rgb:0,0,1,1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0.26"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
@@ -224,14 +231,14 @@
     <alias field="title" index="3" name=""></alias>
     <alias field="description" index="4" name=""></alias>
     <alias field="project_lead" index="5" name=""></alias>
-    <alias field="start_date" index="7" name=""></alias>
-    <alias field="end_date" index="8" name=""></alias>
-    <alias field="local_epsg" index="10" name=""></alias>
-    <alias field="notes" index="11" name=""></alias>
-    <alias field="mapped_scale" index="12" name=""></alias>
-    <alias field="recorded_by" index="13" name=""></alias>
-    <alias field="recorded_on" index="14" name=""></alias>
-    <alias field="qgis_plugin_version" index="17" name=""></alias>
+    <alias field="start_date" index="6" name=""></alias>
+    <alias field="end_date" index="7" name=""></alias>
+    <alias field="local_epsg" index="8" name=""></alias>
+    <alias field="notes" index="9" name=""></alias>
+    <alias field="mapped_scale" index="10" name=""></alias>
+    <alias field="recorded_by" index="11" name=""></alias>
+    <alias field="recorded_on" index="12" name=""></alias>
+    <alias field="qgis_plugin_version" index="13" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -261,10 +268,8 @@
     <policy field="local_epsg" policy="Duplicate"></policy>
     <policy field="notes" policy="Duplicate"></policy>
     <policy field="mapped_scale" policy="Duplicate"></policy>
-    <policy field="user_entered" policy="Duplicate"></policy>
-    <policy field="date_entered" policy="Duplicate"></policy>
-    <policy field="user_updated" policy="Duplicate"></policy>
-    <policy field="date_updated" policy="Duplicate"></policy>
+    <policy field="recorded_by" policy="Duplicate"></policy>
+    <policy field="recorded_on" policy="Duplicate"></policy>
     <policy field="qgis_plugin_version" policy="Duplicate"></policy>
   </duplicatePolicies>
   <defaults>
@@ -340,52 +345,51 @@ def my_form_open(dialog, layer, feature):
   <featformsuppress>0</featformsuppress>
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
-    <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
-      <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+    <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
+      <labelFont bold="0" description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
     <attributeEditorField horizontalStretch="0" index="3" name="title" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="4" name="description" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="5" name="project_lead" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="7" name="start_date" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+    <attributeEditorField horizontalStretch="0" index="6" name="start_date" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="8" name="end_date" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+    <attributeEditorField horizontalStretch="0" index="7" name="end_date" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="10" name="local_epsg" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+    <attributeEditorField horizontalStretch="0" index="8" name="local_epsg" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="12" name="mapped_scale" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+    <attributeEditorField horizontalStretch="0" index="10" name="mapped_scale" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
-    <attributeEditorField horizontalStretch="0" index="11" name="notes" showLabel="1" verticalStretch="0">
-      <labelStyle labelColor="0,0,0,255" overrideLabelColor="0" overrideLabelFont="0">
+    <attributeEditorField horizontalStretch="0" index="9" name="notes" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
   </attributeEditorForm>
   <editable>
-    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="description"></field>
     <field editable="1" name="end_date"></field>
     <field editable="1" name="fid"></field>
@@ -394,14 +398,14 @@ def my_form_open(dialog, layer, feature):
     <field editable="1" name="notes"></field>
     <field editable="1" name="project_lead"></field>
     <field editable="1" name="qgis_plugin_version"></field>
+    <field editable="1" name="recorded_by"></field>
+    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="short_name"></field>
     <field editable="1" name="start_date"></field>
     <field editable="1" name="title"></field>
-    <field editable="1" name="recorded_by"></field>
     <field editable="1" name="uuid"></field>
   </editable>
   <labelOnTop>
-    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="description"></field>
     <field labelOnTop="0" name="end_date"></field>
     <field labelOnTop="0" name="fid"></field>
@@ -410,14 +414,14 @@ def my_form_open(dialog, layer, feature):
     <field labelOnTop="0" name="notes"></field>
     <field labelOnTop="0" name="project_lead"></field>
     <field labelOnTop="0" name="qgis_plugin_version"></field>
+    <field labelOnTop="0" name="recorded_by"></field>
+    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="short_name"></field>
     <field labelOnTop="0" name="start_date"></field>
     <field labelOnTop="0" name="title"></field>
-    <field labelOnTop="0" name="recorded_by"></field>
     <field labelOnTop="0" name="uuid"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="description" reuseLastValue="0"></field>
     <field name="end_date" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
@@ -426,10 +430,11 @@ def my_form_open(dialog, layer, feature):
     <field name="notes" reuseLastValue="0"></field>
     <field name="project_lead" reuseLastValue="0"></field>
     <field name="qgis_plugin_version" reuseLastValue="0"></field>
+    <field name="recorded_by" reuseLastValue="0"></field>
+    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="short_name" reuseLastValue="0"></field>
     <field name="start_date" reuseLastValue="0"></field>
     <field name="title" reuseLastValue="0"></field>
-    <field name="recorded_by" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
