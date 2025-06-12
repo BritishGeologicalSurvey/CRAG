@@ -1222,16 +1222,9 @@ class FieldDataCapture(FieldDataCaptureProject):
             return False
 
         self.file_linker = FileLinker()
-        # If no unregistered files are found
-        if self.file_linker.file_count == 0:
-            self.close_file_linker()
-            QMessageBox.information(None, "All Files Linked", "All of the project files are already linked.")
-            return False
-
-        else:
-            self.file_linker.file_linker_closed.connect(self.close_file_linker)
-            # Make it modal so changes are not made whilst importing photos
-            self.file_linker.exec()
+        self.file_linker.file_linker_closed.connect(self.close_file_linker)
+        # Make it modal so changes are not made whilst importing photos
+        self.file_linker.exec()
 
         return True
 

@@ -75,7 +75,6 @@ class FileLinker(QDialog, FieldDataCaptureProject):
 
         # Setting the Dialog Box settings
         self.setWindowTitle("Link Files")
-        self.setMinimumSize(600, 500)
         self.setWindowFlags(
             Qt.Window | Qt.WindowCloseButtonHint
         )
@@ -88,6 +87,13 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         self.layers_to_files_to_widgets: dict[str, dict[Path, WidgetsDict]] = {}
         self.thumbnail_size = 200
         self.add_file_rows()
+
+        # Only show the required layout
+        if self.file_count > 0:
+            self.message_widget.setHidden(True)
+            self.setMinimumSize(600, 500)
+        else:
+            self.linker_widget.setHidden(True)
 
 
     @property
@@ -117,22 +123,42 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         # The widget must be allowed to change size so that rows can be added later
         scroll_area.setWidgetResizable(True)
 
-        collapsible_widget = self.get_collapsible_placeholder_localities()
-
         # Bottom button layout
         self.save_links_button = QPushButton("Save Links")
         self.cancel_button = QPushButton("Cancel")
-        bottom_button_layout = QHBoxLayout()
-        bottom_button_layout.addWidget(self.save_links_button)
-        bottom_button_layout.addWidget(self.cancel_button)
+        link_buttons_layout = QHBoxLayout()
+        link_buttons_layout.addWidget(self.save_links_button)
+        link_buttons_layout.addWidget(self.cancel_button)
 
-        # Arrange the main layout
-        layout = QVBoxLayout()
-        if collapsible_widget is not None:
-            layout.addWidget(collapsible_widget)
-        layout.addWidget(scroll_area)
-        layout.addLayout(bottom_button_layout)
-        self.setLayout(layout)
+        # Arrange the linker layout
+        self.linker_widget = QWidget()
+        linker_layout = QVBoxLayout()
+        self.linker_widget.setLayout(linker_layout)
+        linker_layout.addWidget(scroll_area)
+        linker_layout.addLayout(link_buttons_layout)
+
+        # Collapsible placeholder locality list layout
+        self.collapsible_widget = self.get_collapsible_placeholder_localities()
+
+        # Message layout for when no files are available to link
+        self.message_widget = QWidget()
+        message_layout = QVBoxLayout()
+        self.message_widget.setLayout(message_layout)
+        msg_label = QLabel("All of the project files are already linked.")
+        msg_btn_layout = QHBoxLayout()
+        msg_btn_layout.addStretch(1)
+        self.ok_button = QPushButton("OK")
+        message_layout.addWidget(msg_label)
+        msg_btn_layout.addWidget(self.ok_button)
+        message_layout.addLayout(msg_btn_layout)
+
+        # Arrange main layout
+        main_layout = QVBoxLayout()
+        if self.collapsible_widget is not None:
+            main_layout.addWidget(self.collapsible_widget)
+        main_layout.addWidget(self.linker_widget)
+        main_layout.addWidget(self.message_widget)
+        self.setLayout(main_layout)
 
 
     def get_collapsible_placeholder_localities(self) -> Optional[CollapsibleWidget]:
@@ -168,6 +194,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         self.save_links_button.clicked.connect(self.save_links)
         self.cancel_button.clicked.connect(self.close)
+        self.ok_button.clicked.connect(self.close)
 
 
     def add_file_rows(self) -> None:
