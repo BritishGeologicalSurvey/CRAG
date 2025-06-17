@@ -64,8 +64,8 @@ def test_project_data_importer_fixtures(
         for subpath in [f"{short_name}.gpkg", "photos", "media", "unlinked_files"]:
             assert (project_dir / subpath).exists()
         # Check that some photos and unlinked files exist
-        assert len(list((project_dir / "photos").rglob("*[!placeholder.txt]"))) > 0
-        assert len(list((project_dir / "unlinked_files").rglob("*[!placeholder.txt]"))) > 0
+        assert len(list((project_dir / "photos").rglob("*[!_placeholder.txt]"))) > 0
+        assert len(list((project_dir / "unlinked_files").rglob("*[!_placeholder.txt]"))) > 0
         # Check that a field_project row exists
         with setup_db_conn(project_dir / f"{short_name}.gpkg") as conn:
             rows = etl.fetchall(
@@ -167,10 +167,10 @@ def test_copy_project_data_good(
     conn.close()
 
     # Check that the photo files have been copied across
-    for photo_file in (src_fdc_project / "photos").rglob("*[!placeholder.txt]"):
+    for photo_file in (src_fdc_project / "photos").rglob("*[!_placeholder.txt]"):
         assert (dest_fdc_project / photo_file.relative_to(src_fdc_project)).exists()
     # Check that the unlinked files have been copied across
-    for unlinked_file in (src_fdc_project / "unlinked_files").rglob("*[!placeholder.txt]"):
+    for unlinked_file in (src_fdc_project / "unlinked_files").rglob("*[!_placeholder.txt]"):
         assert (dest_fdc_project / unlinked_file.relative_to(src_fdc_project)).exists()
 
 
