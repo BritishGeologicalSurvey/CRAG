@@ -151,7 +151,7 @@
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
-    <default applyOnUpdate="0" expression="" field="media_type_code"></default>
+    <default applyOnUpdate="0" expression="if( @qgis_platform IS 'desktop', 'image', NULL )" field="media_type_code"></default>
     <default applyOnUpdate="0" expression="if( @qgis_platform IS 'desktop', '../_field_data_capture/icons/BGS-placeholder.png', NULL )" field="media_link"></default>
     <default applyOnUpdate="0" expression="" field="media_description"></default>
     <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="recorded_by"></default>
