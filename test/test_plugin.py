@@ -499,5 +499,9 @@ def test_default_attachment_bgs_placeholder(fdc_project: FieldDataCapture, layer
     # Assert
     if qgis_platform == 'desktop':
         assert fdc_project.default_attachment_str == feature.attribute(attachment_col)
+        if layer_name == 'media':
+            assert feature.attribute('media_type_code') == 'image'
     else:
         assert feature.attribute(attachment_col) is None
+        if layer_name == 'media':
+            assert feature.attribute('media_type_code') is None
