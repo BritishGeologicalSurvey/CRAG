@@ -12,6 +12,8 @@ import pytest
 import etlhelper as etl
 from qgis.core import (
     QgsAttributeEditorContainer,
+    QgsExpressionContext,
+    QgsExpressionContextUtils,
     QgsGeometry,
     QgsLayerTreeGroup,
     QgsProject,
@@ -480,14 +482,22 @@ def test_default_field_project_fuid_attribute(fdc_project: FieldDataCapture, lay
 
 
 @pytest.mark.parametrize("layer_name", ("photo", "media"))
-def test_default_attachment_bgs_placeholder(fdc_project: FieldDataCapture, layer_name: str):
+@pytest.mark.parametrize("qgis_platform", ("desktop", "external"))
+def test_default_attachment_bgs_placeholder(fdc_project: FieldDataCapture, layer_name: str, qgis_platform: str):
     # Arrange
     layer = fdc_project.get_fdc_layer(layer_name)
     attachment_col = fdc_project.layers_to_file_attributes[layer_name]
+    # Force the QGIS platform
+    global_scope = QgsExpressionContextUtils.globalScope()
+    global_scope.setVariable('qgis_platform', qgis_platform)
+    expression_context = QgsExpressionContext([global_scope])
 
     # Act
-    # Create a new feature with the default values applied
-    feature = QgsVectorLayerUtils.createFeature(layer)
+    # Create a new feature with the default values applied and the defined platform
+    feature = QgsVectorLayerUtils.createFeature(layer, context=expression_context)
 
     # Assert
-    assert fdc_project.default_attachment_str == feature.attribute(attachment_col)
+    if qgis_platform == 'desktop':
+        assert fdc_project.default_attachment_str == feature.attribute(attachment_col)
+    else:
+        assert feature.attribute(attachment_col) is None

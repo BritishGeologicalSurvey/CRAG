@@ -9,6 +9,7 @@ from typing import (
 
 from qgis.core import (
     QgsGeometry,
+    QgsExpressionContext,
     QgsFeature,
     QgsProject,
     QgsRuleBasedLabeling,
@@ -625,7 +626,8 @@ def get_combobox_items_dict(combobox: QComboBox) -> dict[str, Any]:
 def create_prepopulated_feature(
     layer: QgsVectorLayer,
     prepopulate: dict[str, Any],
-    geometry: QgsGeometry = QgsGeometry()
+    geometry: QgsGeometry = QgsGeometry(),
+    context: QgsExpressionContext = None
 ) -> QgsFeature:
     """
     Create a new feature for the given layer using the given prepopulated values.
@@ -641,6 +643,7 @@ def create_prepopulated_feature(
         layer=layer,
         geometry=geometry,
         attributes=prepopulate_indexed,
+        context=context
     )
     return feature
 

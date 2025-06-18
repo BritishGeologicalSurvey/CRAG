@@ -4,6 +4,8 @@ from typing import Any
 
 import pytest
 from qgis.core import (
+    QgsExpressionContext,
+    QgsExpressionContextUtils,
     QgsFeature,
     QgsVectorLayerUtils,
 )
@@ -185,10 +187,15 @@ def test_open_file_linker_bad(fdc_project: FieldDataCapture):
 def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
     # Arrange
     # Add a new feature to the photo layer with the default placeholder image
+    # Force the QGIS platform
+    global_scope = QgsExpressionContextUtils.globalScope()
+    global_scope.setVariable('qgis_platform', 'desktop')
+    expression_context = QgsExpressionContext([global_scope])
     layer = fdc_project.get_fdc_layer("photo")
     feature = create_prepopulated_feature(
         layer,
         prepopulate={"locality_fuid": "{abc43098-fe9b-4da0-b008-7518694466bb}"},
+        context=expression_context
     )
     layer.startEditing()
     layer.addFeature(feature)
