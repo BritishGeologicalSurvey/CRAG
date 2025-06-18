@@ -72,7 +72,7 @@
               <Option name="properties" type="Map">
                 <Option name="documentViewerContent" type="Map">
                   <Option name="active" type="bool" value="true"></Option>
-                  <Option name="expression" type="QString" value="if(&quot;media_link&quot;='../_field_data_capture/icons/BGS-placeholder.png', 'Image', 'NoContent')"></Option>
+                  <Option name="expression" type="QString" value="if(&quot;media_type_code&quot; = 'image', 'Image', 'NoContent')"></Option>
                   <Option name="type" type="int" value="3"></Option>
                 </Option>
                 <Option name="propertyRootPath" type="Map">
