@@ -9,7 +9,7 @@ from jinja2 import (
     FileSystemLoader,
 )
 
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, ImageOps, UnidentifiedImageError
 
 from qgis.core import (
     QgsCoordinateReferenceSystem,
@@ -286,6 +286,7 @@ class ReportBuilder(FieldDataCaptureProject):
         def make_thumbnail(path):
             try:
                 with Image.open(path) as im:
+                    ImageOps.exif_transpose(im, in_place=True)
                     im.thumbnail((thumbnail_size, thumbnail_size))
                     im.save(tn_path)
             except UnidentifiedImageError:
