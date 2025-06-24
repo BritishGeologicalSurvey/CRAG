@@ -25,6 +25,7 @@ INSERT INTO media VALUES(NULL,'{e43f3195-9bf0-4c61-a2b4-bf6f4aebad68}','{b5bf63b
 INSERT INTO media VALUES(NULL,'{e43f3195-9bf0-4c61-a2b4-bf6f4aebad71}','{b5bf63bb-0811-4074-99bc-422a78aa5b52}','image','test_point_002.jpg','These are notes for test_point_002.jpg','colb','2023-10-31T16:56:10.867');
 INSERT INTO photo VALUES(NULL,'{c1499392-acb6-45cc-a2d3-48dc2a675c32}','{abc43098-fe9b-4da0-b008-7518694466bb}','test_point_001.jpeg','These are notes for test_point_001.jpeg','colb','2023-10-31T16:32:00.397');
 INSERT INTO photo VALUES(NULL,'{77b256a7-fe4d-4d2d-81b0-1d134207400e}','{abc43098-fe9b-4da0-b008-7518694466bb}','test_point_001.heic','These are notes for test_point_001.heic','colb','2023-10-31T16:32:00.397');
+INSERT INTO photo VALUES(NULL,'{c1499392-acb6-45cc-a2d3-48dc2a675c31}','{abc43098-fe9b-4da0-b008-7518694466bb}','test_point_003.jpeg','This image is in portrait with exif data','colb','2023-10-31T16:32:00.397');
 INSERT INTO photo VALUES(NULL,'{46b2d139-acc0-4702-b55f-efda663eb0d7}','{b5bf63bb-0811-4074-99bc-422a78aa5b52}','test_point_002.jpeg','These are notes for  test_point_002.jpeg','colb','2023-10-31T16:53:09.641');
 INSERT INTO sample VALUES(NULL,'{b7841b17-c1ee-4206-ad5c-de2c02dd5b2b}','{abc43098-fe9b-4da0-b008-7518694466bb}','sample_001','liquid_aqueous','test_point_001 sample notes','leorud','2024-08-02T14:34:02.078');
 INSERT INTO sample VALUES(NULL,'{257275a9-c2f3-4ef8-9272-bde172a828d8}','{b5bf63bb-0811-4074-99bc-422a78aa5b52}','sample_002','tephra','test_point_002 fossil sample notes','leorud','2024-08-02T14:34:02.078');
