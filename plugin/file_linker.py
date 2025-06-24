@@ -38,7 +38,7 @@ from qgis.PyQt.QtWidgets import (
 
 from .utils import (  # noqa
     FieldDataCaptureProject,
-    MultilineMessageBox,
+    CollapsibleWidget,
     create_prepopulated_feature,
     get_table_rows,
     ipdb_breakpoint,
@@ -75,7 +75,6 @@ class FileLinker(QDialog, FieldDataCaptureProject):
 
         # Setting the Dialog Box settings
         self.setWindowTitle("Link Files")
-        self.setMinimumSize(600, 500)
         self.setWindowFlags(
             Qt.Window | Qt.WindowCloseButtonHint
         )
@@ -88,7 +87,13 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         self.layers_to_files_to_widgets: dict[str, dict[Path, WidgetsDict]] = {}
         self.thumbnail_size = 200
         self.add_file_rows()
-        self.warn_placeholder_attachments()
+
+        # Only show the required layout
+        if self.file_count > 0:
+            self.message_widget.setHidden(True)
+            self.setMinimumSize(600, 500)
+        else:
+            self.linker_widget.setHidden(True)
 
 
     @property
@@ -101,28 +106,6 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             for files_to_widgets in self.layers_to_files_to_widgets.values()
         ])
         return file_count
-
-
-    def warn_placeholder_attachments(self) -> None:
-        """
-        Warn the user if there are locality points which have media/photo records which are still
-        using the default placeholder image.
-        """
-        locality_point_names = set()
-        for table, attachment_col in self.layers_to_file_attributes.items():
-            for row in get_table_rows(
-                self.db_file,
-                f"SELECT locality_point FROM view_{table} WHERE {attachment_col} = '{self.default_attachment_str}'",
-            ):
-                locality_point_names.add("• " + row["locality_point"])
-
-        if len(locality_point_names) > 0:
-            MultilineMessageBox.warning(
-                "Placeholder attachments found.",
-                ("Some locality points have media/photo records which are still using the default placeholder image."
-                 " You may need to update these existing links instead of creating new ones."),
-                "\n".join(locality_point_names),
-            )
 
 
     def setup_ui_elements(self) -> None:
@@ -140,19 +123,69 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         # The widget must be allowed to change size so that rows can be added later
         scroll_area.setWidgetResizable(True)
 
+        # Bottom button layout
         self.save_links_button = QPushButton("Save Links")
         self.cancel_button = QPushButton("Cancel")
+        link_buttons_layout = QHBoxLayout()
+        link_buttons_layout.addWidget(self.save_links_button)
+        link_buttons_layout.addWidget(self.cancel_button)
 
-        # Bottom button layout
-        bottom_button_layout = QHBoxLayout()
-        bottom_button_layout.addWidget(self.save_links_button)
-        bottom_button_layout.addWidget(self.cancel_button)
+        # Arrange the linker layout
+        self.linker_widget = QWidget()
+        linker_layout = QVBoxLayout()
+        self.linker_widget.setLayout(linker_layout)
+        linker_layout.addWidget(scroll_area)
+        linker_layout.addLayout(link_buttons_layout)
 
-        # Arrange the main layout
-        layout = QVBoxLayout()
-        layout.addWidget(scroll_area)
-        layout.addLayout(bottom_button_layout)
-        self.setLayout(layout)
+        # Collapsible placeholder locality list layout
+        self.collapsible_widget = self.get_collapsible_placeholder_localities()
+
+        # Message layout for when no files are available to link
+        self.message_widget = QWidget()
+        message_layout = QVBoxLayout()
+        self.message_widget.setLayout(message_layout)
+        msg_label = QLabel("All of the project files are already linked.")
+        msg_btn_layout = QHBoxLayout()
+        msg_btn_layout.addStretch(1)
+        self.ok_button = QPushButton("OK")
+        message_layout.addWidget(msg_label)
+        msg_btn_layout.addWidget(self.ok_button)
+        message_layout.addLayout(msg_btn_layout)
+
+        # Arrange main layout
+        main_layout = QVBoxLayout()
+        if self.collapsible_widget is not None:
+            main_layout.addWidget(self.collapsible_widget)
+        main_layout.addWidget(self.linker_widget)
+        main_layout.addWidget(self.message_widget)
+        self.setLayout(main_layout)
+
+
+    def get_collapsible_placeholder_localities(self) -> Optional[CollapsibleWidget]:
+        """
+        Get a collapsible widget which will display the list of locality points which have a placeholder
+        photo/image record.
+        If there are none, then nothing is returned.
+        """
+        locality_point_names = set()
+        for table, attachment_col in self.layers_to_file_attributes.items():
+            for row in get_table_rows(
+                self.db_file,
+                f"SELECT locality_point FROM view_{table} WHERE {attachment_col} = '{self.default_attachment_str}'",
+            ):
+                locality_point_names.add("• " + row["locality_point"])
+
+        no_placeholders = len(locality_point_names)
+        if len(locality_point_names) > 0:
+            collapsible_widget = CollapsibleWidget(
+                f"⚠ There are {no_placeholders} locality point(s) with a photo/media record using the placeholder file."
+                " It is recommended to update these before linking new files."
+            )
+            text_edit = QTextEdit()
+            text_edit.setText("\n".join(sorted(locality_point_names)))
+            text_edit.setReadOnly(True)
+            collapsible_widget.collapsible_layout.addWidget(text_edit)
+            return collapsible_widget
 
 
     def connect_signals_and_slots(self) -> None:
@@ -161,6 +194,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         self.save_links_button.clicked.connect(self.save_links)
         self.cancel_button.clicked.connect(self.close)
+        self.ok_button.clicked.connect(self.close)
 
 
     def add_file_rows(self) -> None:

@@ -165,25 +165,22 @@ def test_open_file_linker_good(
     assert result
     assert isinstance(fdc_project.file_linker, FileLinker)
     assert fdc_project.photos_dir == fdc_project.file_linker.photos_dir
-    MultilineMessageBox.warning.assert_not_called()
+    assert not fdc_project.file_linker.linker_widget.isHidden()
+    assert fdc_project.file_linker.message_widget.isHidden()
 
 
 def test_open_file_linker_bad(fdc_project: FieldDataCapture):
     # Act
-    result = fdc_project.open_file_linker()
+    fdc_project.open_file_linker()
 
     # Assert
-    assert not result
-    assert fdc_project.file_linker is None
-    QMessageBox.information.assert_called_with(
-        None,
-        "All Files Linked",
-        "All of the project files are already linked.",
-    )
+    assert fdc_project.file_linker.linker_widget.isHidden()
+    assert not fdc_project.file_linker.message_widget.isHidden()
 
 
 def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
     # Arrange
+    expected_locality_list = "• test_point_001"
     # Add a new feature to the photo layer with the default placeholder image
     layer = fdc_project.get_fdc_layer("photo")
     feature = create_prepopulated_feature(
@@ -198,12 +195,9 @@ def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture, monke
     fdc_project.open_file_linker()
 
     # Assert
-    MultilineMessageBox.warning.assert_called_with(
-        "Placeholder attachments found.",
-        ("Some locality points have media/photo records which are still using the default placeholder image."
-         " You may need to update these existing links instead of creating new ones."),
-        "• test_point_001",
-    )
+    assert fdc_project.file_linker.collapsible_widget is not None
+    locality_list = fdc_project.file_linker.collapsible_widget.collapsible_layout.itemAt(0).widget().toPlainText()
+    assert locality_list == expected_locality_list
 
 
 def test_close_file_linker(
