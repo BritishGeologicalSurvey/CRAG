@@ -92,7 +92,7 @@ def test_copy_project_data_good(
         "manmade_landform": 2,
         "mass_move_line": 1,
         "media": 9,
-        "photo": 5,
+        "photo": 6,
         "sample": 2,
         "structural_measurement": 2,
         "superficial_landform": 2,

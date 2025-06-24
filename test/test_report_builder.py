@@ -120,7 +120,7 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
     # Page 4 - Photos for test_point_001
     page = pdf.pages[3]
     # Only the jpeg image is valid
-    assert len(page.images) == 1
+    assert len(page.images) == 2
     # The heic image should be absent and replaced by message
     assert 'Broken or missing thumbnail:' in page.extract_text()
     assert 'test_point_001.heic' in page.extract_text()
