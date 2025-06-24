@@ -41,7 +41,7 @@
           <Option type="Map">
             <Option name="DocumentViewer" type="int" value="1"></Option>
             <Option name="DocumentViewerHeight" type="int" value="0"></Option>
-            <Option name="DocumentViewerWidth" type="int" value="600"></Option>
+            <Option name="DocumentViewerWidth" type="int" value="0"></Option>
             <Option name="FileWidget" type="bool" value="true"></Option>
             <Option name="FileWidgetButton" type="bool" value="true"></Option>
             <Option name="FileWidgetFilter" type="QString" value=""></Option>
