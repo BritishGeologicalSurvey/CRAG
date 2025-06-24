@@ -91,7 +91,7 @@ def create_fdc_project_files(
     for feature_dir, feature_files in feature_filepaths.items():
         project_feature_dir = project_dir / feature_dir
         project_feature_dir.mkdir(exist_ok=True)
-        placeholder = project_feature_dir / ".placeholder.txt"
+        placeholder = project_feature_dir / "_placeholder.txt"
         placeholder.touch()
 
         for idx, feature_file in enumerate(feature_files):

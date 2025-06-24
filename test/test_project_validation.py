@@ -34,7 +34,7 @@ def fdc_project_bad(tmp_path: Path) -> Path:
             Path("test/data/photos/no_exif_data.jpg"),
         ],
         "media": [],
-        ".field_data_capture": [],
+        "_field_data_capture": [],
         # baseline_data omitted for test
     }
 
