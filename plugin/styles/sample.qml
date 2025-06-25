@@ -1,4 +1,4 @@
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.36.2-Maidenhead">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.40.7-Bratislava">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -24,7 +24,7 @@
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:/Users/jostev/mergin/view-test/field-data-capture.gpkg|layername=locality_point"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_44960071_9485_4270_9279_30c163e515ed"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_4bb76b3f_42c7_4fd0_a75a_9419ceaf18b6"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_sample_2"></Option>
@@ -55,7 +55,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_sample_material"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_sample_material_1ded7b45_2d8d_4d72_ae1b_a3b7cf389334"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_sample_material_0894accb_f383_4023_ba25_9d8814f3cf11"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_sample_material"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_sample_material_sample"></Option>
@@ -110,6 +110,16 @@
     <policy field="recorded_by" policy="Duplicate"></policy>
     <policy field="recorded_on" policy="Duplicate"></policy>
   </splitPolicies>
+  <duplicatePolicies>
+    <policy field="fid" policy="Duplicate"></policy>
+    <policy field="uuid" policy="Duplicate"></policy>
+    <policy field="locality_fuid" policy="Duplicate"></policy>
+    <policy field="sample_id" policy="Duplicate"></policy>
+    <policy field="sample_type_code" policy="Duplicate"></policy>
+    <policy field="sample_description" policy="Duplicate"></policy>
+    <policy field="recorded_by" policy="Duplicate"></policy>
+    <policy field="recorded_on" policy="Duplicate"></policy>
+  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
@@ -166,7 +176,7 @@ def my_form_open(dialog, layer, feature):
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
     <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
-      <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      <labelFont bold="0" description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
     <attributeEditorField horizontalStretch="0" index="3" name="sample_id" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
@@ -195,33 +205,33 @@ def my_form_open(dialog, layer, feature):
     </attributeEditorContainer>
   </attributeEditorForm>
   <editable>
-    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="fid"></field>
     <field editable="1" name="locality_fuid"></field>
+    <field editable="1" name="recorded_by"></field>
+    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="sample_description"></field>
     <field editable="1" name="sample_id"></field>
     <field editable="1" name="sample_type_code"></field>
-    <field editable="1" name="recorded_by"></field>
     <field editable="1" name="uuid"></field>
   </editable>
   <labelOnTop>
-    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="locality_fuid"></field>
+    <field labelOnTop="0" name="recorded_by"></field>
+    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="sample_description"></field>
     <field labelOnTop="0" name="sample_id"></field>
     <field labelOnTop="0" name="sample_type_code"></field>
-    <field labelOnTop="0" name="recorded_by"></field>
     <field labelOnTop="0" name="uuid"></field>
   </labelOnTop>
   <reuseLastValue>
-    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="locality_fuid" reuseLastValue="0"></field>
+    <field name="recorded_by" reuseLastValue="0"></field>
+    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="sample_description" reuseLastValue="0"></field>
     <field name="sample_id" reuseLastValue="0"></field>
     <field name="sample_type_code" reuseLastValue="1"></field>
-    <field name="recorded_by" reuseLastValue="0"></field>
     <field name="uuid" reuseLastValue="0"></field>
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
