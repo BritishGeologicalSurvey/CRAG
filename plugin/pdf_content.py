@@ -127,7 +127,9 @@ class ReportTemplate(BaseDocTemplate):
         # with the image being added to (0,0) and the first elements
         # of the remaining rows having an empty string value inserted.
         if photo:
-            table_style.append(('SPAN', (0, 0), (0, rows - 1)))
+            table_style.extend([('SPAN', (0, 0), (0, rows - 1)),
+                                ('VALIGN', (0, 0), (0, rows - 1), 'MIDDLE'),
+                                ('ALIGN', (0, 0), (0, rows - 1), 'CENTRE')])
             column_widths = [7.5 * cm, 2 * cm, 7 * cm]
             image_path = thumbnails_dir / data['photo_file']
             if image_path.exists():
