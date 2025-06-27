@@ -2,6 +2,8 @@
 
 > This repository contains code for a QGIS plugin to add the field data capture layers to a QGIS project and additional tools for using QGIS in the field.
 
+Plugin documentation: http://field-data-capture.glpages.ad.nerc.ac.uk/sigma-q-user-guide/
+
 Scripts are required to:
 
 + Build a geopackage containing the field data capture data model
@@ -25,6 +27,7 @@ See the [Versions and Feedback](https://kwvmxgit.ad.nerc.ac.uk/field-data-captur
 ## File Downloads
 
 - [Field Data Capture GPKG](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/field-data-capture.gpkg?job=publish_artifacts)
+- [Latest development build of plugin from `main` branch](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/field_data_capture.zip?job=package_plugin)
 
 ### ER Diagram
 
