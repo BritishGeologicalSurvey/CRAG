@@ -4,7 +4,7 @@ import shutil
 
 from bs4 import BeautifulSoup
 import pytest
-from PIL import Image
+from PIL import Image, ImageOps
 from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
@@ -120,7 +120,7 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
     # Page 4 - Photos for test_point_001
     page = pdf.pages[3]
     # Only the jpeg image is valid
-    assert len(page.images) == 1
+    assert len(page.images) == 2
     # The heic image should be absent and replaced by message
     assert 'Broken or missing thumbnail:' in page.extract_text()
     assert 'test_point_001.heic' in page.extract_text()
@@ -311,11 +311,20 @@ def test_create_thumbnails(report_builder: ReportBuilder):
         photo_dirs = [str(sub) for sub in subdirs(report_builder.photos_dir)]
         assert photo_dirs == [str(sub) for sub in subdirs(report_builder.thumbnails_dir)]
 
-    def assert_thumbnail_sizes(thumbnail_size):
-        # A thumbnail's maximum dimension should be THUMBNAIL_SIZE pixels
-        for path in report_builder.thumbnails_dir.rglob('*.jpeg'):
-            im = Image.open(path)
-            assert thumbnail_size == max(im.size)
+    def assert_thumbnail_sizes_and_orientations(thumbnail_size):
+        photos = sorted(report_builder.photos_dir.rglob('*.jpeg'))
+        thumbnails = sorted(report_builder.thumbnails_dir.rglob('*.jpeg'))
+        for index in range(len(photos)):
+            tn = Image.open(thumbnails[index])
+            # A thumbnail's maximum dimension should be THUMBNAIL_SIZE pixels
+            assert thumbnail_size == max(tn.size)
+            im = Image.open(photos[index])
+            # A thumbnails orientation should be the same as the original image
+            ImageOps.exif_transpose(im, in_place=True)
+            if im.size[0] >= im.size[1]:
+                assert tn.size[0] >= tn.size[1]
+            else:
+                assert tn.size[0] < tn.size[1]
 
     def create_folder_and_nested_image(name):
         existing_image = list(report_builder.photos_dir.rglob('*.jpeg'))[0]
@@ -330,7 +339,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Assert initial state
     # There should be the new subdir
     assert len(subdirs(report_builder.photos_dir)) == 1
-    assert len(image_files(report_builder.photos_dir)) == 3
+    assert len(image_files(report_builder.photos_dir)) == 4
     assert not report_builder.thumbnails_dir.exists()
 
     # Test for basic creation from scratch using reduced thumbnail size
@@ -338,21 +347,21 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     report_builder.create_thumbnails(thumbnail_size=new_thumbnail_size)
     assert report_builder.thumbnails_dir.exists()
     assert_images_and_subdirs_match()
-    assert_thumbnail_sizes(new_thumbnail_size)
+    assert_thumbnail_sizes_and_orientations(new_thumbnail_size)
 
     # Test for recreation after change of thumbnail size back to default
     report_builder.create_thumbnails()
-    assert_thumbnail_sizes(THUMBNAIL_SIZE)
+    assert_thumbnail_sizes_and_orientations(THUMBNAIL_SIZE)
 
     # Test for running again with no changes
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()
-    assert_thumbnail_sizes(THUMBNAIL_SIZE)
+    assert_thumbnail_sizes_and_orientations(THUMBNAIL_SIZE)
 
     # Create a new subfolder and nested image file
     create_folder_and_nested_image('sub2')
     assert len(subdirs(report_builder.photos_dir)) == 2
-    assert len(image_files(report_builder.photos_dir)) == 4
+    assert len(image_files(report_builder.photos_dir)) == 5
     # Test for creation of new subfolder and thumbnail
     report_builder.create_thumbnails()
     assert report_builder.thumbnails_dir.exists()
@@ -361,7 +370,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Remove one thumbnail of four to force thumbnail creation
     list(report_builder.thumbnails_dir.rglob('*.jpeg'))[0].unlink()
     # Confirm removal
-    assert len(image_files(report_builder.thumbnails_dir)) == 3
+    assert len(image_files(report_builder.thumbnails_dir)) == 4
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()
 
@@ -375,7 +384,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     # Remove one photo of four to force thumbnail deletion
     list(report_builder.photos_dir.rglob('*.jpeg'))[0].unlink()
     # Confirm removal
-    assert len(image_files(report_builder.photos_dir)) == 3
+    assert len(image_files(report_builder.photos_dir)) == 4
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()
 
