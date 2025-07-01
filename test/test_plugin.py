@@ -1,8 +1,6 @@
 """
 These are tests for the plugin which depend on a running QGIS version which is supplied by the 'fdc' fixture.
 """
-import os
-import pwd
 from pathlib import Path
 from typing import Optional
 from unittest.mock import Mock
@@ -311,31 +309,56 @@ def test_export_qml_styles_no_layers(
     assert not fdc.styles_dir.exists()
 
 
-def test_auto_increment_locality_point_name(fdc_project: FieldDataCapture):
+@pytest.mark.parametrize(
+    ["qgis_platform", "no_mergin", "expected_username"],
+    (
+        ("desktop", False, "desktop_tester"),
+        ("desktop", True, "desktop_tester"),
+        ("external", False, "mergin_tester"),
+        ("external", True, "desktop_tester"),
+    ),
+)
+def test_auto_increment_locality_point_name(
+    fdc_project: FieldDataCapture,
+    qgis_platform: str,
+    no_mergin: bool,
+    expected_username: str,
+):
     # Arrange
-    # This is the username which the tests will use for default values, as there is no mergin name
-    username = pwd.getpwuid(os.getuid()).pw_name
+    name_var_to_username = {
+        "user_account_name": "desktop_tester",
+        "mergin_username": "mergin_tester",
+    }
+    # If simulating that mergin is missing, remove the mergin_username variable from settings
+    if no_mergin:
+        name_var_to_username.pop("mergin_username")
     # Generate a list of expected locality point names based on the current username
     expected_locality_point_names = [
-        f"{username}_00{idx}"
-        for idx in range(1, 3)
+        f"{expected_username}_00{idx}"
+        for idx in range(1, 4)
     ]
 
-    # Act
     layer = fdc_project.get_fdc_layer("locality_point")
+    layer.startEditing()
     for expected_name in expected_locality_point_names:
-        layer.startEditing()
+        # Force the QGIS platform and username
+        # We have to do this after each commit to reset the expression context
+        global_scope = QgsExpressionContextUtils.globalScope()
+        global_scope.setVariable("qgis_platform", qgis_platform)
+        # Set all username variables so we can check which is used
+        for name_var, username in name_var_to_username.items():
+            global_scope.setVariable(name_var, username)
+        expression_context = QgsExpressionContext([global_scope])
+
         # Create a new feature with automatically generated values from the layer
-        feature = QgsVectorLayerUtils.createFeature(layer)
+        feature = QgsVectorLayerUtils.createFeature(layer, context=expression_context)
         # Give the feature some geometry
         geometry_wkt = "Point (-3 55)"
         geometry = QgsGeometry.fromWkt(geometry_wkt)
         feature.setGeometry(geometry)
-        # Set the field_project_fuid to be the uuid of the field project from the test data set
-        feature.setAttribute("field_project_fuid", "{85d48fd4-e66f-4436-833b-9e37691a7d4f}")
         feature.setAttribute("locality_type_code", "auger_borehole")
         layer.addFeature(feature)
-        layer.commitChanges()
+        layer.commitChanges(stopEditing=False)
 
         # Assert
         assert feature.attribute("name") == expected_name
