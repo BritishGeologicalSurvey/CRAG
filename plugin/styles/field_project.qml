@@ -292,9 +292,9 @@
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="3" exp_strength="0" field="short_name" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="0" exp_strength="0" field="title" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="description" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="project_lead" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="title" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="description" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="project_lead" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="start_date" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="end_date" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="local_epsg" notnull_strength="1" unique_strength="0"></constraint>
@@ -308,9 +308,9 @@
     <constraint desc="" exp="" field="fid"></constraint>
     <constraint desc="" exp="" field="uuid"></constraint>
     <constraint desc="" exp="" field="short_name"></constraint>
-    <constraint desc="" exp="" field="title"></constraint>
-    <constraint desc="" exp="" field="description"></constraint>
-    <constraint desc="" exp="" field="project_lead"></constraint>
+    <constraint desc="" exp="length(&quot;title&quot;) &lt;= 255" field="title"></constraint>
+    <constraint desc="" exp="length(&quot;description&quot;) &lt;= 4000" field="description"></constraint>
+    <constraint desc="" exp="length(&quot;project_lead&quot;) &lt;= 50" field="project_lead"></constraint>
     <constraint desc="" exp="" field="start_date"></constraint>
     <constraint desc="" exp="" field="end_date"></constraint>
     <constraint desc="" exp="" field="local_epsg"></constraint>
