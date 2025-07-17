@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS "field_project"
   -- Field project table. All data are children of this table.
 (
     "fid" INTEGER NOT NULL,
-    "uuid" TEXT NOT NULL UNIQUE,
+    "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 50),
     "short_name" TEXT NOT NULL UNIQUE CHECK(LENGTH("short_name") <= 50),
     "title" TEXT CHECK(LENGTH("title") <= 255),
     "description" TEXT CHECK(LENGTH("description") <= 4000),
