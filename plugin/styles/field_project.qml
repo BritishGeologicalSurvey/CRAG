@@ -290,35 +290,35 @@
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="3" exp_strength="0" field="short_name" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="7" exp_strength="1" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="7" exp_strength="1" field="short_name" notnull_strength="1" unique_strength="1"></constraint>
     <constraint constraints="4" exp_strength="1" field="title" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="4" exp_strength="1" field="description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="4" exp_strength="1" field="project_lead" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="start_date" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="0" exp_strength="0" field="end_date" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="local_epsg" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="notes" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="notes" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="mapped_scale" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="5" exp_strength="1" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="recorded_on" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="qgis_plugin_version" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="qgis_plugin_version" notnull_strength="0" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="" exp="" field="uuid"></constraint>
-    <constraint desc="" exp="" field="short_name"></constraint>
-    <constraint desc="" exp="length(&quot;title&quot;) &lt;= 255" field="title"></constraint>
-    <constraint desc="" exp="length(&quot;description&quot;) &lt;= 4000" field="description"></constraint>
-    <constraint desc="" exp="length(&quot;project_lead&quot;) &lt;= 50" field="project_lead"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 50, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;short_name&quot; is not null, length(&quot;short_name&quot;) &lt;= 50, true)" field="short_name"></constraint>
+    <constraint desc="Character limit: 255" exp="if(&quot;title&quot; is not null, length(&quot;title&quot;) &lt;= 255, true)" field="title"></constraint>
+    <constraint desc="Character limit: 4000" exp="if(&quot;description&quot; is not null, length(&quot;description&quot;) &lt;= 4000, true)" field="description"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;project_lead&quot; is not null, length(&quot;project_lead&quot;) &lt;= 50, true)" field="project_lead"></constraint>
     <constraint desc="" exp="" field="start_date"></constraint>
     <constraint desc="" exp="" field="end_date"></constraint>
     <constraint desc="" exp="" field="local_epsg"></constraint>
-    <constraint desc="" exp="" field="notes"></constraint>
+    <constraint desc="Character limit: 4000" exp="if(&quot;notes&quot; is not null, length(&quot;notes&quot;) &lt;= 4000, true)" field="notes"></constraint>
     <constraint desc="" exp="" field="mapped_scale"></constraint>
-    <constraint desc="" exp="" field="recorded_by"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;recorded_by&quot; is not null, length(&quot;recorded_by&quot;) &lt;= 50, true)" field="recorded_by"></constraint>
     <constraint desc="" exp="" field="recorded_on"></constraint>
-    <constraint desc="" exp="" field="qgis_plugin_version"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;qgis_plugin_version&quot; is not null, length(&quot;qgis_plugin_version&quot;) &lt;= 50, true)" field="qgis_plugin_version"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
   <editform tolerant="1"></editform>

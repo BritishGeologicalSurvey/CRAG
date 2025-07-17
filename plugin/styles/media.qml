@@ -159,22 +159,22 @@
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="media_type_code" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="7" exp_strength="1" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="5" exp_strength="1" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="5" exp_strength="1" field="media_type_code" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="4" exp_strength="1" field="media_link" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="media_description" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="2" field="media_description" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="5" exp_strength="1" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="recorded_on" notnull_strength="1" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="" exp="" field="uuid"></constraint>
-    <constraint desc="" exp="" field="locality_fuid"></constraint>
-    <constraint desc="" exp="" field="media_type_code"></constraint>
-    <constraint desc="" exp="-- Media is the placeholder image&#xD;&#xA;&quot;media_link&quot;='../_field_data_capture/icons/BGS-placeholder.png'&#xD;&#xA;or&#xD;&#xA;(&#xD;&#xA;&#x9;-- Media must be within project media folder&#xD;&#xA;&#xD;&#xA;&#x9;-- Don't match absolute windows paths (e.g. starting with &quot;C:/&quot;)&#xD;&#xA;&#x9;not(regexp_match(lower(&quot;media_link&quot;), '^[a-z]:/'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match absolute Linux paths (starting with &quot;/&quot;)&#xD;&#xA;&#x9;not(regexp_match(&quot;media_link&quot;, '^/'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match filepaths from parent directories (e.g. starting with &quot;../&quot;)&#xD;&#xA;&#x9;not(regexp_match(&quot;media_link&quot;, '^\\.\\./'))&#xD;&#xA;&#x9;and&#xD;&#xA;&#x9;-- Don't match files in the unlinked directory&#xD;&#xA;&#x9;not(regexp_match(lower(&quot;media_link&quot;), '^unlinked'))&#xD;&#xA;)" field="media_link"></constraint>
-    <constraint desc="" exp="" field="media_description"></constraint>
-    <constraint desc="" exp="" field="recorded_by"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 50, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 50, true)" field="locality_fuid"></constraint>
+    <constraint desc="Character limit: 255" exp="if(&quot;media_type_code&quot; is not null, length(&quot;media_type_code&quot;) &lt;= 255, true)" field="media_type_code"></constraint>
+    <constraint desc="Media link must be in the project folder and has a character limit of 4000" exp="if(&quot;media_link&quot; is not null, length(&quot;media_link&quot;) &lt;= 4000, true)&#xD;&#xA;and&#xD;&#xA;(&#xD;&#xA;&#x9;-- Media is the placeholder image&#xD;&#xA;&#x9;&quot;media_link&quot;='../_field_data_capture/icons/BGS-placeholder.png'&#xD;&#xA;&#x9;or&#xD;&#xA;&#x9;(&#xD;&#xA;&#x9;&#x9;-- Media must be within project media folder&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;-- Don't match absolute windows paths (e.g. starting with &quot;C:/&quot;)&#xD;&#xA;&#x9;&#x9;not(regexp_match(lower(&quot;media_link&quot;), '^[a-z]:/'))&#xD;&#xA;&#x9;&#x9;and&#xD;&#xA;&#x9;&#x9;-- Don't match absolute Linux paths (starting with &quot;/&quot;)&#xD;&#xA;&#x9;&#x9;not(regexp_match(&quot;media_link&quot;, '^/'))&#xD;&#xA;&#x9;&#x9;and&#xD;&#xA;&#x9;&#x9;-- Don't match filepaths from parent directories (e.g. starting with &quot;../&quot;)&#xD;&#xA;&#x9;&#x9;not(regexp_match(&quot;media_link&quot;, '^\\.\\./'))&#xD;&#xA;&#x9;&#x9;and&#xD;&#xA;&#x9;&#x9;-- Don't match files in the unlinked directory&#xD;&#xA;&#x9;&#x9;not(regexp_match(lower(&quot;media_link&quot;), '^unlinked'))&#xD;&#xA;&#x9;)&#xD;&#xA;)" field="media_link"></constraint>
+    <constraint desc="Character limit: 4000" exp="if(&quot;media_description&quot; is not null, length(&quot;media_description&quot;) &lt;= 4000, true)" field="media_description"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;recorded_by&quot; is not null, length(&quot;recorded_by&quot;) &lt;= 50, true)" field="recorded_by"></constraint>
     <constraint desc="" exp="" field="recorded_on"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
