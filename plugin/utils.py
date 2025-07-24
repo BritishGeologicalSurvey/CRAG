@@ -361,7 +361,7 @@ class FieldDataCaptureProject:
         fp_features = list(field_project_layer.getFeatures())
 
         # If the number of features is less than 1 or the first feature has an unsaved fid value
-        if len(fp_features) < 1 or fp_features[0].attribute("fid") == "Autogenerate":
+        if len(fp_features) < 1 or fp_features[0].attribute("fid") in {"Autogenerate", ""}:
             return False
 
         return True
