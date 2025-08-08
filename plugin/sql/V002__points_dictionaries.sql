@@ -3,10 +3,10 @@
 BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "dic_sample_material" (
     "fid" INTEGER NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "description" TEXT NOT NULL,
-    "translation" TEXT,
-    "status" TEXT,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -15,10 +15,10 @@ VALUES('dic_sample_material','attributes','dic_sample_material','Sample type dic
 
 CREATE TABLE IF NOT EXISTS "dic_media" (
     "fid" INTEGER NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "description" TEXT NOT NULL,
-    "translation" TEXT,
-    "status" TEXT,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -27,16 +27,16 @@ VALUES('dic_media','attributes','dic_media','Media type dictionary.','2023-09-15
 
 CREATE TABLE IF NOT EXISTS "dic_manmade_landform" (
     "fid" INTEGER NOT NULL,
-    "category" TEXT,
-    "code" TEXT NOT NULL UNIQUE,
-    "description" TEXT,
-    "status" TEXT,
-    "translation" TEXT,
-    "blackbook_code" TEXT,
-    "pre2012_sigma_code" TEXT,
-    "sigma_feature_2012" TEXT,
-    "sigma_feature_2015" TEXT,
-    "sigma_db_code" TEXT,
+    "category" TEXT NOT NULL CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "blackbook_code" TEXT CHECK(LENGTH("blackbook_code") <= 50),
+    "pre2012_sigma_code" TEXT CHECK(LENGTH("pre2012_sigma_code") <= 50),
+    "sigma_feature_2012" TEXT CHECK(LENGTH("sigma_feature_2012") <= 50),
+    "sigma_feature_2015" TEXT CHECK(LENGTH("sigma_feature_2015") <= 50),
+    "sigma_db_code" TEXT CHECK(LENGTH("sigma_db_code") <= 50),
     "has_azimuth" BOOLEAN NOT NULL,
     "has_dip" BOOLEAN NOT NULL,
     PRIMARY KEY("fid" AUTOINCREMENT)
@@ -47,10 +47,10 @@ values('dic_manmade_landform','attributes','dic_manmade_landform','Dictionary of
 
 CREATE TABLE IF NOT EXISTS "dic_locality_type" (
     "fid" INTEGER NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "description" TEXT,
-    "translation" TEXT,
-    "status" TEXT,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -60,16 +60,16 @@ values('dic_locality_type','attributes','dic_locality_type','Dictionary of expos
 
 CREATE TABLE IF NOT EXISTS "dic_structure" (
     "fid" INTEGER NOT NULL,
-    "category" TEXT NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "description" TEXT,
-    "status" TEXT,
-    "translation" TEXT,
-    "blackbook_code" TEXT,
-    "sigma_feature_2012" TEXT,
-    "sigma_feature_2015" TEXT,
-    "secondary_attr_category" TEXT,
-    "third_attr_category" TEXT,
+    "category" TEXT NOT NULL CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "blackbook_code" TEXT CHECK(LENGTH("blackbook_code") <= 50),
+    "sigma_feature_2012" TEXT CHECK(LENGTH("sigma_feature_2012") <= 50),
+    "sigma_feature_2015" TEXT CHECK(LENGTH("sigma_feature_2015") <= 50),
+    "secondary_attr_category" TEXT CHECK(LENGTH("secondary_attr_category") <= 50),
+    "third_attr_category" TEXT CHECK(LENGTH("third_attr_category") <= 50),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -78,13 +78,13 @@ values('dic_structure','attributes','dic_structure','Dictionary of structure cod
 
 CREATE TABLE IF NOT EXISTS "dic_structure_secondary" (
     "fid" INTEGER NOT NULL,
-    "category" TEXT NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "description" TEXT,
-    "status" TEXT,
-    "translation" TEXT,
-    "sigma_2012" TEXT,
-    "sigma_2015" TEXT,
+    "category" TEXT NOT NULL CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "sigma_2012" TEXT CHECK(LENGTH("sigma_2012") <= 50),
+    "sigma_2015" TEXT CHECK(LENGTH("sigma_2015") <= 50),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -93,13 +93,13 @@ values('dic_structure_secondary','attributes','dic_structure_secondary','Diction
 
 CREATE TABLE IF NOT EXISTS "dic_structure_third" (
     "fid" INTEGER NOT NULL,
-    "category" TEXT NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "description" TEXT NOT NULL,
-    "status" TEXT,
-    "translation" TEXT,
-    "sigma_2012" TEXT,
-    "sigma_2015" TEXT,
+    "category" TEXT NOT NULL CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "sigma_2012" TEXT CHECK(LENGTH("sigma_2012") <= 50),
+    "sigma_2015" TEXT CHECK(LENGTH("sigma_2015") <= 50),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -108,16 +108,16 @@ values('dic_structure_third','attributes','dic_structure_third','Dictionary of s
 
 CREATE TABLE IF NOT EXISTS "dic_superficial_landform" (
     "fid" INTEGER NOT NULL,
-    "category" TEXT,
-    "code" TEXT NOT NULL UNIQUE,
-    "description" TEXT,
-    "status" TEXT,
-    "translation" TEXT,
-    "blackbook_code" TEXT,
-    "pre2012_sigma_code" TEXT,
-    "sigma_feature_2012" TEXT,
-    "sigma_feature_2015" TEXT,
-    "sigma_db_code" TEXT,
+    "category" TEXT NOT NULL CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "blackbook_code" TEXT CHECK(LENGTH("blackbook_code") <= 50),
+    "pre2012_sigma_code" TEXT CHECK(LENGTH("pre2012_sigma_code") <= 50),
+    "sigma_feature_2012" TEXT CHECK(LENGTH("sigma_feature_2012") <= 50),
+    "sigma_feature_2015" TEXT CHECK(LENGTH("sigma_feature_2015") <= 50),
+    "sigma_db_code" TEXT CHECK(LENGTH("sigma_db_code") <= 50),
     "has_azimuth" BOOLEAN NOT NULL,
     "has_dip" BOOLEAN NOT NULL,
     PRIMARY KEY("fid" AUTOINCREMENT)
