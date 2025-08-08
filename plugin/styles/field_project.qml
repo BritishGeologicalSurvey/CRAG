@@ -306,7 +306,7 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 50, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 38, true)" field="uuid"></constraint>
     <constraint desc="Character limit: 50" exp="if(&quot;short_name&quot; is not null, length(&quot;short_name&quot;) &lt;= 50, true)" field="short_name"></constraint>
     <constraint desc="Character limit: 255" exp="if(&quot;title&quot; is not null, length(&quot;title&quot;) &lt;= 255, true)" field="title"></constraint>
     <constraint desc="Character limit: 4000" exp="if(&quot;description&quot; is not null, length(&quot;description&quot;) &lt;= 4000, true)" field="description"></constraint>

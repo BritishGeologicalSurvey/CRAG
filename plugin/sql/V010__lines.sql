@@ -16,9 +16,9 @@ VALUES('bedrock_line','features','bedrock_line','Line denoting a bedrock feature
 
 CREATE TABLE IF NOT EXISTS "bedrock_line" (
   "fid" INTEGER NOT NULL,
-  "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 50),
-  "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 50),
-  "line_type_code" TEXT NOT NULL CHECK(LENGTH("line_type_code") <= 255),
+  "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 38),
+  "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 38),
+  "line_type_code" TEXT NOT NULL CHECK(LENGTH("line_type_code") <= 50),
   "line_label" TEXT CHECK(LENGTH("line_label") <= 255),
   "notes" TEXT CHECK(LENGTH("notes") <= 4000),
   "mapped_scale" INTEGER NOT NULL,
@@ -132,9 +132,9 @@ VALUES('superficial_line','features','superficial_line','Line denoting a superfi
 
 CREATE TABLE IF NOT EXISTS "superficial_line" (
   "fid" INTEGER NOT NULL,
-  "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 50),
-  "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 50),
-  "line_type_code" TEXT NOT NULL CHECK(LENGTH("line_type_code") <= 255),
+  "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 38),
+  "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 38),
+  "line_type_code" TEXT NOT NULL CHECK(LENGTH("line_type_code") <= 50),
   "line_label" TEXT CHECK(LENGTH("line_label") <= 255),
   "notes" TEXT CHECK(LENGTH("notes") <= 4000),
   "mapped_scale" INTEGER NOT NULL,
@@ -248,9 +248,9 @@ VALUES('artificial_line','features','artificial_line','Line denoting a artificia
 
 CREATE TABLE IF NOT EXISTS "artificial_line" (
   "fid" INTEGER NOT NULL,
-  "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 50),
-  "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 50),
-  "line_type_code" TEXT NOT NULL CHECK(LENGTH("line_type_code") <= 255),
+  "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 38),
+  "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 38),
+  "line_type_code" TEXT NOT NULL CHECK(LENGTH("line_type_code") <= 50),
   "line_label" TEXT CHECK(LENGTH("line_label") <= 255),
   "notes" TEXT CHECK(LENGTH("notes") <= 4000),
   "mapped_scale" INTEGER NOT NULL,
@@ -364,9 +364,9 @@ VALUES('mass_move_line','features','mass_move_line','Line denoting a mass moveme
 
 CREATE TABLE IF NOT EXISTS "mass_move_line" (
   "fid" INTEGER NOT NULL,
-  "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 50),
-  "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 50),
-  "line_type_code" TEXT NOT NULL CHECK(LENGTH("line_type_code") <= 255),
+  "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 38),
+  "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 38),
+  "line_type_code" TEXT NOT NULL CHECK(LENGTH("line_type_code") <= 50),
   "line_label" TEXT CHECK(LENGTH("line_label") <= 255),
   "notes" TEXT CHECK(LENGTH("notes") <= 4000),
   "mapped_scale" INTEGER NOT NULL,
@@ -480,9 +480,9 @@ VALUES('terrain_line','features','terrain_line','Line denoting a terrain feature
 
 CREATE TABLE IF NOT EXISTS "terrain_line" (
   "fid" INTEGER NOT NULL,
-  "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 50),
-  "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 50),
-  "line_type_code" TEXT NOT NULL CHECK(LENGTH("line_type_code") <= 255),
+  "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 38),
+  "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 38),
+  "line_type_code" TEXT NOT NULL CHECK(LENGTH("line_type_code") <= 50),
   "line_label" TEXT CHECK(LENGTH("line_label") <= 255),
   "notes" TEXT CHECK(LENGTH("notes") <= 4000),
   "mapped_scale" INTEGER NOT NULL,

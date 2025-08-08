@@ -208,9 +208,9 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 50, true)" field="uuid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 50, true)" field="locality_fuid"></constraint>
-    <constraint desc="Character limit: 255" exp="if(&quot;superficial_type_code&quot; is not null, length(&quot;superficial_type_code&quot;) &lt;= 255, true)" field="superficial_type_code"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 38, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 38, true)" field="locality_fuid"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;superficial_type_code&quot; is not null, length(&quot;superficial_type_code&quot;) &lt;= 50, true)" field="superficial_type_code"></constraint>
     <constraint desc="0 &lt;= dip &lt;= 90" exp="(&quot;dip&quot; >= 0 and &quot;dip&quot; &lt;= 90) OR (&quot;dip&quot; IS NULL)" field="dip"></constraint>
     <constraint desc="0 &lt;= azimuth &lt; 360" exp=" (&quot;azimuth&quot; >= 0 and &quot;azimuth&quot; &lt; 360) OR (&quot;azimuth&quot; IS NULL)" field="azimuth"></constraint>
     <constraint desc="" exp="" field="length"></constraint>

@@ -142,10 +142,10 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 50, true)" field="uuid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 50, true)" field="locality_fuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 38, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 38, true)" field="locality_fuid"></constraint>
     <constraint desc="Character limit: 255" exp="if(&quot;sample_id&quot; is not null, length(&quot;sample_id&quot;) &lt;= 255, true)" field="sample_id"></constraint>
-    <constraint desc="Character limit: 255" exp="if(&quot;sample_type_code&quot; is not null, length(&quot;sample_type_code&quot;) &lt;= 255, true)" field="sample_type_code"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;sample_type_code&quot; is not null, length(&quot;sample_type_code&quot;) &lt;= 50, true)" field="sample_type_code"></constraint>
     <constraint desc="Character limit: 4000" exp="if(&quot;sample_description&quot; is not null, length(&quot;sample_description&quot;) &lt;= 4000, true)" field="sample_description"></constraint>
     <constraint desc="Character limit: 50" exp="if(&quot;recorded_by&quot; is not null, length(&quot;recorded_by&quot;) &lt;= 50, true)" field="recorded_by"></constraint>
     <constraint desc="" exp="" field="recorded_on"></constraint>

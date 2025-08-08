@@ -1451,9 +1451,9 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 50, true)" field="uuid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;field_project_fuid&quot; is not null, length(&quot;field_project_fuid&quot;) &lt;= 50, true)" field="field_project_fuid"></constraint>
-    <constraint desc="Character limit: 255" exp="if(&quot;line_type_code&quot; is not null, length(&quot;line_type_code&quot;) &lt;= 255, true)" field="line_type_code"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 38, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;field_project_fuid&quot; is not null, length(&quot;field_project_fuid&quot;) &lt;= 38, true)" field="field_project_fuid"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;line_type_code&quot; is not null, length(&quot;line_type_code&quot;) &lt;= 50, true)" field="line_type_code"></constraint>
     <constraint desc="Character limit: 255" exp="if(&quot;line_label&quot; is not null, length(&quot;line_label&quot;) &lt;= 255, true)" field="line_label"></constraint>
     <constraint desc="Character limit: 4000" exp="if(&quot;notes&quot; is not null, length(&quot;notes&quot;) &lt;= 4000, true)" field="notes"></constraint>
     <constraint desc="" exp="" field="mapped_scale"></constraint>

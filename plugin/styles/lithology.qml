@@ -131,9 +131,9 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 50, true)" field="uuid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 50, true)" field="locality_fuid"></constraint>
-    <constraint desc="Character limit: 255" exp="if(&quot;lithology_code&quot; is not null, length(&quot;lithology_code&quot;) &lt;= 255, true)" field="lithology_code"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 38, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 38, true)" field="locality_fuid"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;lithology_code&quot; is not null, length(&quot;lithology_code&quot;) &lt;= 50, true)" field="lithology_code"></constraint>
     <constraint desc="Character limit: 4000" exp="if(&quot;notes&quot; is not null, length(&quot;notes&quot;) &lt;= 4000, true)" field="notes"></constraint>
     <constraint desc="Character limit: 50" exp="if(&quot;recorded_by&quot; is not null, length(&quot;recorded_by&quot;) &lt;= 50, true)" field="recorded_by"></constraint>
     <constraint desc="" exp="" field="recorded_on"></constraint>

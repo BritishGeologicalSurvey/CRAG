@@ -215,9 +215,9 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 50, true)" field="uuid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 50, true)" field="locality_fuid"></constraint>
-    <constraint desc="Character limit: 255" exp="if(&quot;structure_type_code&quot; is not null, length(&quot;structure_type_code&quot;) &lt;= 255, true)" field="structure_type_code"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 38, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 38, true)" field="locality_fuid"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;structure_type_code&quot; is not null, length(&quot;structure_type_code&quot;) &lt;= 50, true)" field="structure_type_code"></constraint>
     <constraint desc="0 &lt;= dip &lt;= 90" exp="&quot;dip&quot; >= 0 and &quot;dip&quot; &lt;= 90" field="dip"></constraint>
     <constraint desc="0 &lt;= azimuth &lt; 360" exp="&quot;azimuth&quot; >= 0 and &quot;azimuth&quot; &lt; 360" field="azimuth"></constraint>
     <constraint desc="Character limit: 255" exp="if(&quot;secondary_attribute&quot; is not null, length(&quot;secondary_attribute&quot;) &lt;= 255, true)" field="secondary_attribute"></constraint>

@@ -563,10 +563,10 @@
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 50, true)" field="uuid"></constraint>
-    <constraint desc="Character limit: 50" exp="if(&quot;field_project_fuid&quot; is not null, length(&quot;field_project_fuid&quot;) &lt;= 50, true)" field="field_project_fuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 38, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;field_project_fuid&quot; is not null, length(&quot;field_project_fuid&quot;) &lt;= 38, true)" field="field_project_fuid"></constraint>
     <constraint desc="Character limit: 50" exp="if(&quot;name&quot; is not null, length(&quot;name&quot;) &lt;= 50, true)" field="name"></constraint>
-    <constraint desc="Character limit: 255" exp="if(&quot;locality_type_code&quot; is not null, length(&quot;locality_type_code&quot;) &lt;= 255, true)" field="locality_type_code"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;locality_type_code&quot; is not null, length(&quot;locality_type_code&quot;) &lt;= 50, true)" field="locality_type_code"></constraint>
     <constraint desc="Character limit: 4000" exp="if(&quot;locality_description&quot; is not null, length(&quot;locality_description&quot;) &lt;= 4000, true)" field="locality_description"></constraint>
     <constraint desc="Character limit: 255" exp="if(&quot;map_face_note&quot; is not null, length(&quot;map_face_note&quot;) &lt;= 255, true)" field="map_face_note"></constraint>
     <constraint desc="Character limit: 4000" exp="if(&quot;geology_description&quot; is not null, length(&quot;geology_description&quot;) &lt;= 4000, true)" field="geology_description"></constraint>

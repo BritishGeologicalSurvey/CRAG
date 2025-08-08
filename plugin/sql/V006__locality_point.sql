@@ -15,10 +15,10 @@ VALUES('locality_point','features','locality_point','Locality where observations
 
 CREATE TABLE IF NOT EXISTS "locality_point" (
     "fid" INTEGER NOT NULL,
-    "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 50),
-    "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 50),
+    "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 38),
+    "field_project_fuid" TEXT NOT NULL CHECK(LENGTH("field_project_fuid") <= 38),
     "name" TEXT NOT NULL UNIQUE CHECK(LENGTH("name") <= 50),
-    "locality_type_code"  TEXT NOT NULL CHECK(LENGTH("locality_type_code") <= 255),
+    "locality_type_code"  TEXT NOT NULL CHECK(LENGTH("locality_type_code") <= 50),
     "locality_description" TEXT CHECK(LENGTH("locality_description") <= 4000),
     "map_face_note" TEXT CHECK(LENGTH("map_face_note") <= 255),
     "geology_description" TEXT CHECK(LENGTH("geology_description") <= 4000),
