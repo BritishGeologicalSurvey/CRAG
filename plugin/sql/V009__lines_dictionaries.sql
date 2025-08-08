@@ -3,13 +3,13 @@ BEGIN TRANSACTION;
 
 CREATE TABLE "dic_line_type_artificial" (
     "fid" INTEGER NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "category" TEXT,
-    "description" TEXT,
-    "translation" TEXT,
-    "sec_attrib_list" TEXT,
-    "comments" TEXT,
-    "status" TEXT,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "category" TEXT CHECK(LENGTH("category") <= 50),
+    "description" TEXT CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "sec_attrib_list" TEXT CHECK(LENGTH("sec_attrib_list") <= 255),
+    "comments" TEXT CHECK(LENGTH("comments") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -18,13 +18,13 @@ values('dic_line_type_artificial','attributes','dic_line_type_artificial','Dicti
 
 CREATE TABLE "dic_line_type_bedrock" (
     "fid" INTEGER NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "category" TEXT,
-    "description" TEXT,
-    "translation" TEXT,
-    "sec_attrib_list" TEXT,
-    "comments" TEXT,
-    "status" TEXT,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "category" TEXT CHECK(LENGTH("category") <= 50),
+    "description" TEXT CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "sec_attrib_list" TEXT CHECK(LENGTH("sec_attrib_list") <= 255),
+    "comments" TEXT CHECK(LENGTH("comments") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -33,13 +33,13 @@ values('dic_line_type_bedrock','attributes','dic_line_type_bedrock','Dictionary 
 
 CREATE TABLE "dic_line_type_superficial" (
     "fid" INTEGER NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "category" TEXT,
-    "description" TEXT,
-    "translation" TEXT,
-    "comments" TEXT,
-    "status" TEXT,
-    "sec_attrib_list" TEXT,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "category" TEXT CHECK(LENGTH("category") <= 50),
+    "description" TEXT CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "comments" TEXT CHECK(LENGTH("comments") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "sec_attrib_list" TEXT CHECK(LENGTH("sec_attrib_list") <= 255),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -48,13 +48,13 @@ values('dic_line_type_superficial','attributes','dic_line_type_superficial','Dic
 
 CREATE TABLE "dic_line_type_mass_move" (
     "fid" INTEGER NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "category" TEXT,
-    "description" TEXT,
-    "translation" TEXT,
-    "sec_attrib_list" TEXT,
-    "comments" TEXT,
-    "status" TEXT,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "category" TEXT CHECK(LENGTH("category") <= 50),
+    "description" TEXT CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "sec_attrib_list" TEXT CHECK(LENGTH("sec_attrib_list") <= 255),
+    "comments" TEXT CHECK(LENGTH("comments") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
@@ -63,13 +63,13 @@ values('dic_line_type_mass_move','attributes','dic_line_type_mass_move','Diction
 
 CREATE TABLE "dic_line_type_terrain" (
     "fid" INTEGER NOT NULL,
-    "code" TEXT NOT NULL UNIQUE,
-    "category" TEXT,
-    "description" TEXT,
-    "translation" TEXT,
-    "sec_attrib_list" TEXT,
-    "comments" TEXT,
-    "status" TEXT,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "category" TEXT CHECK(LENGTH("category") <= 50),
+    "description" TEXT CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "sec_attrib_list" TEXT CHECK(LENGTH("sec_attrib_list") <= 255),
+    "comments" TEXT CHECK(LENGTH("comments") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 

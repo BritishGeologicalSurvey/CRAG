@@ -551,26 +551,26 @@
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="1" exp_strength="0" field="field_project_fuid" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="3" exp_strength="0" field="name" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="1" exp_strength="0" field="locality_type_code" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="locality_description" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="map_face_note" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="geology_description" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="7" exp_strength="1" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="5" exp_strength="1" field="field_project_fuid" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="7" exp_strength="1" field="name" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="5" exp_strength="1" field="locality_type_code" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="locality_description" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="map_face_note" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="geology_description" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="5" exp_strength="1" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="recorded_on" notnull_strength="1" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="" exp="" field="uuid"></constraint>
-    <constraint desc="" exp="" field="field_project_fuid"></constraint>
-    <constraint desc="" exp="" field="name"></constraint>
-    <constraint desc="" exp="" field="locality_type_code"></constraint>
-    <constraint desc="" exp="" field="locality_description"></constraint>
-    <constraint desc="" exp="" field="map_face_note"></constraint>
-    <constraint desc="" exp="" field="geology_description"></constraint>
-    <constraint desc="" exp="" field="recorded_by"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 38, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;field_project_fuid&quot; is not null, length(&quot;field_project_fuid&quot;) &lt;= 38, true)" field="field_project_fuid"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;name&quot; is not null, length(&quot;name&quot;) &lt;= 50, true)" field="name"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;locality_type_code&quot; is not null, length(&quot;locality_type_code&quot;) &lt;= 50, true)" field="locality_type_code"></constraint>
+    <constraint desc="Character limit: 4000" exp="if(&quot;locality_description&quot; is not null, length(&quot;locality_description&quot;) &lt;= 4000, true)" field="locality_description"></constraint>
+    <constraint desc="Character limit: 255" exp="if(&quot;map_face_note&quot; is not null, length(&quot;map_face_note&quot;) &lt;= 255, true)" field="map_face_note"></constraint>
+    <constraint desc="Character limit: 4000" exp="if(&quot;geology_description&quot; is not null, length(&quot;geology_description&quot;) &lt;= 4000, true)" field="geology_description"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;recorded_by&quot; is not null, length(&quot;recorded_by&quot;) &lt;= 50, true)" field="recorded_by"></constraint>
     <constraint desc="" exp="" field="recorded_on"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>

@@ -132,22 +132,22 @@
   </defaults>
   <constraints>
     <constraint constraints="3" exp_strength="0" field="fid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="3" exp_strength="0" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
-    <constraint constraints="1" exp_strength="0" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="sample_id" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="sample_type_code" notnull_strength="1" unique_strength="0"></constraint>
-    <constraint constraints="0" exp_strength="0" field="sample_description" notnull_strength="0" unique_strength="0"></constraint>
-    <constraint constraints="1" exp_strength="0" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="7" exp_strength="1" field="uuid" notnull_strength="1" unique_strength="1"></constraint>
+    <constraint constraints="5" exp_strength="1" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="5" exp_strength="1" field="sample_id" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="5" exp_strength="1" field="sample_type_code" notnull_strength="1" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="sample_description" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="5" exp_strength="1" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="recorded_on" notnull_strength="1" unique_strength="0"></constraint>
   </constraints>
   <constraintExpressions>
     <constraint desc="" exp="" field="fid"></constraint>
-    <constraint desc="" exp="" field="uuid"></constraint>
-    <constraint desc="" exp="" field="locality_fuid"></constraint>
-    <constraint desc="" exp="" field="sample_id"></constraint>
-    <constraint desc="" exp="" field="sample_type_code"></constraint>
-    <constraint desc="" exp="" field="sample_description"></constraint>
-    <constraint desc="" exp="" field="recorded_by"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 38, true)" field="uuid"></constraint>
+    <constraint desc="Character limit: 38" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 38, true)" field="locality_fuid"></constraint>
+    <constraint desc="Character limit: 255" exp="if(&quot;sample_id&quot; is not null, length(&quot;sample_id&quot;) &lt;= 255, true)" field="sample_id"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;sample_type_code&quot; is not null, length(&quot;sample_type_code&quot;) &lt;= 50, true)" field="sample_type_code"></constraint>
+    <constraint desc="Character limit: 4000" exp="if(&quot;sample_description&quot; is not null, length(&quot;sample_description&quot;) &lt;= 4000, true)" field="sample_description"></constraint>
+    <constraint desc="Character limit: 50" exp="if(&quot;recorded_by&quot; is not null, length(&quot;recorded_by&quot;) &lt;= 50, true)" field="recorded_by"></constraint>
     <constraint desc="" exp="" field="recorded_on"></constraint>
   </constraintExpressions>
   <expressionfields></expressionfields>
