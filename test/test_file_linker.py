@@ -18,7 +18,12 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from plugin.field_data_capture import FieldDataCapture
-from plugin.file_linker import FileLinker
+from plugin.file_linker import (
+    FileLinker,
+    MAX_PHOTO_CAPTION_LENGTH,
+    MAX_PHOTO_DESCRIPTION_LENGTH,
+    MAX_MEDIA_DESCRIPTION_LENGTH,
+)
 from plugin.utils import (  # noqa
     MultilineMessageBox,
     create_prepopulated_feature,
@@ -393,14 +398,14 @@ def test_validate_selection_text_length(
         "photo": {
             Path("sub_dir_A/test_img_001.jpeg"): {
                 "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
-                "QTextEdit_caption": "A" * 251,
+                "QTextEdit_caption": "A" * (MAX_PHOTO_CAPTION_LENGTH + 1),
                 "QTextEdit_description": "Description for test_img_001.jpeg",
             },
             Path("sub_dir_A/exif_data.jpg"): {
                 # Don't select this file, it should not be saved to the database
                 "QComboBox_locality": None,
                 "QTextEdit_caption": "Caption for exif_data.jpg",
-                "QTextEdit_description": "B" * 4001,
+                "QTextEdit_description": "B" * (MAX_PHOTO_DESCRIPTION_LENGTH + 1),
             },
         },
         "media": {
@@ -408,7 +413,7 @@ def test_validate_selection_text_length(
                 # Don't select this file, it should not be saved to the database
                 "QComboBox_locality": None,
                 "QComboBox_media_type": "spreadsheet",
-                "QTextEdit_description": "C" * 4001,
+                "QTextEdit_description": "C" * (MAX_MEDIA_DESCRIPTION_LENGTH + 1),
             },
         }
     }
@@ -421,9 +426,9 @@ def test_validate_selection_text_length(
     # Assert
     assert validation_result is False
     warning_message: str = QMessageBox.warning.call_args[0][2]
-    assert "Photo Caption must be less than 250 characters" in warning_message
-    assert "Photo Description must be less than 4000 characters" in warning_message
-    assert "Media Description must be less than 4000 characters" in warning_message
+    assert f"Photo Caption must be less than {MAX_PHOTO_CAPTION_LENGTH} characters" in warning_message
+    assert f"Photo Description must be less than {MAX_PHOTO_DESCRIPTION_LENGTH} characters" in warning_message
+    assert f"Media Description must be less than {MAX_MEDIA_DESCRIPTION_LENGTH} characters" in warning_message
 
 
 def test_save_links(

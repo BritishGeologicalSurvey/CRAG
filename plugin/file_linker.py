@@ -48,6 +48,10 @@ WidgetsDict = dict[str, QWidget]
 CreateFeatureFunction = Callable[[QgsVectorLayer, Path, WidgetsDict], QgsFeature]
 ValidationFunction = Callable[[WidgetsDict], tuple[bool, Optional[str]]]
 
+MAX_PHOTO_CAPTION_LENGTH = 250
+MAX_PHOTO_DESCRIPTION_LENGTH = 4000
+MAX_MEDIA_DESCRIPTION_LENGTH = 4000
+
 
 class NoScrollQComboBox(QComboBox):
     """
@@ -642,8 +646,8 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             return False, "Please select a valid Media Type"
 
         # Text fields are too long.
-        if len(widgets_dict["QTextEdit_description"].toPlainText()) > 4000:
-            return False, "Media Description must be less than 4000 characters."
+        if len(widgets_dict["QTextEdit_description"].toPlainText()) > MAX_MEDIA_DESCRIPTION_LENGTH:
+            return False, f"Media Description must be less than {MAX_MEDIA_DESCRIPTION_LENGTH} characters."
 
         return True, None
 
@@ -653,9 +657,9 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         Validate that the input options of the given widgets_dict for a photo file is valid.
         """
         # Text fields are too long.
-        if len(widgets_dict["QTextEdit_caption"].toPlainText()) > 250:
-            return False, "Photo Caption must be less than 250 characters."
-        if len(widgets_dict["QTextEdit_description"].toPlainText()) > 4000:
-            return False, "Photo Description must be less than 4000 characters."
+        if len(widgets_dict["QTextEdit_caption"].toPlainText()) > MAX_PHOTO_CAPTION_LENGTH:
+            return False, f"Photo Caption must be less than {MAX_PHOTO_CAPTION_LENGTH} characters."
+        if len(widgets_dict["QTextEdit_description"].toPlainText()) > MAX_PHOTO_DESCRIPTION_LENGTH:
+            return False, f"Photo Description must be less than {MAX_PHOTO_DESCRIPTION_LENGTH} characters."
 
         return True, None
