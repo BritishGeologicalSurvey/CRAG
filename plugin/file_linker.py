@@ -466,6 +466,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         except Exception:
             photo_tags = {}
 
+        # Left hand column
         filepath_label = self.create_filepath_widget(photo)
         file_date_label = self.create_file_date_widget(photo, photo_tags=photo_tags)
         image_widget = self.create_image_widget(photo, self.thumbnail_size, photo_tags=photo_tags)
@@ -477,14 +478,20 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         row_vbox_1.addWidget(file_date_label)
         row_vbox_1.addWidget(image_widget)
 
+        # Right hand column
         combobox_locality = self.create_combobox_locality()
-        description_label = QLabel("Photo Caption")
-        notes_edit = QTextEdit()
-        notes_edit.setFixedHeight(self.thumbnail_size)
+        caption_label = QLabel("Photo Caption")
+        description_label = QLabel("Photo Description")
+        caption_edit = QTextEdit()
+        caption_edit.setFixedHeight(3 * self.thumbnail_size // 10)
+        description_edit = QTextEdit()
+        description_edit.setFixedHeight(7 * self.thumbnail_size // 10)
         row_vbox_2 = QVBoxLayout()
         row_vbox_2.addWidget(combobox_locality)
+        row_vbox_2.addWidget(caption_label)
+        row_vbox_2.addWidget(caption_edit)
         row_vbox_2.addWidget(description_label)
-        row_vbox_2.addWidget(notes_edit)
+        row_vbox_2.addWidget(description_edit)
 
         # Combine layout columns into 1 layout
         row_layout = QHBoxLayout()
@@ -496,7 +503,8 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             "QLabel_file_date": file_date_label,
             "QLabel_image_widget": image_widget,
             "QComboBox_locality": combobox_locality,
-            "QTextEdit_notes": notes_edit,
+            "QTextEdit_caption": caption_edit,
+            "QTextEdit_description": description_edit,
         }
 
         return row_layout, widgets_dict
@@ -511,15 +519,19 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         Create a new photo feature for the given filepath.
         """
-        # Get photo caption value
-        photo_caption = photo_widgets["QTextEdit_notes"].toPlainText()
+        # Get photo caption and description values
+        photo_caption = photo_widgets["QTextEdit_caption"].toPlainText()
         if photo_caption == "":
             photo_caption = None
+        photo_description = photo_widgets["QTextEdit_description"].toPlainText()
+        if photo_description == "":
+            photo_description = None
 
         new_attributes = {
             "locality_fuid": photo_widgets["QComboBox_locality"].currentData(),
             "photo_file": str(photo.relative_to(self.photos_dir)),
             "caption": photo_caption,
+            "description": photo_description,
         }
         return create_prepopulated_feature(layer, prepopulate=new_attributes)
 
