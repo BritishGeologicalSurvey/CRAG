@@ -66,6 +66,26 @@ class NoScrollQComboBox(QComboBox):
         pass
 
 
+class LengthCheckingQTextEdit(QTextEdit):
+    """
+    Sub-class of QTextEdit to check text length.  This QTextEdit changes colour
+    if the text gets too long.
+    """
+    max_text_length = 4000  # Default value
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.textChanged.connect(self.set_colour_from_length)
+
+    def set_colour_from_length(self):
+        text_length = len(self.toPlainText())
+        if text_length > self.max_text_length:
+            # Orange colour matches QGIS form validation
+            self.setStyleSheet("background-color: #f4d5a8;")
+        else:
+            self.setStyleSheet("background-color: white;")
+
+
 class FileLinker(QDialog, FieldDataCaptureProject):
     """
     QDialog for linking files to a project within the database.
@@ -487,9 +507,11 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         combobox_locality = self.create_combobox_locality()
         caption_label = QLabel("Photo Caption")
         description_label = QLabel("Photo Description")
-        caption_edit = QTextEdit()
+        caption_edit = LengthCheckingQTextEdit()
+        caption_edit.max_text_length = MAX_PHOTO_CAPTION_LENGTH
         caption_edit.setFixedHeight(3 * self.thumbnail_size // 10)
-        description_edit = QTextEdit()
+        description_edit = LengthCheckingQTextEdit()
+        description_edit.max_text_length = MAX_PHOTO_DESCRIPTION_LENGTH
         description_edit.setFixedHeight(7 * self.thumbnail_size // 10)
         row_vbox_2 = QVBoxLayout()
         row_vbox_2.addWidget(combobox_locality)
@@ -564,13 +586,14 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         combobox_locality = self.create_combobox_locality()
         combobox_media_type = self.create_combobox_media_type()
         description_label = QLabel("Media Description")
-        notes_edit = QTextEdit()
-        notes_edit.setFixedHeight(image_size)
+        description_edit = LengthCheckingQTextEdit()
+        description_edit.max_text_length = MAX_MEDIA_DESCRIPTION_LENGTH
+        description_edit.setFixedHeight(image_size)
         row_vbox_2 = QVBoxLayout()
         row_vbox_2.addWidget(combobox_locality)
         row_vbox_2.addWidget(combobox_media_type)
         row_vbox_2.addWidget(description_label)
-        row_vbox_2.addWidget(notes_edit)
+        row_vbox_2.addWidget(description_edit)
 
         # Combine layout columns into 1 layout
         row_layout = QHBoxLayout()
@@ -582,7 +605,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             "QLabel_file_date": file_date_label,
             "QLabel_image_widget": image_widget,
             "QComboBox_locality": combobox_locality,
-            "QTextEdit_description": notes_edit,
+            "QTextEdit_description": description_edit,
             "QComboBox_media_type": combobox_media_type,
         }
 
