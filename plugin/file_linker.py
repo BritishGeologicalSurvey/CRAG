@@ -578,7 +578,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             "QLabel_file_date": file_date_label,
             "QLabel_image_widget": image_widget,
             "QComboBox_locality": combobox_locality,
-            "QTextEdit_notes": notes_edit,
+            "QTextEdit_description": notes_edit,
             "QComboBox_media_type": combobox_media_type,
         }
 
@@ -617,7 +617,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         Create a new media feature for the given filepath.
         """
         # Get media description value
-        media_description = media_widgets["QTextEdit_notes"].toPlainText()
+        media_description = media_widgets["QTextEdit_description"].toPlainText()
         if media_description == "":
             media_description = None
 
@@ -642,7 +642,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             return False, "Please select a valid Media Type"
 
         # Text fields are too long.
-        if len(widgets_dict["QTextEdit_notes"].toPlainText()) > 4000:
+        if len(widgets_dict["QTextEdit_description"].toPlainText()) > 4000:
             return False, "Media Description must be less than 4000 characters."
 
         return True, None

@@ -54,7 +54,7 @@ WIDGET_NAMES_TO_ATTRIBUTES_NAMES = {
     "media": {
         "QComboBox_locality": "locality_fuid",
         "QComboBox_media_type": "media_type_code",
-        "QTextEdit_notes": "media_description",
+        "QTextEdit_description": "media_description",
     }
 }
 
@@ -297,7 +297,7 @@ def assert_widgets_dict_types(widgets_dict: dict[str, Any], layer_name: str) -> 
         assert isinstance(widgets_dict["QTextEdit_caption"], QTextEdit)
         assert isinstance(widgets_dict["QTextEdit_description"], QTextEdit)
     elif layer_name == 'media':
-        assert isinstance(widgets_dict["QTextEdit_notes"], QTextEdit)
+        assert isinstance(widgets_dict["QTextEdit_description"], QTextEdit)
 
 
 @pytest.mark.parametrize(
@@ -344,13 +344,13 @@ def test_validate_selection_media(
                 "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
                 # Don't select a media type, this should fail the validation
                 "QComboBox_media_type": None,
-                "QTextEdit_notes": "Description for test_csv_001.csv",
+                "QTextEdit_description": "Description for test_csv_001.csv",
             },
             Path("sub_dir_A/sub_dir_B/test_txt_001.txt"): {
                 "QComboBox_locality": "{abc43098-fe9b-4da0-b008-7518694466bb}",
                 # Don't select a media type, this should fail the validation
                 "QComboBox_media_type": None,
-                "QTextEdit_notes": "Description for test_txt_001.txt",
+                "QTextEdit_description": "Description for test_txt_001.txt",
             },
         }
     }
@@ -408,7 +408,7 @@ def test_validate_selection_text_length(
                 # Don't select this file, it should not be saved to the database
                 "QComboBox_locality": None,
                 "QComboBox_media_type": "spreadsheet",
-                "QTextEdit_notes": "C" * 4001,
+                "QTextEdit_description": "C" * 4001,
             },
         }
     }
@@ -455,12 +455,12 @@ def test_save_links(
                 # Don't select this file, it should not be saved to the database
                 "QComboBox_locality": None,
                 "QComboBox_media_type": "spreadsheet",
-                "QTextEdit_notes": "Description for test_csv_001.csv",
+                "QTextEdit_description": "Description for test_csv_001.csv",
             },
             Path("sub_dir_A/sub_dir_B/test_txt_001.txt"): {
                 "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
                 "QComboBox_media_type": "document",
-                "QTextEdit_notes": "Description for test_txt_001.txt",
+                "QTextEdit_description": "Description for test_txt_001.txt",
             },
         }
     }
