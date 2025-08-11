@@ -72,7 +72,8 @@ def modify_file_linker_inputs(
 ) -> None:
     """
     Modify the inputs of the given FileLinker dialog using the given dictionary of options.
-    This directly modified the widgets in the dialog, like a user would.
+    This directly modifies the widgets (for files that were already registered in the dialog),
+    like a user would.
     """
     for layer_name, files_to_widgets in file_linker.layers_to_files_to_widgets.items():
         # If file options are given for this layer
@@ -80,7 +81,11 @@ def modify_file_linker_inputs(
             layer_dir = file_linker.layers_to_dirs[layer_name]
 
             for filepath, widgets_dict in files_to_widgets.items():
-                file_options = layers_to_files_to_options[layer_name][filepath.relative_to(layer_dir)]
+                try:
+                    file_options = layers_to_files_to_options[layer_name][filepath.relative_to(layer_dir)]
+                except KeyError:
+                    # No options supplied for this file
+                    continue
 
                 # For each option in the dictionary for the current file, apply it
                 for widget_name, new_value in file_options.items():
@@ -133,7 +138,7 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
 
     unlinked_files = {
         "photo": {
-            # Only provide date label if it is EXIF data, others are dynmcially added below
+            # Only provide date label if it is EXIF data, others are dynamically added below
             new_photo_a: {"QLabel_file_date": "2023-11-21 14:44:07 | EXIF Metadata"},
             new_photo_b: {},
             new_photo_c: {},
@@ -328,7 +333,7 @@ def test_create_comboboxes(
     assert combobox.styleSheet() == ""
 
 
-def test_validate_selection(
+def test_validate_selection_media(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
 ):
@@ -377,6 +382,48 @@ def test_validate_selection(
 
     # Assert 2
     assert result_2
+
+
+def test_validate_selection_text_length(
+    fdc_project: FieldDataCapture,
+    unlinked_test_files: UnlinkedTestFiles,
+):
+    # Arrange
+    layers_to_files_to_options = {
+        "photo": {
+            Path("sub_dir_A/test_img_001.jpeg"): {
+                "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
+                "QTextEdit_caption": "A" * 251,
+                "QTextEdit_description": "Description for test_img_001.jpeg",
+            },
+            Path("sub_dir_A/exif_data.jpg"): {
+                # Don't select this file, it should not be saved to the database
+                "QComboBox_locality": None,
+                "QTextEdit_caption": "Caption for exif_data.jpg",
+                "QTextEdit_description": "B" * 4001,
+            },
+        },
+        "media": {
+            Path("sub_dir_A/test_csv_001.csv"): {
+                # Don't select this file, it should not be saved to the database
+                "QComboBox_locality": None,
+                "QComboBox_media_type": "spreadsheet",
+                "QTextEdit_notes": "C" * 4001,
+            },
+        }
+    }
+
+    # Act
+    fdc_project.open_file_linker()
+    modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
+    validation_result = fdc_project.file_linker.validate_selection()
+
+    # Assert
+    assert validation_result is False
+    warning_message: str = QMessageBox.warning.call_args[0][2]
+    assert "Photo Caption must be less than 250 characters" in warning_message
+    assert "Photo Description must be less than 4000 characters" in warning_message
+    assert "Media Description must be less than 4000 characters" in warning_message
 
 
 def test_save_links(

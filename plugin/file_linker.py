@@ -205,6 +205,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             layer_name="photo",
             create_layout_function=self.create_photo_row_layout,
             create_feature_function=self.create_photo_feature,
+            validation_function=self.validate_photo_widgets_dict,
         )
         self.add_layer_file_rows(
             layer_name="media",
@@ -639,4 +640,22 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             widgets_dict["QComboBox_media_type"].currentData() is None,
         )):
             return False, "Please select a valid Media Type"
+
+        # Text fields are too long.
+        if len(widgets_dict["QTextEdit_notes"].toPlainText()) > 4000:
+            return False, "Media Description must be less than 4000 characters."
+
+        return True, None
+
+
+    def validate_photo_widgets_dict(self, widgets_dict: WidgetsDict) -> tuple[bool, Optional[str]]:
+        """
+        Validate that the input options of the given widgets_dict for a photo file is valid.
+        """
+        # Text fields are too long.
+        if len(widgets_dict["QTextEdit_caption"].toPlainText()) > 250:
+            return False, "Photo Caption must be less than 250 characters."
+        if len(widgets_dict["QTextEdit_description"].toPlainText()) > 4000:
+            return False, "Photo Description must be less than 4000 characters."
+
         return True, None
