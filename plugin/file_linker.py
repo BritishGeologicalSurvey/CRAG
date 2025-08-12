@@ -19,6 +19,7 @@ from qgis.PyQt.QtCore import (
     QUrl,
 )
 from qgis.PyQt.QtGui import (
+    QColor,
     QPixmap,
     QTransform,
 )
@@ -79,11 +80,16 @@ class LengthCheckingQTextEdit(QTextEdit):
 
     def set_colour_from_length(self):
         text_length = len(self.toPlainText())
+        palette = self.viewport().palette()
+
         if text_length > self.max_text_length:
             # Orange colour matches QGIS form validation
-            self.setStyleSheet("background-color: #f4d5a8;")
+            self.setStyleSheet("background-color: ;")
+            palette.setColor(self.viewport().backgroundRole(), QColor("#f4d5a8"))
         else:
-            self.setStyleSheet("background-color: white;")
+            palette.setColor(self.viewport().backgroundRole(), QColor("white"))
+
+        self.viewport().setPalette(palette)
 
 
 class FileLinker(QDialog, FieldDataCaptureProject):
