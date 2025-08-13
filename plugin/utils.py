@@ -649,7 +649,7 @@ def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:
         See https://docs.python.org/3/library/sqlite3.html#sqlite3-howto-row-factory
         """
         fields = [column[0] for column in cursor.description]
-        return {key: value for key, value in zip(fields, row)}
+        return dict(zip(fields, row))
 
     rows = []
     with sqlite3.connect(db_file) as conn:

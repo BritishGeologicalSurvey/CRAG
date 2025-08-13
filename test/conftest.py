@@ -223,14 +223,11 @@ def fdc(iface: QgisInterface, monkeypatch: pytest.MonkeyPatch) -> Generator[Fiel
     # Apply monkeypatch for getting plugin metadata in QuickMapTools
     monkeypatch.setattr(QuickMapToolBase, "get_local_version", lambda *args: "fdc_test_fixture")
 
-    # Apply monkeypatch for all QDialogs
-    monkeypatch.setattr(QDialog, "exec", Mock(return_value=True))
-
     # Apply monkeypatch for searching GUI elements in QuickMapTools
     monkeypatch.setattr(
         QuickMapToolBase,
         "recursive_find_selection_model_indexes",
-        lambda *args, **kwargs: {table: None for table in TABLE_LIST},
+        lambda *args, **kwargs: dict.fromkeys(TABLE_LIST, None),
     )
     monkeypatch.setattr(iface, "layerTreeView", lambda *args: Mock())
 
