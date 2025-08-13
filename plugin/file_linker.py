@@ -40,6 +40,7 @@ from qgis.PyQt.QtWidgets import (
 from .utils import (  # noqa
     FieldDataCaptureProject,
     CollapsibleWidget,
+    MultilineMessageBox,
     create_prepopulated_feature,
     get_table_rows,
     ipdb_breakpoint,
@@ -47,7 +48,7 @@ from .utils import (  # noqa
 
 WidgetsDict = dict[str, QWidget]
 CreateFeatureFunction = Callable[[QgsVectorLayer, Path, WidgetsDict], QgsFeature]
-ValidationFunction = Callable[[WidgetsDict], tuple[bool, Optional[str]]]
+ValidationFunction = Callable[[WidgetsDict], list[str]]
 
 MAX_PHOTO_CAPTION_LENGTH = 250
 MAX_PHOTO_DESCRIPTION_LENGTH = 4000
@@ -56,7 +57,7 @@ MAX_MEDIA_DESCRIPTION_LENGTH = 4000
 
 class NoScrollQComboBox(QComboBox):
     """
-    Sub-class of QComboBox to disable mouse wheel scrolling.  This QComboBox
+    Sub-class of QComboBox to disable mouse wheel scrolling. This QComboBox
     is used where users scrolling through the dialog with the mouse button can
     accidentally change the QComboBox value if the cursor is over the box.
     """
@@ -69,13 +70,12 @@ class NoScrollQComboBox(QComboBox):
 
 class LengthCheckingQTextEdit(QTextEdit):
     """
-    Sub-class of QTextEdit to check text length.  This QTextEdit changes colour
+    Sub-class of QTextEdit to check text length. This QTextEdit changes colour
     if the text gets too long.
     """
-    max_text_length = 4000  # Default value
-
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, max_text_length: int = 4000):
         super().__init__(parent)
+        self.max_text_length = max_text_length
         self.textChanged.connect(self.set_colour_from_length)
 
     def set_colour_from_length(self):
@@ -251,12 +251,12 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         # If any files are skipped, show them in a message box
         skip_files_num = len(self.skip_files)
         if skip_files_num > 0:
-            file_str = "\n".join([str(filepath) for filepath in self.skip_files])
-            msg = (
-                "Some files have been skipped because they could not be loaded:"
-                f"\n\n{file_str}"
+            files_str = "\n".join([f"• {filepath}" for filepath in self.skip_files])
+            MultilineMessageBox.warning(
+                "Skipped Files",
+                f"The following {skip_files_num} files have been skipped because they could not be loaded:",
+                files_str,
             )
-            QMessageBox.warning(None, "Skipped Files", msg)
 
 
     def add_layer_file_rows(
@@ -278,7 +278,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         It returns a new QgsFeature.
 
         'validation_function' is used to validate the input values within the widgets of each file.
-        It takes a single widgets_dict, and returns a boolean and an optional string message in the event of an error.
+        It takes a single widgets_dict, and returns a list of string messages indicating errors.
         """
         filepaths = self.get_unlinked_files(layer_name)
         if len(filepaths) > 0:
@@ -337,14 +337,22 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             if validation_function is not None:
 
                 for filepath, widgets_dict in files_to_widgets.items():
-                    result, message = validation_function(widgets_dict)
-                    if not result:
-                        errors.append(f"{filepath.relative_to(layer_dir)}\n• {message}")
+                    # If a locality is selected then validate the inputs for this file
+                    if widgets_dict["QComboBox_locality"].currentData() is not None:
+                        messages = validation_function(widgets_dict)
+                        if len(messages) > 0:
+                            messages = ["• " + message for message in messages]
+                            curr_file_msg = "\n".join([str(filepath.relative_to(layer_dir))] + messages)
+                            errors.append(curr_file_msg)
 
         if len(errors) == 0:
             return True
         else:
-            QMessageBox.warning(None, "Invalid Input Found", "\n\n".join(errors))
+            MultilineMessageBox.warning(
+                "Invalid Input Found",
+                "The following file attributes are invalid:",
+                "\n\n".join(errors),
+            )
             return False
 
 
@@ -513,11 +521,9 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         combobox_locality = self.create_combobox_locality()
         caption_label = QLabel("Photo Caption")
         description_label = QLabel("Photo Description")
-        caption_edit = LengthCheckingQTextEdit()
-        caption_edit.max_text_length = MAX_PHOTO_CAPTION_LENGTH
+        caption_edit = LengthCheckingQTextEdit(max_text_length=MAX_PHOTO_CAPTION_LENGTH)
         caption_edit.setFixedHeight(3 * self.thumbnail_size // 10)
-        description_edit = LengthCheckingQTextEdit()
-        description_edit.max_text_length = MAX_PHOTO_DESCRIPTION_LENGTH
+        description_edit = LengthCheckingQTextEdit(max_text_length=MAX_PHOTO_DESCRIPTION_LENGTH)
         description_edit.setFixedHeight(7 * self.thumbnail_size // 10)
         row_vbox_2 = QVBoxLayout()
         row_vbox_2.addWidget(combobox_locality)
@@ -592,8 +598,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         combobox_locality = self.create_combobox_locality()
         combobox_media_type = self.create_combobox_media_type()
         description_label = QLabel("Media Description")
-        description_edit = LengthCheckingQTextEdit()
-        description_edit.max_text_length = MAX_MEDIA_DESCRIPTION_LENGTH
+        description_edit = LengthCheckingQTextEdit(max_text_length=MAX_MEDIA_DESCRIPTION_LENGTH)
         description_edit.setFixedHeight(image_size)
         row_vbox_2 = QVBoxLayout()
         row_vbox_2.addWidget(combobox_locality)
@@ -663,32 +668,30 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         return create_prepopulated_feature(layer, prepopulate=new_attributes)
 
 
-    def validate_media_widgets_dict(self, widgets_dict: WidgetsDict) -> tuple[bool, Optional[str]]:
+    def validate_media_widgets_dict(self, widgets_dict: WidgetsDict) -> list[str]:
         """
         Validate that the input options of the given widgets_dict for a media file is valid.
         """
-        # If a locality is selected but a media type is not
-        if all((
-            widgets_dict["QComboBox_locality"].currentData() is not None,
-            widgets_dict["QComboBox_media_type"].currentData() is None,
-        )):
-            return False, "Please select a valid Media Type"
-
-        # Text fields are too long.
+        messages = []
+        # If a media type is not selected
+        if widgets_dict["QComboBox_media_type"].currentData() is None:
+            messages.append("Please select a valid Media Type")
+        # Text fields are too long
         if len(widgets_dict["QTextEdit_description"].toPlainText()) > MAX_MEDIA_DESCRIPTION_LENGTH:
-            return False, f"Media Description must be less than {MAX_MEDIA_DESCRIPTION_LENGTH} characters."
+            messages.append(f"Media Description must be less than {MAX_MEDIA_DESCRIPTION_LENGTH} characters.")
 
-        return True, None
+        return messages
 
 
-    def validate_photo_widgets_dict(self, widgets_dict: WidgetsDict) -> tuple[bool, Optional[str]]:
+    def validate_photo_widgets_dict(self, widgets_dict: WidgetsDict) -> list[str]:
         """
         Validate that the input options of the given widgets_dict for a photo file is valid.
         """
-        # Text fields are too long.
+        messages = []
+        # Text fields are too long
         if len(widgets_dict["QTextEdit_caption"].toPlainText()) > MAX_PHOTO_CAPTION_LENGTH:
-            return False, f"Photo Caption must be less than {MAX_PHOTO_CAPTION_LENGTH} characters."
+            messages.append(f"Photo Caption must be less than {MAX_PHOTO_CAPTION_LENGTH} characters.")
         if len(widgets_dict["QTextEdit_description"].toPlainText()) > MAX_PHOTO_DESCRIPTION_LENGTH:
-            return False, f"Photo Description must be less than {MAX_PHOTO_DESCRIPTION_LENGTH} characters."
+            messages.append(f"Photo Description must be less than {MAX_PHOTO_DESCRIPTION_LENGTH} characters.")
 
-        return True, None
+        return messages
