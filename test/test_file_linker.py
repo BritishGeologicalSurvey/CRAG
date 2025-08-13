@@ -13,7 +13,6 @@ from qgis.PyQt.QtGui import QPixmap
 from qgis.PyQt.QtWidgets import (
     QComboBox,
     QLabel,
-    QMessageBox,
     QTextEdit,
 )
 
@@ -86,11 +85,7 @@ def modify_file_linker_inputs(
             layer_dir = file_linker.layers_to_dirs[layer_name]
 
             for filepath, widgets_dict in files_to_widgets.items():
-                try:
-                    file_options = layers_to_files_to_options[layer_name][filepath.relative_to(layer_dir)]
-                except KeyError:
-                    # No options supplied for this file
-                    continue
+                file_options = layers_to_files_to_options[layer_name].get(filepath.relative_to(layer_dir), {})
 
                 # For each option in the dictionary for the current file, apply it
                 for widget_name, new_value in file_options.items():
@@ -169,7 +164,6 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
 def test_open_file_linker_good(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
-    monkeypatch_multiline_msgbox,
 ):
     # Act
     result = fdc_project.open_file_linker()
@@ -191,7 +185,7 @@ def test_open_file_linker_bad(fdc_project: FieldDataCapture):
     assert not fdc_project.file_linker.message_widget.isHidden()
 
 
-def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
+def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture):
     # Arrange
     expected_locality_list = "• test_point_001"
     # Add a new feature to the photo layer with the default placeholder image
@@ -349,7 +343,7 @@ def test_validate_selection_media(
                 "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
                 # Don't select a media type, this should fail the validation
                 "QComboBox_media_type": None,
-                "QTextEdit_description": "Description for test_csv_001.csv",
+                "QTextEdit_description": "Too lon" + ("g" * MAX_MEDIA_DESCRIPTION_LENGTH),
             },
             Path("sub_dir_A/sub_dir_B/test_txt_001.txt"): {
                 "QComboBox_locality": "{abc43098-fe9b-4da0-b008-7518694466bb}",
@@ -368,20 +362,25 @@ def test_validate_selection_media(
 
     # Assert 1
     assert not result_1
-    QMessageBox.warning.assert_called_once_with(
-        None,
+    MultilineMessageBox.warning.assert_called_once_with(
         "Invalid Input Found",
+        "The following file attributes are invalid:",
         (
-            "sub_dir_A/test_csv_001.csv\n• Please select a valid Media Type\n\n"
-            "sub_dir_A/sub_dir_B/test_txt_001.txt\n• Please select a valid Media Type"
+            "sub_dir_A/test_csv_001.csv\n"
+            "• Please select a valid Media Type\n"
+            "• Media Description must be less than 4000 characters.\n\n"
+            "sub_dir_A/sub_dir_B/test_txt_001.txt\n"
+            "• Please select a valid Media Type"
         ),
     )
 
     # Act 2
-    # Pick valid media type
+    # Pick valid media type and fix long descriptions
     for files_to_options in layers_to_files_to_options.values():
         for file_options in files_to_options.values():
             file_options["QComboBox_media_type"] = "other"
+            file_options["QTextEdit_description"] = file_options["QTextEdit_description"][:4000]
+
     modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
     result_2 = fdc_project.file_linker.validate_selection()
 
@@ -402,8 +401,7 @@ def test_validate_selection_text_length(
                 "QTextEdit_description": "Description for test_img_001.jpeg",
             },
             Path("sub_dir_A/exif_data.jpg"): {
-                # Don't select this file, it should not be saved to the database
-                "QComboBox_locality": None,
+                "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
                 "QTextEdit_caption": "Caption for exif_data.jpg",
                 "QTextEdit_description": "B" * (MAX_PHOTO_DESCRIPTION_LENGTH + 1),
             },
@@ -411,6 +409,7 @@ def test_validate_selection_text_length(
         "media": {
             Path("sub_dir_A/test_csv_001.csv"): {
                 # Don't select this file, it should not be saved to the database
+                # This invalid description length will not raise an error because no locality is selected
                 "QComboBox_locality": None,
                 "QComboBox_media_type": "spreadsheet",
                 "QTextEdit_description": "C" * (MAX_MEDIA_DESCRIPTION_LENGTH + 1),
@@ -425,10 +424,9 @@ def test_validate_selection_text_length(
 
     # Assert
     assert validation_result is False
-    warning_message: str = QMessageBox.warning.call_args[0][2]
+    warning_message: str = MultilineMessageBox.warning.call_args[0][2]
     assert f"Photo Caption must be less than {MAX_PHOTO_CAPTION_LENGTH} characters" in warning_message
     assert f"Photo Description must be less than {MAX_PHOTO_DESCRIPTION_LENGTH} characters" in warning_message
-    assert f"Media Description must be less than {MAX_MEDIA_DESCRIPTION_LENGTH} characters" in warning_message
 
 
 def test_save_links(

@@ -277,7 +277,7 @@ def test_multiline_messagebox(
     title: str,
     message: str,
     text: str,
-    fdc: FieldDataCapture,
+    iface,
 ):
     # Arrange
     methods_to_icons = {
