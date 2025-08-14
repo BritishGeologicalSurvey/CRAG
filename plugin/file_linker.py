@@ -41,6 +41,7 @@ from .utils import (  # noqa
     FieldDataCaptureProject,
     CollapsibleWidget,
     MultilineMessageBox,
+    SearchableComboBox,
     create_prepopulated_feature,
     get_table_rows,
     ipdb_breakpoint,
@@ -66,6 +67,12 @@ class NoScrollQComboBox(QComboBox):
         Overwritten QComboBox method does nothing on mouse wheel scrolling.
         """
         pass
+
+
+class NoScrollSearchableComboBox(SearchableComboBox, NoScrollQComboBox):
+    """
+    Combination of NoScrollQComboBox and Searchable ComboBox.
+    """
 
 
 class LengthCheckingQTextEdit(QTextEdit):
@@ -373,7 +380,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         locality_point_layer = self.get_fdc_layer("locality_point")
 
-        combobox = NoScrollQComboBox()
+        combobox = NoScrollSearchableComboBox()
         self.configure_combobox_style(combobox)
 
         # Add default value

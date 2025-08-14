@@ -9,7 +9,6 @@ from qgis.PyQt.QtCore import (
 from qgis.PyQt.QtGui import QFont
 from qgis.PyQt.QtWidgets import (
     QComboBox,
-    QCompleter,
     QDialog,
     QFrame,
     QLabel,
@@ -20,6 +19,7 @@ from qgis.PyQt.QtWidgets import (
 from .config import FEATURE_TABLES_LINES
 from .utils import (  # noqa
     FieldDataCaptureProject,
+    SearchableComboBox,
     ipdb_breakpoint,
 )
 
@@ -129,7 +129,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         # Create main comboboxes
         self.comboboxes["layer"] = QComboBox()
         self.comboboxes["category"] = QComboBox()
-        self.comboboxes["type"] = self.create_searchable_combobox()
+        self.comboboxes["type"] = SearchableComboBox()
         # Initial population of comboboxes
         self.update_line_layer_combobox()
         self.update_line_cat_combobox()
@@ -144,21 +144,6 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
 
         all_lines_layout = self.create_all_lines_layout()
         dialog_layout.addLayout(all_lines_layout)
-
-
-    def create_searchable_combobox(self) -> QComboBox:
-        """
-        Create a searchable QComboBox widget.
-        """
-        combobox = QComboBox()
-        combobox.setEditable(True)
-        # Don't add the inserted text as an item to the list
-        combobox.setInsertPolicy(QComboBox.NoInsert)
-        # Popup a list below the text box which shows the ones which do match the search term
-        combobox.completer().setCompletionMode(QCompleter.PopupCompletion)
-        # Get text items which contain the input text
-        combobox.completer().setFilterMode(Qt.MatchContains)
-        return combobox
 
 
     def update_line_layer_combobox(self) -> None:

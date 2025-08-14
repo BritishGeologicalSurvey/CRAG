@@ -27,6 +27,7 @@ from qgis.PyQt.QtGui import (
 )
 from qgis.PyQt.QtWidgets import (
     QComboBox,
+    QCompleter,
     QDialog,
     QFrame,
     QHBoxLayout,
@@ -637,6 +638,21 @@ class CollapsibleWidget(QWidget):
             hide = True
         self.collapsible_layout_widget.setHidden(hide)
         self.toggle_button.setArrowType(arrow)
+
+
+class SearchableComboBox(QComboBox):
+    """
+    A searchable version of a QComboBox widget.
+    """
+    def __init__(self):
+        super().__init__()
+        self.setEditable(True)
+        # Don't add the inserted text as an item to the list
+        self.setInsertPolicy(QComboBox.NoInsert)
+        # Popup a list below the text box which shows the ones which do match the search term
+        self.completer().setCompletionMode(QCompleter.PopupCompletion)
+        # Get text items which contain the input text
+        self.completer().setFilterMode(Qt.MatchContains)
 
 
 def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:
