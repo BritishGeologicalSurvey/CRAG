@@ -19,6 +19,7 @@ from qgis.PyQt.QtCore import (
     QUrl,
 )
 from qgis.PyQt.QtGui import (
+    QColor,
     QPixmap,
     QTransform,
 )
@@ -39,6 +40,8 @@ from qgis.PyQt.QtWidgets import (
 from .utils import (  # noqa
     FieldDataCaptureProject,
     CollapsibleWidget,
+    MultilineMessageBox,
+    SearchableComboBox,
     create_prepopulated_feature,
     get_table_rows,
     ipdb_breakpoint,
@@ -46,12 +49,16 @@ from .utils import (  # noqa
 
 WidgetsDict = dict[str, QWidget]
 CreateFeatureFunction = Callable[[QgsVectorLayer, Path, WidgetsDict], QgsFeature]
-ValidationFunction = Callable[[WidgetsDict], tuple[bool, Optional[str]]]
+ValidationFunction = Callable[[WidgetsDict], list[str]]
+
+MAX_PHOTO_CAPTION_LENGTH = 250
+MAX_PHOTO_DESCRIPTION_LENGTH = 4000
+MAX_MEDIA_DESCRIPTION_LENGTH = 4000
 
 
 class NoScrollQComboBox(QComboBox):
     """
-    Sub-class of QComboBox to disable mouse wheel scrolling.  This QComboBox
+    Sub-class of QComboBox to disable mouse wheel scrolling. This QComboBox
     is used where users scrolling through the dialog with the mouse button can
     accidentally change the QComboBox value if the cursor is over the box.
     """
@@ -60,6 +67,36 @@ class NoScrollQComboBox(QComboBox):
         Overwritten QComboBox method does nothing on mouse wheel scrolling.
         """
         pass
+
+
+class NoScrollSearchableComboBox(SearchableComboBox, NoScrollQComboBox):
+    """
+    Combination of NoScrollQComboBox and Searchable ComboBox.
+    """
+
+
+class LengthCheckingQTextEdit(QTextEdit):
+    """
+    Sub-class of QTextEdit to check text length. This QTextEdit changes colour
+    if the text gets too long.
+    """
+    def __init__(self, parent=None, max_text_length: int = 4000):
+        super().__init__(parent)
+        self.max_text_length = max_text_length
+        self.textChanged.connect(self.set_colour_from_length)
+
+    def set_colour_from_length(self):
+        text_length = len(self.toPlainText())
+        palette = self.viewport().palette()
+
+        if text_length > self.max_text_length:
+            # Orange colour matches QGIS form validation
+            self.setStyleSheet("background-color: ;")
+            palette.setColor(self.viewport().backgroundRole(), QColor("#f4d5a8"))
+        else:
+            palette.setColor(self.viewport().backgroundRole(), QColor("white"))
+
+        self.viewport().setPalette(palette)
 
 
 class FileLinker(QDialog, FieldDataCaptureProject):
@@ -205,6 +242,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             layer_name="photo",
             create_layout_function=self.create_photo_row_layout,
             create_feature_function=self.create_photo_feature,
+            validation_function=self.validate_photo_widgets_dict,
         )
         self.add_layer_file_rows(
             layer_name="media",
@@ -220,12 +258,12 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         # If any files are skipped, show them in a message box
         skip_files_num = len(self.skip_files)
         if skip_files_num > 0:
-            file_str = "\n".join([str(filepath) for filepath in self.skip_files])
-            msg = (
-                "Some files have been skipped because they could not be loaded:"
-                f"\n\n{file_str}"
+            files_str = "\n".join([f"• {filepath}" for filepath in self.skip_files])
+            MultilineMessageBox.warning(
+                "Skipped Files",
+                f"The following {skip_files_num} files have been skipped because they could not be loaded:",
+                files_str,
             )
-            QMessageBox.warning(None, "Skipped Files", msg)
 
 
     def add_layer_file_rows(
@@ -247,7 +285,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         It returns a new QgsFeature.
 
         'validation_function' is used to validate the input values within the widgets of each file.
-        It takes a single widgets_dict, and returns a boolean and an optional string message in the event of an error.
+        It takes a single widgets_dict, and returns a list of string messages indicating errors.
         """
         filepaths = self.get_unlinked_files(layer_name)
         if len(filepaths) > 0:
@@ -306,14 +344,22 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             if validation_function is not None:
 
                 for filepath, widgets_dict in files_to_widgets.items():
-                    result, message = validation_function(widgets_dict)
-                    if not result:
-                        errors.append(f"{filepath.relative_to(layer_dir)}\n• {message}")
+                    # If a locality is selected then validate the inputs for this file
+                    if widgets_dict["QComboBox_locality"].currentData() is not None:
+                        messages = validation_function(widgets_dict)
+                        if len(messages) > 0:
+                            messages = ["• " + message for message in messages]
+                            curr_file_msg = "\n".join([str(filepath.relative_to(layer_dir))] + messages)
+                            errors.append(curr_file_msg)
 
         if len(errors) == 0:
             return True
         else:
-            QMessageBox.warning(None, "Invalid Input Found", "\n\n".join(errors))
+            MultilineMessageBox.warning(
+                "Invalid Input Found",
+                "The following file attributes are invalid:",
+                "\n\n".join(errors),
+            )
             return False
 
 
@@ -334,7 +380,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         locality_point_layer = self.get_fdc_layer("locality_point")
 
-        combobox = NoScrollQComboBox()
+        combobox = NoScrollSearchableComboBox()
         self.configure_combobox_style(combobox)
 
         # Add default value
@@ -466,6 +512,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         except Exception:
             photo_tags = {}
 
+        # Left hand column
         filepath_label = self.create_filepath_widget(photo)
         file_date_label = self.create_file_date_widget(photo, photo_tags=photo_tags)
         image_widget = self.create_image_widget(photo, self.thumbnail_size, photo_tags=photo_tags)
@@ -477,14 +524,20 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         row_vbox_1.addWidget(file_date_label)
         row_vbox_1.addWidget(image_widget)
 
+        # Right hand column
         combobox_locality = self.create_combobox_locality()
-        description_label = QLabel("Photo Caption")
-        notes_edit = QTextEdit()
-        notes_edit.setFixedHeight(self.thumbnail_size)
+        caption_label = QLabel("Photo Caption")
+        description_label = QLabel("Photo Description")
+        caption_edit = LengthCheckingQTextEdit(max_text_length=MAX_PHOTO_CAPTION_LENGTH)
+        caption_edit.setFixedHeight(3 * self.thumbnail_size // 10)
+        description_edit = LengthCheckingQTextEdit(max_text_length=MAX_PHOTO_DESCRIPTION_LENGTH)
+        description_edit.setFixedHeight(7 * self.thumbnail_size // 10)
         row_vbox_2 = QVBoxLayout()
         row_vbox_2.addWidget(combobox_locality)
+        row_vbox_2.addWidget(caption_label)
+        row_vbox_2.addWidget(caption_edit)
         row_vbox_2.addWidget(description_label)
-        row_vbox_2.addWidget(notes_edit)
+        row_vbox_2.addWidget(description_edit)
 
         # Combine layout columns into 1 layout
         row_layout = QHBoxLayout()
@@ -496,7 +549,8 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             "QLabel_file_date": file_date_label,
             "QLabel_image_widget": image_widget,
             "QComboBox_locality": combobox_locality,
-            "QTextEdit_notes": notes_edit,
+            "QTextEdit_caption": caption_edit,
+            "QTextEdit_description": description_edit,
         }
 
         return row_layout, widgets_dict
@@ -511,15 +565,19 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         """
         Create a new photo feature for the given filepath.
         """
-        # Get photo caption value
-        photo_caption = photo_widgets["QTextEdit_notes"].toPlainText()
+        # Get photo caption and description values
+        photo_caption = photo_widgets["QTextEdit_caption"].toPlainText()
         if photo_caption == "":
             photo_caption = None
+        photo_description = photo_widgets["QTextEdit_description"].toPlainText()
+        if photo_description == "":
+            photo_description = None
 
         new_attributes = {
             "locality_fuid": photo_widgets["QComboBox_locality"].currentData(),
             "photo_file": str(photo.relative_to(self.photos_dir)),
             "caption": photo_caption,
+            "description": photo_description,
         }
         return create_prepopulated_feature(layer, prepopulate=new_attributes)
 
@@ -547,13 +605,13 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         combobox_locality = self.create_combobox_locality()
         combobox_media_type = self.create_combobox_media_type()
         description_label = QLabel("Media Description")
-        notes_edit = QTextEdit()
-        notes_edit.setFixedHeight(image_size)
+        description_edit = LengthCheckingQTextEdit(max_text_length=MAX_MEDIA_DESCRIPTION_LENGTH)
+        description_edit.setFixedHeight(image_size)
         row_vbox_2 = QVBoxLayout()
         row_vbox_2.addWidget(combobox_locality)
         row_vbox_2.addWidget(combobox_media_type)
         row_vbox_2.addWidget(description_label)
-        row_vbox_2.addWidget(notes_edit)
+        row_vbox_2.addWidget(description_edit)
 
         # Combine layout columns into 1 layout
         row_layout = QHBoxLayout()
@@ -565,7 +623,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
             "QLabel_file_date": file_date_label,
             "QLabel_image_widget": image_widget,
             "QComboBox_locality": combobox_locality,
-            "QTextEdit_notes": notes_edit,
+            "QTextEdit_description": description_edit,
             "QComboBox_media_type": combobox_media_type,
         }
 
@@ -604,7 +662,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         Create a new media feature for the given filepath.
         """
         # Get media description value
-        media_description = media_widgets["QTextEdit_notes"].toPlainText()
+        media_description = media_widgets["QTextEdit_description"].toPlainText()
         if media_description == "":
             media_description = None
 
@@ -617,14 +675,30 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         return create_prepopulated_feature(layer, prepopulate=new_attributes)
 
 
-    def validate_media_widgets_dict(self, widgets_dict: WidgetsDict) -> tuple[bool, Optional[str]]:
+    def validate_media_widgets_dict(self, widgets_dict: WidgetsDict) -> list[str]:
         """
         Validate that the input options of the given widgets_dict for a media file is valid.
         """
-        # If a locality is selected but a media type is not
-        if all((
-            widgets_dict["QComboBox_locality"].currentData() is not None,
-            widgets_dict["QComboBox_media_type"].currentData() is None,
-        )):
-            return False, "Please select a valid Media Type"
-        return True, None
+        messages = []
+        # If a media type is not selected
+        if widgets_dict["QComboBox_media_type"].currentData() is None:
+            messages.append("Please select a valid Media Type")
+        # Text fields are too long
+        if len(widgets_dict["QTextEdit_description"].toPlainText()) > MAX_MEDIA_DESCRIPTION_LENGTH:
+            messages.append(f"Media Description must be less than {MAX_MEDIA_DESCRIPTION_LENGTH} characters.")
+
+        return messages
+
+
+    def validate_photo_widgets_dict(self, widgets_dict: WidgetsDict) -> list[str]:
+        """
+        Validate that the input options of the given widgets_dict for a photo file is valid.
+        """
+        messages = []
+        # Text fields are too long
+        if len(widgets_dict["QTextEdit_caption"].toPlainText()) > MAX_PHOTO_CAPTION_LENGTH:
+            messages.append(f"Photo Caption must be less than {MAX_PHOTO_CAPTION_LENGTH} characters.")
+        if len(widgets_dict["QTextEdit_description"].toPlainText()) > MAX_PHOTO_DESCRIPTION_LENGTH:
+            messages.append(f"Photo Description must be less than {MAX_PHOTO_DESCRIPTION_LENGTH} characters.")
+
+        return messages

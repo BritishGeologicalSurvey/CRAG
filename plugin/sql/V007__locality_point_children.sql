@@ -85,7 +85,8 @@ CREATE TABLE IF NOT EXISTS "photo" (
   "uuid" TEXT NOT NULL UNIQUE CHECK(LENGTH("uuid") <= 38),
   "locality_fuid" TEXT NOT NULL CHECK(LENGTH("locality_fuid") <= 38),
   "photo_file" TEXT CHECK(LENGTH("photo_file") <= 4000),
-  "caption" TEXT CHECK(LENGTH("caption") <= 4000),
+  "caption" TEXT CHECK(LENGTH("caption") <= 250),  -- 250 characters is limit for ImageBase system
+  "description" TEXT CHECK(LENGTH("caption") <= 4000),
   "recorded_by" TEXT NOT NULL CHECK(LENGTH("recorded_by") <= 50),
   "recorded_on" DATETIME NOT NULL,
   FOREIGN KEY("locality_fuid") REFERENCES "locality_point"("uuid"),

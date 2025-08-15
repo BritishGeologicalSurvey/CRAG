@@ -13,12 +13,16 @@ from qgis.PyQt.QtGui import QPixmap
 from qgis.PyQt.QtWidgets import (
     QComboBox,
     QLabel,
-    QMessageBox,
     QTextEdit,
 )
 
 from plugin.field_data_capture import FieldDataCapture
-from plugin.file_linker import FileLinker
+from plugin.file_linker import (
+    FileLinker,
+    MAX_PHOTO_CAPTION_LENGTH,
+    MAX_PHOTO_DESCRIPTION_LENGTH,
+    MAX_MEDIA_DESCRIPTION_LENGTH,
+)
 from plugin.utils import (  # noqa
     MultilineMessageBox,
     create_prepopulated_feature,
@@ -48,12 +52,13 @@ EXPECTED_COMBOBOX_ITEMS = {
 WIDGET_NAMES_TO_ATTRIBUTES_NAMES = {
     "photo": {
         "QComboBox_locality": "locality_fuid",
-        "QTextEdit_notes": "caption",
+        "QTextEdit_caption": "caption",
+        "QTextEdit_description": "description",
     },
     "media": {
         "QComboBox_locality": "locality_fuid",
         "QComboBox_media_type": "media_type_code",
-        "QTextEdit_notes": "media_description",
+        "QTextEdit_description": "media_description",
     }
 }
 
@@ -71,7 +76,8 @@ def modify_file_linker_inputs(
 ) -> None:
     """
     Modify the inputs of the given FileLinker dialog using the given dictionary of options.
-    This directly modified the widgets in the dialog, like a user would.
+    This directly modifies the widgets (for files that were already registered in the dialog),
+    like a user would.
     """
     for layer_name, files_to_widgets in file_linker.layers_to_files_to_widgets.items():
         # If file options are given for this layer
@@ -79,7 +85,7 @@ def modify_file_linker_inputs(
             layer_dir = file_linker.layers_to_dirs[layer_name]
 
             for filepath, widgets_dict in files_to_widgets.items():
-                file_options = layers_to_files_to_options[layer_name][filepath.relative_to(layer_dir)]
+                file_options = layers_to_files_to_options[layer_name].get(filepath.relative_to(layer_dir), {})
 
                 # For each option in the dictionary for the current file, apply it
                 for widget_name, new_value in file_options.items():
@@ -132,7 +138,7 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
 
     unlinked_files = {
         "photo": {
-            # Only provide date label if it is EXIF data, others are dynmcially added below
+            # Only provide date label if it is EXIF data, others are dynamically added below
             new_photo_a: {"QLabel_file_date": "2023-11-21 14:44:07 | EXIF Metadata"},
             new_photo_b: {},
             new_photo_c: {},
@@ -158,7 +164,6 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
 def test_open_file_linker_good(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
-    monkeypatch_multiline_msgbox,
 ):
     # Act
     result = fdc_project.open_file_linker()
@@ -180,7 +185,7 @@ def test_open_file_linker_bad(fdc_project: FieldDataCapture):
     assert not fdc_project.file_linker.message_widget.isHidden()
 
 
-def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
+def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture):
     # Arrange
     expected_locality_list = "• test_point_001"
     # Add a new feature to the photo layer with the default placeholder image
@@ -257,7 +262,7 @@ def test_select_files(
         for filepath, expected_widgets_dict in expected_files_to_widgets.items():
             actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer_name][filepath]
 
-            assert_widgets_dict_types(actual_widgets_dict)
+            assert_widgets_dict_types(actual_widgets_dict, layer_name)
 
             # We don't directly compare expected_widgets_dict to actual_widgets_dict because expected is incomplete
             for widget_name, expected_value in expected_widgets_dict.items():
@@ -278,7 +283,7 @@ def test_select_files(
             assert image_widget.pixmap().height() <= fdc_project.file_linker.thumbnail_size
 
 
-def assert_widgets_dict_types(widgets_dict: dict[str, Any]) -> None:
+def assert_widgets_dict_types(widgets_dict: dict[str, Any], layer_name: str) -> None:
     """
     Check that the widgets in the given dictionary have the correct type.
     """
@@ -286,7 +291,12 @@ def assert_widgets_dict_types(widgets_dict: dict[str, Any]) -> None:
     assert isinstance(widgets_dict["QLabel_file_date"], QLabel)
     assert isinstance(widgets_dict["QLabel_image_widget"].pixmap(), QPixmap)
     assert isinstance(widgets_dict["QComboBox_locality"], QComboBox)
-    assert isinstance(widgets_dict["QTextEdit_notes"], QTextEdit)
+
+    if layer_name == 'photos':
+        assert isinstance(widgets_dict["QTextEdit_caption"], QTextEdit)
+        assert isinstance(widgets_dict["QTextEdit_description"], QTextEdit)
+    elif layer_name == 'media':
+        assert isinstance(widgets_dict["QTextEdit_description"], QTextEdit)
 
 
 @pytest.mark.parametrize(
@@ -322,7 +332,7 @@ def test_create_comboboxes(
     assert combobox.styleSheet() == ""
 
 
-def test_validate_selection(
+def test_validate_selection_media(
     fdc_project: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
 ):
@@ -333,13 +343,13 @@ def test_validate_selection(
                 "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
                 # Don't select a media type, this should fail the validation
                 "QComboBox_media_type": None,
-                "QTextEdit_notes": "Description for test_csv_001.csv",
+                "QTextEdit_description": "Too lon" + ("g" * MAX_MEDIA_DESCRIPTION_LENGTH),
             },
             Path("sub_dir_A/sub_dir_B/test_txt_001.txt"): {
                 "QComboBox_locality": "{abc43098-fe9b-4da0-b008-7518694466bb}",
                 # Don't select a media type, this should fail the validation
                 "QComboBox_media_type": None,
-                "QTextEdit_notes": "Description for test_txt_001.txt",
+                "QTextEdit_description": "Description for test_txt_001.txt",
             },
         }
     }
@@ -352,25 +362,71 @@ def test_validate_selection(
 
     # Assert 1
     assert not result_1
-    QMessageBox.warning.assert_called_once_with(
-        None,
+    MultilineMessageBox.warning.assert_called_once_with(
         "Invalid Input Found",
+        "The following file attributes are invalid:",
         (
-            "sub_dir_A/test_csv_001.csv\n• Please select a valid Media Type\n\n"
-            "sub_dir_A/sub_dir_B/test_txt_001.txt\n• Please select a valid Media Type"
+            "sub_dir_A/test_csv_001.csv\n"
+            "• Please select a valid Media Type\n"
+            "• Media Description must be less than 4000 characters.\n\n"
+            "sub_dir_A/sub_dir_B/test_txt_001.txt\n"
+            "• Please select a valid Media Type"
         ),
     )
 
     # Act 2
-    # Pick valid media type
+    # Pick valid media type and fix long descriptions
     for files_to_options in layers_to_files_to_options.values():
         for file_options in files_to_options.values():
             file_options["QComboBox_media_type"] = "other"
+            file_options["QTextEdit_description"] = file_options["QTextEdit_description"][:4000]
+
     modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
     result_2 = fdc_project.file_linker.validate_selection()
 
     # Assert 2
     assert result_2
+
+
+def test_validate_selection_text_length(
+    fdc_project: FieldDataCapture,
+    unlinked_test_files: UnlinkedTestFiles,
+):
+    # Arrange
+    layers_to_files_to_options = {
+        "photo": {
+            Path("sub_dir_A/test_img_001.jpeg"): {
+                "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
+                "QTextEdit_caption": "A" * (MAX_PHOTO_CAPTION_LENGTH + 1),
+                "QTextEdit_description": "Description for test_img_001.jpeg",
+            },
+            Path("sub_dir_A/exif_data.jpg"): {
+                "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
+                "QTextEdit_caption": "Caption for exif_data.jpg",
+                "QTextEdit_description": "B" * (MAX_PHOTO_DESCRIPTION_LENGTH + 1),
+            },
+        },
+        "media": {
+            Path("sub_dir_A/test_csv_001.csv"): {
+                # Don't select this file, it should not be saved to the database
+                # This invalid description length will not raise an error because no locality is selected
+                "QComboBox_locality": None,
+                "QComboBox_media_type": "spreadsheet",
+                "QTextEdit_description": "C" * (MAX_MEDIA_DESCRIPTION_LENGTH + 1),
+            },
+        }
+    }
+
+    # Act
+    fdc_project.open_file_linker()
+    modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
+    validation_result = fdc_project.file_linker.validate_selection()
+
+    # Assert
+    assert validation_result is False
+    warning_message: str = MultilineMessageBox.warning.call_args[0][2]
+    assert f"Photo Caption must be less than {MAX_PHOTO_CAPTION_LENGTH} characters" in warning_message
+    assert f"Photo Description must be less than {MAX_PHOTO_DESCRIPTION_LENGTH} characters" in warning_message
 
 
 def test_save_links(
@@ -382,16 +438,19 @@ def test_save_links(
         "photo": {
             Path("sub_dir_A/test_img_001.jpeg"): {
                 "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
-                "QTextEdit_notes": "Caption for test_img_001.jpeg",
+                "QTextEdit_caption": "Caption for test_img_001.jpeg",
+                "QTextEdit_description": "Description for test_img_001.jpeg",
             },
             Path("sub_dir_A/exif_data.jpg"): {
                 # Don't select this file, it should not be saved to the database
                 "QComboBox_locality": None,
-                "QTextEdit_notes": "Caption for exif_data.jpg",
+                "QTextEdit_caption": "Caption for exif_data.jpg",
+                "QTextEdit_description": "Description for exif_data.jpg",
             },
             Path("sub_dir_A/sub_dir_B/no_exif_data.jpg"): {
                 "QComboBox_locality": "{abc43098-fe9b-4da0-b008-7518694466bb}",
-                "QTextEdit_notes": "Caption for no_exif_data.jpg",
+                "QTextEdit_caption": "Caption for no_exif_data.jpg",
+                "QTextEdit_description": "Description for no_exif_data.jpg",
             },
         },
         "media": {
@@ -399,12 +458,12 @@ def test_save_links(
                 # Don't select this file, it should not be saved to the database
                 "QComboBox_locality": None,
                 "QComboBox_media_type": "spreadsheet",
-                "QTextEdit_notes": "Description for test_csv_001.csv",
+                "QTextEdit_description": "Description for test_csv_001.csv",
             },
             Path("sub_dir_A/sub_dir_B/test_txt_001.txt"): {
                 "QComboBox_locality": "{b5bf63bb-0811-4074-99bc-422a78aa5b52}",
                 "QComboBox_media_type": "document",
-                "QTextEdit_notes": "Description for test_txt_001.txt",
+                "QTextEdit_description": "Description for test_txt_001.txt",
             },
         }
     }

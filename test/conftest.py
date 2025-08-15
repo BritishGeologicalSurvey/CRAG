@@ -12,7 +12,10 @@ from qgis.core import (
     QgsProject,
     QgsSettings,
 )
-from qgis.gui import QgsAdvancedDigitizingDockWidget
+from qgis.gui import (
+    QgsAdvancedDigitizingDockWidget,
+    QgisInterface,
+)
 from qgis.PyQt.QtWidgets import (
     QDialog,
     QMessageBox,
@@ -163,7 +166,26 @@ def test_data_gpkg(data_model_gpkg) -> sqlite3.Connection:
 
 
 @pytest.fixture()
-def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, None]:
+def iface(monkeypatch: pytest.MonkeyPatch) -> Generator[QgisInterface, None, None]:
+    """
+    An instance of the mock QGIS iface for tests.
+    This will setup a PyQt app, allowing dialogs to be tested alone without the FDC plugin.
+    """
+    iface = get_iface()
+    # Clear all preset QGIS settings
+    # These can carry over during the test session otherwise
+    QgsSettings().clear()
+
+    # Apply monkeypatch for all QDialogs
+    # This is done at the iface level to apply to QGIS and FDC dialogs
+    monkeypatch.setattr(QDialog, "exec", Mock(return_value=True))
+
+    yield iface
+    iface.reset_mock()
+
+
+@pytest.fixture()
+def fdc(iface: QgisInterface, monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, None]:
     """
     An instance of the FieldDataCapture plugin for tests, using a mock iface.
     Also runs fdc.initGui for button testing.
@@ -171,10 +193,6 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     QMessageBoxes just return QMessageBox.Ok by default.
     """
     # Setup plugin
-    iface = get_iface()
-    # Clear all preset QGIS settings
-    # These can carry over during the test session otherwise
-    QgsSettings().clear()
     field_data_capture = FieldDataCapture(iface)
 
     # Apply monkeypatch for QMessageBox
@@ -188,8 +206,8 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
         # To show a message, the code would usually be:
         # result = QMessageBox.warning(parent, title, message)
         # The monkeypatched version swallows the arguments and always returns QMessageBox.Ok through a Mock object
-        qmsgbox_mock = Mock(return_value=QMessageBox.Ok)
-        monkeypatch.setattr(QMessageBox, message_type, qmsgbox_mock)
+        monkeypatch.setattr(QMessageBox, message_type, Mock(return_value=QMessageBox.Ok))
+        monkeypatch.setattr(MultilineMessageBox, message_type, Mock())
 
     # Apply monkeypatch for unsaved edits message box because it is setup manually
     monkeypatch.setattr(QMessageBox, "exec", lambda *args: True)
@@ -205,14 +223,11 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     # Apply monkeypatch for getting plugin metadata in QuickMapTools
     monkeypatch.setattr(QuickMapToolBase, "get_local_version", lambda *args: "fdc_test_fixture")
 
-    # Apply monkeypatch for all QDialogs
-    monkeypatch.setattr(QDialog, "exec", Mock(return_value=True))
-
     # Apply monkeypatch for searching GUI elements in QuickMapTools
     monkeypatch.setattr(
         QuickMapToolBase,
         "recursive_find_selection_model_indexes",
-        lambda *args, **kwargs: {table: None for table in TABLE_LIST},
+        lambda *args, **kwargs: dict.fromkeys(TABLE_LIST, None),
     )
     monkeypatch.setattr(iface, "layerTreeView", lambda *args: Mock())
 
@@ -227,8 +242,6 @@ def fdc(monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, No
     # We disable the quick map tool after the test to avoid the automatic deactivation of the tool
     # from qgis causing an error with deleted c++ objects during teardown
     field_data_capture.disable_current_quick_map_tool()
-    # Reset the QGIS interface
-    iface.reset_mock()
 
 
 @pytest.fixture()
@@ -262,16 +275,6 @@ def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
     Instead, calls to it will return QMessageBox.No.
     """
     monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.No)
-
-
-@pytest.fixture()
-def monkeypatch_multiline_msgbox(monkeypatch: pytest.MonkeyPatch) -> None:
-    """
-    A monkeypatch to replace MultilineMessageBox methods with Mock objects,
-    meaning that their calls can be checked.
-    """
-    for method in ["information", "warning", "critical"]:
-        monkeypatch.setattr(MultilineMessageBox, method, Mock())
 
 
 @pytest.fixture()

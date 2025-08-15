@@ -75,6 +75,16 @@
         </config>
       </editWidget>
     </field>
+    <field configurationFlags="NoFlag" name="description">
+      <editWidget type="TextEdit">
+        <config>
+          <Option type="Map">
+            <Option name="IsMultiline" type="bool" value="true"></Option>
+            <Option name="UseHtml" type="bool" value="false"></Option>
+          </Option>
+        </config>
+      </editWidget>
+    </field>
     <field configurationFlags="NoFlag" name="recorded_by">
       <editWidget type="Hidden">
         <config>
@@ -96,8 +106,9 @@
     <alias field="locality_fuid" index="2" name=""></alias>
     <alias field="photo_file" index="3" name=""></alias>
     <alias field="caption" index="4" name=""></alias>
-    <alias field="recorded_by" index="5" name=""></alias>
-    <alias field="recorded_on" index="6" name=""></alias>
+    <alias field="description" index="5" name=""></alias>
+    <alias field="recorded_by" index="6" name=""></alias>
+    <alias field="recorded_on" index="7" name=""></alias>
   </aliases>
   <splitPolicies>
     <policy field="fid" policy="Duplicate"></policy>
@@ -105,6 +116,7 @@
     <policy field="locality_fuid" policy="DefaultValue"></policy>
     <policy field="photo_file" policy="DefaultValue"></policy>
     <policy field="caption" policy="DefaultValue"></policy>
+    <policy field="description" policy="DefaultValue"></policy>
     <policy field="recorded_by" policy="Duplicate"></policy>
     <policy field="recorded_on" policy="Duplicate"></policy>
   </splitPolicies>
@@ -114,6 +126,7 @@
     <policy field="locality_fuid" policy="Duplicate"></policy>
     <policy field="photo_file" policy="Duplicate"></policy>
     <policy field="caption" policy="Duplicate"></policy>
+    <policy field="description" policy="Duplicate"></policy>
     <policy field="recorded_by" policy="Duplicate"></policy>
     <policy field="recorded_on" policy="Duplicate"></policy>
   </duplicatePolicies>
@@ -123,6 +136,7 @@
     <default applyOnUpdate="0" expression="" field="locality_fuid"></default>
     <default applyOnUpdate="0" expression="if( @qgis_platform IS 'desktop', '../_field_data_capture/icons/BGS-placeholder.png', NULL )" field="photo_file"></default>
     <default applyOnUpdate="0" expression="" field="caption"></default>
+    <default applyOnUpdate="0" expression="" field="description"></default>
     <default applyOnUpdate="0" expression="coalesce(nullif(@mergin_username, ''), @user_account_name)" field="recorded_by"></default>
     <default applyOnUpdate="0" expression="now()" field="recorded_on"></default>
   </defaults>
@@ -132,6 +146,7 @@
     <constraint constraints="5" exp_strength="1" field="locality_fuid" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="4" exp_strength="1" field="photo_file" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="4" exp_strength="1" field="caption" notnull_strength="0" unique_strength="0"></constraint>
+    <constraint constraints="4" exp_strength="1" field="description" notnull_strength="0" unique_strength="0"></constraint>
     <constraint constraints="5" exp_strength="1" field="recorded_by" notnull_strength="1" unique_strength="0"></constraint>
     <constraint constraints="1" exp_strength="0" field="recorded_on" notnull_strength="1" unique_strength="0"></constraint>
   </constraints>
@@ -140,7 +155,8 @@
     <constraint desc="Character limit: 38" exp="if(&quot;uuid&quot; is not null, length(&quot;uuid&quot;) &lt;= 38, true)" field="uuid"></constraint>
     <constraint desc="Character limit: 38" exp="if(&quot;locality_fuid&quot; is not null, length(&quot;locality_fuid&quot;) &lt;= 38, true)" field="locality_fuid"></constraint>
     <constraint desc="Photo file must be in the project folder and has a character limit of 4000" exp="if(&quot;photo_file&quot; is not null, length(&quot;photo_file&quot;) &lt;= 4000, true)&#xD;&#xA;and&#xD;&#xA;(&#xD;&#xA;&#x9;-- Photo is the placeholder image&#xD;&#xA;&#x9;&quot;photo_file&quot;='../_field_data_capture/icons/BGS-placeholder.png'&#xD;&#xA;&#x9;or&#xD;&#xA;&#x9;(&#xD;&#xA;&#x9;&#x9;-- Photos must be within project photos folder&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;-- Don't match absolute windows paths (e.g. starting with &quot;C:/&quot;)&#xD;&#xA;&#x9;&#x9;not(regexp_match(lower(&quot;photo_file&quot;), '^[a-z]:/'))&#xD;&#xA;&#x9;&#x9;and&#xD;&#xA;&#x9;&#x9;-- Don't match absolute Linux paths (starting with &quot;/&quot;)&#xD;&#xA;&#x9;&#x9;not(regexp_match(&quot;photo_file&quot;, '^/'))&#xD;&#xA;&#x9;&#x9;and&#xD;&#xA;&#x9;&#x9;-- Don't match filepaths from parent directories (e.g. starting with &quot;../&quot;)&#xD;&#xA;&#x9;&#x9;not(regexp_match(&quot;photo_file&quot;, '^\\.\\./'))&#xD;&#xA;&#x9;&#x9;and&#xD;&#xA;&#x9;&#x9;-- Don't match files in the unlinked directory&#xD;&#xA;&#x9;&#x9;not(regexp_match(lower(&quot;photo_file&quot;), '^unlinked'))&#xD;&#xA;&#x9;)&#xD;&#xA;)" field="photo_file"></constraint>
-    <constraint desc="Character limit: 4000" exp="if(&quot;caption&quot; is not null, length(&quot;caption&quot;) &lt;= 4000, true)" field="caption"></constraint>
+    <constraint desc="Character limit: 250" exp="if(&quot;caption&quot; is not null, length(&quot;caption&quot;) &lt;= 250, true)" field="caption"></constraint>
+    <constraint desc="Character limit: 4000" exp="if(&quot;description&quot; is not null, length(&quot;description&quot;) &lt;= 4000, true)" field="description"></constraint>
     <constraint desc="Character limit: 50" exp="if(&quot;recorded_by&quot; is not null, length(&quot;recorded_by&quot;) &lt;= 50, true)" field="recorded_by"></constraint>
     <constraint desc="" exp="" field="recorded_on"></constraint>
   </constraintExpressions>
@@ -179,7 +195,12 @@ def my_form_open(dialog, layer, feature):
     </attributeEditorField>
     <attributeEditorField horizontalStretch="0" index="4" name="caption" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
-        <labelFont bold="0" description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+        <labelFont bold="0" description="MS Shell Dlg 2,8.3,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      </labelStyle>
+    </attributeEditorField>
+    <attributeEditorField horizontalStretch="0" index="5" name="description" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
+        <labelFont bold="0" description="MS Shell Dlg 2,8.3,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
     <attributeEditorContainer collapsed="1" collapsedExpression="" collapsedExpressionEnabled="0" columnCount="1" groupBox="1" horizontalStretch="0" name="Parent locality" showLabel="1" type="GroupBox" verticalStretch="0" visibilityExpression="" visibilityExpressionEnabled="0">
@@ -195,6 +216,7 @@ def my_form_open(dialog, layer, feature):
   </attributeEditorForm>
   <editable>
     <field editable="1" name="caption"></field>
+    <field editable="1" name="description"></field>
     <field editable="1" name="fid"></field>
     <field editable="1" name="locality_fuid"></field>
     <field editable="1" name="photo_file"></field>
@@ -204,6 +226,7 @@ def my_form_open(dialog, layer, feature):
   </editable>
   <labelOnTop>
     <field labelOnTop="0" name="caption"></field>
+    <field labelOnTop="0" name="description"></field>
     <field labelOnTop="0" name="fid"></field>
     <field labelOnTop="0" name="locality_fuid"></field>
     <field labelOnTop="0" name="photo_file"></field>
@@ -213,6 +236,7 @@ def my_form_open(dialog, layer, feature):
   </labelOnTop>
   <reuseLastValue>
     <field name="caption" reuseLastValue="0"></field>
+    <field name="description" reuseLastValue="0"></field>
     <field name="fid" reuseLastValue="0"></field>
     <field name="locality_fuid" reuseLastValue="0"></field>
     <field name="photo_file" reuseLastValue="0"></field>

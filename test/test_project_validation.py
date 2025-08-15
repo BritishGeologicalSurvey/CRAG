@@ -199,7 +199,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
     assert expected_results == results
 
 
-def test_validation_dialog_pass(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
+def test_validation_dialog_pass(fdc_project: FieldDataCapture):
     # Arrange
     # Delete unlinked file in test project to get passing validation
     unlinked_file = fdc_project.unlinked_files_dir / "test_unlinked_photo.jpeg"
@@ -215,7 +215,7 @@ def test_validation_dialog_pass(fdc_project: FieldDataCapture, monkeypatch_multi
     MultilineMessageBox.information.assert_called_once_with(expected_title, expected_message, expected_text)
 
 
-def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
+def test_validation_dialog_fail(fdc_project: FieldDataCapture):
     # Arrange
     # Add unlinked photo to the project
     dummy_photo = fdc_project.photos_dir / "not_a_photo.png"
@@ -240,7 +240,7 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture, monkeypatch_multi
     MultilineMessageBox.critical.assert_called_once_with(expected_title, expected_message, expected_text)
 
 
-def test_validation_dialog_warning(fdc_project: FieldDataCapture, monkeypatch_multiline_msgbox):
+def test_validation_dialog_warning(fdc_project: FieldDataCapture):
     # Arrange
     # Add a dummy conflict GeoPackage to the project
     dummy_conflict_gpkg = fdc_project.project_dir / "test_project (conflicted copy).gpkg"
