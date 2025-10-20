@@ -59,6 +59,7 @@ PHOTO_TABLE = {
 }
 
 MEDIA_TABLE = {
+    'description': 'Media type',
     'media_link': 'File name',
     'media_description': 'Description'
 }
