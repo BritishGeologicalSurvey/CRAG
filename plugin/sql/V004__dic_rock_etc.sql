@@ -8,13 +8,13 @@ BEGIN TRANSACTION;
 
 CREATE TABLE IF NOT EXISTS "dic_rock_field" (
     "fid" INTEGER NOT NULL,
-    "category" TEXT,
-    "code" TEXT NOT NULL UNIQUE,
+    "category" TEXT CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
     "is_default" BOOLEAN NOT NULL DEFAULT 0,
-    "simple_lithology" TEXT,
-    "label" TEXT,
-    "description" TEXT,
-    "translation" TEXT,
+    "simple_lithology" TEXT CHECK(LENGTH("simple_lithology") <= 255),
+    "label" TEXT CHECK(LENGTH("label") <= 255),
+    "description" TEXT CHECK(LENGTH("description") <= 4000),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
     PRIMARY KEY("fid" AUTOINCREMENT)
 );
 
