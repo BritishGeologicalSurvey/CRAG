@@ -2,10 +2,12 @@
 name: fdc
 channels:
   - https://nexus-internal.bgs.ac.uk/repository/conda-forge
+  # Labelled repository gives access to different file versions
+  - https://nexus-internal.bgs.ac.uk/repository/conda-forge/label/qgis_ltr
 dependencies:
   # Correspond to current long-term support versions in Windows
   - python=3.12
-  - qgis=3.40
+  - qgis=3.40.11
 
   - beautifulsoup4
   - eralchemy

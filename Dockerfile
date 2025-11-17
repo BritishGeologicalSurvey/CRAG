@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:25.1.1-2@sha256:0c1494093f919a36ba4cf543abf5e2e426deb3e8aa61c9d4074bcc267d264fe5
+FROM continuumio/miniconda3:25.3.1-1@sha256:4a2425c3ca891633e5a27280120f3fb6d5960a0f509b7594632cdd5bb8cbaea8
 
 # Install operating system dependencies
 RUN apt-get update -y \
@@ -19,6 +19,13 @@ RUN apt-get update -y \
 
 RUN conda config --set solver libmamba
 
+# These commands are required to build containers on the VPN
+# The VPN changes the certificate chain so we need to recognise
+# the local certificates.
+COPY certs/*.crt /usr/local/share/ca-certificates
+RUN update-ca-certificates
+ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+
 # This section is used to generate an environment.yml that is
 # suitable for use in the container.  One from the WSL or Windows
 # environment is not compatible.  Once created, start the container
@@ -28,5 +35,3 @@ RUN conda config --set solver libmamba
 
 COPY environment_docker.yml /environment_docker.yml
 RUN conda env create -f /environment_docker.yml
-
-
