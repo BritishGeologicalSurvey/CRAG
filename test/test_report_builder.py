@@ -25,7 +25,7 @@ EXPECTED_CHILD_COLUMNS = {
     "lithology": {"label", "lithology_code"},
     "manmade_landform": {"description", "notes"},
     "media": {"description", "media_type_code", "media_link", "media_description"},
-    "photo": {"photo_file", "caption"},
+    "photo": {"photo_file", "caption", "description"},
     "sample": {"description", "sample_id", "sample_description"},
     "structural_measurement": {"description", "secondary_description", "third_description", "dip", "azimuth", "notes"},
     "superficial_landform": {"description", "notes"},

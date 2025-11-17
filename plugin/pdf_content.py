@@ -54,10 +54,12 @@ MANMADE_TABLE = {
 
 PHOTO_TABLE = {
     'photo_file': 'File name',
-    'caption': 'Caption'
+    'caption': 'Caption',
+    'description': 'Description'
 }
 
 MEDIA_TABLE = {
+    'description': 'Media type',
     'media_link': 'File name',
     'media_description': 'Description'
 }
@@ -130,7 +132,7 @@ class ReportTemplate(BaseDocTemplate):
             table_style.extend([('SPAN', (0, 0), (0, rows - 1)),
                                 ('VALIGN', (0, 0), (0, rows - 1), 'MIDDLE'),
                                 ('ALIGN', (0, 0), (0, rows - 1), 'CENTRE')])
-            column_widths = [7.5 * cm, 2 * cm, 7 * cm]
+            column_widths = [7.5 * cm, 2.25 * cm, 6.75 * cm]
             image_path = thumbnails_dir / data['photo_file']
             if image_path.exists():
                 with PIL.Image.open(image_path) as im:
