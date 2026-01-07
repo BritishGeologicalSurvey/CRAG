@@ -365,15 +365,17 @@ class FieldDataCapture(FieldDataCaptureProject):
             callback=None,
             parent=self.iface.mainWindow(),
         )
-        advanced_submenu = QMenu()
-        advanced_submenu_action.setMenu(advanced_submenu)
+        # Save the submenu object as a class attribute
+        # From Qt6, it does not function if the object is not stored somewhere
+        self.advanced_submenu = QMenu()
+        advanced_submenu_action.setMenu(self.advanced_submenu)
 
         self.add_action(
             None,
             text=self.tr("Plugin Settings"),
             callback=self.open_settings_dialog,
             parent=self.iface.mainWindow(),
-            submenu=advanced_submenu
+            submenu=self.advanced_submenu
         )
 
         self.button_setup_project = self.add_action(
@@ -385,7 +387,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                 self.open_create_field_project,
             ]),
             parent=self.iface.mainWindow(),
-            submenu=advanced_submenu
+            submenu=self.advanced_submenu
         )
 
         self.add_action(
@@ -393,7 +395,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             text=self.tr(u'Add Field Project'),
             callback=self.open_create_field_project,
             parent=self.iface.mainWindow(),
-            submenu=advanced_submenu
+            submenu=self.advanced_submenu
         )
 
         self.add_action(
@@ -401,10 +403,10 @@ class FieldDataCapture(FieldDataCaptureProject):
             text=self.tr(u'Help'),
             callback=self.show_help,
             parent=self.iface.mainWindow(),
-            submenu=advanced_submenu
+            submenu=self.advanced_submenu
         )
 
-        advanced_submenu.addSeparator()
+        self.advanced_submenu.addSeparator()
 
         self.add_action(
             None,
@@ -416,7 +418,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             ]),
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=advanced_submenu,
+            submenu=self.advanced_submenu,
         )
 
         self.add_action(
@@ -425,10 +427,10 @@ class FieldDataCapture(FieldDataCaptureProject):
             callback=self.export_qml_styles,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=advanced_submenu,
+            submenu=self.advanced_submenu,
         )
 
-        advanced_submenu.addSeparator()
+        self.advanced_submenu.addSeparator()
 
         self.add_action(
             None,
@@ -436,7 +438,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             callback=self.add_gpkg_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=advanced_submenu,
+            submenu=self.advanced_submenu,
         )
 
         self.add_action(
@@ -445,7 +447,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             callback=self.add_gpkg_layers_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=advanced_submenu,
+            submenu=self.advanced_submenu,
         )
 
         self.add_action(
@@ -454,7 +456,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             callback=self.add_test_data_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=advanced_submenu,
+            submenu=self.advanced_submenu,
         )
 
         # Additionally, add action to main QGIS Help -> Plugins menu
