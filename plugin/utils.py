@@ -20,6 +20,7 @@ from qgis.core import (
 from qgis.PyQt.QtCore import (
     Qt,
     QUrl,
+    pyqtRemoveInputHook,
 )
 from qgis.PyQt.QtGui import (
     QDesktopServices,
@@ -39,7 +40,6 @@ from qgis.PyQt.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
-from PyQt5.QtCore import pyqtRemoveInputHook
 
 from .config import TABLE_LIST
 from .create_gpkg_from_sql import WORKDIR
@@ -515,7 +515,7 @@ class MultilineMessageBox(QDialog):
         super().__init__()
         self.setWindowTitle(title)
         self.setWindowFlags(
-            Qt.Window | Qt.WindowCloseButtonHint
+            Qt.WindowType.Window | Qt.WindowType.WindowCloseButtonHint
         )
         self.setup_ui_elements()
         self.apply_message(icon, message, text)
@@ -523,15 +523,15 @@ class MultilineMessageBox(QDialog):
 
     @staticmethod
     def information(title: str, message: str, text: Optional[str] = None) -> None:
-        return MultilineMessageBox(title, QMessageBox.Information, message, text)
+        return MultilineMessageBox(title, QMessageBox.Icon.Information, message, text)
 
     @staticmethod
     def warning(title: str, message: str, text: Optional[str] = None) -> None:
-        return MultilineMessageBox(title, QMessageBox.Warning, message, text)
+        return MultilineMessageBox(title, QMessageBox.Icon.Warning, message, text)
 
     @staticmethod
     def critical(title: str, message: str, text: Optional[str] = None) -> None:
-        return MultilineMessageBox(title, QMessageBox.Critical, message, text)
+        return MultilineMessageBox(title, QMessageBox.Icon.Critical, message, text)
 
 
     def setup_ui_elements(self) -> None:
@@ -561,7 +561,7 @@ class MultilineMessageBox(QDialog):
         dialog_layout = QVBoxLayout()
         dialog_layout.addLayout(icon_layout)
         dialog_layout.addWidget(self.text_edit)
-        dialog_layout.addWidget(self.ok_button, alignment=Qt.AlignRight)
+        dialog_layout.addWidget(self.ok_button, alignment=Qt.AlignmentFlag.AlignRight)
         self.setLayout(dialog_layout)
 
 
@@ -580,7 +580,7 @@ class MultilineMessageBox(QDialog):
 
 class CollapsibleWidget(QWidget):
     """
-    QWidget object to create a custom collapsible style widget in PyQt5.
+    QWidget object to create a custom collapsible style widget in PyQt.
     See here for additional information:
     https://stackoverflow.com/questions/52615115/how-to-create-collapsible-box-in-pyqt
     """
@@ -596,8 +596,8 @@ class CollapsibleWidget(QWidget):
         """
         self.toggle_button = QToolButton(text=title, checkable=True)
         self.toggle_button.setStyleSheet("QToolButton {border: none;}")
-        self.toggle_button.setToolButtonStyle(Qt.ToolButtonTextBesideIcon)
-        self.toggle_button.setArrowType(Qt.RightArrow)
+        self.toggle_button.setToolButtonStyle(Qt.ToolButtonStyle.ToolButtonTextBesideIcon)
+        self.toggle_button.setArrowType(Qt.ArrowType.RightArrow)
 
         self.collapsible_layout = QVBoxLayout()
         self.collapsible_layout_widget = QWidget()
@@ -607,7 +607,7 @@ class CollapsibleWidget(QWidget):
         # Put the layout into a frame for a border
         frame_layout = QVBoxLayout()
         frame = QFrame()
-        frame.setFrameStyle(QFrame.Panel)
+        frame.setFrameStyle(QFrame.Shape.Panel)
         frame.setStyleSheet("QFrame {border: 1px solid gray;}")
         frame.setLayout(frame_layout)
 
@@ -631,10 +631,10 @@ class CollapsibleWidget(QWidget):
         Switch the arrow type and hide/show the collapsible layout.
         """
         if self.toggle_button.isChecked():
-            arrow = Qt.DownArrow
+            arrow = Qt.ArrowType.DownArrow
             hide = False
         else:
-            arrow = Qt.RightArrow
+            arrow = Qt.ArrowType.RightArrow
             hide = True
         self.collapsible_layout_widget.setHidden(hide)
         self.toggle_button.setArrowType(arrow)
@@ -648,11 +648,11 @@ class SearchableComboBox(QComboBox):
         super().__init__()
         self.setEditable(True)
         # Don't add the inserted text as an item to the list
-        self.setInsertPolicy(QComboBox.NoInsert)
+        self.setInsertPolicy(QComboBox.InsertPolicy.NoInsert)
         # Popup a list below the text box which shows the ones which do match the search term
-        self.completer().setCompletionMode(QCompleter.PopupCompletion)
+        self.completer().setCompletionMode(QCompleter.CompletionMode.PopupCompletion)
         # Get text items which contain the input text
-        self.completer().setFilterMode(Qt.MatchContains)
+        self.completer().setFilterMode(Qt.MatchFlag.MatchContains)
 
 
 def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:

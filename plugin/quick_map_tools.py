@@ -93,7 +93,7 @@ class QuickMapToolBase(FieldDataCaptureProject):
         This includes making it editable and setting it as the active layer.
         """
         # PyQGIS does not provide a method for selecting mutliple layers in the tree view
-        # Therefore we go into the root PyQt5 objects and find the elements we want from the widget
+        # Therefore we go into the root PyQt objects and find the elements we want from the widget
         view = self.iface.layerTreeView()
         model = view.model()
 
@@ -333,7 +333,7 @@ class QuickMapToolIdentifyBase:
         # Get first result from top
         # Use pixelPoint method to get x and y so it is backwards compatible with QGIS PyQt5 and PyQt6
         point = event.pixelPoint()
-        results = super().identify(point.x(), point.y(), self.get_layer(), QgsMapToolIdentify.TopDownAll)
+        results = super().identify(point.x(), point.y(), self.get_layer(), QgsMapToolIdentify.IdentifyMode.TopDownAll)
         if len(results) > 0:
             feature = results[0].mFeature
             feature_layer = self.get_layer_from_feature(feature)
@@ -515,7 +515,7 @@ class QuickDeleteTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIden
             ),
         )
 
-        if result == QMessageBox.Yes:
+        if result == QMessageBox.StandardButton.Yes:
             # We have to setup a new DeleteContext object which is used to perform a cascade delete programmatically
             context = QgsVectorLayer.DeleteContext(cascade=True, project=QgsProject.instance())
             feature_layer.deleteFeature(fid=feature.attribute("fid"), context=context)

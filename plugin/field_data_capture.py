@@ -479,9 +479,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         self.close_file_linker()
 
         for action in self.actions:
-            self.iface.removePluginMenu(
-                self.tr(u'&Field Data Capture'),
-                action)
+            self.iface.removePluginMenu(self.menu, action)
             self.iface.removeToolBarIcon(action)
 
         if self.help_action:
@@ -519,7 +517,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                 None, "File Already Exists",
                 f"The file already exists, would you like to overwrite the file?\n\n{self.db_file}",
             )
-            if result == QMessageBox.No:
+            if result == QMessageBox.StandardButton.No:
                 return False
 
         gpkg_from_sql(db_file=self.db_file)
@@ -989,7 +987,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                     "Continuing will cause bad style diffs.\n\nDo you want to continue?"
                 ),
             )
-            if result == QMessageBox.No:
+            if result == QMessageBox.StandardButton.No:
                 return False
 
         # Export the current styles
@@ -1004,7 +1002,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                 layer = self.get_fdc_layer(table_name)
                 layer.saveNamedStyle(
                     str(layer_style_path),
-                    categories=QgsMapLayer.Symbology | QgsMapLayer.Labeling | QgsMapLayer.Fields | QgsMapLayer.Forms | QgsMapLayer.MapTips,  # noqa
+                    categories=QgsMapLayer.StyleCategory.Symbology | QgsMapLayer.StyleCategory.Labeling | QgsMapLayer.StyleCategory.Fields | QgsMapLayer.StyleCategory.Forms | QgsMapLayer.StyleCategory.MapTips,  # noqa
                 )
 
                 # Read the newly created XML file
@@ -1203,7 +1201,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             message_box = QMessageBox()
             message_box.setWindowTitle("Warning")
             message_box.setText(f"There are unsaved edits on the following layer(s):\n\n{joined_names}")
-            message_box.setStandardButtons(QMessageBox.Ok)
+            message_box.setStandardButtons(QMessageBox.StandardButton.Ok)
             # Get the 'Current Edits' red pencils icon as a pixmap the size of the default QMessageBox icons
             red_pencils_pixmap = self.iface.actionAllEdits().icon().pixmap(48, 48)
             # Set the icon using the pixmap

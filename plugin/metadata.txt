@@ -1,6 +1,7 @@
 # This file contains metadata for your plugin.
 
-# This file should be included when you package your plugin.# Mandatory items:
+# This file should be included when you package your plugin.
+# Mandatory items:
 
 [general]
 name=Field Data Capture
@@ -9,11 +10,10 @@ description=This plugin aids with field capture of geological data.
 version=local_development
 author=BGS Informatics
 email=digitalmapping@bgs.ac.uk
-
 about=This plugin aids with field capture of geological data.
-
 tracker=https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/issues/
 repository=https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms
+
 # End of mandatory metadata
 
 # Recommended items:
@@ -41,3 +41,5 @@ deprecated=False
 
 # If the plugin can run on QGIS Server.
 server=False
+
+supportsQt6=True

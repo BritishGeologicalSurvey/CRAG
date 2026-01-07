@@ -47,7 +47,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         self.setWindowTitle("Select Line Type")
         self.setMinimumSize(300, 150)
         self.setWindowFlags(
-            Qt.Window | Qt.WindowCloseButtonHint
+            Qt.WindowType.Window | Qt.WindowType.WindowCloseButtonHint
         )
         self.recent_line_types = self.get_recent_line_types()
         self.layers_to_cats_to_types = self.get_layers_to_categories_to_types()
@@ -277,9 +277,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         Create a QFrame with a styled border.
         """
         frame = QFrame()
-        frame.setObjectName("MainFrame")
-        frame.setFrameShape(QFrame.StyledPanel | QFrame.Plain)
-        frame.setStyleSheet("#MainFrame { border: 1px solid silver; }")
+        frame.setFrameShape(QFrame.Shape.StyledPanel)
         return frame
 
 

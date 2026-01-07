@@ -76,7 +76,7 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
 
         self.setWindowTitle("Settings")
         self.setWindowFlags(
-            Qt.Window | Qt.WindowCloseButtonHint
+            Qt.WindowType.Window | Qt.WindowType.WindowCloseButtonHint
         )
 
         self.map_note_options = {

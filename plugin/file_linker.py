@@ -113,7 +113,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         # Setting the Dialog Box settings
         self.setWindowTitle("Link Files")
         self.setWindowFlags(
-            Qt.Window | Qt.WindowCloseButtonHint
+            Qt.WindowType.Window | Qt.WindowType.WindowCloseButtonHint
         )
         self.setup_ui_elements()
         self.connect_signals_and_slots()
@@ -298,7 +298,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
 
                     # Put the layout into a frame for a border
                     row_frame = QFrame()
-                    row_frame.setFrameStyle(QFrame.Panel | QFrame.Raised)
+                    row_frame.setFrameStyle(QFrame.Shape.Panel | QFrame.Shadow.Raised)
                     row_frame.setLayout(row_layout)
                     self.file_rows_layout.addWidget(row_frame)
 
@@ -493,7 +493,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
 
         # Set the pixmap and scale it down
         image_qsize = QSize(image_size, image_size)
-        label.setPixmap(pixmap.scaled(image_qsize, aspectRatioMode=Qt.KeepAspectRatio))
+        label.setPixmap(pixmap.scaled(image_qsize, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio))
         return label
 
 

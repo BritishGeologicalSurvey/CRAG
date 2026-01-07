@@ -190,7 +190,7 @@ def fdc(iface: QgisInterface, monkeypatch: pytest.MonkeyPatch) -> Generator[Fiel
     An instance of the FieldDataCapture plugin for tests, using a mock iface.
     Also runs fdc.initGui for button testing.
     Also uses monkeypatch to prevent basic QMessageBox popups, including information and warning.
-    QMessageBoxes just return QMessageBox.Ok by default.
+    QMessageBoxes just return QMessageBox.StandardButton.Ok by default.
     """
     # Setup plugin
     field_data_capture = FieldDataCapture(iface)
@@ -205,8 +205,9 @@ def fdc(iface: QgisInterface, monkeypatch: pytest.MonkeyPatch) -> Generator[Fiel
         # Usually, QMessageBoxes prevent tests from progressing, as they require user input
         # To show a message, the code would usually be:
         # result = QMessageBox.warning(parent, title, message)
-        # The monkeypatched version swallows the arguments and always returns QMessageBox.Ok through a Mock object
-        monkeypatch.setattr(QMessageBox, message_type, Mock(return_value=QMessageBox.Ok))
+        # The monkeypatched version swallows the arguments and
+        # always returns QMessageBox.StandardButton.Ok through a Mock object
+        monkeypatch.setattr(QMessageBox, message_type, Mock(return_value=QMessageBox.StandardButton.Ok))
         monkeypatch.setattr(MultilineMessageBox, message_type, Mock())
 
     # Apply monkeypatch for unsaved edits message box because it is setup manually
@@ -263,18 +264,18 @@ def qgs_project(project_dir: Path) -> Generator[Path, None, None]:
 def monkeypatch_qmsgbox_question_yes(monkeypatch: pytest.MonkeyPatch) -> None:
     """
     A monkeypatch to prevent QMessageBox.question popups from showing during tests.
-    Instead, calls to it will return QMessageBox.Yes.
+    Instead, calls to it will return QMessageBox.StandardButton.Yes.
     """
-    monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.Yes)
+    monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.StandardButton.Yes)
 
 
 @pytest.fixture()
 def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
     """
     A monkeypatch to prevent QMessageBox.question popups from showing during tests.
-    Instead, calls to it will return QMessageBox.No.
+    Instead, calls to it will return QMessageBox.StandardButton.No.
     """
-    monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.No)
+    monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.StandardButton.No)
 
 
 @pytest.fixture()
