@@ -14,6 +14,7 @@ from qgis.core import (
 from qgis.gui import (
     QgisInterface,
     QgsAttributeDialog,
+    QgsMapMouseEvent,
     QgsMapToolDigitizeFeature,
     QgsMapToolIdentify,
 )
@@ -319,13 +320,15 @@ class QuickMapToolIdentifyBase:
     """
     identified_feature = pyqtSignal(QgsFeature, QgsVectorLayer)
 
-    def canvasReleaseEvent(self, event) -> None:
+    def canvasReleaseEvent(self, event: QgsMapMouseEvent) -> None:
         """
         Get the feature from the given event coordinates.
         Emits the feature and it's layer to the identified_feature signal.
         """
         # Get first result from top
-        results = super().identify(event.x(), event.y(), self.get_layer(), QgsMapToolIdentify.TopDownAll)
+        # Use pixelPoint method to get x and y so it is backwards compatible with QGIS PyQt5 and PyQt6
+        point = event.pixelPoint()
+        results = super().identify(point.x(), point.y(), self.get_layer(), QgsMapToolIdentify.TopDownAll)
         if len(results) > 0:
             feature = results[0].mFeature
             feature_layer = self.get_layer_from_feature(feature)
