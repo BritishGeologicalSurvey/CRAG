@@ -142,7 +142,12 @@ class QuickMapToolBase(FieldDataCaptureProject):
         return valid_indexes
 
 
-    def get_model_index_child(self, row: int, column: int, parent_index: QSortFilterProxyModel | QModelIndex) -> QModelIndex:
+    def get_model_index_child(
+        self,
+        row: int,
+        column: int,
+        parent_index: QSortFilterProxyModel | QModelIndex,
+    ) -> QModelIndex:
         """
         Get the child QModelIndex of the given QModelIndex at the given row and column position.
         QModelIndex used to have a 'child' method, but it is removed in Qt6.
