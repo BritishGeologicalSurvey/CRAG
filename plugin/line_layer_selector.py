@@ -277,7 +277,9 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         Create a QFrame with a styled border.
         """
         frame = QFrame()
-        frame.setFrameShape(QFrame.Shape.StyledPanel)
+        frame.setObjectName("MainFrame")
+        frame.setFrameShape(QFrame.Shape.Panel)
+        frame.setStyleSheet("#MainFrame { border: 1px solid silver; }")
         return frame
 
 
