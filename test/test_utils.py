@@ -281,9 +281,9 @@ def test_multiline_messagebox(
 ):
     # Arrange
     methods_to_icons = {
-        MultilineMessageBox.information: QMessageBox.Information,
-        MultilineMessageBox.warning: QMessageBox.Warning,
-        MultilineMessageBox.critical: QMessageBox.Critical,
+        MultilineMessageBox.information: QMessageBox.Icon.Information,
+        MultilineMessageBox.warning: QMessageBox.Icon.Warning,
+        MultilineMessageBox.critical: QMessageBox.Icon.Critical,
     }
     expected_image = get_msgbox_icon_pixmap(methods_to_icons[msgbox_method]).toImage()
     expected_minimum_width = 500

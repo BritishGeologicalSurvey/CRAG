@@ -14,6 +14,7 @@ from qgis.core import (
 from qgis.gui import (
     QgisInterface,
     QgsAttributeDialog,
+    QgsMapMouseEvent,
     QgsMapToolDigitizeFeature,
     QgsMapToolIdentify,
 )
@@ -92,7 +93,7 @@ class QuickMapToolBase(FieldDataCaptureProject):
         This includes making it editable and setting it as the active layer.
         """
         # PyQGIS does not provide a method for selecting mutliple layers in the tree view
-        # Therefore we go into the root PyQt5 objects and find the elements we want from the widget
+        # Therefore we go into the root PyQt objects and find the elements we want from the widget
         view = self.iface.layerTreeView()
         model = view.model()
 
@@ -105,7 +106,7 @@ class QuickMapToolBase(FieldDataCaptureProject):
                 vector_layer.startEditing()
             # Select the layer in the layerTreeView
             layer_index = all_model_indexes[vector_layer.name()]
-            view.selectionModel().setCurrentIndex(layer_index, QItemSelectionModel.Select)
+            view.selectionModel().setCurrentIndex(layer_index, QItemSelectionModel.SelectionFlag.Select)
 
 
     def recursive_find_selection_model_indexes(
@@ -127,21 +128,42 @@ class QuickMapToolBase(FieldDataCaptureProject):
         if isinstance(start_index, QModelIndex) and start_index.data() is not None:
             valid_indexes[start_index.data()] = start_index
 
-        # The method used to get children differs between the single root object and all other child objects
-        if isinstance(start_index, QModelIndex):
-            child_method = start_index.child
-        elif isinstance(start_index, QSortFilterProxyModel):
-            child_method = start_index.index
-
-        index_int = 0
-        # Whilst the incrementing index_int value is still finding children with valid data
-        while child_method(index_int, 0).data() is not None:
+        row = 0
+        # Whilst the incrementing row value is still finding children with valid data
+        while self.get_model_index_child(row, 0, start_index).data() is not None:
             # The start_index is theoretically a table with columns and rows
             # But the layerTreeView only has columns, and so we only increment the first index
-            self.recursive_find_selection_model_indexes(child_method(index_int, 0), valid_indexes)
-            index_int += 1
+            self.recursive_find_selection_model_indexes(
+                self.get_model_index_child(row, 0, start_index),
+                valid_indexes,
+            )
+            row += 1
 
         return valid_indexes
+
+
+    def get_model_index_child(
+        self,
+        row: int,
+        column: int,
+        parent_index: QSortFilterProxyModel | QModelIndex,
+    ) -> QModelIndex:
+        """
+        Get the child QModelIndex of the given QModelIndex at the given row and column position.
+        QModelIndex used to have a 'child' method, but it is removed in Qt6.
+        A backwards-compatible method to get the child is by calling '.index' on the root QModelIndex of
+        the layerTreeView, and passing the parent QModelIndex as a third argument.
+        """
+        # If the given parent is a QModelIndex, use the root model to get it's children
+        if isinstance(parent_index, QModelIndex):
+            root_model = self.iface.layerTreeView().model()
+            # Pass the parent QModelIndex to the root index method to access it's children
+            child_index = root_model.index(row, column, parent_index)
+        # If the given parent is a QSortFilterProxyModel, then it is the single root of the layerTreeView
+        # But we still need to get the children of the root
+        elif isinstance(parent_index, QSortFilterProxyModel):
+            child_index = parent_index.index(row, column)
+        return child_index
 
 
     def get_local_version(self) -> str:
@@ -303,13 +325,15 @@ class QuickMapToolIdentifyBase:
     """
     identified_feature = pyqtSignal(QgsFeature, QgsVectorLayer)
 
-    def canvasReleaseEvent(self, event) -> None:
+    def canvasReleaseEvent(self, event: QgsMapMouseEvent) -> None:
         """
         Get the feature from the given event coordinates.
         Emits the feature and it's layer to the identified_feature signal.
         """
         # Get first result from top
-        results = super().identify(event.x(), event.y(), self.get_layer(), QgsMapToolIdentify.TopDownAll)
+        # Use pixelPoint method to get x and y so it is backwards compatible with QGIS PyQt5 and PyQt6
+        point = event.pixelPoint()
+        results = super().identify(point.x(), point.y(), self.get_layer(), QgsMapToolIdentify.IdentifyMode.TopDownAll)
         if len(results) > 0:
             feature = results[0].mFeature
             feature_layer = self.get_layer_from_feature(feature)
@@ -491,7 +515,7 @@ class QuickDeleteTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIden
             ),
         )
 
-        if result == QMessageBox.Yes:
+        if result == QMessageBox.StandardButton.Yes:
             # We have to setup a new DeleteContext object which is used to perform a cascade delete programmatically
             context = QgsVectorLayer.DeleteContext(cascade=True, project=QgsProject.instance())
             feature_layer.deleteFeature(fid=feature.attribute("fid"), context=context)

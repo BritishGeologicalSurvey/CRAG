@@ -68,7 +68,7 @@ class ReportBuilder(FieldDataCaptureProject):
                 None, "HTML and/or PDF Report files already exist",
                 f"Would you like to overwrite the file(s)?\n\n{self.html_report_file}\n{self.pdf_report_file}",
             )
-            if result == QMessageBox.No:
+            if result == QMessageBox.StandardButton.No:
                 return False, False
 
         # If the PDF report file is already open it cannot be written to.
@@ -108,7 +108,7 @@ class ReportBuilder(FieldDataCaptureProject):
                 msg += f"\n{self.pdf_report_file}"
             msg += "\n\nWould you like to open them now?"
             result = QMessageBox.question(None, "Created Field Reports", msg)
-            if result == QMessageBox.Yes:
+            if result == QMessageBox.StandardButton.Yes:
                 if html_success:
                     self.open_local_filepath(self.html_report_file)
                 if pdf_success:
