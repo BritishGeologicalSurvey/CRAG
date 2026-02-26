@@ -394,3 +394,18 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     assert len(subdirs(report_builder.photos_dir)) == 1
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()
+
+
+@pytest.mark.parametrize(
+    "string,split_string",
+    [
+        ("1\n2\n3", ["1", "2", "3"]),          # simple unix line-breaks
+        ("1\\n2\\n3", ["1", "2", "3"]),        # escaped line-breaks
+        ("1\n2\n3\n", ["1", "2", "3"]),        # trailing line-break
+        ("1\n\n\n2\n3\n\n", ["1", "2", "3"]),  # extra line-breaks
+        ("1\r\n2\r\n3", ["1", "2", "3"])       # Windows line-breaks
+    ]
+)
+def test_split_lines(string, split_string):
+    report_builder = ReportBuilder()
+    assert split_string == report_builder.split_lines(string)

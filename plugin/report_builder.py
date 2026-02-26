@@ -358,5 +358,11 @@ class ReportBuilder(FieldDataCaptureProject):
         #    escape_decode returns a tuple (decoded_bytes, length_consumed)
         decoded_bytes = codecs.escape_decode(as_bytes)[0]
         # 3. Final decode back to string using intended final encoding (UTF-8)
-        return_str = decoded_bytes.decode("utf-8")
-        return return_str.splitlines()
+        decoded_str = decoded_bytes.decode("utf-8")
+        # Split on line-breaks
+        split_str = decoded_str.splitlines()
+        # Remove any empty strings to avois over large HTML elements
+        while '' in split_str:
+            split_str.remove('')
+
+        return split_str
