@@ -186,7 +186,8 @@ class ReportBuilder(FieldDataCaptureProject):
         project_data = rows[0]
         if not project_data['title']:
             project_data['title'] = project_data['short_name']
-
+        project_data['description'] = self.split_lines(project_data['description'])
+        project_data['notes'] = self.split_lines(project_data['notes'])
         return project_data
 
 
@@ -218,6 +219,7 @@ class ReportBuilder(FieldDataCaptureProject):
             row['pdf_geometry'] = f'{(int(point.x()), int(point.y()))} - {pdf_link}'
             # Split long text on line breaks
             row['locality_description'] = self.split_lines(row['locality_description'])
+            row['map_face_note'] = self.split_lines(row['map_face_note'])
             row['geology_description'] = self.split_lines(row['geology_description'])
 
             locality_points[row['name']] = row
@@ -244,13 +246,26 @@ class ReportBuilder(FieldDataCaptureProject):
     def modify_child(self, child: dict[str, Any], child_table_name: str) -> dict[str, Any]:
         if child_table_name == 'lithology':
             child['lithology'] = f"{child['label']} ({child['lithology_code']})"
-        if child_table_name == 'structural_measurement':
+            child['notes'] = self.split_lines(child['notes'])
+        elif child_table_name == 'structural_measurement':
             child['dip_azimuth'] = f"{child['dip']} / {child['azimuth']}"
+            child['notes'] = self.split_lines(child['notes'])
             child['measurement_type'] = child['description']
             if child['secondary_description'] is not None:
                 child['measurement_type'] += f"; {child['secondary_description']}"
             if child['third_description'] is not None:
                 child['measurement_type'] += f"; {child['third_description']}"
+        elif child_table_name == 'superficial_landform':
+            child['notes'] = self.split_lines(child['notes'])
+        elif child_table_name == 'manmade_landform':
+            child['notes'] = self.split_lines(child['notes'])
+        elif child_table_name == 'sample':
+            child['sample_description'] = self.split_lines(child['sample_description'])
+        elif child_table_name == 'media':
+            child['media_description'] = self.split_lines(child['media_description'])
+        elif child_table_name == 'photo':
+            child['caption'] = self.split_lines(child['caption'])
+            child['description'] = self.split_lines(child['description'])
         return child
 
 
