@@ -1,3 +1,25 @@
+{#
+    jinja2 macro to conditionally render a list of strings as paragraphs:
+
+    if the input is a string, render it on its own
+    if the input is list:
+        if it contains more than one item, render as HTML paragraphs
+        if it contains one item, render the single item on its own
+#}
+{% macro render(paragraphs) -%}
+    {% if paragraphs is string %}
+        {{ paragraphs }}
+    {% else %}
+        {% if paragraphs | length > 1 %}
+            {% for para in paragraphs %}
+                <p>{{ para }}</p>
+            {% endfor %}
+        {% else %}
+            {{ paragraphs | first }}
+        {% endif %}
+    {% endif %}
+{%- endmacro %}
+
 <!doctype html>
 <html lang="en">
     <head>

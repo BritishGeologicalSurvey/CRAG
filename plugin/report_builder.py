@@ -1,3 +1,4 @@
+import codecs
 import logging
 from pathlib import Path
 import shutil
@@ -216,8 +217,8 @@ class ReportBuilder(FieldDataCaptureProject):
             row['geometry'] = f'{(int(point.x()), int(point.y()))} - {html_link}'
             row['pdf_geometry'] = f'{(int(point.x()), int(point.y()))} - {pdf_link}'
             # Split long text on line breaks
-            row['locality_description'] = row['locality_description'].split('\\n')
-            row['geology_description'] = row['geology_description'].split('\\n')
+            row['locality_description'] = self.split_lines(row['locality_description'])
+            row['geology_description'] = self.split_lines(row['geology_description'])
 
             locality_points[row['name']] = row
             locality_points[row['name']]['children'] = self.get_child_data(row['name'])
@@ -332,3 +333,15 @@ class ReportBuilder(FieldDataCaptureProject):
             path = Path(str(tn_path).replace(thumbnails_str, photos_str))
             if tn_path.is_file() and not path.exists():
                 tn_path.unlink()
+
+
+    def split_lines(self, input_str: str) -> str:
+        # See: https://sqlpey.com/python/python-string-unescaping-techniques/ approach 4
+        # 1. Encode to bytes (UTF-8)
+        as_bytes = bytes(input_str, "utf-8")
+        # 2. Decode escapes (bytes -> bytes), this step handles sequences like b'\\n' -> b'\n'
+        #    escape_decode returns a tuple (decoded_bytes, length_consumed)
+        decoded_bytes = codecs.escape_decode(as_bytes)[0]
+        # 3. Final decode back to string using intended final encoding (UTF-8)
+        return_str = decoded_bytes.decode("utf-8")
+        return return_str.splitlines()

@@ -110,7 +110,10 @@ class ReportTemplate(BaseDocTemplate):
             title_text = Paragraph(title, self.default_text)
             field_text = Paragraph('', self.default_text)
             if data[field] is not None:
-                field_text = Paragraph(data[field], self.default_text)
+                if isinstance(data[field], list):
+                    field_text = [Paragraph(part, self.default_text) for part in data[field]]
+                else:
+                    field_text = Paragraph(data[field], self.default_text)
             table_data.append([title_text, field_text])
         entered = [
             Paragraph('Entered', self.default_text),
