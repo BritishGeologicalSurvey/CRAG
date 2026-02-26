@@ -75,6 +75,9 @@ def test_create_html_field_report(report_builder: ReportBuilder):
     for child in EXPECTED_CHILD_COLUMNS.keys():
         child_sections = soup.find_all('section', {'class': child})
         assert len(child_sections) > 0
+    paragraph_text = set([p.get_text() for p in soup.find_all('p')])
+    assert paragraph_text == {'William Smith building', 'Keyworth', 'Nottingham',
+                              'Lyell Centre', 'Research Avenue South', 'Edinburgh'}
 
 
 def test_create_pdf_field_report(report_builder: ReportBuilder):
