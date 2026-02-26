@@ -215,6 +215,9 @@ class ReportBuilder(FieldDataCaptureProject):
             point = geom.asPoint()
             row['geometry'] = f'{(int(point.x()), int(point.y()))} - {html_link}'
             row['pdf_geometry'] = f'{(int(point.x()), int(point.y()))} - {pdf_link}'
+            # Split long text on line breaks
+            row['locality_description'] = row['locality_description'].split('\\n')
+            row['geology_description'] = row['geology_description'].split('\\n')
 
             locality_points[row['name']] = row
             locality_points[row['name']]['children'] = self.get_child_data(row['name'])
