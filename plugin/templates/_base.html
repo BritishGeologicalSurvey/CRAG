@@ -76,6 +76,12 @@
                 content.style.maxHeight = null;
             }
         });
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].classList.add("active");
+            var content = coll[i].nextElementSibling;
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
     </script>
 </body>
 </html>
