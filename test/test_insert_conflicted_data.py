@@ -41,7 +41,7 @@ def test_insert_conflicted_data_happy_path(project_dir: Path,
     expected_row_counts = {
         "locality_point": 6,
         "sample": 4,
-        "lithology": 4,
+        "lithology": 5,
         "structural_measurement": 4,
         "bedrock_line": 3,
         "terrain_line": 2,
