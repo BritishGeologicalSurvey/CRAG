@@ -14,6 +14,7 @@ INSERT INTO structural_measurement VALUES(NULL,'{fd49ec2a-b824-4778-8f90-55a8dda
 INSERT INTO lithology VALUES(NULL,'{d44b5820-0993-40ab-b5af-0f9cdd26bd25}','{abc43098-fe9b-4da0-b008-7518694466bb}','AND','test_point_001 lithology notes','colb','2023-10-31T16:35:40.328');
 INSERT INTO lithology VALUES(NULL,'{3083c026-4971-46bc-a0f1-96f4ae6e43e6}','{abc43098-fe9b-4da0-b008-7518694466bb}','BA','test_point_001 basalt lithology notes','colb','2023-10-31T16:36:17.047');
 INSERT INTO lithology VALUES(NULL,'{32f28f7f-1482-490b-b7fd-55ad98d086b0}','{b5bf63bb-0811-4074-99bc-422a78aa5b52}','TUF','test_point_002 outcrop lithology notes','colb','2023-10-31T16:56:57.212');
+INSERT INTO lithology VALUES(NULL,'{c6012833-45cc-964b-81b0-de2c02dd5b2b}','{b5bf63bb-0811-4074-99bc-422a78aa5b52}','RY',NULL,'leorud','2026-03-03T14:40:28.072');
 INSERT INTO media VALUES(NULL,'{ac267d95-db70-4299-b019-c52599ca1e5f}','{abc43098-fe9b-4da0-b008-7518694466bb}','video','test_point_001.mov','These are notes for test_point_001.mov','colb','2023-10-31T16:34:41.137');
 INSERT INTO media VALUES(NULL,'{ac267d95-db70-4299-b019-c52599ca1e59}','{abc43098-fe9b-4da0-b008-7518694466bb}','document','test_point_001.txt','These are notes for test_point_001.txt','colb','2023-10-31T16:34:41.137');
 INSERT INTO media VALUES(NULL,'{ac267d95-db70-4299-b019-c52599ca1e57}','{abc43098-fe9b-4da0-b008-7518694466bb}','document','test_point_001.docx','These are notes for test_point_001.docx','colb','2023-10-31T16:34:41.137');
