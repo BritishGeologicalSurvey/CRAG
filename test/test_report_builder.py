@@ -418,6 +418,7 @@ def test_split_lines(string, split_string):
 def test_template_macro():
     # Arrange
     test_data = {'test': {
+        'none': None,
         'string': 'single_string',
         'one_item': ['single_item_in_list'],
         'multiple_items': ['one', 'two', 'three']
@@ -430,7 +431,11 @@ def test_template_macro():
 
     # Assert
     soup = BeautifulSoup(content, 'lxml')
-    # The first two sections should simply contain the text string
+    # The first section should represent None
+    sections = soup.find_all('section', {'class': "none"})
+    assert len(sections) == 1
+    assert str(test_data['test']['none']) in sections[0].get_text()
+    # The next two sections should simply contain the text string
     sections = soup.find_all('section', {'class': "string"})
     assert len(sections) == 1
     assert test_data['test']['string'] in sections[0].get_text()

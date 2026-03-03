@@ -7,7 +7,9 @@
         if it contains one item, render the single item on its own
 #}
 {% macro render(paragraphs) -%}
-    {% if paragraphs is string %}
+    {% if paragraphs is none %}
+        {{ paragraphs }}
+    {% elif paragraphs is string %}
         {{ paragraphs }}
     {% else %}
         {% if paragraphs | length > 1 %}
