@@ -3,6 +3,7 @@ from pathlib import Path
 import shutil
 
 from bs4 import BeautifulSoup
+from jinja2 import Environment, FileSystemLoader
 import pytest
 from PIL import Image, ImageOps
 from pypdf import PdfReader
@@ -75,6 +76,9 @@ def test_create_html_field_report(report_builder: ReportBuilder):
     for child in EXPECTED_CHILD_COLUMNS.keys():
         child_sections = soup.find_all('section', {'class': child})
         assert len(child_sections) > 0
+    paragraph_text = set([p.get_text() for p in soup.find_all('p')])
+    assert paragraph_text == {'William Smith building', 'Keyworth', 'Nottingham',
+                              'Lyell Centre', 'Research Avenue South', 'Edinburgh'}
 
 
 def test_create_pdf_field_report(report_builder: ReportBuilder):
@@ -394,3 +398,51 @@ def test_create_thumbnails(report_builder: ReportBuilder):
     assert len(subdirs(report_builder.photos_dir)) == 1
     report_builder.create_thumbnails()
     assert_images_and_subdirs_match()
+
+
+@pytest.mark.parametrize(
+    "string,split_string",
+    [
+        ("1\n2\n3", ["1", "2", "3"]),          # simple unix line-breaks
+        ("1\\n2\\n3", ["1", "2", "3"]),        # escaped line-breaks
+        ("1\n2\n3\n", ["1", "2", "3"]),        # trailing line-break
+        ("1\n\n\n2\n3\n\n", ["1", "2", "3"]),  # extra line-breaks
+        ("1\r\n2\r\n3", ["1", "2", "3"])       # Windows line-breaks
+    ]
+)
+def test_split_lines(string, split_string):
+    report_builder = ReportBuilder()
+    assert split_string == report_builder.split_lines(string)
+
+
+def test_template_macro():
+    # Arrange
+    test_data = {'test': {
+        'none': None,
+        'string': 'single_string',
+        'one_item': ['single_item_in_list'],
+        'multiple_items': ['one', 'two', 'three']
+    }}
+    environment = Environment(loader=FileSystemLoader("plugin/templates"))
+    template = environment.get_template("test_templates/_test.html")
+
+    # Act
+    content = template.render(test_data)
+
+    # Assert
+    soup = BeautifulSoup(content, 'lxml')
+    # The first section should represent None
+    sections = soup.find_all('section', {'class': "none"})
+    assert len(sections) == 1
+    assert str(test_data['test']['none']) in sections[0].get_text()
+    # The next two sections should simply contain the text string
+    sections = soup.find_all('section', {'class': "string"})
+    assert len(sections) == 1
+    assert test_data['test']['string'] in sections[0].get_text()
+    sections = soup.find_all('section', {'class': "one_item"})
+    assert len(sections) == 1
+    assert test_data['test']['one_item'][0] in sections[0].get_text()
+    # This section should contain three p tags in order
+    sections = soup.find_all('section', {'class': "multiple_items"})
+    assert len(sections) == 1
+    assert test_data['test']['multiple_items'] == [p.get_text() for p in sections[0].find_all('p')]

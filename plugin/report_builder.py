@@ -1,8 +1,12 @@
+import codecs
 import logging
 from pathlib import Path
 import shutil
 import sqlite3
-from typing import Any
+from typing import (
+    Any,
+    Optional,
+)
 
 from jinja2 import (
     Environment,
@@ -185,7 +189,8 @@ class ReportBuilder(FieldDataCaptureProject):
         project_data = rows[0]
         if not project_data['title']:
             project_data['title'] = project_data['short_name']
-
+        project_data['description'] = self.split_lines(project_data['description'])
+        project_data['notes'] = self.split_lines(project_data['notes'])
         return project_data
 
 
@@ -215,6 +220,10 @@ class ReportBuilder(FieldDataCaptureProject):
             point = geom.asPoint()
             row['geometry'] = f'{(int(point.x()), int(point.y()))} - {html_link}'
             row['pdf_geometry'] = f'{(int(point.x()), int(point.y()))} - {pdf_link}'
+            # Split long text on line breaks
+            row['locality_description'] = self.split_lines(row['locality_description'])
+            row['map_face_note'] = self.split_lines(row['map_face_note'])
+            row['geology_description'] = self.split_lines(row['geology_description'])
 
             locality_points[row['name']] = row
             locality_points[row['name']]['children'] = self.get_child_data(row['name'])
@@ -240,13 +249,26 @@ class ReportBuilder(FieldDataCaptureProject):
     def modify_child(self, child: dict[str, Any], child_table_name: str) -> dict[str, Any]:
         if child_table_name == 'lithology':
             child['lithology'] = f"{child['label']} ({child['lithology_code']})"
-        if child_table_name == 'structural_measurement':
+            child['notes'] = self.split_lines(child['notes'])
+        elif child_table_name == 'structural_measurement':
             child['dip_azimuth'] = f"{child['dip']} / {child['azimuth']}"
+            child['notes'] = self.split_lines(child['notes'])
             child['measurement_type'] = child['description']
             if child['secondary_description'] is not None:
                 child['measurement_type'] += f"; {child['secondary_description']}"
             if child['third_description'] is not None:
                 child['measurement_type'] += f"; {child['third_description']}"
+        elif child_table_name == 'superficial_landform':
+            child['notes'] = self.split_lines(child['notes'])
+        elif child_table_name == 'manmade_landform':
+            child['notes'] = self.split_lines(child['notes'])
+        elif child_table_name == 'sample':
+            child['sample_description'] = self.split_lines(child['sample_description'])
+        elif child_table_name == 'media':
+            child['media_description'] = self.split_lines(child['media_description'])
+        elif child_table_name == 'photo':
+            child['caption'] = self.split_lines(child['caption'])
+            child['description'] = self.split_lines(child['description'])
         return child
 
 
@@ -329,3 +351,24 @@ class ReportBuilder(FieldDataCaptureProject):
             path = Path(str(tn_path).replace(thumbnails_str, photos_str))
             if tn_path.is_file() and not path.exists():
                 tn_path.unlink()
+
+
+    def split_lines(self, input_str: Optional[str]) -> Optional[str]:
+        if not isinstance(input_str, str):
+            return input_str
+
+        # See: https://sqlpey.com/python/python-string-unescaping-techniques/ approach 4
+        # 1. Encode to bytes (UTF-8)
+        as_bytes = bytes(input_str, "utf-8")
+        # 2. Decode escapes (bytes -> bytes), this step handles sequences like b'\\n' -> b'\n'
+        #    escape_decode returns a tuple (decoded_bytes, length_consumed)
+        decoded_bytes = codecs.escape_decode(as_bytes)[0]
+        # 3. Final decode back to string using intended final encoding (UTF-8)
+        decoded_str = decoded_bytes.decode("utf-8")
+        # Split on line-breaks
+        split_str = decoded_str.splitlines()
+        # Remove any empty strings to avois over large HTML elements
+        while '' in split_str:
+            split_str.remove('')
+
+        return split_str

@@ -87,7 +87,7 @@ def test_copy_project_data_good(
         "artificial_line": 2,
         "bedrock_line": 1,
         "field_project": 1,
-        "lithology": 5,
+        "lithology": 6,
         "locality_point": 4,
         "manmade_landform": 2,
         "mass_move_line": 1,
