@@ -3,7 +3,10 @@ import logging
 from pathlib import Path
 import shutil
 import sqlite3
-from typing import Any
+from typing import (
+    Any,
+    Optional,
+)
 
 from jinja2 import (
     Environment,
@@ -350,7 +353,10 @@ class ReportBuilder(FieldDataCaptureProject):
                 tn_path.unlink()
 
 
-    def split_lines(self, input_str: str) -> str:
+    def split_lines(self, input_str: Optional[str]) -> Optional[str]:
+        if not isinstance(input_str, str):
+            return input_str
+
         # See: https://sqlpey.com/python/python-string-unescaping-techniques/ approach 4
         # 1. Encode to bytes (UTF-8)
         as_bytes = bytes(input_str, "utf-8")
