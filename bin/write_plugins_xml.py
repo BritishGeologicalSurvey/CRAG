@@ -13,6 +13,7 @@ TEMPLATE = dedent("""
         <description>{description}</description>
         <version>{version}</version>
         <qgis_minimum_version>{qgisminimumversion}</qgis_minimum_version>
+        <qgis_maximum_version>{qgismaximumversion}</qgis_maximum_version>
         <homepage>{homepage}</homepage>
         <file_name>{file_name}</file_name>
         <author_name>{author}</author_name>
