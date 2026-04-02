@@ -306,41 +306,52 @@ def my_form_open(dialog, layer, feature):
   <editable>
     <field editable="1" name="caption"></field>
     <field editable="1" name="field_project"></field>
+    <field editable="1" name="field_project_fuid"></field>
     <field editable="1" name="local_epsg"></field>
     <field editable="1" name="locality_point"></field>
     <field editable="1" name="locality_type"></field>
     <field editable="1" name="locality_uuid"></field>
     <field editable="1" name="photo_file"></field>
     <field editable="1" name="photo_uuid"></field>
+    <field editable="1" name="recorded_by"></field>
+    <field editable="1" name="recorded_on"></field>
     <field editable="1" name="x"></field>
     <field editable="1" name="y"></field>
   </editable>
   <labelOnTop>
     <field labelOnTop="0" name="caption"></field>
     <field labelOnTop="0" name="field_project"></field>
+    <field labelOnTop="0" name="field_project_fuid"></field>
     <field labelOnTop="0" name="local_epsg"></field>
     <field labelOnTop="0" name="locality_point"></field>
     <field labelOnTop="0" name="locality_type"></field>
     <field labelOnTop="0" name="locality_uuid"></field>
     <field labelOnTop="0" name="photo_file"></field>
     <field labelOnTop="0" name="photo_uuid"></field>
+    <field labelOnTop="0" name="recorded_by"></field>
+    <field labelOnTop="0" name="recorded_on"></field>
     <field labelOnTop="0" name="x"></field>
     <field labelOnTop="0" name="y"></field>
   </labelOnTop>
   <reuseLastValue>
     <field name="caption" reuseLastValue="0"></field>
     <field name="field_project" reuseLastValue="0"></field>
+    <field name="field_project_fuid" reuseLastValue="0"></field>
     <field name="local_epsg" reuseLastValue="0"></field>
     <field name="locality_point" reuseLastValue="0"></field>
     <field name="locality_type" reuseLastValue="0"></field>
     <field name="locality_uuid" reuseLastValue="0"></field>
     <field name="photo_file" reuseLastValue="0"></field>
     <field name="photo_uuid" reuseLastValue="0"></field>
+    <field name="recorded_by" reuseLastValue="0"></field>
+    <field name="recorded_on" reuseLastValue="0"></field>
     <field name="x" reuseLastValue="0"></field>
     <field name="y" reuseLastValue="0"></field>
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
-  <mapTip enabled="1"></mapTip>
+  <mapTip enabled="1">&lt;span style="font-weight:bolder;"&gt;[%"caption"%]&lt;/span&gt;&lt;br /&gt;&#xD;
+&lt;img src='file:///[%@project_folder%]/photos/[%photo_file%]' width='250'&gt;&#xD;
+</mapTip>
   <layerGeometryType>0</layerGeometryType>
 </qgis>
