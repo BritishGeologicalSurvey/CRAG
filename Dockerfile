@@ -34,5 +34,6 @@ ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 #RUN conda env create -f /environment_unversioned.yml
 
 ENV PIP_INDEX_URL=https://nexus-internal.bgs.ac.uk/repository/pypi-all/simple
+ENV CONDA_OVERRIDE_ARCHSPEC=x86_64_v4
 COPY environment_docker.yml /environment_docker.yml
 RUN conda env create -f /environment_docker.yml
