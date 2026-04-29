@@ -405,7 +405,7 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=field_project"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
             <Option name="ReferencedLayerId" type="QString" value="field_project_bf449975_8c64_4d2d_9b3f_01eb6769ebba"></Option>
             <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
@@ -436,7 +436,7 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_locality_type"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
             <Option name="ReferencedLayerId" type="QString" value="dic_locality_type_7b77d702_3c47_468a_962f_ea2f31808edc"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_locality_type"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>

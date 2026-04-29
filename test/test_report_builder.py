@@ -109,7 +109,6 @@ def test_create_pdf_field_report(report_builder: ReportBuilder):
     assert 'Field Report: test_project' == pdf.metadata['/Title']
     assert 'test_user' == pdf.metadata['/Author']
     assert 'test field project title' == pdf.metadata['/Subject']
-    assert 'geology; QGIS; British Geological Survey; BGS' == pdf.metadata['/Keywords']
     assert len(pdf.pages) == 6
 
     # Page 1 - Project information

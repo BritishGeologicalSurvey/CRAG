@@ -17,7 +17,7 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\Users\jostev\mergin\jostev-minimal2\field-data-capture.gpkg|layername=field_project"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
             <Option name="ReferencedLayerId" type="QString" value="field_project_bf449975_8c64_4d2d_9b3f_01eb6769ebba"></Option>
             <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
@@ -38,7 +38,7 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\Users\jostev\mergin\jostev-minimal2\field-data-capture.gpkg|layername=dic_rock_field"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
             <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_8c3352ee_b401_446c_8bab_bb1afdb353af"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_rock_field"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>

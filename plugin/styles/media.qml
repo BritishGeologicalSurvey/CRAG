@@ -24,7 +24,7 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=locality_point"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
             <Option name="ReferencedLayerId" type="QString" value="locality_point_4bb76b3f_42c7_4fd0_a75a_9419ceaf18b6"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
@@ -45,7 +45,7 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_media"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
             <Option name="ReferencedLayerId" type="QString" value="dic_media_3bfea40c_a0f9_44c8_b775_748c6dee38f2"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_media"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
