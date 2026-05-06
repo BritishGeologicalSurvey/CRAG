@@ -24,6 +24,7 @@ from qgis.PyQt.QtCore import (
 )
 from qgis.PyQt.QtGui import (
     QDesktopServices,
+    QFont,
     QPixmap,
 )
 from qgis.PyQt.QtWidgets import (
@@ -504,6 +505,28 @@ class FieldDataCaptureProject:
         ]
 
         return unrecorded_attachments
+
+
+    def create_bordered_frame(self) -> QFrame:
+        """
+        Create a QFrame with a styled border.
+        """
+        frame = QFrame()
+        frame.setObjectName("MainFrame")
+        frame.setFrameShape(QFrame.Shape.Panel)
+        frame.setStyleSheet("#MainFrame { border: 1px solid silver; }")
+        return frame
+
+
+    def create_bold_label(self, text: str) -> QLabel:
+        """
+        Create a label with the given text in bold font.
+        """
+        font = QFont()
+        font.setBold(True)
+        label = QLabel(text)
+        label.setFont(font)
+        return label
 
 
 class MultilineMessageBox(QDialog):

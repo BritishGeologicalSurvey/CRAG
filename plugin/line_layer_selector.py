@@ -6,12 +6,9 @@ from qgis.PyQt.QtCore import (
     pyqtSignal,
     Qt,
 )
-from qgis.PyQt.QtGui import QFont
 from qgis.PyQt.QtWidgets import (
     QComboBox,
     QDialog,
-    QFrame,
-    QLabel,
     QRadioButton,
     QVBoxLayout,
 )
@@ -270,28 +267,6 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
         all_lines_layout.addWidget(all_lines_label)
         all_lines_layout.addWidget(all_lines_frame)
         return all_lines_layout
-
-
-    def create_bordered_frame(self) -> QFrame:
-        """
-        Create a QFrame with a styled border.
-        """
-        frame = QFrame()
-        frame.setObjectName("MainFrame")
-        frame.setFrameShape(QFrame.Shape.Panel)
-        frame.setStyleSheet("#MainFrame { border: 1px solid silver; }")
-        return frame
-
-
-    def create_bold_label(self, text: str) -> QLabel:
-        """
-        Create a label with the given text in bold font.
-        """
-        font = QFont()
-        font.setBold(True)
-        label = QLabel(text)
-        label.setFont(font)
-        return label
 
 
     def connect_signals_and_slots(self) -> None:
