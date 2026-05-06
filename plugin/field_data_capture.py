@@ -408,6 +408,17 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         self.advanced_submenu.addSeparator()
 
+        # Setup developer tools menu
+        dev_tools_submenu_action = self.add_action(
+            None,
+            text=self.tr(u'Developer Tools...'),
+            callback=None,
+            parent=self.iface.mainWindow(),
+            submenu=self.advanced_submenu,
+        )
+        self.dev_tools_submenu = QMenu()
+        dev_tools_submenu_action.setMenu(self.dev_tools_submenu)
+
         self.add_action(
             None,
             text=self.tr(u'Setup Test Project'),
@@ -418,7 +429,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             ]),
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=self.advanced_submenu,
+            submenu=self.dev_tools_submenu,
         )
 
         self.add_action(
@@ -427,10 +438,10 @@ class FieldDataCapture(FieldDataCaptureProject):
             callback=self.export_qml_styles,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=self.advanced_submenu,
+            submenu=self.dev_tools_submenu,
         )
 
-        self.advanced_submenu.addSeparator()
+        self.dev_tools_submenu.addSeparator()
 
         self.add_action(
             None,
@@ -438,7 +449,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             callback=self.add_gpkg_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=self.advanced_submenu,
+            submenu=self.dev_tools_submenu,
         )
 
         self.add_action(
@@ -447,7 +458,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             callback=self.add_gpkg_layers_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=self.advanced_submenu,
+            submenu=self.dev_tools_submenu,
         )
 
         self.add_action(
@@ -456,7 +467,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             callback=self.add_test_data_to_project,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
-            submenu=self.advanced_submenu,
+            submenu=self.dev_tools_submenu,
         )
 
         # Additionally, add action to main QGIS Help -> Plugins menu
