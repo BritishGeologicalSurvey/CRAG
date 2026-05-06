@@ -101,9 +101,9 @@ def test_validate_project_bad(fdc_project_bad: Path):
             status=ValidationStatus.FAILED,
             messages=[
                 (f"File name '{fdc_project_bad / "test_project.gpkg"}' "
-                 "does not match 'field_project.short_name': leos_test_project"),
+                 "does not match 'field_project.short_name': user_a_test_project"),
                 (f"File name '{fdc_project_bad / "test_project.qgz"}' "
-                 "does not match 'field_project.short_name': leos_test_project"),
+                 "does not match 'field_project.short_name': user_a_test_project"),
             ]
         ),
         ValidationResult(
@@ -111,7 +111,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
             status=ValidationStatus.FAILED,
             messages=[
                 "Record in 'bedrock_line' with invalid parent 'field_project' found: algal_band",
-                "Record in 'locality_point' with invalid parent 'field_project' found: leorudczenko_002",
+                "Record in 'locality_point' with invalid parent 'field_project' found: user_a_002",
             ],
         ),
         ValidationResult(

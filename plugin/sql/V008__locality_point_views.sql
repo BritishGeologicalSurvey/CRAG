@@ -238,7 +238,7 @@ CREATE VIEW IF NOT EXISTS "_view_next_locality_id" AS
         -- Get the username without the split suffix for easy querying later
         SUBSTR(locality_prefix, 0, LENGTH(locality_prefix)) AS username,
         -- Calculate the next integer id, by getting the current max for each name + 1
-        -- The replace transforms "leorud_001" into "001", by replacing "leorud_" with ""
+        -- The replace transforms "user_a_001" into "001", by replacing "user_a_" with ""
         MAX(REPLACE(locality_name, locality_prefix, "")) + 1 AS next_int_id
       FROM
         (

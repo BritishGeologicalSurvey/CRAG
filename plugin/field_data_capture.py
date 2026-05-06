@@ -813,7 +813,6 @@ class FieldDataCapture(FieldDataCaptureProject):
             for vector_layer in vector_layers
         }
         self.copy_plugin_files_to_project(plugin_src="styles", project_dest=self.styles_dir)
-        self.copy_plugin_files_to_project(plugin_src="slyr_styles/sigmaQ_2024_v2.xml", project_dest=self.styles_dir)
 
         for qml_file in self.styles_dir.glob("*"):
             if qml_file.stem in vector_layer_names:

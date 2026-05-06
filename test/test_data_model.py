@@ -268,7 +268,7 @@ def test_field_project_limit_1_trigger(test_data_gpkg: sqlite3.Connection):
         "short_name": "extra_field_project",
         "local_epsg": 27700,
         "mapped_scale": 25000,
-        "recorded_by": "leorud",
+        "recorded_by": "user_a",
         "recorded_on": "2024-03-13T10:16:12.011",
     }
 

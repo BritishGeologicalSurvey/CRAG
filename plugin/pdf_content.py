@@ -172,7 +172,6 @@ class ReportTemplate(BaseDocTemplate):
         self.title = f"Field Report: {project_table['short_name']}"
         self.subject = project_table['title']
         self.author = project_table['project_lead']
-        self.keywords = "geology; QGIS; British Geological Survey; BGS"
 
         # Create report content
         self.report.append(Paragraph('Field Report: ' + project_table['title'], self.h1))

@@ -24,7 +24,7 @@
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=locality_point"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
             <Option name="ReferencedLayerId" type="QString" value="locality_point_4bb76b3f_42c7_4fd0_a75a_9419ceaf18b6"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
@@ -50,7 +50,7 @@
             </Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value="C:\leorud_stuff\personal\qgis_testing\fdc-plugin\field-data-capture.gpkg|layername=dic_structure"></Option>
+            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
             <Option name="ReferencedLayerId" type="QString" value="dic_structure_472c35c4_4b1c_4e79_87de_97d9ce178eda"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_structure"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
@@ -93,7 +93,7 @@
             <Option name="Layer" type="QString" value="dic_structure_secondary_f29f71ac_0993_4adc_9364_86b15887801a"></Option>
             <Option name="LayerName" type="QString" value="dic_structure_secondary"></Option>
             <Option name="LayerProviderName" type="QString" value="ogr"></Option>
-            <Option name="LayerSource" type="QString" value="C:\Users\jostev\mergin\jostev-dev\field-data-capture.gpkg|layername=dic_structure_secondary"></Option>
+            <Option name="LayerSource" type="QString" value=""></Option>
             <Option name="NofColumns" type="int" value="1"></Option>
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="UseCompleter" type="bool" value="false"></Option>
@@ -114,7 +114,7 @@
             <Option name="Layer" type="QString" value="dic_structure_third_6a0cb1a0_81ae_4ff5_8d24_6d83c4d52422"></Option>
             <Option name="LayerName" type="QString" value="dic_structure_third"></Option>
             <Option name="LayerProviderName" type="QString" value="ogr"></Option>
-            <Option name="LayerSource" type="QString" value="C:\Users\jostev\mergin\jostev-dev\field-data-capture.gpkg|layername=dic_structure_third"></Option>
+            <Option name="LayerSource" type="QString" value=""></Option>
             <Option name="NofColumns" type="int" value="1"></Option>
             <Option name="OrderByValue" type="bool" value="false"></Option>
             <Option name="UseCompleter" type="bool" value="false"></Option>
