@@ -350,13 +350,34 @@ def my_form_open(dialog, layer, feature):
   </reuseLastValue>
   <dataDefinedFieldProperties></dataDefinedFieldProperties>
   <widgets></widgets>
-  <mapTip enabled="1">&lt;span style="font-weight:bolder;"&gt;[%caption%]&lt;/span&gt;&#xD;
-&lt;br /&gt;&#xD;
-&lt;a href='file:///[%@project_folder%]/photos/[%photo_file%]' target='new'&gt;&#xD;
-  &lt;img src='file:///[%@project_folder%]/photos/[%photo_file%]' width='300'&gt;&#xD;
+  <mapTip enabled="1">&lt;style&gt;&#xD;
+figure {&#xD;
+  margin-top: 5px;&#xD;
+  margin-bottom: 5px;&#xD;
+  margin-left: 10px;&#xD;
+  margin-right: 10px;&#xD;
+}&#xD;
+&#xD;
+figcaption {&#xD;
+  margin-top: 5px;&#xD;
+  margin-bottom: 5px;&#xD;
+  max-width: 300px&#xD;
+}&#xD;
+&#xD;
+img {&#xD;
+  max-width: 300px;&#xD;
+  max-height: 300px;&#xD;
+  display: block; &#xD;
+}&#xD;
+&lt;/style&gt;&#xD;
+&#xD;
+&lt;figure&gt;&#xD;
+&lt;figcaption&gt;[%photo_file%]&lt;/figcaption&gt;&#xD;
+&lt;a href='file:///[%@project_folder%]/photos/[%photo_file%]'&gt;&#xD;
+&lt;img src='file:///[%@project_folder%]/photos/[%photo_file%]' /&gt;&#xD;
 &lt;/a&gt;&#xD;
-&lt;br /&gt;&#xD;
-&lt;span style="font-weight:bolder;"&gt;[%photo_file%]&lt;/span&gt;&#xD;
+&lt;figcaption&gt;[%caption%]&lt;/figcaption&gt;&#xD;
+&lt;/figure&gt;&#xD;
 </mapTip>
   <layerGeometryType>0</layerGeometryType>
 </qgis>
