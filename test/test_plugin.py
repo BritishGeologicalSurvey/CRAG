@@ -35,7 +35,11 @@ from plugin.config import (
     LAYER_TREE_STRUCTURE_INDEXED,
 )
 from plugin.field_data_capture import FieldDataCapture
+<<<<<<< HEAD
 from plugin.report_builder import ReportBuilder
+=======
+from plugin.about_dialog import AboutDialog
+>>>>>>> 01fe312 (Add about dialog to plugin)
 from plugin.utils import ipdb_breakpoint  # noqa
 
 
@@ -578,3 +582,12 @@ def test_photo_map_tip(report_builder: ReportBuilder):
     expected = f'<img src="file:///{str(report_builder.thumbnails_dir)}/{PHOTO_FILENAME}" />'
     report_builder.create_thumbnails()
     assert expected == expression.evaluate(expression_context)
+
+
+def test_about_dialog(fdc: FieldDataCapture):
+    # Act
+    # Showing the about dialog will confirm it's layout works
+    fdc.show_about()
+
+    # Assert
+    AboutDialog.exec.assert_called_once()

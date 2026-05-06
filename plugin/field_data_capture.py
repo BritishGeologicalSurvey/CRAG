@@ -73,6 +73,7 @@ from .config import (
     TABLE_LIST,
     LAYER_TREE_STRUCTURE,
 )
+from .about_dialog import AboutDialog
 from .create_gpkg_from_sql import main as gpkg_from_sql
 from .create_gpkg_from_sql import add_test_data
 from .line_layer_selector import LineLayerSelector
@@ -406,6 +407,14 @@ class FieldDataCapture(FieldDataCaptureProject):
             submenu=self.advanced_submenu
         )
 
+        self.add_action(
+            None,
+            text=self.tr(u'About'),
+            callback=self.show_about,
+            parent=self.iface.mainWindow(),
+            submenu=self.advanced_submenu,
+        )
+
         self.advanced_submenu.addSeparator()
 
         # Setup developer tools menu
@@ -597,7 +606,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                                        "is included if synchronised via Mergin Maps.")
 
         # Copy BGS logo for default photo
-        self.copy_plugin_files_to_project(self.icons_src_dir / self.bgs_logo_filename, self.icons_dest_dir)
+        self.copy_plugin_files_to_project(self.icons_src_dir / self.bgs_placeholder_logo_filename, self.icons_dest_dir)
 
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
@@ -1317,3 +1326,11 @@ class FieldDataCapture(FieldDataCaptureProject):
     def show_help(self):
         """ Open the online help. """
         QDesktopServices.openUrl(QUrl(f"file:///{self.help_file}"))
+
+
+    def show_about(self) -> None:
+        """
+        Open the About dialog.
+        """
+        about_dialog = AboutDialog()
+        about_dialog.exec()
