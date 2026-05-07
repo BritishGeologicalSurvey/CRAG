@@ -61,7 +61,7 @@ class FieldDataCaptureProject:
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
     placeholder_filename = "_placeholder.txt"
-    bgs_logo_filename = "BGS-Logo-Pos-RGB-01.png"
+    bgs_logo_filename = "BGS-Logo-Pos-RGB.svg"
     bgs_placeholder_logo_filename = "BGS-placeholder.png"
     layers_to_file_attributes = {
         "media": "media_link",
