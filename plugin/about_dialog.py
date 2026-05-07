@@ -1,6 +1,5 @@
 from qgis.PyQt.QtCore import (
     Qt,
-    QSize,
 )
 from qgis.PyQt.QtGui import QPixmap
 from qgis.PyQt.QtWidgets import (
@@ -40,15 +39,12 @@ class AboutDialog(QDialog, FieldDataCaptureProject):
         self.setLayout(dialog_layout)
 
         # Add BGS logo centered
-        # Define sizing
-        logo_qsize = QSize(300, 130)
-
         # Create label to store image pixmap
         image_label = QLabel()
         image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         # Create and apply pixmap
         pixmap = QPixmap(str(self.bgs_logo_file))
-        image_label.setPixmap(pixmap.scaled(logo_qsize, aspectRatioMode=Qt.AspectRatioMode.KeepAspectRatio))
+        image_label.setPixmap(pixmap)
 
         dialog_layout.addStretch(1)
         dialog_layout.addWidget(image_label)
