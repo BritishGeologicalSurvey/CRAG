@@ -1,22 +1,30 @@
 """
 These are tests for the plugin which depend on a running QGIS version which is supplied by the 'fdc' fixture.
 """
+import re
 from pathlib import Path
 from typing import Optional
 from unittest.mock import Mock
 from xml.dom import minidom
 
+
 import pytest
+from bs4 import BeautifulSoup
 import etlhelper as etl
 from qgis.core import (
     QgsAttributeEditorContainer,
+    QgsExpression,
     QgsExpressionContext,
     QgsExpressionContextUtils,
+    QgsFeature,
+    QgsField,
+    QgsFields,
     QgsGeometry,
     QgsLayerTreeGroup,
     QgsProject,
     QgsVectorLayerUtils,
 )
+from qgis.PyQt.QtCore import QMetaType
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from conftest import setup_db_conn
@@ -27,6 +35,7 @@ from plugin.config import (
     LAYER_TREE_STRUCTURE_INDEXED,
 )
 from plugin.field_data_capture import FieldDataCapture
+from plugin.report_builder import ReportBuilder
 from plugin.utils import ipdb_breakpoint  # noqa
 
 
@@ -528,3 +537,44 @@ def test_default_attachment_bgs_placeholder(fdc_project: FieldDataCapture, layer
         assert feature.attribute(attachment_col) is None
         if layer_name == 'media':
             assert feature.attribute('media_type_code') is None
+
+
+def test_photo_map_tip(report_builder: ReportBuilder):
+    # Extract expression from map tip text
+    qml_file = report_builder.styles_dir / 'view_photo.qml'
+    soup = BeautifulSoup(qml_file.read_text(encoding="utf-8"), 'lxml')
+    map_tips = soup.find_all('maptip')
+    # There should be one map tip
+    assert len(map_tips) == 1
+    full_expression_text = map_tips[0].text
+    pattern = r"\[%if\([\s\S]*?\)%\]"
+    match = re.search(pattern, full_expression_text)
+    # There should be an expression in the map tip
+    assert match
+    # Remove new lines and strip expression delimiters off each end
+    expression_text = match.group(0).replace('\r\n', '').lstrip('[%').rstrip('%]')
+
+    # Set up a scope and context with the fields and variables needed
+    PHOTO_FILENAME = 'test_point_001.jpeg'
+    global_scope = QgsExpressionContextUtils.globalScope()
+    expression_context = QgsExpressionContext([global_scope])
+    # Add and set the photo_file field to the context
+    fields = QgsFields()
+    field = QgsField('photo_file', QMetaType.Type.QString)
+    fields.append(field)
+    feature = QgsFeature()
+    feature.setFields(fields)
+    feature.setAttribute('photo_file', PHOTO_FILENAME)
+    expression_context.setFeature(feature)
+    # Add and set the project_folder variable to the scope
+    global_scope.setVariable("project_folder", str(report_builder.project_dir))
+    expression = QgsExpression(expression_text)
+
+    # No thumbnails present
+    expected = f'<img src="file:///{str(report_builder.photos_dir)}/{PHOTO_FILENAME}" />'
+    assert expected == expression.evaluate(expression_context)
+
+    # Thumbnails present
+    expected = f'<img src="file:///{str(report_builder.thumbnails_dir)}/{PHOTO_FILENAME}" />'
+    report_builder.create_thumbnails()
+    assert expected == expression.evaluate(expression_context)

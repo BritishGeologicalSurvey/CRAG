@@ -1,4 +1,4 @@
-FROM continuumio/miniconda3:25.3.1-1@sha256:4a2425c3ca891633e5a27280120f3fb6d5960a0f509b7594632cdd5bb8cbaea8
+FROM continuumio/miniconda3:25.11.1-1@sha256:0be0ff1d9cedadcfe67e05ae2097e02e31d267fe1cb766e81a77eead67e8e4c5
 
 # Install operating system dependencies
 RUN apt-get update -y \
@@ -33,5 +33,7 @@ ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 #COPY environment_unversioned.yml /environment_unversioned.yml
 #RUN conda env create -f /environment_unversioned.yml
 
+ENV PIP_INDEX_URL=https://nexus-internal.bgs.ac.uk/repository/pypi-all/simple
+ENV CONDA_OVERRIDE_ARCHSPEC=x86_64_v4
 COPY environment_docker.yml /environment_docker.yml
 RUN conda env create -f /environment_docker.yml

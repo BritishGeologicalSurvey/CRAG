@@ -353,7 +353,7 @@ class ReportBuilder(FieldDataCaptureProject):
                 tn_path.unlink()
 
 
-    def split_lines(self, input_str: Optional[str]) -> Optional[str]:
+    def split_lines(self, input_str: Optional[str]) -> Optional[list[str]]:
         if not isinstance(input_str, str):
             return input_str
 
