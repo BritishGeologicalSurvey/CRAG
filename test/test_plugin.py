@@ -35,11 +35,8 @@ from plugin.config import (
     LAYER_TREE_STRUCTURE_INDEXED,
 )
 from plugin.field_data_capture import FieldDataCapture
-<<<<<<< HEAD
 from plugin.report_builder import ReportBuilder
-=======
 from plugin.about_dialog import AboutDialog
->>>>>>> 01fe312 (Add about dialog to plugin)
 from plugin.utils import ipdb_breakpoint  # noqa
 
 
