@@ -546,18 +546,18 @@ def test_photo_map_tip(report_builder: ReportBuilder):
     map_tips = soup.find_all('maptip')
     # There should be one map tip
     assert len(map_tips) == 1
-    full_expression = map_tips[0].text
+    full_expression_text = map_tips[0].text
     pattern = r"\[%if\([\s\S]*?\)%\]"
-    match = re.search(pattern, full_expression)
+    match = re.search(pattern, full_expression_text)
     # There should be an expression in the map tip
     assert match
     # Remove new lines and strip expression delimiters off each end
-    expression = match.group(0).replace('\r\n', '').lstrip('[%').rstrip('%]')
+    expression_text = match.group(0).replace('\r\n', '').lstrip('[%').rstrip('%]')
 
     # Set up a scope and context with the fields and variables needed
     PHOTO_FILENAME = 'test_point_001.jpeg'
     global_scope = QgsExpressionContextUtils.globalScope()
-    context = QgsExpressionContext([global_scope])
+    expression_context = QgsExpressionContext([global_scope])
     # Add and set the photo_file field to the context
     fields = QgsFields()
     field = QgsField('photo_file', QMetaType.Type.QString)
@@ -565,16 +565,16 @@ def test_photo_map_tip(report_builder: ReportBuilder):
     feature = QgsFeature()
     feature.setFields(fields)
     feature.setAttribute('photo_file', PHOTO_FILENAME)
-    context.setFeature(feature)
+    expression_context.setFeature(feature)
     # Add and set the project_folder variable to the scope
     global_scope.setVariable("project_folder", str(report_builder.project_dir))
-    exp = QgsExpression(expression)
+    expression = QgsExpression(expression_text)
 
     # No thumbnails present
     expected = f'<img src="file:///{str(report_builder.photos_dir)}/{PHOTO_FILENAME}" />'
-    assert expected == exp.evaluate(context)
+    assert expected == expression.evaluate(expression_context)
 
     # Thumbnails present
     expected = f'<img src="file:///{str(report_builder.thumbnails_dir)}/{PHOTO_FILENAME}" />'
     report_builder.create_thumbnails()
-    assert expected == exp.evaluate(context)
+    assert expected == expression.evaluate(expression_context)
