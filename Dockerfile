@@ -25,15 +25,15 @@ RUN conda config --set solver libmamba
 COPY certs/*.crt /usr/local/share/ca-certificates
 RUN update-ca-certificates
 ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+ENV PIP_INDEX_URL=https://nexus-internal.bgs.ac.uk/repository/pypi-all/simple
+ENV CONDA_OVERRIDE_ARCHSPEC=x86_64_v4
 
 # This section is used to generate an environment.yml that is
 # suitable for use in the container.  One from the WSL or Windows
 # environment is not compatible.  Once created, start the container
 # to extract the environment settings.
-#COPY environment_unversioned.yml /environment_unversioned.yml
-#RUN conda env create -f /environment_unversioned.yml
+# COPY environment_unversioned.yml /environment_unversioned.yml
+# RUN conda env create -f /environment_unversioned.yml
 
-ENV PIP_INDEX_URL=https://nexus-internal.bgs.ac.uk/repository/pypi-all/simple
-ENV CONDA_OVERRIDE_ARCHSPEC=x86_64_v4
 COPY environment_docker.yml /environment_docker.yml
 RUN conda env create -f /environment_docker.yml
