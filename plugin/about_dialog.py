@@ -1,12 +1,17 @@
 from qgis.PyQt.QtCore import (
     Qt,
 )
-from qgis.PyQt.QtGui import QPixmap
 from qgis.PyQt.QtWidgets import (
     QDialog,
     QLabel,
     QVBoxLayout,
 )
+# Import QSvgWidget changed in PyQt6 and QGIS does not provide backwards import compatibility for it yet
+try:
+    from PyQt6.QtSvgWidgets import QSvgWidget
+except ImportError:
+    from PyQt5.QtSvg import QSvgWidget
+
 
 from .utils import (  # noqa
     FieldDataCaptureProject,
@@ -22,7 +27,9 @@ class AboutDialog(QDialog, FieldDataCaptureProject):
         super().__init__()
 
         self.setWindowTitle("About Field Data Capture - QGIS Plugin")
-        self.setMinimumSize(350, 300)
+        # Resize the window to minimum to ensure the SVG logo isn't too big
+        self.setMinimumSize(350, 270)
+        self.resize(self.minimumSize())
         self.setWindowFlags(
             Qt.WindowType.Window | Qt.WindowType.WindowCloseButtonHint
         )
@@ -33,21 +40,15 @@ class AboutDialog(QDialog, FieldDataCaptureProject):
         """
         Create the elements of the About dialog.
         """
-
         # Create dialog layout
         dialog_layout = QVBoxLayout()
         self.setLayout(dialog_layout)
 
-        # Add BGS logo centered
-        # Create label to store image pixmap
-        image_label = QLabel()
-        image_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        # Create and apply pixmap
-        pixmap = QPixmap(str(self.bgs_logo_file))
-        image_label.setPixmap(pixmap)
+        # Add BGS SVG logo
+        image_widget = QSvgWidget(str(self.bgs_logo_file))
 
         dialog_layout.addStretch(1)
-        dialog_layout.addWidget(image_label)
+        dialog_layout.addWidget(image_widget)
         dialog_layout.addStretch(2)
 
         # Add text box within a frame
