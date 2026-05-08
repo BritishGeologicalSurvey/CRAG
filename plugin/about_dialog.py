@@ -1,6 +1,4 @@
-from qgis.PyQt.QtCore import (
-    Qt,
-)
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtWidgets import (
     QDialog,
     QLabel,
@@ -46,6 +44,7 @@ class AboutDialog(QDialog, FieldDataCaptureProject):
 
         # Add BGS SVG logo
         image_widget = QSvgWidget(str(self.bgs_logo_file))
+        image_widget.renderer().setAspectRatioMode(Qt.AspectRatioMode.KeepAspectRatio)
 
         dialog_layout.addStretch(1)
         dialog_layout.addWidget(image_widget)
