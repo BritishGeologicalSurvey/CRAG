@@ -127,8 +127,28 @@ There is an additional issue with building dependencies for the Docker container
 as libraries that we use in WSL may not have the same versions in the container OS.
 For this reason, to update `environment_docker.yml` we have to build the unversioned
 environment within the container and then get a shell within it to run the
-export command.
+export command. The following commands build, run and shell into a container.
 
+```
+docker build --target create-environment -t fdc .
+docker run --name fdc_env --rm -it -d fdc
+docker exec -it fdc_env /bin/bash
+```
+
+From within the container, acxtivate the environment, export the environment and then exit.
+
+```
+# conda activate fdc
+# conda env export > environment_docker.yml
+# exit
+```
+
+Copy out the updated environment file and stop it, it will be removed automatically.
+
+```
+docker cp fdc_env:environment_docker.yml .
+docker stop fdc_env
+```
 
 ### Bin Scripts
 

@@ -7,7 +7,7 @@ channels:
 dependencies:
   # Correspond to current long-term support versions in Windows
   - python=3.12
-  - qgis=3.40.11
+  - qgis=3.44.9
 
   - beautifulsoup4
   - eralchemy
@@ -29,4 +29,4 @@ dependencies:
   - pip:
       - etlhelper
       - mergin-client
-      - pb_tool
+      - pb_tool==3.1.0
