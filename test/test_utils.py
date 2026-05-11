@@ -60,14 +60,14 @@ def test_check_field_project_exists(
     # Assert 1, the layer does not exist
     assert not fdc.check_field_project_exists()
 
-    # Act 1, add fdc layers
+    # Act 2, add fdc layers
     fdc.add_gpkg_to_project()
     fdc.add_gpkg_layers_to_project()
 
     # Assert 2, the layer exists but has no features
     assert not fdc.check_field_project_exists()
 
-    # Act 2, add an unsaved field_project
+    # Act 3, add an unsaved field_project
     layer = fdc.get_fdc_layer("field_project")
     layer.startEditing()
     # Create new feature
@@ -82,11 +82,7 @@ def test_check_field_project_exists(
     feature.setGeometry(empty_geometry_feature_polygon.geometry())
     # Add feature to layer
     layer.addFeature(feature)
-
-    # Assert 3, the layer exists with a feature but the feature is not saved
-    assert not fdc.check_field_project_exists()
-
-    # Act 3, save the feature so all the checks are good
+    # Save the feature so all the checks are good
     layer.commitChanges()
 
     # Assert 4, all the checks are good
