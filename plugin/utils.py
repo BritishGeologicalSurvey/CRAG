@@ -24,6 +24,7 @@ from qgis.PyQt.QtCore import (
 )
 from qgis.PyQt.QtGui import (
     QDesktopServices,
+    QFont,
     QPixmap,
 )
 from qgis.PyQt.QtWidgets import (
@@ -60,7 +61,8 @@ class FieldDataCaptureProject:
     # This is the internal project_dir attribute
     _project_dir: Optional[Path] = None
     placeholder_filename = "_placeholder.txt"
-    bgs_logo_filename = "BGS-placeholder.png"
+    bgs_logo_filename = "BGS-Logo-Pos-RGB.svg"
+    bgs_placeholder_logo_filename = "BGS-placeholder.png"
     layers_to_file_attributes = {
         "media": "media_link",
         "photo": "photo_file",
@@ -256,7 +258,15 @@ class FieldDataCaptureProject:
         """
         The default string used to populate attachment filepaths in the forms.
         """
-        return f"../{SYSTEM_DIR_NAME}/icons/{self.bgs_logo_filename}"
+        return f"../{SYSTEM_DIR_NAME}/icons/{self.bgs_placeholder_logo_filename}"
+
+
+    @property
+    def bgs_logo_file(self) -> Path:
+        """
+        Path to the BGS logo file.
+        """
+        return self.icons_src_dir / self.bgs_logo_filename
 
 
     def copy_plugin_files_to_project(self, plugin_src: Path | str, project_dest: Path | str) -> None:
@@ -499,11 +509,33 @@ class FieldDataCaptureProject:
             if all((
                 attachment.is_file(),
                 attachment.relative_to(attachment_dir) not in recorded_attachments,
-                attachment.name not in {self.placeholder_filename, self.bgs_logo_filename},
+                attachment.name not in {self.placeholder_filename, self.bgs_placeholder_logo_filename},
             ))
         ]
 
         return unrecorded_attachments
+
+
+    def create_bordered_frame(self) -> QFrame:
+        """
+        Create a QFrame with a styled border.
+        """
+        frame = QFrame()
+        frame.setObjectName("MainFrame")
+        frame.setFrameShape(QFrame.Shape.Panel)
+        frame.setStyleSheet("#MainFrame { border: 1px solid silver; }")
+        return frame
+
+
+    def create_bold_label(self, text: str) -> QLabel:
+        """
+        Create a label with the given text in bold font.
+        """
+        font = QFont()
+        font.setBold(True)
+        label = QLabel(text)
+        label.setFont(font)
+        return label
 
 
 class MultilineMessageBox(QDialog):
