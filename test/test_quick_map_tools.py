@@ -1,3 +1,6 @@
+# Copyright 2026 British Geological Survey
+# Licensed under GPLv3 licence
+# SPDX-License-Identifier: GPL-3.0-or-later
 """
 These are tests for the QuickMapTools of the plugin
 which depend on a running QGIS version which is supplied by the 'fdc_project' fixture.

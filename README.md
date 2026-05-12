@@ -1,3 +1,8 @@
+<!--
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 # model-and-forms plugin
 
 > This repository contains code for a QGIS plugin to add the field data capture layers to a QGIS project and additional tools for using QGIS in the field.

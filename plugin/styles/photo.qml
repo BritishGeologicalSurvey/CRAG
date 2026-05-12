@@ -1,3 +1,8 @@
+<!--
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 <qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.40.7-Bratislava">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">

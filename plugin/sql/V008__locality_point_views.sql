@@ -1,3 +1,8 @@
+/*
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
 -- Views that allow children of locality point to be plotted on the map.
 -- Note that the ST_ spatial functions require the Spatialite extension to be loaded.
 BEGIN TRANSACTION;

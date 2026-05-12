@@ -1,3 +1,8 @@
+/*
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
 PRAGMA foreign_keys = ON;  --this is required to ensure foreign keys are enforced, so they are covered in the tests
 BEGIN TRANSACTION;
 SELECT load_extension("mod_spatialite");
