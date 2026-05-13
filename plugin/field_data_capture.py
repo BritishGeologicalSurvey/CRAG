@@ -29,6 +29,7 @@ import os.path
 import pprint
 import sqlite3
 from collections import defaultdict
+from pathlib import Path
 from typing import (
     Any,
     Callable,
@@ -1020,6 +1021,9 @@ class FieldDataCapture(FieldDataCaptureProject):
             if self.check_layer_exists(table_name) and layer_style_path.exists():
                 exported_styles += 1
 
+                # Get the copyright comment from the top of the current file
+                copyright_comment = self.get_qml_copyright_comment(layer_style_path)
+
                 # Save the style of the current layer
                 layer = self.get_fdc_layer(table_name)
                 layer.saveNamedStyle(
@@ -1027,18 +1031,44 @@ class FieldDataCapture(FieldDataCaptureProject):
                     categories=QgsMapLayer.StyleCategory.Symbology | QgsMapLayer.StyleCategory.Labeling | QgsMapLayer.StyleCategory.Fields | QgsMapLayer.StyleCategory.Forms | QgsMapLayer.StyleCategory.MapTips,  # noqa
                 )
 
-                # Read the newly created XML file
                 raw_xml = layer_style_path.read_text()
-                # Canonicalize the XML data and save back to the same file
                 # Set the newline manually to force LF line endings
+                # Canonicalize the XML data and save back to the same file
                 with open(layer_style_path, "w", newline="\n") as qml_file:
                     canonicalize(xml_data=raw_xml, out=qml_file)
+                # Read the sorted XML file and add the copyright comment to the start
+                if copyright_comment is not None:
+                    layer_style_path.write_text(copyright_comment + layer_style_path.read_text(), newline="\n")
 
         QMessageBox.information(
             None, "Information",
             f"{exported_styles} Field Data Capture styles have been exported to:\n\n{self.styles_dir}",
         )
         return True
+
+
+    def get_qml_copyright_comment(self, style_file: Path) -> Optional[str]:
+        """
+        Get the copyright comment from the top of the given QML style file.
+        The comment must be at the start of the file and include required words
+        which indicate it is a copyright statement.
+        """
+        style_text = style_file.read_text()
+        qml_comment_start = "<!--"
+        qml_comment_end = "-->"
+        # If the file does not start with a comment, there is nothing to get
+        if not style_text.startswith(qml_comment_start):
+            return
+
+        # Extract the comment string
+        end_idx = style_text.index(qml_comment_end)
+        comment_text = style_text[:end_idx + len(qml_comment_end)] + "\n"
+        # Check it contains the required words which indicate it is a copyright statement
+        required_words = ["copyright", "licensed"]
+        comment_text_lower = comment_text.lower()
+        required_words_included = all([word in comment_text_lower for word in required_words])
+        if required_words_included:
+            return comment_text
 
 
     def select_quick_line_layer_add(self) -> bool:

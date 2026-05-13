@@ -282,9 +282,29 @@ def test_export_qml_styles(
     fdc.add_gpkg_layers_to_project()
     # Get a dictionary of filepaths as keys and modified timestamps as values
     existing_qml_files = {
-        str(qml_filepath): qml_filepath.stat().st_mtime
+        qml_filepath: qml_filepath.stat().st_mtime
         for qml_filepath in fdc.styles_dir.glob("*.qml")
     }
+    # Get a dictionary of filepaths to expected copyright comments
+    default_copyright = (
+        "<!--\nCopyright 2026 British Geological Survey\n"
+        "Licensed under GPLv3 licence\nSPDX-License-Identifier: GPL-3.0-or-later\n-->\n"
+    )
+    expected_copyright_comments = dict.fromkeys(fdc.styles_dir.glob("*.qml"), default_copyright)
+    # Manually change some copyright comments to test edge cases
+    # Valid comment different to default
+    expected_copyright_comments[fdc.styles_dir / "lithology.qml"] = default_copyright.replace("Geological", "Duck")
+    # Valid 1 line comment
+    expected_copyright_comments[fdc.styles_dir / "locality_point.qml"] = "<!--Copyright Quack Licensed Honk-->"
+    # Not a valid copyright comment
+    expected_copyright_comments[fdc.styles_dir / "sample.qml"] = "<!--Not a licence\nIllegal Goose\n-->\n"
+    # No comment
+    expected_copyright_comments[fdc.styles_dir / "terrain_line.qml"] = ""
+    invalid_comment_style_names = {"sample", "terrain_line"}
+    # Write the new comments to the style files
+    for qml_filepath, copyright_comment in expected_copyright_comments.items():
+        if copyright_comment != default_copyright:
+            qml_filepath.write_text(qml_filepath.read_text().replace(default_copyright, copyright_comment))
 
     # Act
     function_return = fdc.export_qml_styles()
@@ -295,13 +315,20 @@ def test_export_qml_styles(
 
         # Ensure the previously existing timestamp is smaller than the current file timestamp
         # this essentially means that the file has been changed
-        assert existing_qml_files[str(qml_filepath)] < qml_filepath.stat().st_mtime
+        assert existing_qml_files[qml_filepath] < qml_filepath.stat().st_mtime
 
         # Ensure that the correct categories have been exported in the XML data
         xml_data = minidom.parse(str(qml_filepath))
         categories_str = xml_data.getElementsByTagName("qgis")[0].attributes["styleCategories"].value
         categories_set = set(categories_str.split("|"))
         assert categories_set == expected_categories
+
+        # Ensure that the style file contains the correct copyright comment at the top
+        expected_file_start = expected_copyright_comments[qml_filepath]
+        # If the comment is invalid or missing, then the file should start with the first QGIS XML tag
+        if qml_filepath.stem in invalid_comment_style_names:
+            expected_file_start = "<qgis"
+        assert qml_filepath.read_text().startswith(expected_file_start)
 
 
 def test_export_qml_styles_no_layers(
