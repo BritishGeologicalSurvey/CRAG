@@ -212,7 +212,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         assert list(directory.glob("*.*"))[0].name == fdc.placeholder_filename
 
 
-def test_open_create_field_project_already_exists(fdc_project: FieldDataCapture):
+def test_open_create_field_project_already_exists(fdc_project_quick: FieldDataCapture):
     # Arrange
     expected_args = [
         None,
@@ -221,7 +221,7 @@ def test_open_create_field_project_already_exists(fdc_project: FieldDataCapture)
     ]
 
     # Act
-    fdc_project.open_create_field_project()
+    fdc_project_quick.open_create_field_project()
 
     # Assert
     QMessageBox.warning.assert_called_with(*expected_args)
@@ -417,7 +417,7 @@ def test_auto_increment_locality_point_name(
     ),
 )
 def test_warn_unsaved_locality_data(
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
     child_layer_name: str,
     monkeypatch: pytest.MonkeyPatch,
 ):
@@ -431,13 +431,13 @@ def test_warn_unsaved_locality_data(
     unsaved_layers = ["locality_point", child_layer_name]
 
     # Manually make an edit to the locality_point layer and do not save it
-    locality_point_layer = fdc_project.get_fdc_layer("locality_point")
+    locality_point_layer = fdc_project_quick.get_fdc_layer("locality_point")
     locality_point_layer.startEditing()
     point_edit_field_index = [field.name() for field in locality_point_layer.fields()].index(point_edit_field)
     locality_point_layer.changeAttributeValue(fid=point_fid, field=point_edit_field_index, newValue=point_new_value)
 
     # Manually make an edit to the given child layer and do not save it
-    child_layer = fdc_project.get_fdc_layer(child_layer_name)
+    child_layer = fdc_project_quick.get_fdc_layer(child_layer_name)
     child_layer.startEditing()
     child_edit_field_index = [field.name() for field in child_layer.fields()].index(child_edit_field)
     child_layer.changeAttributeValue(fid=child_fid, field=child_edit_field_index, newValue=child_new_value)
@@ -447,7 +447,7 @@ def test_warn_unsaved_locality_data(
     monkeypatch.setattr(QMessageBox, "setText", mock_message_box_set_text)
 
     # Act
-    unsaved_edits = fdc_project.warn_unsaved_locality_data()
+    unsaved_edits = fdc_project_quick.warn_unsaved_locality_data()
 
     # Assert
     assert unsaved_edits

@@ -67,14 +67,14 @@ def fdc_project_bad(tmp_path: Path) -> Path:
     return project_dir
 
 
-def test_validate_project_good(fdc_project: FieldDataCapture):
+def test_validate_project_good(fdc_project_quick: FieldDataCapture):
     # Arrange
     # Delete unlinked file in test project to get passing validation
-    unlinked_file = fdc_project.unlinked_files_dir / "test_unlinked_photo.jpeg"
+    unlinked_file = fdc_project_quick.unlinked_files_dir / "test_unlinked_photo.jpeg"
     unlinked_file.unlink()
 
     # Act
-    results = validate_project(project_dir=fdc_project.project_dir)
+    results = validate_project(project_dir=fdc_project_quick.project_dir)
 
     # Assert
     for result in results:
@@ -82,9 +82,9 @@ def test_validate_project_good(fdc_project: FieldDataCapture):
         assert result.messages == []
 
 
-def test_validate_project_warn(fdc_project: FieldDataCapture):
+def test_validate_project_warn(fdc_project_quick: FieldDataCapture):
     # Act
-    results = validate_project(project_dir=fdc_project.project_dir)
+    results = validate_project(project_dir=fdc_project_quick.project_dir)
 
     # Assert
     for result in results:
@@ -202,29 +202,29 @@ def test_validate_project_bad(fdc_project_bad: Path):
     assert expected_results == results
 
 
-def test_validation_dialog_pass(fdc_project: FieldDataCapture):
+def test_validation_dialog_pass(fdc_project_quick: FieldDataCapture):
     # Arrange
     # Delete unlinked file in test project to get passing validation
-    unlinked_file = fdc_project.unlinked_files_dir / "test_unlinked_photo.jpeg"
+    unlinked_file = fdc_project_quick.unlinked_files_dir / "test_unlinked_photo.jpeg"
     unlinked_file.unlink()
     expected_title = "Project Validation"
     expected_message = "Validation for project 'test_project_dir': PASSED"
     expected_text = None
 
     # Act
-    fdc_project.run_project_validation()
+    fdc_project_quick.run_project_validation()
 
     # Assert
     MultilineMessageBox.information.assert_called_once_with(expected_title, expected_message, expected_text)
 
 
-def test_validation_dialog_fail(fdc_project: FieldDataCapture):
+def test_validation_dialog_fail(fdc_project_quick: FieldDataCapture):
     # Arrange
     # Add unlinked photo to the project
-    dummy_photo = fdc_project.photos_dir / "not_a_photo.png"
+    dummy_photo = fdc_project_quick.photos_dir / "not_a_photo.png"
     dummy_photo.touch()
     # Add a dummy conflict GeoPackage to the project
-    dummy_conflict_gpkg = fdc_project.project_dir / "test_project (conflicted copy).gpkg"
+    dummy_conflict_gpkg = fdc_project_quick.project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
     expected_title = "Project Validation"
@@ -237,16 +237,16 @@ def test_validation_dialog_fail(fdc_project: FieldDataCapture):
     ])
 
     # Act
-    fdc_project.run_project_validation()
+    fdc_project_quick.run_project_validation()
 
     # Assert
     MultilineMessageBox.critical.assert_called_once_with(expected_title, expected_message, expected_text)
 
 
-def test_validation_dialog_warning(fdc_project: FieldDataCapture):
+def test_validation_dialog_warning(fdc_project_quick: FieldDataCapture):
     # Arrange
     # Add a dummy conflict GeoPackage to the project
-    dummy_conflict_gpkg = fdc_project.project_dir / "test_project (conflicted copy).gpkg"
+    dummy_conflict_gpkg = fdc_project_quick.project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
     expected_title = "Project Validation"
@@ -258,7 +258,7 @@ def test_validation_dialog_warning(fdc_project: FieldDataCapture):
     ])
 
     # Act
-    fdc_project.run_project_validation()
+    fdc_project_quick.run_project_validation()
 
     # Assert
     MultilineMessageBox.warning.assert_called_once_with(expected_title, expected_message, expected_text)

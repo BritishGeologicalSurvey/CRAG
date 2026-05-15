@@ -165,27 +165,27 @@ def unlinked_test_files(fdc: FieldDataCapture) -> UnlinkedTestFiles:
 
 
 def test_open_file_linker_good(
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Act
-    result = fdc_project.open_file_linker()
+    result = fdc_project_quick.open_file_linker()
 
     # Assert
     assert result
-    assert isinstance(fdc_project.file_linker, FileLinker)
-    assert fdc_project.photos_dir == fdc_project.file_linker.photos_dir
-    assert not fdc_project.file_linker.linker_widget.isHidden()
-    assert fdc_project.file_linker.message_widget.isHidden()
+    assert isinstance(fdc_project_quick.file_linker, FileLinker)
+    assert fdc_project_quick.photos_dir == fdc_project_quick.file_linker.photos_dir
+    assert not fdc_project_quick.file_linker.linker_widget.isHidden()
+    assert fdc_project_quick.file_linker.message_widget.isHidden()
 
 
-def test_open_file_linker_bad(fdc_project: FieldDataCapture):
+def test_open_file_linker_bad(fdc_project_quick: FieldDataCapture):
     # Act
-    fdc_project.open_file_linker()
+    fdc_project_quick.open_file_linker()
 
     # Assert
-    assert fdc_project.file_linker.linker_widget.isHidden()
-    assert not fdc_project.file_linker.message_widget.isHidden()
+    assert fdc_project_quick.file_linker.linker_widget.isHidden()
+    assert not fdc_project_quick.file_linker.message_widget.isHidden()
 
 
 def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture):
@@ -216,54 +216,54 @@ def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture):
 
 
 def test_close_file_linker(
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
-    fdc_project.open_file_linker()
+    fdc_project_quick.open_file_linker()
 
     # Act
-    fdc_project.file_linker.cancel_button.click()
+    fdc_project_quick.file_linker.cancel_button.click()
 
     # Assert
-    assert fdc_project.file_linker is None
+    assert fdc_project_quick.file_linker is None
 
 
 def test_get_unlinked_files(
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
-    fdc_project.open_file_linker()
+    fdc_project_quick.open_file_linker()
 
     # Act
     for layer_name, expected_files_dict in unlinked_test_files.items():
-        actual_unlinked_files = fdc_project.file_linker.get_unlinked_files(layer_name)
+        actual_unlinked_files = fdc_project_quick.file_linker.get_unlinked_files(layer_name)
 
         # Assert
         assert set(expected_files_dict) == set(actual_unlinked_files)
 
 
 def test_select_files(
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
     # Add a new photo feature with a NULL photo_file attribute to ensure it is not picked up or breaks the linker
-    photo_layer = fdc_project.get_fdc_layer("photo")
+    photo_layer = fdc_project_quick.get_fdc_layer("photo")
     photo_layer.startEditing()
     photo_feature = QgsVectorLayerUtils.createFeature(photo_layer)
     photo_layer.addFeature(photo_feature)
     photo_layer.commitChanges()
 
     # Act
-    fdc_project.open_file_linker()
+    fdc_project_quick.open_file_linker()
 
     # Assert
     # Check that each photo row contains the correct widgets with the correct settings
     for layer_name, expected_files_to_widgets in unlinked_test_files.items():
         for filepath, expected_widgets_dict in expected_files_to_widgets.items():
-            actual_widgets_dict = fdc_project.file_linker.layers_to_files_to_widgets[layer_name][filepath]
+            actual_widgets_dict = fdc_project_quick.file_linker.layers_to_files_to_widgets[layer_name][filepath]
 
             assert_widgets_dict_types(actual_widgets_dict, layer_name)
 
@@ -278,12 +278,12 @@ def test_select_files(
 
             # Check filepath tooltip
             filepath_label = actual_widgets_dict["QLabel_filepath"]
-            assert filepath_label.toolTip() == str(filepath.relative_to(fdc_project.project_dir))
+            assert filepath_label.toolTip() == str(filepath.relative_to(fdc_project_quick.project_dir))
 
             # Check photo display size
             image_widget = actual_widgets_dict["QLabel_image_widget"]
-            assert image_widget.pixmap().width() <= fdc_project.file_linker.thumbnail_size
-            assert image_widget.pixmap().height() <= fdc_project.file_linker.thumbnail_size
+            assert image_widget.pixmap().width() <= fdc_project_quick.file_linker.thumbnail_size
+            assert image_widget.pixmap().height() <= fdc_project_quick.file_linker.thumbnail_size
 
 
 def assert_widgets_dict_types(widgets_dict: dict[str, Any], layer_name: str) -> None:
@@ -312,7 +312,7 @@ def assert_widgets_dict_types(widgets_dict: dict[str, Any], layer_name: str) -> 
 def test_create_comboboxes(
     create_combobox_method: str,
     expected_items: dict[str, Any],
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
 ):
     # Act 1
     file_linker = FileLinker()
@@ -336,7 +336,7 @@ def test_create_comboboxes(
 
 
 def test_validate_selection_media(
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange 1
@@ -356,12 +356,12 @@ def test_validate_selection_media(
             },
         }
     }
-    fdc_project.open_file_linker()
+    fdc_project_quick.open_file_linker()
 
     # Act 1
     # Pick invalid media type
-    modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
-    result_1 = fdc_project.file_linker.validate_selection()
+    modify_file_linker_inputs(fdc_project_quick.file_linker, layers_to_files_to_options)
+    result_1 = fdc_project_quick.file_linker.validate_selection()
 
     # Assert 1
     assert not result_1
@@ -384,15 +384,15 @@ def test_validate_selection_media(
             file_options["QComboBox_media_type"] = "other"
             file_options["QTextEdit_description"] = file_options["QTextEdit_description"][:4000]
 
-    modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
-    result_2 = fdc_project.file_linker.validate_selection()
+    modify_file_linker_inputs(fdc_project_quick.file_linker, layers_to_files_to_options)
+    result_2 = fdc_project_quick.file_linker.validate_selection()
 
     # Assert 2
     assert result_2
 
 
 def test_validate_selection_text_length(
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
@@ -421,9 +421,9 @@ def test_validate_selection_text_length(
     }
 
     # Act
-    fdc_project.open_file_linker()
-    modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
-    validation_result = fdc_project.file_linker.validate_selection()
+    fdc_project_quick.open_file_linker()
+    modify_file_linker_inputs(fdc_project_quick.file_linker, layers_to_files_to_options)
+    validation_result = fdc_project_quick.file_linker.validate_selection()
 
     # Assert
     assert validation_result is False
