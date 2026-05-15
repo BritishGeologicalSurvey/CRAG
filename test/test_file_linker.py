@@ -99,7 +99,7 @@ def modify_file_linker_inputs(
 
 
 @pytest.fixture()
-def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
+def unlinked_test_files(fdc: FieldDataCapture) -> UnlinkedTestFiles:
     """
     Add some unlinked files to project folder for testing.
     Returns a dictionary of layer names as keys, where the values are another dictionary
@@ -108,7 +108,7 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
     Also adds some dummy files to the unlinked sub-directories.
     """
     # Make some sub-directories
-    for layer_dir in fdc_project.layers_to_dirs.values():
+    for layer_dir in fdc.layers_to_dirs.values():
         sub_dir_a = Path("sub_dir_A")
         sub_dir_b = sub_dir_a / "sub_dir_B"
         sub_dir_a_full = layer_dir / "sub_dir_A"
@@ -117,24 +117,24 @@ def unlinked_test_files(fdc_project: FieldDataCapture) -> UnlinkedTestFiles:
             sub_dir_full.mkdir()
 
     # Create copies of existing photos in various directories in project_dir/photos/
-    new_photo_a = fdc_project.photos_dir / sub_dir_a / "exif_data.jpg"
+    new_photo_a = fdc.photos_dir / sub_dir_a / "exif_data.jpg"
     new_photo_a.write_bytes(Path("test/data/photos/exif_data.jpg").read_bytes())
-    new_photo_b = fdc_project.photos_dir / sub_dir_b / "no_exif_data.jpg"
+    new_photo_b = fdc.photos_dir / sub_dir_b / "no_exif_data.jpg"
     new_photo_b.write_bytes(Path("test/data/photos/no_exif_data.jpg").read_bytes())
-    new_photo_c = fdc_project.photos_dir / sub_dir_a / "test_img_001.jpeg"
-    new_photo_c.write_bytes((fdc_project.photos_dir / "test_point_001.jpeg").read_bytes())
+    new_photo_c = fdc.photos_dir / sub_dir_a / "test_img_001.jpeg"
+    new_photo_c.write_bytes((fdc.photos_dir / "test_point_001.jpeg").read_bytes())
 
     # Create copies of existing media files in various directories in project_dir/media/
-    new_media_a = fdc_project.media_dir / sub_dir_a / "test_csv_001.csv"
-    new_media_a.write_bytes((fdc_project.media_dir / "test_point_001.csv").read_bytes())
-    new_media_b = fdc_project.media_dir / sub_dir_b / "test_txt_001.txt"
-    new_media_b.write_bytes((fdc_project.media_dir / "test_point_001.txt").read_bytes())
+    new_media_a = fdc.media_dir / sub_dir_a / "test_csv_001.csv"
+    new_media_a.write_bytes((fdc.media_dir / "test_point_001.csv").read_bytes())
+    new_media_b = fdc.media_dir / sub_dir_b / "test_txt_001.txt"
+    new_media_b.write_bytes((fdc.media_dir / "test_point_001.txt").read_bytes())
 
     # Make dummy files in the sub-directory unlinked
     dummy_unlinked_files = [
-        fdc_project.unlinked_files_dir / "unlinked_dummy_1.png",
-        fdc_project.unlinked_files_dir / "unlinked_dummy_2.png",
-        fdc_project.unlinked_files_dir / "unlinked_dummy_3.csv",
+        fdc.unlinked_files_dir / "unlinked_dummy_1.png",
+        fdc.unlinked_files_dir / "unlinked_dummy_2.png",
+        fdc.unlinked_files_dir / "unlinked_dummy_3.csv",
     ]
     for dummy_unlinked_file in dummy_unlinked_files:
         dummy_unlinked_file.touch()
