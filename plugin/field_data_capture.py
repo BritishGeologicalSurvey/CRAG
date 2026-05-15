@@ -591,6 +591,7 @@ class FieldDataCapture(FieldDataCaptureProject):
         # Changes to layers are only done after all layers are added to avoid issues
         # Create relationships first to ensure their corresponding styles/properties can be set
         self.find_create_relationships(vector_layers)
+        self.copy_plugin_files_to_project(plugin_src="styles", project_dest=self.styles_dir)
         self.apply_qml_styles(vector_layers)
         self.set_vector_layer_properties(vector_layers)
         # self.set_view_lithology_rules()
@@ -836,7 +837,6 @@ class FieldDataCapture(FieldDataCaptureProject):
             vector_layer.name(): vector_layer
             for vector_layer in vector_layers
         }
-        self.copy_plugin_files_to_project(plugin_src="styles", project_dest=self.styles_dir)
 
         for qml_file in self.styles_dir.glob("*"):
             if qml_file.stem in vector_layer_names:
