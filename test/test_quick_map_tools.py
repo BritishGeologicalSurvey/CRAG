@@ -3,7 +3,6 @@ These are tests for the QuickMapTools of the plugin
 which depend on a running QGIS version which is supplied by the 'fdc_project' fixture.
 """
 import getpass
-import os
 from copy import deepcopy
 from typing import (
     Any,
