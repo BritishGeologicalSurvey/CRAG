@@ -2,8 +2,7 @@
 These are tests for the QuickMapTools of the plugin
 which depend on a running QGIS version which is supplied by the 'fdc_project' fixture.
 """
-import os
-import pwd
+import getpass
 from copy import deepcopy
 from typing import (
     Any,
@@ -459,7 +458,7 @@ def test_locality_add_confirm(
     expected_fid = 3
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
     assert new_feature.attribute("fid") == expected_fid
-    assert new_feature.attribute("name") == f"{pwd.getpwuid(os.getuid()).pw_name}_001"
+    assert new_feature.attribute("name") == f"{getpass.getuser()}_001"
     assert new_feature.attribute(locality_type_field) == last_locality_type_value
     assert new_feature.geometry().asWkt() == empty_geometry_feature_point.geometry().asWkt()
     assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
