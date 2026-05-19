@@ -3,7 +3,7 @@ Copyright 2026 British Geological Survey
 Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
-<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.40.7-Bratislava">
+<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
     <rules key="{2c5d8ccd-29cb-4d99-bbca-d2b8b8cba71d}">
       <rule filter="simple_lithology IN ('biogenic silica sedimentary rock','hybrid sedimentary rock','iron rich sedimentary rock','non clastic siliceous sedimentary rock','phosphorite','sedimentary rock')" key="{5a731b97-8300-4330-976a-b4317b9f8176}" label="sedimentary rock" symbol="0"></rule>

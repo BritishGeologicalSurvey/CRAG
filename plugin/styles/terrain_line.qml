@@ -3,7 +3,7 @@ Copyright 2026 British Geological Survey
 Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.40.7-Bratislava">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
   <renderer-v2 attr="line_type_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="air_photo_lineament" render="true" symbol="0" type="string" uuid="{61293c86-5a13-4c41-a019-230e598eab2f}" value="air_photo_lineament"></category>
