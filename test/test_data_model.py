@@ -1,3 +1,6 @@
+# Copyright 2026 British Geological Survey
+# Licensed under GPLv3 licence
+# SPDX-License-Identifier: GPL-3.0-or-later
 from collections import defaultdict
 import sqlite3
 from typing import Optional

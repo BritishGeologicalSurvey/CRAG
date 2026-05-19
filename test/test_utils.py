@@ -1,3 +1,6 @@
+# Copyright 2026 British Geological Survey
+# Licensed under GPLv3 licence
+# SPDX-License-Identifier: GPL-3.0-or-later
 from pathlib import Path
 from typing import (
     Any,
@@ -38,14 +41,14 @@ COMBOBOX_DATA = {
 }
 
 
-def test_validation_good(fdc_project: FieldDataCapture):
-    assert fdc_project.validate_qgis_state(
+def test_validation_good(fdc_project_quick: FieldDataCapture):
+    assert fdc_project_quick.validate_qgis_state(
         project_active=True,
         db_file_exists=True,
         fdc_layers_exist=True,
         field_project_exists=True,
     )
-    assert not fdc_project.project_instance.isDirty()
+    assert not fdc_project_quick.project_instance.isDirty()
 
 
 def test_validation_bad(fdc: FieldDataCapture):
@@ -107,9 +110,9 @@ def combobox() -> QComboBox:
         ("SELECT *, AsText(CastAutomagic(geometry)) as geom FROM locality_point", 2),
     ),
 )
-def test_get_rows(fdc_project: FieldDataCapture, sql: str, count: int):
+def test_get_rows(fdc_project_quick: FieldDataCapture, sql: str, count: int):
     # Act
-    rows = get_table_rows(fdc_project.db_file, sql)
+    rows = get_table_rows(fdc_project_quick.db_file, sql)
 
     # Assert
     assert isinstance(rows, list)
@@ -155,10 +158,10 @@ def test_create_prepopulated_feature(
     layer_name: str,
     prepopulate: dict[str, Any],
     wkt: str,
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
 ):
     # Arrange
-    layer = fdc_project.get_fdc_layer(layer_name)
+    layer = fdc_project_quick.get_fdc_layer(layer_name)
     geometry = QgsGeometry.fromWkt(wkt)
 
     # Act
@@ -171,7 +174,7 @@ def test_create_prepopulated_feature(
 
 
 @pytest.mark.parametrize("layer_name", TABLE_LIST)
-def test_get_fdc_layer_good(layer_name: str, fdc_project: FieldDataCapture):
+def test_get_fdc_layer_good(layer_name: str, fdc_project_quick: FieldDataCapture):
     # Arrange
     # Create a temporary layer with the same name as the target layer
     # The test should still pass because the get_fdc_layer method checks the data source path
@@ -179,11 +182,11 @@ def test_get_fdc_layer_good(layer_name: str, fdc_project: FieldDataCapture):
     QgsProject.instance().addMapLayer(temp_layer)
 
     # Act
-    layer = fdc_project.get_fdc_layer(layer_name)
+    layer = fdc_project_quick.get_fdc_layer(layer_name)
 
     # Assert
     assert isinstance(layer, QgsVectorLayer)
-    assert Path(layer.dataProvider().dataSourceUri().split("|")[0]) == fdc_project.db_file.absolute()
+    assert Path(layer.dataProvider().dataSourceUri().split("|")[0]) == fdc_project_quick.db_file.absolute()
 
 
 @pytest.mark.parametrize("layer_name", TABLE_LIST)
@@ -224,16 +227,16 @@ def test_get_plugin_setting(
     value: Any,
     expected_value: Any,
     set_value: bool,
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
 ):
     # Arrange
     # Set the value if specified
     # We test some values that are not set
     if set_value:
-        fdc_project.set_plugin_setting(name, value)
+        fdc_project_quick.set_plugin_setting(name, value)
 
     # Act
-    actual_value = fdc_project.get_plugin_setting(name)
+    actual_value = fdc_project_quick.get_plugin_setting(name)
 
     # Assert
     assert actual_value == expected_value
@@ -250,14 +253,14 @@ def test_get_plugin_setting(
 def test_set_plugin_setting(
     name: str,
     value: Any,
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
 ):
     # Act
-    fdc_project.set_plugin_setting(name, value)
+    fdc_project_quick.set_plugin_setting(name, value)
 
     # Assert
     # Get the value from QgsSettings
-    assert QgsSettings().value(f"{fdc_project.plugin_settings_prefix}/{name}") == value
+    assert QgsSettings().value(f"{fdc_project_quick.plugin_settings_prefix}/{name}") == value
 
 
 @pytest.mark.parametrize(

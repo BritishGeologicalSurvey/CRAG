@@ -1,3 +1,8 @@
+/*
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
 -- Dictionary tables and their contents
 
 BEGIN TRANSACTION;

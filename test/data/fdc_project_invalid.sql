@@ -1,4 +1,9 @@
 /*
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
+/*
 This script inserts test data that are deliberately broken.  This includes foreign key
 violations.  This is possible because you need to set PRAGMA FOREIGN_KEYS = ON to
 enforce them.

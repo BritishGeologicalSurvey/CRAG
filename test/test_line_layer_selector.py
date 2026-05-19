@@ -1,3 +1,6 @@
+# Copyright 2026 British Geological Survey
+# Licensed under GPLv3 licence
+# SPDX-License-Identifier: GPL-3.0-or-later
 import json
 from unittest.mock import Mock
 
@@ -14,7 +17,7 @@ from plugin.utils import (  # noqa
 
 
 @pytest.fixture()
-def line_selector(fdc_project: FieldDataCapture) -> LineLayerSelector:
+def line_selector(fdc_project_quick: FieldDataCapture) -> LineLayerSelector:
     """
     Return an instance of the line layer selector, with a Field Data Capture project ready to use.
     """
@@ -148,7 +151,7 @@ def test_default_reset(
 def test_line_type_selected(
     layer: str,
     line_type: str,
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
@@ -171,36 +174,36 @@ def test_line_type_selected(
     confirm_mock.assert_called_once()
 
 
-def test_line_selector_open(fdc_project: FieldDataCapture):
+def test_line_selector_open(fdc_project_quick: FieldDataCapture):
     # Act
     # Open line selector
-    fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
+    fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].trigger()
 
     # Assert
     # Button should be toggled
-    assert fdc_project.quick_map_tool_buttons["fdc_lines_add"].isChecked()
+    assert fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].isChecked()
     # Tool should be saved to FDC class
-    assert isinstance(fdc_project.line_layer_selector, LineLayerSelector)
+    assert isinstance(fdc_project_quick.line_layer_selector, LineLayerSelector)
     # There should be no recent line types
-    assert fdc_project.get_plugin_setting("recent_line_types") is None
+    assert fdc_project_quick.get_plugin_setting("recent_line_types") is None
 
 
-def test_line_selector_close(fdc_project: FieldDataCapture):
+def test_line_selector_close(fdc_project_quick: FieldDataCapture):
     # Arrange
     # Open line selector
-    fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
+    fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].trigger()
 
     # Act
     # Close line selector without selecting a line type
-    fdc_project.line_layer_selector.closeEvent()
+    fdc_project_quick.line_layer_selector.closeEvent()
 
     # Assert
     # Button should not be toggled
-    assert not fdc_project.quick_map_tool_buttons["fdc_lines_add"].isChecked()
+    assert not fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].isChecked()
     # Tool should be deleted from FDC class
-    assert fdc_project.line_layer_selector is None
+    assert fdc_project_quick.line_layer_selector is None
     # There should be no recent line types
-    assert fdc_project.get_plugin_setting("recent_line_types") is None
+    assert fdc_project_quick.get_plugin_setting("recent_line_types") is None
 
 
 @pytest.mark.parametrize(
@@ -220,19 +223,19 @@ def test_line_selector_close(fdc_project: FieldDataCapture):
 def test_line_selector_add_recent(
     line_dict: dict[str, str],
     expected_recent_line_types: list[dict[str, str]],
-    fdc_project: FieldDataCapture,
+    fdc_project_quick: FieldDataCapture,
 ):
     # Act
     # Open line selector
-    fdc_project.quick_map_tool_buttons["fdc_lines_add"].trigger()
+    fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].trigger()
     # Call the confirm method as if user selected a line type
-    fdc_project.line_layer_selector.confirm_selection(line_layer=line_dict["layer"], line_type=line_dict["type"])
+    fdc_project_quick.line_layer_selector.confirm_selection(line_layer=line_dict["layer"], line_type=line_dict["type"])
 
     # Assert
     # Button should remain toggled
-    assert fdc_project.quick_map_tool_buttons["fdc_lines_add"].isChecked()
+    assert fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].isChecked()
     # Tool should be deleted from FDC class
-    assert fdc_project.line_layer_selector is None
+    assert fdc_project_quick.line_layer_selector is None
     # Selected line type should be added to recents
-    recent_line_types = json.loads(fdc_project.get_plugin_setting("recent_line_types"))
+    recent_line_types = json.loads(fdc_project_quick.get_plugin_setting("recent_line_types"))
     assert recent_line_types == expected_recent_line_types

@@ -1,3 +1,6 @@
+# Copyright 2026 British Geological Survey
+# Licensed under GPLv3 licence
+# SPDX-License-Identifier: GPL-3.0-or-later
 import logging
 import sqlite3
 from pathlib import Path
@@ -278,8 +281,7 @@ def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.StandardButton.No)
 
 
-@pytest.fixture()
-def fdc_project(fdc: FieldDataCapture, qgs_project: Path) -> FieldDataCapture:
+def setup_fdc_project(fdc: FieldDataCapture) -> None:
     """
     Setup an Field Data Capture project for use in tests.
     """
@@ -288,11 +290,29 @@ def fdc_project(fdc: FieldDataCapture, qgs_project: Path) -> FieldDataCapture:
     fdc.add_test_data_to_project()
     # Write project data to ensure clean state (e.g. isDirty is False)
     fdc.project_instance.write()
+
+
+@pytest.fixture()
+def fdc_project(fdc: FieldDataCapture, qgs_project: Path) -> FieldDataCapture:
+    """
+    Setup an Field Data Capture project for use in tests.
+    """
+    setup_fdc_project(fdc)
     return fdc
 
 
 @pytest.fixture()
-def report_builder(fdc_project: FieldDataCapture) -> ReportBuilder:
+def fdc_project_quick(fdc: FieldDataCapture, qgs_project: Path, monkeypatch: pytest.MonkeyPatch) -> FieldDataCapture:
+    """
+    Setup an Field Data Capture project for use in tests, without the QGIS styles applied to save time.
+    """
+    monkeypatch.setattr(FieldDataCapture, "apply_qml_styles", Mock(return_value=True))
+    setup_fdc_project(fdc)
+    return fdc
+
+
+@pytest.fixture()
+def report_builder(fdc_project_quick: FieldDataCapture) -> ReportBuilder:
     """
     Setup Report Builder for use in tests.
     """

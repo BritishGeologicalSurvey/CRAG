@@ -1,3 +1,8 @@
+/*
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
 -- Empty GeoPackage create via sqlite3 .dump from example at http://www.geopackage.org/data/empty.gpkg
 PRAGMA foreign_keys=OFF;
 

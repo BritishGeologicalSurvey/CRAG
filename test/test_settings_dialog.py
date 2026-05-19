@@ -1,3 +1,6 @@
+# Copyright 2026 British Geological Survey
+# Licensed under GPLv3 licence
+# SPDX-License-Identifier: GPL-3.0-or-later
 from qgis.PyQt.QtWidgets import (
     QRadioButton,
     QVBoxLayout,

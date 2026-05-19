@@ -1,3 +1,8 @@
+/*
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
 BEGIN TRANSACTION;
 INSERT INTO "field_project" VALUES (1,'{3a68b7c7-e3a9-4a35-8dd2-00d31c515244}','dest_fdc_project','Destination Test Project','A project to be used in tests for merging 2 projects','test_user','2024-06-11','2024-06-12',27700,'These are some empty notes honk',50000,'user_a','2024-06-11T11:29:57.099','local_development',X'47500003e6100000b79e0eba8bf2f2bf74409b25669bf1bf2ceb304a18774a4077287a34237b4a4001030000000100000007000000c3440d41856ef2bf77287a34237b4a40b79e0eba8bf2f2bfe3b8bbdb7b784a40cc0a53cf9ca7f2bf2ceb304a18774a405a50285c45c0f1bf28728a4385774a4074409b25669bf1bf24e4f4bb017a4a40e0a4dc0617ebf1bfd53002250f7b4a40c3440d41856ef2bf77287a34237b4a40');
 INSERT INTO "locality_point" VALUES (1,'{b41f8f98-6cc8-40f1-acfe-d5102714db18}','{3a68b7c7-e3a9-4a35-8dd2-00d31c515244}','user_a_001','other','Some ducks','ducks','They quack','user_a','2024-06-11T11:31:38.730',X'47500001e610000001e90300007a1385b1395ff2bfe2e2e64756794a400000000000000000');

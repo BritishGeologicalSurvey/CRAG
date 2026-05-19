@@ -1,4 +1,9 @@
 /*
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
+/*
 This file adds tables based on the Commission for the Management and Application
 of Geoscience Information (CGI)'s public vocabulary for Simple Lithology.
 
