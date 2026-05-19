@@ -27,6 +27,7 @@
 import logging
 import os.path
 import pprint
+import re
 import sqlite3
 from collections import defaultdict
 from pathlib import Path
@@ -1054,21 +1055,16 @@ class FieldDataCapture(FieldDataCaptureProject):
         which indicate it is a copyright statement.
         """
         style_text = style_file.read_text()
-        qml_comment_start = "<!--"
-        qml_comment_end = "-->"
-        # If the file does not start with a comment, there is nothing to get
-        if not style_text.startswith(qml_comment_start):
-            return
-
-        # Extract the comment string
-        end_idx = style_text.index(qml_comment_end)
-        comment_text = style_text[:end_idx + len(qml_comment_end)] + "\n"
-        # Check it contains the required words which indicate it is a copyright statement
-        required_words = ["copyright", "licensed"]
-        comment_text_lower = comment_text.lower()
-        required_words_included = all([word in comment_text_lower for word in required_words])
-        if required_words_included:
-            return comment_text
+        # Find the first XML comment using regex
+        match = re.search(r'<!--[\s\S]*?-->', style_text)
+        if match:
+            # Check it contains the required words which indicate it is a copyright statement
+            required_words = ["copyright", "licensed"]
+            comment_text = match.group()
+            required_words_included = all([word in comment_text.lower() for word in required_words])
+            # Also confirm that the comment starts at the head of the file
+            if required_words_included and match.span()[0] == 0:
+                return comment_text + '\n'
 
 
     def select_quick_line_layer_add(self) -> bool:
