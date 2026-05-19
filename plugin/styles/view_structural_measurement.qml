@@ -3,7 +3,7 @@ Copyright 2026 British Geological Survey
 Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.40.7-Bratislava">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
   <renderer-v2 attr="structure_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="anticline_axis" render="true" symbol="0" type="string" uuid="{71185813-37ed-4354-998c-1fedd8424e06}" value="anticline_axis"></category>

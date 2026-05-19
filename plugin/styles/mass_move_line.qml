@@ -3,7 +3,7 @@ Copyright 2026 British Geological Survey
 Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.40.7-Bratislava">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
   <renderer-v2 attr="line_type_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="gull_undiff" render="true" symbol="0" type="string" uuid="{96a24b60-b0d2-4df0-8863-8e5111360b86}" value="gull_undiff"></category>
