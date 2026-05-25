@@ -157,7 +157,7 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
         Path(qml_file.parent.name) / qml_file.name
         for qml_file in Path("plugin/styles").glob("*.qml")
     ]
-    expected_slyr_style = Path("sigmaQ_2024_v2.xml")
+    expected_slyr_style = Path("BGS_CGDM_styles_2025_v4.xml")
     expected_user_dirs = [
         fdc.photos_dir,
         fdc.media_dir,
