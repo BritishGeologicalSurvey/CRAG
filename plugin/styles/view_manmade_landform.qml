@@ -3,19 +3,18 @@ Copyright 2026 British Geological Survey
 Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.8-Solothurn">
   <renderer-v2 attr="manmade_landform_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
-      <category label="adit" render="true" symbol="0" type="string" uuid="{5140067d-40f2-4334-a252-736e768b29d5}" value="adit"></category>
-      <category label="adit_abandoned" render="true" symbol="1" type="string" uuid="{069e54ed-849b-4901-8d8c-78c74f55a476}" value="adit_abandoned"></category>
-      <category label="adit_unknown_orientation" render="true" symbol="2" type="string" uuid="{c26e460b-8e4d-47c2-b1a9-96004b48ecb5}" value="adit_unknown_orientation"></category>
-      <category label="former_mine_site" render="true" symbol="3" type="string" uuid="{8837cbcc-2a91-43c1-91b7-8ec45dfa3b41}" value="former_mine_site"></category>
-      <category label="shaft" render="true" symbol="4" type="string" uuid="{9b80016f-0b95-4649-8986-7fb4466112a4}" value="shaft"></category>
-      <category label="shaft_abandoned" render="true" symbol="5" type="string" uuid="{b45b8f76-0079-458a-bfbb-44fbf842b4bd}" value="shaft_abandoned"></category>
-      <category label="shaft_abandoned_uncertain" render="true" symbol="6" type="string" uuid="{5c2a6572-a68b-4029-a698-0dea433e6461}" value="shaft_abandoned_uncertain"></category>
-      <category label="trench" render="true" symbol="7" type="string" uuid="{aacac582-6c34-4707-9993-ad21e1fb5026}" value="trench"></category>
-      <category label="waste_disposal_site" render="true" symbol="8" type="string" uuid="{b1943ecb-4ad5-492a-a302-71d8d9b962ce}" value="waste_disposal_site"></category>
-      <category label="" render="true" symbol="9" type="NULL" uuid="{25ee2613-041d-48ee-ad16-ed3fbbf42b93}" value="NULL"></category>
+      <category label="adit" render="true" symbol="0" type="string" uuid="{f82dc519-a79f-4223-ade6-c38fff00b5d6}" value="adit"></category>
+      <category label="adit_abandoned" render="true" symbol="1" type="string" uuid="{d3033ab0-7417-4ad6-aec6-bc8322de0099}" value="adit_abandoned"></category>
+      <category label="adit_unknown_orientation" render="true" symbol="2" type="string" uuid="{4af8a76d-8ce1-415f-9cb9-52566e466bde}" value="adit_unknown_orientation"></category>
+      <category label="former_mine_site" render="true" symbol="3" type="string" uuid="{0b490688-d1f5-40f6-886a-8443cb724fb9}" value="former_mine_site"></category>
+      <category label="shaft" render="true" symbol="4" type="string" uuid="{36958e53-064a-47de-b982-7034b5109963}" value="shaft"></category>
+      <category label="shaft_abandoned" render="true" symbol="5" type="string" uuid="{76e44b72-a9f1-4208-8350-bd3802eacc23}" value="shaft_abandoned"></category>
+      <category label="shaft_abandoned_uncertain" render="true" symbol="6" type="string" uuid="{32e6eacc-e2b1-40cd-b16a-d6bd5da14373}" value="shaft_abandoned_uncertain"></category>
+      <category label="trench" render="true" symbol="7" type="string" uuid="{6c12a7fa-378d-48b1-9654-c7a44203e955}" value="trench"></category>
+      <category label="waste_disposal_site" render="true" symbol="8" type="string" uuid="{68aea6de-b3db-43bb-8af4-0343569bf9af}" value="waste_disposal_site"></category>
     </categories>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="marker">
@@ -26,23 +25,52 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{0371cc14-89b2-4914-af9d-12ac9fc55684}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{e13b2440-0599-45bf-8e20-2a071403bcfb}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="angle" type="QString" value="0"></Option>
+            <Option name="color" type="QString" value="0,0,0,255,rgb:0,0,0,1"></Option>
+            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
+            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyIDQ1IgogeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiPgo8dGl0bGU+UXQgU1ZHIERvY3VtZW50PC90aXRsZT4KPGRlc2M+R2VuZXJhdGVkIHdpdGggUXQ8L2Rlc2M+CjxkZWZzPgo8L2RlZnM+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49ImJldmVsIiA+Cgo8ZyBmaWxsPSJwYXJhbShmaWxsKSIgZmlsbC1vcGFjaXR5PSJwYXJhbShmaWxsLW9wYWNpdHkpIiBzdHJva2U9InBhcmFtKG91dGxpbmUpIiBzdHJva2Utb3BhY2l0eT0icGFyYW0ob3V0bGluZS1vcGFjaXR5KSAxIiBzdHJva2Utd2lkdGg9InBhcmFtKG91dGxpbmUtd2lkdGgpIiAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsMCwwKSIKZm9udC1mYW1pbHk9Ik1TIFNoZWxsIERsZyAyIiBmb250LXNpemU9IjkuOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03LjY2LDMzLjMzIEw3LjY2LDI3IEw2Ljk5LDI4IEw2LjMzLDI3LjMzIEwxMC42NiwyMi42NyBMMTUuMzMsMjcuMzMgTDE0LjY2LDI4IEwxMy45OSwyNyBMMTMuOTksMzMuMzMgTDEyLjk5LDMzLjMzIEwxMi45OSwyNi4zMyBMMTAuNjYsMjQgTDguNjYsMjYuMzMgTDguNjYsMzMuMzMgTDcuNjYsMzMuMzMiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="Point"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="outline_width_unit" type="QString" value="Point"></Option>
+            <Option name="parameters"></Option>
+            <Option name="scale_method" type="QString" value="diameter"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
+            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="size_unit" type="QString" value="Point"></Option>
+            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+        <layer class="SvgMarker" enabled="1" id="{5f21be93-214b-4564-9d46-8e1841322bd0}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjIxOS42NzUsLTAuMzI1MzMzIDIxOS42NzUsLTAuMzI1MzMzICIgLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMjEuNjU4NywtNy4xMDU0M2UtMTUgMjEuNjU4NywtNy4xMDU0M2UtMTUgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -50,34 +78,28 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{9adce534-7e60-4562-a7e7-ff0967d6a7ed}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{29e61985-cf1d-4509-8a15-f6ba3f695b9c}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjAuMzQxMzMzLDIxOC42NzUgMC4zNDEzMzMsMjE4LjY3NSAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iLTAuMDA4LDQ1LjMzMzMgLTAuMDA4LDQ1LjMzMzMgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -85,48 +107,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{835d6e94-bc98-4624-8210-ede85fd6d38f}" locked="1" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMTAsMTExLjcgTDE1NS4zLDE1Ny4zIEwxNDkuMywxNjMgTDE0MC43LDE1NC4zIEwxNDAuNywyMTUuNyBMMTMyLjMsMjE1LjcgTDEzMi4zLDE0NiBMMTEwLDEyMy43IEw4Ny43LDE0NiBMODcuNywyMTUuNyBMNzkuMywyMTUuNyBMNzkuMywxNTQuMyBMNzAuNywxNjMgTDY0LjcsMTU3LjMgTDExMCwxMTEuNyIvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -140,23 +121,52 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{31c15c6a-c000-4c6c-9343-e5868f680fef}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{73b2e04f-0133-48de-b37a-d9c10d551ef9}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="angle" type="QString" value="0"></Option>
+            <Option name="color" type="QString" value="0,0,0,255,rgb:0,0,0,1"></Option>
+            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
+            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyIDQ1IgogeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiPgo8dGl0bGU+UXQgU1ZHIERvY3VtZW50PC90aXRsZT4KPGRlc2M+R2VuZXJhdGVkIHdpdGggUXQ8L2Rlc2M+CjxkZWZzPgo8L2RlZnM+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49ImJldmVsIiA+Cgo8ZyBmaWxsPSJwYXJhbShmaWxsKSIgZmlsbC1vcGFjaXR5PSJwYXJhbShmaWxsLW9wYWNpdHkpIiBzdHJva2U9InBhcmFtKG91dGxpbmUpIiBzdHJva2Utb3BhY2l0eT0icGFyYW0ob3V0bGluZS1vcGFjaXR5KSAxIiBzdHJva2Utd2lkdGg9InBhcmFtKG91dGxpbmUtd2lkdGgpIiAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsMCwwKSIKZm9udC1mYW1pbHk9Ik1TIFNoZWxsIERsZyAyIiBmb250LXNpemU9IjkuOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik02LjMzLDMzLjMzIEw2LjMzLDMyLjMzIEw3LjY2LDMyLjMzIEw3LjY2LDI3IEw2Ljk5LDI4IEw2LjMzLDI3LjMzIEwxMC42NiwyMi42NyBMMTUuMzMsMjcuMzMgTDE0LjY2LDI4IEwxMy45OSwyNyBMMTMuOTksMzIuMzMgTDE1LjMzLDMyLjMzIEwxNS4zMywzMy4zMyBMNi4zMywzMy4zMyBNOC42NiwzMi4zMyBMMTIuOTksMzIuMzMgTDEyLjk5LDI2LjMzIEwxMC42NiwyNCBMOC42NiwyNi4zMyBMOC42NiwzMi4zMyIvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="Point"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="outline_width_unit" type="QString" value="Point"></Option>
+            <Option name="parameters"></Option>
+            <Option name="scale_method" type="QString" value="diameter"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
+            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="size_unit" type="QString" value="Point"></Option>
+            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+        <layer class="SvgMarker" enabled="1" id="{faae1a60-2d81-444b-b983-7cb096a0a513}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjIxOS42NzUsLTAuMzI1MzMzIDIxOS42NzUsLTAuMzI1MzMzICIgLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMjEuNjU4NywtNy4xMDU0M2UtMTUgMjEuNjU4NywtNy4xMDU0M2UtMTUgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -164,34 +174,28 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{823593bb-14d5-4f5d-b65e-e158564e6a5d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{a3796bd9-f802-4e6d-a298-24de3020e9e7}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjAuMzQxMzMzLDIxOC42NzUgMC4zNDEzMzMsMjE4LjY3NSAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iLTAuMDA4LDQ1LjMzMzMgLTAuMDA4LDQ1LjMzMzMgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -199,48 +203,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{d44690e6-3480-4217-9849-fbb5ea154abb}" locked="1" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNTQuMywyMTUuNyBMNjUuNywyMTUuNyBMNjUuNywyMDcuMyBMNzkuMywyMDcuMyBMNzkuMywxNTQuMyBMNzAuNywxNjMgTDY0LjcsMTU3LjMgTDExMCwxMTEuNyBMMTU1LjMsMTU3LjMgTDE0OS4zLDE2MyBMMTQwLjcsMTU0LjMgTDE0MC43LDIwNy4zIEwxNTQuMywyMDcuMyBMMTU0LjMsMjE1LjcgTTEzMi4zLDIwNy4zIEwxMzIuMywxNDYgTDExMCwxMjMuNyBMODcuNywxNDYgTDg3LjcsMjA3LjMgTDEzMi4zLDIwNy4zIi8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -254,23 +217,52 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{ad936a84-6b7a-47e6-b9b8-ffe7c950c0f0}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{cfb32677-a9dd-42f2-8fd0-90248a157906}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="angle" type="QString" value="0"></Option>
+            <Option name="color" type="QString" value="0,0,0,255,rgb:0,0,0,1"></Option>
+            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
+            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyIDQ1IgogeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiPgo8dGl0bGU+UXQgU1ZHIERvY3VtZW50PC90aXRsZT4KPGRlc2M+R2VuZXJhdGVkIHdpdGggUXQ8L2Rlc2M+CjxkZWZzPgo8L2RlZnM+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49ImJldmVsIiA+Cgo8ZyBmaWxsPSJwYXJhbShmaWxsKSIgZmlsbC1vcGFjaXR5PSJwYXJhbShmaWxsLW9wYWNpdHkpIiBzdHJva2U9InBhcmFtKG91dGxpbmUpIiBzdHJva2Utb3BhY2l0eT0icGFyYW0ob3V0bGluZS1vcGFjaXR5KSAxIiBzdHJva2Utd2lkdGg9InBhcmFtKG91dGxpbmUtd2lkdGgpIiAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsMCwwKSIKZm9udC1mYW1pbHk9Ik1TIFNoZWxsIERsZyAyIiBmb250LXNpemU9IjkuOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik02LjMzLDMzLjMzIEw2LjMzLDMyLjMzIEw3LjY2LDMyLjMzIEw3LjY2LDI3LjY3IEw3LjMsMjcuNjcgTDYuOTksMjggTDYuNjYsMjcuNjcgTDYuMzMsMjcuMzMgTDEwLjY2LDIyLjY3IEwxNS4zMywyNy4zMyBMMTQuOTksMjcuNjcgTDE0LjY2LDI4IEwxNC4zMywyNy42NyBMMTMuOTksMjcuNjcgTDEzLjk5LDMyLjMzIEwxNS4zMywzMi4zMyBMMTUuMzMsMzMuMzMgTDYuMzMsMzMuMzMgTTguNjYsMzIuMzMgTDEyLjk5LDMyLjMzIEwxMi45OSwyNy42NyBMOC42NiwyNy42NyBMOC42NiwzMi4zMyBNNy45MSwyNyBMMTMuNjYsMjcgTDEwLjY2LDI0IEw3LjkxLDI3Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="Point"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="outline_width_unit" type="QString" value="Point"></Option>
+            <Option name="parameters"></Option>
+            <Option name="scale_method" type="QString" value="diameter"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
+            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="size_unit" type="QString" value="Point"></Option>
+            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+        <layer class="SvgMarker" enabled="1" id="{c0a0b329-c49f-45bd-a92e-491a5c80efb9}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjIxOS42NzUsLTAuMzI1MzMzIDIxOS42NzUsLTAuMzI1MzMzICIgLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMjEuNjU4NywtNy4xMDU0M2UtMTUgMjEuNjU4NywtNy4xMDU0M2UtMTUgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -278,34 +270,28 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{7d1a0b1f-6f7a-4a33-9d88-ef9ac5b22822}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{d2d43919-4786-462b-bec1-784cb6092dd6}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjAuMzQxMzMzLDIxOC42NzUgMC4zNDEzMzMsMjE4LjY3NSAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iLTAuMDA4LDQ1LjMzMzMgLTAuMDA4LDQ1LjMzMzMgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -313,48 +299,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{b6d7060f-bd4c-41c7-960b-c6bf051685af}" locked="1" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMTAsMTExLjcgTDE1NS4zLDE1Ny4zIEwxNDkuMywxNjMgTDE0Ny4zLDE2MSBMMTQwLjcsMTYxIEwxNDAuNywyMDcuMyBMMTU0LjMsMjA3LjMgTDE1NC4zLDIxNS43IEw2NS43LDIxNS43IEw2NS43LDIwNy4zIEw3OS4zLDIwNy4zIEw3OS4zLDE2MSBMNzIuNywxNjEgTDcwLjcsMTYzIEw2NC43LDE1Ny4zIEwxMTAsMTExLjcgTTg3LjcsMjA3LjMgTDEzMi4zLDIwNy4zIEwxMzIuMywxNjEgTDg3LjcsMTYxIEw4Ny43LDIwNy4zIE04MSwxNTIuNyBMMTM5LDE1Mi43IEwxMTAsMTIzLjcgTDgxLDE1Mi43Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -368,7 +313,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{6e4430bc-1758-4ec4-9fea-d325184e72c7}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{5e4c5429-971e-4bc3-bebf-d7880aebea43}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -378,7 +323,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -392,18 +337,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{6e4b3dfa-d15c-42c9-b7e1-14ac94ec8056}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{cbbfea57-e633-4761-98c1-66df1ca211e2}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -413,7 +352,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -427,18 +366,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{d923572e-50fa-4def-a86e-d5d7f128632d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{55fa49e0-b12b-471e-9c78-5b74e23d5f60}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -462,13 +395,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -482,23 +409,52 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{547cd710-8574-45da-8523-35e704fd2655}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{b2dc2150-f579-4ba4-a119-e68fb80d100e}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="angle" type="QString" value="0"></Option>
+            <Option name="color" type="QString" value="0,0,0,255,rgb:0,0,0,1"></Option>
+            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
+            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyIDQ1IgogeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiPgo8dGl0bGU+UXQgU1ZHIERvY3VtZW50PC90aXRsZT4KPGRlc2M+R2VuZXJhdGVkIHdpdGggUXQ8L2Rlc2M+CjxkZWZzPgo8L2RlZnM+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49ImJldmVsIiA+Cgo8ZyBmaWxsPSJwYXJhbShmaWxsKSIgZmlsbC1vcGFjaXR5PSJwYXJhbShmaWxsLW9wYWNpdHkpIiBzdHJva2U9InBhcmFtKG91dGxpbmUpIiBzdHJva2Utb3BhY2l0eT0icGFyYW0ob3V0bGluZS1vcGFjaXR5KSAxIiBzdHJva2Utd2lkdGg9InBhcmFtKG91dGxpbmUtd2lkdGgpIiAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsMCwwKSIKZm9udC1mYW1pbHk9Ik1TIFNoZWxsIERsZyAyIiBmb250LXNpemU9IjkuOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMC42NiwyNy42NyBMOS45NDU1NCwyNy42MTI3IEw5LjI3MDMyLDI3LjQ0NzEgTDguNjQwNTgsMjcuMTgyNCBMOC4wNjI1NiwyNi44Mjc4IEw3LjU0MjUsMjYuMzkyNSBMNy4wODY2NCwyNS44ODU4IEw2LjcwMTIyLDI1LjMxNyBMNi4zOTI0OCwyNC42OTUzIEw2LjE2NjY2LDI0LjAyOTkgTDYuMDMsMjMuMzMgTDUuOTksMjMuMzMgTDUuOTksMjIuNjcgTDUuOTksMjIuMzMgTDYsMjIuMzMgTDYuMTAwMjQsMjEuNjAzNyBMNi4zMDAzMiwyMC45MjM1IEw2LjU5MzI4LDIwLjI5NjYgTDYuOTcyMTYsMTkuNzMwMiBMNy40MywxOS4yMzEyIEw3Ljk1OTg0LDE4LjgwNyBMOC41NTQ3MiwxOC40NjQ3IEw5LjIwNzY4LDE4LjIxMTMgTDkuOTExNzYsMTguMDU0IEwxMC42NiwxOCBMMTEuNDE0MiwxOC4wNTQgTDEyLjEzOTksMTguMjExMyBMMTIuODI2NSwxOC40NjQ3IEwxMy40NjM0LDE4LjgwNyBMMTQuMDQsMTkuMjMxMiBMMTQuNTQ1OCwxOS43MzAyIEwxNC45NzAzLDIwLjI5NjYgTDE1LjMwMjksMjAuOTIzNSBMMTUuNTMzLDIxLjYwMzcgTDE1LjY1LDIyLjMzIEwxNS42NiwyMi4zMyBMMTUuNjYsMjIuNjcgTDE1LjY2LDIzLjMzIEwxNS42MSwyMy4zMyBMMTUuNDUyMiwyNC4wMjk5IEwxNS4xOTUsMjQuNjk1MyBMMTQuODQ3NiwyNS4zMTcgTDE0LjQxOTEsMjUuODg1OCBMMTMuOTE4OCwyNi4zOTI1IEwxMy4zNTU3LDI2LjgyNzggTDEyLjczOTEsMjcuMTgyNCBMMTIuMDc4MiwyNy40NDcxIEwxMS4zODIxLDI3LjYxMjcgTDEwLjY2LDI3LjY3IE0xMC42NiwyNyBMMTEuMjgzNCwyNi45NTIzIEwxMS44ODI3LDI2LjgxNDIgTDEyLjQ1MDcsMjYuNTkyOCBMMTIuOTgwMiwyNi4yOTU3IEwxMy40NjM4LDI1LjkzIEwxMy44OTQyLDI1LjUwMzEgTDE0LjI2NDQsMjUuMDIyNCBMMTQuNTY2OSwyNC40OTUgTDE0Ljc5NDUsMjMuOTI4NSBMMTQuOTQsMjMuMzMgTDYuNzEsMjMuMzMgTDYuODU0MzUsMjMuOTI4NSBMNy4wNzc2LDI0LjQ5NSBMNy4zNzEwNSwyNS4wMjI0IEw3LjcyNiwyNS41MDMxIEw4LjEzMzc1LDI1LjkzIEw4LjU4NTYsMjYuMjk1NyBMOS4wNzI4NSwyNi41OTI4IEw5LjU4NjgsMjYuODE0MiBMMTAuMTE4OCwyNi45NTIzIEwxMC42NiwyNyBNNi42OCwyMi4zMyBMMTQuOTcsMjIuMzMgTDE0Ljg2MDEsMjEuNzcwNyBMMTQuNjU2MiwyMS4yMjc0IEwxNC4zNjY2LDIwLjcxMDQgTDE0LjAwMDEsMjAuMjI5NSBMMTMuNTY1LDE5Ljc5NSBMMTMuMDY5OSwxOS40MTY5IEwxMi41MjM0LDE5LjEwNTIgTDExLjkzMzgsMTguODcwMiBMMTEuMzA5OSwxOC43MjE3IEwxMC42NiwxOC42NyBMMTAuMDk0NywxOC43MjE3IEw5LjUzOTUyLDE4Ljg3MDIgTDkuMDA0NjMsMTkuMTA1MiBMOC41MDAxNiwxOS40MTY5IEw4LjAzNjI1LDE5Ljc5NSBMNy42MjMwNCwyMC4yMjk1IEw3LjI3MDY3LDIwLjcxMDQgTDYuOTg5MjgsMjEuMjI3NCBMNi43ODkwMSwyMS43NzA3IEw2LjY4LDIyLjMzIi8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="Point"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="outline_width_unit" type="QString" value="Point"></Option>
+            <Option name="parameters"></Option>
+            <Option name="scale_method" type="QString" value="diameter"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
+            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="size_unit" type="QString" value="Point"></Option>
+            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+        <layer class="SvgMarker" enabled="1" id="{c05149ce-5978-410a-adf6-8a409caae168}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjE1MS42NTksLTAuMzQxMzMzIDE1MS42NTksLTAuMzQxMzMzICIgLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMjEuNjU4NywtNy4xMDU0M2UtMTUgMjEuNjU4NywtNy4xMDU0M2UtMTUgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -506,34 +462,28 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{45377c8b-3857-45af-85bc-69d8a8880e12}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{9050e7e8-18b4-42f6-90f0-f67b0930f2fc}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjAuMzI1MzMzLDE1MC42NTkgMC4zMjUzMzMsMTUwLjY1OSAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iLTAuMDA4LDQ1LjMzMzMgLTAuMDA4LDQ1LjMzMzMgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -541,48 +491,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{42e6eac4-353e-4433-93fc-63f64269e25d}" locked="1" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik03NiwxMjQgTDc0LjcsMTI0IEw3My40LDEyMy45IEw3Mi4xLDEyMy44IEw3MC45LDEyMy43IEw2OS42LDEyMy42IEw2OC4zLDEyMy40IEw2Ny4xLDEyMy4yIEw2NS45LDEyMi45IEw2NC43LDEyMi43IEw2My41LDEyMi40IEw2Mi4zLDEyMiBMNjEuMSwxMjEuNyBMNTkuOSwxMjEuMyBMNTguOCwxMjAuOCBMNTcuNiwxMjAuNCBMNTYuNSwxMTkuOSBMNTUuNCwxMTkuNCBMNTQuMywxMTguOSBMNTMuMiwxMTguMyBMNTIuMSwxMTcuNyBMNTEuMSwxMTcuMSBMNTAuMSwxMTYuNSBMNDkuMSwxMTUuOCBMNDguMSwxMTUuMiBMNDcuMSwxMTQuNSBMNDYuMSwxMTMuNyBMNDUuMiwxMTMgTDQ0LjMsMTEyLjIgTDQzLjQsMTExLjQgTDQyLjUsMTEwLjYgTDQxLjYsMTA5LjcgTDQwLjgsMTA4LjkgTDQwLDEwOC4xIEwzOS4zLDEwNy4yIEwzOC41LDEwNi4zIEwzNy44LDEwNS41IEwzNy4xLDEwNC42IEwzNi40LDEwMy42IEwzNS44LDEwMi43IEwzNS4yLDEwMS44IEwzNC41LDEwMC44IEwzNCw5OS44IEwzMy40LDk4LjggTDMyLjksOTcuOCBMMzIuMyw5Ni44IEwzMS44LDk1LjggTDMxLjQsOTQuNyBMMzAuOSw5My43IEwzMC41LDkyLjYgTDMwLjEsOTEuNSBMMjkuNyw5MC40IEwyOS40LDg5LjMgTDI5LjEsODguMiBMMjguOCw4Ny4xIEwyOC41LDg1LjkgTDI4LjMsODQuOCBMMjgsODMuNiBMMjcuOSw4Mi41IEwyNy43LDgxLjMgTDI3LjYsODAuMSBMMjcuNSw3OC45IEwyNy40LDc3LjcgTDI3LjMsNzYuNSBMMjcuMyw3NS4zIEwyNy4zLDc0IEwyNy40LDcyLjcgTDI3LjUsNzEuNCBMMjcuNiw3MC4yIEwyNy43LDY4LjkgTDI3LjksNjcuNiBMMjguMSw2Ni40IEwyOC40LDY1LjIgTDI4LjYsNjMuOSBMMjguOSw2Mi43IEwyOS4zLDYxLjUgTDI5LjYsNjAuMyBMMzAsNTkuMiBMMzAuNCw1OCBMMzAuOSw1Ni45IEwzMS40LDU1LjcgTDMxLjksNTQuNiBMMzIuNCw1My41IEwzMyw1Mi40IEwzMy41LDUxLjMgTDM0LjEsNTAuMyBMMzQuOCw0OS4yIEwzNS40LDQ4LjIgTDM2LjEsNDcuMiBMMzYuOCw0Ni4yIEwzNy41LDQ1LjMgTDM4LjMsNDQuMyBMMzkuMSw0My40IEwzOS45LDQyLjUgTDQwLjcsNDEuNiBMNDEuNSw0MC43IEw0Mi40LDM5LjkgTDQzLjIsMzkuMSBMNDQuMSwzOC4zIEw0NC45LDM3LjYgTDQ1LjgsMzYuOSBMNDYuNywzNi4yIEw0Ny42LDM1LjUgTDQ4LjUsMzQuOCBMNDkuNSwzNC4yIEw1MC40LDMzLjYgTDUxLjQsMzMgTDUyLjQsMzIuNCBMNTMuNCwzMS45IEw1NC40LDMxLjQgTDU1LjUsMzAuOSBMNTYuNSwzMC40IEw1Ny42LDI5LjkgTDU4LjYsMjkuNSBMNTkuNywyOS4xIEw2MC44LDI4LjcgTDYxLjksMjguNCBMNjMsMjguMSBMNjQuMiwyNy44IEw2NS4zLDI3LjUgTDY2LjUsMjcuMyBMNjcuNiwyNyBMNjguOCwyNi45IEw3MCwyNi43IEw3MS4yLDI2LjYgTDcyLjQsMjYuNSBMNzMuNiwyNi40IEw3NC44LDI2LjMgTDc2LDI2LjMgTDc3LjEsMjYuMyBMNzguMywyNi40IEw3OS40LDI2LjQgTDgwLjYsMjYuNSBMODEuNywyNi43IEw4Mi44LDI2LjggTDgzLjksMjcgTDg1LjEsMjcuMiBMODYuMiwyNy40IEw4Ny4yLDI3LjcgTDg4LjMsMjcuOSBMODkuNCwyOC4yIEw5MC41LDI4LjYgTDkxLjUsMjguOSBMOTIuNSwyOS4zIEw5My42LDI5LjcgTDk0LjYsMzAuMSBMOTUuNiwzMC41IEw5Ni42LDMxIEw5Ny42LDMxLjUgTDk4LjYsMzIgTDk5LjUsMzIuNSBMMTAwLjUsMzMgTDEwMS40LDMzLjYgTDEwMi4zLDM0LjIgTDEwMy4yLDM0LjggTDEwNC4xLDM1LjQgTDEwNSwzNi4xIEwxMDUuOSwzNi43IEwxMDYuNywzNy40IEwxMDcuNSwzOC4xIEwxMDguNCwzOC44IEwxMDkuMywzOS43IEwxMTAuMiw0MC42IEwxMTEuMSw0MS41IEwxMTEuOSw0Mi40IEwxMTIuOCw0My4zIEwxMTMuNiw0NC4zIEwxMTQuNCw0NS4zIEwxMTUuMSw0Ni4zIEwxMTUuOSw0Ny4zIEwxMTYuNiw0OC40IEwxMTcuMiw0OS40IEwxMTcuOSw1MC41IEwxMTguNSw1MS42IEwxMTkuMSw1Mi43IEwxMTkuNyw1My45IEwxMjAuMyw1NSBMMTIwLjgsNTYuMiBMMTIxLjMsNTcuNCBMMTIxLjcsNTguNiBMMTIyLjEsNTkuOCBMMTIyLjUsNjEgTDEyMi45LDYyLjMgTDEyMy4yLDYzLjUgTDEyMy41LDY0LjggTDEyMy44LDY2LjEgTDEyNCw2Ny40IEwxMjQuMiw2OC43IEwxMjQuMyw2OS4zIEwxMjQuNCw3MCBMMTI0LjQsNzAuNiBMMTI0LjUsNzEuMyBMMTI0LjUsNzIgTDEyNC42LDcyLjYgTDEyNC42LDczLjMgTDEyNC42LDc0IEwxMjQuNyw3NC42IEwxMjQuNyw3NS4zIEwxMjQuNiw3Ni42IEwxMjQuNiw3Ny44IEwxMjQuNSw3OSBMMTI0LjQsODAuMyBMMTI0LjMsODEuNSBMMTI0LjEsODIuNyBMMTIzLjksODMuOSBMMTIzLjcsODUuMSBMMTIzLjQsODYuMyBMMTIzLjEsODcuNCBMMTIyLjgsODguNiBMMTIyLjUsODkuNyBMMTIyLjEsOTAuOSBMMTIxLjcsOTIgTDEyMS4zLDkzLjEgTDEyMC44LDk0LjIgTDEyMC4zLDk1LjMgTDExOS44LDk2LjMgTDExOS4zLDk3LjQgTDExOC43LDk4LjQgTDExOC4yLDk5LjUgTDExNy42LDEwMC41IEwxMTYuOSwxMDEuNSBMMTE2LjMsMTAyLjQgTDExNS42LDEwMy40IEwxMTQuOSwxMDQuNCBMMTE0LjIsMTA1LjMgTDExMy41LDEwNi4yIEwxMTIuNywxMDcuMSBMMTExLjksMTA4IEwxMTEuMSwxMDguOCBMMTEwLjMsMTA5LjcgTDEwOS41LDExMC41IEwxMDguNiwxMTEuMyBMMTA3LjgsMTEyLjEgTDEwNi45LDExMi44IEwxMDUuOSwxMTMuNSBMMTA1LDExNC4zIEwxMDQuMSwxMTUgTDEwMy4xLDExNS42IEwxMDIuMSwxMTYuMyBMMTAxLjEsMTE2LjkgTDEwMC4xLDExNy41IEw5OS4xLDExOC4xIEw5OC4xLDExOC42IEw5NywxMTkuMiBMOTUuOSwxMTkuNyBMOTQuOCwxMjAuMSBMOTMuNywxMjAuNiBMOTIuNiwxMjEgTDkxLjUsMTIxLjQgTDkwLjQsMTIxLjggTDg5LjIsMTIyLjEgTDg4LjEsMTIyLjQgTDg2LjksMTIyLjcgTDg1LjcsMTIzIEw4NC42LDEyMy4yIEw4My40LDEyMy40IEw4Mi4xLDEyMy42IEw4MC45LDEyMy43IEw3OS43LDEyMy44IEw3OC41LDEyMy45IEw3Ny4yLDEyNCBMNzYsMTI0IE03NiwxMTUuNyBMNzcsMTE1LjYgTDc4LjEsMTE1LjYgTDc5LjEsMTE1LjUgTDgwLjEsMTE1LjUgTDgxLjEsMTE1LjMgTDgyLjEsMTE1LjIgTDgzLjEsMTE1IEw4NC4xLDExNC44IEw4NS4xLDExNC42IEw4Ni4xLDExNC40IEw4Ny4xLDExNC4xIEw4OCwxMTMuOSBMODksMTEzLjUgTDg5LjksMTEzLjIgTDkwLjgsMTEyLjkgTDkxLjcsMTEyLjUgTDkyLjYsMTEyLjEgTDkzLjUsMTExLjcgTDk0LjQsMTExLjMgTDk1LjIsMTEwLjggTDk2LjEsMTEwLjMgTDk2LjksMTA5LjggTDk3LjgsMTA5LjMgTDk4LjYsMTA4LjggTDk5LjQsMTA4LjIgTDEwMC4xLDEwNy43IEwxMDAuOSwxMDcuMSBMMTAxLjcsMTA2LjUgTDEwMi40LDEwNS44IEwxMDMuMSwxMDUuMiBMMTAzLjgsMTA0LjUgTDEwNC41LDEwMy45IEwxMDUuMiwxMDMuMiBMMTA1LjksMTAyLjUgTDEwNi41LDEwMS43IEwxMDcuMSwxMDEgTDEwNy43LDEwMC4zIEwxMDguMyw5OS41IEwxMDguOSw5OC43IEwxMDkuNSw5Ny45IEwxMTAsOTcuMSBMMTEwLjUsOTYuMyBMMTExLDk1LjQgTDExMS41LDk0LjYgTDExMS45LDkzLjcgTDExMi40LDkyLjggTDExMi44LDkxLjkgTDExMy4yLDkxIEwxMTMuNSw5MC4xIEwxMTMuOSw4OS4yIEwxMTQuMiw4OC4zIEwxMTQuNSw4Ny4zIEwxMTQuOCw4Ni40IEwxMTUuMSw4NS40IEwxMTUuMyw4NC41IEwxMTUuNSw4My41IEwxMTUuNyw4Mi41IEwxMTUuOSw4MS41IEwxMTYsODAuNSBMMTE2LjEsNzkuNSBMMTE2LjEsNzkuMyBMMzUuNSw3OS4zIEwzNS42LDgwLjMgTDM1LjgsODEuMiBMMzUuOSw4Mi4yIEwzNi4xLDgzLjEgTDM2LjMsODQuMSBMMzYuNSw4NSBMMzYuOCw4NS45IEwzNyw4Ni45IEwzNy4zLDg3LjggTDM3LjYsODguNyBMMzcuOSw4OS42IEwzOC4zLDkwLjQgTDM4LjcsOTEuMyBMMzksOTIuMiBMMzkuNCw5MyBMMzkuOSw5My45IEw0MC4zLDk0LjcgTDQwLjgsOTUuNSBMNDEuMyw5Ni4zIEw0MS44LDk3LjEgTDQyLjMsOTcuOSBMNDIuOCw5OC42IEw0My40LDk5LjQgTDQzLjksMTAwLjEgTDQ0LjUsMTAwLjggTDQ1LjEsMTAxLjYgTDQ1LjcsMTAyLjMgTDQ2LjQsMTAyLjkgTDQ3LjEsMTAzLjcgTDQ3LjgsMTA0LjQgTDQ4LjUsMTA1LjEgTDQ5LjMsMTA1LjcgTDUwLjEsMTA2LjQgTDUwLjksMTA3IEw1MS43LDEwNy42IEw1Mi41LDEwOC4yIEw1My4zLDEwOC44IEw1NC4yLDEwOS40IEw1NS4xLDEwOS45IEw1NS45LDExMC40IEw1Ni44LDExMC45IEw1Ny43LDExMS40IEw1OC43LDExMS44IEw1OS42LDExMi4yIEw2MC42LDExMi42IEw2MS41LDExMyBMNjIuNSwxMTMuNCBMNjMuNSwxMTMuNyBMNjQuNSwxMTQgTDY1LjUsMTE0LjMgTDY2LjUsMTE0LjUgTDY3LjUsMTE0LjggTDY4LjUsMTE1IEw2OS42LDExNS4yIEw3MC42LDExNS4zIEw3MS43LDExNS40IEw3Mi43LDExNS41IEw3My44LDExNS42IEw3NC45LDExNS42IEw3NiwxMTUuNyBNMzUuNiw3MSBMMTE2LjEsNzEgTDExNiw3MCBMMTE1LjgsNjguOSBMMTE1LjYsNjcuOSBMMTE1LjQsNjYuOCBMMTE1LjIsNjUuOCBMMTE1LDY0LjggTDExNC43LDYzLjggTDExNC40LDYyLjggTDExNCw2MS44IEwxMTMuNyw2MC44IEwxMTMuMyw1OS45IEwxMTIuOSw1OC45IEwxMTIuNSw1OCBMMTEyLDU3LjEgTDExMS42LDU2LjIgTDExMS4xLDU1LjMgTDExMC42LDU0LjQgTDExMCw1My41IEwxMDkuNSw1Mi43IEwxMDguOSw1MS44IEwxMDguMyw1MSBMMTA3LjcsNTAuMiBMMTA3LjEsNDkuNCBMMTA2LjQsNDguNiBMMTA1LjcsNDcuOSBMMTA1LDQ3LjEgTDEwNC4zLDQ2LjQgTDEwMy42LDQ1LjcgTDEwMi45LDQ1LjEgTDEwMi4yLDQ0LjUgTDEwMS41LDQzLjkgTDEwMC44LDQzLjMgTDEwMCw0Mi43IEw5OS4zLDQyLjEgTDk4LjUsNDEuNiBMOTcuOCw0MS4xIEw5Nyw0MC42IEw5Ni4yLDQwLjEgTDk1LjMsMzkuNiBMOTQuNSwzOS4yIEw5My43LDM4LjggTDkyLjgsMzguNCBMOTIsMzggTDkxLjEsMzcuNiBMOTAuMiwzNy4zIEw4OS4zLDM2LjkgTDg4LjQsMzYuNiBMODcuNSwzNi40IEw4Ni42LDM2LjEgTDg1LjcsMzUuOCBMODQuNywzNS42IEw4My44LDM1LjQgTDgyLjksMzUuMiBMODEuOSwzNS4xIEw4MC45LDM1IEw4MCwzNC45IEw3OSwzNC44IEw3OCwzNC43IEw3NywzNC43IEw3NiwzNC43IEw3NC45LDM0LjcgTDczLjksMzQuNyBMNzIuOSwzNC44IEw3MS45LDM0LjkgTDcwLjgsMzUgTDY5LjgsMzUuMSBMNjguOCwzNS4zIEw2Ny44LDM1LjUgTDY2LjgsMzUuNyBMNjUuOSwzNS45IEw2NC45LDM2LjIgTDYzLjksMzYuNSBMNjMsMzYuOCBMNjIuMSwzNy4xIEw2MS4xLDM3LjUgTDYwLjIsMzcuOSBMNTkuMywzOC4zIEw1OC40LDM4LjcgTDU3LjUsMzkuMSBMNTYuNywzOS42IEw1NS44LDQwLjEgTDU1LDQwLjYgTDU0LjEsNDEuMSBMNTMuMyw0MS42IEw1Mi41LDQyLjIgTDUxLjcsNDIuOCBMNTAuOSw0My40IEw1MC4yLDQ0IEw0OS40LDQ0LjYgTDQ4LjcsNDUuMyBMNDgsNDUuOSBMNDcuMyw0Ni42IEw0Ni42LDQ3LjMgTDQ1LjksNDggTDQ1LjMsNDguOCBMNDQuNyw0OS41IEw0NCw1MC4zIEw0My40LDUxIEw0Mi45LDUxLjggTDQyLjMsNTIuNiBMNDEuOCw1My41IEw0MS4yLDU0LjMgTDQwLjcsNTUuMSBMNDAuMyw1NiBMMzkuOCw1Ni45IEwzOS40LDU3LjggTDM4LjksNTguNiBMMzguNSw1OS41IEwzOC4yLDYwLjUgTDM3LjgsNjEuNCBMMzcuNSw2Mi4zIEwzNy4yLDYzLjMgTDM2LjksNjQuMiBMMzYuNiw2NS4yIEwzNi40LDY2LjIgTDM2LjIsNjcuMiBMMzYsNjguMiBMMzUuOCw2OS4yIEwzNS43LDcwLjIgTDM1LjYsNzEiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -596,23 +505,52 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{40daca49-e5e1-450b-b167-c6c60b4ff1f7}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{f84292d9-dd13-4c9c-bbe0-9b1f193f9dfb}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="angle" type="QString" value="0"></Option>
+            <Option name="color" type="QString" value="0,0,0,255,rgb:0,0,0,1"></Option>
+            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
+            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyIDQ1IgogeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiPgo8dGl0bGU+UXQgU1ZHIERvY3VtZW50PC90aXRsZT4KPGRlc2M+R2VuZXJhdGVkIHdpdGggUXQ8L2Rlc2M+CjxkZWZzPgo8L2RlZnM+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49ImJldmVsIiA+Cgo8ZyBmaWxsPSJwYXJhbShmaWxsKSIgZmlsbC1vcGFjaXR5PSJwYXJhbShmaWxsLW9wYWNpdHkpIiBzdHJva2U9InBhcmFtKG91dGxpbmUpIiBzdHJva2Utb3BhY2l0eT0icGFyYW0ob3V0bGluZS1vcGFjaXR5KSAxIiBzdHJva2Utd2lkdGg9InBhcmFtKG91dGxpbmUtd2lkdGgpIiAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsMCwwKSIKZm9udC1mYW1pbHk9Ik1TIFNoZWxsIERsZyAyIiBmb250LXNpemU9IjkuOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMC4zMywyOS42NyBMMTAuMzMsMjcuNjUgTDkuNjYzMzksMjcuNTUxNCBMOS4wMzUxMiwyNy4zNTcyIEw4LjQ1MDUzLDI3LjA3NTMgTDcuOTE0OTYsMjYuNzE0IEw3LjQzMzc1LDI2LjI4MTIgTDcuMDEyMjQsMjUuNzg1MiBMNi42NTU3NywyNS4yMzM5IEw2LjM2OTY4LDI0LjYzNTYgTDYuMTU5MzEsMjMuOTk4MiBMNi4wMywyMy4zMyBMMy45OSwyMy4zMyBMMy45OSwyMi4zMyBMNiwyMi4zMyBMNi4wOTMxNiwyMS42MzIzIEw2LjI3ODQ4LDIwLjk3NzQgTDYuNTQ5NzIsMjAuMzcxMiBMNi45MDA2NCwxOS44MjAxIEw3LjMyNSwxOS4zMyBMNy44MTY1NiwxOC45MDcxIEw4LjM2OTA4LDE4LjU1NzYgTDguOTc2MzIsMTguMjg3NCBMOS42MzIwNCwxOC4xMDI5IEwxMC4zMywxOC4wMSBMMTAuMzMsMTYgTDExLjMzLDE2IEwxMS4zMywxOC4wNCBMMTEuOTk1NiwxOC4xNjkzIEwxMi42MzA4LDE4LjM3OTYgTDEzLjIyNzcsMTguNjY1NSBMMTMuNzc4LDE5LjAyMTYgTDE0LjI3MzgsMTkuNDQyNSBMMTQuNzA2OCwxOS45MjI4IEwxNS4wNjkxLDIwLjQ1NzEgTDE1LjM1MjQsMjEuMDQgTDE1LjU0ODgsMjEuNjY2MSBMMTUuNjUsMjIuMzMgTDE3LjY2LDIyLjMzIEwxNy42NiwyMy4zMyBMMTUuNjEsMjMuMzMgTDE1LjQ3MDQsMjMuOTY2NCBMMTUuMjQ4NCwyNC41NzQ5IEwxNC45NTA4LDI1LjE0ODcgTDE0LjU4NDQsMjUuNjgxIEwxNC4xNTYzLDI2LjE2NSBMMTMuNjczMiwyNi41OTM4IEwxMy4xNDIyLDI2Ljk2MDUgTDEyLjU3LDI3LjI1ODMgTDExLjk2MzcsMjcuNDgwNCBMMTEuMzMsMjcuNjIgTDExLjMzLDI5LjY3IEwxMC4zMywyOS42NyBNMTAuMzMsMjYuOTggTDEwLjMzLDIzLjMzIEw2LjcxLDIzLjMzIEw2Ljg0MzQ5LDIzLjg5MTUgTDcuMDQ3MTIsMjQuNDI1OCBMNy4zMTM2MywyNC45MjY3IEw3LjYzNTc2LDI1LjM4ODEgTDguMDA2MjUsMjUuODAzNyBMOC40MTc4NCwyNi4xNjc1IEw4Ljg2MzI3LDI2LjQ3MzIgTDkuMzM1MjgsMjYuNzE0NiBMOS44MjY2MSwyNi44ODU2IEwxMC4zMywyNi45OCBNMTEuMzMsMjYuOTUgTDExLjg2MjgsMjYuODI0OSBMMTIuMzcxNywyNi42MzMgTDEyLjg1MTMsMjYuMzc5OCBMMTMuMjk2MiwyNi4wNzAzIEwxMy43MDEzLDI1LjcxIEwxNC4wNjEsMjUuMzA0MSBMMTQuMzcsMjQuODU3OCBMMTQuNjIzMSwyNC4zNzY2IEwxNC44MTQ5LDIzLjg2NTUgTDE0Ljk0LDIzLjMzIEwxMS4zMywyMy4zMyBMMTEuMzMsMjYuOTUgTTEwLjMzLDIyLjMzIEwxMC4zMywxOC42OCBMOS44MDAzOSwxOC43ODMgTDkuMjg1MTIsMTguOTY2NSBMOC43OTI1MywxOS4yMjIxIEw4LjMzMDk2LDE5LjU0MTQgTDcuOTA4NzUsMTkuOTE2MiBMNy41MzQyNCwyMC4zMzgyIEw3LjIxNTc3LDIwLjc5ODggTDYuOTYxNjgsMjEuMjg5OSBMNi43ODAzMSwyMS44MDMxIEw2LjY4LDIyLjMzIEwxMC4zMywyMi4zMyBNMTEuMzMsMjIuMzMgTDE0Ljk3LDIyLjMzIEwxNC44NzU5LDIxLjgyNjYgTDE0LjcwNTcsMjEuMzM1NCBMMTQuNDY1NCwyMC44NjM1IEwxNC4xNjEsMjAuNDE4NSBMMTMuNzk4OCwyMC4wMDc1IEwxMy4zODQ2LDE5LjYzNzkgTDEyLjkyNDUsMTkuMzE3MSBMMTIuNDI0NywxOS4wNTIyIEwxMS44OTEyLDE4Ljg1MDggTDExLjMzLDE4LjcyIEwxMS4zMywyMi4zMyIvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="Point"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="outline_width_unit" type="QString" value="Point"></Option>
+            <Option name="parameters"></Option>
+            <Option name="scale_method" type="QString" value="diameter"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
+            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="size_unit" type="QString" value="Point"></Option>
+            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+        <layer class="SvgMarker" enabled="1" id="{be3f2333-4ac3-488d-bbd4-ed8d0ed6bf2b}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjE1MS42NTksLTAuMzQxMzMzIDE1MS42NTksLTAuMzQxMzMzICIgLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMjEuNjU4NywtNy4xMDU0M2UtMTUgMjEuNjU4NywtNy4xMDU0M2UtMTUgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -620,34 +558,28 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{f91104b3-1bc6-48e8-95b8-18f698c15621}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{9b0ab3c3-27b0-4996-97f1-57cd76deaad7}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjAuMzI1MzMzLDE1MC42NTkgMC4zMjUzMzMsMTUwLjY1OSAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iLTAuMDA4LDQ1LjMzMzMgLTAuMDA4LDQ1LjMzMzMgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -655,48 +587,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{d8e9f927-309a-46fa-905b-4fd385d9b8d1}" locked="1" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik04MCw2IEw4MCwyNi41IEw4MC42LDI2LjUgTDgxLjcsMjYuNyBMODIuOCwyNi44IEw4My45LDI3IEw4NS4xLDI3LjIgTDg2LjIsMjcuNCBMODcuMiwyNy43IEw4OC4zLDI3LjkgTDg5LjQsMjguMiBMOTAuNSwyOC42IEw5MS41LDI4LjkgTDkyLjUsMjkuMyBMOTMuNiwyOS43IEw5NC42LDMwLjEgTDk1LjYsMzAuNSBMOTYuNiwzMSBMOTcuNiwzMS41IEw5OC42LDMyIEw5OS41LDMyLjUgTDEwMC41LDMzIEwxMDEuNCwzMy42IEwxMDIuMywzNC4yIEwxMDMuMiwzNC44IEwxMDQuMSwzNS40IEwxMDUsMzYuMSBMMTA1LjksMzYuNyBMMTA2LjcsMzcuNCBMMTA3LjUsMzguMSBMMTA4LjQsMzguOCBMMTA5LjMsMzkuNyBMMTEwLjIsNDAuNiBMMTExLjEsNDEuNSBMMTExLjksNDIuNCBMMTEyLjgsNDMuMyBMMTEzLjYsNDQuMyBMMTE0LjQsNDUuMyBMMTE1LjEsNDYuMyBMMTE1LjksNDcuMyBMMTE2LjYsNDguNCBMMTE3LjIsNDkuNCBMMTE3LjksNTAuNSBMMTE4LjUsNTEuNiBMMTE5LjEsNTIuNyBMMTE5LjcsNTMuOSBMMTIwLjMsNTUgTDEyMC44LDU2LjIgTDEyMS4zLDU3LjQgTDEyMS43LDU4LjYgTDEyMi4xLDU5LjggTDEyMi41LDYxIEwxMjIuOSw2Mi4zIEwxMjMuMiw2My41IEwxMjMuNSw2NC44IEwxMjMuOCw2Ni4xIEwxMjQsNjcuNCBMMTI0LjIsNjguNyBMMTI0LjQsNzAgTDEyNC41LDcxIEwxNDUsNzEgTDE0NSw3OS4zIEwxMjQuNSw3OS4zIEwxMjQuNCw4MC4zIEwxMjQuMyw4MS41IEwxMjQuMSw4Mi43IEwxMjMuOSw4My45IEwxMjMuNyw4NS4xIEwxMjMuNCw4Ni4zIEwxMjMuMSw4Ny40IEwxMjIuOCw4OC42IEwxMjIuNSw4OS43IEwxMjIuMSw5MC45IEwxMjEuNyw5MiBMMTIxLjMsOTMuMSBMMTIwLjgsOTQuMiBMMTIwLjMsOTUuMyBMMTE5LjgsOTYuMyBMMTE5LjMsOTcuNCBMMTE4LjcsOTguNCBMMTE4LjIsOTkuNSBMMTE3LjYsMTAwLjUgTDExNi45LDEwMS41IEwxMTYuMywxMDIuNCBMMTE1LjYsMTAzLjQgTDExNC45LDEwNC40IEwxMTQuMiwxMDUuMyBMMTEzLjUsMTA2LjIgTDExMi43LDEwNy4xIEwxMTEuOSwxMDggTDExMS4xLDEwOC44IEwxMTAuMywxMDkuNyBMMTA5LjUsMTEwLjUgTDEwOC42LDExMS4zIEwxMDcuOCwxMTIuMSBMMTA2LjksMTEyLjggTDEwNS45LDExMy41IEwxMDUsMTE0LjMgTDEwNC4xLDExNSBMMTAzLjEsMTE1LjYgTDEwMi4xLDExNi4zIEwxMDEuMSwxMTYuOSBMMTAwLjEsMTE3LjUgTDk5LjEsMTE4LjEgTDk4LjEsMTE4LjYgTDk3LDExOS4yIEw5NS45LDExOS43IEw5NC44LDEyMC4xIEw5My43LDEyMC42IEw5Mi42LDEyMSBMOTEuNSwxMjEuNCBMOTAuNCwxMjEuOCBMODkuMiwxMjIuMSBMODguMSwxMjIuNCBMODYuOSwxMjIuNyBMODUuNywxMjMgTDg0LjYsMTIzLjIgTDgzLjQsMTIzLjQgTDgyLjEsMTIzLjYgTDgwLjksMTIzLjcgTDgwLDEyMy44IEw4MCwxNDQuMyBMNzIsMTQ0LjMgTDcyLDEyMy44IEw3MC45LDEyMy43IEw2OS42LDEyMy42IEw2OC4zLDEyMy40IEw2Ny4xLDEyMy4yIEw2NS45LDEyMi45IEw2NC43LDEyMi43IEw2My41LDEyMi40IEw2Mi4zLDEyMiBMNjEuMSwxMjEuNyBMNTkuOSwxMjEuMyBMNTguOCwxMjAuOCBMNTcuNiwxMjAuNCBMNTYuNSwxMTkuOSBMNTUuNCwxMTkuNCBMNTQuMywxMTguOSBMNTMuMiwxMTguMyBMNTIuMSwxMTcuNyBMNTEuMSwxMTcuMSBMNTAuMSwxMTYuNSBMNDkuMSwxMTUuOCBMNDguMSwxMTUuMiBMNDcuMSwxMTQuNSBMNDYuMSwxMTMuNyBMNDUuMiwxMTMgTDQ0LjMsMTEyLjIgTDQzLjQsMTExLjQgTDQyLjUsMTEwLjYgTDQxLjYsMTA5LjcgTDQwLjgsMTA4LjkgTDQwLDEwOC4xIEwzOS4zLDEwNy4yIEwzOC41LDEwNi4zIEwzNy44LDEwNS41IEwzNy4xLDEwNC42IEwzNi40LDEwMy42IEwzNS44LDEwMi43IEwzNS4yLDEwMS44IEwzNC41LDEwMC44IEwzNCw5OS44IEwzMy40LDk4LjggTDMyLjksOTcuOCBMMzIuMyw5Ni44IEwzMS44LDk1LjggTDMxLjQsOTQuNyBMMzAuOSw5My43IEwzMC41LDkyLjYgTDMwLjEsOTEuNSBMMjkuNyw5MC40IEwyOS40LDg5LjMgTDI5LjEsODguMiBMMjguOCw4Ny4xIEwyOC41LDg1LjkgTDI4LjMsODQuOCBMMjgsODMuNiBMMjcuOSw4Mi41IEwyNy43LDgxLjMgTDI3LjYsODAuMSBMMjcuNSw3OS4zIEw2LjcsNzkuMyBMNi43LDcxIEwyNy41LDcxIEwyNy42LDcwLjIgTDI3LjcsNjguOSBMMjcuOSw2Ny42IEwyOC4xLDY2LjQgTDI4LjQsNjUuMiBMMjguNiw2My45IEwyOC45LDYyLjcgTDI5LjMsNjEuNSBMMjkuNiw2MC4zIEwzMCw1OS4yIEwzMC40LDU4IEwzMC45LDU2LjkgTDMxLjQsNTUuNyBMMzEuOSw1NC42IEwzMi40LDUzLjUgTDMzLDUyLjQgTDMzLjUsNTEuMyBMMzQuMSw1MC4zIEwzNC44LDQ5LjIgTDM1LjQsNDguMiBMMzYuMSw0Ny4yIEwzNi44LDQ2LjIgTDM3LjUsNDUuMyBMMzguMyw0NC4zIEwzOS4xLDQzLjQgTDM5LjksNDIuNSBMNDAuNyw0MS42IEw0MS41LDQwLjcgTDQyLjQsMzkuOSBMNDMuMiwzOS4xIEw0NC4xLDM4LjMgTDQ0LjksMzcuNiBMNDUuOCwzNi45IEw0Ni43LDM2LjIgTDQ3LjYsMzUuNSBMNDguNSwzNC44IEw0OS41LDM0LjIgTDUwLjQsMzMuNiBMNTEuNCwzMyBMNTIuNCwzMi40IEw1My40LDMxLjkgTDU0LjQsMzEuNCBMNTUuNSwzMC45IEw1Ni41LDMwLjQgTDU3LjYsMjkuOSBMNTguNiwyOS41IEw1OS43LDI5LjEgTDYwLjgsMjguNyBMNjEuOSwyOC40IEw2MywyOC4xIEw2NC4yLDI3LjggTDY1LjMsMjcuNSBMNjYuNSwyNy4zIEw2Ny42LDI3IEw2OC44LDI2LjkgTDcwLDI2LjcgTDcxLjIsMjYuNiBMNzIsMjYuNSBMNzIsNiBMODAsNiBNODAsMTE1LjUgTDgwLjEsMTE1LjUgTDgxLjEsMTE1LjMgTDgyLjEsMTE1LjIgTDgzLjEsMTE1IEw4NC4xLDExNC44IEw4NS4xLDExNC42IEw4Ni4xLDExNC40IEw4Ny4xLDExNC4xIEw4OCwxMTMuOSBMODksMTEzLjUgTDg5LjksMTEzLjIgTDkwLjgsMTEyLjkgTDkxLjcsMTEyLjUgTDkyLjYsMTEyLjEgTDkzLjUsMTExLjcgTDk0LjQsMTExLjMgTDk1LjIsMTEwLjggTDk2LjEsMTEwLjMgTDk2LjksMTA5LjggTDk3LjgsMTA5LjMgTDk4LjYsMTA4LjggTDk5LjQsMTA4LjIgTDEwMC4xLDEwNy43IEwxMDAuOSwxMDcuMSBMMTAxLjcsMTA2LjUgTDEwMi40LDEwNS44IEwxMDMuMSwxMDUuMiBMMTAzLjgsMTA0LjUgTDEwNC41LDEwMy45IEwxMDUuMiwxMDMuMiBMMTA1LjksMTAyLjUgTDEwNi41LDEwMS43IEwxMDcuMSwxMDEgTDEwNy43LDEwMC4zIEwxMDguMyw5OS41IEwxMDguOSw5OC43IEwxMDkuNSw5Ny45IEwxMTAsOTcuMSBMMTEwLjUsOTYuMyBMMTExLDk1LjQgTDExMS41LDk0LjYgTDExMS45LDkzLjcgTDExMi40LDkyLjggTDExMi44LDkxLjkgTDExMy4yLDkxIEwxMTMuNSw5MC4xIEwxMTMuOSw4OS4yIEwxMTQuMiw4OC4zIEwxMTQuNSw4Ny4zIEwxMTQuOCw4Ni40IEwxMTUuMSw4NS40IEwxMTUuMyw4NC41IEwxMTUuNSw4My41IEwxMTUuNyw4Mi41IEwxMTUuOSw4MS41IEwxMTYsODAuNSBMMTE2LjEsNzkuNSBMMTE2LjEsNzkuMyBMODAsNzkuMyBMODAsMTE1LjUgTTcyLDExNS41IEw3Miw3OS4zIEwzNS41LDc5LjMgTDM1LjYsODAuMyBMMzUuOCw4MS4yIEwzNS45LDgyLjIgTDM2LjEsODMuMSBMMzYuMyw4NC4xIEwzNi41LDg1IEwzNi44LDg1LjkgTDM3LDg2LjkgTDM3LjMsODcuOCBMMzcuNiw4OC43IEwzNy45LDg5LjYgTDM4LjMsOTAuNCBMMzguNyw5MS4zIEwzOSw5Mi4yIEwzOS40LDkzIEwzOS45LDkzLjkgTDQwLjMsOTQuNyBMNDAuOCw5NS41IEw0MS4zLDk2LjMgTDQxLjgsOTcuMSBMNDIuMyw5Ny45IEw0Mi44LDk4LjYgTDQzLjQsOTkuNCBMNDMuOSwxMDAuMSBMNDQuNSwxMDAuOCBMNDUuMSwxMDEuNiBMNDUuNywxMDIuMyBMNDYuNCwxMDIuOSBMNDcuMSwxMDMuNyBMNDcuOCwxMDQuNCBMNDguNSwxMDUuMSBMNDkuMywxMDUuNyBMNTAuMSwxMDYuNCBMNTAuOSwxMDcgTDUxLjcsMTA3LjYgTDUyLjUsMTA4LjIgTDUzLjMsMTA4LjggTDU0LjIsMTA5LjQgTDU1LjEsMTA5LjkgTDU1LjksMTEwLjQgTDU2LjgsMTEwLjkgTDU3LjcsMTExLjQgTDU4LjcsMTExLjggTDU5LjYsMTEyLjIgTDYwLjYsMTEyLjYgTDYxLjUsMTEzIEw2Mi41LDExMy40IEw2My41LDExMy43IEw2NC41LDExNCBMNjUuNSwxMTQuMyBMNjYuNSwxMTQuNSBMNjcuNSwxMTQuOCBMNjguNSwxMTUgTDY5LjYsMTE1LjIgTDcwLjYsMTE1LjMgTDcxLjcsMTE1LjQgTDcyLDExNS41IE0zNS42LDcxIEw3Miw3MSBMNzIsMzQuOSBMNzEuOSwzNC45IEw3MC44LDM1IEw2OS44LDM1LjEgTDY4LjgsMzUuMyBMNjcuOCwzNS41IEw2Ni44LDM1LjcgTDY1LjksMzUuOSBMNjQuOSwzNi4yIEw2My45LDM2LjUgTDYzLDM2LjggTDYyLjEsMzcuMSBMNjEuMSwzNy41IEw2MC4yLDM3LjkgTDU5LjMsMzguMyBMNTguNCwzOC43IEw1Ny41LDM5LjEgTDU2LjcsMzkuNiBMNTUuOCw0MC4xIEw1NSw0MC42IEw1NC4xLDQxLjEgTDUzLjMsNDEuNiBMNTIuNSw0Mi4yIEw1MS43LDQyLjggTDUwLjksNDMuNCBMNTAuMiw0NCBMNDkuNCw0NC42IEw0OC43LDQ1LjMgTDQ4LDQ1LjkgTDQ3LjMsNDYuNiBMNDYuNiw0Ny4zIEw0NS45LDQ4IEw0NS4zLDQ4LjggTDQ0LjcsNDkuNSBMNDQsNTAuMyBMNDMuNCw1MSBMNDIuOSw1MS44IEw0Mi4zLDUyLjYgTDQxLjgsNTMuNSBMNDEuMiw1NC4zIEw0MC43LDU1LjEgTDQwLjMsNTYgTDM5LjgsNTYuOSBMMzkuNCw1Ny44IEwzOC45LDU4LjYgTDM4LjUsNTkuNSBMMzguMiw2MC41IEwzNy44LDYxLjQgTDM3LjUsNjIuMyBMMzcuMiw2My4zIEwzNi45LDY0LjIgTDM2LjYsNjUuMiBMMzYuNCw2Ni4yIEwzNi4yLDY3LjIgTDM2LDY4LjIgTDM1LjgsNjkuMiBMMzUuNyw3MC4yIEwzNS42LDcxIE04MCw3MSBMMTE2LjEsNzEgTDExNiw3MCBMMTE1LjgsNjguOSBMMTE1LjYsNjcuOSBMMTE1LjQsNjYuOCBMMTE1LjIsNjUuOCBMMTE1LDY0LjggTDExNC43LDYzLjggTDExNC40LDYyLjggTDExNCw2MS44IEwxMTMuNyw2MC44IEwxMTMuMyw1OS45IEwxMTIuOSw1OC45IEwxMTIuNSw1OCBMMTEyLDU3LjEgTDExMS42LDU2LjIgTDExMS4xLDU1LjMgTDExMC42LDU0LjQgTDExMCw1My41IEwxMDkuNSw1Mi43IEwxMDguOSw1MS44IEwxMDguMyw1MSBMMTA3LjcsNTAuMiBMMTA3LjEsNDkuNCBMMTA2LjQsNDguNiBMMTA1LjcsNDcuOSBMMTA1LDQ3LjEgTDEwNC4zLDQ2LjQgTDEwMy42LDQ1LjcgTDEwMi45LDQ1LjEgTDEwMi4yLDQ0LjUgTDEwMS41LDQzLjkgTDEwMC44LDQzLjMgTDEwMCw0Mi43IEw5OS4zLDQyLjEgTDk4LjUsNDEuNiBMOTcuOCw0MS4xIEw5Nyw0MC42IEw5Ni4yLDQwLjEgTDk1LjMsMzkuNiBMOTQuNSwzOS4yIEw5My43LDM4LjggTDkyLjgsMzguNCBMOTIsMzggTDkxLjEsMzcuNiBMOTAuMiwzNy4zIEw4OS4zLDM2LjkgTDg4LjQsMzYuNiBMODcuNSwzNi40IEw4Ni42LDM2LjEgTDg1LjcsMzUuOCBMODQuNywzNS42IEw4My44LDM1LjQgTDgyLjksMzUuMiBMODEuOSwzNS4xIEw4MC45LDM1IEw4MCwzNC45IEw4MCw3MSIvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -710,23 +601,52 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{ad1ce2d4-cbe6-445e-809a-f6a122ab4061}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{732652bb-1603-4e2a-b605-6a6e204fd670}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="angle" type="QString" value="0"></Option>
+            <Option name="color" type="QString" value="0,0,0,255,rgb:0,0,0,1"></Option>
+            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
+            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyIDQ1IgogeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiPgo8dGl0bGU+UXQgU1ZHIERvY3VtZW50PC90aXRsZT4KPGRlc2M+R2VuZXJhdGVkIHdpdGggUXQ8L2Rlc2M+CjxkZWZzPgo8L2RlZnM+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49ImJldmVsIiA+Cgo8ZyBmaWxsPSJwYXJhbShmaWxsKSIgZmlsbC1vcGFjaXR5PSJwYXJhbShmaWxsLW9wYWNpdHkpIiBzdHJva2U9InBhcmFtKG91dGxpbmUpIiBzdHJva2Utb3BhY2l0eT0icGFyYW0ob3V0bGluZS1vcGFjaXR5KSAxIiBzdHJva2Utd2lkdGg9InBhcmFtKG91dGxpbmUtd2lkdGgpIiAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsMCwwKSIKZm9udC1mYW1pbHk9Ik1TIFNoZWxsIERsZyAyIiBmb250LXNpemU9IjkuOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMC4zMywyOS42NyBMMTAuMzMsMjcuMzMgTDEwLjEyMDEsMjcuMzIwMSBMOS44OTY0LDI3LjI5MDMgTDkuNjY0OSwyNy4yNDA2IEw5LjQzMTYsMjcuMTcxIEw5LjIwMjUsMjcuMDgxMiBMOC45ODM2LDI2Ljk3MTQgTDguNzgwOSwyNi44NDE1IEw4LjYwMDQsMjYuNjkxMyBMOC40NDgxLDI2LjUyMDggTDguMzMsMjYuMzMgTDguNjYsMjYgTDEwLjY2LDI2LjMzIEwxMi42NiwyNiBMMTMuMzMsMjYuMzMgTDEzLjEyOSwyNi41MjA4IEwxMi45MjgxLDI2LjY5MTMgTDEyLjcyNzMsMjYuODQxNSBMMTIuNTI2NiwyNi45NzE0IEwxMi4zMjYzLDI3LjA4MTIgTDEyLjEyNjIsMjcuMTcxIEwxMS45MjY0LDI3LjI0MDYgTDExLjcyNzEsMjcuMjkwMyBMMTEuNTI4MywyNy4zMjAxIEwxMS4zMywyNy4zMyBMMTEuMzMsMjkuNjcgTDEwLjMzLDI5LjY3Ii8+CjxwYXRoIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTYuOTksMjUuMzMgTDYuMzMsMjMuMzMgTDMuOTksMjMuMzMgTDMuOTksMjIuMzMgTDYuMzMsMjIuMzMgTDYuMzM5NTcsMjIuMTIyOCBMNi4zNjY5NiwyMS45MDEyIEw2LjQxMDE5LDIxLjY3MTIgTDYuNDY3MjgsMjEuNDM4OCBMNi41MzYyNSwyMS4yMSBMNi42MTUxMiwyMC45OTA4IEw2LjcwMTkxLDIwLjc4NzIgTDYuNzk0NjQsMjAuNjA1MiBMNi44OTEzMywyMC40NTA4IEw2Ljk5LDIwLjMzIEw3LjY2LDIwLjY3IEw2Ljk5LDIyLjY3IEw2Ljk5OTg1LDIyLjk1OTggTDcuMDI4LDIzLjIyOTQgTDcuMDcyMzUsMjMuNDc4NyBMNy4xMzA4LDIzLjcwODEgTDcuMjAxMjUsMjMuOTE3NSBMNy4yODE2LDI0LjEwNzEgTDcuMzY5NzUsMjQuMjc3MSBMNy40NjM2LDI0LjQyNzQgTDcuNTYxMDUsMjQuNTU4NCBMNy42NiwyNC42NyBMNi45OSwyNS4zMyIvPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNC4zMywyNS4zMyBMMTMuOTksMjQuNjcgTDE0LjMzLDIyLjY3IEwxMy45OSwyMC42NyBMMTQuMzMsMjAuMzMgTDE0LjUxODQsMjAuNDUwOCBMMTQuNjg3NCwyMC42MDUyIEwxNC44MzcxLDIwLjc4NzIgTDE0Ljk2NzEsMjAuOTkwOCBMMTUuMDc3NSwyMS4yMSBMMTUuMTY4MSwyMS40Mzg4IEwxNS4yMzg3LDIxLjY3MTIgTDE1LjI4OTQsMjEuOTAxMiBMMTUuMzE5OCwyMi4xMjI4IEwxNS4zMywyMi4zMyBMMTcuNjYsMjIuMzMgTDE3LjY2LDIzLjMzIEwxNS4zMywyMy4zMyBMMTUuMDgsMjQuMzMgTDE0LjMzLDI1LjMzIi8+CjxwYXRoIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTguNjYsMTkuNjcgTDguMzMsMTkgTDguNDQ4MSwxOC45MDEgTDguNjAwNCwxOC44MDM2IEw4Ljc4MDksMTguNzA5NyBMOC45ODM2LDE4LjYyMTYgTDkuMjAyNSwxOC41NDEyIEw5LjQzMTYsMTguNDcwOCBMOS42NjQ5LDE4LjQxMjMgTDkuODk2NCwxOC4zNjggTDEwLjEyMDEsMTguMzM5OCBMMTAuMzMsMTguMzMgTDEwLjMzLDE2IEwxMS4zMywxNiBMMTEuMzMsMTguMzMgTDEzLjMzLDE5IEwxMi42NiwxOS42NyBMMTIuNTUwOCwxOS41Njg2IEwxMi40MjEzLDE5LjQ2OTggTDEyLjI3MTUsMTkuMzc1MyBMMTIuMTAxNCwxOS4yODczIEwxMS45MTEzLDE5LjIwNzUgTDExLjcwMSwxOS4xMzc5IEwxMS40NzA2LDE5LjA4MDUgTDExLjIyMDMsMTkuMDM3IEwxMC45NTAxLDE5LjAwOTYgTDEwLjY2LDE5IEw4LjY2LDE5LjY3Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="Point"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
+            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="outline_width_unit" type="QString" value="Point"></Option>
+            <Option name="parameters"></Option>
+            <Option name="scale_method" type="QString" value="diameter"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
+            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="size_unit" type="QString" value="Point"></Option>
+            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+        <layer class="SvgMarker" enabled="1" id="{d174b558-5c36-493a-8a6d-5a26884bdebd}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjE1MS42NTksLTAuMzQxMzMzIDE1MS42NTksLTAuMzQxMzMzICIgLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMjEuNjU4NywtNy4xMDU0M2UtMTUgMjEuNjU4NywtNy4xMDU0M2UtMTUgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -734,34 +654,28 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{2f2e9271-ed35-4a85-a9f4-ad10e9f90fb2}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{20c29b55-cab8-4eac-9b90-1769f4cae6ad}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjAuMzI1MzMzLDE1MC42NTkgMC4zMjUzMzMsMTUwLjY1OSAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iLTAuMDA4LDQ1LjMzMzMgLTAuMDA4LDQ1LjMzMzMgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -769,48 +683,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{0abfb6f0-bd1b-4de6-9d71-5f3402b1dc39}" locked="1" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00NSw5NS4zIEwzOSwxMDEuMyBMMzguMiwxMDAuMSBMMzcuNCw5OC45IEwzNi43LDk3LjYgTDM2LDk2LjMgTDM1LjQsOTUgTDM0LjcsOTMuNyBMMzQuMiw5Mi4zIEwzMy42LDkxIEwzMy4xLDg5LjYgTDMyLjcsODguMSBMMzIuMyw4Ni43IEwzMS45LDg1LjIgTDMxLjgsODQuNSBMMzEuNiw4My44IEwzMS41LDgzIEwzMS4zLDgyLjMgTDMxLjIsODEuNiBMMzEuMSw4MC44IEwzMS4xLDgwLjEgTDMxLDc5LjMgTDYuNyw3OS4zIEw2LjcsNzEgTDMxLDcxIEwzMS4xLDcwLjIgTDMxLjEsNjkuNSBMMzEuMiw2OC44IEwzMS4zLDY4IEwzMS41LDY3LjMgTDMxLjYsNjYuNSBMMzEuOCw2NS44IEwzMS45LDY1LjEgTDMyLjMsNjMuNiBMMzIuNyw2Mi4yIEwzMy4xLDYwLjggTDMzLjYsNTkuNCBMMzQuMiw1OCBMMzQuNyw1Ni42IEwzNS40LDU1LjMgTDM2LDU0IEwzNi43LDUyLjcgTDM3LjQsNTEuNCBMMzguMiw1MC4yIEwzOSw0OSBMNDUsNTUgTDQ0LjMsNTYuMSBMNDMuNyw1Ny4yIEw0My4xLDU4LjMgTDQyLjUsNTkuNSBMNDIsNjAuNyBMNDEuNSw2MS45IEw0MSw2My4xIEw0MC42LDY0LjQgTDQwLjIsNjUuNyBMMzkuOSw2NyBMMzkuNiw2OC40IEwzOS41LDY5IEwzOS40LDY5LjcgTDM5LjMsNzAuNCBMMzkuMiw3MS4xIEwzOS4yLDcxLjggTDM5LjEsNzIuNSBMMzkuMSw3My4yIEwzOSw3My45IEwzOSw3NC42IEwzOSw3NS4zIEwzOSw3NiBMMzksNzYuNyBMMzkuMSw3Ny40IEwzOS4xLDc4LjEgTDM5LjIsNzguNyBMMzkuMiw3OS40IEwzOS4zLDgwLjEgTDM5LjQsODAuNyBMMzkuNiw4Mi4xIEwzOS45LDgzLjQgTDQwLjIsODQuNyBMNDAuNiw4NiBMNDEsODcuMiBMNDEuNSw4OC40IEw0Miw4OS43IEw0Mi41LDkwLjggTDQzLjEsOTIgTDQzLjcsOTMuMSBMNDQuMyw5NC4yIEw0NSw5NS4zIi8+CjxwYXRoIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEwMiwzOC4zIEw5Ni4zLDQ0LjMgTDk1LjUsNDMuOCBMOTQuNiw0My4yIEw5My43LDQyLjcgTDkyLjgsNDIuMyBMOTEuOSw0MS44IEw5MSw0MS40IEw5MC4xLDQxIEw4OS4yLDQwLjcgTDg4LjQsNDAuNCBMODcuNiw0MC4xIEw4Ni44LDM5LjkgTDg2LDM5LjYgTDg1LjIsMzkuNCBMODQuNCwzOS4yIEw4My42LDM5LjEgTDgyLjcsMzguOSBMODEuOSwzOC44IEw4MS4xLDM4LjcgTDgwLjIsMzguNiBMNzkuNCwzOC41IEw3OC41LDM4LjQgTDc3LjcsMzguNCBMNzYuOCwzOC4zIEw3NiwzOC4zIEw3NC42LDM4LjMgTDczLjEsMzguNCBMNzEuOCwzOC41IEw3MC40LDM4LjcgTDY5LDM4LjkgTDY3LjcsMzkuMiBMNjcsMzkuMyBMNjYuNCwzOS41IEw2NS43LDM5LjYgTDY1LjEsMzkuOCBMNjQsNDAuMiBMNjIuOCw0MC42IEw2MS44LDQxIEw2MC43LDQxLjQgTDU5LjcsNDEuOSBMNTguNiw0Mi41IEw1Ny42LDQzIEw1Ni43LDQzLjYgTDU1LjcsNDQuMyBMNDkuNywzOC4zIEw1MC45LDM3LjUgTDUyLjEsMzYuOCBMNTMuNCwzNiBMNTQuNiwzNS4zIEw1NiwzNC43IEw1Ny4zLDM0IEw1OC43LDMzLjUgTDYwLjEsMzIuOSBMNjEuNSwzMi40IEw2Mi45LDMxLjkgTDY0LjQsMzEuNSBMNjUuOSwzMS4xIEw2Ny40LDMwLjggTDY4LjksMzAuNSBMNzAuNCwzMC4yIEw3MiwzMCBMNzIsNiBMODAsNiBMODAsMzAgTDgxLjUsMzAuMiBMODMuMSwzMC41IEw4NC42LDMwLjggTDg2LjEsMzEuMSBMODcuNSwzMS41IEw4OC45LDMxLjkgTDkwLjQsMzIuNCBMOTEuNywzMi45IEw5My4xLDMzLjUgTDk0LjQsMzQgTDk1LjgsMzQuNyBMOTcuMSwzNS4zIEw5OC4zLDM2IEw5OS42LDM2LjggTDEwMC44LDM3LjUgTDEwMiwzOC4zIi8+CjxwYXRoIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTgwLDEyMC4zIEw4MCwxNDQuMyBMNzIsMTQ0LjMgTDcyLDEyMC4zIEw3MC42LDEyMC4xIEw2OS4yLDExOS45IEw2Ny45LDExOS43IEw2Ni41LDExOS40IEw2NS4yLDExOS4xIEw2My45LDExOC43IEw2Mi42LDExOC40IEw2MS4zLDExOCBMNjAsMTE3LjUgTDU4LjgsMTE3IEw1Ny41LDExNi41IEw1Ni4zLDExNiBMNTUuMSwxMTUuNCBMNTQsMTE0LjggTDUyLjgsMTE0LjEgTDUxLjcsMTEzLjQgTDUwLjcsMTEyLjcgTDQ5LjcsMTEyIEw1NS43LDEwNiBMNTYuNywxMDYuNyBMNTcuOCwxMDcuNCBMNTksMTA4LjEgTDYwLjEsMTA4LjcgTDYwLjcsMTA5IEw2MS4zLDEwOS4yIEw2MS45LDEwOS41IEw2Mi42LDEwOS44IEw2My4yLDExMCBMNjMuOCwxMTAuMiBMNjQuNCwxMTAuNCBMNjUuMSwxMTAuNyBMNjUuNywxMTAuOSBMNjYuNCwxMTEgTDY3LDExMS4yIEw2Ny43LDExMS40IEw2OC4zLDExMS41IEw2OSwxMTEuNyBMNjkuNywxMTEuOCBMNzAuNCwxMTEuOSBMNzEuMSwxMTIgTDcxLjgsMTEyLjEgTDcyLjQsMTEyLjIgTDczLjEsMTEyLjIgTDczLjksMTEyLjMgTDc0LjYsMTEyLjMgTDc1LjMsMTEyLjMgTDc2LDExMi4zIEw3Ni44LDExMi4zIEw3Ny42LDExMi4zIEw3OC40LDExMi4yIEw3OS4yLDExMi4yIEw4MCwxMTIuMSBMODAuNywxMTIgTDgxLjUsMTExLjkgTDgyLjMsMTExLjcgTDgzLjEsMTExLjYgTDgzLjgsMTExLjQgTDg0LjYsMTExLjIgTDg1LjQsMTExIEw4Ni4xLDExMC44IEw4Ni45LDExMC42IEw4Ny42LDExMC4zIEw4OC4zLDExMC4xIEw4OS40LDEwOS43IEw5MC40LDEwOS4yIEw5MS40LDEwOC44IEw5Mi40LDEwOC4zIEw5My40LDEwNy43IEw5NC40LDEwNy4yIEw5NS40LDEwNi42IEw5Ni4zLDEwNiBMMTAyLDExMiBMMTAxLjMsMTEyLjUgTDEwMC43LDExMi45IEwxMDAsMTEzLjQgTDk5LjQsMTEzLjggTDk4LjcsMTE0LjIgTDk4LDExNC42IEw5Ny4zLDExNSBMOTYuNiwxMTUuNCBMOTUuNywxMTUuOCBMOTQuNywxMTYuMyBMOTMuNywxMTYuNyBMOTIuNywxMTcuMSBMOTEuNywxMTcuNSBMOTAuNywxMTcuOSBMODkuNywxMTguMiBMODguNywxMTguNiBMODcuNiwxMTguOSBMODYuNiwxMTkuMSBMODUuNSwxMTkuNCBMODQuNCwxMTkuNiBMODMuMywxMTkuOCBMODIuMiwxMjAgTDgxLjEsMTIwLjIgTDgwLDEyMC4zIi8+CjxwYXRoIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyMSw3MSBMMTQ1LDcxIEwxNDUsNzkuMyBMMTIxLDc5LjMgTDEyMC45LDgwLjEgTDEyMC44LDgwLjggTDEyMC43LDgxLjYgTDEyMC42LDgyLjMgTDEyMC41LDgzIEwxMjAuNCw4My44IEwxMjAuMiw4NC41IEwxMjAuMSw4NS4yIEwxMTkuOSw4NiBMMTE5LjcsODYuNyBMMTE5LjUsODcuNCBMMTE5LjMsODguMSBMMTE5LjEsODguOCBMMTE4LjgsODkuNiBMMTE4LjYsOTAuMyBMMTE4LjMsOTEgTDExNy44LDkyLjMgTDExNy4yLDkzLjcgTDExNi41LDk1IEwxMTUuOCw5Ni4zIEwxMTUuMSw5Ny42IEwxMTQuMyw5OC45IEwxMTMuNSwxMDAuMSBMMTEyLjcsMTAxLjMgTDEwNyw5NS4zIEwxMDcuNyw5NC4yIEwxMDguMyw5My4xIEwxMDguOSw5MiBMMTA5LjUsOTAuOCBMMTEwLDg5LjcgTDExMC41LDg4LjQgTDExMSw4Ny4yIEwxMTEuNCw4NiBMMTExLjcsODQuNyBMMTEyLjEsODMuNCBMMTEyLjMsODIuMSBMMTEyLjYsODAuNyBMMTEyLjcsODAuMSBMMTEyLjgsNzkuNCBMMTEyLjgsNzguNyBMMTEyLjksNzguMSBMMTEyLjksNzcuNCBMMTEzLDc2LjcgTDExMyw3NiBMMTEzLDc1LjMgTDExMyw3NC42IEwxMTMsNzMuOSBMMTEyLjksNzMuMiBMMTEyLjksNzIuNSBMMTEyLjgsNzEuOCBMMTEyLjgsNzEuMSBMMTEyLjcsNzAuNCBMMTEyLjYsNjkuNyBMMTEyLjUsNjkgTDExMi4zLDY4LjQgTDExMi4xLDY3IEwxMTEuNyw2NS43IEwxMTEuNCw2NC40IEwxMTEsNjMuMSBMMTEwLjUsNjEuOSBMMTEwLDYwLjcgTDEwOS41LDU5LjUgTDEwOC45LDU4LjMgTDEwOC4zLDU3LjIgTDEwNy43LDU2LjEgTDEwNyw1NSBMMTEyLjcsNDkgTDExMy41LDUwLjIgTDExNC4zLDUxLjQgTDExNS4xLDUyLjcgTDExNS44LDU0IEwxMTYuNSw1NS4zIEwxMTcuMiw1Ni42IEwxMTcuOCw1OCBMMTE4LjMsNTkuNCBMMTE4LjYsNjAuMSBMMTE4LjgsNjAuOCBMMTE5LjEsNjEuNSBMMTE5LjMsNjIuMiBMMTE5LjUsNjIuOSBMMTE5LjcsNjMuNiBMMTE5LjksNjQuMyBMMTIwLjEsNjUuMSBMMTIwLjIsNjUuOCBMMTIwLjQsNjYuNSBMMTIwLjUsNjcuMyBMMTIwLjYsNjggTDEyMC43LDY4LjggTDEyMC44LDY5LjUgTDEyMC45LDcwLjIgTDEyMSw3MSIvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -824,23 +697,23 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{e36bdb3e-324f-4cf2-8164-5546e9292abf}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{473301d2-852c-432b-b624-85120289d829}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="200,200,200,0,rgb:0.78431372549019607,0.78431372549019607,0.78431372549019607,0"></Option>
+            <Option name="color" type="QString" value="0,0,0,255,rgb:0,0,0,1"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cG9seWxpbmUgZmlsbD0ibm9uZSIgdmVjdG9yLWVmZmVjdD0ibm9uZSIgcG9pbnRzPSIxNTEuNjU5LC0wLjM0MTMzMyAxNTEuNjU5LC0wLjM0MTMzMyAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyIDQ1IgogeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiPgo8dGl0bGU+UXQgU1ZHIERvY3VtZW50PC90aXRsZT4KPGRlc2M+R2VuZXJhdGVkIHdpdGggUXQ8L2Rlc2M+CjxkZWZzPgo8L2RlZnM+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49ImJldmVsIiA+Cgo8ZyBmaWxsPSJwYXJhbShmaWxsKSIgZmlsbC1vcGFjaXR5PSJwYXJhbShmaWxsLW9wYWNpdHkpIiBzdHJva2U9InBhcmFtKG91dGxpbmUpIiBzdHJva2Utb3BhY2l0eT0icGFyYW0ob3V0bGluZS1vcGFjaXR5KSAxIiBzdHJva2Utd2lkdGg9InBhcmFtKG91dGxpbmUtd2lkdGgpIiAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsMCwwKSIKZm9udC1mYW1pbHk9Ik1TIFNoZWxsIERsZyAyIiBmb250LXNpemU9IjkuOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik05LjMzLDMwLjMzIEw3Ljk5LDI5IEw3Ljk5LDE2LjY3IEw5LjMzLDE1LjMzIEw5LjY2LDE2IEw4Ljk5LDE3IEw4Ljk5LDI4LjY3IEw5LjY2LDI5LjY3IEw5LjMzLDMwLjMzIi8+CjxwYXRoIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTEyLjMzLDMwLjMzIEwxMS42NiwyOS42NyBMMTIuNjYsMjguNjcgTDEyLjY2LDE3IEwxMS42NiwxNiBMMTIuMzMsMTUuMzMgTDEzLjY2LDE2LjY3IEwxMy42NiwyOSBMMTIuMzMsMzAuMzMiLz4KPHBhdGggdmVjdG9yLWVmZmVjdD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTAuNjYsMjQgTDEwLjQ2LDIzLjk4OTggTDEwLjI2NDQsMjMuOTU3NyBMMTAuMDc3MywyMy45MDE3IEw5LjkwMjQsMjMuODE5OCBMOS43NDM3NSwyMy43MSBMOS42MDUyLDIzLjU3MDIgTDkuNDkwNjUsMjMuMzk4MyBMOS40MDQsMjMuMTkyMyBMOS4zNDkxNSwyMi45NTAyIEw5LjMzLDIyLjY3IEw5LjM0OTE1LDIyLjQ2OTcgTDkuNDA0LDIyLjI3MzQgTDkuNDkwNjUsMjIuMDg1MSBMOS42MDUyLDIxLjkwODkgTDkuNzQzNzUsMjEuNzQ4NyBMOS45MDI0LDIxLjYwODcgTDEwLjA3NzMsMjEuNDkyOCBMMTAuMjY0NCwyMS40MDUgTDEwLjQ2LDIxLjM0OTQgTDEwLjY2LDIxLjMzIEwxMC45NDAyLDIxLjM0OTQgTDExLjE4MjMsMjEuNDA1IEwxMS4zODgzLDIxLjQ5MjggTDExLjU2MDIsMjEuNjA4NyBMMTEuNywyMS43NDg3IEwxMS44MDk4LDIxLjkwODkgTDExLjg5MTcsMjIuMDg1MSBMMTEuOTQ3NywyMi4yNzM0IEwxMS45Nzk4LDIyLjQ2OTcgTDExLjk5LDIyLjY3IEwxMS45Nzk4LDIyLjk1MDIgTDExLjk0NzcsMjMuMTkyMyBMMTEuODkxNywyMy4zOTgzIEwxMS44MDk4LDIzLjU3MDIgTDExLjcsMjMuNzEgTDExLjU2MDIsMjMuODE5OCBMMTEuMzg4MywyMy45MDE3IEwxMS4xODIzLDIzLjk1NzcgTDEwLjk0MDIsMjMuOTg5OCBMMTAuNjYsMjQiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -848,34 +721,28 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{a694394b-2935-44ab-84a3-1df7192b8f64}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{34a4f5c3-a239-4094-bb1e-16c39676c7f5}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjAuMzI1MzMzLDE1MC42NTkgMC4zMjUzMzMsMTUwLjY1OSAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMjEuNjU4NywtNy4xMDU0M2UtMTUgMjEuNjU4NywtNy4xMDU0M2UtMTUgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -883,34 +750,28 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{58120729-67ab-4c53-8831-cac136a1d509}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{8915fdbb-379a-42c1-9955-91524c1411df}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
+            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik02NS43LDE0NC43IEw2Mi4zLDE1MC43IEw0OC43LDEzNyBMNDguNywxMy43IEw2Mi4zLDAgTDY1LjcsNS43IEw1NywxNyBMNTcsMTMzLjMgTDY1LjcsMTQ0LjciLz4KPHBhdGggdmVjdG9yLWVmZmVjdD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTAzLjMsMTM3IEw4OS43LDE1MC43IEw4NiwxNDQuNyBMOTUsMTMzLjMgTDk1LDE3IEw4Niw1LjcgTDg5LjcsMCBMMTAzLjMsMTMuNyBMMTAzLjMsMTM3Ii8+CjxwYXRoIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTc2LDg5IEw3NS4yLDg5IEw3NC40LDg4LjkgTDczLjYsODguOCBMNzIuOSw4OC42IEw3Mi4xLDg4LjQgTDcxLjQsODguMiBMNzAuNyw4Ny45IEw3MCw4Ny42IEw2OS4zLDg3LjIgTDY4LjcsODYuOSBMNjguMSw4Ni40IEw2Ny41LDg2IEw2Ni45LDg1LjUgTDY2LjQsODUgTDY1LjksODQuNSBMNjUuNCw4My45IEw2NSw4My40IEw2NC43LDgzIEw2NC40LDgyLjUgTDY0LjEsODIgTDYzLjgsODEuNSBMNjMuNiw4MSBMNjMuMyw4MC41IEw2My4xLDc5LjkgTDYyLjksNzkuNCBMNjIuOCw3OC44IEw2Mi42LDc4LjIgTDYyLjUsNzcuNyBMNjIuNCw3Ny4xIEw2Mi40LDc2LjUgTDYyLjMsNzUuOSBMNjIuMyw3NS4zIEw2Mi4zLDc0LjUgTDYyLjQsNzMuOCBMNjIuNSw3MyBMNjIuNyw3Mi4yIEw2Mi44LDcxLjUgTDYzLjEsNzAuOCBMNjMuMyw3MC4xIEw2My42LDY5LjQgTDYzLjksNjguNyBMNjQuMyw2OC4xIEw2NC43LDY3LjUgTDY1LjEsNjYuOSBMNjUuNSw2Ni4zIEw2Niw2NS43IEw2Ni41LDY1LjIgTDY3LjEsNjQuNyBMNjcuNSw2NC4zIEw2OCw2NCBMNjguNSw2My42IEw2OSw2My4zIEw2OS41LDYzIEw3MCw2Mi43IEw3MC42LDYyLjUgTDcxLjEsNjIuMiBMNzEuNyw2MiBMNzIuMyw2MS44IEw3Mi45LDYxLjcgTDczLjUsNjEuNiBMNzQuMSw2MS41IEw3NC43LDYxLjQgTDc1LjQsNjEuMyBMNzYsNjEuMyBMNzYuNiw2MS4zIEw3Ny4zLDYxLjQgTDc3LjksNjEuNSBMNzguNSw2MS42IEw3OS4xLDYxLjcgTDc5LjcsNjEuOCBMODAuMyw2MiBMODAuOSw2Mi4yIEw4MS40LDYyLjUgTDgyLDYyLjcgTDgyLjUsNjMgTDgzLDYzLjMgTDgzLjUsNjMuNiBMODQsNjQgTDg0LjUsNjQuMyBMODQuOSw2NC43IEw4NS41LDY1LjIgTDg2LDY1LjcgTDg2LjQsNjYuMyBMODYuOSw2Ni45IEw4Ny4zLDY3LjUgTDg3LjcsNjguMSBMODguMSw2OC43IEw4OC40LDY5LjQgTDg4LjcsNzAuMSBMODguOSw3MC44IEw4OS4xLDcxLjUgTDg5LjMsNzIuMiBMODkuNSw3MyBMODkuNiw3My44IEw4OS42LDc0LjUgTDg5LjcsNzUuMyBMODkuNiw3NS45IEw4OS42LDc2LjUgTDg5LjUsNzcuMSBMODkuNSw3Ny43IEw4OS4zLDc4LjIgTDg5LjIsNzguOCBMODksNzkuNCBMODguOSw3OS45IEw4OC42LDgwLjUgTDg4LjQsODEgTDg4LjIsODEuNSBMODcuOSw4MiBMODcuNiw4Mi41IEw4Ny4zLDgzIEw4Nyw4My40IEw4Ni42LDgzLjkgTDg2LjEsODQuNSBMODUuNiw4NSBMODUuMSw4NS41IEw4NC41LDg2IEw4My45LDg2LjQgTDgzLjMsODYuOSBMODIuNyw4Ny4yIEw4Miw4Ny42IEw4MS4zLDg3LjkgTDgwLjYsODguMiBMNzkuOSw4OC40IEw3OS4xLDg4LjYgTDc4LjQsODguOCBMNzcuNiw4OC45IEw3Ni44LDg5IEw3Niw4OSIvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iLTAuMDA4LDQ1LjMzMzMgLTAuMDA4LDQ1LjMzMzMgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -918,13 +779,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -938,93 +793,23 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{148fc9f8-2fcf-4e0f-8a97-276f314ef220}" locked="1" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjE1MS42NTksLTAuMzQxMzMzIDE1MS42NTksLTAuMzQxMzMzICIgLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{6e0b6f0f-0b7d-4361-b7e1-7c396e34c13f}" locked="1" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMTU2IDE1NSIKIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiICB2ZXJzaW9uPSIxLjIiIGJhc2VQcm9maWxlPSJ0aW55Ij4KPHRpdGxlPlF0IFNWRyBEb2N1bWVudDwvdGl0bGU+CjxkZXNjPkdlbmVyYXRlZCB3aXRoIFF0PC9kZXNjPgo8ZGVmcz4KPC9kZWZzPgo8ZyBmaWxsPSJub25lIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjEiIGZpbGwtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVjYXA9InNxdWFyZSIgc3Ryb2tlLWxpbmVqb2luPSJiZXZlbCIgPgoKPGcgZmlsbD0icGFyYW0oZmlsbCkiIGZpbGwtb3BhY2l0eT0icGFyYW0oZmlsbC1vcGFjaXR5KSIgc3Ryb2tlPSJwYXJhbShvdXRsaW5lKSIgc3Ryb2tlLW9wYWNpdHk9InBhcmFtKG91dGxpbmUtb3BhY2l0eSkgMSIgc3Ryb2tlLXdpZHRoPSJwYXJhbShvdXRsaW5lLXdpZHRoKSIgc3Ryb2tlLWxpbmVjYXA9ImJ1dHQiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsMCwwKSIKZm9udC1mYW1pbHk9Ik1TIFNoZWxsIERsZyAyIiBmb250LXNpemU9IjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMC4zMjUzMzMsMTUwLjY1OSAwLjMyNTMzMywxNTAuNjU5ICIgLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,1"></Option>
-            <Option name="outline_width" type="QString" value="0.529801"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{2894fbe3-3cf0-4d74-891f-d4e082d0c1e7}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{80b92ab9-3a45-48e6-8700-682a41af4b4b}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,rgb:0,0,0,1"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yNy4zLDk0IEwwLjMsOTQgTDAuMyw4Ni4zIEwyNy4zLDg2LjMgTDI3LjMsOTQiLz4KPHBhdGggdmVjdG9yLWVmZmVjdD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTQ5LDk0IEwxMjUsOTQgTDEyNSw4Ni4zIEwxNDksODYuMyBMMTUxLjcsODYuMyBMMTUxLjcsOTQgTDE0OSw5NCIvPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMTMsOTQgTDM5LDk0IEwzOSw4NS4zIEw2Niw1Ni4zIEw2Ni42LDU1LjcgTDY3LjEsNTUuMiBMNjcuNyw1NC43IEw2OC40LDU0LjIgTDY5LDUzLjggTDY5LjYsNTMuNSBMNzAuMiw1My4yIEw3MC45LDUyLjkgTDcxLjUsNTIuNyBMNzIuMiw1Mi41IEw3Mi44LDUyLjMgTDczLjQsNTIuMiBMNzQuMSw1Mi4xIEw3NC43LDUyIEw3NS40LDUyIEw3Niw1MiBMNzYuNiw1MiBMNzcuMiw1MiBMNzcuOCw1Mi4xIEw3OC40LDUyLjIgTDc5LDUyLjMgTDc5LjcsNTIuNCBMODAuMyw1Mi42IEw4MSw1Mi44IEw4MS42LDUzIEw4Mi4zLDUzLjMgTDgyLjksNTMuNyBMODMuNiw1NC4xIEw4My45LDU0LjMgTDg0LjIsNTQuNiBMODQuNSw1NC44IEw4NC44LDU1LjEgTDg1LjEsNTUuNCBMODUuNCw1NS43IEw4NS43LDU2IEw4Niw1Ni4zIEwxMTMsODUuMyBMMTEzLDk0Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyIDQ1IgogeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiPgo8dGl0bGU+UXQgU1ZHIERvY3VtZW50PC90aXRsZT4KPGRlc2M+R2VuZXJhdGVkIHdpdGggUXQ8L2Rlc2M+CjxkZWZzPgo8L2RlZnM+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49ImJldmVsIiA+Cgo8ZyBmaWxsPSJwYXJhbShmaWxsKSIgZmlsbC1vcGFjaXR5PSJwYXJhbShmaWxsLW9wYWNpdHkpIiBzdHJva2U9InBhcmFtKG91dGxpbmUpIiBzdHJva2Utb3BhY2l0eT0icGFyYW0ob3V0bGluZS1vcGFjaXR5KSAxIiBzdHJva2Utd2lkdGg9InBhcmFtKG91dGxpbmUtd2lkdGgpIiAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsMCwwKSIKZm9udC1mYW1pbHk9Ik1TIFNoZWxsIERsZyAyIiBmb250LXNpemU9IjkuOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0zLjMzLDI0LjY3IEwzLjMzLDI0IEw1Ljk5LDI0IEw1Ljk5LDI0LjY3IEwzLjMzLDI0LjY3Ii8+CjxwYXRoIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTYuOTksMjQuNjcgTDYuOTksMjMuNjcgTDkuNjYsMjEgTDEwLjY2LDIwLjMzIEwxMS42NiwyMSBMMTQuMzMsMjMuNjcgTDE0LjMzLDI0LjY3IEw2Ljk5LDI0LjY3Ii8+CjxwYXRoIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTE1LjY2LDI0LjY3IEwxNS42NiwyNCBMMTcuOTksMjQgTDE4LjMzLDI0IEwxOC4zMywyNC42NyBMMTcuOTksMjQuNjcgTDE1LjY2LDI0LjY3Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -1032,46 +817,59 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-      </symbol>
-      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="9" type="marker">
-        <data_defined_properties>
-          <Option type="Map">
-            <Option name="name" type="QString" value=""></Option>
-            <Option name="properties"></Option>
-            <Option name="type" type="QString" value="collection"></Option>
-          </Option>
-        </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{c8f0f2c2-b8a4-4aad-9136-2740acea0ca1}" locked="0" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{45ef7005-d82e-4e28-919d-78bed76ba81d}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
-            <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="121,93,222,255,hsv:0.70277777777777772,0.58039215686274515,0.87058823529411766,1"></Option>
+            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
+            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="joinstyle" type="QString" value="bevel"></Option>
-            <Option name="name" type="QString" value="circle"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMjEuNjU4NywtNy4xMDU0M2UtMTUgMjEuNjU4NywtNy4xMDU0M2UtMTUgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
-            <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="offset_unit" type="QString" value="Point"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="MM"></Option>
+            <Option name="outline_width_unit" type="QString" value="Point"></Option>
+            <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="2"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="MM"></Option>
+            <Option name="size_unit" type="QString" value="Point"></Option>
+            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
+          </Option>
+          <data_defined_properties>
+            <Option type="Map">
+              <Option name="name" type="QString" value=""></Option>
+              <Option name="properties"></Option>
+              <Option name="type" type="QString" value="collection"></Option>
+            </Option>
+          </data_defined_properties>
+        </layer>
+        <layer class="SvgMarker" enabled="1" id="{fb808239-a72a-48f6-b9c4-6c2345aead8b}" locked="0" pass="0">
+          <Option type="Map">
+            <Option name="angle" type="QString" value="0"></Option>
+            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
+            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
+            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iLTAuMDA4LDQ1LjMzMzMgLTAuMDA4LDQ1LjMzMzMgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
+            <Option name="offset" type="QString" value="0,0"></Option>
+            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="offset_unit" type="QString" value="Point"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
+            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="outline_width_unit" type="QString" value="Point"></Option>
+            <Option name="parameters"></Option>
+            <Option name="scale_method" type="QString" value="diameter"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
+            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
+            <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
           </Option>
           <data_defined_properties>
@@ -1093,18 +891,18 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{c8f0f2c2-b8a4-4aad-9136-2740acea0ca1}" locked="0" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{93138398-86b6-42da-92f7-14da5602c76f}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="133,182,111,255,rgb:0.52156862745098043,0.71372549019607845,0.43529411764705883,1"></Option>
+            <Option name="color" type="QString" value="145,82,45,255,rgb:0.5686275,0.3215686,0.1764706,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1137,55 +935,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
   </renderer-v2>
   <selection mode="Default">
     <selectionColor invalid="1"></selectionColor>
-    <selectionSymbol>
-      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="marker">
-        <data_defined_properties>
-          <Option type="Map">
-            <Option name="name" type="QString" value=""></Option>
-            <Option name="properties"></Option>
-            <Option name="type" type="QString" value="collection"></Option>
-          </Option>
-        </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{5aa60d82-a9b5-4ab5-8326-7f9112c0b469}" locked="0" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,0,0,255,rgb:1,0,0,1"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="joinstyle" type="QString" value="bevel"></Option>
-            <Option name="name" type="QString" value="circle"></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
-            <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="MM"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="2"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="MM"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-      </symbol>
-    </selectionSymbol>
   </selection>
   <labeling type="simple">
     <settings calloutType="simple">
-      <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="dip" fontFamily="Arial" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="10" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="Regular" previewBkgrdColor="255,255,255,255,rgb:1,1,1,1" stretchFactor="100" tabStopDistance="80" tabStopDistanceMapUnitScale="3x:0,0,0,0,0,0" tabStopDistanceUnit="Point" textColor="50,50,50,255,rgb:0.19607843137254902,0.19607843137254902,0.19607843137254902,1" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
+      <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="dip" fontFamily="Arial" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="10" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="Regular" previewBkgrdColor="255,255,255,255,rgb:1,1,1,1" stretchFactor="100" tabStopDistance="80" tabStopDistanceMapUnitScale="3x:0,0,0,0,0,0" tabStopDistanceUnit="Point" textColor="50,50,50,255,rgb:0.1960784,0.1960784,0.1960784,1" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
         <families></families>
-        <text-buffer bufferBlendMode="0" bufferColor="250,250,250,255,rgb:0.98039215686274506,0.98039215686274506,0.98039215686274506,1" bufferDraw="0" bufferJoinStyle="128" bufferNoFill="1" bufferOpacity="1" bufferSize="1" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSizeUnits="MM"></text-buffer>
+        <text-buffer bufferBlendMode="0" bufferColor="250,250,250,255,rgb:0.9803922,0.9803922,0.9803922,1" bufferDraw="0" bufferJoinStyle="128" bufferNoFill="1" bufferOpacity="1" bufferSize="1" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSizeUnits="MM"></text-buffer>
         <text-mask maskEnabled="0" maskJoinStyle="128" maskOpacity="1" maskSize="1.5" maskSize2="1.5" maskSizeMapUnitScale="3x:0,0,0,0,0,0" maskSizeUnits="MM" maskType="0" maskedSymbolLayers=""></text-mask>
-        <background shapeBlendMode="0" shapeBorderColor="128,128,128,255,rgb:0.50196078431372548,0.50196078431372548,0.50196078431372548,1" shapeBorderWidth="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeBorderWidthUnit="Point" shapeDraw="0" shapeFillColor="255,255,255,255,rgb:1,1,1,1" shapeJoinStyle="64" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeOffsetUnit="Point" shapeOffsetX="0" shapeOffsetY="0" shapeOpacity="1" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="Point" shapeRadiiX="0" shapeRadiiY="0" shapeRotation="0" shapeRotationType="0" shapeSVGFile="" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeType="0" shapeSizeUnit="Point" shapeSizeX="0" shapeSizeY="0" shapeType="0">
+        <background shapeBlendMode="0" shapeBorderColor="128,128,128,255,rgb:0.5019608,0.5019608,0.5019608,1" shapeBorderWidth="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeBorderWidthUnit="Point" shapeDraw="0" shapeFillColor="255,255,255,255,rgb:1,1,1,1" shapeJoinStyle="64" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeOffsetUnit="Point" shapeOffsetX="0" shapeOffsetY="0" shapeOpacity="1" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="Point" shapeRadiiX="0" shapeRadiiY="0" shapeRotation="0" shapeRotationType="0" shapeSVGFile="" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeType="0" shapeSizeUnit="Point" shapeSizeX="0" shapeSizeY="0" shapeType="0">
           <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="markerSymbol" type="marker">
             <data_defined_properties>
               <Option type="Map">
@@ -1198,14 +955,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
               <Option type="Map">
                 <Option name="angle" type="QString" value="0"></Option>
                 <Option name="cap_style" type="QString" value="square"></Option>
-                <Option name="color" type="QString" value="196,60,57,255,rgb:0.7686274509803922,0.23529411764705882,0.22352941176470589,1"></Option>
+                <Option name="color" type="QString" value="196,60,57,255,rgb:0.7686275,0.2352941,0.2235294,1"></Option>
                 <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
                 <Option name="joinstyle" type="QString" value="bevel"></Option>
                 <Option name="name" type="QString" value="circle"></Option>
                 <Option name="offset" type="QString" value="0,0"></Option>
                 <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
                 <Option name="offset_unit" type="QString" value="MM"></Option>
-                <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+                <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
                 <Option name="outline_style" type="QString" value="solid"></Option>
                 <Option name="outline_width" type="QString" value="0"></Option>
                 <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1241,7 +998,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
                 <Option name="offset" type="QString" value="0,0"></Option>
                 <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
                 <Option name="offset_unit" type="QString" value="MM"></Option>
-                <Option name="outline_color" type="QString" value="128,128,128,255,rgb:0.50196078431372548,0.50196078431372548,0.50196078431372548,1"></Option>
+                <Option name="outline_color" type="QString" value="128,128,128,255,rgb:0.5019608,0.5019608,0.5019608,1"></Option>
                 <Option name="outline_style" type="QString" value="no"></Option>
                 <Option name="outline_width" type="QString" value="0"></Option>
                 <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1289,7 +1046,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option name="drawToAllParts" type="bool" value="false"></Option>
           <Option name="enabled" type="QString" value="0"></Option>
           <Option name="labelAnchorPoint" type="QString" value="point_on_exterior"></Option>
-          <Option name="lineSymbol" type="QString" value="&lt;symbol is_animated=&quot;0&quot; force_rhr=&quot;0&quot; frame_rate=&quot;10&quot; name=&quot;symbol&quot; clip_to_extent=&quot;1&quot; alpha=&quot;1&quot; type=&quot;line&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;name&quot; type=&quot;QString&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option name=&quot;type&quot; type=&quot;QString&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer class=&quot;SimpleLine&quot; pass=&quot;0&quot; locked=&quot;0&quot; id=&quot;{45ef4d1e-565c-4376-ad61-3fe0cac71e58}&quot; enabled=&quot;1&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;align_dash_pattern&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;capstyle&quot; type=&quot;QString&quot; value=&quot;square&quot;/>&lt;Option name=&quot;customdash&quot; type=&quot;QString&quot; value=&quot;5;2&quot;/>&lt;Option name=&quot;customdash_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;customdash_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;dash_pattern_offset&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;dash_pattern_offset_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;dash_pattern_offset_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;draw_inside_polygon&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;joinstyle&quot; type=&quot;QString&quot; value=&quot;bevel&quot;/>&lt;Option name=&quot;line_color&quot; type=&quot;QString&quot; value=&quot;60,60,60,255,rgb:0.23529411764705882,0.23529411764705882,0.23529411764705882,1&quot;/>&lt;Option name=&quot;line_style&quot; type=&quot;QString&quot; value=&quot;solid&quot;/>&lt;Option name=&quot;line_width&quot; type=&quot;QString&quot; value=&quot;0.3&quot;/>&lt;Option name=&quot;line_width_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;offset&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;offset_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;offset_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;ring_filter&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;trim_distance_end&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;trim_distance_end_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;trim_distance_end_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;trim_distance_start&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;trim_distance_start_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;trim_distance_start_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;tweak_dash_pattern_on_corners&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;use_custom_dash&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;width_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;name&quot; type=&quot;QString&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option name=&quot;type&quot; type=&quot;QString&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
+          <Option name="lineSymbol" type="QString" value="&lt;symbol is_animated=&quot;0&quot; force_rhr=&quot;0&quot; name=&quot;symbol&quot; alpha=&quot;1&quot; clip_to_extent=&quot;1&quot; type=&quot;line&quot; frame_rate=&quot;10&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;name&quot; value=&quot;&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option name=&quot;type&quot; value=&quot;collection&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer enabled=&quot;1&quot; id=&quot;{45ef4d1e-565c-4376-ad61-3fe0cac71e58}&quot; pass=&quot;0&quot; class=&quot;SimpleLine&quot; locked=&quot;0&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;align_dash_pattern&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;capstyle&quot; value=&quot;square&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;customdash&quot; value=&quot;5;2&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;customdash_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;customdash_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;dash_pattern_offset&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;dash_pattern_offset_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;dash_pattern_offset_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;draw_inside_polygon&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;joinstyle&quot; value=&quot;bevel&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;line_color&quot; value=&quot;60,60,60,255,rgb:0.2352941,0.2352941,0.2352941,1&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;line_style&quot; value=&quot;solid&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;line_width&quot; value=&quot;0.3&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;line_width_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;offset&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;offset_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;offset_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;ring_filter&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_end&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_end_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_end_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_start&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_start_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_start_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;tweak_dash_pattern_on_corners&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;use_custom_dash&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;width_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;name&quot; value=&quot;&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option name=&quot;type&quot; value=&quot;collection&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
           <Option name="minLength" type="double" value="0"></Option>
           <Option name="minLengthMapUnitScale" type="QString" value="3x:0,0,0,0,0,0"></Option>
           <Option name="minLengthUnit" type="QString" value="MM"></Option>
@@ -1453,46 +1210,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <alias field="recorded_by" index="16" name=""></alias>
     <alias field="recorded_on" index="17" name=""></alias>
   </aliases>
-  <splitPolicies>
-    <policy field="field_project" policy="Duplicate"></policy>
-    <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="locality_point" policy="Duplicate"></policy>
-    <policy field="x" policy="Duplicate"></policy>
-    <policy field="y" policy="Duplicate"></policy>
-    <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="category" policy="Duplicate"></policy>
-    <policy field="manmade_landform_code" policy="Duplicate"></policy>
-    <policy field="manmade_type" policy="Duplicate"></policy>
-    <policy field="dip" policy="Duplicate"></policy>
-    <policy field="azimuth" policy="Duplicate"></policy>
-    <policy field="length" policy="Duplicate"></policy>
-    <policy field="width" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
-    <policy field="manmade_uuid" policy="Duplicate"></policy>
-    <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </splitPolicies>
-  <duplicatePolicies>
-    <policy field="field_project" policy="Duplicate"></policy>
-    <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="locality_point" policy="Duplicate"></policy>
-    <policy field="x" policy="Duplicate"></policy>
-    <policy field="y" policy="Duplicate"></policy>
-    <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="category" policy="Duplicate"></policy>
-    <policy field="manmade_landform_code" policy="Duplicate"></policy>
-    <policy field="manmade_type" policy="Duplicate"></policy>
-    <policy field="dip" policy="Duplicate"></policy>
-    <policy field="azimuth" policy="Duplicate"></policy>
-    <policy field="length" policy="Duplicate"></policy>
-    <policy field="width" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
-    <policy field="manmade_uuid" policy="Duplicate"></policy>
-    <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="field_project"></default>
     <default applyOnUpdate="0" expression="" field="field_project_fuid"></default>
