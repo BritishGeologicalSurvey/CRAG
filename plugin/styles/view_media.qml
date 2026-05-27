@@ -1,9 +1,4 @@
-<!--
-Copyright 2026 British Geological Survey
-Licensed under GPLv3 licence
-SPDX-License-Identifier: GPL-3.0-or-later
--->
-<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
+<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="singleSymbol">
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="marker">
@@ -17,14 +12,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
         <layer class="SvgMarker" enabled="1" id="{d5491eca-9783-427d-aad5-1c2c10f14d49}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="53,53,53,255,rgb:0.20784313725490197,0.20784313725490197,0.20784313725490197,1"></Option>
+            <Option name="color" type="QString" value="53,53,53,255,rgb:0.2078431,0.2078431,0.2078431,1"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="name" type="QString" value="base64:PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjNWY2MzY4Ij48cGF0aCBkPSJNMzIwLTI0MGgzMjB2LTgwSDMyMHY4MFptMC0xNjBoMzIwdi04MEgzMjB2ODBaTTI0MC04MHEtMzMgMC01Ni41LTIzLjVUMTYwLTE2MHYtNjQwcTAtMzMgMjMuNS01Ni41VDI0MC04ODBoMzIwbDI0MCAyNDB2NDgwcTAgMzMtMjMuNSA1Ni41VDcyMC04MEgyNDBabTI4MC01MjB2LTIwMEgyNDB2NjQwaDQ4MHYtNDQwSDUyMFpNMjQwLTgwMHYyMDAtMjAwIDY0MC02NDBaIi8+PC9zdmc+"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="MM"></Option>
@@ -77,7 +72,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -217,38 +212,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <alias field="recorded_by" index="12" name=""></alias>
     <alias field="recorded_on" index="13" name=""></alias>
   </aliases>
-  <splitPolicies>
-    <policy field="field_project" policy="Duplicate"></policy>
-    <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="locality_point" policy="Duplicate"></policy>
-    <policy field="x" policy="Duplicate"></policy>
-    <policy field="y" policy="Duplicate"></policy>
-    <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="locality_type" policy="Duplicate"></policy>
-    <policy field="media_type" policy="Duplicate"></policy>
-    <policy field="media_link" policy="Duplicate"></policy>
-    <policy field="media_description" policy="Duplicate"></policy>
-    <policy field="media_uuid" policy="Duplicate"></policy>
-    <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </splitPolicies>
-  <duplicatePolicies>
-    <policy field="field_project" policy="Duplicate"></policy>
-    <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="locality_point" policy="Duplicate"></policy>
-    <policy field="x" policy="Duplicate"></policy>
-    <policy field="y" policy="Duplicate"></policy>
-    <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="locality_type" policy="Duplicate"></policy>
-    <policy field="media_type" policy="Duplicate"></policy>
-    <policy field="media_link" policy="Duplicate"></policy>
-    <policy field="media_description" policy="Duplicate"></policy>
-    <policy field="media_uuid" policy="Duplicate"></policy>
-    <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="field_project"></default>
     <default applyOnUpdate="0" expression="" field="field_project_fuid"></default>

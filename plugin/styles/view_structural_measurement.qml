@@ -1,9 +1,4 @@
-<!--
-Copyright 2026 British Geological Survey
-Licensed under GPLv3 licence
-SPDX-License-Identifier: GPL-3.0-or-later
--->
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.8-Solothurn">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
   <renderer-v2 attr="structural_measurement_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="anticline_axis" render="true" symbol="0" type="string" uuid="{4fc48cb5-9f14-4af9-b88a-cee76972f951}" value="anticline_axis"></category>
@@ -99,7 +94,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -128,7 +129,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -157,7 +164,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -195,7 +208,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -224,7 +243,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -253,7 +278,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -291,7 +322,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -320,7 +357,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -349,7 +392,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -387,7 +436,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -416,7 +471,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -445,7 +506,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -483,7 +550,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -512,7 +585,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -541,7 +620,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -579,7 +664,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -608,7 +699,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -637,7 +734,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -675,7 +778,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -704,7 +813,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -733,7 +848,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -771,7 +892,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -800,7 +927,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -829,7 +962,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -867,7 +1006,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -896,7 +1041,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -925,7 +1076,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -963,7 +1120,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -992,7 +1155,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1021,7 +1190,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1059,7 +1234,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1088,7 +1269,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1117,7 +1304,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1155,7 +1348,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1184,7 +1383,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1213,7 +1418,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1251,7 +1462,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1280,7 +1497,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1309,7 +1532,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1347,7 +1576,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1376,7 +1611,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1405,7 +1646,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1443,7 +1690,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1472,7 +1725,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1501,7 +1760,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1539,7 +1804,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1568,7 +1839,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1597,7 +1874,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1635,7 +1918,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1664,7 +1953,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1693,7 +1988,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1731,7 +2032,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1760,7 +2067,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1789,7 +2102,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1827,7 +2146,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1856,7 +2181,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1885,7 +2216,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1923,7 +2260,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1952,7 +2295,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1981,7 +2330,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2019,7 +2374,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2048,7 +2409,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2077,7 +2444,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2115,7 +2488,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2144,7 +2523,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2173,7 +2558,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2211,7 +2602,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2240,7 +2637,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2269,7 +2672,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2307,7 +2716,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2336,7 +2751,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2365,7 +2786,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2403,7 +2830,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2432,7 +2865,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2461,7 +2900,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2499,7 +2944,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2528,7 +2979,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2557,7 +3014,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2595,7 +3058,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2624,7 +3093,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2653,7 +3128,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2691,7 +3172,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2720,7 +3207,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2749,7 +3242,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2787,7 +3286,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2816,7 +3321,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2845,7 +3356,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2883,7 +3400,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2912,7 +3435,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2941,7 +3470,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2979,7 +3514,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3008,7 +3549,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3037,7 +3584,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3075,7 +3628,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3104,7 +3663,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3133,7 +3698,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3171,7 +3742,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3200,7 +3777,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3229,7 +3812,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3267,7 +3856,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3296,7 +3891,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3325,7 +3926,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3363,7 +3970,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3392,7 +4005,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3421,7 +4040,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3459,7 +4084,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3488,7 +4119,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3517,7 +4154,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3555,7 +4198,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3584,7 +4233,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3613,7 +4268,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3651,7 +4312,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3680,7 +4347,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3709,7 +4382,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3747,7 +4426,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3776,7 +4461,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3805,7 +4496,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3843,7 +4540,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3872,7 +4575,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3901,7 +4610,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -3939,65 +4654,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{23b2b6b6-31e0-43aa-8a52-cafbff2c76c1}" locked="0" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMjEuNjU4NywtNy4xMDU0M2UtMTUgMjEuNjU4NywtNy4xMDU0M2UtMTUgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
-            <Option name="outline_width" type="QString" value="3.55556"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="19.5556"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{4d7fc7e8-9f37-4547-ac6d-a18528dc0121}" locked="0" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iLTAuMDA4LDQ1LjMzMzMgLTAuMDA4LDQ1LjMzMzMgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
-            <Option name="outline_width" type="QString" value="3.55556"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="19.5556"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4035,7 +4698,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4064,7 +4733,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4093,7 +4768,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4131,7 +4812,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4160,7 +4847,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4189,7 +4882,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4227,7 +4926,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4256,7 +4961,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4285,7 +4996,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4323,7 +5040,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4352,7 +5075,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4381,7 +5110,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4419,7 +5154,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4448,7 +5189,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4477,7 +5224,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4515,7 +5268,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4544,7 +5303,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4573,7 +5338,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4611,7 +5382,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4640,7 +5417,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4669,7 +5452,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4707,7 +5496,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4736,7 +5531,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4765,7 +5566,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4803,7 +5610,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4832,7 +5645,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4861,7 +5680,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4899,7 +5724,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4928,7 +5759,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4957,7 +5794,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -4995,7 +5838,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5024,7 +5873,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5053,7 +5908,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5091,7 +5952,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5120,7 +5987,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5149,7 +6022,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5187,7 +6066,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5216,7 +6101,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5245,7 +6136,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5283,7 +6180,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5312,7 +6215,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5341,7 +6250,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5379,7 +6294,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5408,7 +6329,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5437,13 +6364,19 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
       </symbol>
-      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="7" type="marker">
+      <symbol alpha="0.97" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="7" type="marker">
         <data_defined_properties>
           <Option type="Map">
             <Option name="name" type="QString" value=""></Option>
@@ -5475,7 +6408,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5504,7 +6443,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5533,7 +6478,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5571,7 +6522,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5600,7 +6557,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5629,7 +6592,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5667,7 +6636,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5696,7 +6671,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5725,7 +6706,13 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
+              <Option name="properties" type="Map">
+                <Option name="angle" type="Map">
+                  <Option name="active" type="bool" value="true"></Option>
+                  <Option name="field" type="QString" value="azimuth"></Option>
+                  <Option name="type" type="int" value="2"></Option>
+                </Option>
+              </Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -5896,7 +6883,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option name="drawToAllParts" type="bool" value="false"></Option>
           <Option name="enabled" type="QString" value="0"></Option>
           <Option name="labelAnchorPoint" type="QString" value="point_on_exterior"></Option>
-          <Option name="lineSymbol" type="QString" value="&lt;symbol is_animated=&quot;0&quot; force_rhr=&quot;0&quot; name=&quot;symbol&quot; alpha=&quot;1&quot; clip_to_extent=&quot;1&quot; type=&quot;line&quot; frame_rate=&quot;10&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;name&quot; value=&quot;&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option name=&quot;type&quot; value=&quot;collection&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer enabled=&quot;1&quot; id=&quot;{4b903c21-122c-47da-a9a7-8d2c254d87ea}&quot; pass=&quot;0&quot; class=&quot;SimpleLine&quot; locked=&quot;0&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;align_dash_pattern&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;capstyle&quot; value=&quot;square&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;customdash&quot; value=&quot;5;2&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;customdash_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;customdash_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;dash_pattern_offset&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;dash_pattern_offset_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;dash_pattern_offset_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;draw_inside_polygon&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;joinstyle&quot; value=&quot;bevel&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;line_color&quot; value=&quot;60,60,60,255,rgb:0.2352941,0.2352941,0.2352941,1&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;line_style&quot; value=&quot;solid&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;line_width&quot; value=&quot;0.3&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;line_width_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;offset&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;offset_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;offset_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;ring_filter&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_end&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_end_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_end_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_start&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_start_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;trim_distance_start_unit&quot; value=&quot;MM&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;tweak_dash_pattern_on_corners&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;use_custom_dash&quot; value=&quot;0&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;width_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;name&quot; value=&quot;&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option name=&quot;type&quot; value=&quot;collection&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
+          <Option name="lineSymbol" type="QString" value="&lt;symbol clip_to_extent=&quot;1&quot; name=&quot;symbol&quot; frame_rate=&quot;10&quot; force_rhr=&quot;0&quot; is_animated=&quot;0&quot; alpha=&quot;1&quot; type=&quot;line&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; name=&quot;name&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; name=&quot;type&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer pass=&quot;0&quot; class=&quot;SimpleLine&quot; locked=&quot;0&quot; id=&quot;{4b903c21-122c-47da-a9a7-8d2c254d87ea}&quot; enabled=&quot;1&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;0&quot; name=&quot;align_dash_pattern&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;square&quot; name=&quot;capstyle&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;5;2&quot; name=&quot;customdash&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;customdash_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;customdash_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;dash_pattern_offset&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;dash_pattern_offset_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;dash_pattern_offset_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;draw_inside_polygon&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;bevel&quot; name=&quot;joinstyle&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;60,60,60,255,rgb:0.2352941,0.2352941,0.2352941,1&quot; name=&quot;line_color&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;solid&quot; name=&quot;line_style&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0.3&quot; name=&quot;line_width&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;line_width_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;offset&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;offset_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;offset_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;ring_filter&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;trim_distance_end&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;trim_distance_end_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;trim_distance_end_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;trim_distance_start&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;trim_distance_start_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;MM&quot; name=&quot;trim_distance_start_unit&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;tweak_dash_pattern_on_corners&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;0&quot; name=&quot;use_custom_dash&quot; type=&quot;QString&quot;/>&lt;Option value=&quot;3x:0,0,0,0,0,0&quot; name=&quot;width_map_unit_scale&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option value=&quot;&quot; name=&quot;name&quot; type=&quot;QString&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option value=&quot;collection&quot; name=&quot;type&quot; type=&quot;QString&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
           <Option name="minLength" type="double" value="0"></Option>
           <Option name="minLengthMapUnitScale" type="QString" value="3x:0,0,0,0,0,0"></Option>
           <Option name="minLengthUnit" type="QString" value="MM"></Option>

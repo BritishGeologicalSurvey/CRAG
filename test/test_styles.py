@@ -31,12 +31,16 @@ def test_symbol_rotation_on_azimuth(data_model_gpkg: sqlite3.Connection):
     # Arrange
     codes_with_azimuth = {}
     for table in LOCALITY_DICTIONARIES:
+
         try:
             codes = etl.fetchall(f"SELECT code FROM {table} WHERE has_azimuth",
                                  data_model_gpkg)
         except ETLHelperExtractError as exc:
             if "no such column: has_azimuth" in exc.args[0]:
-                continue
+                if table == "dic_structure":
+                    codes = etl.fetchall(f"SELECT code FROM {table}", data_model_gpkg)
+                else:
+                    continue
 
         codes_with_azimuth[table] = [row["code"] for row in codes]
 

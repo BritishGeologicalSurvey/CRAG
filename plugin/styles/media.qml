@@ -1,9 +1,4 @@
-<!--
-Copyright 2026 British Geological Survey
-Licensed under GPLv3 licence
-SPDX-License-Identifier: GPL-3.0-or-later
--->
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -29,8 +24,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_4bb76b3f_42c7_4fd0_a75a_9419ceaf18b6"></Option>
+            <Option name="ReferencedLayerDataSource" type="invalid"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_5a6f00f4_7de5_44ba_8464_682fb86695a1"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_media"></Option>
@@ -50,8 +45,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_media_3bfea40c_a0f9_44c8_b775_748c6dee38f2"></Option>
+            <Option name="ReferencedLayerDataSource" type="invalid"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_media_94f6a9e1_7557_4bf5_a283_b8a65a4ff61f"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_media"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_media_media_2"></Option>
@@ -133,25 +128,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <alias field="recorded_on" index="7" name=""></alias>
   </aliases>
   <splitPolicies>
-    <policy field="fid" policy="Duplicate"></policy>
-    <policy field="uuid" policy="Duplicate"></policy>
     <policy field="locality_fuid" policy="DefaultValue"></policy>
     <policy field="media_type_code" policy="DefaultValue"></policy>
     <policy field="media_link" policy="DefaultValue"></policy>
     <policy field="media_description" policy="DefaultValue"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
   </splitPolicies>
-  <duplicatePolicies>
-    <policy field="fid" policy="Duplicate"></policy>
-    <policy field="uuid" policy="Duplicate"></policy>
-    <policy field="locality_fuid" policy="Duplicate"></policy>
-    <policy field="media_type_code" policy="Duplicate"></policy>
-    <policy field="media_link" policy="Duplicate"></policy>
-    <policy field="media_description" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
@@ -208,7 +189,7 @@ def my_form_open(dialog, layer, feature):
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
     <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
-      <labelFont bold="0" description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      <labelFont bold="0" description="MS Shell Dlg 2,9.8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
     <attributeEditorField horizontalStretch="0" index="3" name="media_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">

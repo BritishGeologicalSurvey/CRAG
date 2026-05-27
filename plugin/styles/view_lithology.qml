@@ -1,9 +1,4 @@
-<!--
-Copyright 2026 British Geological Survey
-Licensed under GPLv3 licence
-SPDX-License-Identifier: GPL-3.0-or-later
--->
-<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
+<qgis labelsEnabled="0" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
   <renderer-v2 enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="RuleRenderer">
     <rules key="{2c5d8ccd-29cb-4d99-bbca-d2b8b8cba71d}">
       <rule filter="simple_lithology IN ('biogenic silica sedimentary rock','hybrid sedimentary rock','iron rich sedimentary rock','non clastic siliceous sedimentary rock','phosphorite','sedimentary rock')" key="{5a731b97-8300-4330-976a-b4317b9f8176}" label="sedimentary rock" symbol="0"></rule>
@@ -77,14 +72,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="207,239,223,255,rgb:0.81176470588235294,0.93725490196078431,0.87450980392156863,1"></Option>
+            <Option name="color" type="QString" value="207,239,223,255,rgb:0.8117647,0.9372549,0.8745098,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -116,14 +111,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="89,125,110,255,rgb:0.34901960784313724,0.49019607843137253,0.43137254901960786,1"></Option>
+            <Option name="color" type="QString" value="89,125,110,255,rgb:0.3490196,0.4901961,0.4313725,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -155,14 +150,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,255,232,255,rgb:1,1,0.90980392156862744,1"></Option>
+            <Option name="color" type="QString" value="255,255,232,255,rgb:1,1,0.9098039,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -194,14 +189,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="230,153,0,255,rgb:0.90196078431372551,0.59999999999999998,0,1"></Option>
+            <Option name="color" type="QString" value="230,153,0,255,rgb:0.9019608,0.6,0,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -233,14 +228,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="221,179,151,255,rgb:0.8666666666666667,0.70196078431372544,0.59215686274509804,1"></Option>
+            <Option name="color" type="QString" value="221,179,151,255,rgb:0.8666667,0.7019608,0.5921569,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -272,14 +267,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,129,159,255,rgb:1,0.50588235294117645,0.62352941176470589,1"></Option>
+            <Option name="color" type="QString" value="255,129,159,255,rgb:1,0.5058824,0.6235294,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -311,14 +306,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,230,153,255,rgb:1,0.90196078431372551,0.59999999999999998,1"></Option>
+            <Option name="color" type="QString" value="255,230,153,255,rgb:1,0.9019608,0.6,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -350,14 +345,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="177,72,1,255,rgb:0.69411764705882351,0.28235294117647058,0.00392156862745098,1"></Option>
+            <Option name="color" type="QString" value="177,72,1,255,rgb:0.6941176,0.2823529,0.0039216,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -389,14 +384,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,204,197,255,rgb:1,0.80000000000000004,0.77254901960784317,1"></Option>
+            <Option name="color" type="QString" value="255,204,197,255,rgb:1,0.8,0.772549,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -428,14 +423,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="248,77,77,255,rgb:0.97254901960784312,0.30196078431372547,0.30196078431372547,1"></Option>
+            <Option name="color" type="QString" value="248,77,77,255,rgb:0.972549,0.3019608,0.3019608,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -467,14 +462,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="254,215,104,255,rgb:0.99607843137254903,0.84313725490196079,0.40784313725490196,1"></Option>
+            <Option name="color" type="QString" value="254,215,104,255,rgb:0.9960784,0.8431373,0.4078431,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -506,14 +501,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,111,107,255,rgb:1,0.43529411764705883,0.41960784313725491,1"></Option>
+            <Option name="color" type="QString" value="255,111,107,255,rgb:1,0.4352941,0.4196078,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -545,14 +540,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="214,254,154,255,rgb:0.83921568627450982,0.99607843137254903,0.60392156862745094,1"></Option>
+            <Option name="color" type="QString" value="214,254,154,255,rgb:0.8392157,0.9960784,0.6039216,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -584,14 +579,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="205,50,120,255,rgb:0.80392156862745101,0.19607843137254902,0.47058823529411764,1"></Option>
+            <Option name="color" type="QString" value="205,50,120,255,rgb:0.8039216,0.1960784,0.4705882,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -623,14 +618,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="204,0,0,255,rgb:0.80000000000000004,0,0,1"></Option>
+            <Option name="color" type="QString" value="204,0,0,255,rgb:0.8,0,0,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -662,14 +657,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,111,145,255,rgb:1,0.43529411764705883,0.56862745098039214,1"></Option>
+            <Option name="color" type="QString" value="255,111,145,255,rgb:1,0.4352941,0.5686275,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -701,14 +696,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="254,160,96,255,rgb:0.99607843137254903,0.62745098039215685,0.37647058823529411,1"></Option>
+            <Option name="color" type="QString" value="254,160,96,255,rgb:0.9960784,0.627451,0.3764706,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -740,14 +735,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,163,185,255,rgb:1,0.63921568627450975,0.72549019607843135,1"></Option>
+            <Option name="color" type="QString" value="255,163,185,255,rgb:1,0.6392157,0.7254902,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -779,14 +774,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,239,217,255,rgb:1,0.93725490196078431,0.85098039215686272,1"></Option>
+            <Option name="color" type="QString" value="255,239,217,255,rgb:1,0.9372549,0.8509804,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -818,14 +813,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="95,0,95,255,rgb:0.37254901960784315,0,0.37254901960784315,1"></Option>
+            <Option name="color" type="QString" value="95,0,95,255,rgb:0.372549,0,0.372549,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -857,14 +852,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="51,153,102,255,rgb:0.20000000000000001,0.59999999999999998,0.40000000000000002,1"></Option>
+            <Option name="color" type="QString" value="51,153,102,255,rgb:0.2,0.6,0.4,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -896,14 +891,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="234,175,255,255,rgb:0.91764705882352937,0.68627450980392157,1,1"></Option>
+            <Option name="color" type="QString" value="234,175,255,255,rgb:0.9176471,0.6862745,1,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -935,14 +930,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="230,205,255,255,rgb:0.90196078431372551,0.80392156862745101,1,1"></Option>
+            <Option name="color" type="QString" value="230,205,255,255,rgb:0.9019608,0.8039216,1,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -974,14 +969,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="189,219,241,255,rgb:0.74117647058823533,0.85882352941176465,0.94509803921568625,1"></Option>
+            <Option name="color" type="QString" value="189,219,241,255,rgb:0.7411765,0.8588235,0.945098,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1013,14 +1008,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="238,124,232,255,rgb:0.93333333333333335,0.48627450980392156,0.90980392156862744,1"></Option>
+            <Option name="color" type="QString" value="238,124,232,255,rgb:0.9333333,0.4862745,0.9098039,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1052,14 +1047,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="167,167,255,255,rgb:0.65490196078431373,0.65490196078431373,1,1"></Option>
+            <Option name="color" type="QString" value="167,167,255,255,rgb:0.654902,0.654902,1,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1091,14 +1086,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="237,237,243,255,rgb:0.92941176470588238,0.92941176470588238,0.95294117647058818,1"></Option>
+            <Option name="color" type="QString" value="237,237,243,255,rgb:0.9294118,0.9294118,0.9529412,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1130,14 +1125,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="219,219,231,255,rgb:0.85882352941176465,0.85882352941176465,0.90588235294117647,1"></Option>
+            <Option name="color" type="QString" value="219,219,231,255,rgb:0.8588235,0.8588235,0.9058824,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1169,14 +1164,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="45,182,179,255,rgb:0.17647058823529413,0.71372549019607845,0.70196078431372544,1"></Option>
+            <Option name="color" type="QString" value="45,182,179,255,rgb:0.1764706,0.7137255,0.7019608,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1215,7 +1210,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1247,14 +1242,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="159,255,159,255,rgb:0.62352941176470589,1,0.62352941176470589,1"></Option>
+            <Option name="color" type="QString" value="159,255,159,255,rgb:0.6235294,1,0.6235294,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1286,14 +1281,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="0,92,0,255,rgb:0,0.36078431372549019,0,1"></Option>
+            <Option name="color" type="QString" value="0,92,0,255,rgb:0,0.3607843,0,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1325,14 +1320,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="230,205,255,255,rgb:0.90196078431372551,0.80392156862745101,1,1"></Option>
+            <Option name="color" type="QString" value="230,205,255,255,rgb:0.9019608,0.8039216,1,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1371,7 +1366,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1403,14 +1398,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="183,217,204,255,rgb:0.71764705882352942,0.85098039215686272,0.80000000000000004,1"></Option>
+            <Option name="color" type="QString" value="183,217,204,255,rgb:0.7176471,0.8509804,0.8,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1442,14 +1437,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="172,127,80,255,rgb:0.67450980392156867,0.49803921568627452,0.31372549019607843,1"></Option>
+            <Option name="color" type="QString" value="172,127,80,255,rgb:0.6745098,0.4980392,0.3137255,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1481,14 +1476,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,79,255,255,rgb:1,0.30980392156862746,1,1"></Option>
+            <Option name="color" type="QString" value="255,79,255,255,rgb:1,0.3098039,1,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1520,14 +1515,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="106,0,106,255,rgb:0.41568627450980394,0,0.41568627450980394,1"></Option>
+            <Option name="color" type="QString" value="106,0,106,255,rgb:0.4156863,0,0.4156863,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1559,14 +1554,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="172,0,0,255,rgb:0.67450980392156867,0,0,1"></Option>
+            <Option name="color" type="QString" value="172,0,0,255,rgb:0.6745098,0,0,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1598,14 +1593,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="254,0,0,255,rgb:0.99607843137254903,0,0,1"></Option>
+            <Option name="color" type="QString" value="254,0,0,255,rgb:0.9960784,0,0,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1644,7 +1639,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1676,14 +1671,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="254,211,69,255,rgb:0.99607843137254903,0.82745098039215681,0.27058823529411763,1"></Option>
+            <Option name="color" type="QString" value="254,211,69,255,rgb:0.9960784,0.827451,0.2705882,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1715,14 +1710,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="191,191,255,255,rgb:0.74901960784313726,0.74901960784313726,1,1"></Option>
+            <Option name="color" type="QString" value="191,191,255,255,rgb:0.7490196,0.7490196,1,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1754,14 +1749,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="150,150,185,255,rgb:0.58823529411764708,0.58823529411764708,0.72549019607843135,1"></Option>
+            <Option name="color" type="QString" value="150,150,185,255,rgb:0.5882353,0.5882353,0.7254902,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1793,14 +1788,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="150,150,185,255,rgb:0.58823529411764708,0.58823529411764708,0.72549019607843135,1"></Option>
+            <Option name="color" type="QString" value="150,150,185,255,rgb:0.5882353,0.5882353,0.7254902,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1832,14 +1827,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="20,158,248,255,rgb:0.07843137254901961,0.61960784313725492,0.97254901960784312,1"></Option>
+            <Option name="color" type="QString" value="20,158,248,255,rgb:0.0784314,0.6196078,0.972549,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1871,14 +1866,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="197,213,233,255,rgb:0.77254901960784317,0.83529411764705885,0.9137254901960784,1"></Option>
+            <Option name="color" type="QString" value="197,213,233,255,rgb:0.772549,0.8352941,0.9137255,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1910,14 +1905,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="253,244,63,255,rgb:0.99215686274509807,0.95686274509803926,0.24705882352941178,1"></Option>
+            <Option name="color" type="QString" value="253,244,63,255,rgb:0.9921569,0.9568627,0.2470588,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1949,14 +1944,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="215,167,173,255,rgb:0.84313725490196079,0.65490196078431373,0.67843137254901964,1"></Option>
+            <Option name="color" type="QString" value="215,167,173,255,rgb:0.8431373,0.654902,0.6784314,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1988,14 +1983,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="200,200,200,255,rgb:0.78431372549019607,0.78431372549019607,0.78431372549019607,1"></Option>
+            <Option name="color" type="QString" value="200,200,200,255,rgb:0.7843137,0.7843137,0.7843137,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2027,14 +2022,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="144,99,255,255,rgb:0.56470588235294117,0.38823529411764707,1,1"></Option>
+            <Option name="color" type="QString" value="144,99,255,255,rgb:0.5647059,0.3882353,1,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2073,7 +2068,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2105,14 +2100,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="192,192,192,255,rgb:0.75294117647058822,0.75294117647058822,0.75294117647058822,1"></Option>
+            <Option name="color" type="QString" value="192,192,192,255,rgb:0.7529412,0.7529412,0.7529412,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2144,14 +2139,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="222,239,254,255,rgb:0.87058823529411766,0.93725490196078431,0.99607843137254903,1"></Option>
+            <Option name="color" type="QString" value="222,239,254,255,rgb:0.8705882,0.9372549,0.9960784,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2183,14 +2178,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="191,191,255,255,rgb:0.74901960784313726,0.74901960784313726,1,1"></Option>
+            <Option name="color" type="QString" value="191,191,255,255,rgb:0.7490196,0.7490196,1,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2222,14 +2217,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="66,65,60,255,rgb:0.25882352941176473,0.25490196078431371,0.23529411764705882,1"></Option>
+            <Option name="color" type="QString" value="66,65,60,255,rgb:0.2588235,0.254902,0.2352941,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2261,14 +2256,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="254,227,137,255,rgb:0.99607843137254903,0.8901960784313725,0.53725490196078429,1"></Option>
+            <Option name="color" type="QString" value="254,227,137,255,rgb:0.9960784,0.8901961,0.5372549,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2319,7 +2314,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2467,40 +2462,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <alias field="recorded_by" index="13" name=""></alias>
     <alias field="recorded_on" index="14" name=""></alias>
   </aliases>
-  <splitPolicies>
-    <policy field="field_project" policy="Duplicate"></policy>
-    <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="locality_point" policy="Duplicate"></policy>
-    <policy field="x" policy="Duplicate"></policy>
-    <policy field="y" policy="Duplicate"></policy>
-    <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="locality_type" policy="Duplicate"></policy>
-    <policy field="lithology_code" policy="Duplicate"></policy>
-    <policy field="lithology" policy="Duplicate"></policy>
-    <policy field="simple_lithology" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
-    <policy field="lithology_uuid" policy="Duplicate"></policy>
-    <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </splitPolicies>
-  <duplicatePolicies>
-    <policy field="field_project" policy="Duplicate"></policy>
-    <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="locality_point" policy="Duplicate"></policy>
-    <policy field="x" policy="Duplicate"></policy>
-    <policy field="y" policy="Duplicate"></policy>
-    <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="locality_type" policy="Duplicate"></policy>
-    <policy field="lithology_code" policy="Duplicate"></policy>
-    <policy field="lithology" policy="Duplicate"></policy>
-    <policy field="simple_lithology" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
-    <policy field="lithology_uuid" policy="Duplicate"></policy>
-    <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="field_project"></default>
     <default applyOnUpdate="0" expression="" field="field_project_fuid"></default>

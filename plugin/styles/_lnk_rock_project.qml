@@ -1,9 +1,4 @@
-<!--
-Copyright 2026 British Geological Survey
-Licensed under GPLv3 licence
-SPDX-License-Identifier: GPL-3.0-or-later
--->
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="TextEdit">
@@ -22,8 +17,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
-            <Option name="ReferencedLayerId" type="QString" value="field_project_bf449975_8c64_4d2d_9b3f_01eb6769ebba"></Option>
+            <Option name="ReferencedLayerDataSource" type="invalid"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_98e83429_521d_4e79_9524_908dacea8d28"></Option>
             <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="field_project__lnk_rock_project"></Option>
@@ -43,8 +38,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_8c3352ee_b401_446c_8bab_bb1afdb353af"></Option>
+            <Option name="ReferencedLayerDataSource" type="invalid"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_0cd2e789_b46c_45b4_a58b_419130c84d3f"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_rock_field"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_rock_field__lnk_rock_project_2"></Option>
@@ -83,19 +78,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <alias field="simple_lithology" index="4" name=""></alias>
   </aliases>
   <splitPolicies>
-    <policy field="fid" policy="Duplicate"></policy>
     <policy field="field_project_uuid" policy="DefaultValue"></policy>
     <policy field="rock_code" policy="DefaultValue"></policy>
     <policy field="category" policy="DefaultValue"></policy>
     <policy field="simple_lithology" policy="DefaultValue"></policy>
   </splitPolicies>
-  <duplicatePolicies>
-    <policy field="fid" policy="Duplicate"></policy>
-    <policy field="field_project_uuid" policy="Duplicate"></policy>
-    <policy field="rock_code" policy="Duplicate"></policy>
-    <policy field="category" policy="Duplicate"></policy>
-    <policy field="simple_lithology" policy="Duplicate"></policy>
-  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="" field="field_project_uuid"></default>
