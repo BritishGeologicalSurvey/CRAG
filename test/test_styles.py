@@ -108,13 +108,10 @@ def _has_layers_with_angle_from_azimuth(symbol_element):
         if angle is None:
             continue
 
-        active = angle.find("./Option[@name='active']")
-        field = angle.find("./Option[@name='field']")
+        active: ET.Element = angle.find("./Option[@name='active']")
+        field: ET.Element = angle.find("./Option[@name='field']")
 
-        if (
-            active is not None and active.get("value") == "true" and
-            field is not None and field.get("value") == "azimuth"
-        ):
+        if active.get("value", "") == "true" and field.get("value", "") == "azimuth":
             layers_with_angle_from_azimuth.append(layer)
 
     return len(layers_with_angle_from_azimuth) > 0
