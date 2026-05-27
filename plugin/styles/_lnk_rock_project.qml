@@ -1,3 +1,8 @@
+<!--
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 <qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
@@ -18,7 +23,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="invalid"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="field_project_98e83429_521d_4e79_9524_908dacea8d28"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_842c7e1f_99c5_47e1_baec_f40bbfb55bbd"></Option>
             <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="field_project__lnk_rock_project"></Option>
@@ -39,7 +44,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="invalid"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_0cd2e789_b46c_45b4_a58b_419130c84d3f"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_83dee748_a4db_4bab_8131_7c5f6e320b1d"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_rock_field"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_rock_field__lnk_rock_project_2"></Option>

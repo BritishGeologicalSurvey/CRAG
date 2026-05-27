@@ -1,3 +1,8 @@
+<!--
+Copyright 2026 British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
 <qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
@@ -25,7 +30,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="invalid"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_5a6f00f4_7de5_44ba_8464_682fb86695a1"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_ecb6cdf4_0fac_472b_a992_4fc1bfcc8807"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_superficial_landform"></Option>
@@ -51,7 +56,7 @@
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="invalid"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_superficial_landform_a9f902bf_dd74_48ab_9631_1ab48000b953"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_superficial_landform_dace1bd5_6a37_4a6c_a4f1_5d00d1da4c31"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_superficial_landform"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_superficial_landform_superficial_landform_2"></Option>
