@@ -3,27 +3,26 @@ Copyright 2026 British Geological Survey
 Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
   <renderer-v2 attr="superficial_landform_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
-      <category label="cavity_entrance_natural" render="true" symbol="0" type="string" uuid="{6773964a-3e6a-4df9-bd50-f3bd8f5e5c72}" value="cavity_entrance_natural"></category>
-      <category label="crag_and_tail" render="true" symbol="1" type="string" uuid="{863b4105-c329-46c3-8dfc-e41649058c7b}" value="crag_and_tail"></category>
-      <category label="doline_sinkhole" render="true" symbol="2" type="string" uuid="{87bfb7c1-a547-4cc4-a7a2-2102b6a2d62d}" value="doline_sinkhole"></category>
-      <category label="erratic" render="true" symbol="3" type="string" uuid="{a8cdc642-1fc9-418c-bbd8-0f2edef17a8c}" value="erratic"></category>
-      <category label="glacial_striae" render="true" symbol="4" type="string" uuid="{a0eacecb-9ef5-47b3-8c2b-ba54f9057774}" value="glacial_striae"></category>
-      <category label="glacial_striae_directional" render="true" symbol="5" type="string" uuid="{fa74e1bd-f716-4212-836f-57cd81216889}" value="glacial_striae_directional"></category>
-      <category label="glaciotectonic_unoriented" render="true" symbol="6" type="string" uuid="{f63230a6-21a7-46bb-92f0-dd85675d1076}" value="glaciotectonic_unoriented"></category>
-      <category label="kettle_hollow" render="true" symbol="7" type="string" uuid="{a6e1b834-5c95-463b-9a66-ef93ac792c76}" value="kettle_hollow"></category>
-      <category label="pingo" render="true" symbol="8" type="string" uuid="{5ba52c99-1d86-41f7-a209-d02a5e42fee1}" value="pingo"></category>
-      <category label="quaternary_section" render="true" symbol="9" type="string" uuid="{0d6e6c3a-364d-4ad7-af70-b1cd8817f33b}" value="quaternary_section"></category>
-      <category label="roche_moutonnee" render="true" symbol="10" type="string" uuid="{76c53a70-7f35-4a5c-9df7-1f715d9930d6}" value="roche_moutonnee"></category>
-      <category label="roche_moutonnee_striae" render="true" symbol="11" type="string" uuid="{9e38d34e-f115-43cc-8db6-01455d2023c1}" value="roche_moutonnee_striae"></category>
-      <category label="s_form" render="true" symbol="12" type="string" uuid="{16f5a8ac-27d8-46df-9ad6-135e6f1ec795}" value="s_form"></category>
-      <category label="spring" render="true" symbol="13" type="string" uuid="{354a8e5b-2805-49ce-8acb-d3d262e82986}" value="spring"></category>
-      <category label="stream_sink" render="true" symbol="14" type="string" uuid="{ff79c949-1947-484a-8fde-8bc897fcf267}" value="stream_sink"></category>
-      <category label="subsidence_hollow" render="true" symbol="15" type="string" uuid="{710b8966-d9bc-4efc-b626-f5ac0c4f7c96}" value="subsidence_hollow"></category>
-      <category label="tor" render="true" symbol="16" type="string" uuid="{08cc4c87-a0f6-448b-8a29-6acd4d917541}" value="tor"></category>
-      <category label="" render="true" symbol="17" type="NULL" uuid="{fa92365b-9efa-4de5-aea0-7536b6d75902}" value="NULL"></category>
+      <category label="cavity_entrance_natural" render="true" symbol="0" type="string" uuid="{e93b3e76-b7ec-4f28-86d3-30ad46d6db59}" value="cavity_entrance_natural"></category>
+      <category label="crag_and_tail" render="true" symbol="1" type="string" uuid="{6ea54c9f-2df4-45c5-9d79-6ae67cd14c13}" value="crag_and_tail"></category>
+      <category label="doline_sinkhole" render="true" symbol="2" type="string" uuid="{5026efb9-6af8-4382-800c-684ddffe7248}" value="doline_sinkhole"></category>
+      <category label="erratic" render="true" symbol="3" type="string" uuid="{ec9f900c-cfe0-4483-b12b-b356f20dafe6}" value="erratic"></category>
+      <category label="glacial_striae" render="true" symbol="4" type="string" uuid="{46c67ac7-3c80-4e6e-a0ed-d5b5c4bd52c2}" value="glacial_striae"></category>
+      <category label="glacial_striae_directional" render="true" symbol="5" type="string" uuid="{e49bf687-3362-4307-81fc-7466f6203999}" value="glacial_striae_directional"></category>
+      <category label="glaciotectonic_unoriented" render="true" symbol="6" type="string" uuid="{e4eeca39-d33e-427b-a3c2-67c362e848a3}" value="glaciotectonic_unoriented"></category>
+      <category label="kettle_hollow" render="true" symbol="7" type="string" uuid="{db644883-36b4-4cf0-b91c-a28571e247bd}" value="kettle_hollow"></category>
+      <category label="pingo" render="true" symbol="8" type="string" uuid="{aea5cfc4-1e03-4155-878d-7733fb2a92fe}" value="pingo"></category>
+      <category label="quaternary_section" render="true" symbol="9" type="string" uuid="{7680091d-81af-40aa-a3fe-942fb7bed043}" value="quaternary_section"></category>
+      <category label="roche_moutonnee" render="true" symbol="10" type="string" uuid="{e33dda62-beef-4475-ad36-6e12d0ab5450}" value="roche_moutonnee"></category>
+      <category label="roche_moutonnee_striae" render="true" symbol="11" type="string" uuid="{b41c3d46-eaf7-44f4-a56b-777867d9d192}" value="roche_moutonnee_striae"></category>
+      <category label="s_form" render="true" symbol="12" type="string" uuid="{e656ad7c-5be1-4eb1-9bc4-42bb6f082a29}" value="s_form"></category>
+      <category label="spring" render="true" symbol="13" type="string" uuid="{2bcc5bff-b1de-4c7e-bffd-6b5ff25baafc}" value="spring"></category>
+      <category label="stream_sink" render="true" symbol="14" type="string" uuid="{a9806fd2-f36f-4db1-a4c7-9c6c88ea0e17}" value="stream_sink"></category>
+      <category label="subsidence_hollow" render="true" symbol="15" type="string" uuid="{a15dd791-75cd-4f64-a86a-1b3ed1ee6eae}" value="subsidence_hollow"></category>
+      <category label="tor" render="true" symbol="16" type="string" uuid="{7bde6bc1-9860-439b-8f25-b415b5e1b877}" value="tor"></category>
     </categories>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="marker">
@@ -34,7 +33,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{03dde8cc-d94a-4a16-9104-f2534fd09c1f}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{a5447425-47c0-41a3-9b0a-56b482a54b37}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -44,7 +43,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -58,18 +57,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{abc3a6b5-54dc-4327-aa3f-0e2355a9fb6e}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{3ded3e06-0f31-4a37-98ac-f357d8150804}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -79,7 +72,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -93,18 +86,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{ad2c1779-314e-4afb-a343-45dfaef2159d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{04599846-a242-4527-937b-f94eed8bdea4}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -128,13 +115,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -148,23 +129,23 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{6a559e78-d68c-46e7-96cb-ab680304108d}" locked="0" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{cd789019-09dc-40e8-a024-cfeae46be3c2}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
+            <Option name="color" type="QString" value="0,97,175,255,rgb:0,0.3803922,0.6862745,1"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjIxOS42NzUsLTAuMzI1MzMzIDIxOS42NzUsLTAuMzI1MzMzICIgLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyIDQ1IgogeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiPgo8dGl0bGU+UXQgU1ZHIERvY3VtZW50PC90aXRsZT4KPGRlc2M+R2VuZXJhdGVkIHdpdGggUXQ8L2Rlc2M+CjxkZWZzPgo8L2RlZnM+CjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMSIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIiBzdHJva2UtbGluZWpvaW49ImJldmVsIiA+Cgo8ZyBmaWxsPSJwYXJhbShmaWxsKSIgZmlsbC1vcGFjaXR5PSJwYXJhbShmaWxsLW9wYWNpdHkpIiBzdHJva2U9InBhcmFtKG91dGxpbmUpIiBzdHJva2Utb3BhY2l0eT0icGFyYW0ob3V0bGluZS1vcGFjaXR5KSAxIiBzdHJva2Utd2lkdGg9InBhcmFtKG91dGxpbmUtd2lkdGgpIiAgIHRyYW5zZm9ybT0ibWF0cml4KDEsMCwwLDEsMCwwKSIKZm9udC1mYW1pbHk9Ik1TIFNoZWxsIERsZyAyIiBmb250LXNpemU9IjkuOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik05Ljk5LDMzLjY3IEwxMC4xMSwyNi4zMyBMNi4zMywyNi4zMyBMMTAuMjQsMTguODEgTDEwLjMzLDEzLjY3IEw4LjMzLDE2LjY3IEw3Ljk5LDE1LjY3IEwxMC42NiwxMiBMMTMuNjYsMTUuNjcgTDEzLjMzLDE2LjY3IEwxMC45OSwxMy42NyBMMTEuMTcsMTguOTEgTDE1LjMzLDI2LjMzIEwxMS40MSwyNi4zMyBMMTEuNjYsMzMuNjcgTDkuOTksMzMuNjcgTTcuNjYsMjUuMzMgTDEwLjEzLDI1LjMzIEwxMC4yMSwyMC41MSBMNy42NiwyNS4zMyBNMTEuMzgsMjUuMzMgTDEzLjk5LDI1LjMzIEwxMS4yMiwyMC42MyBMMTEuMzgsMjUuMzMiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -183,23 +164,23 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{1adc173f-46fc-47f6-b458-f2dfd478b0c8}" locked="0" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{502a1d45-721a-4ee0-a85f-6d9e6850cf80}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjAuMzQxMzMzLDIxOC42NzUgMC4zNDEzMzMsMjE4LjY3NSAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iMjEuNjU4NywtNy4xMDU0M2UtMTUgMjEuNjU4NywtNy4xMDU0M2UtMTUgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -218,23 +199,23 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{8249325b-3535-4534-87cc-f6f9b641c6db}" locked="0" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{749e4528-6da2-4343-b427-366a26f6ad34}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
+            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDIyMCAyMTkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xNTUuNywxNDMgTDExNiwxNDMgTDExNy43LDIxNyBMMTAyLjMsMjE3IEwxMDQuMSwxNDMgTDY0LjMsMTQzIEwxMDUuOCw2OC42IEwxMDcsMTYuNyBMODQuMyw0OS4zIEw4MC43LDM2LjMgTDExMCwxLjMgTDEzOS4zLDM2LjMgTDEzNS4zLDQ5LjMgTDExMywxNi43IEwxMTQuMiw2OC42IEwxNTUuNywxNDMgTTc4LjMsMTM0LjcgTDEwNC4zLDEzNC43IEwxMDUuNCw4Ni4zIEw3OC4zLDEzNC43IE0xMTUuOCwxMzQuNyBMMTQxLjcsMTM0LjcgTDExNC42LDg2LjMgTDExNS44LDEzNC43Ii8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
+            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iLTIgLTIgMjYgNDkiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI5LjgiIGZvbnQtd2VpZ2h0PSI0MDAiIGZvbnQtc3R5bGU9Im5vcm1hbCIgCj4KPHBvbHlsaW5lIGZpbGw9Im5vbmUiIHZlY3Rvci1lZmZlY3Q9Im5vbmUiIHBvaW50cz0iLTAuMDA4LDQ1LjMzMzMgLTAuMDA4LDQ1LjMzMzMgIiAvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
+            <Option name="outline_width" type="QString" value="3.55556"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
             <Option name="parameters"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="29.1324"></Option>
+            <Option name="size" type="QString" value="19.5556"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="size_unit" type="QString" value="Point"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
@@ -262,7 +243,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{3a66720e-7332-4948-a309-5b93b042f477}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{f421e04e-884a-4e57-b20a-39c520a2730f}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -272,7 +253,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -297,7 +278,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{eac54680-6c4b-4ad3-9606-58069083ded9}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{a0e4adcb-d563-4009-9a57-739d8db6dc05}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -307,7 +288,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -332,7 +313,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{50a8a6d9-b8c9-4cd5-b32e-90a3c9ce31c4}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{45bc77dc-b98b-4b5e-a6b6-cf14f4d254c6}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -376,7 +357,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{b39fc7c2-70dc-4e9f-b777-49bb9b534455}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{c980f618-9224-4ee6-9201-311684014745}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -386,7 +367,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -411,7 +392,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{a9ed58f6-0c17-4fa9-9f4e-30c89b353704}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{4c40bbf1-780c-429e-9ea1-91b83fcbb08a}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -421,7 +402,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -446,7 +427,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{f5e03c4f-135d-4e98-8064-33624677573d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{51839da6-1fca-40cd-a802-85d2a9785383}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -490,7 +471,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{c2a43d48-5012-4c54-bcb3-08b1df70f6c2}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{b8616519-53d8-4d02-a687-d6da87f32a84}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -500,7 +481,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -514,18 +495,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{ab836576-2202-4dd1-bdc0-119701c1e140}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{5e5b32cb-80b3-426e-9164-1daf8d187e5a}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -535,7 +510,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -549,18 +524,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{c230ec68-f82d-4fee-86c1-3331c39e5abe}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{28e8a85f-c398-4332-929a-e77539fae558}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -584,13 +553,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -604,7 +567,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{3dd9bb96-10f3-4916-add0-fb22be6ae628}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{62aed754-2a4f-4956-bf1c-f49060876297}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -614,7 +577,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -639,7 +602,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{e4ccc86f-e711-41a2-9740-51ada845b5c6}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{75ef7096-2dbd-47ad-a2d4-820763ea422f}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -649,7 +612,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -674,7 +637,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{d895cd84-9a21-48dd-832a-51a07a3311f3}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{e55123a7-9d42-49df-b77d-dc6058aef4dc}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -718,7 +681,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{0487441b-f751-4ffb-89f0-e76746e76d17}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{6b32eefb-3310-4785-af81-9611ce2a75dc}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -728,7 +691,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -753,7 +716,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{805042ec-9b8c-4bcd-8f97-15c9f86bddc2}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{2b5fddf0-a371-4083-931a-0ee170e0e419}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -763,7 +726,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -788,7 +751,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{66417fc6-fbe7-4942-acb7-9cc42ceec51d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{3717e9b4-360d-459e-b107-be523bab239a}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -832,107 +795,32 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{9e5da1e2-f98b-4da2-a57e-054cb992028f}" locked="1" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{b5b1cfc2-7ec4-4e03-b3e4-e87f3013376d}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
+            <Option name="cap_style" type="QString" value="square"></Option>
+            <Option name="color" type="QString" value="205,157,36,255,hsv:0.11944444444444445,0.82352941176470584,0.80392156862745101,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjE1MS42NTksLTAuMzQxMzMzIDE1MS42NTksLTAuMzQxMzMzICIgLz4KPC9nPgo8L2c+Cjwvc3ZnPgo="></Option>
+            <Option name="joinstyle" type="QString" value="bevel"></Option>
+            <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="offset_unit" type="QString" value="MM"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
+            <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
+            <Option name="outline_width_unit" type="QString" value="MM"></Option>
             <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
+            <Option name="size" type="QString" value="2"></Option>
             <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
+            <Option name="size_unit" type="QString" value="MM"></Option>
             <Option name="vertical_anchor_point" type="QString" value="1"></Option>
           </Option>
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{cc407d53-b8f5-4379-8363-f546b7cfdcce}" locked="1" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiB0cmFuc2Zvcm09Im1hdHJpeCgxLDAsMCwxLDAsMCkiCmZvbnQtZmFtaWx5PSJNUyBTaGVsbCBEbGcgMiIgZm9udC1zaXplPSI4IiBmb250LXdlaWdodD0iNDAwIiBmb250LXN0eWxlPSJub3JtYWwiIAo+Cjxwb2x5bGluZSBmaWxsPSJub25lIiB2ZWN0b3ItZWZmZWN0PSJub25lIiBwb2ludHM9IjAuMzI1MzMzLDE1MC42NTkgMC4zMjUzMzMsMTUwLjY1OSAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-        <layer class="SvgMarker" enabled="1" id="{be379d03-60df-4249-b4f3-7de66af79990}" locked="1" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
-            <Option name="fixedAspectRatio" type="QString" value="0"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cGF0aCB2ZWN0b3ItZWZmZWN0PSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xMjMsNzUuMyBMMTIzLDc2LjUgTDEyMi45LDc3LjcgTDEyMi45LDc4LjkgTDEyMi43LDgwLjEgTDEyMi42LDgxLjMgTDEyMi41LDgyLjUgTDEyMi4zLDgzLjcgTDEyMiw4NC44IEwxMjEuOCw4NiBMMTIxLjUsODcuMSBMMTIxLjIsODguMiBMMTIwLjksODkuMyBMMTIwLjUsOTAuNCBMMTIwLjEsOTEuNSBMMTE5LjcsOTIuNiBMMTE5LjMsOTMuNiBMMTE4LjgsOTQuNyBMMTE4LjQsOTUuNyBMMTE3LjksOTYuNyBMMTE3LjMsOTcuNyBMMTE2LjgsOTguNyBMMTE2LjIsOTkuNyBMMTE1LjYsMTAwLjcgTDExNSwxMDEuNiBMMTE0LjMsMTAyLjYgTDExMy43LDEwMy41IEwxMTMsMTA0LjQgTDExMi4zLDEwNS4yIEwxMTEuNSwxMDYuMSBMMTEwLjgsMTA2LjkgTDExMCwxMDcuOCBMMTA5LjIsMTA4LjYgTDEwOC40LDEwOS40IEwxMDcuNiwxMTAuMSBMMTA2LjgsMTEwLjkgTDEwNS45LDExMS42IEwxMDUsMTEyLjMgTDEwNC4xLDExMyBMMTAzLjIsMTEzLjcgTDEwMi4zLDExNC4zIEwxMDEuMywxMTQuOSBMMTAwLjQsMTE1LjUgTDk5LjQsMTE2LjEgTDk4LjQsMTE2LjcgTDk3LjQsMTE3LjIgTDk2LjQsMTE3LjcgTDk1LjQsMTE4LjIgTDk0LjMsMTE4LjYgTDkzLjIsMTE5LjEgTDkyLjIsMTE5LjUgTDkxLjEsMTE5LjkgTDkwLDEyMC4yIEw4OC45LDEyMC41IEw4Ny44LDEyMC44IEw4Ni42LDEyMS4xIEw4NS41LDEyMS40IEw4NC4zLDEyMS42IEw4My4yLDEyMS44IEw4MiwxMjEuOSBMODAuOCwxMjIuMSBMNzkuNiwxMjIuMiBMNzguNCwxMjIuMyBMNzcuMiwxMjIuMyBMNzYsMTIyLjMgTDc0LjcsMTIyLjMgTDczLjUsMTIyLjMgTDcyLjIsMTIyLjIgTDcxLDEyMi4xIEw2OS44LDEyMS45IEw2OC42LDEyMS43IEw2Ny40LDEyMS41IEw2Ni4yLDEyMS4zIEw2NSwxMjEgTDYzLjgsMTIwLjcgTDYyLjYsMTIwLjQgTDYxLjUsMTIwLjEgTDYwLjMsMTE5LjcgTDU5LjIsMTE5LjMgTDU4LjEsMTE4LjggTDU3LDExOC40IEw1NS45LDExNy45IEw1NC45LDExNy40IEw1My44LDExNi44IEw1Mi44LDExNi4zIEw1MS43LDExNS43IEw1MC43LDExNS4xIEw0OS43LDExNC40IEw0OC44LDExMy43IEw0Ny44LDExMy4xIEw0Ni45LDExMi4zIEw0NiwxMTEuNiBMNDUuMSwxMTAuOSBMNDQuMiwxMTAuMSBMNDMuMywxMDkuMyBMNDIuNSwxMDguNSBMNDEuNiwxMDcuNiBMNDAuOSwxMDYuOCBMNDAuMiwxMDYgTDM5LjUsMTA1LjIgTDM4LjgsMTA0LjMgTDM4LjEsMTAzLjUgTDM3LjUsMTAyLjYgTDM2LjgsMTAxLjcgTDM2LjIsMTAwLjggTDM1LjYsOTkuOSBMMzUuMSw5OC45IEwzNC41LDk4IEwzNCw5NyBMMzMuNSw5NiBMMzMsOTUgTDMyLjYsOTQgTDMyLjEsOTMgTDMxLjcsOTIgTDMxLjMsOTAuOSBMMzEsODkuOSBMMzAuNiw4OC44IEwzMC4zLDg3LjggTDMwLjEsODYuNyBMMjkuOCw4NS42IEwyOS42LDg0LjUgTDI5LjMsODMuNCBMMjkuMiw4Mi4yIEwyOSw4MS4xIEwyOC45LDgwIEwyOC44LDc4LjggTDI4LjcsNzcuNyBMMjguNyw3Ni41IEwyOC43LDc1LjMgTDI4LjcsNzQuMSBMMjguNyw3Mi45IEwyOC44LDcxLjcgTDI4LjksNzAuNSBMMjksNjkuMyBMMjkuMiw2OC4xIEwyOS40LDY3IEwyOS42LDY1LjggTDI5LjksNjQuNyBMMzAuMiw2My41IEwzMC41LDYyLjQgTDMwLjgsNjEuMyBMMzEuMiw2MC4yIEwzMS41LDU5LjEgTDMyLDU4IEwzMi40LDU3IEwzMi45LDU1LjkgTDMzLjQsNTQuOSBMMzMuOSw1My44IEwzNC40LDUyLjggTDM1LDUxLjggTDM1LjUsNTAuOCBMMzYuMiw0OS45IEwzNi44LDQ4LjkgTDM3LjQsNDggTDM4LjEsNDcuMSBMMzguOCw0Ni4yIEwzOS41LDQ1LjMgTDQwLjIsNDQuNCBMNDEsNDMuNiBMNDEuOCw0Mi43IEw0Mi42LDQxLjkgTDQzLjQsNDEuMSBMNDQuMiw0MC4zIEw0NS4xLDM5LjYgTDQ1LjksMzguOCBMNDYuOCwzOC4xIEw0Ny43LDM3LjQgTDQ4LjcsMzYuOCBMNDkuNiwzNi4xIEw1MC41LDM1LjUgTDUxLjUsMzQuOSBMNTIuNSwzNC4zIEw1My41LDMzLjcgTDU0LjUsMzMuMiBMNTUuNSwzMi43IEw1Ni42LDMyLjIgTDU3LjYsMzEuNyBMNTguNywzMS4zIEw1OS44LDMwLjkgTDYwLjksMzAuNSBMNjIsMzAuMSBMNjMuMSwyOS44IEw2NC4yLDI5LjUgTDY1LjMsMjkuMiBMNjYuNSwyOSBMNjcuNywyOC43IEw2OC44LDI4LjUgTDcwLDI4LjQgTDcxLjIsMjguMiBMNzIuNCwyOC4xIEw3My42LDI4LjEgTDc0LjgsMjggTDc2LDI4IEw3Ny4yLDI4IEw3OC4zLDI4IEw3OS41LDI4LjEgTDgwLjYsMjguMiBMODEuOCwyOC4zIEw4Mi45LDI4LjUgTDg0LDI4LjcgTDg1LjEsMjguOSBMODYuMiwyOS4xIEw4Ny4zLDI5LjQgTDg4LjQsMjkuNyBMODkuNSwzMCBMOTAuNiwzMC4zIEw5MS42LDMwLjcgTDkyLjcsMzEuMSBMOTMuNywzMS41IEw5NC43LDMxLjkgTDk1LjcsMzIuNCBMOTYuNywzMi44IEw5Ny43LDMzLjMgTDk4LjYsMzMuOSBMOTkuNiwzNC40IEwxMDAuNSwzNSBMMTAxLjUsMzUuNiBMMTAyLjQsMzYuMiBMMTAzLjMsMzYuOCBMMTA0LjEsMzcuNCBMMTA1LDM4LjEgTDEwNS45LDM4LjggTDEwNi43LDM5LjUgTDEwNy41LDQwLjIgTDEwOC4zLDQxIEwxMDkuMSw0MS44IEwxMTAsNDIuNiBMMTEwLjgsNDMuNSBMMTExLjUsNDQuNCBMMTEyLjMsNDUuMyBMMTEzLDQ2LjIgTDExMy43LDQ3LjEgTDExNC40LDQ4LjEgTDExNS4xLDQ5LjEgTDExNS43LDUwLjEgTDExNi4zLDUxLjEgTDExNi45LDUyLjEgTDExNy41LDUzLjEgTDExOCw1NC4yIEwxMTguNiw1NS4zIEwxMTksNTYuMyBMMTE5LjUsNTcuNCBMMTE5LjksNTguNiBMMTIwLjMsNTkuNyBMMTIwLjcsNjAuOCBMMTIxLjEsNjIgTDEyMS40LDYzLjEgTDEyMS43LDY0LjMgTDEyMiw2NS41IEwxMjIuMiw2Ni43IEwxMjIuNCw2Ny45IEwxMjIuNiw2OS4xIEwxMjIuNyw3MC4zIEwxMjIuOCw3MS42IEwxMjIuOSw3Mi44IEwxMjMsNzQuMSBMMTIzLDc1LjMgTTc2LDExNCBMNzcsMTE0IEw3OC4xLDExMy45IEw3OS4xLDExMy45IEw4MC4xLDExMy44IEw4MS4yLDExMy42IEw4Mi4yLDExMy41IEw4My4yLDExMy4zIEw4NC4yLDExMy4xIEw4NS4yLDExMi45IEw4Ni4xLDExMi43IEw4Ny4xLDExMi40IEw4OC4xLDExMi4xIEw4OSwxMTEuOCBMODkuOSwxMTEuNCBMOTAuOSwxMTEgTDkxLjgsMTEwLjYgTDkyLjcsMTEwLjIgTDkzLjYsMTA5LjggTDk0LjUsMTA5LjMgTDk1LjMsMTA4LjkgTDk2LjIsMTA4LjQgTDk3LDEwNy44IEw5Ny44LDEwNy4zIEw5OC42LDEwNi43IEw5OS40LDEwNi4yIEwxMDAuMiwxMDUuNiBMMTAxLDEwNC45IEwxMDEuNywxMDQuMyBMMTAyLjQsMTAzLjcgTDEwMy4yLDEwMyBMMTAzLjksMTAyLjMgTDEwNC41LDEwMS42IEwxMDUuMSwxMDAuOSBMMTA1LjcsMTAwLjMgTDEwNi4zLDk5LjYgTDEwNi44LDk4LjkgTDEwNy40LDk4LjIgTDEwNy45LDk3LjUgTDEwOC40LDk2LjcgTDEwOC45LDk2IEwxMDkuNCw5NS4yIEwxMDkuOCw5NC41IEwxMTAuMyw5My43IEwxMTAuNyw5Mi45IEwxMTEuMSw5Mi4xIEwxMTEuNSw5MS4zIEwxMTEuOCw5MC41IEwxMTIuMiw4OS43IEwxMTIuNSw4OC44IEwxMTIuOCw4OCBMMTEzLjEsODcuMSBMMTEzLjQsODYuMyBMMTEzLjYsODUuNCBMMTEzLjksODQuNSBMMTE0LjEsODMuNiBMMTE0LjMsODIuNyBMMTE0LjQsODEuOCBMMTE0LjYsODAuOSBMMTE0LjcsODAgTDExNC44LDc5LjEgTDExNC45LDc4LjEgTDExNC45LDc3LjIgTDExNSw3Ni4zIEwxMTUsNzUuMyBMMTE1LDc0LjMgTDExNC45LDczLjIgTDExNC45LDcyLjIgTDExNC44LDcxLjIgTDExNC43LDcwLjIgTDExNC41LDY5LjEgTDExNC4zLDY4LjEgTDExNC4xLDY3LjIgTDExMy45LDY2LjIgTDExMy43LDY1LjIgTDExMy40LDY0LjIgTDExMy4xLDYzLjMgTDExMi44LDYyLjMgTDExMi40LDYxLjQgTDExMi4xLDYwLjUgTDExMS43LDU5LjYgTDExMS4zLDU4LjcgTDExMC44LDU3LjggTDExMC40LDU2LjkgTDEwOS45LDU2LjEgTDEwOS40LDU1LjIgTDEwOC45LDU0LjQgTDEwOC40LDUzLjYgTDEwNy44LDUyLjggTDEwNy4yLDUyIEwxMDYuNiw1MS4yIEwxMDYsNTAuNSBMMTA1LjQsNDkuNyBMMTA0LjgsNDkgTDEwNC4xLDQ4LjMgTDEwMy40LDQ3LjYgTDEwMi43LDQ2LjkgTDEwMiw0Ni4zIEwxMDEuNCw0NS43IEwxMDAuNyw0NS4yIEwxMDAsNDQuNiBMOTkuMyw0NCBMOTguNSw0My41IEw5Ny44LDQzIEw5Nyw0Mi41IEw5Ni4zLDQyIEw5NS41LDQxLjYgTDk0LjcsNDEuMSBMOTMuOSw0MC43IEw5My4xLDQwLjMgTDkyLjMsMzkuOSBMOTEuNCwzOS41IEw5MC42LDM5LjIgTDg5LjcsMzguOCBMODguOSwzOC41IEw4OCwzOC4yIEw4Ny4xLDM3LjkgTDg2LjIsMzcuNyBMODUuMywzNy41IEw4NC40LDM3LjIgTDgzLjUsMzcuMSBMODIuNiwzNi45IEw4MS43LDM2LjcgTDgwLjcsMzYuNiBMNzkuOCwzNi41IEw3OC45LDM2LjQgTDc3LjksMzYuNCBMNzcsMzYuMyBMNzYsMzYuMyBMNzUsMzYuMyBMNzQsMzYuNCBMNzMsMzYuNCBMNzIsMzYuNSBMNzEsMzYuNiBMNzAsMzYuOCBMNjkuMSwzNi45IEw2OC4xLDM3LjEgTDY3LjEsMzcuMyBMNjYuMiwzNy41IEw2NS4zLDM3LjggTDY0LjMsMzguMSBMNjMuNCwzOC40IEw2Mi41LDM4LjcgTDYxLjYsMzkgTDYwLjgsMzkuNCBMNTkuOSwzOS44IEw1OSw0MC4xIEw1OC4yLDQwLjYgTDU3LjMsNDEgTDU2LjUsNDEuNSBMNTUuNyw0MS45IEw1NC45LDQyLjQgTDU0LjEsNDMgTDUzLjQsNDMuNSBMNTIuNiw0NCBMNTEuOSw0NC42IEw1MS4xLDQ1LjIgTDUwLjQsNDUuOCBMNDkuNyw0Ni40IEw0OSw0NyBMNDguNCw0Ny43IEw0Ny43LDQ4LjQgTDQ3LjEsNDkuMSBMNDYuNSw0OS44IEw0NS45LDUwLjUgTDQ1LjMsNTEuMiBMNDQuNyw1MS45IEw0NC4yLDUyLjcgTDQzLjYsNTMuNSBMNDMuMSw1NC4yIEw0Mi42LDU1IEw0Mi4xLDU1LjkgTDQxLjcsNTYuNyBMNDEuMiw1Ny41IEw0MC44LDU4LjQgTDQwLjQsNTkuMiBMNDAsNjAuMSBMMzkuNyw2MSBMMzkuMyw2MS45IEwzOSw2Mi44IEwzOC43LDYzLjcgTDM4LjUsNjQuNiBMMzguMiw2NS41IEwzOCw2Ni41IEwzNy44LDY3LjQgTDM3LjYsNjguNCBMMzcuNCw2OS40IEwzNy4zLDcwLjMgTDM3LjIsNzEuMyBMMzcuMSw3Mi4zIEwzNyw3My4zIEwzNyw3NC4zIEwzNyw3NS4zIEwzNyw3Ni4zIEwzNyw3Ny4yIEwzNy4xLDc4LjEgTDM3LjIsNzkgTDM3LjMsNzkuOSBMMzcuNCw4MC44IEwzNy41LDgxLjcgTDM3LjcsODIuNiBMMzcuOSw4My41IEwzOC4xLDg0LjMgTDM4LjMsODUuMiBMMzguNSw4Ni4xIEwzOC44LDg2LjkgTDM5LDg3LjcgTDM5LjMsODguNiBMMzkuNiw4OS40IEw0MCw5MC4yIEw0MC4zLDkxIEw0MC43LDkxLjggTDQxLjEsOTIuNiBMNDEuNSw5My40IEw0MS45LDk0LjEgTDQyLjMsOTQuOSBMNDIuOCw5NS42IEw0My4yLDk2LjQgTDQzLjcsOTcuMSBMNDQuMiw5Ny44IEw0NC43LDk4LjUgTDQ1LjMsOTkuMiBMNDUuOCw5OS44IEw0Ni40LDEwMC41IEw0Ni45LDEwMS4yIEw0Ny42LDEwMS45IEw0OC4zLDEwMi42IEw0OSwxMDMuMyBMNDkuOCwxMDQgTDUwLjUsMTA0LjYgTDUxLjMsMTA1LjMgTDUyLDEwNS45IEw1Mi44LDEwNi41IEw1My43LDEwNy4xIEw1NC41LDEwNy42IEw1NS4zLDEwOC4yIEw1Ni4yLDEwOC43IEw1Ny4xLDEwOS4yIEw1OCwxMDkuNiBMNTguOSwxMTAuMSBMNTkuOCwxMTAuNSBMNjAuNywxMTAuOSBMNjEuNywxMTEuMyBMNjIuNiwxMTEuNyBMNjMuNiwxMTIgTDY0LjYsMTEyLjMgTDY1LjYsMTEyLjYgTDY2LjYsMTEyLjkgTDY3LjYsMTEzLjEgTDY4LjYsMTEzLjMgTDY5LjYsMTEzLjUgTDcwLjcsMTEzLjYgTDcxLjcsMTEzLjggTDcyLjgsMTEzLjkgTDczLjgsMTEzLjkgTDc0LjksMTE0IEw3NiwxMTQiLz4KPHBhdGggdmVjdG9yLWVmZmVjdD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNOTUuMyw2NC4zIEw5NS4zLDY0LjcgTDg0LjMsNjUuMyBMODQuMyw2NSBMODQuMyw2NC41IEw4NC4yLDY0IEw4NC4xLDYzLjYgTDg0LDYzLjIgTDgzLjgsNjIuOCBMODMuNyw2Mi40IEw4My41LDYyIEw4My40LDYxLjcgTDgzLjIsNjEuMyBMODMsNjEgTDgyLjgsNjAuNyBMODIuNiw2MC40IEw4Mi40LDYwLjEgTDgyLjEsNTkuOCBMODEuOSw1OS42IEw4MS43LDU5LjMgTDgxLjMsNTkuMSBMODEsNTkgTDgwLjcsNTguOCBMODAuMyw1OC42IEw4MCw1OC41IEw3OS42LDU4LjQgTDc5LjMsNTguMiBMNzguOSw1OC4xIEw3OC41LDU4IEw3OC4xLDU3LjkgTDc3LjYsNTcuOCBMNzcuMiw1Ny44IEw3Ni44LDU3LjcgTDc2LjMsNTcuNyBMNzUuOCw1Ny43IEw3NS4zLDU3LjcgTDc0LjgsNTcuNyBMNzQuMiw1Ny43IEw3My43LDU3LjcgTDczLjIsNTcuOCBMNzIuNyw1Ny45IEw3Mi4yLDU3LjkgTDcxLjgsNTggTDcxLjMsNTguMiBMNzAuOSw1OC4zIEw3MC41LDU4LjQgTDcwLjEsNTguNiBMNjkuNyw1OC44IEw2OS4zLDU5IEw2OSw1OS4yIEw2OC42LDU5LjQgTDY4LjMsNTkuNyBMNjguMSw1OS44IEw2OCw1OS45IEw2Ny44LDYwLjEgTDY3LjYsNjAuMiBMNjcuNSw2MC40IEw2Ny40LDYwLjUgTDY3LjIsNjAuNyBMNjcuMSw2MC45IEw2Nyw2MSBMNjYuOSw2MS4yIEw2Ni44LDYxLjQgTDY2LjgsNjEuNiBMNjYuNyw2MS44IEw2Ni43LDYyIEw2Ni43LDYyLjEgTDY2LjcsNjIuMyBMNjYuNyw2Mi42IEw2Ni43LDYyLjkgTDY2LjgsNjMuMiBMNjYuOCw2My40IEw2Ni45LDYzLjcgTDY3LDYzLjkgTDY3LjEsNjQuMSBMNjcuMyw2NC4zIEw2Ny40LDY0LjUgTDY3LjUsNjQuNiBMNjcuNiw2NC43IEw2Ny43LDY0LjkgTDY4LDY1LjEgTDY4LjMsNjUuMyBMNjguNSw2NS41IEw2OC44LDY1LjcgTDY5LjEsNjUuOSBMNjkuNSw2Ni4xIEw2OS45LDY2LjMgTDcwLjQsNjYuNiBMNzAuOSw2Ni44IEw3MS41LDY3IEw3Mi4xLDY3LjIgTDcyLjgsNjcuNCBMNzMuNSw2Ny42IEw3NC4yLDY3LjkgTDc1LDY4LjEgTDc1LjksNjguMyBMNzYuNyw2OC41IEw3Ny43LDY4LjcgTDg5LDcyLjMgTDg5LjQsNzIuNiBMODkuOSw3Mi45IEw5MC4zLDczLjEgTDkwLjcsNzMuNCBMOTEuMSw3My44IEw5MS41LDc0LjEgTDkxLjgsNzQuNCBMOTIuMiw3NC43IEw5Mi42LDc1LjEgTDkyLjksNzUuNCBMOTMuMiw3NS44IEw5My41LDc2LjIgTDkzLjgsNzYuNSBMOTQuMSw3Ni45IEw5NC40LDc3LjMgTDk0LjcsNzcuNyBMOTQuOSw3OC4xIEw5NS4xLDc4LjYgTDk1LjQsNzkgTDk1LjYsNzkuNSBMOTUuOCw4MCBMOTYsODAuNSBMOTYuMiw4MS4xIEw5Ni4zLDgxLjYgTDk2LjUsODIuMiBMOTYuNiw4Mi43IEw5Ni43LDgzLjMgTDk2LjgsODMuOSBMOTYuOSw4NC41IEw5Ni45LDg1LjEgTDk3LDg1LjcgTDk3LDg2LjMgTDk3LDg2LjcgTDk3LDg3LjEgTDk2LjksODcuNSBMOTYuOSw4Ny45IEw5Ni44LDg4LjMgTDk2LjgsODguNyBMOTYuNyw4OS4xIEw5Ni42LDg5LjUgTDk2LjQsOTAuMSBMOTYuMiw5MC44IEw5Niw5MS40IEw5NS43LDkyLjEgTDk1LjQsOTIuNyBMOTUuMSw5My40IEw5NC43LDk0IEw5NC4zLDk0LjcgTDk0LjEsOTUgTDkzLjgsOTUuNCBMOTMuNiw5NS43IEw5My4zLDk2LjEgTDkzLDk2LjQgTDkyLjgsOTYuOCBMOTIuNSw5Ny4xIEw5Mi4yLDk3LjQgTDkxLjYsOTcuOSBMOTEuMSw5OC4zIEw5MC41LDk4LjggTDg5LjksOTkuMiBMODkuMyw5OS42IEw4OC43LDEwMCBMODgsMTAwLjMgTDg3LjMsMTAwLjcgTDgyLjIsMTAxLjkgTDc2LDEwMi4zIEw3NC44LDEwMi4zIEw3My42LDEwMi4zIEw3MywxMDIuMiBMNzIuNCwxMDIuMiBMNzEuOSwxMDIuMSBMNzEuMywxMDIuMSBMNzAuOCwxMDIgTDcwLjIsMTAxLjkgTDY5LjcsMTAxLjggTDY5LjIsMTAxLjcgTDY4LjcsMTAxLjYgTDY4LjIsMTAxLjUgTDY3LjcsMTAxLjQgTDY3LjIsMTAxLjMgTDY2LjcsMTAxLjEgTDY2LjMsMTAxIEw2NS44LDEwMC44IEw2NS40LDEwMC43IEw2NC45LDEwMC41IEw2NC41LDEwMC4zIEw2NC4xLDEwMC4xIEw2My43LDk5LjkgTDYzLjMsOTkuNyBMNjIuOSw5OS41IEw2Mi41LDk5LjMgTDYyLjEsOTkgTDYxLjcsOTguOCBMNjEuNCw5OC41IEw2MS4xLDk4LjMgTDYwLjgsOTguMSBMNjAuNyw5OCBMNjAuMyw5Ny43IEw2MCw5Ny40IEw1OS43LDk3IEw1OS40LDk2LjcgTDU5LjEsOTYuNCBMNTguOCw5NiBMNTguNSw5NS43IEw1OC4yLDk1LjMgTDU3LjgsOTQuNyBMNTcuNSw5NC4yIEw1Ny4xLDkzLjYgTDU2LjgsOTMgTDU2LjUsOTIuNCBMNTYuMiw5MS43IEw1NS45LDkxLjEgTDU1LjcsOTAuNCBMNTUuNCw4OS43IEw1NS4yLDg5IEw1NSw4OC4zIEw1NC44LDg3LjUgTDU0LjcsODYuOCBMNTQuNSw4NiBMNTQuNCw4NS4yIEw1NC4zLDg0LjMgTDU0LjMsODQgTDY1LDgzIEw2NSw4My4zIEw2NS4xLDgzLjkgTDY1LjMsODQuNSBMNjUuNCw4NS4xIEw2NS42LDg1LjYgTDY1LjgsODYuMiBMNjYsODYuNyBMNjYuMiw4Ny4yIEw2Ni41LDg3LjYgTDY2LjcsODguMSBMNjYuOSw4OC41IEw2Ny4yLDg4LjkgTDY3LjUsODkuMyBMNjcuOCw4OS42IEw2OCw5MCBMNjguNCw5MC4zIEw2OC43LDkwLjcgTDY5LDkxIEw2OS4zLDkxLjIgTDY5LjcsOTEuNSBMNzAuMSw5MS43IEw3MC41LDkxLjkgTDcwLjksOTIuMSBMNzEuNCw5Mi4zIEw3MS44LDkyLjUgTDcyLjMsOTIuNiBMNzIuOCw5Mi43IEw3My4zLDkyLjggTDczLjgsOTIuOSBMNzQuMyw5Mi45IEw3NC45LDkzIEw3NS40LDkzIEw3Niw5MyBMNzYuNiw5MyBMNzcuMiw5MyBMNzcuOCw5Mi45IEw3OC4zLDkyLjkgTDc4LjgsOTIuOCBMNzkuMyw5Mi43IEw3OS44LDkyLjYgTDgwLjMsOTIuNSBMODAuNyw5Mi40IEw4MS4yLDkyLjIgTDgxLjYsOTIgTDgxLjksOTEuOSBMODIuMyw5MS43IEw4Mi43LDkxLjUgTDgzLDkxLjIgTDgzLjMsOTEgTDgzLjYsOTAuNyBMODMuOSw5MC41IEw4NC4yLDkwLjIgTDg0LjQsODkuOSBMODQuNiw4OS43IEw4NC44LDg5LjQgTDg1LDg5LjEgTDg1LjEsODguOCBMODUuMiw4OC41IEw4NS40LDg4LjIgTDg1LjUsODcuOSBMODUuNSw4Ny42IEw4NS42LDg3LjMgTDg1LjYsODYuOSBMODUuNyw4Ni42IEw4NS43LDg2LjMgTDg1LjYsODUuOCBMODUuNiw4NS40IEw4NS42LDg1LjIgTDg1LjUsODUgTDg1LjUsODQuOCBMODUuNCw4NC42IEw4NS4zLDg0LjQgTDg1LjMsODQuMiBMODUuMiw4NCBMODUuMSw4My45IEw4NSw4My43IEw4NC45LDgzLjYgTDg0LjgsODMuNSBMODQuNyw4My4zIEw4MS4zLDgxLjMgTDczLDc5IEw3MS45LDc4LjcgTDcwLjksNzguNSBMNzAsNzguMiBMNjkuMSw3Ny45IEw2OC4yLDc3LjYgTDY3LjMsNzcuMyBMNjYuNSw3NyBMNjUuNyw3Ni43IEw2NSw3Ni40IEw2NC4zLDc2IEw2My43LDc1LjcgTDYzLjEsNzUuMyBMNjIuNSw3NC45IEw2Mi4yLDc0LjcgTDYxLjksNzQuNSBMNjEuNyw3NC4zIEw2MS40LDc0LjEgTDYxLjIsNzMuOSBMNjEsNzMuNyBMNjAuNiw3My4zIEw2MC4zLDczIEw1OS45LDcyLjcgTDU5LjYsNzIuNCBMNTkuMyw3MiBMNTksNzEuNyBMNTguNyw3MS4zIEw1OC40LDcwLjkgTDU4LjEsNzAuNiBMNTcuOSw3MC4yIEw1Ny43LDY5LjggTDU3LjUsNjkuNCBMNTcuMyw2OSBMNTcuMSw2OC42IEw1Ni45LDY4LjIgTDU2LjcsNjcuOCBMNTYuNiw2Ny4zIEw1Ni40LDY2LjcgTDU2LjMsNjYuMiBMNTYuMiw2NS42IEw1Ni4xLDY1IEw1Niw2NC41IEw1Niw2My45IEw1Niw2My4zIEw1Niw2MyBMNTYsNjIuNiBMNTYsNjIuMyBMNTYuMSw2MS45IEw1Ni4xLDYxLjYgTDU2LjIsNjEuMyBMNTYuMiw2MC45IEw1Ni4zLDYwLjYgTDU2LjQsNjAgTDU2LjYsNTkuNCBMNTYuOCw1OC44IEw1Ny4xLDU4LjIgTDU3LjMsNTcuNiBMNTcuNiw1Ni45IEw1OCw1Ni4zIEw1OC4zLDU1LjcgTDU4LjcsNTUuMSBMNTkuMiw1NC42IEw1OS42LDU0LjEgTDYwLjEsNTMuNiBMNjAuNiw1My4xIEw2MS4xLDUyLjYgTDYxLjcsNTIuMiBMNjIuMyw1MS44IEw2Mi45LDUxLjQgTDYzLjYsNTEgTDY0LjMsNTAuNyBMNjUsNTAuMyBMNjUuNiw1MC4xIEw2Ni4xLDQ5LjkgTDY2LjcsNDkuNiBMNjcuMyw0OS41IEw2Ny45LDQ5LjMgTDY4LjUsNDkuMSBMNjkuMSw0OSBMNjkuOCw0OC44IEw3MC40LDQ4LjcgTDcxLjEsNDguNiBMNzEuOCw0OC41IEw3Mi40LDQ4LjUgTDczLjEsNDguNCBMNzMuOSw0OC40IEw3NC42LDQ4LjMgTDc1LjMsNDguMyBMNzUuOSw0OC4zIEw3Ni41LDQ4LjMgTDc3LjEsNDguNCBMNzcuNiw0OC40IEw3OC4yLDQ4LjQgTDc4LjcsNDguNSBMNzkuMyw0OC42IEw3OS44LDQ4LjYgTDgwLjMsNDguNyBMODAuOSw0OC44IEw4MS40LDQ4LjkgTDgxLjksNDkgTDgyLjQsNDkuMSBMODIuOCw0OS4yIEw4My4zLDQ5LjQgTDgzLjgsNDkuNSBMODQuMiw0OS42IEw4NC43LDQ5LjggTDg1LjEsNDkuOSBMODUuNiw1MC4xIEw4Niw1MC4zIEw4Ni40LDUwLjUgTDg2LjgsNTAuNyBMODcuMiw1MC45IEw4Ny42LDUxLjEgTDg3LjksNTEuMyBMODguMyw1MS41IEw4OC43LDUxLjcgTDg5LDUxLjkgTDg5LjMsNTIuMiBMODkuNyw1Mi40IEw5MCw1Mi43IEw5MC41LDUzLjIgTDkxLjEsNTMuNyBMOTEuNiw1NC4zIEw5Miw1NC44IEw5Mi41LDU1LjQgTDkyLjksNTYgTDkzLjEsNTYuMyBMOTMuMyw1Ni43IEw5My41LDU3IEw5My42LDU3LjMgTDkzLjgsNTcuNyBMOTQsNTguMSBMOTQuMiw1OC41IEw5NC40LDU4LjkgTDk0LjUsNTkuMyBMOTQuNiw1OS44IEw5NC44LDYwLjIgTDk0LjksNjAuNiBMOTUsNjEuMSBMOTUuMSw2MS41IEw5NS4yLDYyIEw5NS4yLDYyLjQgTDk1LjMsNjIuOSBMOTUuMyw2My40IEw5NS4zLDYzLjggTDk1LjMsNjQuMyIvPgo8L2c+CjwvZz4KPC9zdmc+Cg=="></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="0,0,0,0,rgb:0,0,0,0"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="Point"></Option>
-            <Option name="parameters"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="20.1325"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="Point"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -946,7 +834,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{46236cf0-bd44-40af-94c7-50e10bae89f7}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{eeed8cd5-96e3-4b90-9c0f-1f82a4f5e973}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -956,7 +844,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -970,18 +858,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{c50423af-c194-4bec-9c58-7461ea721f87}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{c7282e73-8b20-4ef4-9dab-43a4298f9d86}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -991,7 +873,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1005,18 +887,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{3a25fe2d-592e-400f-b891-2499fc4134b6}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{af77ecfe-a403-4f46-aedd-02f09dfc8657}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -1040,51 +916,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-      </symbol>
-      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="17" type="marker">
-        <data_defined_properties>
-          <Option type="Map">
-            <Option name="name" type="QString" value=""></Option>
-            <Option name="properties"></Option>
-            <Option name="type" type="QString" value="collection"></Option>
-          </Option>
-        </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{a6f9938e-e841-441f-aa11-12b4f95aa4e0}" locked="0" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="121,204,74,255,hsv:0.2722222222222222,0.63921568627450975,0.80000000000000004,1"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="joinstyle" type="QString" value="bevel"></Option>
-            <Option name="name" type="QString" value="circle"></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
-            <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="MM"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="2"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="MM"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
               <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
@@ -1099,7 +930,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{c3bbe617-a2ce-4193-8b08-3119eb5fdc9a}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{621b8362-7234-4a6f-9a40-653145e8e8de}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1109,7 +940,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1123,18 +954,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{3f68d155-30e9-4146-ade0-78f0c4f15edf}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{ed742c98-8abe-4d57-9414-282b0d1b7898}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1144,7 +969,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1158,18 +983,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{3d08fbab-fd9f-4e7d-8547-8bac01819094}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{6fe76154-9daa-47d0-9180-37109120ddcd}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -1193,13 +1012,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1213,7 +1026,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{2a9bdb58-836e-47d6-9632-817b176fa880}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{934b1dc1-58f4-4fb3-ac20-36b68b51dba3}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1223,7 +1036,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1237,18 +1050,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{6ff7c2fe-2e25-4eaa-9b2d-f6f801761bc4}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{d213c116-8ae6-47b4-b920-e63487c2c5a3}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1258,7 +1065,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1272,18 +1079,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{a3b56827-7bb3-4aef-836d-5d4528051ccb}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{ec11e7f1-66d9-4e52-b5f2-f20d21bb7472}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -1307,13 +1108,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1327,7 +1122,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{026023ed-0e47-4e53-8eb8-d7dac44a24bf}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{ad1e6b7b-0a74-4441-8cc9-69c6648fcef6}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1337,7 +1132,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1362,7 +1157,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{853a2900-f2de-4298-b5dd-ee359dad4dca}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{0d4a0e9e-def3-489e-97cd-fe005c9b2a72}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1372,7 +1167,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1397,7 +1192,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{aa6885c3-abd9-4e4b-9d60-def153b36f6d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{dd373948-8aaa-4448-8e9f-add54f941534}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -1441,7 +1236,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{4c805151-22d1-4a13-acf5-aabe3de1b0d2}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{42c5759d-7272-4a2d-83b2-c108c26d6659}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1451,7 +1246,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1476,7 +1271,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{41673eb4-3e7c-4924-bbe4-1f39a43bfd0e}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{5b177bdf-5570-499a-8bc4-4294048ad313}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1486,7 +1281,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1511,7 +1306,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{7c18de46-d5c9-47e3-af19-2f84237a7d72}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{ec992d15-3a69-4908-b072-5a7941f27568}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -1555,7 +1350,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{f39bfa28-c20f-442a-8a7e-7337c0add178}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{7a5731f5-216d-4db3-97c9-7902581bc503}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1565,7 +1360,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1579,18 +1374,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{cb1cc82a-c325-41c0-8572-d05250c45646}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{c715f725-0267-4671-807a-a4d8f9f67810}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1600,7 +1389,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1614,18 +1403,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{620371ca-0f8a-40bf-9542-09066ff18dd8}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{a0b3e4f5-6029-4156-a0ac-cbcd4ddd847a}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -1649,13 +1432,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1669,7 +1446,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{efe5e0c4-4d90-4cda-8714-d604495368e7}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{563c3443-9650-437e-9d5b-f69f765f88f8}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1679,7 +1456,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1693,18 +1470,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{23bc8b99-e1ca-47f9-a9c1-b801a3bd031d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{7dad3486-3f7b-4663-9379-be0b7e65788d}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1714,7 +1485,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1728,18 +1499,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{09a33106-e0e6-4d17-aed7-98efcf0a8717}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{70daed99-032f-4abf-b781-dba63e47bef9}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -1763,13 +1528,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1783,7 +1542,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{4b3f5140-b87b-40f8-bc10-c231e4e09b1b}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{57cb930f-5bed-4cd8-94b0-d132bac4507d}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1793,7 +1552,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1807,18 +1566,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{c4bb7f41-111f-44e6-b6fc-17d17d408ff4}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{68bc780d-f41a-4370-8742-4bfe96ab9993}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1828,7 +1581,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1842,18 +1595,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{f789acdc-8477-4bd7-adbb-4a88fee5c525}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{44a8c1db-81a5-498a-b848-29a745a7d829}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -1877,13 +1624,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -1897,7 +1638,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{f5f83dd0-eca3-4dfd-8cd8-524eecfba1e7}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{d44dfc50-f380-4cbf-8199-e0c78c82e889}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1907,7 +1648,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1921,18 +1662,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{251a99b6-f03b-4a3d-973c-9c5a9c00f3db}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{68508a71-5097-4684-9857-4aeed394e174}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -1942,7 +1677,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1956,18 +1691,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{e644738c-6372-4f1a-ba51-e46aeb3d6902}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{ef2404af-11fe-4807-9d5a-a45640312d62}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,89,255,255,cmyk:1,0.6500038147554742,0,0,1"></Option>
@@ -1991,13 +1720,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -2013,18 +1736,18 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{a6f9938e-e841-441f-aa11-12b4f95aa4e0}" locked="0" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{2d7df824-8979-4735-a42e-c348e2974541}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="141,90,153,255,rgb:0.55294117647058827,0.35294117647058826,0.59999999999999998,1"></Option>
+            <Option name="color" type="QString" value="183,72,75,255,rgb:0.7176471,0.2823529,0.2941176,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2057,55 +1780,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
   </renderer-v2>
   <selection mode="Default">
     <selectionColor invalid="1"></selectionColor>
-    <selectionSymbol>
-      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="marker">
-        <data_defined_properties>
-          <Option type="Map">
-            <Option name="name" type="QString" value=""></Option>
-            <Option name="properties"></Option>
-            <Option name="type" type="QString" value="collection"></Option>
-          </Option>
-        </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{32e007ee-aa1c-4466-9ceb-5dd85baff216}" locked="0" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,0,0,255,rgb:1,0,0,1"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="joinstyle" type="QString" value="bevel"></Option>
-            <Option name="name" type="QString" value="circle"></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
-            <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="MM"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="2"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="MM"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-      </symbol>
-    </selectionSymbol>
   </selection>
   <labeling type="simple">
     <settings calloutType="simple">
-      <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="dip" fontFamily="Arial" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="10" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="Regular" previewBkgrdColor="255,255,255,255,rgb:1,1,1,1" stretchFactor="100" tabStopDistance="80" tabStopDistanceMapUnitScale="3x:0,0,0,0,0,0" tabStopDistanceUnit="Point" textColor="50,50,50,255,rgb:0.19607843137254902,0.19607843137254902,0.19607843137254902,1" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
+      <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="dip" fontFamily="Arial" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="10" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="Regular" previewBkgrdColor="255,255,255,255,rgb:1,1,1,1" stretchFactor="100" tabStopDistance="80" tabStopDistanceMapUnitScale="3x:0,0,0,0,0,0" tabStopDistanceUnit="Point" textColor="50,50,50,255,rgb:0.1960784,0.1960784,0.1960784,1" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
         <families></families>
-        <text-buffer bufferBlendMode="0" bufferColor="250,250,250,255,rgb:0.98039215686274506,0.98039215686274506,0.98039215686274506,1" bufferDraw="0" bufferJoinStyle="128" bufferNoFill="1" bufferOpacity="1" bufferSize="1" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSizeUnits="MM"></text-buffer>
+        <text-buffer bufferBlendMode="0" bufferColor="250,250,250,255,rgb:0.9803922,0.9803922,0.9803922,1" bufferDraw="0" bufferJoinStyle="128" bufferNoFill="1" bufferOpacity="1" bufferSize="1" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSizeUnits="MM"></text-buffer>
         <text-mask maskEnabled="0" maskJoinStyle="128" maskOpacity="1" maskSize="1.5" maskSize2="1.5" maskSizeMapUnitScale="3x:0,0,0,0,0,0" maskSizeUnits="MM" maskType="0" maskedSymbolLayers=""></text-mask>
-        <background shapeBlendMode="0" shapeBorderColor="128,128,128,255,rgb:0.50196078431372548,0.50196078431372548,0.50196078431372548,1" shapeBorderWidth="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeBorderWidthUnit="Point" shapeDraw="0" shapeFillColor="255,255,255,255,rgb:1,1,1,1" shapeJoinStyle="64" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeOffsetUnit="Point" shapeOffsetX="0" shapeOffsetY="0" shapeOpacity="1" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="Point" shapeRadiiX="0" shapeRadiiY="0" shapeRotation="0" shapeRotationType="0" shapeSVGFile="" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeType="0" shapeSizeUnit="Point" shapeSizeX="0" shapeSizeY="0" shapeType="0">
+        <background shapeBlendMode="0" shapeBorderColor="128,128,128,255,rgb:0.5019608,0.5019608,0.5019608,1" shapeBorderWidth="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeBorderWidthUnit="Point" shapeDraw="0" shapeFillColor="255,255,255,255,rgb:1,1,1,1" shapeJoinStyle="64" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeOffsetUnit="Point" shapeOffsetX="0" shapeOffsetY="0" shapeOpacity="1" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="Point" shapeRadiiX="0" shapeRadiiY="0" shapeRotation="0" shapeRotationType="0" shapeSVGFile="" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeType="0" shapeSizeUnit="Point" shapeSizeX="0" shapeSizeY="0" shapeType="0">
           <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="markerSymbol" type="marker">
             <data_defined_properties>
               <Option type="Map">
@@ -2118,14 +1800,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
               <Option type="Map">
                 <Option name="angle" type="QString" value="0"></Option>
                 <Option name="cap_style" type="QString" value="square"></Option>
-                <Option name="color" type="QString" value="255,158,23,255,rgb:1,0.61960784313725492,0.09019607843137255,1"></Option>
+                <Option name="color" type="QString" value="255,158,23,255,rgb:1,0.6196078,0.0901961,1"></Option>
                 <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
                 <Option name="joinstyle" type="QString" value="bevel"></Option>
                 <Option name="name" type="QString" value="circle"></Option>
                 <Option name="offset" type="QString" value="0,0"></Option>
                 <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
                 <Option name="offset_unit" type="QString" value="MM"></Option>
-                <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+                <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
                 <Option name="outline_style" type="QString" value="solid"></Option>
                 <Option name="outline_width" type="QString" value="0"></Option>
                 <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -2161,7 +1843,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
                 <Option name="offset" type="QString" value="0,0"></Option>
                 <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
                 <Option name="offset_unit" type="QString" value="MM"></Option>
-                <Option name="outline_color" type="QString" value="128,128,128,255,rgb:0.50196078431372548,0.50196078431372548,0.50196078431372548,1"></Option>
+                <Option name="outline_color" type="QString" value="128,128,128,255,rgb:0.5019608,0.5019608,0.5019608,1"></Option>
                 <Option name="outline_style" type="QString" value="no"></Option>
                 <Option name="outline_width" type="QString" value="0"></Option>
                 <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -2209,7 +1891,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option name="drawToAllParts" type="bool" value="false"></Option>
           <Option name="enabled" type="QString" value="0"></Option>
           <Option name="labelAnchorPoint" type="QString" value="point_on_exterior"></Option>
-          <Option name="lineSymbol" type="QString" value="&lt;symbol is_animated=&quot;0&quot; force_rhr=&quot;0&quot; frame_rate=&quot;10&quot; name=&quot;symbol&quot; clip_to_extent=&quot;1&quot; alpha=&quot;1&quot; type=&quot;line&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;name&quot; type=&quot;QString&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option name=&quot;type&quot; type=&quot;QString&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer class=&quot;SimpleLine&quot; pass=&quot;0&quot; locked=&quot;0&quot; id=&quot;{86babb93-ef8d-4c6b-adcd-fdee1ad0d80e}&quot; enabled=&quot;1&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;align_dash_pattern&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;capstyle&quot; type=&quot;QString&quot; value=&quot;square&quot;/>&lt;Option name=&quot;customdash&quot; type=&quot;QString&quot; value=&quot;5;2&quot;/>&lt;Option name=&quot;customdash_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;customdash_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;dash_pattern_offset&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;dash_pattern_offset_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;dash_pattern_offset_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;draw_inside_polygon&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;joinstyle&quot; type=&quot;QString&quot; value=&quot;bevel&quot;/>&lt;Option name=&quot;line_color&quot; type=&quot;QString&quot; value=&quot;60,60,60,255,rgb:0.23529411764705882,0.23529411764705882,0.23529411764705882,1&quot;/>&lt;Option name=&quot;line_style&quot; type=&quot;QString&quot; value=&quot;solid&quot;/>&lt;Option name=&quot;line_width&quot; type=&quot;QString&quot; value=&quot;0.3&quot;/>&lt;Option name=&quot;line_width_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;offset&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;offset_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;offset_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;ring_filter&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;trim_distance_end&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;trim_distance_end_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;trim_distance_end_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;trim_distance_start&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;trim_distance_start_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;trim_distance_start_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;tweak_dash_pattern_on_corners&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;use_custom_dash&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;width_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;name&quot; type=&quot;QString&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option name=&quot;type&quot; type=&quot;QString&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
+          <Option name="lineSymbol" type="QString" value="&lt;symbol type=&quot;line&quot; alpha=&quot;1&quot; force_rhr=&quot;0&quot; name=&quot;symbol&quot; clip_to_extent=&quot;1&quot; is_animated=&quot;0&quot; frame_rate=&quot;10&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; name=&quot;name&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;type&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer enabled=&quot;1&quot; locked=&quot;0&quot; pass=&quot;0&quot; class=&quot;SimpleLine&quot; id=&quot;{86babb93-ef8d-4c6b-adcd-fdee1ad0d80e}&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; name=&quot;align_dash_pattern&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;capstyle&quot; value=&quot;square&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;customdash&quot; value=&quot;5;2&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;customdash_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;customdash_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;dash_pattern_offset&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;dash_pattern_offset_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;dash_pattern_offset_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;draw_inside_polygon&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;joinstyle&quot; value=&quot;bevel&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;line_color&quot; value=&quot;60,60,60,255,rgb:0.2352941,0.2352941,0.2352941,1&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;line_style&quot; value=&quot;solid&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;line_width&quot; value=&quot;0.3&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;line_width_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;offset&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;offset_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;offset_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;ring_filter&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_end&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_end_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_end_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_start&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_start_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_start_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;tweak_dash_pattern_on_corners&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;use_custom_dash&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;width_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; name=&quot;name&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;type&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
           <Option name="minLength" type="double" value="0"></Option>
           <Option name="minLengthMapUnitScale" type="QString" value="3x:0,0,0,0,0,0"></Option>
           <Option name="minLengthUnit" type="QString" value="MM"></Option>
@@ -2381,48 +2063,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <alias field="recorded_by" index="17" name=""></alias>
     <alias field="recorded_on" index="18" name=""></alias>
   </aliases>
-  <splitPolicies>
-    <policy field="field_project" policy="Duplicate"></policy>
-    <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="locality_point" policy="Duplicate"></policy>
-    <policy field="x" policy="Duplicate"></policy>
-    <policy field="y" policy="Duplicate"></policy>
-    <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="superficial_category" policy="Duplicate"></policy>
-    <policy field="superficial_landform_code" policy="Duplicate"></policy>
-    <policy field="superficial_type" policy="Duplicate"></policy>
-    <policy field="azimuth" policy="Duplicate"></policy>
-    <policy field="dip" policy="Duplicate"></policy>
-    <policy field="length" policy="Duplicate"></policy>
-    <policy field="width" policy="Duplicate"></policy>
-    <policy field="height_depth" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
-    <policy field="superficial_uuid" policy="Duplicate"></policy>
-    <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </splitPolicies>
-  <duplicatePolicies>
-    <policy field="field_project" policy="Duplicate"></policy>
-    <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="locality_point" policy="Duplicate"></policy>
-    <policy field="x" policy="Duplicate"></policy>
-    <policy field="y" policy="Duplicate"></policy>
-    <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="superficial_category" policy="Duplicate"></policy>
-    <policy field="superficial_landform_code" policy="Duplicate"></policy>
-    <policy field="superficial_type" policy="Duplicate"></policy>
-    <policy field="azimuth" policy="Duplicate"></policy>
-    <policy field="dip" policy="Duplicate"></policy>
-    <policy field="length" policy="Duplicate"></policy>
-    <policy field="width" policy="Duplicate"></policy>
-    <policy field="height_depth" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
-    <policy field="superficial_uuid" policy="Duplicate"></policy>
-    <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="field_project"></default>
     <default applyOnUpdate="0" expression="" field="field_project_fuid"></default>

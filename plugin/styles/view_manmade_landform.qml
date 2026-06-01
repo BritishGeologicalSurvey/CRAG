@@ -3,19 +3,18 @@ Copyright 2026 British Geological Survey
 Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
-<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
+<qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
   <renderer-v2 attr="manmade_landform_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
-      <category label="adit" render="true" symbol="0" type="string" uuid="{5140067d-40f2-4334-a252-736e768b29d5}" value="adit"></category>
-      <category label="adit_abandoned" render="true" symbol="1" type="string" uuid="{069e54ed-849b-4901-8d8c-78c74f55a476}" value="adit_abandoned"></category>
-      <category label="adit_unknown_orientation" render="true" symbol="2" type="string" uuid="{c26e460b-8e4d-47c2-b1a9-96004b48ecb5}" value="adit_unknown_orientation"></category>
-      <category label="former_mine_site" render="true" symbol="3" type="string" uuid="{8837cbcc-2a91-43c1-91b7-8ec45dfa3b41}" value="former_mine_site"></category>
-      <category label="shaft" render="true" symbol="4" type="string" uuid="{9b80016f-0b95-4649-8986-7fb4466112a4}" value="shaft"></category>
-      <category label="shaft_abandoned" render="true" symbol="5" type="string" uuid="{b45b8f76-0079-458a-bfbb-44fbf842b4bd}" value="shaft_abandoned"></category>
-      <category label="shaft_abandoned_uncertain" render="true" symbol="6" type="string" uuid="{5c2a6572-a68b-4029-a698-0dea433e6461}" value="shaft_abandoned_uncertain"></category>
-      <category label="trench" render="true" symbol="7" type="string" uuid="{aacac582-6c34-4707-9993-ad21e1fb5026}" value="trench"></category>
-      <category label="waste_disposal_site" render="true" symbol="8" type="string" uuid="{b1943ecb-4ad5-492a-a302-71d8d9b962ce}" value="waste_disposal_site"></category>
-      <category label="" render="true" symbol="9" type="NULL" uuid="{25ee2613-041d-48ee-ad16-ed3fbbf42b93}" value="NULL"></category>
+      <category label="adit" render="true" symbol="0" type="string" uuid="{1c27e257-b041-4288-89b9-35e4e55703e6}" value="adit"></category>
+      <category label="adit_abandoned" render="true" symbol="1" type="string" uuid="{4becaa94-dcce-4c1e-8c0c-6323c87ead00}" value="adit_abandoned"></category>
+      <category label="adit_unknown_orientation" render="true" symbol="2" type="string" uuid="{97a0ad85-ede0-4a6b-a337-d3a21b46dace}" value="adit_unknown_orientation"></category>
+      <category label="former_mine_site" render="true" symbol="3" type="string" uuid="{b22513c3-3363-4bd9-afed-f5a1780a63f1}" value="former_mine_site"></category>
+      <category label="shaft" render="true" symbol="4" type="string" uuid="{66ee156f-b9a0-4fcd-9a77-d0040abddcd5}" value="shaft"></category>
+      <category label="shaft_abandoned" render="true" symbol="5" type="string" uuid="{7ea3bfcf-4e9f-4fc2-92eb-b2d900330cb4}" value="shaft_abandoned"></category>
+      <category label="shaft_abandoned_uncertain" render="true" symbol="6" type="string" uuid="{af4bc199-de26-4a67-884c-5bd9fb48996f}" value="shaft_abandoned_uncertain"></category>
+      <category label="trench" render="true" symbol="7" type="string" uuid="{9727c9dd-d6b4-4c0b-bcd0-6f2fb187929f}" value="trench"></category>
+      <category label="waste_disposal_site" render="true" symbol="8" type="string" uuid="{53715585-6da7-48f5-bf36-dbcfbc454daf}" value="waste_disposal_site"></category>
     </categories>
     <symbols>
       <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="0" type="marker">
@@ -26,7 +25,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{0371cc14-89b2-4914-af9d-12ac9fc55684}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{a34c12c1-1289-4190-9a87-3e6705cbf27e}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -36,7 +35,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -61,7 +60,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{9adce534-7e60-4562-a7e7-ff0967d6a7ed}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{cea012d4-f043-452a-b735-824317ad2ef1}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -71,7 +70,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -96,7 +95,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{835d6e94-bc98-4624-8210-ede85fd6d38f}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{8b0afa6a-486e-4ef6-bff3-2dc875120048}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -140,7 +139,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{31c15c6a-c000-4c6c-9343-e5868f680fef}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{ebcac3dd-ee87-4dce-a904-203e2a8a49ce}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -150,7 +149,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -175,7 +174,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{823593bb-14d5-4f5d-b65e-e158564e6a5d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{18d0d8c5-873a-4a89-9159-cd4f069a4437}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -185,7 +184,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -210,7 +209,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{d44690e6-3480-4217-9849-fbb5ea154abb}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{2d7c0e51-4fff-4c4c-ad74-a306cde771fc}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -254,7 +253,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{ad936a84-6b7a-47e6-b9b8-ffe7c950c0f0}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{e2397184-c4f2-49f5-86a3-6f09baf25135}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -264,7 +263,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -278,18 +277,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{7d1a0b1f-6f7a-4a33-9d88-ef9ac5b22822}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{9e6c3d3d-4702-4448-8ac7-306e74d748f8}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -299,7 +292,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -313,18 +306,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{b6d7060f-bd4c-41c7-960b-c6bf051685af}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{fc30573a-f426-498d-bf70-f0e397186790}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -348,13 +335,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -368,7 +349,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{6e4430bc-1758-4ec4-9fea-d325184e72c7}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{87895403-2a83-4520-afef-c2237ea98c4c}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -378,7 +359,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -392,18 +373,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{6e4b3dfa-d15c-42c9-b7e1-14ac94ec8056}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{453ddf31-8afc-4fd2-92e9-2c9b28c27d2f}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -413,7 +388,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -427,18 +402,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{d923572e-50fa-4def-a86e-d5d7f128632d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{c159622c-18da-41ce-88ca-84f699ecd87e}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -462,13 +431,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -482,7 +445,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{547cd710-8574-45da-8523-35e704fd2655}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{73907cc2-1906-402d-bc4b-96ea2a9ca729}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -492,7 +455,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -506,18 +469,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{45377c8b-3857-45af-85bc-69d8a8880e12}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{5f162f6b-bfc5-4de6-b070-3b5332233cfa}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -527,7 +484,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -541,18 +498,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{42e6eac4-353e-4433-93fc-63f64269e25d}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{417b2c92-65f4-4396-b51b-cf78ddb34ef2}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -576,13 +527,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -596,7 +541,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{40daca49-e5e1-450b-b167-c6c60b4ff1f7}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{e4aada9d-18d1-43f3-b948-1dc155692393}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -606,7 +551,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -620,18 +565,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{f91104b3-1bc6-48e8-95b8-18f698c15621}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{55dff434-88d5-4ad4-960c-c87ed46cff38}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -641,7 +580,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -655,18 +594,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{d8e9f927-309a-46fa-905b-4fd385d9b8d1}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{1a750910-5ab2-49b2-a805-cf018a3d145a}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -690,13 +623,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -710,7 +637,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{ad1ce2d4-cbe6-445e-809a-f6a122ab4061}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{618a35e2-23e4-461b-8b92-2c74d8b00c63}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -720,7 +647,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -734,18 +661,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{2f2e9271-ed35-4a85-a9f4-ad10e9f90fb2}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{10eed6f8-36c8-4934-8d53-d066109c673d}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -755,7 +676,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -769,18 +690,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{0abfb6f0-bd1b-4de6-9d71-5f3402b1dc39}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{78b1c8df-d2d5-4a4f-9688-c795f32022aa}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -804,13 +719,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
@@ -824,10 +733,10 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{e36bdb3e-324f-4cf2-8164-5546e9292abf}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{683ca913-af53-4987-85f1-bebfa6993413}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
-            <Option name="color" type="QString" value="200,200,200,0,rgb:0.78431372549019607,0.78431372549019607,0.78431372549019607,0"></Option>
+            <Option name="color" type="QString" value="200,200,200,0,rgb:0.7843137,0.7843137,0.7843137,0"></Option>
             <Option name="fixedAspectRatio" type="QString" value="0"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="name" type="QString" value="base64:PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgdmlld0JveD0iMCAwIDE1MiAxNTEiCiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiAgdmVyc2lvbj0iMS4yIiBiYXNlUHJvZmlsZT0idGlueSI+Cjx0aXRsZT5RdCBTVkcgRG9jdW1lbnQ8L3RpdGxlPgo8ZGVzYz5HZW5lcmF0ZWQgd2l0aCBRdDwvZGVzYz4KPGRlZnM+CjwvZGVmcz4KPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS1saW5lY2FwPSJzcXVhcmUiIHN0cm9rZS1saW5lam9pbj0iYmV2ZWwiID4KCjxnIGZpbGw9InBhcmFtKGZpbGwpIiBmaWxsLW9wYWNpdHk9InBhcmFtKGZpbGwtb3BhY2l0eSkiIHN0cm9rZT0icGFyYW0ob3V0bGluZSkiIHN0cm9rZS1vcGFjaXR5PSJwYXJhbShvdXRsaW5lLW9wYWNpdHkpIDEiIHN0cm9rZS13aWR0aD0icGFyYW0ob3V0bGluZS13aWR0aCkiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMSwwLDAsMSwwLDApIgpmb250LWZhbWlseT0iTVMgU2hlbGwgRGxnIDIiIGZvbnQtc2l6ZT0iOCIgZm9udC13ZWlnaHQ9IjQwMCIgZm9udC1zdHlsZT0ibm9ybWFsIiAKPgo8cG9seWxpbmUgZmlsbD0ibm9uZSIgdmVjdG9yLWVmZmVjdD0ibm9uZSIgcG9pbnRzPSIxNTEuNjU5LC0wLjM0MTMzMyAxNTEuNjU5LC0wLjM0MTMzMyAiIC8+CjwvZz4KPC9nPgo8L3N2Zz4K"></Option>
@@ -859,7 +768,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{a694394b-2935-44ab-84a3-1df7192b8f64}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{529ec875-a80f-4feb-a5ee-7d7ea3068e41}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -869,7 +778,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -894,7 +803,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{58120729-67ab-4c53-8831-cac136a1d509}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{02090eb5-4aaf-4638-b156-b5f0fa384429}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,cmyk:0,0,0,1,1"></Option>
@@ -938,7 +847,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SvgMarker" enabled="1" id="{148fc9f8-2fcf-4e0f-8a97-276f314ef220}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{63f93be1-bca5-47cd-9155-5584036481f5}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -948,7 +857,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,0"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,0,rgb:0.945098,0.9490196,0.9490196,0"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -962,18 +871,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{6e0b6f0f-0b7d-4361-b7e1-7c396e34c13f}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{f2440971-0382-4cd8-bd2d-145a9627fb74}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="255,255,255,0,rgb:1,1,1,0"></Option>
@@ -983,7 +886,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="Point"></Option>
-            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.94509803921568625,0.94901960784313721,0.94901960784313721,1"></Option>
+            <Option name="outline_color" type="QString" value="241,242,242,255,rgb:0.945098,0.9490196,0.9490196,1"></Option>
             <Option name="outline_width" type="QString" value="0.529801"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -997,18 +900,12 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
+              <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
           </data_defined_properties>
         </layer>
-        <layer class="SvgMarker" enabled="1" id="{2894fbe3-3cf0-4d74-891f-d4e082d0c1e7}" locked="1" pass="0">
+        <layer class="SvgMarker" enabled="1" id="{6d19fe61-d3f6-4465-b860-38801c7c0989}" locked="1" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="color" type="QString" value="0,0,0,255,rgb:0,0,0,1"></Option>
@@ -1032,51 +929,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <data_defined_properties>
             <Option type="Map">
               <Option name="name" type="QString" value=""></Option>
-              <Option name="properties" type="Map">
-                <Option name="angle" type="Map">
-                  <Option name="active" type="bool" value="true"></Option>
-                  <Option name="field" type="QString" value="azimuth"></Option>
-                  <Option name="type" type="int" value="2"></Option>
-                </Option>
-              </Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-      </symbol>
-      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="9" type="marker">
-        <data_defined_properties>
-          <Option type="Map">
-            <Option name="name" type="QString" value=""></Option>
-            <Option name="properties"></Option>
-            <Option name="type" type="QString" value="collection"></Option>
-          </Option>
-        </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{c8f0f2c2-b8a4-4aad-9136-2740acea0ca1}" locked="0" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="121,93,222,255,hsv:0.70277777777777772,0.58039215686274515,0.87058823529411766,1"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="joinstyle" type="QString" value="bevel"></Option>
-            <Option name="name" type="QString" value="circle"></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
-            <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="MM"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="2"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="MM"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
               <Option name="properties"></Option>
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
@@ -1093,18 +945,18 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="type" type="QString" value="collection"></Option>
           </Option>
         </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{c8f0f2c2-b8a4-4aad-9136-2740acea0ca1}" locked="0" pass="0">
+        <layer class="SimpleMarker" enabled="1" id="{399aeda2-7c53-4fc0-afe6-60ac5d50b848}" locked="0" pass="0">
           <Option type="Map">
             <Option name="angle" type="QString" value="0"></Option>
             <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="133,182,111,255,rgb:0.52156862745098043,0.71372549019607845,0.43529411764705883,1"></Option>
+            <Option name="color" type="QString" value="114,155,111,255,rgb:0.4470588,0.6078431,0.4352941,1"></Option>
             <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
             <Option name="joinstyle" type="QString" value="bevel"></Option>
             <Option name="name" type="QString" value="circle"></Option>
             <Option name="offset" type="QString" value="0,0"></Option>
             <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
             <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
             <Option name="outline_style" type="QString" value="solid"></Option>
             <Option name="outline_width" type="QString" value="0"></Option>
             <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1137,55 +989,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
   </renderer-v2>
   <selection mode="Default">
     <selectionColor invalid="1"></selectionColor>
-    <selectionSymbol>
-      <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="" type="marker">
-        <data_defined_properties>
-          <Option type="Map">
-            <Option name="name" type="QString" value=""></Option>
-            <Option name="properties"></Option>
-            <Option name="type" type="QString" value="collection"></Option>
-          </Option>
-        </data_defined_properties>
-        <layer class="SimpleMarker" enabled="1" id="{5aa60d82-a9b5-4ab5-8326-7f9112c0b469}" locked="0" pass="0">
-          <Option type="Map">
-            <Option name="angle" type="QString" value="0"></Option>
-            <Option name="cap_style" type="QString" value="square"></Option>
-            <Option name="color" type="QString" value="255,0,0,255,rgb:1,0,0,1"></Option>
-            <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
-            <Option name="joinstyle" type="QString" value="bevel"></Option>
-            <Option name="name" type="QString" value="circle"></Option>
-            <Option name="offset" type="QString" value="0,0"></Option>
-            <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="offset_unit" type="QString" value="MM"></Option>
-            <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
-            <Option name="outline_style" type="QString" value="solid"></Option>
-            <Option name="outline_width" type="QString" value="0"></Option>
-            <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="outline_width_unit" type="QString" value="MM"></Option>
-            <Option name="scale_method" type="QString" value="diameter"></Option>
-            <Option name="size" type="QString" value="2"></Option>
-            <Option name="size_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
-            <Option name="size_unit" type="QString" value="MM"></Option>
-            <Option name="vertical_anchor_point" type="QString" value="1"></Option>
-          </Option>
-          <data_defined_properties>
-            <Option type="Map">
-              <Option name="name" type="QString" value=""></Option>
-              <Option name="properties"></Option>
-              <Option name="type" type="QString" value="collection"></Option>
-            </Option>
-          </data_defined_properties>
-        </layer>
-      </symbol>
-    </selectionSymbol>
   </selection>
   <labeling type="simple">
     <settings calloutType="simple">
-      <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="dip" fontFamily="Arial" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="10" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="Regular" previewBkgrdColor="255,255,255,255,rgb:1,1,1,1" stretchFactor="100" tabStopDistance="80" tabStopDistanceMapUnitScale="3x:0,0,0,0,0,0" tabStopDistanceUnit="Point" textColor="50,50,50,255,rgb:0.19607843137254902,0.19607843137254902,0.19607843137254902,1" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
+      <text-style allowHtml="0" blendMode="0" capitalization="0" fieldName="dip" fontFamily="Arial" fontItalic="0" fontKerning="1" fontLetterSpacing="0" fontSize="10" fontSizeMapUnitScale="3x:0,0,0,0,0,0" fontSizeUnit="Point" fontStrikeout="0" fontUnderline="0" fontWeight="50" fontWordSpacing="0" forcedBold="0" forcedItalic="0" isExpression="0" legendString="Aa" multilineHeight="1" multilineHeightUnit="Percentage" namedStyle="Regular" previewBkgrdColor="255,255,255,255,rgb:1,1,1,1" stretchFactor="100" tabStopDistance="80" tabStopDistanceMapUnitScale="3x:0,0,0,0,0,0" tabStopDistanceUnit="Point" textColor="50,50,50,255,rgb:0.1960784,0.1960784,0.1960784,1" textOpacity="1" textOrientation="horizontal" useSubstitutions="0">
         <families></families>
-        <text-buffer bufferBlendMode="0" bufferColor="250,250,250,255,rgb:0.98039215686274506,0.98039215686274506,0.98039215686274506,1" bufferDraw="0" bufferJoinStyle="128" bufferNoFill="1" bufferOpacity="1" bufferSize="1" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSizeUnits="MM"></text-buffer>
+        <text-buffer bufferBlendMode="0" bufferColor="250,250,250,255,rgb:0.9803922,0.9803922,0.9803922,1" bufferDraw="0" bufferJoinStyle="128" bufferNoFill="1" bufferOpacity="1" bufferSize="1" bufferSizeMapUnitScale="3x:0,0,0,0,0,0" bufferSizeUnits="MM"></text-buffer>
         <text-mask maskEnabled="0" maskJoinStyle="128" maskOpacity="1" maskSize="1.5" maskSize2="1.5" maskSizeMapUnitScale="3x:0,0,0,0,0,0" maskSizeUnits="MM" maskType="0" maskedSymbolLayers=""></text-mask>
-        <background shapeBlendMode="0" shapeBorderColor="128,128,128,255,rgb:0.50196078431372548,0.50196078431372548,0.50196078431372548,1" shapeBorderWidth="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeBorderWidthUnit="Point" shapeDraw="0" shapeFillColor="255,255,255,255,rgb:1,1,1,1" shapeJoinStyle="64" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeOffsetUnit="Point" shapeOffsetX="0" shapeOffsetY="0" shapeOpacity="1" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="Point" shapeRadiiX="0" shapeRadiiY="0" shapeRotation="0" shapeRotationType="0" shapeSVGFile="" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeType="0" shapeSizeUnit="Point" shapeSizeX="0" shapeSizeY="0" shapeType="0">
+        <background shapeBlendMode="0" shapeBorderColor="128,128,128,255,rgb:0.5019608,0.5019608,0.5019608,1" shapeBorderWidth="0" shapeBorderWidthMapUnitScale="3x:0,0,0,0,0,0" shapeBorderWidthUnit="Point" shapeDraw="0" shapeFillColor="255,255,255,255,rgb:1,1,1,1" shapeJoinStyle="64" shapeOffsetMapUnitScale="3x:0,0,0,0,0,0" shapeOffsetUnit="Point" shapeOffsetX="0" shapeOffsetY="0" shapeOpacity="1" shapeRadiiMapUnitScale="3x:0,0,0,0,0,0" shapeRadiiUnit="Point" shapeRadiiX="0" shapeRadiiY="0" shapeRotation="0" shapeRotationType="0" shapeSVGFile="" shapeSizeMapUnitScale="3x:0,0,0,0,0,0" shapeSizeType="0" shapeSizeUnit="Point" shapeSizeX="0" shapeSizeY="0" shapeType="0">
           <symbol alpha="1" clip_to_extent="1" force_rhr="0" frame_rate="10" is_animated="0" name="markerSymbol" type="marker">
             <data_defined_properties>
               <Option type="Map">
@@ -1198,14 +1009,14 @@ SPDX-License-Identifier: GPL-3.0-or-later
               <Option type="Map">
                 <Option name="angle" type="QString" value="0"></Option>
                 <Option name="cap_style" type="QString" value="square"></Option>
-                <Option name="color" type="QString" value="196,60,57,255,rgb:0.7686274509803922,0.23529411764705882,0.22352941176470589,1"></Option>
+                <Option name="color" type="QString" value="196,60,57,255,rgb:0.7686275,0.2352941,0.2235294,1"></Option>
                 <Option name="horizontal_anchor_point" type="QString" value="1"></Option>
                 <Option name="joinstyle" type="QString" value="bevel"></Option>
                 <Option name="name" type="QString" value="circle"></Option>
                 <Option name="offset" type="QString" value="0,0"></Option>
                 <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
                 <Option name="offset_unit" type="QString" value="MM"></Option>
-                <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.13725490196078433,0.13725490196078433,0.13725490196078433,1"></Option>
+                <Option name="outline_color" type="QString" value="35,35,35,255,rgb:0.1372549,0.1372549,0.1372549,1"></Option>
                 <Option name="outline_style" type="QString" value="solid"></Option>
                 <Option name="outline_width" type="QString" value="0"></Option>
                 <Option name="outline_width_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
@@ -1241,7 +1052,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
                 <Option name="offset" type="QString" value="0,0"></Option>
                 <Option name="offset_map_unit_scale" type="QString" value="3x:0,0,0,0,0,0"></Option>
                 <Option name="offset_unit" type="QString" value="MM"></Option>
-                <Option name="outline_color" type="QString" value="128,128,128,255,rgb:0.50196078431372548,0.50196078431372548,0.50196078431372548,1"></Option>
+                <Option name="outline_color" type="QString" value="128,128,128,255,rgb:0.5019608,0.5019608,0.5019608,1"></Option>
                 <Option name="outline_style" type="QString" value="no"></Option>
                 <Option name="outline_width" type="QString" value="0"></Option>
                 <Option name="outline_width_unit" type="QString" value="Point"></Option>
@@ -1289,7 +1100,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
           <Option name="drawToAllParts" type="bool" value="false"></Option>
           <Option name="enabled" type="QString" value="0"></Option>
           <Option name="labelAnchorPoint" type="QString" value="point_on_exterior"></Option>
-          <Option name="lineSymbol" type="QString" value="&lt;symbol is_animated=&quot;0&quot; force_rhr=&quot;0&quot; frame_rate=&quot;10&quot; name=&quot;symbol&quot; clip_to_extent=&quot;1&quot; alpha=&quot;1&quot; type=&quot;line&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;name&quot; type=&quot;QString&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option name=&quot;type&quot; type=&quot;QString&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer class=&quot;SimpleLine&quot; pass=&quot;0&quot; locked=&quot;0&quot; id=&quot;{45ef4d1e-565c-4376-ad61-3fe0cac71e58}&quot; enabled=&quot;1&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;align_dash_pattern&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;capstyle&quot; type=&quot;QString&quot; value=&quot;square&quot;/>&lt;Option name=&quot;customdash&quot; type=&quot;QString&quot; value=&quot;5;2&quot;/>&lt;Option name=&quot;customdash_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;customdash_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;dash_pattern_offset&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;dash_pattern_offset_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;dash_pattern_offset_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;draw_inside_polygon&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;joinstyle&quot; type=&quot;QString&quot; value=&quot;bevel&quot;/>&lt;Option name=&quot;line_color&quot; type=&quot;QString&quot; value=&quot;60,60,60,255,rgb:0.23529411764705882,0.23529411764705882,0.23529411764705882,1&quot;/>&lt;Option name=&quot;line_style&quot; type=&quot;QString&quot; value=&quot;solid&quot;/>&lt;Option name=&quot;line_width&quot; type=&quot;QString&quot; value=&quot;0.3&quot;/>&lt;Option name=&quot;line_width_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;offset&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;offset_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;offset_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;ring_filter&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;trim_distance_end&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;trim_distance_end_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;trim_distance_end_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;trim_distance_start&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;trim_distance_start_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option name=&quot;trim_distance_start_unit&quot; type=&quot;QString&quot; value=&quot;MM&quot;/>&lt;Option name=&quot;tweak_dash_pattern_on_corners&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;use_custom_dash&quot; type=&quot;QString&quot; value=&quot;0&quot;/>&lt;Option name=&quot;width_map_unit_scale&quot; type=&quot;QString&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option name=&quot;name&quot; type=&quot;QString&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option name=&quot;type&quot; type=&quot;QString&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
+          <Option name="lineSymbol" type="QString" value="&lt;symbol type=&quot;line&quot; alpha=&quot;1&quot; force_rhr=&quot;0&quot; name=&quot;symbol&quot; clip_to_extent=&quot;1&quot; is_animated=&quot;0&quot; frame_rate=&quot;10&quot;>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; name=&quot;name&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;type&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;layer enabled=&quot;1&quot; locked=&quot;0&quot; pass=&quot;0&quot; class=&quot;SimpleLine&quot; id=&quot;{45ef4d1e-565c-4376-ad61-3fe0cac71e58}&quot;>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; name=&quot;align_dash_pattern&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;capstyle&quot; value=&quot;square&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;customdash&quot; value=&quot;5;2&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;customdash_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;customdash_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;dash_pattern_offset&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;dash_pattern_offset_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;dash_pattern_offset_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;draw_inside_polygon&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;joinstyle&quot; value=&quot;bevel&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;line_color&quot; value=&quot;60,60,60,255,rgb:0.2352941,0.2352941,0.2352941,1&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;line_style&quot; value=&quot;solid&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;line_width&quot; value=&quot;0.3&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;line_width_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;offset&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;offset_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;offset_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;ring_filter&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_end&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_end_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_end_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_start&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_start_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;trim_distance_start_unit&quot; value=&quot;MM&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;tweak_dash_pattern_on_corners&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;use_custom_dash&quot; value=&quot;0&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;width_map_unit_scale&quot; value=&quot;3x:0,0,0,0,0,0&quot;/>&lt;/Option>&lt;data_defined_properties>&lt;Option type=&quot;Map&quot;>&lt;Option type=&quot;QString&quot; name=&quot;name&quot; value=&quot;&quot;/>&lt;Option name=&quot;properties&quot;/>&lt;Option type=&quot;QString&quot; name=&quot;type&quot; value=&quot;collection&quot;/>&lt;/Option>&lt;/data_defined_properties>&lt;/layer>&lt;/symbol>"></Option>
           <Option name="minLength" type="double" value="0"></Option>
           <Option name="minLengthMapUnitScale" type="QString" value="3x:0,0,0,0,0,0"></Option>
           <Option name="minLengthUnit" type="QString" value="MM"></Option>
@@ -1453,46 +1264,6 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <alias field="recorded_by" index="16" name=""></alias>
     <alias field="recorded_on" index="17" name=""></alias>
   </aliases>
-  <splitPolicies>
-    <policy field="field_project" policy="Duplicate"></policy>
-    <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="locality_point" policy="Duplicate"></policy>
-    <policy field="x" policy="Duplicate"></policy>
-    <policy field="y" policy="Duplicate"></policy>
-    <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="category" policy="Duplicate"></policy>
-    <policy field="manmade_landform_code" policy="Duplicate"></policy>
-    <policy field="manmade_type" policy="Duplicate"></policy>
-    <policy field="dip" policy="Duplicate"></policy>
-    <policy field="azimuth" policy="Duplicate"></policy>
-    <policy field="length" policy="Duplicate"></policy>
-    <policy field="width" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
-    <policy field="manmade_uuid" policy="Duplicate"></policy>
-    <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </splitPolicies>
-  <duplicatePolicies>
-    <policy field="field_project" policy="Duplicate"></policy>
-    <policy field="field_project_fuid" policy="Duplicate"></policy>
-    <policy field="locality_point" policy="Duplicate"></policy>
-    <policy field="x" policy="Duplicate"></policy>
-    <policy field="y" policy="Duplicate"></policy>
-    <policy field="local_epsg" policy="Duplicate"></policy>
-    <policy field="category" policy="Duplicate"></policy>
-    <policy field="manmade_landform_code" policy="Duplicate"></policy>
-    <policy field="manmade_type" policy="Duplicate"></policy>
-    <policy field="dip" policy="Duplicate"></policy>
-    <policy field="azimuth" policy="Duplicate"></policy>
-    <policy field="length" policy="Duplicate"></policy>
-    <policy field="width" policy="Duplicate"></policy>
-    <policy field="notes" policy="Duplicate"></policy>
-    <policy field="manmade_uuid" policy="Duplicate"></policy>
-    <policy field="locality_uuid" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="field_project"></default>
     <default applyOnUpdate="0" expression="" field="field_project_fuid"></default>

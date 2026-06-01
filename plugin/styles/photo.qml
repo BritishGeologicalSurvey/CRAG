@@ -3,7 +3,7 @@ Copyright 2026 British Geological Survey
 Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.9-Solothurn">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -29,8 +29,8 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="FetchLimitNumber" type="int" value="100"></Option>
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
-            <Option name="ReferencedLayerDataSource" type="QString" value=""></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_4bb76b3f_42c7_4fd0_a75a_9419ceaf18b6"></Option>
+            <Option name="ReferencedLayerDataSource" type="invalid"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_ecb6cdf4_0fac_472b_a992_4fc1bfcc8807"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_photo"></Option>
@@ -49,9 +49,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="DocumentViewerWidth" type="int" value="0"></Option>
             <Option name="FileWidget" type="bool" value="true"></Option>
             <Option name="FileWidgetButton" type="bool" value="true"></Option>
-            <Option name="FileWidgetFilter" type="QString" value=""></Option>
+            <Option name="FileWidgetFilter" type="invalid"></Option>
             <Option name="PropertyCollection" type="Map">
-              <Option name="name" type="QString" value=""></Option>
+              <Option name="name" type="invalid"></Option>
               <Option name="properties" type="Map">
                 <Option name="propertyRootPath" type="Map">
                   <Option name="active" type="bool" value="true"></Option>
@@ -62,9 +62,9 @@ SPDX-License-Identifier: GPL-3.0-or-later
               <Option name="type" type="QString" value="collection"></Option>
             </Option>
             <Option name="RelativeStorage" type="int" value="2"></Option>
-            <Option name="StorageAuthConfigId" type="QString" value=""></Option>
+            <Option name="StorageAuthConfigId" type="invalid"></Option>
             <Option name="StorageMode" type="int" value="0"></Option>
-            <Option name="StorageType" type="QString" value=""></Option>
+            <Option name="StorageType" type="invalid"></Option>
             <Option name="UseLink" type="bool" value="true"></Option>
           </Option>
         </config>
@@ -116,25 +116,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
     <alias field="recorded_on" index="7" name=""></alias>
   </aliases>
   <splitPolicies>
-    <policy field="fid" policy="Duplicate"></policy>
-    <policy field="uuid" policy="Duplicate"></policy>
     <policy field="locality_fuid" policy="DefaultValue"></policy>
     <policy field="photo_file" policy="DefaultValue"></policy>
     <policy field="caption" policy="DefaultValue"></policy>
     <policy field="description" policy="DefaultValue"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
   </splitPolicies>
-  <duplicatePolicies>
-    <policy field="fid" policy="Duplicate"></policy>
-    <policy field="uuid" policy="Duplicate"></policy>
-    <policy field="locality_fuid" policy="Duplicate"></policy>
-    <policy field="photo_file" policy="Duplicate"></policy>
-    <policy field="caption" policy="Duplicate"></policy>
-    <policy field="description" policy="Duplicate"></policy>
-    <policy field="recorded_by" policy="Duplicate"></policy>
-    <policy field="recorded_on" policy="Duplicate"></policy>
-  </duplicatePolicies>
   <defaults>
     <default applyOnUpdate="0" expression="" field="fid"></default>
     <default applyOnUpdate="0" expression="uuid()" field="uuid"></default>
@@ -191,7 +177,7 @@ def my_form_open(dialog, layer, feature):
   <editorlayout>tablayout</editorlayout>
   <attributeEditorForm>
     <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
-      <labelFont bold="0" description="MS Shell Dlg 2,12,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      <labelFont bold="0" description="MS Shell Dlg 2,9.8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
     </labelStyle>
     <attributeEditorField horizontalStretch="0" index="3" name="photo_file" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
