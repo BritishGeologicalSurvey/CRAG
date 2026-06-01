@@ -47,7 +47,7 @@ def test_symbol_rotation_on_azimuth(data_model_gpkg: sqlite3.Connection):
     has_azimuth = set(itertools.chain.from_iterable(codes_with_azimuth.values()))
 
     symbols = {
-        code: symbol for file_dict in _get_categorised_symbol_xml().values()
+        code: symbol for file_dict in _get_categorised_marker_symbol_xml().values()
         for code, symbol in file_dict.items()
     }
     rotated_symbols = set(label for label, symbol in symbols.items()
@@ -59,10 +59,10 @@ def test_symbol_rotation_on_azimuth(data_model_gpkg: sqlite3.Connection):
     assert symbols_missing_rotation_config == set()  # Empty set
 
 
-def _get_categorised_symbol_xml() -> dict[str, dict[str, ET.Element]]:
+def _get_categorised_marker_symbol_xml() -> dict[str, dict[str, ET.Element]]:
     qml_symbols = {}
 
-    for qml in STYLES_DIR.glob("*.qml"):
+    for qml in sorted(STYLES_DIR.glob("*.qml"), reverse=False):
         tree = ET.parse(qml)
         root = tree.getroot()
 
@@ -79,17 +79,19 @@ def _get_categorised_symbol_xml() -> dict[str, dict[str, ET.Element]]:
             category.attrib["label"]: category.attrib["symbol"]
             for category in root.find("renderer-v2/categories")
         }
+
         symbols = {
             symbol.attrib["name"]: symbol
             for symbol in root.find("renderer-v2/symbols")
         }
 
-        labelled_symbols = {
-            label: symbols[symbol_id]
-            for label, symbol_id in labels.items()
-        }
+        marker_symbols_by_label = dict()
+        for label, symbol_id in labels.items():
+            symbol = symbols[symbol_id]
+            if symbol.get("type") == "marker":
+                marker_symbols_by_label[label] = symbol
 
-        qml_symbols[qml.stem] = labelled_symbols
+        qml_symbols[qml.stem] = marker_symbols_by_label
 
     return qml_symbols
 
