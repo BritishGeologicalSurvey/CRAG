@@ -398,6 +398,14 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         self.add_action(
             None,
+            text=self.tr(u'Add Field Project Polygon'),
+            callback=self.open_create_field_project,
+            parent=self.iface.mainWindow(),
+            submenu=self.advanced_submenu
+        )
+
+        self.add_action(
+            None,
             text=self.tr(u'Help'),
             callback=self.show_help,
             parent=self.iface.mainWindow(),
@@ -424,14 +432,6 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
         self.dev_tools_submenu = QMenu()
         dev_tools_submenu_action.setMenu(self.dev_tools_submenu)
-
-        self.add_action(
-            None,
-            text=self.tr(u'Add Field Project'),
-            callback=self.open_create_field_project,
-            parent=self.iface.mainWindow(),
-            submenu=self.dev_tools_submenu
-        )
 
         self.add_action(
             None,
