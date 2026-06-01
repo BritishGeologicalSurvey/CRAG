@@ -62,7 +62,7 @@ def test_symbol_rotation_on_azimuth(data_model_gpkg: sqlite3.Connection):
 def _get_categorised_marker_symbol_xml() -> dict[str, dict[str, ET.Element]]:
     qml_symbols = {}
 
-    for qml in sorted(STYLES_DIR.glob("*.qml"), reverse=False):
+    for qml in STYLES_DIR.glob("*.qml"):
         tree = ET.parse(qml)
         root = tree.getroot()
 
