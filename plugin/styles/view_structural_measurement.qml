@@ -4,7 +4,7 @@ Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
 <qgis labelsEnabled="1" styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
-  <renderer-v2 attr="structural_measurement_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
+  <renderer-v2 attr="structure_code" enableorderby="0" forceraster="0" referencescale="-1" symbollevels="0" type="categorizedSymbol">
     <categories>
       <category label="anticline_axis" render="true" symbol="0" type="string" uuid="{65a00391-9f4b-4fd7-838f-d5c62499696a}" value="anticline_axis"></category>
       <category label="anticline_axis_horizontal" render="true" symbol="1" type="string" uuid="{0d433f2b-2c78-402a-b668-457b4a84eebc}" value="anticline_axis_horizontal"></category>
