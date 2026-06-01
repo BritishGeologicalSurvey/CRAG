@@ -28,6 +28,8 @@ def test_style_files_exist():
 
 
 def test_symbol_rotation_on_azimuth(data_model_gpkg: sqlite3.Connection):
+    # This test checks that styles use the correct rotation data
+    # When applying new styles, the rotation has to be set manually and so can be missed accidentally
     # Arrange
     codes_with_azimuth = {}
     for table in LOCALITY_DICTIONARIES:
@@ -37,6 +39,7 @@ def test_symbol_rotation_on_azimuth(data_model_gpkg: sqlite3.Connection):
                                  data_model_gpkg)
         except ETLHelperExtractError as exc:
             if "no such column: has_azimuth" in exc.args[0]:
+                # Everything in dic_structure has an azimuth
                 if table == "dic_structure":
                     codes = etl.fetchall(f"SELECT code FROM {table}", data_model_gpkg)
                 else:
@@ -96,7 +99,7 @@ def _get_categorised_marker_symbol_xml() -> dict[str, dict[str, ET.Element]]:
     return qml_symbols
 
 
-def _has_layers_with_angle_from_azimuth(symbol_element):
+def _has_layers_with_angle_from_azimuth(symbol_element: ET.Element) -> bool:
     layers_with_angle_from_azimuth = []
 
     for layer in symbol_element.findall(".//layer"):
