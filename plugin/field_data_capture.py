@@ -363,9 +363,9 @@ class FieldDataCapture(FieldDataCaptureProject):
             parent=self.iface.mainWindow(),
         )
 
-        # Setup advanced tools menu
+        # Setup more tools menu
         # We still create a QAction, but we set its menu with a new QMenu
-        advanced_submenu_action = self.add_action(
+        more_submenu_action = self.add_action(
             None,
             text=self.tr(u'More...'),
             callback=None,
@@ -373,15 +373,15 @@ class FieldDataCapture(FieldDataCaptureProject):
         )
         # Save the submenu object as a class attribute
         # From Qt6, it does not function if the object is not stored somewhere
-        self.advanced_submenu = QMenu()
-        advanced_submenu_action.setMenu(self.advanced_submenu)
+        self.more_submenu = QMenu()
+        more_submenu_action.setMenu(self.more_submenu)
 
         self.add_action(
             None,
             text=self.tr("Plugin Settings"),
             callback=self.open_settings_dialog,
             parent=self.iface.mainWindow(),
-            submenu=self.advanced_submenu
+            submenu=self.more_submenu
         )
 
         self.button_setup_project = self.add_action(
@@ -393,15 +393,7 @@ class FieldDataCapture(FieldDataCaptureProject):
                 self.open_create_field_project,
             ]),
             parent=self.iface.mainWindow(),
-            submenu=self.advanced_submenu
-        )
-
-        self.add_action(
-            None,
-            text=self.tr(u'Add Field Project Polygon'),
-            callback=self.open_create_field_project,
-            parent=self.iface.mainWindow(),
-            submenu=self.advanced_submenu
+            submenu=self.more_submenu
         )
 
         self.add_action(
@@ -409,7 +401,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             text=self.tr(u'Help'),
             callback=self.show_help,
             parent=self.iface.mainWindow(),
-            submenu=self.advanced_submenu
+            submenu=self.more_submenu
         )
 
         self.add_action(
@@ -417,10 +409,45 @@ class FieldDataCapture(FieldDataCaptureProject):
             text=self.tr(u'About'),
             callback=self.show_about,
             parent=self.iface.mainWindow(),
+            submenu=self.more_submenu,
+        )
+
+        # Setup advanced tools menu
+        advanced_submenu_action = self.add_action(
+            None,
+            text=self.tr(u'Advanced...'),
+            callback=None,
+            parent=self.iface.mainWindow(),
+            submenu=self.more_submenu,
+        )
+        self.advanced_submenu = QMenu()
+        advanced_submenu_action.setMenu(self.advanced_submenu)
+
+        self.add_action(
+            None,
+            text=self.tr(u'Create Field Data Capture GeoPackage'),
+            callback=self.add_gpkg_to_project,
+            add_to_menu=False,
+            parent=self.iface.mainWindow(),
             submenu=self.advanced_submenu,
         )
 
-        self.advanced_submenu.addSeparator()
+        self.add_action(
+            None,
+            text=self.tr(u'Add GeoPackage Layers to QGIS Project'),
+            callback=self.add_gpkg_layers_to_project,
+            add_to_menu=False,
+            parent=self.iface.mainWindow(),
+            submenu=self.advanced_submenu,
+        )
+
+        self.add_action(
+            None,
+            text=self.tr(u'Add Field Project Polygon'),
+            callback=self.open_create_field_project,
+            parent=self.iface.mainWindow(),
+            submenu=self.advanced_submenu,
+        )
 
         # Setup developer tools menu
         dev_tools_submenu_action = self.add_action(
@@ -428,7 +455,7 @@ class FieldDataCapture(FieldDataCaptureProject):
             text=self.tr(u'Developer Tools...'),
             callback=None,
             parent=self.iface.mainWindow(),
-            submenu=self.advanced_submenu,
+            submenu=self.more_submenu,
         )
         self.dev_tools_submenu = QMenu()
         dev_tools_submenu_action.setMenu(self.dev_tools_submenu)
@@ -448,37 +475,17 @@ class FieldDataCapture(FieldDataCaptureProject):
 
         self.add_action(
             None,
-            text=self.tr(u'Export Styles to QML'),
-            callback=self.export_qml_styles,
-            add_to_menu=False,
-            parent=self.iface.mainWindow(),
-            submenu=self.dev_tools_submenu,
-        )
-
-        self.dev_tools_submenu.addSeparator()
-
-        self.add_action(
-            None,
-            text=self.tr(u'Add GeoPackage to Project'),
-            callback=self.add_gpkg_to_project,
-            add_to_menu=False,
-            parent=self.iface.mainWindow(),
-            submenu=self.dev_tools_submenu,
-        )
-
-        self.add_action(
-            None,
-            text=self.tr(u'Add GeoPackage Layers to Project'),
-            callback=self.add_gpkg_layers_to_project,
-            add_to_menu=False,
-            parent=self.iface.mainWindow(),
-            submenu=self.dev_tools_submenu,
-        )
-
-        self.add_action(
-            None,
             text=self.tr(u'Add Test Data to Project'),
             callback=self.add_test_data_to_project,
+            add_to_menu=False,
+            parent=self.iface.mainWindow(),
+            submenu=self.dev_tools_submenu,
+        )
+
+        self.add_action(
+            None,
+            text=self.tr(u'Export Styles to QML'),
+            callback=self.export_qml_styles,
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=self.dev_tools_submenu,
