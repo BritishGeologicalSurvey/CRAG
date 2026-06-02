@@ -412,6 +412,8 @@ class FieldDataCapture(FieldDataCaptureProject):
             submenu=self.more_submenu,
         )
 
+        self.more_submenu.addSeparator()
+
         # Setup advanced tools menu
         advanced_submenu_action = self.add_action(
             None,
