@@ -1,0 +1,5 @@
+sphinx-copybutton
+sphinx-subfigure
+myst-parser
+rinohtype
+rinoh-typeface-texgyreheros
