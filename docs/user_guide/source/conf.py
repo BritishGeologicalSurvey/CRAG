@@ -22,8 +22,8 @@ release = '0.1'
 extensions = ['myst_parser',
               'remove_formats',
               'sphinx_copybutton',
-              "sphinx_subfigure",
-]
+              "sphinx_subfigure",]
+
 # MySt specific extensions
 # colon_fence allows for ::: to be used for ```
 # which adds flexibility in using MyST directives.
