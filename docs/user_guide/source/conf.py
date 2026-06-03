@@ -22,7 +22,8 @@ release = '0.1'
 extensions = ['myst_parser',
               'remove_formats',
               'sphinx_copybutton',
-              "sphinx_subfigure",]
+              "sphinx_subfigure",
+              'rinoh',]
 
 # MySt specific extensions
 # colon_fence allows for ::: to be used for ```
@@ -53,6 +54,11 @@ html_sidebars = {
 # This directory contains subdirectories to be passed through to the built site
 html_static_path = ['_static']
 
+# rinoh settings
+rinoh_documents = [dict(doc='index',                    # top-level file (index.md)
+                        target='crag_user_guide',       # output (crag_user_guide.pdf)
+                        template='user_guide.rtt')]     # document template
+
 # Add config based on build target
 # https://stackoverflow.com/questions/63099885/variable-external-links-based-on-sphinx-build-destination-eg-html-vs-pdf
 
@@ -69,7 +75,7 @@ def setup(app):
     See remove_formats.py for more details.
     """
     argv = ' '.join(sys.argv)
-    if '-M latexpdf' in argv:
+    if '-M rinoh' in argv:
         app.add_config_value('buildername', 'pdf', 'env')
     else:
         app.add_config_value('buildername', 'html', 'env')

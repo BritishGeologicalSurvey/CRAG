@@ -1,0 +1,22 @@
+[TEMPLATE_CONFIGURATION]
+name = my book configuration
+template = book
+
+parts =
+    title
+    ;front_matter
+    contents
+    ;back_matter
+
+[VARIABLES]
+paper_size = A4
+
+[front_matter]
+page_number_format = lowercase roman
+end_at_page = left
+
+[contents]
+page_number_format = number
+
+[title_page]
+top_margin = 2cm
