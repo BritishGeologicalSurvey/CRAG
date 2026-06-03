@@ -1,0 +1,22 @@
+:root {
+  /* Primary colours */
+  --bgs-primary-earth: #002e40;
+  --bgs-primary-stone: #ad9c70;
+  --bgs-primary-white: #ffffff;
+  --bgs-primary-black: #000000;
+
+  /* Secondary colours */
+  --bgs-secondary-lichen: #99b096;
+  --bgs-secondary-sky: #7391bf;
+  --bgs-secondary-sea: #528791;
+  --bgs-secondary-grass: #8cb052;
+  --bgs-secondary-haze: #d48080;
+  --bgs-secondary-clay: #b87d33;
+  --bgs-secondary-amber: #f0a845;
+  --bgs-secondary-sand: #c4bd9c;
+  --bgs-secondary-rock: #a8a8a1;
+  --bgs-secondary-earth: #998a82;
+  --bgs-secondary-slate: #808082;
+
+  --bgs-background-1: #FDF8F1;
+}

@@ -1,0 +1,192 @@
+/*
+This file overrides some of the sphinx alabaster defaults
+to use limited BGS styling.
+
+Style elements are taken from:
+https://kwvmxgit.ad.nerc.ac.uk/handbooks/handbook-resources/-/blob/main/resources/style/style.css
+
+with the inline chnages from:
+https://kwvmxgit.ad.nerc.ac.uk/handbooks/bgs-geology-practices-and-procedures/digital-mapping-handbook/-/blob/main/public/index.html
+*/
+
+/* BGS colours 
+
+https://kwvmxgit.ad.nerc.ac.uk/handbooks/handbook-resources/-/blob/main/resources/style/bgs-colours.css
+
+*/
+@import url("bgs-colours.css");
+
+/* Fonts
+
+https://kwvmxgit.ad.nerc.ac.uk/handbooks/handbook-resources/-/tree/main/resources/assets/fonts/Aileron
+
+*/
+@font-face {
+  font-family: 'Aileron';
+  src: url('../assets/fonts/Aileron/Aileron-Regular.woff2') format('woff2'),
+    url('../assets/fonts/Aileron/Aileron-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aileron SemiBold';
+  src: url('../assets/fonts/Aileron/Aileron-SemiBold.woff2') format('woff2'),
+    url('../assets/fonts/Aileron/Aileron-SemiBold.woff') format('woff');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aileron Bold';
+  src: url('../assets/fonts/Aileron/Aileron-Bold.woff2') format('woff2'),
+    url('../assets/fonts/Aileron/Aileron-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aileron Light';
+  src: url('../assets/fonts/Aileron/Aileron-Light.woff2') format('woff2'),
+    url('../assets/fonts/Aileron/Aileron-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Main body text */
+body {
+  background-color: var(--bgs-primary-white);
+  font-family: 'Aileron', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+div.body h1,
+div.body h2,
+div.body h3,
+div.body h4,
+div.body h5,
+div.body h6 {
+  font-family: 'Aileron Bold';
+  font-weight: 700 !important;
+}
+
+div.body h1 {
+  font-family: 'Aileron Light', Arial, sans-serif !important;
+  font-size: 30px !important;
+  line-height: 1.2 !important;
+  margin-bottom: 50px !important;
+  padding-bottom: 10px !important;
+  border-bottom: 2px solid var(--bgs-primary-stone);
+  text-decoration: none !important;
+
+  & a:hover {
+    text-decoration: none !important;
+  }
+}
+
+div.body h2 {
+  font-size: 25px;
+}
+
+div.body h3 {
+  font-size: 20px;
+}
+
+pre, tt, code {
+  background: #d4d4d4; /* var(--bgs-secondary-rock) is a little too dark */
+  color: var(--bgs-primary-black);
+  padding: 0.125em 0.6em;
+}
+
+div.admonition {
+  background: var(--bgs-secondary-rock);
+  border: 0px;
+}
+
+div.important {
+  background: var(--bgs-secondary-sand);
+  border: 0px;
+}
+
+div.caution {
+  background: var(--bgs-secondary-amber);
+  border: 0px;
+}
+
+div.admonition p.admonition-title {
+  font-family: 'Aileron', Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+img {
+  max-width: 90%;
+  border: 1px solid var(--bgs-primary-black);
+  border-radius: 10px;
+}
+
+/* The toolbar icons should not have a border */
+img.icon {
+  max-width: unset;
+  border: unset;
+  border-radius: unset;
+}
+
+span.caption {
+  font-style: italic;
+}
+
+/* Sidebar */
+div.sphinxsidebar {
+  border-right: var(--bgs-primary-stone) solid 1px;
+  background: var(--bgs-primary-white);
+  transition-duration: var(--duration-fast);
+}
+
+div.sphinxsidebar h3 {
+  font-family: 'Aileron Light', Arial, sans-serif !important;
+  font-size: 20px !important;
+  color: var(--bgs-primary-earth);
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+div.sphinxsidebar ul {
+  margin-top: 0px;
+}
+
+div.sphinxsidebar li > p {
+  font-weight: bold;
+  margin: 0;
+  font-size: 16px;
+  color: var(--bgs-primary-earth);
+  text-transform: uppercase;
+  border-bottom: var(--bgs-primary-stone) 1px solid;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  text-decoration: none;
+}
+
+div.sphinxsidebar ul li.active > a {
+  color: var(--bgs-primary-earth);
+  border-right: 2px solid;
+}
+
+div.sphinxsidebar nav ul {
+  margin-bottom: 0;
+  padding-left: 10px !important;
+}
+
+div.sphinxsidebar nav li {
+  cursor: default;
+  color: #A8A8A1;
+  font-size: 11pt;
+}
+
+div.sphinxsidebar nav li.folder {
+  cursor: pointer !important;
+  color: #002E40;
+}
+
+div.sphinxsidebar nav ul li.active > a {
+  border-right: 0 !important;
+}
