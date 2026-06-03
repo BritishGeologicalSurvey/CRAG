@@ -23,7 +23,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="invalid"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="field_project_842c7e1f_99c5_47e1_baec_f40bbfb55bbd"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="field_project_ee419ac9_c97e_4567_b40d_d8964e4188d1"></Option>
             <Option name="ReferencedLayerName" type="QString" value="field_project"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="field_project__lnk_rock_project"></Option>
@@ -44,7 +44,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="invalid"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_83dee748_a4db_4bab_8131_7c5f6e320b1d"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_37bace74_5fe0_4aa2_bdf9_6d8f0a76a262"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_rock_field"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_rock_field__lnk_rock_project_2"></Option>

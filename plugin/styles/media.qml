@@ -30,7 +30,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="invalid"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_ecb6cdf4_0fac_472b_a992_4fc1bfcc8807"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_a0ef48c5_a49f_4555_a5fa_800ff598e8f8"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_media"></Option>
@@ -51,7 +51,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="invalid"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_media_34f912bf_907d_44c6_a8ec_02eb1fa7dceb"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_media_10553751_0996_4b92_b132_8d9bd294b4c4"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_media"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_media_media_2"></Option>
