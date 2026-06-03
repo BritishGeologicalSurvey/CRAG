@@ -124,6 +124,7 @@ When re-creating the environment with a new dependency, you should follow these 
 - Add your new library to `environment_unversioned.yml`
 - Delete your existing locality environment with: `conda remove -n fdc --all -y`
 - Re-build your local environment with your change using: `conda env create -f environment_unversioned.yml -y`
+- Activate the local environment: `conda activate fdc`
 - Re-export your new local environment with: `conda env export > environment.yml`
 - Remove any extra channels/prefix values from the updated `environment.yml`
 - Add both environment files to git and commit them
