@@ -20,3 +20,5 @@ dic_rock_etc.dump
 dic_rock_etc.sqlite
 data_preparation_scripts/*.pickle
 .coverage
+
+docs/**/build
