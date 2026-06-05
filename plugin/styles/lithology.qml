@@ -30,7 +30,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="invalid"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="locality_point_ecb6cdf4_0fac_472b_a992_4fc1bfcc8807"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="locality_point_a0ef48c5_a49f_4555_a5fa_800ff598e8f8"></Option>
             <Option name="ReferencedLayerName" type="QString" value="locality_point"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="locality_point_lithology"></Option>
@@ -54,7 +54,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
             <Option name="MapIdentification" type="bool" value="false"></Option>
             <Option name="ReadOnly" type="bool" value="false"></Option>
             <Option name="ReferencedLayerDataSource" type="invalid"></Option>
-            <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_83dee748_a4db_4bab_8131_7c5f6e320b1d"></Option>
+            <Option name="ReferencedLayerId" type="QString" value="dic_rock_field_37bace74_5fe0_4aa2_bdf9_6d8f0a76a262"></Option>
             <Option name="ReferencedLayerName" type="QString" value="dic_rock_field"></Option>
             <Option name="ReferencedLayerProviderKey" type="QString" value="ogr"></Option>
             <Option name="Relation" type="QString" value="dic_rock_field_lithology_2"></Option>
