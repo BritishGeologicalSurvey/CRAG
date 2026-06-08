@@ -38,8 +38,8 @@ from .config import (
     ATTRIBUTE_TABLES,
     TABLE_LIST,
 )
+from .field_data_capture_project import FieldDataCaptureProject
 from .utils import (  # noqa
-    FieldDataCaptureProject,
     create_prepopulated_feature,
     ipdb_breakpoint,
 )

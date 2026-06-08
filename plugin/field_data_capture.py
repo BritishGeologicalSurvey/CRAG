@@ -78,6 +78,7 @@ from .config import (
     TABLE_LIST,
     LAYER_TREE_STRUCTURE,
 )
+from .field_data_capture_project import FieldDataCaptureProject
 from .about_dialog import AboutDialog
 from .create_gpkg_from_sql import main as gpkg_from_sql
 from .create_gpkg_from_sql import add_test_data
@@ -95,7 +96,6 @@ from .quick_map_tools import (
 from .report_builder import ReportBuilder
 from .settings_dialog import SettingsDialog
 from .utils import (  # noqa
-    FieldDataCaptureProject,
     MultilineMessageBox,
     ipdb_breakpoint,
 )

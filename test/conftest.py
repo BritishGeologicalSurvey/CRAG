@@ -29,12 +29,10 @@ from plugin.config import TABLE_LIST
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
 from plugin.create_gpkg_from_sql import add_test_data
 from plugin.field_data_capture import FieldDataCapture
+from plugin.field_data_capture_project import FieldDataCaptureProject
 from plugin.quick_map_tools import QuickMapToolBase
 from plugin.report_builder import ReportBuilder
-from plugin.utils import (
-    MultilineMessageBox,
-    FieldDataCaptureProject,
-)
+from plugin.utils import MultilineMessageBox
 
 
 def setup_db_conn(db_file: Path) -> sqlite3.Connection:

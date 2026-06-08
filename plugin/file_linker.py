@@ -40,8 +40,8 @@ from qgis.PyQt.QtWidgets import (
     QWidget,
 )
 
+from .field_data_capture_project import FieldDataCaptureProject
 from .utils import (  # noqa
-    FieldDataCaptureProject,
     CollapsibleWidget,
     MultilineMessageBox,
     SearchableComboBox,

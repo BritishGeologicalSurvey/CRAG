@@ -14,10 +14,8 @@ except ImportError:
     from PyQt5.QtSvg import QSvgWidget
 
 
-from .utils import (  # noqa
-    FieldDataCaptureProject,
-    ipdb_breakpoint,
-)
+from .field_data_capture_project import FieldDataCaptureProject
+from .utils import ipdb_breakpoint  # noqa
 
 
 class AboutDialog(QDialog, FieldDataCaptureProject):

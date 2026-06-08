@@ -27,9 +27,9 @@ from qgis.core import (
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from .config import ATTRIBUTE_TABLES, THUMBNAIL_SIZE
+from .field_data_capture_project import FieldDataCaptureProject
 from .pdf_content import ReportTemplate
 from .utils import (  # noqa
-    FieldDataCaptureProject,
     get_table_rows,
     ipdb_breakpoint,
 )

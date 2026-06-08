@@ -19,10 +19,8 @@ from qgis.PyQt.QtWidgets import (
     QVBoxLayout,
 )
 
-from .utils import (  # noqa
-    FieldDataCaptureProject,
-    ipdb_breakpoint,
-)
+from .field_data_capture_project import FieldDataCaptureProject
+from .utils import ipdb_breakpoint  # noqa
 
 
 class RadioButtonGroup:

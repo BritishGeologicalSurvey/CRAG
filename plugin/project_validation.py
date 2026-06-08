@@ -10,8 +10,8 @@ from .config import (
     FEATURE_TABLES,
     ATTRIBUTE_TABLES,
 )
+from .field_data_capture_project import FieldDataCaptureProject
 from .utils import (  # noqa
-    FieldDataCaptureProject,
     get_table_rows,
     ipdb_breakpoint,
 )

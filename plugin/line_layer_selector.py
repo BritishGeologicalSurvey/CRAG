@@ -17,8 +17,8 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from .config import FEATURE_TABLES_LINES
+from .field_data_capture_project import FieldDataCaptureProject
 from .utils import (  # noqa
-    FieldDataCaptureProject,
     SearchableComboBox,
     ipdb_breakpoint,
 )
