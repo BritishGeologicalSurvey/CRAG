@@ -5,21 +5,21 @@ SPDX-License-Identifier: GPL-3.0-or-later
 -->
 # model-and-forms plugin
 
-> This repository contains code for a QGIS plugin to add the field data capture layers to a QGIS project and additional tools for using QGIS in the field.
+> This repository contains code for a QGIS plugin to add the CRAG layers to a QGIS project and additional tools for using QGIS in the field.
 
-Plugin documentation: http://field-data-capture.glpages.ad.nerc.ac.uk/sigma-q-user-guide/
+Plugin documentation: http://field-data-capture.glpages.ad.nerc.ac.uk/crag-user-guide/
 
 Scripts are required to:
 
-+ Build a geopackage containing the field data capture data model
++ Build a geopackage containing the CRAG data model
 + Run tests on the constraints, views and triggers within the data model
-+ Add the field data capture layers to an open QGIS project
-+ Configure forms within QGIS for the field data capture layers
++ Add the CRAG layers to an open QGIS project
++ Configure forms within QGIS for the CRAG layers
 + Configure QGIS to have minimal interface for ease of use on tablets
 
 ## Mergin Maps projects
 
-Development of the field data capture system will follow this pattern:
+Development of the CRAG system will follow this pattern:
 
 > Data model updates -> QGIS/Mergin project configured by hand -> QGIS plugin implements automatic config
 
@@ -31,8 +31,8 @@ See the [Versions and Feedback](https://kwvmxgit.ad.nerc.ac.uk/field-data-captur
 
 ## File Downloads
 
-- [Field Data Capture GPKG](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/field-data-capture.gpkg?job=publish_artifacts)
-- [Latest development build of plugin from `main` branch](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/field_data_capture.zip?job=package_plugin)
+- [CRAG GPKG](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/field-data-capture.gpkg?job=publish_artifacts)
+- [Latest development build of plugin from `main` branch](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/crag.zip?job=package_plugin)
 
 ### ER Diagram
 
@@ -46,10 +46,10 @@ Note that all non-dictionary tables also have `recorded_by` and `recorded_on` co
 
 ## Overall philosophy
 
-The plugin in this repository should contain everything that is required to set up a field data capture project in QGIS.
+The plugin in this repository should contain everything that is required to set up a CRAG project in QGIS.
 There are a few overarching principles to bear in mind during development:
 
-+ This is not an application, it is a GeoPackage and QGIS configuration optimised for geological field data capture.  The aim of the plugin is to automate the creation of the GeoPackage and Forms.
++ This is not an application, it is a GeoPackage and QGIS configuration optimised for geological CRAG.  The aim of the plugin is to automate the creation of the GeoPackage and Forms.
 + Once created, a project should function by itself, without requiring custom logic from the plugin.
 + At some point, this plugin is likely to be shared with overseas partners - it should not depend on BGS infrastructure nor on Mergin Maps and the liklihood of future translation requirements should be kept in mind.
 + If it is shared, it may be open sourced.  Code should be written in the assumption that the world will be able to see it.  No BGS infrastructure or credentials should be present.
@@ -60,16 +60,16 @@ There are a few overarching principles to bear in mind during development:
 ### Installing the QGIS plugin
 
 1. Enable the repository in QGIS via _Plugins > Manage and Install Plugins > Settings > Plugin Repositories > Add_
-2. Set the Name to "Field Data Capture"
+2. Set the Name to "CRAG"
 3. Set the URL to http://field-data-capture.glpages.ad.nerc.ac.uk/model-and-forms/plugins.xml
 4. Press OK
-5. Search for and install `Field Data Capture` in the _All_ tab
+5. Search for and install `CRAG` in the _All_ tab
 
 The plugin can then be launched from the _Plugins_ menu.  When new versions are released they will be shown in the _Upgradeable_ tab.
 
 ### Running the plugin
 
-Once installed, the plugin is available at _Plugins > Field Data Capture_.
+Once installed, the plugin is available at _Plugins > CRAG_.
 
 ## For Developers
 
@@ -97,7 +97,7 @@ It is beneficial to install the `libmamba` solver for Anaconda when creating the
 Activate the environment:
 
 ```bash
-conda activate fdc
+conda activate crag
 ```
 
 Some issues to do with `microarch-level` or `amd` package can be resolved by ensuring that the `archspec` package is available in the environment from which you are running `conda env create`.
@@ -122,9 +122,9 @@ ln -s ${CONDA_PREFIX}/lib/lib-version.so.1.2.3  ${CONDA_PREFIX}/lib/some-lib.so.
 When re-creating the environment with a new dependency, you should follow these steps:
 
 - Add your new library to `environment_unversioned.yml`
-- Delete your existing locality environment with: `conda remove -n fdc --all -y`
+- Delete your existing locality environment with: `conda remove -n crag --all -y`
 - Re-build your local environment with your change using: `conda env create -f environment_unversioned.yml -y`
-- Activate the local environment: `conda activate fdc`
+- Activate the local environment: `conda activate crag`
 - Re-export your new local environment with: `conda env export > environment.yml`
 - Remove any extra channels/prefix values from the updated `environment.yml`
 - Add both environment files to git and commit them
@@ -136,15 +136,15 @@ environment within the container and then get a shell within it to run the
 export command. The following commands build, run and shell into a container.
 
 ```
-docker build --target create-environment -t fdc .
-docker run --name fdc_env --rm -it -d fdc
-docker exec -it fdc_env /bin/bash
+docker build --target create-environment -t crag .
+docker run --name crag_env --rm -it -d crag
+docker exec -it crag_env /bin/bash
 ```
 
 From within the container, acxtivate the environment, export the environment and then exit.
 
 ```
-# conda activate fdc
+# conda activate crag
 # conda env export > environment_docker.yml
 # exit
 ```
@@ -152,8 +152,8 @@ From within the container, acxtivate the environment, export the environment and
 Copy out the updated environment file and stop it, it will be removed automatically.
 
 ```
-docker cp fdc_env:environment_docker.yml .
-docker stop fdc_env
+docker cp crag_env:environment_docker.yml .
+docker stop crag_env
 ```
 
 ### Bin Scripts
@@ -178,12 +178,12 @@ python bin/mergin_api.py conflict-test
 
 ##### Project Data Importer
 
-The `project_data_importer.py` script takes 2 arguments which should both be filepaths to Field Data Capture project directories, it will then copy the first given project's data (source) into the second given project's data (destination). In the event of an error, the destination project will be restored from a backup handled by the script.
+The `project_data_importer.py` script takes 2 arguments which should both be filepaths to CRAG project directories, it will then copy the first given project's data (source) into the second given project's data (destination). In the event of an error, the destination project will be restored from a backup handled by the script.
 
 _Note: Both the source and destination project must be closed before attempting to import data._
 
 ```bash
-python bin/project_data_importer.py my/fdc/project_src/ my/fdc_project/dest/
+python bin/project_data_importer.py my/crag/project_src/ my/crag_project/dest/
 ```
 
 #### Running tests
@@ -217,10 +217,10 @@ To access the plugin class within the Python console, run
 
 ```python
 import qgis
-fdc = qgis.utils.plugins['field_data_capture']
+crag = qgis.utils.plugins['crag']
 ```
 
-From there, plugin attributes and methods can accessed directly e.g. `fdc.add_gpkg_to_project()`
+From there, plugin attributes and methods can accessed directly e.g. `crag.add_gpkg_to_project()`
 
 
 ## Useful links

@@ -19,7 +19,7 @@ from qgis.PyQt.QtWidgets import (
     QVBoxLayout,
 )
 
-from .field_data_capture_project import FieldDataCaptureProject
+from .crag_project import CragProject
 from .utils import ipdb_breakpoint  # noqa
 
 
@@ -66,7 +66,7 @@ class RadioButtonGroup:
         return selected_options[0]
 
 
-class SettingsDialog(QDialog, FieldDataCaptureProject):
+class SettingsDialog(QDialog, CragProject):
     """
     Simple PyQt dialog which allows the user to change their plugin settings.
     """
@@ -162,7 +162,7 @@ class SettingsDialog(QDialog, FieldDataCaptureProject):
             # Ensure that it is treated as an expression
             rule.settings().isExpression = True
             rule.settings().fieldName = self.map_note_options[option]
-            self.get_fdc_layer(layer).triggerRepaint()
+            self.get_crag_layer(layer).triggerRepaint()
             # Mark project as dirty so that users are asked to save changes
             self.project_instance.setDirty()
 

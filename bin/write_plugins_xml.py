@@ -29,7 +29,7 @@ TEMPLATE = dedent("""
     """).strip()
 
 REPOSITORY_ROOT = "http://field-data-capture.glpages.ad.nerc.ac.uk/model-and-forms/"
-ZIPFILE_NAME = "field_data_capture.zip"
+ZIPFILE_NAME = "crag.zip"
 CREATE_DATE = "2023-09-28"
 
 

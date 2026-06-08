@@ -1,6 +1,6 @@
 # Field tablet setup
 
-The Toughbook / Toughpad tablets used with the SIGMA system use the Windows operating system.
+The Toughbook / Toughpad tablets used with the CRAG system use the Windows operating system.
 Field data capture is done using QGIS.
 This section describes how to configure the Windows-based tablets.
 

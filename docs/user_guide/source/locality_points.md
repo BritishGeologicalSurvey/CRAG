@@ -5,7 +5,7 @@
 The toolbar has three buttons for working with locality point data.
 
 :::{figure-md}
-![CRAG Toolbar](images/gdcs_toolbar.png){align=center}
+![CRAG Toolbar](images/crag_toolbar.png){align=center}
 
 *CRAG Toolbar*
 :::
@@ -19,7 +19,7 @@ The toolbar has three buttons for working with locality point data.
 The same buttons are available from the plugin menu.
 
 :::{figure-md}
-![CRAG Menu](images/gdcs_menu.png){align=center}
+![CRAG Menu](images/crag_menu.png){align=center}
 
 *CRAG Menu*
 :::

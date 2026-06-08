@@ -17,14 +17,14 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from .config import FEATURE_TABLES_LINES
-from .field_data_capture_project import FieldDataCaptureProject
+from .crag_project import CragProject
 from .utils import (  # noqa
     SearchableComboBox,
     ipdb_breakpoint,
 )
 
 
-class LineLayerSelector(QDialog, FieldDataCaptureProject):
+class LineLayerSelector(QDialog, CragProject):
     """
     Simple PyQt dialog which allows the user to select a line layer,
     and then a line type within that layer.
@@ -91,7 +91,7 @@ class LineLayerSelector(QDialog, FieldDataCaptureProject):
             line_name = line_table.replace("_line", "")
             dic_table = f"dic_line_type_{line_name}"
 
-            dic_layer = self.get_fdc_layer(dic_table)
+            dic_layer = self.get_crag_layer(dic_table)
 
             # Get line categories and type codes from dic layer
             # defaultdict creates new list when categories first appear

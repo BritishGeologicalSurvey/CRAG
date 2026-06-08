@@ -14,18 +14,18 @@ except ImportError:
     from PyQt5.QtSvg import QSvgWidget
 
 
-from .field_data_capture_project import FieldDataCaptureProject
+from .crag_project import CragProject
 from .utils import ipdb_breakpoint  # noqa
 
 
-class AboutDialog(QDialog, FieldDataCaptureProject):
+class AboutDialog(QDialog, CragProject):
     """
     Simple PyQt dialog to display basic information about the plugin and BGS.
     """
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("About Field Data Capture - QGIS Plugin")
+        self.setWindowTitle("About CRAG - QGIS Plugin")
         # Resize the window to minimum to ensure the SVG logo isn't too big
         self.setMinimumSize(350, 270)
         self.resize(self.minimumSize())

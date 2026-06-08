@@ -7,7 +7,7 @@ from unittest.mock import Mock
 import pytest
 from qgis.PyQt.QtWidgets import QRadioButton
 
-from plugin.field_data_capture import FieldDataCapture
+from plugin.crag import Crag
 from plugin.line_layer_selector import LineLayerSelector
 from plugin.utils import (  # noqa
     get_combobox_items_dict,
@@ -17,9 +17,9 @@ from plugin.utils import (  # noqa
 
 
 @pytest.fixture()
-def line_selector(fdc_project_quick: FieldDataCapture) -> LineLayerSelector:
+def line_selector(crag_project_quick: Crag) -> LineLayerSelector:
     """
-    Return an instance of the line layer selector, with a Field Data Capture project ready to use.
+    Return an instance of the line layer selector, with a CRAG project ready to use.
     """
     return LineLayerSelector()
 
@@ -151,7 +151,7 @@ def test_default_reset(
 def test_line_type_selected(
     layer: str,
     line_type: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
@@ -174,36 +174,36 @@ def test_line_type_selected(
     confirm_mock.assert_called_once()
 
 
-def test_line_selector_open(fdc_project_quick: FieldDataCapture):
+def test_line_selector_open(crag_project_quick: Crag):
     # Act
     # Open line selector
-    fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].trigger()
+    crag_project_quick.quick_map_tool_buttons["crag_lines_add"].trigger()
 
     # Assert
     # Button should be toggled
-    assert fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].isChecked()
-    # Tool should be saved to FDC class
-    assert isinstance(fdc_project_quick.line_layer_selector, LineLayerSelector)
+    assert crag_project_quick.quick_map_tool_buttons["crag_lines_add"].isChecked()
+    # Tool should be saved to CRAG class
+    assert isinstance(crag_project_quick.line_layer_selector, LineLayerSelector)
     # There should be no recent line types
-    assert fdc_project_quick.get_plugin_setting("recent_line_types") is None
+    assert crag_project_quick.get_plugin_setting("recent_line_types") is None
 
 
-def test_line_selector_close(fdc_project_quick: FieldDataCapture):
+def test_line_selector_close(crag_project_quick: Crag):
     # Arrange
     # Open line selector
-    fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].trigger()
+    crag_project_quick.quick_map_tool_buttons["crag_lines_add"].trigger()
 
     # Act
     # Close line selector without selecting a line type
-    fdc_project_quick.line_layer_selector.closeEvent()
+    crag_project_quick.line_layer_selector.closeEvent()
 
     # Assert
     # Button should not be toggled
-    assert not fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].isChecked()
-    # Tool should be deleted from FDC class
-    assert fdc_project_quick.line_layer_selector is None
+    assert not crag_project_quick.quick_map_tool_buttons["crag_lines_add"].isChecked()
+    # Tool should be deleted from CRAG class
+    assert crag_project_quick.line_layer_selector is None
     # There should be no recent line types
-    assert fdc_project_quick.get_plugin_setting("recent_line_types") is None
+    assert crag_project_quick.get_plugin_setting("recent_line_types") is None
 
 
 @pytest.mark.parametrize(
@@ -223,19 +223,19 @@ def test_line_selector_close(fdc_project_quick: FieldDataCapture):
 def test_line_selector_add_recent(
     line_dict: dict[str, str],
     expected_recent_line_types: list[dict[str, str]],
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Act
     # Open line selector
-    fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].trigger()
+    crag_project_quick.quick_map_tool_buttons["crag_lines_add"].trigger()
     # Call the confirm method as if user selected a line type
-    fdc_project_quick.line_layer_selector.confirm_selection(line_layer=line_dict["layer"], line_type=line_dict["type"])
+    crag_project_quick.line_layer_selector.confirm_selection(line_layer=line_dict["layer"], line_type=line_dict["type"])
 
     # Assert
     # Button should remain toggled
-    assert fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].isChecked()
-    # Tool should be deleted from FDC class
-    assert fdc_project_quick.line_layer_selector is None
+    assert crag_project_quick.quick_map_tool_buttons["crag_lines_add"].isChecked()
+    # Tool should be deleted from CRAG class
+    assert crag_project_quick.line_layer_selector is None
     # Selected line type should be added to recents
-    recent_line_types = json.loads(fdc_project_quick.get_plugin_setting("recent_line_types"))
+    recent_line_types = json.loads(crag_project_quick.get_plugin_setting("recent_line_types"))
     assert recent_line_types == expected_recent_line_types

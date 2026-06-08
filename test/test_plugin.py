@@ -2,7 +2,7 @@
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
-These are tests for the plugin which depend on a running QGIS version which is supplied by the 'fdc' fixture.
+These are tests for the plugin which depend on a running QGIS version which is supplied by the 'crag' fixture.
 """
 import re
 from pathlib import Path
@@ -37,28 +37,28 @@ from plugin.config import (
     TABLE_LIST,
     LAYER_TREE_STRUCTURE_INDEXED,
 )
-from plugin.field_data_capture import FieldDataCapture
+from plugin.crag import Crag
 from plugin.report_builder import ReportBuilder
 from plugin.about_dialog import AboutDialog
 from plugin.utils import ipdb_breakpoint  # noqa
 
 
-def test_instantiation(fdc):
-    assert isinstance(fdc, FieldDataCapture)
+def test_instantiation(crag):
+    assert isinstance(crag, Crag)
 
 
-def test_project_fixture(fdc: FieldDataCapture, qgs_project: Path):
+def test_project_fixture(crag: Crag, qgs_project: Path):
     # Check the project directory
     assert qgs_project.exists()
-    assert fdc.project_dir.name == "test_project_dir"
+    assert crag.project_dir.name == "test_project_dir"
     # Check the qgz file
-    files = list(fdc.project_dir.glob("*"))
+    files = list(crag.project_dir.glob("*"))
     assert len(files) == 1
     assert files[0].name == "test_project.qgz"
 
 
 def test_setup_project_logic_good(
-    fdc: FieldDataCapture,
+    crag: Crag,
     qgs_project: Path,
     monkeypatch: pytest.MonkeyPatch,
 ):
@@ -72,15 +72,15 @@ def test_setup_project_logic_good(
     for function_name in check_functions.keys():
         # All functions will return True which should mean they are all called
         mock_function = Mock(return_value=True)
-        monkeypatch.setattr(FieldDataCapture, function_name, mock_function)
+        monkeypatch.setattr(Crag, function_name, mock_function)
         check_functions[function_name] = mock_function
 
     # Act
     # A saved QGIS project is open so this should work and call all functions once
-    fdc.run_function_list(functions=[
-        fdc.add_gpkg_to_project,
-        fdc.add_gpkg_layers_to_project,
-        fdc.open_create_field_project,
+    crag.run_function_list(functions=[
+        crag.add_gpkg_to_project,
+        crag.add_gpkg_layers_to_project,
+        crag.open_create_field_project,
     ])
 
     # Assert
@@ -89,7 +89,7 @@ def test_setup_project_logic_good(
 
 
 def test_setup_project_logic_bad(
-    fdc: FieldDataCapture,
+    crag: Crag,
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
@@ -102,15 +102,15 @@ def test_setup_project_logic_bad(
     for function_name in check_functions.keys():
         # All functions return False which should mean only the first function is called
         mock_function = Mock(return_value=False)
-        monkeypatch.setattr(FieldDataCapture, function_name, mock_function)
+        monkeypatch.setattr(Crag, function_name, mock_function)
         check_functions[function_name] = mock_function
 
     # Act
     # No QGIS project is open, so only the first function should be called once
-    fdc.run_function_list(functions=[
-        fdc.add_gpkg_to_project,
-        fdc.add_gpkg_layers_to_project,
-        fdc.open_create_field_project,
+    crag.run_function_list(functions=[
+        crag.add_gpkg_to_project,
+        crag.add_gpkg_layers_to_project,
+        crag.open_create_field_project,
     ])
 
     # Assert
@@ -122,15 +122,15 @@ def test_setup_project_logic_bad(
         mock_function.assert_not_called()
 
 
-def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
+def test_add_gpkg_to_project(crag: Crag, qgs_project: Path):
     # Act
-    fdc.add_gpkg_to_project()
+    crag.add_gpkg_to_project()
 
     # Check file exists
-    assert Path(fdc.db_file).exists()
+    assert Path(crag.db_file).exists()
 
     # Check tables are in file
-    conn = setup_db_conn(fdc.db_file)
+    conn = setup_db_conn(crag.db_file)
     table_rows = etl.fetchall(
         "SELECT name FROM sqlite_schema",
         conn,
@@ -141,9 +141,9 @@ def test_add_gpkg_to_project(fdc: FieldDataCapture, qgs_project: Path):
     assert expected_table_names.issubset(all_table_names)
 
 
-def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
+def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     # Arrange
-    fdc.add_gpkg_to_project()
+    crag.add_gpkg_to_project()
     expected_root_names = [
         "locality_point",
         "lines",
@@ -159,14 +159,14 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     ]
     expected_slyr_style = Path("BGS_CGDM_styles_2025_v4.xml")
     expected_user_dirs = [
-        fdc.photos_dir,
-        fdc.media_dir,
-        fdc.baseline_data_dir,
-        fdc.unlinked_files_dir,
+        crag.photos_dir,
+        crag.media_dir,
+        crag.baseline_data_dir,
+        crag.unlinked_files_dir,
     ]
 
     # Act
-    fdc.add_gpkg_layers_to_project()
+    crag.add_gpkg_layers_to_project()
 
     # Assert
     # Check root layers
@@ -201,18 +201,18 @@ def test_add_gpkg_layers_to_project(fdc: FieldDataCapture, qgs_project: Path):
     actual_qml_files = [
         # Make the actual path relative to the plugin root
         Path(qml_file.parent.name) / qml_file.name
-        for qml_file in fdc.styles_dir.glob("*.qml")
+        for qml_file in crag.styles_dir.glob("*.qml")
     ]
     assert expected_qml_files == actual_qml_files
-    assert (fdc.styles_dir / expected_slyr_style).exists()
+    assert (crag.styles_dir / expected_slyr_style).exists()
 
     # Check that the empty user directories have been created
     for directory in expected_user_dirs:
         assert directory.exists()
-        assert list(directory.glob("*.*"))[0].name == fdc.placeholder_filename
+        assert list(directory.glob("*.*"))[0].name == crag.placeholder_filename
 
 
-def test_open_create_field_project_already_exists(fdc_project_quick: FieldDataCapture):
+def test_open_create_field_project_already_exists(crag_project_quick: Crag):
     # Arrange
     expected_args = [
         None,
@@ -221,16 +221,16 @@ def test_open_create_field_project_already_exists(fdc_project_quick: FieldDataCa
     ]
 
     # Act
-    fdc_project_quick.open_create_field_project()
+    crag_project_quick.open_create_field_project()
 
     # Assert
     QMessageBox.warning.assert_called_with(*expected_args)
 
 
-def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
+def test_add_test_data_to_project(crag: Crag, qgs_project: Path):
     # Arrange
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
+    crag.add_gpkg_to_project()
+    crag.add_gpkg_layers_to_project()
     expected_row_counts = {
         "field_project": 1,
         "locality_point": 2,
@@ -244,10 +244,10 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
     }
 
     # Act
-    fdc.add_test_data_to_project()
+    crag.add_test_data_to_project()
 
     # Assert
-    conn = setup_db_conn(fdc.db_file)
+    conn = setup_db_conn(crag.db_file)
     for table, expected_row_count in expected_row_counts.items():
         actual_row_count = etl.fetchone(
             f"SELECT COUNT() FROM {table}",
@@ -259,14 +259,14 @@ def test_add_test_data_to_project(fdc: FieldDataCapture, qgs_project: Path):
     # Check that relation widgets reference layers in current project
     map_layers = QgsProject.instance().mapLayers()
     for layer in map_layers.values():
-        widgets = fdc.editor_widget_metadata(layer)
+        widgets = crag.editor_widget_metadata(layer)
         for widget in widgets.values():
             if widget["type"] == "RelationReference":
                 assert widget["config"]["ReferencedLayerId"] in map_layers
 
 
 def test_export_qml_styles(
-    fdc: FieldDataCapture,
+    crag: Crag,
     qgs_project: Path,
     monkeypatch_qmsgbox_question_yes,
 ):
@@ -278,28 +278,28 @@ def test_export_qml_styles(
         "Forms",
         "MapTips",
     }
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
+    crag.add_gpkg_to_project()
+    crag.add_gpkg_layers_to_project()
     # Get a dictionary of filepaths as keys and modified timestamps as values
     existing_qml_files = {
         qml_filepath: qml_filepath.stat().st_mtime
-        for qml_filepath in fdc.styles_dir.glob("*.qml")
+        for qml_filepath in crag.styles_dir.glob("*.qml")
     }
     # Get a dictionary of filepaths to expected copyright comments
     default_copyright = (
         "<!--\nCopyright 2026 British Geological Survey\n"
         "Licensed under GPLv3 licence\nSPDX-License-Identifier: GPL-3.0-or-later\n-->\n"
     )
-    expected_copyright_comments = dict.fromkeys(fdc.styles_dir.glob("*.qml"), default_copyright)
+    expected_copyright_comments = dict.fromkeys(crag.styles_dir.glob("*.qml"), default_copyright)
     # Manually change some copyright comments to test edge cases
     # Valid comment different to default
-    expected_copyright_comments[fdc.styles_dir / "lithology.qml"] = default_copyright.replace("Geological", "Duck")
+    expected_copyright_comments[crag.styles_dir / "lithology.qml"] = default_copyright.replace("Geological", "Duck")
     # Valid 1 line comment
-    expected_copyright_comments[fdc.styles_dir / "locality_point.qml"] = "<!--Copyright Quack Licensed Honk-->"
+    expected_copyright_comments[crag.styles_dir / "locality_point.qml"] = "<!--Copyright Quack Licensed Honk-->"
     # Not a valid copyright comment
-    expected_copyright_comments[fdc.styles_dir / "sample.qml"] = "<!--Not a licence\nIllegal Goose\n-->\n"
+    expected_copyright_comments[crag.styles_dir / "sample.qml"] = "<!--Not a licence\nIllegal Goose\n-->\n"
     # No comment
-    expected_copyright_comments[fdc.styles_dir / "terrain_line.qml"] = ""
+    expected_copyright_comments[crag.styles_dir / "terrain_line.qml"] = ""
     invalid_comment_style_names = {"sample", "terrain_line"}
     # Write the new comments to the style files
     for qml_filepath, copyright_comment in expected_copyright_comments.items():
@@ -307,11 +307,11 @@ def test_export_qml_styles(
             qml_filepath.write_text(qml_filepath.read_text().replace(default_copyright, copyright_comment))
 
     # Act
-    function_return = fdc.export_qml_styles()
+    function_return = crag.export_qml_styles()
 
     # Assert
     assert function_return
-    for qml_filepath in fdc.styles_dir.glob("*.qml"):
+    for qml_filepath in crag.styles_dir.glob("*.qml"):
 
         # Ensure the previously existing timestamp is smaller than the current file timestamp
         # this essentially means that the file has been changed
@@ -332,21 +332,21 @@ def test_export_qml_styles(
 
 
 def test_export_qml_styles_no_layers(
-    fdc: FieldDataCapture,
+    crag: Crag,
     qgs_project: Path,
 ):
     # Arrange
-    fdc.add_gpkg_to_project()
+    crag.add_gpkg_to_project()
 
     # Act
     # No current style files exist because the layers have not been loaded
     # Therefore this should make no change
-    function_return = fdc.export_qml_styles()
+    function_return = crag.export_qml_styles()
 
     # Assert
     assert not function_return
     # Ensure the styles directory does not exist
-    assert not fdc.styles_dir.exists()
+    assert not crag.styles_dir.exists()
 
 
 @pytest.mark.parametrize(
@@ -359,7 +359,7 @@ def test_export_qml_styles_no_layers(
     ),
 )
 def test_auto_increment_locality_point_name(
-    fdc_project: FieldDataCapture,
+    crag_project: Crag,
     qgis_platform: str,
     no_mergin: bool,
     expected_username: str,
@@ -378,7 +378,7 @@ def test_auto_increment_locality_point_name(
         for idx in range(1, 4)
     ]
 
-    layer = fdc_project.get_fdc_layer("locality_point")
+    layer = crag_project.get_crag_layer("locality_point")
     layer.startEditing()
     for expected_name in expected_locality_point_names:
         # Force the QGIS platform and username
@@ -417,7 +417,7 @@ def test_auto_increment_locality_point_name(
     ),
 )
 def test_warn_unsaved_locality_data(
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     child_layer_name: str,
     monkeypatch: pytest.MonkeyPatch,
 ):
@@ -431,13 +431,13 @@ def test_warn_unsaved_locality_data(
     unsaved_layers = ["locality_point", child_layer_name]
 
     # Manually make an edit to the locality_point layer and do not save it
-    locality_point_layer = fdc_project_quick.get_fdc_layer("locality_point")
+    locality_point_layer = crag_project_quick.get_crag_layer("locality_point")
     locality_point_layer.startEditing()
     point_edit_field_index = [field.name() for field in locality_point_layer.fields()].index(point_edit_field)
     locality_point_layer.changeAttributeValue(fid=point_fid, field=point_edit_field_index, newValue=point_new_value)
 
     # Manually make an edit to the given child layer and do not save it
-    child_layer = fdc_project_quick.get_fdc_layer(child_layer_name)
+    child_layer = crag_project_quick.get_crag_layer(child_layer_name)
     child_layer.startEditing()
     child_edit_field_index = [field.name() for field in child_layer.fields()].index(child_edit_field)
     child_layer.changeAttributeValue(fid=child_fid, field=child_edit_field_index, newValue=child_new_value)
@@ -447,7 +447,7 @@ def test_warn_unsaved_locality_data(
     monkeypatch.setattr(QMessageBox, "setText", mock_message_box_set_text)
 
     # Act
-    unsaved_edits = fdc_project_quick.warn_unsaved_locality_data()
+    unsaved_edits = crag_project_quick.warn_unsaved_locality_data()
 
     # Assert
     assert unsaved_edits
@@ -459,7 +459,7 @@ def test_warn_unsaved_locality_data(
     "layer_name",
     ATTRIBUTE_TABLES.union(FEATURE_TABLES),
 )
-def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
+def test_attribute_form_widgets(crag_project: Crag, layer_name: str):
     # Arrange
     hidden_widgets = {
         "fid",
@@ -476,7 +476,7 @@ def test_attribute_form_widgets(fdc_project: FieldDataCapture, layer_name: str):
     # Assert
     hidden_type_widgets = set()
     # Check the layer fields directly
-    layer = fdc_project.get_fdc_layer(layer_name)
+    layer = crag_project.get_crag_layer(layer_name)
     for field_idx, field_name in enumerate(layer.fields().names()):
 
         # Get the widget config
@@ -531,10 +531,10 @@ def recursive_search_form(
     "layer_name",
     FEATURE_TABLES - {"field_project"},
 )
-def test_default_field_project_fuid_attribute(fdc_project: FieldDataCapture, layer_name: str):
+def test_default_field_project_fuid_attribute(crag_project: Crag, layer_name: str):
     # Arrange
     expected_field_project_fuid = "{85d48fd4-e66f-4436-833b-9e37691a7d4f}"
-    layer = fdc_project.get_fdc_layer(layer_name)
+    layer = crag_project.get_crag_layer(layer_name)
 
     # Act
     # Create a new feature with the default values applied
@@ -546,10 +546,10 @@ def test_default_field_project_fuid_attribute(fdc_project: FieldDataCapture, lay
 
 @pytest.mark.parametrize("layer_name", ("photo", "media"))
 @pytest.mark.parametrize("qgis_platform", ("desktop", "external"))
-def test_default_attachment_bgs_placeholder(fdc_project: FieldDataCapture, layer_name: str, qgis_platform: str):
+def test_default_attachment_bgs_placeholder(crag_project: Crag, layer_name: str, qgis_platform: str):
     # Arrange
-    layer = fdc_project.get_fdc_layer(layer_name)
-    attachment_col = fdc_project.layers_to_file_attributes[layer_name]
+    layer = crag_project.get_crag_layer(layer_name)
+    attachment_col = crag_project.layers_to_file_attributes[layer_name]
     # Force the QGIS platform
     global_scope = QgsExpressionContextUtils.globalScope()
     global_scope.setVariable('qgis_platform', qgis_platform)
@@ -561,7 +561,7 @@ def test_default_attachment_bgs_placeholder(fdc_project: FieldDataCapture, layer
 
     # Assert
     if qgis_platform == 'desktop':
-        assert fdc_project.default_attachment_str == feature.attribute(attachment_col)
+        assert crag_project.default_attachment_str == feature.attribute(attachment_col)
         if layer_name == 'media':
             assert feature.attribute('media_type_code') == 'image'
     else:
@@ -611,10 +611,10 @@ def test_photo_map_tip(report_builder: ReportBuilder):
     assert expected == expression.evaluate(expression_context)
 
 
-def test_about_dialog(fdc: FieldDataCapture):
+def test_about_dialog(crag: Crag):
     # Act
     # Showing the about dialog will confirm it's layout works
-    fdc.show_about()
+    crag.show_about()
 
     # Assert
     AboutDialog.exec.assert_called_once()

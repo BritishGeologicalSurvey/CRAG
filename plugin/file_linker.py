@@ -40,7 +40,7 @@ from qgis.PyQt.QtWidgets import (
     QWidget,
 )
 
-from .field_data_capture_project import FieldDataCaptureProject
+from .crag_project import CragProject
 from .utils import (  # noqa
     CollapsibleWidget,
     MultilineMessageBox,
@@ -102,7 +102,7 @@ class LengthCheckingQTextEdit(QTextEdit):
         self.viewport().setPalette(palette)
 
 
-class FileLinker(QDialog, FieldDataCaptureProject):
+class FileLinker(QDialog, CragProject):
     """
     QDialog for linking files to a project within the database.
     This includes selecting which locality_points the files relate to.
@@ -321,7 +321,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         if self.validate_selection():
             linked_files = 0
             for layer_name, files_to_widgets in self.layers_to_files_to_widgets.items():
-                layer = self.get_fdc_layer(layer_name)
+                layer = self.get_crag_layer(layer_name)
                 layer.startEditing()
 
                 for filepath, widgets_dict in files_to_widgets.items():
@@ -381,7 +381,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         Create a QComboBox which lists the existing locality_point features by name and recorded_on.
         Returns the QComboBox object.
         """
-        locality_point_layer = self.get_fdc_layer("locality_point")
+        locality_point_layer = self.get_crag_layer("locality_point")
 
         combobox = NoScrollSearchableComboBox()
         self.configure_combobox_style(combobox)
@@ -638,7 +638,7 @@ class FileLinker(QDialog, FieldDataCaptureProject):
         Create a combobox which lists the media type codes.
         Returns the QComboBox object.
         """
-        dic_media_layer = self.get_fdc_layer("dic_media")
+        dic_media_layer = self.get_crag_layer("dic_media")
 
         combobox = NoScrollQComboBox()
         FileLinker.configure_combobox_style(combobox)

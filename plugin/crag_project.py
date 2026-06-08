@@ -28,14 +28,14 @@ from .config import TABLE_LIST
 from .create_gpkg_from_sql import WORKDIR
 from .utils import get_table_rows
 
-SYSTEM_DIR_NAME = "_field_data_capture"
+SYSTEM_DIR_NAME = "_crag"
 # Using locally downloaded woff2 of Google's Material Symbols Outlined font
 # See: https://fonts.google.com/icons
 # Licence: https://www.apache.org/licenses/LICENSE-2.0.html
 FONT_FILENAME = "MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2"
 
 
-class FieldDataCaptureProject:
+class CragProject:
     """
     Base/Mixin class for basic attributes of the project file structure.
     This class includes a base __init__ method which can be overwritten/ignored.
@@ -50,7 +50,7 @@ class FieldDataCaptureProject:
         "media": "media_link",
         "photo": "photo_file",
     }
-    plugin_settings_prefix = "FieldDataCapture"
+    plugin_settings_prefix = "Crag"
 
 
     def __init__(self, project_dir: Optional[Path] = None):
@@ -284,9 +284,9 @@ class FieldDataCaptureProject:
             dest_file.write_bytes(src_file.read_bytes())
 
 
-    def get_fdc_layer(self, layer_name: str, warn: bool = True) -> Optional[QgsVectorLayer]:
+    def get_crag_layer(self, layer_name: str, warn: bool = True) -> Optional[QgsVectorLayer]:
         """
-        Get the Field Data Capture layer with the given name.
+        Get the CRAG layer with the given name.
         Checks will ensure the found layer comes from the main GeoPackage of the project.
         By default will show a QMessageBox.warning if the layer is not found.
         """
@@ -321,15 +321,15 @@ class FieldDataCaptureProject:
         """
         Check if a given layer name exists in the list of current layers.
         """
-        if self.get_fdc_layer(layer_name, warn=False) is not None:
+        if self.get_crag_layer(layer_name, warn=False) is not None:
             return True
         else:
             return False
 
 
-    def check_fdc_layers_exist(self) -> bool:
+    def check_crag_layers_exist(self) -> bool:
         """
-        Check if the Field Data Capture layers exist in the current layers.
+        Check if the CRAG layers exist in the current layers.
         """
         missing_layers = [
             table_name
@@ -351,7 +351,7 @@ class FieldDataCaptureProject:
         if not self.check_layer_exists(layer_name):
             return False
 
-        field_project_layer = self.get_fdc_layer("field_project")
+        field_project_layer = self.get_crag_layer("field_project")
         fp_features = list(field_project_layer.getFeatures())
 
         # If the number of features is less than 1 or the first feature has an unsaved fid value
@@ -365,7 +365,7 @@ class FieldDataCaptureProject:
         self,
         project_active: bool = False,
         db_file_exists: bool = False,
-        fdc_layers_exist: bool = False,
+        crag_layers_exist: bool = False,
         layer_name_exists: Optional[str] = None,
         field_project_exists: bool = False,
     ) -> bool:
@@ -382,9 +382,9 @@ class FieldDataCaptureProject:
             QMessageBox.warning(None, "Warning", f"Could not find file:\n\n{self.db_file}")
             return False
 
-        # If we need to check the fdc_layers_exist and the fdc layers do not exist
-        if fdc_layers_exist and not self.check_fdc_layers_exist():
-            QMessageBox.warning(None, "Warning", "Could not find the required layers for Field Data Capture.")
+        # If we need to check the crag_layers_exist and the crag layers do not exist
+        if crag_layers_exist and not self.check_crag_layers_exist():
+            QMessageBox.warning(None, "Warning", "Could not find the required layers for CRAG.")
             return False
 
         # If we need to check that a given layer_name_exists and the given layer name does not exist
@@ -399,7 +399,7 @@ class FieldDataCaptureProject:
                 "Warning",
                 (
                     "No saved field_project feature found. Please ensure you have saved a field_project polygon.\n\n"
-                    "To create and draw a new one, go to 'Plugins' -> 'Field Data Capture' -> 'Add Field Project'"
+                    "To create and draw a new one, go to 'Plugins' -> 'CRAG' -> 'Add Field Project'"
                 )
             )
             return False
@@ -431,7 +431,7 @@ class FieldDataCaptureProject:
         If you try to change the expression with the latter, nothing happens,
         but if you use the former and include `rule.settings().isExpression = True`, it works as expected.
         """
-        layer = self.get_fdc_layer(layer)
+        layer = self.get_crag_layer(layer)
         rule = [
             rule
             for rule in layer.labeling().rootRule().children()

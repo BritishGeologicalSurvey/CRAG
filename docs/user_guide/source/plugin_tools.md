@@ -20,7 +20,7 @@ This menu item also appears as a button, ![Open Project Folder Button](images/op
 :::
 
 This folder contains a mixture of user data and files required for the plugin to work.
-Plugin folders may include `proj` and `_field_data_capture`.
+Plugin folders may include `proj` and `_crag`.
 These should not be modified unless you know what you are doing.
 
 The user data folders are:
@@ -230,7 +230,7 @@ The remaining tools are primarily aimed at software developers and are not used 
 ### Plugin Settings
 
 The plugin has settings that affect the digitisation process and tools.
-The settings dialog is at: `Plugins` > `Field Data Capture` > `More...`, select `Plugin Settings`.
+The settings dialog is at: `Plugins` > `CRAG` > `More...`, select `Plugin Settings`.
 
 :::{figure-md}
 ![Setup Project](images/open_settings.png){align=center}

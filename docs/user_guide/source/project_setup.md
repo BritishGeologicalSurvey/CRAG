@@ -60,9 +60,9 @@ Navigate to the new project folder (or create on after navigating to the `field_
 At this stage, it is recommended to add a basemap to your project that will allow you to locate the field project area.
 For a guide on how to add baseline data to a project see [baseline data section](#adding-baseline-data).
 
-### Adding Field Data Capture layers
+### Adding CRAG layers
 
-Using the Field Data Capture plugin, `Plugins` > `Field Data Capture` > `More...`, select `Setup Project`, clicking `OK` on the confirmation dialog messages.
+Using the CRAG plugin, `Plugins` > `CRAG` > `More...`, select `Setup Project`, clicking `OK` on the confirmation dialog messages.
 This adds the project layers (including forms and styling) to the current open project.
 A geopackage file to store field data is added to the project folder.
 
@@ -193,7 +193,7 @@ When a new project is first created a number of files and folders are created in
 `unlinked_files`
 : This folder is used to other files associated with the project generally.
 
-`_field_data_capture`
+`_crag`
 : This folder stores system files and folders. _It should not be modified!_
 
 (adding-baseline-data)=

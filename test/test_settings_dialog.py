@@ -6,7 +6,7 @@ from qgis.PyQt.QtWidgets import (
     QVBoxLayout,
 )
 
-from plugin.field_data_capture import FieldDataCapture
+from plugin.crag import Crag
 from plugin.settings_dialog import (
     RadioButtonGroup,
     SettingsDialog,
@@ -17,9 +17,9 @@ RADIO_LABEL = "Select an option"
 RADIO_OPTIONS = ["Duck", "Quack", "Honk"]
 
 
-def test_radio_button_group_init(fdc: FieldDataCapture):
+def test_radio_button_group_init(crag: Crag):
     """
-    This test uses the `fdc` fixture so that a QApplication is setup, which allows the creation of PyQt widgets.
+    This test uses the `crag` fixture so that a QApplication is setup, which allows the creation of PyQt widgets.
     """
     # Act
     radio_group = RadioButtonGroup(RADIO_LABEL, RADIO_OPTIONS)
@@ -38,9 +38,9 @@ def test_radio_button_group_init(fdc: FieldDataCapture):
     assert radio_group.get_selection() is None
 
 
-def test_radio_button_group_default(fdc: FieldDataCapture):
+def test_radio_button_group_default(crag: Crag):
     """
-    This test uses the `fdc` fixture so that a QApplication is setup, which allows the creation of PyQt widgets.
+    This test uses the `crag` fixture so that a QApplication is setup, which allows the creation of PyQt widgets.
     """
     # Arrange
     default = RADIO_OPTIONS[1]
@@ -52,9 +52,9 @@ def test_radio_button_group_default(fdc: FieldDataCapture):
     assert radio_group.get_selection() == default
 
 
-def test_radio_button_group_get_selection(fdc: FieldDataCapture):
+def test_radio_button_group_get_selection(crag: Crag):
     """
-    This test uses the `fdc` fixture so that a QApplication is setup, which allows the creation of PyQt widgets.
+    This test uses the `crag` fixture so that a QApplication is setup, which allows the creation of PyQt widgets.
     """
     # Arrange
     selection_idx = 2
@@ -70,27 +70,27 @@ def test_radio_button_group_get_selection(fdc: FieldDataCapture):
     assert actual_option == expected_option
 
 
-def test_open_settings_dialog(fdc_project: FieldDataCapture):
+def test_open_settings_dialog(crag_project: Crag):
     # Act
-    result = fdc_project.open_settings_dialog()
+    result = crag_project.open_settings_dialog()
 
     # Assert
     assert result
-    assert isinstance(fdc_project.settings_dialog, SettingsDialog)
+    assert isinstance(crag_project.settings_dialog, SettingsDialog)
 
 
-def test_close_settings_dialog(fdc_project: FieldDataCapture):
+def test_close_settings_dialog(crag_project: Crag):
     # Arrange
-    fdc_project.open_settings_dialog()
+    crag_project.open_settings_dialog()
 
     # Act
-    fdc_project.settings_dialog.cancel_button.click()
+    crag_project.settings_dialog.cancel_button.click()
 
     # Assert
-    assert fdc_project.settings_dialog is None
+    assert crag_project.settings_dialog is None
 
 
-def test_apply_map_note_option(fdc_project: FieldDataCapture):
+def test_apply_map_note_option(crag_project: Crag):
     # Arrange
     expected_expression = """
                 if(
@@ -102,42 +102,42 @@ def test_apply_map_note_option(fdc_project: FieldDataCapture):
                 )"""
 
     # Act 1
-    fdc_project.open_settings_dialog()
+    crag_project.open_settings_dialog()
 
     # Assert 1
     # Default should be False
-    assert not fdc_project.settings_dialog.map_note_checkbox.isChecked()
+    assert not crag_project.settings_dialog.map_note_checkbox.isChecked()
 
     # Act 2
     # Enable extended map face notes and confirm settings
-    fdc_project.settings_dialog.map_note_checkbox.setChecked(True)
-    fdc_project.settings_dialog.ok_button.click()
+    crag_project.settings_dialog.map_note_checkbox.setChecked(True)
+    crag_project.settings_dialog.ok_button.click()
 
     # Assert 2
-    rule = fdc_project.get_layer_label_rule("locality_point", "map face note")
+    rule = crag_project.get_layer_label_rule("locality_point", "map face note")
     assert rule.settings().isExpression
     assert rule.settings().fieldName == expected_expression
     # Map face note changes are stored in the project
-    assert fdc_project.project_instance.isDirty()
+    assert crag_project.project_instance.isDirty()
 
 
-def test_apply_lines_form_option(fdc_project: FieldDataCapture):
+def test_apply_lines_form_option(crag_project: Crag):
     # Arrange
     expected_option = False
 
     # Act 1
-    fdc_project.open_settings_dialog()
+    crag_project.open_settings_dialog()
 
     # Assert 1
     # Default should be True
-    assert fdc_project.settings_dialog.lines_form_checkbox.isChecked()
+    assert crag_project.settings_dialog.lines_form_checkbox.isChecked()
 
     # Act 2
     # Disable lines form
-    fdc_project.settings_dialog.lines_form_checkbox.setChecked(expected_option)
-    fdc_project.settings_dialog.ok_button.click()
+    crag_project.settings_dialog.lines_form_checkbox.setChecked(expected_option)
+    crag_project.settings_dialog.ok_button.click()
 
     # Assert 2
-    assert fdc_project.get_plugin_setting("show_lines_form") is expected_option
+    assert crag_project.get_plugin_setting("show_lines_form") is expected_option
     # Line tool changes aren't store in the project
-    assert not fdc_project.project_instance.isDirty()
+    assert not crag_project.project_instance.isDirty()

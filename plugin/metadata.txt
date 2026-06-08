@@ -4,7 +4,7 @@
 # Mandatory items:
 
 [general]
-name=Field Data Capture
+name=CRAG
 qgisMinimumVersion=3.40
 qgisMaximumVersion=4.99
 description=This plugin aids with field capture of geological data.
@@ -26,7 +26,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=python,geopackage,geology
 
-homepage=http://field-data-capture.glpages.ad.nerc.ac.uk/sigma-q-user-guide/
+homepage=http://field-data-capture.glpages.ad.nerc.ac.uk/crag-user-guide/
 category=Database
 icon=icon.png
 # experimental flag

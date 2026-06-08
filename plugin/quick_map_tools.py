@@ -38,16 +38,16 @@ from .config import (
     ATTRIBUTE_TABLES,
     TABLE_LIST,
 )
-from .field_data_capture_project import FieldDataCaptureProject
+from .crag_project import CragProject
 from .utils import (  # noqa
     create_prepopulated_feature,
     ipdb_breakpoint,
 )
 
 
-class QuickMapToolBase(FieldDataCaptureProject):
+class QuickMapToolBase(CragProject):
     """
-    Base class for QuickMapTools used in FieldDataCapture.
+    Base class for QuickMapTools used in Crag.
     """
     # This stores the mode of the quick map tool which is mainly used to name and identify the tool
     quick_mode: str
@@ -527,7 +527,7 @@ class QuickDeleteTool(QuickMapToolBase, QuickMapToolIdentifyBase, QgsMapToolIden
             if feature_layer.name() == "locality_point":
                 # Save the child layers first
                 for child_layer_name in ATTRIBUTE_TABLES:
-                    child_layer = self.get_fdc_layer(child_layer_name)
+                    child_layer = self.get_crag_layer(child_layer_name)
                     if child_layer.isModified():
                         child_layer.commitChanges()
 

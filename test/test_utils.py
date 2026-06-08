@@ -22,7 +22,7 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from plugin.config import TABLE_LIST
-from plugin.field_data_capture import FieldDataCapture
+from plugin.crag import Crag
 from plugin.utils import (  # noqa
     MultilineMessageBox,
     create_prepopulated_feature,
@@ -41,37 +41,37 @@ COMBOBOX_DATA = {
 }
 
 
-def test_validation_good(fdc_project_quick: FieldDataCapture):
-    assert fdc_project_quick.validate_qgis_state(
+def test_validation_good(crag_project_quick: Crag):
+    assert crag_project_quick.validate_qgis_state(
         project_active=True,
         db_file_exists=True,
-        fdc_layers_exist=True,
+        crag_layers_exist=True,
         field_project_exists=True,
     )
-    assert not fdc_project_quick.project_instance.isDirty()
+    assert not crag_project_quick.project_instance.isDirty()
 
 
-def test_validation_bad(fdc: FieldDataCapture):
-    assert not fdc.validate_qgis_state(project_active=True, fdc_layers_exist=True)
+def test_validation_bad(crag: Crag):
+    assert not crag.validate_qgis_state(project_active=True, crag_layers_exist=True)
 
 
 def test_check_field_project_exists(
-    fdc: FieldDataCapture,
+    crag: Crag,
     qgs_project,
     empty_geometry_feature_polygon,
 ):
     # Assert 1, the layer does not exist
-    assert not fdc.check_field_project_exists()
+    assert not crag.check_field_project_exists()
 
-    # Act 2, add fdc layers
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
+    # Act 2, add crag layers
+    crag.add_gpkg_to_project()
+    crag.add_gpkg_layers_to_project()
 
     # Assert 2, the layer exists but has no features
-    assert not fdc.check_field_project_exists()
+    assert not crag.check_field_project_exists()
 
     # Act 3, add an unsaved field_project
-    layer = fdc.get_fdc_layer("field_project")
+    layer = crag.get_crag_layer("field_project")
     layer.startEditing()
     # Create new feature
     feature = create_prepopulated_feature(
@@ -89,7 +89,7 @@ def test_check_field_project_exists(
     layer.commitChanges()
 
     # Assert 4, all the checks are good
-    assert fdc.check_field_project_exists()
+    assert crag.check_field_project_exists()
 
 
 @pytest.fixture()
@@ -110,9 +110,9 @@ def combobox() -> QComboBox:
         ("SELECT *, AsText(CastAutomagic(geometry)) as geom FROM locality_point", 2),
     ),
 )
-def test_get_rows(fdc_project_quick: FieldDataCapture, sql: str, count: int):
+def test_get_rows(crag_project_quick: Crag, sql: str, count: int):
     # Act
-    rows = get_table_rows(fdc_project_quick.db_file, sql)
+    rows = get_table_rows(crag_project_quick.db_file, sql)
 
     # Assert
     assert isinstance(rows, list)
@@ -158,10 +158,10 @@ def test_create_prepopulated_feature(
     layer_name: str,
     prepopulate: dict[str, Any],
     wkt: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Arrange
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    layer = crag_project_quick.get_crag_layer(layer_name)
     geometry = QgsGeometry.fromWkt(wkt)
 
     # Act
@@ -174,36 +174,36 @@ def test_create_prepopulated_feature(
 
 
 @pytest.mark.parametrize("layer_name", TABLE_LIST)
-def test_get_fdc_layer_good(layer_name: str, fdc_project_quick: FieldDataCapture):
+def test_get_crag_layer_good(layer_name: str, crag_project_quick: Crag):
     # Arrange
     # Create a temporary layer with the same name as the target layer
-    # The test should still pass because the get_fdc_layer method checks the data source path
+    # The test should still pass because the get_crag_layer method checks the data source path
     temp_layer = QgsVectorLayer("Point?crs=epsg:4326", layer_name, "memory")
     QgsProject.instance().addMapLayer(temp_layer)
 
     # Act
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    layer = crag_project_quick.get_crag_layer(layer_name)
 
     # Assert
     assert isinstance(layer, QgsVectorLayer)
-    assert Path(layer.dataProvider().dataSourceUri().split("|")[0]) == fdc_project_quick.db_file.absolute()
+    assert Path(layer.dataProvider().dataSourceUri().split("|")[0]) == crag_project_quick.db_file.absolute()
 
 
 @pytest.mark.parametrize("layer_name", TABLE_LIST)
-def test_get_fdc_layer_bad(layer_name: str, fdc: FieldDataCapture):
+def test_get_crag_layer_bad(layer_name: str, crag: Crag):
     # Act
-    layer = fdc.get_fdc_layer(layer_name)
+    layer = crag.get_crag_layer(layer_name)
 
     # Assert
     assert layer is None
 
 
-def test_get_layer_label_rule(fdc_project: FieldDataCapture):
+def test_get_layer_label_rule(crag_project: Crag):
     # Arrange
     expected_expression = "map_face_note"
 
     # Act
-    rule = fdc_project.get_layer_label_rule("locality_point", "map face note")
+    rule = crag_project.get_layer_label_rule("locality_point", "map face note")
 
     # Assert
     assert rule.settings().fieldName == expected_expression
@@ -227,16 +227,16 @@ def test_get_plugin_setting(
     value: Any,
     expected_value: Any,
     set_value: bool,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Arrange
     # Set the value if specified
     # We test some values that are not set
     if set_value:
-        fdc_project_quick.set_plugin_setting(name, value)
+        crag_project_quick.set_plugin_setting(name, value)
 
     # Act
-    actual_value = fdc_project_quick.get_plugin_setting(name)
+    actual_value = crag_project_quick.get_plugin_setting(name)
 
     # Assert
     assert actual_value == expected_value
@@ -253,14 +253,14 @@ def test_get_plugin_setting(
 def test_set_plugin_setting(
     name: str,
     value: Any,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Act
-    fdc_project_quick.set_plugin_setting(name, value)
+    crag_project_quick.set_plugin_setting(name, value)
 
     # Assert
     # Get the value from QgsSettings
-    assert QgsSettings().value(f"{fdc_project_quick.plugin_settings_prefix}/{name}") == value
+    assert QgsSettings().value(f"{crag_project_quick.plugin_settings_prefix}/{name}") == value
 
 
 @pytest.mark.parametrize(

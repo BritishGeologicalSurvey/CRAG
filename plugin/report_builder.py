@@ -27,7 +27,7 @@ from qgis.core import (
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from .config import ATTRIBUTE_TABLES, THUMBNAIL_SIZE
-from .field_data_capture_project import FieldDataCaptureProject
+from .crag_project import CragProject
 from .pdf_content import ReportTemplate
 from .utils import (  # noqa
     get_table_rows,
@@ -63,7 +63,7 @@ CHILD_JOINS = {
 }
 
 
-class ReportBuilder(FieldDataCaptureProject):
+class ReportBuilder(CragProject):
     def create_field_report(self) -> tuple[bool, bool]:
         """
         Create and save HTML and PDF field reports. If either older report already exists,

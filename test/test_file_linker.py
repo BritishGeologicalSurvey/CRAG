@@ -19,7 +19,7 @@ from qgis.PyQt.QtWidgets import (
     QTextEdit,
 )
 
-from plugin.field_data_capture import FieldDataCapture
+from plugin.crag import Crag
 from plugin.file_linker import (
     FileLinker,
     MAX_PHOTO_CAPTION_LENGTH,
@@ -99,7 +99,7 @@ def modify_file_linker_inputs(
 
 
 @pytest.fixture()
-def unlinked_test_files(fdc: FieldDataCapture) -> UnlinkedTestFiles:
+def unlinked_test_files(crag: Crag) -> UnlinkedTestFiles:
     """
     Add some unlinked files to project folder for testing.
     Returns a dictionary of layer names as keys, where the values are another dictionary
@@ -108,7 +108,7 @@ def unlinked_test_files(fdc: FieldDataCapture) -> UnlinkedTestFiles:
     Also adds some dummy files to the unlinked sub-directories.
     """
     # Make some sub-directories
-    for layer_dir in fdc.layers_to_dirs.values():
+    for layer_dir in crag.layers_to_dirs.values():
         sub_dir_a = Path("sub_dir_A")
         sub_dir_b = sub_dir_a / "sub_dir_B"
         sub_dir_a_full = layer_dir / "sub_dir_A"
@@ -117,24 +117,24 @@ def unlinked_test_files(fdc: FieldDataCapture) -> UnlinkedTestFiles:
             sub_dir_full.mkdir()
 
     # Create copies of existing photos in various directories in project_dir/photos/
-    new_photo_a = fdc.photos_dir / sub_dir_a / "exif_data.jpg"
+    new_photo_a = crag.photos_dir / sub_dir_a / "exif_data.jpg"
     new_photo_a.write_bytes(Path("test/data/photos/exif_data.jpg").read_bytes())
-    new_photo_b = fdc.photos_dir / sub_dir_b / "no_exif_data.jpg"
+    new_photo_b = crag.photos_dir / sub_dir_b / "no_exif_data.jpg"
     new_photo_b.write_bytes(Path("test/data/photos/no_exif_data.jpg").read_bytes())
-    new_photo_c = fdc.photos_dir / sub_dir_a / "test_img_001.jpeg"
-    new_photo_c.write_bytes((fdc.photos_dir / "test_point_001.jpeg").read_bytes())
+    new_photo_c = crag.photos_dir / sub_dir_a / "test_img_001.jpeg"
+    new_photo_c.write_bytes((crag.photos_dir / "test_point_001.jpeg").read_bytes())
 
     # Create copies of existing media files in various directories in project_dir/media/
-    new_media_a = fdc.media_dir / sub_dir_a / "test_csv_001.csv"
-    new_media_a.write_bytes((fdc.media_dir / "test_point_001.csv").read_bytes())
-    new_media_b = fdc.media_dir / sub_dir_b / "test_txt_001.txt"
-    new_media_b.write_bytes((fdc.media_dir / "test_point_001.txt").read_bytes())
+    new_media_a = crag.media_dir / sub_dir_a / "test_csv_001.csv"
+    new_media_a.write_bytes((crag.media_dir / "test_point_001.csv").read_bytes())
+    new_media_b = crag.media_dir / sub_dir_b / "test_txt_001.txt"
+    new_media_b.write_bytes((crag.media_dir / "test_point_001.txt").read_bytes())
 
     # Make dummy files in the sub-directory unlinked
     dummy_unlinked_files = [
-        fdc.unlinked_files_dir / "unlinked_dummy_1.png",
-        fdc.unlinked_files_dir / "unlinked_dummy_2.png",
-        fdc.unlinked_files_dir / "unlinked_dummy_3.csv",
+        crag.unlinked_files_dir / "unlinked_dummy_1.png",
+        crag.unlinked_files_dir / "unlinked_dummy_2.png",
+        crag.unlinked_files_dir / "unlinked_dummy_3.csv",
     ]
     for dummy_unlinked_file in dummy_unlinked_files:
         dummy_unlinked_file.touch()
@@ -165,30 +165,30 @@ def unlinked_test_files(fdc: FieldDataCapture) -> UnlinkedTestFiles:
 
 
 def test_open_file_linker_good(
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Act
-    result = fdc_project_quick.open_file_linker()
+    result = crag_project_quick.open_file_linker()
 
     # Assert
     assert result
-    assert isinstance(fdc_project_quick.file_linker, FileLinker)
-    assert fdc_project_quick.photos_dir == fdc_project_quick.file_linker.photos_dir
-    assert not fdc_project_quick.file_linker.linker_widget.isHidden()
-    assert fdc_project_quick.file_linker.message_widget.isHidden()
+    assert isinstance(crag_project_quick.file_linker, FileLinker)
+    assert crag_project_quick.photos_dir == crag_project_quick.file_linker.photos_dir
+    assert not crag_project_quick.file_linker.linker_widget.isHidden()
+    assert crag_project_quick.file_linker.message_widget.isHidden()
 
 
-def test_open_file_linker_bad(fdc_project_quick: FieldDataCapture):
+def test_open_file_linker_bad(crag_project_quick: Crag):
     # Act
-    fdc_project_quick.open_file_linker()
+    crag_project_quick.open_file_linker()
 
     # Assert
-    assert fdc_project_quick.file_linker.linker_widget.isHidden()
-    assert not fdc_project_quick.file_linker.message_widget.isHidden()
+    assert crag_project_quick.file_linker.linker_widget.isHidden()
+    assert not crag_project_quick.file_linker.message_widget.isHidden()
 
 
-def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture):
+def test_open_file_linker_warn_placeholders(crag_project: Crag):
     # Arrange
     expected_locality_list = "• test_point_001"
     # Add a new feature to the photo layer with the default placeholder image
@@ -196,7 +196,7 @@ def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture):
     global_scope = QgsExpressionContextUtils.globalScope()
     global_scope.setVariable('qgis_platform', 'desktop')
     expression_context = QgsExpressionContext([global_scope])
-    layer = fdc_project.get_fdc_layer("photo")
+    layer = crag_project.get_crag_layer("photo")
     feature = create_prepopulated_feature(
         layer,
         prepopulate={"locality_fuid": "{abc43098-fe9b-4da0-b008-7518694466bb}"},
@@ -207,63 +207,63 @@ def test_open_file_linker_warn_placeholders(fdc_project: FieldDataCapture):
     layer.commitChanges()
 
     # Act
-    fdc_project.open_file_linker()
+    crag_project.open_file_linker()
 
     # Assert
-    assert fdc_project.file_linker.collapsible_widget is not None
-    locality_list = fdc_project.file_linker.collapsible_widget.collapsible_layout.itemAt(0).widget().toPlainText()
+    assert crag_project.file_linker.collapsible_widget is not None
+    locality_list = crag_project.file_linker.collapsible_widget.collapsible_layout.itemAt(0).widget().toPlainText()
     assert locality_list == expected_locality_list
 
 
 def test_close_file_linker(
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
-    fdc_project_quick.open_file_linker()
+    crag_project_quick.open_file_linker()
 
     # Act
-    fdc_project_quick.file_linker.cancel_button.click()
+    crag_project_quick.file_linker.cancel_button.click()
 
     # Assert
-    assert fdc_project_quick.file_linker is None
+    assert crag_project_quick.file_linker is None
 
 
 def test_get_unlinked_files(
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
-    fdc_project_quick.open_file_linker()
+    crag_project_quick.open_file_linker()
 
     # Act
     for layer_name, expected_files_dict in unlinked_test_files.items():
-        actual_unlinked_files = fdc_project_quick.file_linker.get_unlinked_files(layer_name)
+        actual_unlinked_files = crag_project_quick.file_linker.get_unlinked_files(layer_name)
 
         # Assert
         assert set(expected_files_dict) == set(actual_unlinked_files)
 
 
 def test_select_files(
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
     # Add a new photo feature with a NULL photo_file attribute to ensure it is not picked up or breaks the linker
-    photo_layer = fdc_project_quick.get_fdc_layer("photo")
+    photo_layer = crag_project_quick.get_crag_layer("photo")
     photo_layer.startEditing()
     photo_feature = QgsVectorLayerUtils.createFeature(photo_layer)
     photo_layer.addFeature(photo_feature)
     photo_layer.commitChanges()
 
     # Act
-    fdc_project_quick.open_file_linker()
+    crag_project_quick.open_file_linker()
 
     # Assert
     # Check that each photo row contains the correct widgets with the correct settings
     for layer_name, expected_files_to_widgets in unlinked_test_files.items():
         for filepath, expected_widgets_dict in expected_files_to_widgets.items():
-            actual_widgets_dict = fdc_project_quick.file_linker.layers_to_files_to_widgets[layer_name][filepath]
+            actual_widgets_dict = crag_project_quick.file_linker.layers_to_files_to_widgets[layer_name][filepath]
 
             assert_widgets_dict_types(actual_widgets_dict, layer_name)
 
@@ -278,12 +278,12 @@ def test_select_files(
 
             # Check filepath tooltip
             filepath_label = actual_widgets_dict["QLabel_filepath"]
-            assert filepath_label.toolTip() == str(filepath.relative_to(fdc_project_quick.project_dir))
+            assert filepath_label.toolTip() == str(filepath.relative_to(crag_project_quick.project_dir))
 
             # Check photo display size
             image_widget = actual_widgets_dict["QLabel_image_widget"]
-            assert image_widget.pixmap().width() <= fdc_project_quick.file_linker.thumbnail_size
-            assert image_widget.pixmap().height() <= fdc_project_quick.file_linker.thumbnail_size
+            assert image_widget.pixmap().width() <= crag_project_quick.file_linker.thumbnail_size
+            assert image_widget.pixmap().height() <= crag_project_quick.file_linker.thumbnail_size
 
 
 def assert_widgets_dict_types(widgets_dict: dict[str, Any], layer_name: str) -> None:
@@ -312,7 +312,7 @@ def assert_widgets_dict_types(widgets_dict: dict[str, Any], layer_name: str) -> 
 def test_create_comboboxes(
     create_combobox_method: str,
     expected_items: dict[str, Any],
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Act 1
     file_linker = FileLinker()
@@ -336,7 +336,7 @@ def test_create_comboboxes(
 
 
 def test_validate_selection_media(
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange 1
@@ -356,12 +356,12 @@ def test_validate_selection_media(
             },
         }
     }
-    fdc_project_quick.open_file_linker()
+    crag_project_quick.open_file_linker()
 
     # Act 1
     # Pick invalid media type
-    modify_file_linker_inputs(fdc_project_quick.file_linker, layers_to_files_to_options)
-    result_1 = fdc_project_quick.file_linker.validate_selection()
+    modify_file_linker_inputs(crag_project_quick.file_linker, layers_to_files_to_options)
+    result_1 = crag_project_quick.file_linker.validate_selection()
 
     # Assert 1
     assert not result_1
@@ -384,15 +384,15 @@ def test_validate_selection_media(
             file_options["QComboBox_media_type"] = "other"
             file_options["QTextEdit_description"] = file_options["QTextEdit_description"][:4000]
 
-    modify_file_linker_inputs(fdc_project_quick.file_linker, layers_to_files_to_options)
-    result_2 = fdc_project_quick.file_linker.validate_selection()
+    modify_file_linker_inputs(crag_project_quick.file_linker, layers_to_files_to_options)
+    result_2 = crag_project_quick.file_linker.validate_selection()
 
     # Assert 2
     assert result_2
 
 
 def test_validate_selection_text_length(
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
@@ -421,9 +421,9 @@ def test_validate_selection_text_length(
     }
 
     # Act
-    fdc_project_quick.open_file_linker()
-    modify_file_linker_inputs(fdc_project_quick.file_linker, layers_to_files_to_options)
-    validation_result = fdc_project_quick.file_linker.validate_selection()
+    crag_project_quick.open_file_linker()
+    modify_file_linker_inputs(crag_project_quick.file_linker, layers_to_files_to_options)
+    validation_result = crag_project_quick.file_linker.validate_selection()
 
     # Assert
     assert validation_result is False
@@ -433,7 +433,7 @@ def test_validate_selection_text_length(
 
 
 def test_save_links(
-    fdc_project: FieldDataCapture,
+    crag_project: Crag,
     unlinked_test_files: UnlinkedTestFiles,
 ):
     # Arrange
@@ -470,18 +470,18 @@ def test_save_links(
             },
         }
     }
-    fdc_project.open_file_linker()
+    crag_project.open_file_linker()
 
     # Act
-    modify_file_linker_inputs(fdc_project.file_linker, layers_to_files_to_options)
-    fdc_project.file_linker.save_links_button.click()
+    modify_file_linker_inputs(crag_project.file_linker, layers_to_files_to_options)
+    crag_project.file_linker.save_links_button.click()
 
     # Assert
     # Check that the FileLinker closed
-    assert fdc_project.file_linker is None
+    assert crag_project.file_linker is None
 
     for layer_name in unlinked_test_files:
-        layer = fdc_project.get_fdc_layer(layer_name)
+        layer = crag_project.get_crag_layer(layer_name)
         # Check that the layer has been saved
         assert not layer.isModified()
 
@@ -499,7 +499,7 @@ def test_save_links(
             # If the file was meant to have a selected locality, it should exist as a feature
             if expected_file_options["QComboBox_locality"] is not None:
                 assert_feature_expected_options(
-                    fdc_project,
+                    crag_project,
                     layer_name,
                     expected_filepath,
                     expected_file_options,
@@ -508,16 +508,16 @@ def test_save_links(
 
 
 def assert_feature_expected_options(
-    fdc: FieldDataCapture,
+    crag: Crag,
     layer_name: str,
     expected_filepath: Path,
     expected_file_options: dict[str, Any],
     feature: QgsFeature,
 ) -> None:
     # These 3 variables depend on the layer
-    layer_dir = fdc.layers_to_dirs[layer_name]
+    layer_dir = crag.layers_to_dirs[layer_name]
     widgets_to_attributes = WIDGET_NAMES_TO_ATTRIBUTES_NAMES[layer_name]
-    file_attribute_name = fdc.layers_to_file_attributes[layer_name]
+    file_attribute_name = crag.layers_to_file_attributes[layer_name]
 
     file_attribute = Path(feature.attribute(file_attribute_name))
     # Check that the relative path exists in the directory

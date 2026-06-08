@@ -11,9 +11,9 @@ CRAG comprises a plugin for QGIS:
 QGIS, and the required plugin, can be installed on Windows, Linux or Mac computers, installation is [described on the QGIS website](https://qgis.org/resources/installation-guide/).
 
 
-## Install Field Data Capture Plugin
+## Install CRAG Plugin
 
-The Field Data Capture plugin can be installed from a zip file via the `Plugins` menu.
+The CRAG plugin can be installed from a zip file via the `Plugins` menu.
 
 Select `Manage and Install Plugins`.
 
@@ -39,22 +39,22 @@ Click `Install Plugin` and then confirm
 *Confirm Install from ZIP*
 :::
 
-Once installed, the plugin can be accessed from the `Plugins` menu and the `Field Data Capture Toolbar`:
+Once installed, the plugin can be accessed from the `Plugins` menu and the `CRAG Toolbar`:
 
 :::{figure-md}
-![CRAG Menu](images/gdcs_menu.png){align=center}
+![CRAG Menu](images/crag_menu.png){align=center}
 
-*Field Data Capture Menu*
+*CRAG Menu*
 :::
 
 :::{figure-md}
-![CRAG Toolbar](images/gdcs_toolbar.png){align=center}
+![CRAG Toolbar](images/crag_toolbar.png){align=center}
 
-*Field Data Capture Toolbar*
+*CRAG Toolbar*
 :::
 
 :::{note}
-If the Field Data Capture plugin toolbar is missing, try disabling and re-enabling it from the Plugin Manager.
+If the CRAG plugin toolbar is missing, try disabling and re-enabling it from the Plugin Manager.
 :::
 
 ### Moving the Plugin Toolbar

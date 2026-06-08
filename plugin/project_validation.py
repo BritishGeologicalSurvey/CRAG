@@ -10,7 +10,7 @@ from .config import (
     FEATURE_TABLES,
     ATTRIBUTE_TABLES,
 )
-from .field_data_capture_project import FieldDataCaptureProject
+from .crag_project import CragProject
 from .utils import (  # noqa
     get_table_rows,
     ipdb_breakpoint,
@@ -75,14 +75,14 @@ def validate_project(project_dir: Path) -> list[ValidationResult]:
     ]
 
     results = [
-        check_func(FieldDataCaptureProject(project_dir))
+        check_func(CragProject(project_dir))
         for check_func in checks
     ]
 
     return results
 
 
-def check_project_name(project: FieldDataCaptureProject) -> ValidationResult:
+def check_project_name(project: CragProject) -> ValidationResult:
     """
     Check that the field_project.short_name is the basename for the qgz and gpkg files
     """
@@ -101,7 +101,7 @@ def check_project_name(project: FieldDataCaptureProject) -> ValidationResult:
     return result
 
 
-def check_features_valid_parents(project: FieldDataCaptureProject) -> ValidationResult:
+def check_features_valid_parents(project: CragProject) -> ValidationResult:
     """
     Check that all of the geometry features in the given project have a valid parent field_project.
     """
@@ -133,7 +133,7 @@ def check_features_valid_parents(project: FieldDataCaptureProject) -> Validation
     return result
 
 
-def check_locality_children_valid_parents(project: FieldDataCaptureProject) -> ValidationResult:
+def check_locality_children_valid_parents(project: CragProject) -> ValidationResult:
     """
     Check that all of the locality_point child features in the given project have a valid parent locality_point.
     """
@@ -167,7 +167,7 @@ def check_locality_children_valid_parents(project: FieldDataCaptureProject) -> V
     return result
 
 
-def check_field_project_plugin_version(project: FieldDataCaptureProject) -> ValidationResult:
+def check_field_project_plugin_version(project: CragProject) -> ValidationResult:
     """
     Check that a plugin version is included in the field_project record of the given project.
     """
@@ -188,7 +188,7 @@ def check_field_project_plugin_version(project: FieldDataCaptureProject) -> Vali
     return result
 
 
-def check_unlinked_attachment_files(project: FieldDataCaptureProject) -> ValidationResult:
+def check_unlinked_attachment_files(project: CragProject) -> ValidationResult:
     """
     Check that there are no files in the unlinked sub-directory.
     """
@@ -214,7 +214,7 @@ def check_unlinked_attachment_files(project: FieldDataCaptureProject) -> Validat
     return result
 
 
-def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> ValidationResult:
+def check_attached_filepaths_not_null(project: CragProject) -> ValidationResult:
     """
     Check that all filepaths which are saved into the given project (e.g. photos/media)
     are not null.
@@ -240,7 +240,7 @@ def check_attached_filepaths_not_null(project: FieldDataCaptureProject) -> Valid
     return result
 
 
-def check_attached_filepaths_not_placeholder(project: FieldDataCaptureProject) -> ValidationResult:
+def check_attached_filepaths_not_placeholder(project: CragProject) -> ValidationResult:
     """
     Check that all filepaths which are saved into the given project (e.g. photos/media)
     are not the BGS placeholder image.
@@ -269,7 +269,7 @@ def check_attached_filepaths_not_placeholder(project: FieldDataCaptureProject) -
     return result
 
 
-def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> ValidationResult:
+def check_attached_filepaths_exist(project: CragProject) -> ValidationResult:
     """
     Check that all filepaths which are saved into the given project (e.g. photos/media)
     have a matching and existing file within the file.
@@ -302,7 +302,7 @@ def check_attached_filepaths_exist(project: FieldDataCaptureProject) -> Validati
     return result
 
 
-def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> ValidationResult:
+def check_attachment_filepaths_recorded(project: CragProject) -> ValidationResult:
     """
     Check that all attachment filepaths which are saved into the given project directory (e.g. photos/media)
     have a matching record within the database.
@@ -324,7 +324,7 @@ def check_attachment_filepaths_recorded(project: FieldDataCaptureProject) -> Val
     return result
 
 
-def check_no_conflict_gpkg_exists(project: FieldDataCaptureProject) -> ValidationResult:
+def check_no_conflict_gpkg_exists(project: CragProject) -> ValidationResult:
     """
     Check that no conflict GeoPackage files exist in the given project.
     These are determined by finding GeoPackage files with 'conflicted copy' in their name.
@@ -344,7 +344,7 @@ def check_no_conflict_gpkg_exists(project: FieldDataCaptureProject) -> Validatio
     return result
 
 
-def check_required_filepaths_in_project_dir(project: FieldDataCaptureProject) -> ValidationResult:
+def check_required_filepaths_in_project_dir(project: CragProject) -> ValidationResult:
     """
     Check that all required files and paths are in the project directory.
     """
@@ -368,7 +368,7 @@ def check_required_filepaths_in_project_dir(project: FieldDataCaptureProject) ->
     return result
 
 
-def check_no_user_filepaths_in_project_dir(project: FieldDataCaptureProject) -> ValidationResult:
+def check_no_user_filepaths_in_project_dir(project: CragProject) -> ValidationResult:
     """
     Check that no user files are directly in the project directory.
     """

@@ -28,8 +28,8 @@ from qgis.testing.mocked import get_iface
 from plugin.config import TABLE_LIST
 from plugin.create_gpkg_from_sql import main as gpkg_from_sql
 from plugin.create_gpkg_from_sql import add_test_data
-from plugin.field_data_capture import FieldDataCapture
-from plugin.field_data_capture_project import FieldDataCaptureProject
+from plugin.crag import Crag
+from plugin.crag_project import CragProject
 from plugin.quick_map_tools import QuickMapToolBase
 from plugin.report_builder import ReportBuilder
 from plugin.utils import MultilineMessageBox
@@ -54,7 +54,7 @@ def setup_db_conn(db_file: Path) -> sqlite3.Connection:
     return conn
 
 
-def create_fdc_project_files(
+def create_crag_project_files(
     project_dir: Path,
     insert_data_sql: Path,
     feature_filepaths: dict[str, list[Path]],
@@ -110,11 +110,11 @@ def create_fdc_project_files(
     return project_dir
 
 
-def locality_point_count(fdc: FieldDataCapture) -> int:
+def locality_point_count(crag: Crag) -> int:
     """
     Helper function to get number of locality_points
     """
-    conn = setup_db_conn(fdc.db_file)
+    conn = setup_db_conn(crag.db_file)
     row_count = etl.fetchone(
         "SELECT COUNT() FROM locality_point",
         conn,
@@ -170,7 +170,7 @@ def test_data_gpkg(data_model_gpkg) -> sqlite3.Connection:
 def iface(monkeypatch: pytest.MonkeyPatch) -> Generator[QgisInterface, None, None]:
     """
     An instance of the mock QGIS iface for tests.
-    This will setup a PyQt app, allowing dialogs to be tested alone without the FDC plugin.
+    This will setup a PyQt app, allowing dialogs to be tested alone without the CRAG plugin.
     """
     iface = get_iface()
     # Clear all preset QGIS settings
@@ -178,7 +178,7 @@ def iface(monkeypatch: pytest.MonkeyPatch) -> Generator[QgisInterface, None, Non
     QgsSettings().clear()
 
     # Apply monkeypatch for all QDialogs
-    # This is done at the iface level to apply to QGIS and FDC dialogs
+    # This is done at the iface level to apply to QGIS and CRAG dialogs
     monkeypatch.setattr(QDialog, "exec", Mock(return_value=True))
 
     yield iface
@@ -186,15 +186,15 @@ def iface(monkeypatch: pytest.MonkeyPatch) -> Generator[QgisInterface, None, Non
 
 
 @pytest.fixture()
-def fdc(iface: QgisInterface, monkeypatch: pytest.MonkeyPatch) -> Generator[FieldDataCapture, None, None]:
+def crag(iface: QgisInterface, monkeypatch: pytest.MonkeyPatch) -> Generator[Crag, None, None]:
     """
-    An instance of the FieldDataCapture plugin for tests, using a mock iface.
-    Also runs fdc.initGui for button testing.
+    An instance of the Crag plugin for tests, using a mock iface.
+    Also runs crag.initGui for button testing.
     Also uses monkeypatch to prevent basic QMessageBox popups, including information and warning.
     QMessageBoxes just return QMessageBox.StandardButton.Ok by default.
     """
     # Setup plugin
-    field_data_capture = FieldDataCapture(iface)
+    crag_instance = Crag(iface)
 
     # Apply monkeypatch for QMessageBox
     message_types = [
@@ -220,10 +220,10 @@ def fdc(iface: QgisInterface, monkeypatch: pytest.MonkeyPatch) -> Generator[Fiel
     monkeypatch.setattr(iface, "cadDockWidget", lambda *args: cadDockWidget)
 
     # Apply monkeypatch for open_local_filepath
-    monkeypatch.setattr(FieldDataCaptureProject, "open_local_filepath", Mock(return_value=True))
+    monkeypatch.setattr(CragProject, "open_local_filepath", Mock(return_value=True))
 
     # Apply monkeypatch for getting plugin metadata in QuickMapTools
-    monkeypatch.setattr(QuickMapToolBase, "get_local_version", lambda *args: "fdc_test_fixture")
+    monkeypatch.setattr(QuickMapToolBase, "get_local_version", lambda *args: "crag_test_fixture")
 
     # Apply monkeypatch for searching GUI elements in QuickMapTools
     monkeypatch.setattr(
@@ -237,13 +237,13 @@ def fdc(iface: QgisInterface, monkeypatch: pytest.MonkeyPatch) -> Generator[Fiel
     exifread_logger = logging.getLogger("exifread")
     exifread_logger.setLevel(logging.CRITICAL)
 
-    field_data_capture.initGui()
+    crag_instance.initGui()
 
-    yield field_data_capture
+    yield crag_instance
 
     # We disable the quick map tool after the test to avoid the automatic deactivation of the tool
     # from qgis causing an error with deleted c++ objects during teardown
-    field_data_capture.disable_current_quick_map_tool()
+    crag_instance.disable_current_quick_map_tool()
 
 
 @pytest.fixture()
@@ -279,38 +279,38 @@ def monkeypatch_qmsgbox_question_no(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(QMessageBox, "question", lambda *args: QMessageBox.StandardButton.No)
 
 
-def setup_fdc_project(fdc: FieldDataCapture) -> None:
+def setup_crag_project(crag: Crag) -> None:
     """
-    Setup an Field Data Capture project for use in tests.
+    Setup an CRAG project for use in tests.
     """
-    fdc.add_gpkg_to_project()
-    fdc.add_gpkg_layers_to_project()
-    fdc.add_test_data_to_project()
+    crag.add_gpkg_to_project()
+    crag.add_gpkg_layers_to_project()
+    crag.add_test_data_to_project()
     # Write project data to ensure clean state (e.g. isDirty is False)
-    fdc.project_instance.write()
+    crag.project_instance.write()
 
 
 @pytest.fixture()
-def fdc_project(fdc: FieldDataCapture, qgs_project: Path) -> FieldDataCapture:
+def crag_project(crag: Crag, qgs_project: Path) -> Crag:
     """
-    Setup an Field Data Capture project for use in tests.
+    Setup an CRAG project for use in tests.
     """
-    setup_fdc_project(fdc)
-    return fdc
+    setup_crag_project(crag)
+    return crag
 
 
 @pytest.fixture()
-def fdc_project_quick(fdc: FieldDataCapture, qgs_project: Path, monkeypatch: pytest.MonkeyPatch) -> FieldDataCapture:
+def crag_project_quick(crag: Crag, qgs_project: Path, monkeypatch: pytest.MonkeyPatch) -> Crag:
     """
-    Setup an Field Data Capture project for use in tests, without the QGIS styles applied to save time.
+    Setup an CRAG project for use in tests, without the QGIS styles applied to save time.
     """
-    monkeypatch.setattr(FieldDataCapture, "apply_qml_styles", Mock(return_value=True))
-    setup_fdc_project(fdc)
-    return fdc
+    monkeypatch.setattr(Crag, "apply_qml_styles", Mock(return_value=True))
+    setup_crag_project(crag)
+    return crag
 
 
 @pytest.fixture()
-def report_builder(fdc_project_quick: FieldDataCapture) -> ReportBuilder:
+def report_builder(crag_project_quick: Crag) -> ReportBuilder:
     """
     Setup Report Builder for use in tests.
     """

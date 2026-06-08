@@ -5,9 +5,9 @@ from pathlib import Path
 
 import pytest
 
-from plugin.field_data_capture import (
-    FieldDataCapture,
-    FieldDataCaptureProject,
+from plugin.crag import (
+    Crag,
+    CragProject,
 )
 from plugin.project_validation import (
     ValidationResult,
@@ -19,17 +19,17 @@ from plugin.utils import (  # noqa
     get_msgbox_icon_pixmap,
     ipdb_breakpoint,
 )
-from conftest import create_fdc_project_files
+from conftest import create_crag_project_files
 
 
 @pytest.fixture()
-def fdc_project_bad(tmp_path: Path) -> Path:
+def crag_project_bad(tmp_path: Path) -> Path:
     """
     Fixture to setup a test project which is purposefully invalid and breaks all validation checks.
     Creates a project with a database which contains some data and photo files.
     """
-    project_dir = tmp_path / "fdc_project_invalid"
-    project = FieldDataCaptureProject(project_dir)
+    project_dir = tmp_path / "crag_project_invalid"
+    project = CragProject(project_dir)
     feature_filepaths = {
         "photos": [
             Path("test/data/photos/exif_data.jpg"),
@@ -37,13 +37,13 @@ def fdc_project_bad(tmp_path: Path) -> Path:
             Path("test/data/photos/no_exif_data.jpg"),
         ],
         "media": [],
-        "_field_data_capture": [],
+        "_crag": [],
         # baseline_data omitted for test
     }
 
-    create_fdc_project_files(
+    create_crag_project_files(
         project_dir=project_dir,
-        insert_data_sql=Path("test/data/fdc_project_invalid.sql"),
+        insert_data_sql=Path("test/data/crag_project_invalid.sql"),
         feature_filepaths=feature_filepaths,
     )
 
@@ -67,14 +67,14 @@ def fdc_project_bad(tmp_path: Path) -> Path:
     return project_dir
 
 
-def test_validate_project_good(fdc_project_quick: FieldDataCapture):
+def test_validate_project_good(crag_project_quick: Crag):
     # Arrange
     # Delete unlinked file in test project to get passing validation
-    unlinked_file = fdc_project_quick.unlinked_files_dir / "test_unlinked_photo.jpeg"
+    unlinked_file = crag_project_quick.unlinked_files_dir / "test_unlinked_photo.jpeg"
     unlinked_file.unlink()
 
     # Act
-    results = validate_project(project_dir=fdc_project_quick.project_dir)
+    results = validate_project(project_dir=crag_project_quick.project_dir)
 
     # Assert
     for result in results:
@@ -82,9 +82,9 @@ def test_validate_project_good(fdc_project_quick: FieldDataCapture):
         assert result.messages == []
 
 
-def test_validate_project_warn(fdc_project_quick: FieldDataCapture):
+def test_validate_project_warn(crag_project_quick: Crag):
     # Act
-    results = validate_project(project_dir=fdc_project_quick.project_dir)
+    results = validate_project(project_dir=crag_project_quick.project_dir)
 
     # Assert
     for result in results:
@@ -96,16 +96,16 @@ def test_validate_project_warn(fdc_project_quick: FieldDataCapture):
             ]
 
 
-def test_validate_project_bad(fdc_project_bad: Path):
+def test_validate_project_bad(crag_project_bad: Path):
     # Arrange
     expected_results = [
         ValidationResult(
             validation_function='check_project_name',
             status=ValidationStatus.FAILED,
             messages=[
-                (f"File name '{fdc_project_bad / "test_project.gpkg"}' "
+                (f"File name '{crag_project_bad / "test_project.gpkg"}' "
                  "does not match 'field_project.short_name': user_a_test_project"),
-                (f"File name '{fdc_project_bad / "test_project.qgz"}' "
+                (f"File name '{crag_project_bad / "test_project.qgz"}' "
                  "does not match 'field_project.short_name': user_a_test_project"),
             ]
         ),
@@ -167,7 +167,7 @@ def test_validate_project_bad(fdc_project_bad: Path):
             status=ValidationStatus.FAILED,
             # Project path here is dynamic because it comes from the tmp_path fixture
             messages=[
-                f"Unlinked file in 'photo' directory: {fdc_project_bad / 'photos/no_exif_data.jpg'}",
+                f"Unlinked file in 'photo' directory: {crag_project_bad / 'photos/no_exif_data.jpg'}",
             ],
         ),
         ValidationResult(
@@ -196,35 +196,35 @@ def test_validate_project_bad(fdc_project_bad: Path):
     ]
 
     # Act
-    results = validate_project(project_dir=fdc_project_bad)
+    results = validate_project(project_dir=crag_project_bad)
 
     # Assert
     assert expected_results == results
 
 
-def test_validation_dialog_pass(fdc_project_quick: FieldDataCapture):
+def test_validation_dialog_pass(crag_project_quick: Crag):
     # Arrange
     # Delete unlinked file in test project to get passing validation
-    unlinked_file = fdc_project_quick.unlinked_files_dir / "test_unlinked_photo.jpeg"
+    unlinked_file = crag_project_quick.unlinked_files_dir / "test_unlinked_photo.jpeg"
     unlinked_file.unlink()
     expected_title = "Project Validation"
     expected_message = "Validation for project 'test_project_dir': PASSED"
     expected_text = None
 
     # Act
-    fdc_project_quick.run_project_validation()
+    crag_project_quick.run_project_validation()
 
     # Assert
     MultilineMessageBox.information.assert_called_once_with(expected_title, expected_message, expected_text)
 
 
-def test_validation_dialog_fail(fdc_project_quick: FieldDataCapture):
+def test_validation_dialog_fail(crag_project_quick: Crag):
     # Arrange
     # Add unlinked photo to the project
-    dummy_photo = fdc_project_quick.photos_dir / "not_a_photo.png"
+    dummy_photo = crag_project_quick.photos_dir / "not_a_photo.png"
     dummy_photo.touch()
     # Add a dummy conflict GeoPackage to the project
-    dummy_conflict_gpkg = fdc_project_quick.project_dir / "test_project (conflicted copy).gpkg"
+    dummy_conflict_gpkg = crag_project_quick.project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
     expected_title = "Project Validation"
@@ -237,16 +237,16 @@ def test_validation_dialog_fail(fdc_project_quick: FieldDataCapture):
     ])
 
     # Act
-    fdc_project_quick.run_project_validation()
+    crag_project_quick.run_project_validation()
 
     # Assert
     MultilineMessageBox.critical.assert_called_once_with(expected_title, expected_message, expected_text)
 
 
-def test_validation_dialog_warning(fdc_project_quick: FieldDataCapture):
+def test_validation_dialog_warning(crag_project_quick: Crag):
     # Arrange
     # Add a dummy conflict GeoPackage to the project
-    dummy_conflict_gpkg = fdc_project_quick.project_dir / "test_project (conflicted copy).gpkg"
+    dummy_conflict_gpkg = crag_project_quick.project_dir / "test_project (conflicted copy).gpkg"
     dummy_conflict_gpkg.touch()
 
     expected_title = "Project Validation"
@@ -258,7 +258,7 @@ def test_validation_dialog_warning(fdc_project_quick: FieldDataCapture):
     ])
 
     # Act
-    fdc_project_quick.run_project_validation()
+    crag_project_quick.run_project_validation()
 
     # Assert
     MultilineMessageBox.warning.assert_called_once_with(expected_title, expected_message, expected_text)

@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
 These are tests for the QuickMapTools of the plugin
-which depend on a running QGIS version which is supplied by the 'fdc_project_quick' fixture.
+which depend on a running QGIS version which is supplied by the 'crag_project_quick' fixture.
 """
 import getpass
 from copy import deepcopy
@@ -27,7 +27,7 @@ from plugin.config import (
     FEATURE_TABLES_LINES,
     LAYER_TREE_STRUCTURE_INDEXED,
 )
-from plugin.field_data_capture import FieldDataCapture
+from plugin.crag import Crag
 from plugin.line_layer_selector import LineLayerSelector
 from plugin.quick_map_tools import (
     QuickMapToolBase,
@@ -41,11 +41,11 @@ from conftest import create_empty_geometry_feature
 COMMON_TOOLS = (
     ["layer_names", "expected_tool", "expected_tool_name"],
     (
-        ("locality_point", QuickAddTool, "fdc_locality_point_add"),
-        ("locality_point", QuickEditTool, "fdc_locality_point_edit"),
-        ("locality_point", QuickDeleteTool, "fdc_locality_point_delete"),
-        (sorted(FEATURE_TABLES_LINES), QuickEditTool, "fdc_lines_edit"),
-        (sorted(FEATURE_TABLES_LINES), QuickDeleteTool, "fdc_lines_delete"),
+        ("locality_point", QuickAddTool, "crag_locality_point_add"),
+        ("locality_point", QuickEditTool, "crag_locality_point_edit"),
+        ("locality_point", QuickDeleteTool, "crag_locality_point_delete"),
+        (sorted(FEATURE_TABLES_LINES), QuickEditTool, "crag_lines_edit"),
+        (sorted(FEATURE_TABLES_LINES), QuickDeleteTool, "crag_lines_delete"),
     ),
 )
 LINE_TYPE_CODES = (
@@ -136,7 +136,7 @@ def monkeypatch_feature_form(
 
 
 def assert_tool_enabled(
-    fdc: FieldDataCapture,
+    crag: Crag,
     layer_names: str | Iterable[str],
     expected_tool: QgsMapTool,
     expected_tool_name: str,
@@ -148,11 +148,11 @@ def assert_tool_enabled(
     # Get layer(s) for checking
     # If a single layer is given for the tool
     if isinstance(layer_names, str):
-        expected_layers = [fdc.get_fdc_layer(layer_names)]
+        expected_layers = [crag.get_crag_layer(layer_names)]
     # If a list of layers is given for the tool
     else:
         expected_layers = [
-            fdc.get_fdc_layer(layer)
+            crag.get_crag_layer(layer)
             for layer in layer_names
         ]
 
@@ -164,24 +164,24 @@ def assert_tool_enabled(
         assert not expected_layer.isModified()
 
     # Check that the tool has been applied to the canvas
-    map_tool = fdc.iface.mapCanvas().mapTool()
+    map_tool = crag.iface.mapCanvas().mapTool()
     assert isinstance(map_tool, expected_tool)
     # Check the attributes of the tool
     assert map_tool.toolName() == expected_tool_name
     assert set(map_tool.get_layer()) == set(expected_layers)
     # Check that the button is toggled, but only if it is not the add field_project tool because it is a one time use
-    if expected_tool_name != "fdc_field_project_add":
-        assert fdc.quick_map_tool_buttons[expected_tool_name].isChecked()
+    if expected_tool_name != "crag_field_project_add":
+        assert crag.quick_map_tool_buttons[expected_tool_name].isChecked()
 
 
-def assert_no_tool_enabled(fdc: FieldDataCapture, layer: Optional[QgsVectorLayer] = None) -> None:
+def assert_no_tool_enabled(crag: Crag, layer: Optional[QgsVectorLayer] = None) -> None:
     """
     Assert that no tool is currently enabled.
     Also takes an optional layer to check if it is re-enabed editing mode and saved/rolled back.
     """
     # Check that a QuickMapTool has not been applied to the canvas
-    assert not isinstance(fdc.iface.mapCanvas().mapTool(), QuickMapToolBase)
-    for tool_button in fdc.quick_map_tool_buttons.values():
+    assert not isinstance(crag.iface.mapCanvas().mapTool(), QuickMapToolBase)
+    for tool_button in crag.quick_map_tool_buttons.values():
         # Check that the button is not toggled
         assert not tool_button.isChecked()
 
@@ -195,13 +195,13 @@ def test_enable_good(
     layer_names: str | Iterable[str],
     expected_tool: QgsMapTool,
     expected_tool_name: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Act
     # Enable quick tool
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
 
-    assert_tool_enabled(fdc_project_quick, layer_names, expected_tool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, layer_names, expected_tool, expected_tool_name)
 
 
 @pytest.mark.parametrize(*COMMON_TOOLS)
@@ -209,16 +209,16 @@ def test_enable_bad(
     layer_names: str | Iterable[str],
     expected_tool: QgsMapTool,
     expected_tool_name: str,
-    fdc: FieldDataCapture,
+    crag: Crag,
 ):
-    # This test uses the 'fdc' fixture rather than 'fdc_project_quick' because
+    # This test uses the 'crag' fixture rather than 'crag_project_quick' because
     # it tests that the quick tool is not toggled when no project exists.
     # Act
     # Enable quick tool
-    fdc.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    assert_no_tool_enabled(fdc)
+    assert_no_tool_enabled(crag)
 
 
 @pytest.mark.parametrize(*COMMON_TOOLS)
@@ -226,17 +226,17 @@ def test_disable_good(
     layer_names: str | Iterable[str],
     expected_tool: QgsMapTool,
     expected_tool_name: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Enable quick tool
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Act
     # Disable quick tool
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    assert_no_tool_enabled(fdc_project_quick)
+    assert_no_tool_enabled(crag_project_quick)
 
 
 @pytest.mark.parametrize(*COMMON_TOOLS)
@@ -244,45 +244,45 @@ def test_disable_bad(
     layer_names: str | Iterable[str],
     expected_tool: QgsMapTool,
     expected_tool_name: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Arrange
     # Enable quick tool
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Act
     # Remove the lithology layer so that the state is invalid for the plugin
-    lithology_layer = fdc_project_quick.get_fdc_layer("lithology")
+    lithology_layer = crag_project_quick.get_crag_layer("lithology")
     QgsProject.instance().removeMapLayer(lithology_layer)
     # Try to disable quick tool
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
     # The tool should have been disabled properly even though the state is invalid
-    assert_no_tool_enabled(fdc_project_quick)
+    assert_no_tool_enabled(crag_project_quick)
 
 
-# Ignore first common tool as it is fdc_locality_point_add which is used as old tool
+# Ignore first common tool as it is crag_locality_point_add which is used as old tool
 @pytest.mark.parametrize(COMMON_TOOLS[0], COMMON_TOOLS[1][1:])
 def test_switch_tool(
     layer_names: str | Iterable[str],
     expected_tool: QgsMapTool,
     expected_tool_name: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Arrange
-    old_tool_name = "fdc_locality_point_add"
+    old_tool_name = "crag_locality_point_add"
 
     # Act
     # Enable quick add locality point tool
-    fdc_project_quick.quick_map_tool_buttons[old_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[old_tool_name].trigger()
     # Enable new quick tool
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    assert_tool_enabled(fdc_project_quick, layer_names, expected_tool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, layer_names, expected_tool, expected_tool_name)
     # Check that the old button is not toggled
-    assert not fdc_project_quick.quick_map_tool_buttons[old_tool_name].isChecked()
+    assert not crag_project_quick.quick_map_tool_buttons[old_tool_name].isChecked()
 
 
 @pytest.mark.parametrize(*COMMON_TOOLS)
@@ -290,18 +290,18 @@ def test_manually_disable_editing(
     layer_names: str | Iterable[str],
     expected_tool: QgsMapTool,
     expected_tool_name: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Arrange
     # Enable quick tool
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Act
     # Disable editing on the first layer manually, this used to cause the tool to break
-    fdc_project_quick.quick_map_tool.get_layer()[0].rollBack()
+    crag_project_quick.quick_map_tool.get_layer()[0].rollBack()
 
     # Assert
-    assert_no_tool_enabled(fdc_project_quick)
+    assert_no_tool_enabled(crag_project_quick)
 
 
 @pytest.mark.parametrize(
@@ -315,60 +315,60 @@ def test_manually_disable_editing(
 def test_reopen_line_layer_selector(
     layer_name: str,
     line_type_code: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
 ):
     # Arrange
     expected_tool = QuickAddTool
-    expected_tool_name = f"fdc_{layer_name}_add"
+    expected_tool_name = f"crag_{layer_name}_add"
     start_layer_name = "artificial_line"
     start_line_type_code = "cliffline_quarry"
     # Press button to activate QuickAddTool for lines
-    fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].trigger()
+    crag_project_quick.quick_map_tool_buttons["crag_lines_add"].trigger()
     # Emit signal as if user selected the starting line type
-    fdc_project_quick.line_layer_selector.line_layer_selector_confirm.emit(start_layer_name, start_line_type_code)
+    crag_project_quick.line_layer_selector.line_layer_selector_confirm.emit(start_layer_name, start_line_type_code)
 
     # Act 1
     # Press button to activate QuickAddTool for lines whilst tool is already active
-    fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].trigger()
+    crag_project_quick.quick_map_tool_buttons["crag_lines_add"].trigger()
 
     # Assert 1
     # Check that LineLayerSelector has been reopened
-    assert isinstance(fdc_project_quick.line_layer_selector, LineLayerSelector)
+    assert isinstance(crag_project_quick.line_layer_selector, LineLayerSelector)
     # Check that the button is still toggled
-    assert fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].isChecked()
+    assert crag_project_quick.quick_map_tool_buttons["crag_lines_add"].isChecked()
 
     # Act 2
     # Emit signal as if user selected a new line type
-    fdc_project_quick.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
+    crag_project_quick.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
 
     # Assert 2
-    assert_tool_enabled(fdc_project_quick, layer_name, expected_tool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, layer_name, expected_tool, expected_tool_name)
     # Check that the button is still toggled
-    assert fdc_project_quick.quick_map_tool_buttons["fdc_lines_add"].isChecked()
+    assert crag_project_quick.quick_map_tool_buttons["crag_lines_add"].isChecked()
     # Check that the LineLayerSelector was opened twice
     assert LineLayerSelector.exec.call_count == 2
 
 
 @pytest.mark.parametrize("mode", ("add", "edit", "delete"))
-def test_locality_warn_edits(mode: str, fdc_project_quick: FieldDataCapture):
+def test_locality_warn_edits(mode: str, crag_project_quick: Crag):
     # Arrange
     layer_name = "locality_point"
     point_fid = 1
     edit_field = "map_face_note"
     new_value = "dummy_value"
-    expected_tool_name = f"fdc_{layer_name}_{mode}"
+    expected_tool_name = f"crag_{layer_name}_{mode}"
     # Manually make an edit without any tools and do not save it
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    layer = crag_project_quick.get_crag_layer(layer_name)
     layer.startEditing()
     edit_field_index = [field.name() for field in layer.fields()].index(edit_field)
     layer.changeAttributeValue(fid=point_fid, field=edit_field_index, newValue=new_value)
 
     # Act
     # Try to enable quick locality point mode
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
 
     # Assert
-    assert_no_tool_enabled(fdc_project_quick)
+    assert_no_tool_enabled(crag_project_quick)
     # Check that the layer is still editable
     assert layer.isEditable()
     # Check that the layer still has the manual changes
@@ -377,22 +377,22 @@ def test_locality_warn_edits(mode: str, fdc_project_quick: FieldDataCapture):
 
 
 def test_field_project_add_confirm(
-    fdc: FieldDataCapture,
+    crag: Crag,
     qgs_project,
     monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_polygon: QgsFeature,
 ):
     # Arrange 1
     layer_name = "field_project"
-    expected_tool_name = f"fdc_{layer_name}_add"
+    expected_tool_name = f"crag_{layer_name}_add"
 
     # Act 1 - enable the tool
-    fdc.button_setup_project.trigger()
+    crag.button_setup_project.trigger()
 
     # Assert 1 - confirm tool setup
-    assert_tool_enabled(fdc, layer_name, QuickAddTool, expected_tool_name)
+    assert_tool_enabled(crag, layer_name, QuickAddTool, expected_tool_name)
     # Check that the layer is not modified yet
-    layer = fdc.get_fdc_layer(layer_name)
+    layer = crag.get_crag_layer(layer_name)
     assert not layer.isModified()
 
     # Arrange 2 - apply changes to feature
@@ -402,42 +402,42 @@ def test_field_project_add_confirm(
     monkeypatch_feature_form(monkeypatch, save=True, attributes=attributes)
 
     # Act 2 - add a new project
-    fdc.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_polygon)
+    crag.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_polygon)
 
     # Assert 2 - confirm tool teardown and project creation
-    assert_no_tool_enabled(fdc, layer)
+    assert_no_tool_enabled(crag, layer)
     # Check that the new feature has the correct attributes and geometry
     new_feature: QgsFeature = list(layer.getFeatures())[-1]
     assert new_feature.attribute("fid") == 1
     assert new_feature.attribute("short_name") == "test_project"
-    assert new_feature.attribute("qgis_plugin_version") == "fdc_test_fixture"
+    assert new_feature.attribute("qgis_plugin_version") == "crag_test_fixture"
     for field_name, field_value in attributes.items():
         assert new_feature.attribute(field_name) == field_value
     assert new_feature.geometry().asWkt() == empty_geometry_feature_polygon.geometry().asWkt()
 
 
 def test_field_project_add_cancel(
-    fdc: FieldDataCapture,
+    crag: Crag,
     monkeypatch: pytest.MonkeyPatch,
     qgs_project,
     empty_geometry_feature_polygon: QgsFeature,
 ):
     # Arrange
     layer_name = "field_project"
-    expected_tool_name = f"fdc_{layer_name}_add"
+    expected_tool_name = f"crag_{layer_name}_add"
 
     monkeypatch_feature_form(monkeypatch, save=False)
 
     # Act
-    fdc.button_setup_project.trigger()
-    fdc.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_polygon)
+    crag.button_setup_project.trigger()
+    crag.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_polygon)
 
     # Assert
-    assert_tool_enabled(fdc, layer_name, QuickAddTool, expected_tool_name)
+    assert_tool_enabled(crag, layer_name, QuickAddTool, expected_tool_name)
 
 
 def test_locality_add_confirm(
-    fdc_project: FieldDataCapture,
+    crag_project: Crag,
     monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_point: QgsFeature,
 ):
@@ -446,15 +446,15 @@ def test_locality_add_confirm(
     locality_type_field = "locality_type_code"
     # test_point_002 is added to the DB before test_point_001, so the last point is now an auger_borehole
     last_locality_type_value = "auger_borehole"
-    expected_tool_name = f"fdc_{layer_name}_add"
+    expected_tool_name = f"crag_{layer_name}_add"
     # Enable add quick locality point mode
-    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = fdc_project.get_fdc_layer(layer_name)
+    crag_project.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = crag_project.get_crag_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=True)
 
     # Act
-    fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_point)
+    crag_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_point)
 
     # Assert
     # Check that the new feature has the correct attributes and geometry
@@ -464,25 +464,25 @@ def test_locality_add_confirm(
     assert new_feature.attribute("name") == f"{getpass.getuser()}_001"
     assert new_feature.attribute(locality_type_field) == last_locality_type_value
     assert new_feature.geometry().asWkt() == empty_geometry_feature_point.geometry().asWkt()
-    assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
+    assert_tool_enabled(crag_project, layer_name, QuickAddTool, expected_tool_name)
 
 
 def test_locality_add_cancel(
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_point: QgsFeature,
 ):
     # Arrange
     layer_name = "locality_point"
-    expected_tool_name = f"fdc_{layer_name}_add"
+    expected_tool_name = f"crag_{layer_name}_add"
     # Enable add quick locality point mode
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = crag_project_quick.get_crag_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=False)
 
     # Act
-    fdc_project_quick.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_point)
+    crag_project_quick.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_point)
 
     # Assert
     # Check that there are only 2 features
@@ -492,18 +492,18 @@ def test_locality_add_cancel(
     expected_fid = 3
     feature_fids = {feature.attribute("fid") for feature in features}
     assert expected_fid not in feature_fids
-    assert_tool_enabled(fdc_project_quick, layer_name, QuickAddTool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, layer_name, QuickAddTool, expected_tool_name)
 
 
-def test_locality_edit_confirm(fdc_project_quick: FieldDataCapture, monkeypatch: pytest.MonkeyPatch):
+def test_locality_edit_confirm(crag_project_quick: Crag, monkeypatch: pytest.MonkeyPatch):
     # Arrange
     layer_name = "locality_point"
     edit_field = "map_face_note"
     new_value = "dummy_value"
-    expected_tool_name = f"fdc_{layer_name}_edit"
+    expected_tool_name = f"crag_{layer_name}_edit"
     # Enable edit quick locality point mode
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = crag_project_quick.get_crag_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=True, attributes={edit_field: new_value})
 
@@ -511,16 +511,16 @@ def test_locality_edit_confirm(fdc_project_quick: FieldDataCapture, monkeypatch:
     # Emit the signal which would open the form and auto save afterwards
     edit_feature_fid = 1
     feature_to_edit = layer.getFeature(edit_feature_fid)
-    fdc_project_quick.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
+    crag_project_quick.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
 
     # Assert
     # Check that the edit has been saved correctly
     assert layer.getFeature(edit_feature_fid).attribute(edit_field) == new_value
-    assert_tool_enabled(fdc_project_quick, layer_name, QuickEditTool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, layer_name, QuickEditTool, expected_tool_name)
 
 
 def test_locality_edit_cancel(
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
@@ -528,10 +528,10 @@ def test_locality_edit_cancel(
     edit_field = "map_face_note"
     # test_point_002 is added to the DB before test_point_001
     old_value = "test_point_002 note"
-    expected_tool_name = f"fdc_{layer_name}_edit"
+    expected_tool_name = f"crag_{layer_name}_edit"
     # Enable edit quick locality point mode
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = crag_project_quick.get_crag_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=False)
 
@@ -539,21 +539,21 @@ def test_locality_edit_cancel(
     # Emit the signal which would open the form and auto save afterwards
     edit_feature_fid = 1
     feature_to_edit = layer.getFeature(edit_feature_fid)
-    fdc_project_quick.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
+    crag_project_quick.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
 
     # Assert
     # Check that the edit has not been saved
     assert layer.getFeature(edit_feature_fid).attribute(edit_field) == old_value
-    assert_tool_enabled(fdc_project_quick, layer_name, QuickEditTool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, layer_name, QuickEditTool, expected_tool_name)
 
 
-def test_locality_delete_confirm(fdc_project_quick: FieldDataCapture, monkeypatch_qmsgbox_question_yes):
+def test_locality_delete_confirm(crag_project_quick: Crag, monkeypatch_qmsgbox_question_yes):
     # Arrange
     layer_name = "locality_point"
-    expected_tool_name = f"fdc_{layer_name}_delete"
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    expected_tool_name = f"crag_{layer_name}_delete"
+    layer = crag_project_quick.get_crag_layer(layer_name)
     # Enable delete quick locality point mode
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
     delete_feature_fid = 1
     delete_locality_fuid = layer.getFeature(delete_feature_fid).attribute("uuid")
 
@@ -561,7 +561,7 @@ def test_locality_delete_confirm(fdc_project_quick: FieldDataCapture, monkeypatc
     # Delete one of the test points
     # Emit the signal which would delete an identified feature and save after confirmation
     feature_to_delete = layer.getFeature(delete_feature_fid)
-    fdc_project_quick.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
+    crag_project_quick.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
 
     # Assert
     # Check that there is only 1 feature remaining
@@ -572,7 +572,7 @@ def test_locality_delete_confirm(fdc_project_quick: FieldDataCapture, monkeypatc
 
     # Check that the deleted feature children do not exist
     for child_layer_name in LAYER_TREE_STRUCTURE_INDEXED["locality_data"]:
-        child_layer = fdc_project_quick.get_fdc_layer(child_layer_name)
+        child_layer = crag_project_quick.get_crag_layer(child_layer_name)
         # The child layer should have been autosaved
         assert not child_layer.isEditable()
         assert not child_layer.isModified()
@@ -580,16 +580,16 @@ def test_locality_delete_confirm(fdc_project_quick: FieldDataCapture, monkeypatc
         for child_feature in child_layer.getFeatures():
             assert child_feature.attribute("locality_fuid") != delete_locality_fuid
 
-    assert_tool_enabled(fdc_project_quick, layer_name, QuickDeleteTool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, layer_name, QuickDeleteTool, expected_tool_name)
 
 
-def test_locality_delete_cancel(fdc_project_quick: FieldDataCapture, monkeypatch_qmsgbox_question_no):
+def test_locality_delete_cancel(crag_project_quick: Crag, monkeypatch_qmsgbox_question_no):
     # Arrange
     layer_name = "locality_point"
-    expected_tool_name = f"fdc_{layer_name}_delete"
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    expected_tool_name = f"crag_{layer_name}_delete"
+    layer = crag_project_quick.get_crag_layer(layer_name)
     # Enable delete quick locality point mode
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
     delete_feature_fid = 1
     delete_locality_fuid = layer.getFeature(delete_feature_fid).attribute("uuid")
 
@@ -597,7 +597,7 @@ def test_locality_delete_cancel(fdc_project_quick: FieldDataCapture, monkeypatch
     # Delete one of the test points
     # Emit the signal which would delete an identified feature and save after confirmation
     feature_to_delete = layer.getFeature(delete_feature_fid)
-    fdc_project_quick.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
+    crag_project_quick.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
 
     # Assert
     # Check that there are still 2 features
@@ -608,7 +608,7 @@ def test_locality_delete_cancel(fdc_project_quick: FieldDataCapture, monkeypatch
 
     # Check that the child features have not been deleted
     for child_layer_name in LAYER_TREE_STRUCTURE_INDEXED["locality_data"]:
-        child_layer = fdc_project_quick.get_fdc_layer(child_layer_name)
+        child_layer = crag_project_quick.get_crag_layer(child_layer_name)
         # The child layer should not have been changed
         assert not child_layer.isEditable()
         assert not child_layer.isModified()
@@ -616,7 +616,7 @@ def test_locality_delete_cancel(fdc_project_quick: FieldDataCapture, monkeypatch
         child_locality_fuids = {child_feature.attribute("locality_fuid") for child_feature in child_layer.getFeatures()}
         assert delete_locality_fuid in child_locality_fuids
 
-    assert_tool_enabled(fdc_project_quick, layer_name, QuickDeleteTool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, layer_name, QuickDeleteTool, expected_tool_name)
 
 
 @pytest.mark.parametrize(
@@ -629,23 +629,23 @@ def test_locality_delete_cancel(fdc_project_quick: FieldDataCapture, monkeypatch
 def test_lines_add_confirm(
     layer_name: str,
     line_type_code: str,
-    fdc_project: FieldDataCapture,
+    crag_project: Crag,
     monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_line: QgsFeature,
 ):
     # Arrange
-    expected_tool_name = f"fdc_{layer_name}_add"
+    expected_tool_name = f"crag_{layer_name}_add"
     # Enable add quick line mode for given layer
-    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = fdc_project.get_fdc_layer(layer_name)
+    crag_project.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = crag_project.get_crag_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=True)
 
     # Emit signal as if user selected a line type
-    fdc_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
+    crag_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
 
     # Act
-    fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_line)
+    crag_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_line)
 
     # Assert
     # Check that the new feature has the correct attributes and geometry
@@ -654,7 +654,7 @@ def test_lines_add_confirm(
     assert new_feature.attribute("fid") == expected_fid
     assert new_feature.attribute("line_type_code") == line_type_code
     assert new_feature.geometry().asWkt() == empty_geometry_feature_line.geometry().asWkt()
-    assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
+    assert_tool_enabled(crag_project, layer_name, QuickAddTool, expected_tool_name)
 
 
 @pytest.mark.parametrize(
@@ -667,23 +667,23 @@ def test_lines_add_confirm(
 def test_lines_add_cancel(
     layer_name: str,
     line_type_code: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_line: QgsFeature,
 ):
     # Arrange
-    expected_tool_name = f"fdc_{layer_name}_add"
+    expected_tool_name = f"crag_{layer_name}_add"
     # Enable add quick line mode for given layer
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = crag_project_quick.get_crag_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=False)
 
     # Emit signal as if user selected a line type
-    fdc_project_quick.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
+    crag_project_quick.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
 
     # Act
-    fdc_project_quick.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_line)
+    crag_project_quick.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_line)
 
     # Assert
     # Check that there are only 2 features
@@ -693,7 +693,7 @@ def test_lines_add_cancel(
     expected_fid = 2
     feature_fids = {feature.attribute("fid") for feature in features}
     assert expected_fid not in feature_fids
-    assert_tool_enabled(fdc_project_quick, layer_name, QuickAddTool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, layer_name, QuickAddTool, expected_tool_name)
 
 
 @pytest.mark.parametrize(
@@ -706,27 +706,27 @@ def test_lines_add_cancel(
 def test_lines_add_hide_form(
     layer_name: str,
     line_type_code: str,
-    fdc_project: FieldDataCapture,
+    crag_project: Crag,
     monkeypatch: pytest.MonkeyPatch,
     empty_geometry_feature_line: QgsFeature,
 ):
     # Arrange
-    expected_tool_name = f"fdc_{layer_name}_add"
+    expected_tool_name = f"crag_{layer_name}_add"
     # Enable add quick line mode for given layer
-    fdc_project.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = fdc_project.get_fdc_layer(layer_name)
+    crag_project.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = crag_project.get_crag_layer(layer_name)
     # Update the plugin setting to hide the form
-    fdc_project.set_plugin_setting("show_lines_form", False)
+    crag_project.set_plugin_setting("show_lines_form", False)
     # Apply monkeypatch for open_feature_form, to ensure it was not called
     open_feature_form_mock = Mock()
     monkeypatch.setattr(QuickMapToolBase, "open_feature_form", open_feature_form_mock)
 
     # Emit signal as if user selected a line type
-    fdc_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
+    crag_project.line_layer_selector.line_layer_selector_confirm.emit(layer_name, line_type_code)
 
     # Act
     # The line should be auto saved as soon as digitizing is complete
-    fdc_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_line)
+    crag_project.quick_map_tool.digitizingCompleted.emit(empty_geometry_feature_line)
 
     # Assert
     # Check that the new feature has the correct attributes and geometry
@@ -736,22 +736,22 @@ def test_lines_add_hide_form(
     assert new_feature.attribute("line_type_code") == line_type_code
     assert new_feature.geometry().asWkt() == empty_geometry_feature_line.geometry().asWkt()
     open_feature_form_mock.assert_not_called()
-    assert_tool_enabled(fdc_project, layer_name, QuickAddTool, expected_tool_name)
+    assert_tool_enabled(crag_project, layer_name, QuickAddTool, expected_tool_name)
 
 
 @pytest.mark.parametrize("layer_name", FEATURE_TABLES_LINES)
 def test_lines_edit_confirm(
     layer_name: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
     edit_field = "line_label"
     new_value = "dummy_value"
-    expected_tool_name = "fdc_lines_edit"
+    expected_tool_name = "crag_lines_edit"
     # Enable edit quick line mode
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = crag_project_quick.get_crag_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=True, attributes={edit_field: new_value})
 
@@ -759,12 +759,12 @@ def test_lines_edit_confirm(
     # Emit the signal which would open the form and auto save afterwards
     edit_feature_fid = 1
     feature_to_edit = layer.getFeature(edit_feature_fid)
-    fdc_project_quick.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
+    crag_project_quick.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
 
     # Assert
     # Check that the edit has been saved correctly
     assert layer.getFeature(edit_feature_fid).attribute(edit_field) == new_value
-    assert_tool_enabled(fdc_project_quick, FEATURE_TABLES_LINES, QuickEditTool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, FEATURE_TABLES_LINES, QuickEditTool, expected_tool_name)
 
 
 @pytest.mark.parametrize(
@@ -788,15 +788,15 @@ def test_lines_edit_confirm(
 def test_lines_edit_cancel(
     layer_name: str,
     old_value: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     monkeypatch: pytest.MonkeyPatch,
 ):
     # Arrange
     edit_field = "line_label"
-    expected_tool_name = "fdc_lines_edit"
+    expected_tool_name = "crag_lines_edit"
     # Enable edit quick line mode
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    layer = crag_project_quick.get_crag_layer(layer_name)
 
     monkeypatch_feature_form(monkeypatch, save=False)
 
@@ -804,57 +804,57 @@ def test_lines_edit_cancel(
     # Emit the signal which would open the form and auto save afterwards
     edit_feature_fid = 1
     feature_to_edit = layer.getFeature(edit_feature_fid)
-    fdc_project_quick.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
+    crag_project_quick.quick_map_tool.identified_feature.emit(feature_to_edit, layer)
 
     # Assert
     # Check that the edit has not been saved
     assert layer.getFeature(edit_feature_fid).attribute(edit_field) == old_value
-    assert_tool_enabled(fdc_project_quick, FEATURE_TABLES_LINES, QuickEditTool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, FEATURE_TABLES_LINES, QuickEditTool, expected_tool_name)
 
 
 @pytest.mark.parametrize("layer_name", FEATURE_TABLES_LINES)
 def test_lines_delete_confirm(
     layer_name: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     monkeypatch_qmsgbox_question_yes,
 ):
     # Arrange
-    expected_tool_name = "fdc_lines_delete"
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    expected_tool_name = "crag_lines_delete"
+    layer = crag_project_quick.get_crag_layer(layer_name)
     # Enable delete quick lines mode
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
     delete_feature_fid = 1
 
     # Act
     # Delete one of the test features
     # Emit the signal which would delete an identified feature and save after confirmation
     feature_to_delete = layer.getFeature(delete_feature_fid)
-    fdc_project_quick.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
+    crag_project_quick.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
 
     # Assert
     # Check that there are no features remaining
     assert len(list(layer.getFeatures())) == 0
-    assert_tool_enabled(fdc_project_quick, FEATURE_TABLES_LINES, QuickDeleteTool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, FEATURE_TABLES_LINES, QuickDeleteTool, expected_tool_name)
 
 
 @pytest.mark.parametrize("layer_name", FEATURE_TABLES_LINES)
 def test_lines_delete_cancel(
     layer_name: str,
-    fdc_project_quick: FieldDataCapture,
+    crag_project_quick: Crag,
     monkeypatch_qmsgbox_question_no,
 ):
     # Arrange
-    expected_tool_name = "fdc_lines_delete"
-    layer = fdc_project_quick.get_fdc_layer(layer_name)
+    expected_tool_name = "crag_lines_delete"
+    layer = crag_project_quick.get_crag_layer(layer_name)
     # Enable delete quick lines mode
-    fdc_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
+    crag_project_quick.quick_map_tool_buttons[expected_tool_name].trigger()
     delete_feature_fid = 1
 
     # Act
     # Delete one of the test features
     # Emit the signal which would delete an identified feature and save after confirmation
     feature_to_delete = layer.getFeature(delete_feature_fid)
-    fdc_project_quick.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
+    crag_project_quick.quick_map_tool.identified_feature.emit(feature_to_delete, layer)
 
     # Assert
     # Check that there is still 1 feature
@@ -862,4 +862,4 @@ def test_lines_delete_cancel(
     assert len(features) == 1
     # Check that it's fid value is not deleted
     assert delete_feature_fid in {feature.attribute("fid") for feature in features}
-    assert_tool_enabled(fdc_project_quick, FEATURE_TABLES_LINES, QuickDeleteTool, expected_tool_name)
+    assert_tool_enabled(crag_project_quick, FEATURE_TABLES_LINES, QuickDeleteTool, expected_tool_name)

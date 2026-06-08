@@ -1,4 +1,4 @@
-name: fdc
+name: crag
 channels:
   - https://nexus-internal.bgs.ac.uk/repository/conda-forge
   - https://nexus-internal.bgs.ac.uk/repository/conda-forge/label/qgis_ltr

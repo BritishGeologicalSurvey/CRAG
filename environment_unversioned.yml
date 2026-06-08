@@ -1,5 +1,5 @@
 # Environment file with the packages that we require.
-name: fdc
+name: crag
 channels:
   - https://nexus-internal.bgs.ac.uk/repository/conda-forge
   # Labelled repository gives access to different file versions
