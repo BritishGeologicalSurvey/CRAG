@@ -5,9 +5,9 @@ on:
     branches:
       - "*"
     paths:
-      - 'user_guide/**.py'
-      - 'user_guide/**.md'
-      - 'user_guide/**.rtt'
+      - 'docs/user_guide/**.py'
+      - 'docs/user_guide/**.md'
+      - 'docs/user_guide/**.rtt'
       - 'environment*.yml'
       - '.github/workflows/build_docs.yml'
 
@@ -30,26 +30,26 @@ jobs:
 
     - name: Lint
       shell: bash -l {0}
-      run: flake8 user_guide/
+      run: flake8 docs/user_guide/
 
     - name: Build HTML
       shell: bash -l {0}
       run: |
-        sphinx-build -M html user_guide/source/ user_guide/build/
+        sphinx-build -M html docs/user_guide/source/ docs/user_guide/build/
 
     - name: Upload HTML Documents
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
       with:
         name: html-documents
-        path: user_guide/build/html
+        path: docs/user_guide/build/html
 
     - name: Build PDF
       shell: bash -l {0}
       run: |
-        sphinx-build -M rinoh user_guide/source/ user_guide/build/
+        sphinx-build -M rinoh docs/user_guide/source/ docs/user_guide/build/
 
     - name: Upload PDF Documents
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
       with:
         name: user-guide-pdf
-        path: user_guide/build/rinoh/crag_user_guide.pdf
+        path: docs/user_guide/build/rinoh/crag_user_guide.pdf

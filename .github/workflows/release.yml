@@ -39,12 +39,12 @@ jobs:
     - name: Build HTML
       shell: bash -l {0}
       run: |
-        sphinx-build -M html user_guide/source/ user_guide/build/
+        sphinx-build -M html docs/user_guide/source/ docs/user_guide/build/
 
     - name: PB Tool
       shell: bash -l {0}
       run: |
-        cp -r user_guide/build/html/* plugin/help/.
+        cp -r docs/user_guide/build/html/* plugin/help/.
         cd plugin
         python ../bin/update_plugin_metadata.py metadata.txt >> "$GITHUB_ENV"
         pb_tool zip
