@@ -1,0 +1,73 @@
+name: Package and Release Plugin
+
+on:
+  release:
+    types:
+      - released
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3  # v6
+
+    - name: Cache Python packages
+      uses: actions/cache@a7833574556fa59680c1b7cb190c1735db73ebf0  # v5
+      env:
+        # Increase this value to reset cache if environment file has not changed
+        CACHE_NUMBER: 1
+      with:
+        path: |
+          ~/conda_pkgs_dir
+          ~/.cache/pip
+        key:
+          ${{ runner.os }}-conda-${{ env.CACHE_NUMBER }}-${{
+          hashFiles('environment_unversioned.yml') }}
+
+    - name: Activate Anaconda Environment
+      uses: conda-incubator/setup-miniconda@8ee1f361103df19b6f8c8655fd3967a8ecb162d5  # v4.0.1
+      with:
+        miniforge-version: latest
+        environment-file: environment_unversioned.yml
+        activate-environment: crag
+        auto-activate-base: false
+        use-only-tar-bz2: true # IMPORTANT: This needs to be set for caching to work properly!
+      env:
+        CONDA_OVERRIDE_ARCHSPEC: x86_64_v4
+
+    - name: Build HTML
+      shell: bash -l {0}
+      run: |
+        sphinx-build -M html user_guide/source/ user_guide/build/
+
+    - name: PB Tool
+      shell: bash -l {0}
+      run: |
+        cp -r user_guide/build/html/* plugin/help/.
+        cd plugin
+        python ../bin/update_plugin_metadata.py metadata.txt >> "$GITHUB_ENV"
+        pb_tool zip
+
+    - name: Test QGIS Import
+      env:
+        # This allows Qt to run headless.  It replaces the xvfb command
+        # that we use in the Docker containers.
+        QT_QPA_PLATFORM: offscreen
+        PYTHONUNBUFFERED: 1
+      shell: bash -l {0}
+      run: |
+        cd plugin/zip_build
+        python -c "from qgis.testing.mocked import get_iface; from crag import classFactory; classFactory(get_iface())"
+
+    - name: Rename Plugin
+      shell: bash -l {0}
+      run: |
+        cd plugin/zip_build
+        mv crag.zip "$PLUGIN_FILE_NAME"
+
+    - name: Release Plugin
+      uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3
+      with:
+        working_directory: plugin/zip_build
+        files: ${{ env.PLUGIN_FILE_NAME }}

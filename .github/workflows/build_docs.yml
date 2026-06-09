@@ -1,0 +1,55 @@
+name: Build Docs
+
+on:
+  push:
+    branches:
+      - "*"
+    paths:
+      - 'user_guide/**.py'
+      - 'user_guide/**.md'
+      - 'user_guide/**.rtt'
+      - 'environment*.yml'
+      - '.github/workflows/build_docs.yml'
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3  # v6
+
+    - name: Activate Anaconda Environment
+      uses: conda-incubator/setup-miniconda@8ee1f361103df19b6f8c8655fd3967a8ecb162d5  # v4.0.1
+      with:
+        miniforge-version: latest
+        environment-file: environment_unversioned.yml
+        activate-environment: crag
+        auto-activate-base: false
+      env:
+        CONDA_OVERRIDE_ARCHSPEC: x86_64_v4
+
+    - name: Lint
+      shell: bash -l {0}
+      run: flake8 user_guide/
+
+    - name: Build HTML
+      shell: bash -l {0}
+      run: |
+        sphinx-build -M html user_guide/source/ user_guide/build/
+
+    - name: Upload HTML Documents
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+      with:
+        name: html-documents
+        path: user_guide/build/html
+
+    - name: Build PDF
+      shell: bash -l {0}
+      run: |
+        sphinx-build -M rinoh user_guide/source/ user_guide/build/
+
+    - name: Upload PDF Documents
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+      with:
+        name: user-guide-pdf
+        path: user_guide/build/rinoh/crag_user_guide.pdf
