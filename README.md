@@ -7,7 +7,7 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 > This repository contains code for a QGIS plugin to add the CRAG layers to a QGIS project and additional tools for using QGIS in the field.
 
-Plugin documentation: http://field-data-capture.glpages.ad.nerc.ac.uk/crag-user-guide/
+Plugin documentation: http://field-data-capture.glpages.ad.nerc.ac.uk/sigma-q-user-guide/
 
 Scripts are required to:
 
