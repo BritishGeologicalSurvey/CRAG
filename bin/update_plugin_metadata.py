@@ -20,7 +20,7 @@ def get_zip_file_name_env():
     Return zip file name filename.
     """
     tag = _get_version()
-    filename_env = f'PLUGIN_FILE_NAME=field_data_capture_{tag}.zip'
+    filename_env = f'PLUGIN_FILE_NAME=crag_{tag}.zip'
     return filename_env
 
 
