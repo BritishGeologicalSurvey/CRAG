@@ -19,13 +19,6 @@ RUN apt-get update -y \
 
 RUN conda config --set solver libmamba
 
-# These commands are required to build containers on the VPN
-# The VPN changes the certificate chain so we need to recognise
-# the local certificates.
-COPY certs/*.crt /usr/local/share/ca-certificates
-RUN update-ca-certificates
-ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-ENV PIP_INDEX_URL=https://nexus-internal.bgs.ac.uk/repository/pypi-all/simple
 ENV CONDA_OVERRIDE_ARCHSPEC=x86_64_v4
 
 # This section is used to generate an environment.yml that is

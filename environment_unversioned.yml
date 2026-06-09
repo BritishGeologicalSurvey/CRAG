@@ -1,9 +1,9 @@
 # Environment file with the packages that we require.
 name: crag
 channels:
-  - https://nexus-internal.bgs.ac.uk/repository/conda-forge
+  - conda-forge
   # Labelled repository gives access to different file versions
-  - https://nexus-internal.bgs.ac.uk/repository/conda-forge/label/qgis_ltr
+  - conda-forge/label/qgis_ltr
 dependencies:
   # Correspond to current long-term support versions in Windows
   - python=3.12

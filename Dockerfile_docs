@@ -7,15 +7,8 @@ RUN  apt-get -y update \
      && apt-get install -y zip \
      && rm -rf /var/lib/apt/lists/*
 
-# These commands are required to build containers on the VPN
-# The VPN changes the certificate chain so we need to recognise
-# the local certificates.
-COPY certs/*.crt /usr/local/share/ca-certificates/
-RUN update-ca-certificates
-ENV REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-
 COPY requirements_docker_docs.txt requirements.txt
-RUN pip3 install --no-cache-dir -r requirements.txt --index-url=https://nexus-internal.bgs.ac.uk/repository/pypi-all/simple
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 COPY /docs/user_guide/ /docs/user_guide/
 

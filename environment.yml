@@ -1,7 +1,7 @@
 name: crag
 channels:
-  - https://nexus-internal.bgs.ac.uk/repository/conda/main
-  - https://nexus-internal.bgs.ac.uk/repository/conda-forge
+  - conda-forge
+  - conda-forge/label/qgis_ltr
 dependencies:
   - _openmp_mutex=4.5=20_gnu
   - _x86_64-microarch-level=4=3_x86_64_v4
