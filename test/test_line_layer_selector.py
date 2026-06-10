@@ -7,9 +7,9 @@ from unittest.mock import Mock
 import pytest
 from qgis.PyQt.QtWidgets import QRadioButton
 
-from plugin.crag import Crag
-from plugin.line_layer_selector import LineLayerSelector
-from plugin.utils import (  # noqa
+from CRAG.crag import Crag
+from CRAG.line_layer_selector import LineLayerSelector
+from CRAG.utils import (  # noqa
     get_combobox_items_dict,
     set_combobox_index_by_data,
     ipdb_breakpoint,

@@ -7,7 +7,7 @@ Tests to ensure the formatting and style of SQL scripts is correct.
 from pathlib import Path
 import re
 
-SQL_DIR = Path(__file__).parent.parent / 'plugin' / 'sql'
+SQL_DIR = Path(__file__).parent.parent / 'CRAG' / 'sql'
 
 
 def test_no_tabs_are_present():

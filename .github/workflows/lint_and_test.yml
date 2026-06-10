@@ -8,7 +8,7 @@ on:
     branches:
       - "*"
     paths:
-      - 'plugin/**.py'
+      - 'CRAG/**.py'
       - 'test/**.py'
       - 'environment*.yml'
       - '.github/workflows/lint_and_test.yml'
@@ -47,7 +47,7 @@ jobs:
 
     - name: Lint
       shell: bash -l {0}
-      run: flake8 plugin/ test/ bin/
+      run: flake8 CRAG/ test/ bin/
 
     - name: Test
       shell: bash -l {0}
@@ -66,7 +66,7 @@ jobs:
         PYTHONUNBUFFERED: 1
       shell: bash -l {0}
       run: |
-        cd plugin
+        cd CRAG
         python ../bin/update_plugin_metadata.py metadata.txt >> "$GITHUB_ENV"
         pb_tool zip
         cd zip_build

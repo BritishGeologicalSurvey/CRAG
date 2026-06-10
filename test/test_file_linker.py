@@ -19,14 +19,14 @@ from qgis.PyQt.QtWidgets import (
     QTextEdit,
 )
 
-from plugin.crag import Crag
-from plugin.file_linker import (
+from CRAG.crag import Crag
+from CRAG.file_linker import (
     FileLinker,
     MAX_PHOTO_CAPTION_LENGTH,
     MAX_PHOTO_DESCRIPTION_LENGTH,
     MAX_MEDIA_DESCRIPTION_LENGTH,
 )
-from plugin.utils import (  # noqa
+from CRAG.utils import (  # noqa
     MultilineMessageBox,
     create_prepopulated_feature,
     get_combobox_items_dict,

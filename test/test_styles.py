@@ -11,9 +11,9 @@ import xml.etree.ElementTree as ET
 import etlhelper as etl
 from etlhelper.exceptions import ETLHelperExtractError
 
-from plugin.config import FEATURE_TABLES_LINES, VIEWS, LOCALITY_DICTIONARIES
+from CRAG.config import FEATURE_TABLES_LINES, VIEWS, LOCALITY_DICTIONARIES
 
-STYLES_DIR = Path(__file__).parent.parent / "plugin" / "styles"
+STYLES_DIR = Path(__file__).parent.parent / "CRAG" / "styles"
 
 
 def test_style_files_exist():

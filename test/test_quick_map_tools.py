@@ -23,19 +23,19 @@ from qgis.core import (
 from qgis.gui import QgsMapTool
 from qgis.PyQt.QtCore import pyqtSignal
 from qgis.PyQt.QtWidgets import QDialog
-from plugin.config import (
+from CRAG.config import (
     FEATURE_TABLES_LINES,
     LAYER_TREE_STRUCTURE_INDEXED,
 )
-from plugin.crag import Crag
-from plugin.line_layer_selector import LineLayerSelector
-from plugin.quick_map_tools import (
+from CRAG.crag import Crag
+from CRAG.line_layer_selector import LineLayerSelector
+from CRAG.quick_map_tools import (
     QuickMapToolBase,
     QuickAddTool,
     QuickEditTool,
     QuickDeleteTool,
 )
-from plugin.utils import ipdb_breakpoint  # noqa
+from CRAG.utils import ipdb_breakpoint  # noqa
 from conftest import create_empty_geometry_feature
 
 COMMON_TOOLS = (

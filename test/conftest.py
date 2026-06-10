@@ -25,14 +25,14 @@ from qgis.PyQt.QtWidgets import (
 )
 from qgis.testing.mocked import get_iface
 
-from plugin.config import TABLE_LIST
-from plugin.create_gpkg_from_sql import main as gpkg_from_sql
-from plugin.create_gpkg_from_sql import add_test_data
-from plugin.crag import Crag
-from plugin.crag_project import CragProject
-from plugin.quick_map_tools import QuickMapToolBase
-from plugin.report_builder import ReportBuilder
-from plugin.utils import MultilineMessageBox
+from CRAG.config import TABLE_LIST
+from CRAG.create_gpkg_from_sql import main as gpkg_from_sql
+from CRAG.create_gpkg_from_sql import add_test_data
+from CRAG.crag import Crag
+from CRAG.crag_project import CragProject
+from CRAG.quick_map_tools import QuickMapToolBase
+from CRAG.report_builder import ReportBuilder
+from CRAG.utils import MultilineMessageBox
 
 
 def setup_db_conn(db_file: Path) -> sqlite3.Connection:

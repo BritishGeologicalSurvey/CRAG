@@ -6,12 +6,12 @@ from qgis.PyQt.QtWidgets import (
     QVBoxLayout,
 )
 
-from plugin.crag import Crag
-from plugin.settings_dialog import (
+from CRAG.crag import Crag
+from CRAG.settings_dialog import (
     RadioButtonGroup,
     SettingsDialog,
 )
-from plugin.utils import ipdb_breakpoint  # noqa
+from CRAG.utils import ipdb_breakpoint  # noqa
 
 RADIO_LABEL = "Select an option"
 RADIO_OPTIONS = ["Duck", "Quack", "Honk"]

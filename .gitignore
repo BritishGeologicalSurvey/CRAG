@@ -1,9 +1,7 @@
 __pycache__
 .pytest_cache
 setup_env.sh
-plugin/help
-!plugin/help/Makefile
-plugin/zip_build
+CRAG/zip_build
 
 field-data-capture.gpkg
 *.gpkg-journal

@@ -31,16 +31,16 @@ from qgis.PyQt.QtCore import QMetaType
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from conftest import setup_db_conn
-from plugin.config import (
+from CRAG.config import (
     ATTRIBUTE_TABLES,
     FEATURE_TABLES,
     TABLE_LIST,
     LAYER_TREE_STRUCTURE_INDEXED,
 )
-from plugin.crag import Crag
-from plugin.report_builder import ReportBuilder
-from plugin.about_dialog import AboutDialog
-from plugin.utils import ipdb_breakpoint  # noqa
+from CRAG.crag import Crag
+from CRAG.report_builder import ReportBuilder
+from CRAG.about_dialog import AboutDialog
+from CRAG.utils import ipdb_breakpoint  # noqa
 
 
 def test_instantiation(crag):
@@ -155,7 +155,7 @@ def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     expected_qml_files = [
         # Make the expected path relative to the project root
         Path(qml_file.parent.name) / qml_file.name
-        for qml_file in Path("plugin/styles").glob("*.qml")
+        for qml_file in Path("CRAG/styles").glob("*.qml")
     ]
     expected_slyr_style = Path("BGS_CGDM_styles_2025_v4.xml")
     expected_user_dirs = [

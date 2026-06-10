@@ -8,7 +8,7 @@ from typing import Optional
 import pytest
 import etlhelper as etl
 
-from plugin.config import (
+from CRAG.config import (
     ATTRIBUTE_TABLES,
     DICTIONARIES,
     FEATURE_TABLES,

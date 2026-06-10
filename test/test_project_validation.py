@@ -5,16 +5,16 @@ from pathlib import Path
 
 import pytest
 
-from plugin.crag import (
+from CRAG.crag import (
     Crag,
     CragProject,
 )
-from plugin.project_validation import (
+from CRAG.project_validation import (
     ValidationResult,
     ValidationStatus,
     validate_project,
 )
-from plugin.utils import (  # noqa
+from CRAG.utils import (  # noqa
     MultilineMessageBox,
     get_msgbox_icon_pixmap,
     ipdb_breakpoint,

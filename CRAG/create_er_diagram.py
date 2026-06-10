@@ -10,7 +10,7 @@ from sqlalchemy import (
     event
 )
 
-from plugin.config import (
+from CRAG.config import (
     ATTRIBUTE_TABLES,
     FEATURE_TABLES_LINES,
     LINE_DICTIONARIES,
