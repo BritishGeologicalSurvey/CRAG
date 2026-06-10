@@ -28,7 +28,7 @@ tags=python,geopackage,geology
 
 homepage=http://field-data-capture.glpages.ad.nerc.ac.uk/sigma-q-user-guide/
 category=Database
-icon=icon.png
+icon=icons/quick_locality_add.png
 # experimental flag
 experimental=True
 
