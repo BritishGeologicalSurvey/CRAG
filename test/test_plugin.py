@@ -1,4 +1,4 @@
-# Copyright 2026 British Geological Survey
+# Copyright 2026 UKRI / British Geological Survey
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
@@ -287,7 +287,7 @@ def test_export_qml_styles(
     }
     # Get a dictionary of filepaths to expected copyright comments
     default_copyright = (
-        "<!--\nCopyright 2026 British Geological Survey\n"
+        "<!--\nCopyright 2026 UKRI / British Geological Survey\n"
         "Licensed under GPLv3 licence\nSPDX-License-Identifier: GPL-3.0-or-later\n-->\n"
     )
     expected_copyright_comments = dict.fromkeys(crag.styles_dir.glob("*.qml"), default_copyright)

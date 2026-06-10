@@ -1,3 +1,6 @@
+# Copyright 2026 UKRI / British Geological Survey
+# Licensed under GPLv3 licence
+# SPDX-License-Identifier: GPL-3.0-or-later
 """Script to update the plugin metadata file with the version number."""
 import argparse
 import subprocess
