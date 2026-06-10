@@ -153,7 +153,7 @@ class ReportBuilder(CragProject):
         """
 
         try:
-            environment = Environment(loader=FileSystemLoader(self.templates_dir))
+            environment = Environment(loader=FileSystemLoader(self.templates_dir), autoescape=True)
             template = environment.get_template("report.html")
             content = template.render(report_data)
 
