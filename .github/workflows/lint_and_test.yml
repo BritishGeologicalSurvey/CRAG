@@ -54,3 +54,17 @@ jobs:
         QT_QPA_PLATFORM: offscreen
       run: |
         pytest test/
+
+    - name: Test Plugin Build
+      env:
+        # This allows Qt to run headless.  It replaces the xvfb command
+        # that we use in the Docker containers.
+        QT_QPA_PLATFORM: offscreen
+        PYTHONUNBUFFERED: 1
+      shell: bash -l {0}
+      run: |
+        cd plugin
+        python ../bin/update_plugin_metadata.py metadata.txt >> "$GITHUB_ENV"
+        pb_tool zip
+        cd zip_build
+        python -c "from qgis.testing.mocked import get_iface; from crag import classFactory; classFactory(get_iface())"
