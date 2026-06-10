@@ -56,7 +56,7 @@ jobs:
         # that we use in the Docker containers.
         QT_QPA_PLATFORM: offscreen
       run: |
-        pytest test/
+        pytest -vv test/
 
     - name: Test Plugin Build
       env:
