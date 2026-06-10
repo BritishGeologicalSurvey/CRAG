@@ -46,7 +46,7 @@ def add_test_data(conn: sqlite3.Connection, short_name: Optional[str] = None):
     apply_script(conn, Path(WORKDIR / 'sql' / 'test_data.sql'))
     if short_name is not None:
         # Now update the short_name to reflect the file names if necessary
-        conn.executescript(f'UPDATE field_project SET short_name = "{short_name}" WHERE fid = 1')
+        conn.execute("UPDATE field_project SET short_name = ? WHERE fid = 1", (short_name,))
 
 
 if __name__ == "__main__":

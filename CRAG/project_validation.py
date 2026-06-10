@@ -112,7 +112,10 @@ def check_features_valid_parents(project: CragProject) -> ValidationResult:
     # Check all feature tables other than field_project
     for table in sorted(FEATURE_TABLES - {"field_project"}):
         feature_identifier = FEATURE_STR_IDENTIFIERS[table]
-        rows = get_table_rows(project.db_file, f"SELECT field_project_fuid, {feature_identifier} FROM {table}")
+        rows = get_table_rows(
+            project.db_file,
+            f"SELECT field_project_fuid, {feature_identifier} FROM {table}",  # nosec: B608 no user input
+        )
 
         # Perform check
         bad_rows = [
@@ -146,7 +149,10 @@ def check_locality_children_valid_parents(project: CragProject) -> ValidationRes
 
     for table in sorted(ATTRIBUTE_TABLES):
         feature_identifier = FEATURE_STR_IDENTIFIERS[table]
-        rows = get_table_rows(project.db_file, f"SELECT locality_fuid, {feature_identifier} FROM {table}")
+        rows = get_table_rows(
+            project.db_file,
+            f"SELECT locality_fuid, {feature_identifier} FROM {table}",  # nosec: B608 no user input
+        )
 
         # Perform check
         bad_rows = [
@@ -225,7 +231,10 @@ def check_attached_filepaths_not_null(project: CragProject) -> ValidationResult:
         # Perform check
         null_attachments = [
             row["fid"]
-            for row in get_table_rows(project.db_file, f"SELECT fid FROM {table} WHERE {attachment_col} IS NULL")
+            for row in get_table_rows(
+                project.db_file,
+                f"SELECT fid FROM {table} WHERE {attachment_col} IS NULL",  # nosec: B608 no user input
+            )
         ]
 
         # Prepare results
@@ -253,7 +262,8 @@ def check_attached_filepaths_not_placeholder(project: CragProject) -> Validation
             row["fid"]
             for row in get_table_rows(
                 project.db_file,
-                f"SELECT fid FROM {table} WHERE {attachment_col} = '{project.default_attachment_str}'",
+                f"SELECT fid FROM {table} WHERE {attachment_col} = ?",  # nosec: B608 no user input
+                parameters=(project.default_attachment_str,),
             )
         ]
 
@@ -284,7 +294,8 @@ def check_attached_filepaths_exist(project: CragProject) -> ValidationResult:
             row[attachment_col]
             for row in get_table_rows(
                 project.db_file,
-                f"SELECT {attachment_col} FROM {table} WHERE {attachment_col} != '{project.default_attachment_str}'",
+                f"SELECT {attachment_col} FROM {table} WHERE {attachment_col} != ?",  # nosec: B608 no user input
+                parameters=(project.default_attachment_str,),
             )
             # If the attachment_column has a valid value but the filepath does not exist
             if row[attachment_col] is not None and not (attachment_dir / row[attachment_col]).exists()

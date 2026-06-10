@@ -189,7 +189,7 @@ class SearchableComboBox(QComboBox):
         self.completer().setFilterMode(Qt.MatchFlag.MatchContains)
 
 
-def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:
+def get_table_rows(db_file: Path, sql: str, parameters: tuple[Any] = ()) -> list[dict[str, Any]]:
     """
     Get the rows from the given database file using the given SQL query.
     The rows are created using a dictionary row factory.
@@ -207,7 +207,7 @@ def get_table_rows(db_file: Path, sql: str) -> list[dict[str, Any]]:
         conn.execute("SELECT load_extension('mod_spatialite');")
         conn.row_factory = dict_factory
         cursor = conn.cursor()
-        cursor.execute(sql)
+        cursor.execute(sql, parameters)
         rows = cursor.fetchall()
     conn.close()
 

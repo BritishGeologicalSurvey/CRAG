@@ -482,7 +482,10 @@ class CragProject:
         # First get actual recorded paths
         recorded_attachments = {
             Path(row[attachment_col])
-            for row in get_table_rows(self.db_file, f"SELECT {attachment_col} FROM {layer_name}")
+            for row in get_table_rows(
+                self.db_file,
+                f"SELECT {attachment_col} FROM {layer_name}",  # nosec: B608 no user input
+            )
             if row[attachment_col] is not None
         }
 
