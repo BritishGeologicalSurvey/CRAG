@@ -100,7 +100,7 @@ If necessary the polygon can be edited later using the *QGIS Vertex Tool*, see {
 
 ::::{note}
 If you do anything else before creating the boundary, adding a layer for instance, then you can return to drawing the boundary easily,
-using the plugin menu item, Add Field Project.
+using the CRAG plugin: `Plugins` > `CRAG` > `More...` > `Advanced...`, select `Add Field Project Polygon`.
 
 :::{figure-md}
 ![](images/add_field_project.png){align=center}
