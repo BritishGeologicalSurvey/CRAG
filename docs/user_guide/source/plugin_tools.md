@@ -3,7 +3,7 @@
 The CRAG plugin menu provides access to additional tools beyond those for creating points and lines: `Open Project Folder`, `Link Photos and Media`, `Create Field Report` and `Validate Current Project`.
 
 :::{figure-md}
-![](images/plugin_tools.png){align=center}
+![](images/crag_menu.png){align=center}
 
 *CRAG Tools*
 :::
