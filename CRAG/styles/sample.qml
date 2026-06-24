@@ -3,7 +3,7 @@ Copyright 2026 UKRI / British Geological Survey
 Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 -->
-<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.10-Solothurn">
+<qgis styleCategories="Symbology|Labeling|Fields|Forms|MapTips" version="3.44.11-Solothurn">
   <fieldConfiguration>
     <field configurationFlags="NoFlag" name="fid">
       <editWidget type="Hidden">
@@ -173,6 +173,16 @@ def my_form_open(dialog, layer, feature):
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
       </labelStyle>
     </attributeEditorField>
+    <attributeEditorTextElement horizontalStretch="0" name="Last recorded sample_id" showLabel="1" verticalStretch="0">
+      <labelStyle labelColor="" overrideLabelColor="0" overrideLabelFont="0">
+        <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
+      </labelStyle>[%aggregate(&#xD;
+	'sample',&#xD;
+	-- array_agg makes aggregate return the full list of values&#xD;
+	'array_agg',&#xD;
+	"sample_id",&#xD;
+	order_by:="recorded_on"&#xD;
+)[-1]%]</attributeEditorTextElement>
     <attributeEditorField horizontalStretch="0" index="4" name="sample_type_code" showLabel="1" verticalStretch="0">
       <labelStyle labelColor="0,0,0,255,rgb:0,0,0,1" overrideLabelColor="0" overrideLabelFont="0">
         <labelFont bold="0" description="MS Shell Dlg 2,8,-1,5,50,0,0,0,0,0" italic="0" strikethrough="0" style="" underline="0"></labelFont>
