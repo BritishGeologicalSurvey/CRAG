@@ -24,7 +24,7 @@ DICTIONARIES = [
 
 GPKG = Path(__file__).parent.parent / 'field-data-capture.gpkg'
 assert GPKG.exists(), f"{GPKG.absolute()} doesn't exist."
-CGDM_XML = Path(__file__).parent.parent / 'plugin' / 'styles' / 'BGS_CGDM_styles_2025_v4.xml'
+CGDM_XML = Path(__file__).parent.parent / 'CRAG' / 'styles' / 'BGS_CGDM_styles_2025_v4.xml'
 assert CGDM_XML.exists(), f"{CGDM_XML.absolute()} doesn't exist."
 
 

@@ -1,4 +1,4 @@
-# Copyright 2026 British Geological Survey
+# Copyright 2026 UKRI / British Geological Survey
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 from pathlib import Path
@@ -21,9 +21,9 @@ from qgis.PyQt.QtWidgets import (
     QMessageBox,
 )
 
-from plugin.config import TABLE_LIST
-from plugin.crag import Crag
-from plugin.utils import (  # noqa
+from CRAG.config import TABLE_LIST
+from CRAG.crag import Crag
+from CRAG.utils import (  # noqa
     MultilineMessageBox,
     create_prepopulated_feature,
     get_table_rows,

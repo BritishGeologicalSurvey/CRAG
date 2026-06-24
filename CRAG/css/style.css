@@ -1,0 +1,138 @@
+/*
+Copyright 2026 UKRI / British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
+/* Use local font for symnbols */
+@font-face {
+    font-family: "Material Symbols Outlined";
+    font-style: normal;
+    src: url("../fonts/MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].woff2") format("woff2");
+  }
+
+* {
+    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif;
+    color: #2a2a2a;
+}
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+}
+
+/* Standard table layout */
+table {
+    table-layout: auto;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
+
+hr {
+    width: 100%;
+    margin-left: 0px;
+    margin-top: 10px;
+}
+
+table,
+th,
+td {
+    border: 2px solid #40c1e4;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+/* Keep the first column narrow */
+td:first-child {
+    width: 12%;
+    white-space: nowrap;
+}
+
+/* Shade alternate rows */
+tr:nth-child(odd) {
+    background-color: #eeeeee;
+}
+
+/* Place thumbnails or icons centrally within cells */
+td.photo, td.media {
+    width: 220px;
+    min-height: 220px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Set thumbnail size */
+img {
+    padding: 5px;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+/* Buttons for expand/collapse all */
+.button {
+    background-color: #ffd92e;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#expand_collapse {
+    margin-left: auto;
+}
+
+/* Collapsible sections, see: https://www.w3schools.com/howto/howto_js_collapsible.asp */
+.collapsible, .toc_button {
+    width: 100%;
+}
+
+.active, .collapsible:hover, .toc_button:hover {
+    background-color: #ffd92e;
+    margin-top: 10px;
+}
+
+.collapsible::before, .toc_button::before {
+    font-family: 'Material Symbols Outlined';
+    content: "\f591";
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.active::before {
+    font-family: 'Material Symbols Outlined';
+    content: "\e7cd";
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+#locality_points_header {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+/* Setting for media icons */
+span.size-48 {
+    font-size: 48px;
+    font-variation-settings: 'OPSZ' 48;
+}

@@ -1,4 +1,4 @@
-# Copyright 2026 British Geological Survey
+# Copyright 2026 UKRI / British Geological Survey
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 from qgis.PyQt.QtWidgets import (
@@ -6,12 +6,12 @@ from qgis.PyQt.QtWidgets import (
     QVBoxLayout,
 )
 
-from plugin.crag import Crag
-from plugin.settings_dialog import (
+from CRAG.crag import Crag
+from CRAG.settings_dialog import (
     RadioButtonGroup,
     SettingsDialog,
 )
-from plugin.utils import ipdb_breakpoint  # noqa
+from CRAG.utils import ipdb_breakpoint  # noqa
 
 RADIO_LABEL = "Select an option"
 RADIO_OPTIONS = ["Duck", "Quack", "Honk"]

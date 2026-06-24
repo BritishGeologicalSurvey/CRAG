@@ -1,0 +1,28 @@
+<!--
+Copyright 2026 UKRI / British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+{% extends "_base.html" %}
+{% block title %}Field_Report{% endblock %}
+{% block body %}
+
+        <section class="report">
+            <h1>Field Report: {{ project.title }}</h1>
+            {% include "_toc.html" %}
+            {% include "_project.html" %}
+            <section class="locality_points">
+                <div id="locality_points_header">
+                    <h2>Locality Points</h2>
+                    <div id="expand_collapse">
+                        <button class="button" id="expand_all" type="button">Expand all</button>
+                        <button class="button" id="collapse_all" type="button">Collapse all</button>
+                    </div>
+                </div>
+                {% for point in locality_points.values() %}
+                {% include "_locality_point.html" %}
+                {% endfor %}
+            </section>
+        </section>
+
+{% endblock %}

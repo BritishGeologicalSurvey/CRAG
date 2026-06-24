@@ -1,0 +1,36 @@
+<!--
+Copyright 2026 UKRI / British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+{# Table structure for project metadata #}
+
+            <section class="project">
+                <h2>Project information</h2>
+                <table>
+                    <tr>
+                        <td>Project lead</td>
+                        <td>{{ project.project_lead }}</td>
+                    </tr>
+                    <tr>
+                        <td>Start date</td>
+                        <td>{{ project.start_date }}</td>
+                    </tr>
+                    <tr>
+                        <td>End date</td>
+                        <td>{{ project.end_date }}</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>{{ render(project.description) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Notes</td>
+                        <td>{{ render(project.notes) }}</td>
+                    </tr>
+                    <tr>
+                        <td>Entered</td>
+                        <td>{{ project.recorded_by }} at {{ project.recorded_on }}</td>
+                    </tr>
+                </table>
+            </section>

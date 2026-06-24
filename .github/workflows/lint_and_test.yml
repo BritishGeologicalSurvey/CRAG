@@ -1,3 +1,6 @@
+# Copyright 2026 UKRI / British Geological Survey
+# Licensed under GPLv3 licence
+# SPDX-License-Identifier: GPL-3.0-or-later
 name: Lint and test
 
 on:
@@ -5,7 +8,7 @@ on:
     branches:
       - "*"
     paths:
-      - 'plugin/**.py'
+      - 'CRAG/**.py'
       - 'test/**.py'
       - 'environment*.yml'
       - '.github/workflows/lint_and_test.yml'
@@ -44,7 +47,7 @@ jobs:
 
     - name: Lint
       shell: bash -l {0}
-      run: flake8 plugin/ test/ bin/
+      run: flake8 CRAG/ test/ bin/
 
     - name: Test
       shell: bash -l {0}
@@ -53,4 +56,18 @@ jobs:
         # that we use in the Docker containers.
         QT_QPA_PLATFORM: offscreen
       run: |
-        pytest test/
+        pytest -vv test/
+
+    - name: Test Plugin Build
+      env:
+        # This allows Qt to run headless.  It replaces the xvfb command
+        # that we use in the Docker containers.
+        QT_QPA_PLATFORM: offscreen
+        PYTHONUNBUFFERED: 1
+      shell: bash -l {0}
+      run: |
+        cd CRAG
+        python ../bin/update_plugin_metadata.py metadata.txt >> "$GITHUB_ENV"
+        pb_tool zip
+        cd zip_build
+        python -c "from qgis.testing.mocked import get_iface; from crag import classFactory; classFactory(get_iface())"

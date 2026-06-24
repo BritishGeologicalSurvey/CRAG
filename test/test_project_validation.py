@@ -1,20 +1,20 @@
-# Copyright 2026 British Geological Survey
+# Copyright 2026 UKRI / British Geological Survey
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 from pathlib import Path
 
 import pytest
 
-from plugin.crag import (
+from CRAG.crag import (
     Crag,
     CragProject,
 )
-from plugin.project_validation import (
+from CRAG.project_validation import (
     ValidationResult,
     ValidationStatus,
     validate_project,
 )
-from plugin.utils import (  # noqa
+from CRAG.utils import (  # noqa
     MultilineMessageBox,
     get_msgbox_icon_pixmap,
     ipdb_breakpoint,

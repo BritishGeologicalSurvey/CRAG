@@ -1,0 +1,323 @@
+/*
+Copyright 2026 UKRI / British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+*/
+-- Dictionary tables and their contents
+
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS "dic_sample_material" (
+    "fid" INTEGER NOT NULL,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    PRIMARY KEY("fid" AUTOINCREMENT)
+);
+
+INSERT INTO gpkg_contents
+VALUES('dic_sample_material','attributes','dic_sample_material','Sample type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
+CREATE TABLE IF NOT EXISTS "dic_media" (
+    "fid" INTEGER NOT NULL,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    PRIMARY KEY("fid" AUTOINCREMENT)
+);
+
+INSERT INTO gpkg_contents
+VALUES('dic_media','attributes','dic_media','Media type dictionary.','2023-09-15T13:21:52.679Z',NULL,NULL,NULL,NULL,NULL);
+
+CREATE TABLE IF NOT EXISTS "dic_manmade_landform" (
+    "fid" INTEGER NOT NULL,
+    "category" TEXT NOT NULL CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "blackbook_code" TEXT CHECK(LENGTH("blackbook_code") <= 50),
+    "pre2012_sigma_code" TEXT CHECK(LENGTH("pre2012_sigma_code") <= 50),
+    "sigma_feature_2012" TEXT CHECK(LENGTH("sigma_feature_2012") <= 50),
+    "sigma_feature_2015" TEXT CHECK(LENGTH("sigma_feature_2015") <= 50),
+    "sigma_db_code" TEXT CHECK(LENGTH("sigma_db_code") <= 50),
+    "has_azimuth" BOOLEAN NOT NULL,
+    "has_dip" BOOLEAN NOT NULL,
+    PRIMARY KEY("fid" AUTOINCREMENT)
+);
+
+insert into gpkg_contents
+values('dic_manmade_landform','attributes','dic_manmade_landform','Dictionary of man-made features.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
+CREATE TABLE IF NOT EXISTS "dic_locality_type" (
+    "fid" INTEGER NOT NULL,
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    PRIMARY KEY("fid" AUTOINCREMENT)
+);
+
+insert into gpkg_contents
+values('dic_locality_type','attributes','dic_locality_type','Dictionary of exposure types','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
+
+CREATE TABLE IF NOT EXISTS "dic_structure" (
+    "fid" INTEGER NOT NULL,
+    "category" TEXT NOT NULL CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "blackbook_code" TEXT CHECK(LENGTH("blackbook_code") <= 50),
+    "sigma_feature_2012" TEXT CHECK(LENGTH("sigma_feature_2012") <= 50),
+    "sigma_feature_2015" TEXT CHECK(LENGTH("sigma_feature_2015") <= 50),
+    "secondary_attr_category" TEXT CHECK(LENGTH("secondary_attr_category") <= 50),
+    "third_attr_category" TEXT CHECK(LENGTH("third_attr_category") <= 50),
+    PRIMARY KEY("fid" AUTOINCREMENT)
+);
+
+insert into gpkg_contents
+values('dic_structure','attributes','dic_structure','Dictionary of structure codes.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
+CREATE TABLE IF NOT EXISTS "dic_structure_secondary" (
+    "fid" INTEGER NOT NULL,
+    "category" TEXT NOT NULL CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "sigma_2012" TEXT CHECK(LENGTH("sigma_2012") <= 50),
+    "sigma_2015" TEXT CHECK(LENGTH("sigma_2015") <= 50),
+    PRIMARY KEY("fid" AUTOINCREMENT)
+);
+
+insert into gpkg_contents
+values('dic_structure_secondary','attributes','dic_structure_secondary','Dictionary of structure secondary attributes.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
+CREATE TABLE IF NOT EXISTS "dic_structure_third" (
+    "fid" INTEGER NOT NULL,
+    "category" TEXT NOT NULL CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "sigma_2012" TEXT CHECK(LENGTH("sigma_2012") <= 50),
+    "sigma_2015" TEXT CHECK(LENGTH("sigma_2015") <= 50),
+    PRIMARY KEY("fid" AUTOINCREMENT)
+);
+
+insert into gpkg_contents
+values('dic_structure_third','attributes','dic_structure_third','Dictionary of structure codes.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
+CREATE TABLE IF NOT EXISTS "dic_superficial_landform" (
+    "fid" INTEGER NOT NULL,
+    "category" TEXT NOT NULL CHECK(LENGTH("category") <= 50),
+    "code" TEXT NOT NULL UNIQUE CHECK(LENGTH("code") <= 50),
+    "description" TEXT NOT NULL CHECK(LENGTH("description") <= 255),
+    "translation" TEXT CHECK(LENGTH("translation") <= 255),
+    "status" TEXT CHECK(LENGTH("status") <= 50),
+    "blackbook_code" TEXT CHECK(LENGTH("blackbook_code") <= 50),
+    "pre2012_sigma_code" TEXT CHECK(LENGTH("pre2012_sigma_code") <= 50),
+    "sigma_feature_2012" TEXT CHECK(LENGTH("sigma_feature_2012") <= 50),
+    "sigma_feature_2015" TEXT CHECK(LENGTH("sigma_feature_2015") <= 50),
+    "sigma_db_code" TEXT CHECK(LENGTH("sigma_db_code") <= 50),
+    "has_azimuth" BOOLEAN NOT NULL,
+    "has_dip" BOOLEAN NOT NULL,
+    PRIMARY KEY("fid" AUTOINCREMENT)
+);
+
+insert into gpkg_contents
+values('dic_superficial_landform','attributes','dic_superficial_landform','Dictionary of superficial codes.','2023-09-15t13:21:52.679z',null,null,null,null,null);
+
+INSERT INTO "dic_media" ("fid","code","description","translation","status") VALUES (1,'image','Image or Photograph','','C');
+INSERT INTO "dic_media" ("fid","code","description","translation","status") VALUES (2,'video','Video','','C');
+INSERT INTO "dic_media" ("fid","code","description","translation","status") VALUES (3,'voice','Voice note','','C');
+INSERT INTO "dic_media" ("fid","code","description","translation","status") VALUES (4,'spreadsheet','Spreadsheet or CSV','','C');
+INSERT INTO "dic_media" ("fid","code","description","translation","status") VALUES (5,'document','Word, PDF or Text document','','C');
+INSERT INTO "dic_media" ("fid","code","description","translation","status") VALUES (6,'other','Other file type','','C');
+
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status") VALUES (1,'outcrop','Outcrop','','C');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status") VALUES (2,'section','Section','','C');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status") VALUES (3,'quarry','Quarry','','C');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status") VALUES (4,'auger_borehole','Auger/Borehole','','C');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status") VALUES (5,'road_cut','Road cut','','C');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status") VALUES (6,'trench','Trench','','C');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status") VALUES (7,'note_only','Note only','','C');
+INSERT INTO "dic_locality_type" ("fid","code","description","translation","status") VALUES (8,'other','Other','','C');
+
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (1,'GLACIAL_LANDFORM','crag_and_tail','Crag and tail','C',NULL,'GL_CG','GGBC','Crag_And_Tail','Crag_And_Tail','CRAGTAIL',1,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (2,'GLACIAL_LANDFORM','erratic','Erratic','C',NULL,'ERRAT','GGMME','Erratic','Erratic','ERR',0,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (3,'GLACIAL_LANDFORM','glacial_striae','Glacial striae','C',NULL,'GLST','GGBG','Glacial_Striae','Glacial_Striae','GLSTR',1,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (4,'GLACIAL_LANDFORM','glacial_striae_directional','Glacial striae, directional','C',NULL,'GLSTI','','Glacial_Striae_Directional','Glacial_Striae_Directional','GLSTD',1,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (5,'GLACIAL_LANDFORM','glaciotectonic_unoriented','Glaciotectonic, no orientation','C',NULL,'GLTD','','Glaciotectonic_Unoriented','Glaciotectonic_Unoriented','GLTECNO',0,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (6,'GLACIAL_LANDFORM','kettle_hollow','Kettle hollow','C',NULL,'P_KH','','Kettle_Hollow','Kettle_Hollow','KETHOL',0,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (7,'GLACIAL_LANDFORM','pingo','Pingo','C',NULL,'P_PING','','Pingo','Pingo','PIN',0,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (8,'GLACIAL_LANDFORM','roche_moutonnee','Roche moutonnee','C',NULL,'GL_RM','GGBR','Roche_Moutonnee','Roche_Moutonnee','ROMOU',1,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (9,'GLACIAL_LANDFORM','roche_moutonnee_striae','Roche moutonnee with striae','C',NULL,'GL_RMS','','Roche_Moutonnee_Striae','Roche_Moutonnee_Striae','ROMOUST',1,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (10,'GLACIAL_LANDFORM','s_form','S-form','C',NULL,'GL_SF','','S_Form','S_Form','SF',0,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (11,'GLACIAL_LANDFORM','subsidence_hollow','Subsidence hollow','C',NULL,'P_SH','','Subsidence_Hollow','Subsidence_Hollow','SUBHOL',0,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (12,'GLACIAL_LANDFORM','tor','Tor','C',NULL,'P_TOR','','Tor','Tor','TO',0,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (13,'KARSTIC_LANDFORM','cavity_entrance_natural','Cavity entrance, natural','C',NULL,'P_CAV','','Cavity_Entrance_Natural','Cavity_Entrance_Natural','CAV',0,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (14,'KARSTIC_LANDFORM','doline_sinkhole','Doline or sinkhole','C',NULL,'SWH','SINK','Doline_Sinkhole','Doline_Sinkhole','DO',0,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (15,'KARSTIC_LANDFORM','spring','Spring','C',NULL,'SPRING','','Spring','Spring','SPR',1,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (16,'KARSTIC_LANDFORM','stream_sink','Stream sink','C',NULL,'P_SS','','Stream_Sink','Stream_Sink','STRSIN',1,0);
+INSERT INTO "dic_superficial_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (17,'LANDFORM_GENERAL','quaternary_section','Quaternary section','C',NULL,'SURF_S',NULL,NULL,NULL,NULL,0,0);
+
+INSERT INTO "dic_manmade_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (1,'ARTIFICIAL_POINTS','adit','Adit','C',NULL,'ADIT','ADITW','Adit','Adit','AD',1,0);
+INSERT INTO "dic_manmade_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (2,'ARTIFICIAL_POINTS','adit_abandoned','Adit, abandoned','C',NULL,'ADIT_A','ADITA','Adit_Abandoned','Adit_Abandoned','ADA',1,0);
+INSERT INTO "dic_manmade_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (3,'ARTIFICIAL_POINTS','adit_unknown_orientation','Adit, unknown orientation','C',NULL,'ADIT_U','','Adit_Unknown_Orientation','Adit_Unknown_Orientation','ADU',0,0);
+INSERT INTO "dic_manmade_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (4,'ARTIFICIAL_POINTS','former_mine_site','Site of former mine','C',NULL,'S_FM','','Former_Mine_Site','Former_Mine_Site','SIFM',0,0);
+INSERT INTO "dic_manmade_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (5,'ARTIFICIAL_POINTS','shaft','Pit or mine shaft','C',NULL,'PIT','SHAFW','Shaft','Shaft','PIT',0,0);
+INSERT INTO "dic_manmade_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (6,'ARTIFICIAL_POINTS','shaft_abandoned','Pit or mine shaft, abandoned','C',NULL,'PIT_AA','SHAFA','Shaft_Abandoned','Shaft_Abandoned','PITAA',0,0);
+INSERT INTO "dic_manmade_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (7,'ARTIFICIAL_POINTS','shaft_abandoned_uncertain','Pit or mine shaft, abandoned uncertain locality','C',NULL,'PIT_U','','Shaft_Abandoned_Uncertain','Shaft_Abandoned_Uncertain','PITU',0,0);
+INSERT INTO "dic_manmade_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (8,'ARTIFICIAL_POINTS','trench','Trench','C',NULL,'TRE','','Trench','Trench','TREN',1,0);
+INSERT INTO "dic_manmade_landform" ("fid","category","code","description","status","translation","blackbook_code","pre2012_sigma_code","sigma_feature_2012","sigma_feature_2015","sigma_db_code","has_azimuth","has_dip") VALUES (9,'ARTIFICIAL_POINTS','waste_disposal_site','Waste disposal site','C',NULL,'WASTE','','','Waste_Disposal_site','',0,0);
+
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (1,'BEDROCK_GENERAL','bedrock_exposure','Bedrock Exposure','C',NULL,'EXP','Exposure','Exposure',NULL,NULL);
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (2,'BEDROCK_GENERAL','fossil_locality','Fossil Locality','C',NULL,'FOSSL',NULL,NULL,NULL,NULL);
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (3,'BEDROCK_GENERAL','mineral_locality','Mineral Locality','C',NULL,'MLOC',NULL,NULL,NULL,NULL);
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (4,'FAULTS_FRACTURES_VEINS','fault_plane_inclined','Fault Dip','C',NULL,'FLT_DP','Fault_Plane_Dip','Fault_Plane_Dip','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (5,'FAULTS_FRACTURES_VEINS','joint_horizontal','Joint Horizontal','C',NULL,'S_HJ','Joint_Horizontal','Joint_Horizontal','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (6,'FAULTS_FRACTURES_VEINS','joint_inclined','Joint Inclined','C',NULL,'S_IJ','Joint_Inclined','Joint_Inclined','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (7,'FAULTS_FRACTURES_VEINS','joint_vertical','Joint Vertical','C',NULL,'S_VJ','Joint_Vertical','Joint_Vertical','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (8,'FAULTS_FRACTURES_VEINS','mineral_vein_dip','Mineral Vein Dip','C',NULL,'S_MVFD','Mineral_Vein_Dip','Mineral_Vein_dip','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (9,'FOLDS','anticline_axis','Anticline Axis','C',NULL,'S_AMA','Anticline_Axis','Anticline_Axis','FOLD_SHAPE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (10,'FOLDS','anticline_axis_horizontal','Anticline Axis Horizontal','C',NULL,'S_HAMA','Anticline_Axis_Horizontal','Anticline_Axis_Horizontal','FOLD_SHAPE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (11,'FOLDS','axial_plane_horizontal','Axial Plane Horizontal','C',NULL,'S_HAPM','Axial_Plane_Horizontal','Axial_Plane_Horizontal','FOLD_SHAPE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (12,'FOLDS','axial_plane_inclined','Axial Plane Inclined','C',NULL,'S_IAPM','Axial_Plane_Inclined','Axial_Plane_Inclined','FOLD_SHAPE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (13,'FOLDS','axial_plane_vertical','Axial Plane Vertical','C',NULL,'S_VAPM','Axial_Plane_Vertical','Axial_Plane_Vertical','FOLD_SHAPE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (14,'FOLDS','fold_axis','Fold Axis Inclined','C',NULL,'S_AMF','Fold_Axis','Fold_Axis','FOLD_SHAPE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (15,'FOLDS','fold_axis_horizontal','Fold Axis Horizontal','C',NULL,'S_HAMF','Fold_Axis_Horizontal','Fold_Axis_Horizontal','FOLD_SHAPE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (16,'FOLDS','fold_axis_vertical','Fold Axis Vertical','C',NULL,'S_VAMF','Fold_Axis_Vertical','Fold_Axis_Vertical','FOLD_SHAPE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (17,'FOLDS','syncline_axis','Syncline Axis','C',NULL,'S_AMS','Syncline_Axis','Syncline_Axis','FOLD_SHAPE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (18,'FOLDS','syncline_axis_horizontal','Syncline Axis Horizontal','C',NULL,'S_HAMS','Syncline_Axis_Horizontal','Syncline_Axis_Horizontal','FOLD_SHAPE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (19,'FOLIATIONS','foliation_compositional_horizontal','Foliation Compositional Horizontal','C',NULL,'S_HF','Foliation_Compositional_Horizontal','Foliation_Compositional_Horizontal','FOLIATION_COMPOSITIONAL','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (20,'FOLIATIONS','foliation_compositional_inclined','Foliation Compositional Inclined','C',NULL,'S_IF','Foliation_Compositional_Inclined','Foliation_Compositional_Inclined','FOLIATION_COMPOSITIONAL','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (21,'FOLIATIONS','foliation_compositional_vertical','Foliation Compositional Vertical','C',NULL,'S_VF','Foliation_Compositional_Vertical','Foliation_Compositional_Vertical','FOLIATION_COMPOSITIONAL','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (22,'FOLIATIONS','foliation_penetrative_horizontal','Foliation Penetrative Horizontal','C',NULL,'S_HC','Foliation_Penetrative_Horizontal','Foliation_Penetrative_Horizontal','FOLIATION_PENETRATIVE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (23,'FOLIATIONS','foliation_penetrative_inclined','Foliation Penetrative Inclined','C',NULL,'S_IC','Foliation_Penetrative_Inclined','Foliation_Penetrative_Inclined','FOLIATION_PENETRATIVE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (24,'FOLIATIONS','foliation_penetrative_vertical','Foliation Penetrative Vertical','C',NULL,'S_VC','Foliation_Penetrative_Vertical','Foliation_Penetrative_Vertical','FOLIATION_PENETRATIVE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (25,'FOLIATIONS','foliation_shear_horizontal','Foliation Shear Horizontal','C',NULL,'S_HSZ','Foliation_Shear_Horizontal','Foliation_Shear_Horizontal','FOLIATION_SHEAR','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (26,'FOLIATIONS','foliation_shear_inclined','Foliation Shear Inclined','C',NULL,'S_ISZ','Foliation_Shear_Inclined','Foliation_Shear_Inclined','FOLIATION_SHEAR','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (27,'FOLIATIONS','foliation_shear_vertical','Foliation Shear Vertical','C',NULL,'S_VSZ','Foliation_Shear_Vertical','Foliation_Shear_Vertical','FOLIATION_SHEAR','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (28,'FOLIATIONS','foliation_spaced_horizontal','Foliation Spaced Horizontal','C',NULL,'S_HCS','Foliation_Spaced_Horizontal','Foliation_Spaced_Horizontal','FOLIATION_SPACED','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (29,'FOLIATIONS','foliation_spaced_inclined','Foliation Spaced Inclined','C',NULL,'S_ICS','Foliation_Spaced_Inclined','Foliation_Spaced_Inclined','FOLIATION_SPACED','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (30,'FOLIATIONS','foliation_spaced_vertical','Foliation Spaced Vertical','C',NULL,'S_VCS','Foliation_Spaced_Vertical','Foliation_Spaced_Vertical','FOLIATION_SPACED','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (31,'IGNEOUS','igneous_contact_dip','Igneous Contact Dip','C',NULL,'S_DIP','Igneous_Contact_Dip','Igneous_Contact_Dip','IGNEOUS_CONTACT','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (32,'IGNEOUS','igneous_crystal_alignment_inclined','Crystal Allignment Inclined','C',NULL,'S_IPCA','Igneous_Crystal_Align_Incl','Igneous_Crystal_Alignment_Inclined','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (33,'IGNEOUS','igneous_crystal_alignment_horizontal','Crystal Allignment Horizontal','C',NULL,'S_HPCA','Igneous_Crystal_Align_Horiz','Igneous_Crystal_Alignment_Horizontal','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (34,'IGNEOUS','igneous_extrusive_planar_fabric_horizontal','Ign Extrusive Planar Fabric Horizontal','C',NULL,'S_HWF','Igneous_Extrusive_Planar_Fabric_Horizontal','Igneous_Extrusive_Planar_Fabric_Horizontal','IGNEOUS_EXTRUSIVE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (35,'IGNEOUS','igneous_extrusive_planar_fabric_inclined','Ign Extrusive Planar Fabric Inclined','C',NULL,'S_IWF','Igneous_Extrusive_Planar_Fabric_Inclined','Igneous_Extrusive_Planar_Fabric_Inclined','IGNEOUS_EXTRUSIVE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (36,'IGNEOUS','igneous_extrusive_planar_fabric_vertical','Ign Extrusive Planar Fabric Vertical','C',NULL,'S_VWF','Igneous_Extrusive_Planar_Fabric_Vertical','Igneous_Extrusive_Planar_Fabric_Vertical','IGNEOUS_EXTRUSIVE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (37,'IGNEOUS','igneous_planar_fabric_horizontal','Ign Planar Fabric Horizontal','C',NULL,'S_HPPF','Igneous_Planar_Fabric_Horiz','Igneous_Planar_Fabric_Horizontal','IGNEOUS_PLANAR','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (38,'IGNEOUS','igneous_planar_fabric_inclined','Ign Planar Fabric Inclined','C',NULL,'S_IPP','Igneous_Planar_Fabric_Incl','Igneous_Planar_Fabric_Inclined','IGNEOUS_PLANAR','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (39,'IGNEOUS','igneous_planar_fabric_overturned','Inclined_Primary_Planar_Fabric_Overturned_NON_SIGMA','C',NULL,'S_IPPO',NULL,NULL,NULL,NULL);
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (40,'IGNEOUS','igneous_planar_fabric_vertical','Ign Planar Fabric Vertical','C',NULL,'S_VPP','Igneous_Crystal_Align_Vert','Igneous_Planar_Fabric_Vertical','IGNEOUS_PLANAR','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (41,'LINEATIONS','lineation_horizontal','Lineation Horizontal','C',NULL,'S_HLI','Lineation_Horizontal','Lineation_Horizontal','LINEATION','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (42,'LINEATIONS','lineation_plunging','Lineation Plunging','C',NULL,'S_PLI','Lineation_Plunging','Lineation_Plunging','LINEATION','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (43,'LINEATIONS','lineation_vertical','Lineation Vertical','C',NULL,'S_VLI','Lineation_Vertical','Lineation_Vertical','LINEATION','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (44,'STRATA','strata_cross_bedding_foresets','Strata Cross Bedding','C',NULL,'S_CBF','Strata_Cross_Bedding_Foresets','Strata_Cross_Bedding_Foresets','YOUNGING_EVIDENCE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (45,'STRATA','strata_general_dip','Strata General Dip','C',NULL,'S_GDIP','Strata_General_Dip','Strata_General_Dip','YOUNGING_EVIDENCE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (46,'STRATA','strata_horizontal','Strata Horizontal','C',NULL,'S_HS','Strata_Horizontal','Strata_Horizontal','YOUNGING_EVIDENCE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (47,'STRATA','strata_inclined_1','Strata Inclined 1','C',NULL,'S_IS1','Strata_Inclined_1','Strata_Inclined_1','YOUNGING_EVIDENCE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (48,'STRATA','strata_inclined_2_arrow','Strata Inclined 2','C',NULL,'S_IS2','Strata_Inclined_2','Strata_Inclined_2','YOUNGING_EVIDENCE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (49,'STRATA','strata_overturned_horizontal','Strata Overturned Horizontal','C',NULL,'S_HOS','Strata_Overturned_Horizontal','Strata_Overturned_Horizontal','YOUNGING_EVIDENCE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (50,'STRATA','strata_overturned_inclined','Strata Overturned Inclined','C',NULL,'S_ISO','Strata_Overturned_Inclined','Strata_Overturned_Inclined','YOUNGING_EVIDENCE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (51,'STRATA','strata_underground_inclined','Strata UG Inclined','C',NULL,'S_ISU1','Strata_Inclined_Underground','Strata_Inclined_Underground','YOUNGING_EVIDENCE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (52,'STRATA','strata_vertical','Strata Vertical','C',NULL,'S_VS','Strata_Vertical','Strata_Vertical','YOUNGING_EVIDENCE','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (53,'STRATA','strata_way_up_unknown_inclined','Strata Way Up Unknown Inclined','C',NULL,'S_ISU','Strata_Way_Up_Unknown_Inclined','Strata_Way_Up_Unknown_Inclined','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (54,'VERGENCE','vergence_dextral','Vergence Dextral','C',NULL,'S_DXVM','Vergence_Dextral','Vergence_Dextral','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (55,'VERGENCE','vergence_direction','Vergence Direction','C',NULL,'S_DVMF','Vergence_Direction','Vergence_Direction','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (56,'VERGENCE','vergence_neutral','Vergence Neutral','C',NULL,'S_NVMF','Vergence_Neutral','Vergence_Neutral','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (57,'VERGENCE','vergence_sinistral','Vergence Sinistral','C',NULL,'S_SVMF','Vergence_Sinistral','Vergence_Sinistral','','');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (58,'YOUNGING_FACING','facing_direction','Facing Direction','C',NULL,'S_DC','Facing_Direction','Facing_Direction','YOUNGING_EVIDENCE','DEFORMATION_PHASE');
+INSERT INTO "dic_structure" ("fid","category","code","description","status","translation","blackbook_code","sigma_feature_2012","sigma_feature_2015","secondary_attr_category","third_attr_category") VALUES (59,'YOUNGING_FACING','younging_direction','Younging Direction','C',NULL,'S_DY','Younging_Direction','Younging_Direction','YOUNGING_EVIDENCE','');
+
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (1,'YOUNGING_EVIDENCE','geopetal_structures','Younging Evidence - Geopetal Structures','C','','GP','Young-Geopetal');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (2,'YOUNGING_EVIDENCE','pillows','Younging Evidence - Pillows','C','','PL','Young-Pillows');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (3,'YOUNGING_EVIDENCE','cross_stratification','Younging Evidence - Cross Stratification','C','','CS','Young-XStrat');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (4,'YOUNGING_EVIDENCE','dessication_cracks','Younging Evidence - Dessication Cracks','C','','DC','Young-Dessic');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (5,'YOUNGING_EVIDENCE','dewatering_structures','Younging Evidence - Dewatering Structures','C','','DS','Young-Dewater');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (6,'YOUNGING_EVIDENCE','fossils','Younging Evidence - Fossils','C','','FS','Young-Fossils');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (7,'YOUNGING_EVIDENCE','graded_bedding','Younging Evidence - Graded Bedding','C','','GB','Young-Graded');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (8,'YOUNGING_EVIDENCE','load_structures','Younging Evidence - Load Structures','C','','LS','Young-Load');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (9,'YOUNGING_EVIDENCE','ripple_marks','Younging Evidence - Ripple Marks','C','','RM','Young-Ripple');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (10,'YOUNGING_EVIDENCE','scours_and_channels','Younging Evidence - Scours and Channels','C','','SC','Young-Scours');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (11,'YOUNGING_EVIDENCE','sole_markings','Younging Evidence - Sole Markings','C','','SM','Young-Sole');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (12,'YOUNGING_EVIDENCE','trace_fossils','Younging Evidence - Trace Fossils','C','','TF','Young-TraceFoss');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (13,'YOUNGING_EVIDENCE','vesicles','Younging Evidence - Vesicles','C','','VE','Young-Vesicles');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (14,'YOUNGING_EVIDENCE','weathering_structures','Younging Evidence - Weathering Structures','C','','WS','Young-Weathering');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (15,'YOUNGING_EVIDENCE','flute_casts','Younging Evidence - Flute Casts','C','','SF','Young-FluteCasts');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (16,'FOLD_SHAPE','closed','Fold Shape - Closed','C','','C','Shape-Closed');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (17,'FOLD_SHAPE','gentle','Fold Shape - Gentle','C','','G','Shape-Gentle');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (18,'FOLD_SHAPE','isoclinal','Fold Shape - Isoclinal','C','','I','Shape-Isoclinal');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (19,'FOLD_SHAPE','open','Fold Shape - Open','C','','O','Shape-Open');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (20,'FOLD_SHAPE','tight','Fold Shape - Tight','C','','T','Shape-Tight');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (21,'FOLIATION_PENETRATIVE','grain_flattening','Foliation Penetrative - Grain Flattening','C','','Grain Flattening','Fabric-GrainFlat');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (22,'FOLIATION_PENETRATIVE','schistosity','Foliation Penetrative - Schistosity','C','','Schistosity','Fabric-Schistosity');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (23,'FOLIATION_PENETRATIVE','slaty_cleavage','Foliation Penetrative - Slaty Cleavage','C','','Slaty Cleavage','Fabric-SlatyCleavage');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (24,'FOLIATION_SHEAR','mylonitic_phyllonitic','Foliation Shear - Mylonitic Phyllonitic','C','','Mylonitic Phyllonitic','Fabric-MylonPhylon');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (25,'FOLIATION_SHEAR','s_c_fabric','Foliation Shear - S_C Fabric','C','','S-C Fabric','Fabric-S-C');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (26,'FOLIATION_SHEAR','shear_zone_general','Foliation Shear - Shear Zone General','C','','Shear Zone General','Fabric-ShearZoneGen');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (27,'FOLIATION_SPACED','crenulation_cleavage','Foliation Spaced - Crenulation Cleavage','C','','Crenulation Cleavage','Fabric-Crenulation');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (28,'FOLIATION_SPACED','fracture_cleavage','Foliation Spaced - Fracture Cleavage','C','','Fracture Cleavage','Fabric-Fracture');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (29,'FOLIATION_SPACED','stylolitic_cleavage','Foliation Spaced - Stylolitic Cleavage','C','','Stylolitic Cleavage','Fabric-Stylolitic');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (30,'FOLIATION_SPACED','pressure_cleavage','Foliation Spaced - Pressure Cleavage','C','','Pressure Cleavage','Fabric-Pressure');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (31,'FOLIATION_COMPOSITIONAL','gneissic','Foliation Compositional - Gneissic','C','','Gneissic','Fabric-Gneissic');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (32,'FOLIATION_COMPOSITIONAL','stromatic','Foliation Compositional - Stromatic','C','','Stromatic','Fabric-Stromatic');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (33,'FOLIATION_COMPOSITIONAL','transposed_bedding','Foliation Compositional - Transposed Bedding','C','','Transposed_Bedding','Fabric-Transposed');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (34,'IGNEOUS_CONTACT','intrusive_contact_unspecified','Foliation Compositional - Intrusive Contact Unspecified','C','','Intrusive_Contact_Unspecified','Contact-Unspecified');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (35,'IGNEOUS_CONTACT','intra_igneous_contact','Foliation Compositional - Intra_Igneous Contact','C','','Intra-Igneous_Contact','Contact-Intra-Igneous');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (36,'LINEATION','intersection','Lineation - Intersection','C','','In','Intersection-Lin');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (37,'LINEATION','crenulation','Lineation - Crenulation','C','','C','Crenulation-Lin');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (38,'LINEATION','elongation','Lineation - Elongation','C','','E','Elongation-Lin');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (39,'LINEATION','mineral','Lineation - Mineral','C','','M','Mineral-Lin');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (40,'LINEATION','boudin','Lineation - Boudin','C','','B','Boudin-Lin');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (41,'LINEATION','mullion','Lineation - Mullion','C','','Mu','Mullion-Lin');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (42,'LINEATION','rodding','Lineation - Rodding','C','','R','Rodding-Lin');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (43,'LINEATION','pencil','Lineation - Pencil','C','','P','Pencil-Lin');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (44,'LINEATION','slickenside','Lineation - Slickenside','C','','S','Slickenside-Lin');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (45,'IGNEOUS_EXTRUSIVE','extrusive_flow_banding','Igneous Extrusive - Flow Banding','C','','','Extrus-Flow Banding');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (46,'IGNEOUS_EXTRUSIVE','extrusive_flow_foliation','Igneous Extrusive - Flow Foliation','C','','','Extrus-Flow Foliation');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (47,'IGNEOUS_EXTRUSIVE','extrusive_flow_jointing','Igneous Extrusive - Flow Jointing','C','','','Extrus-Flow Jointing');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (48,'IGNEOUS_EXTRUSIVE','extrusive_welding_foliation','Igneous Extrusive - Welding Foliation','C','','','Extrus-Welding Foliation');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (49,'IGNEOUS_EXTRUSIVE','extrusive_welding_foliation_parataxitic','Igneous Extrusive - Welding Foliation Parataxitic','C','','','Extrus-WeldFol-Parataxitic');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (50,'IGNEOUS_EXTRUSIVE','extrusive_welding_foliation_eutaxitic','Igneous Extrusive - Welding Foliation Eutaxitic','C','','','Extrus-WeldFol-Eutaxitic');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (51,'IGNEOUS_PLANAR','planar_flow_banding','Igneous Planar - Flow Banding','C','','IFB','Planar-Flow Banding');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (52,'IGNEOUS_PLANAR','planar_flow_foliation','Igneous Planar - Flow Foliation','C','','PF','Planar-Flow Foliation');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (53,'IGNEOUS_PLANAR','planar_flow_jointing','Igneous Planar - Flow Jointing','C','','PFJ','Planar-Flow Jointing');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (54,'IGNEOUS_PLANAR','planar_welding_foliation','Igneous Planar - Welding Foliation','C','','PW','Welding Foliation');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (55,'IGNEOUS_PLANAR','planar_welding_foliation_parataxitic','Igneous Planar - Welding Foliation Parataxitic','C','','PWP','Weld-Foliation-Parataxitic');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (56,'IGNEOUS_PLANAR','planar_welding_foliation_eutaxitic','Igneous Planar - Welding Foliation Eutaxitic','C','','PWE','Weld-Foliation-Eutaxitic');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (57,'IGNEOUS_PLANAR','relict_planar_fabric','Igneous Planar - Relict Planar fabric','C','','PR','Relict Planar fabric');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (58,'IGNEOUS_PLANAR','compositional_layering_unspec','Igneous Planar - Compositional Layering Unspec','C','','PL','Comp-Layer-Unspec');
+INSERT INTO "dic_structure_secondary" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (59,'IGNEOUS_PLANAR','compositional_layering_cumulate','Igneous Planar - Compositional Layering Cumulate','C','','PLC','Comp-Layer-Cumulate');
+
+INSERT INTO "dic_structure_third" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (1,'DEFORMATION_PHASE','phase_d0','Phase D0 - Primary Syndepositional/Syn Sedimentary','C','','8','Phase-D0');
+INSERT INTO "dic_structure_third" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (2,'DEFORMATION_PHASE','phase_d1','Phase D1','C','','1','Phase-D1');
+INSERT INTO "dic_structure_third" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (3,'DEFORMATION_PHASE','phase_d2','Phase D2','C','','2','Phase-D2');
+INSERT INTO "dic_structure_third" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (4,'DEFORMATION_PHASE','phase_d3','Phase D3','C','','3','Phase-D3');
+INSERT INTO "dic_structure_third" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (5,'DEFORMATION_PHASE','phase_d4','Phase D4','C','','4','Phase-D4');
+INSERT INTO "dic_structure_third" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (6,'DEFORMATION_PHASE','phase_d5','Phase D5','C','','5','Phase-D5');
+INSERT INTO "dic_structure_third" ("fid","category","code","description","status","translation","sigma_2012","sigma_2015") VALUES (7,'DEFORMATION_PHASE','phase_d6','Phase D6','C','','6','Phase-D6');
+
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (1,'biology','Biology','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (2,'gas','Gas','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (3,'ice','Ice','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (4,'liquid_aqueous','Liquid aqueous','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (5,'liquid_organic','Liquid organic','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (6,'mineral','Mineral','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (7,'organic_material','Organic material','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (8,'other','Other','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (9,'particulate','Particulate','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (10,'plant_structure','Plant structure','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (11,'rock','Rock','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (12,'sediment','Sediment','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (13,'soil','Soil','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (14,'synthetic','Synthetic','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (15,'tephra','Tephra','','C');
+INSERT INTO "dic_sample_material" ("fid","code","description","translation","status") VALUES (16,'rock_fossil','Rock (Fossil)','','C');
+
+COMMIT;

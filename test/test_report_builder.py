@@ -1,4 +1,4 @@
-# Copyright 2026 British Geological Survey
+# Copyright 2026 UKRI / British Geological Survey
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 import builtins
@@ -14,9 +14,9 @@ from pypdf.errors import PdfReadError
 
 from conftest import locality_point_count, setup_db_conn
 
-from plugin.config import THUMBNAIL_SIZE
-from plugin.report_builder import ReportBuilder
-from plugin.utils import (  # noqa
+from CRAG.config import THUMBNAIL_SIZE
+from CRAG.report_builder import ReportBuilder
+from CRAG.utils import (  # noqa
     ipdb_breakpoint,
 )
 
@@ -425,7 +425,7 @@ def test_template_macro():
         'one_item': ['single_item_in_list'],
         'multiple_items': ['one', 'two', 'three']
     }}
-    environment = Environment(loader=FileSystemLoader("plugin/templates"))
+    environment = Environment(loader=FileSystemLoader("CRAG/templates"))
     template = environment.get_template("test_templates/_test.html")
 
     # Act

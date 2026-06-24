@@ -1,3 +1,6 @@
+# Copyright 2026 UKRI / British Geological Survey
+# Licensed under GPLv3 licence
+# SPDX-License-Identifier: GPL-3.0-or-later
 name: Package and Release Plugin
 
 on:
@@ -44,8 +47,8 @@ jobs:
     - name: PB Tool
       shell: bash -l {0}
       run: |
-        cp -r docs/user_guide/build/html/* plugin/help/.
-        cd plugin
+        cp -r docs/user_guide/build/html/* CRAG/help/.
+        cd CRAG
         python ../bin/update_plugin_metadata.py metadata.txt >> "$GITHUB_ENV"
         pb_tool zip
 
@@ -57,17 +60,17 @@ jobs:
         PYTHONUNBUFFERED: 1
       shell: bash -l {0}
       run: |
-        cd plugin/zip_build
+        cd CRAG/zip_build
         python -c "from qgis.testing.mocked import get_iface; from crag import classFactory; classFactory(get_iface())"
 
     - name: Rename Plugin
       shell: bash -l {0}
       run: |
-        cd plugin/zip_build
+        cd CRAG/zip_build
         mv crag.zip "$PLUGIN_FILE_NAME"
 
     - name: Release Plugin
       uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3
       with:
-        working_directory: plugin/zip_build
+        working_directory: CRAG/zip_build
         files: ${{ env.PLUGIN_FILE_NAME }}

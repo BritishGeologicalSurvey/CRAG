@@ -1,4 +1,4 @@
-# Copyright 2026 British Geological Survey
+# Copyright 2026 UKRI / British Geological Survey
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
@@ -7,7 +7,7 @@ Tests to ensure the formatting and style of SQL scripts is correct.
 from pathlib import Path
 import re
 
-SQL_DIR = Path(__file__).parent.parent / 'plugin' / 'sql'
+SQL_DIR = Path(__file__).parent.parent / 'CRAG' / 'sql'
 
 
 def test_no_tabs_are_present():

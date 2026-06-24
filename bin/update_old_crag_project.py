@@ -1,4 +1,4 @@
-# Copyright 2026 British Geological Survey
+# Copyright 2026 UKRI / British Geological Survey
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 import argparse
@@ -13,11 +13,11 @@ from typing import (
 
 import etlhelper as etl
 
-from plugin.config import (
+from CRAG.config import (
     FEATURE_TABLES,
     ATTRIBUTE_TABLES,
 )
-from plugin.create_gpkg_from_sql import main as gpkg_from_sql
+from CRAG.create_gpkg_from_sql import main as gpkg_from_sql
 
 logging.basicConfig(
     format="%(levelname)s: %(asctime)s %(name)s: %(message)s",

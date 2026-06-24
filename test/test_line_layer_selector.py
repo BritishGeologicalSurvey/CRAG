@@ -1,4 +1,4 @@
-# Copyright 2026 British Geological Survey
+# Copyright 2026 UKRI / British Geological Survey
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 import json
@@ -7,9 +7,9 @@ from unittest.mock import Mock
 import pytest
 from qgis.PyQt.QtWidgets import QRadioButton
 
-from plugin.crag import Crag
-from plugin.line_layer_selector import LineLayerSelector
-from plugin.utils import (  # noqa
+from CRAG.crag import Crag
+from CRAG.line_layer_selector import LineLayerSelector
+from CRAG.utils import (  # noqa
     get_combobox_items_dict,
     set_combobox_index_by_data,
     ipdb_breakpoint,

@@ -1,4 +1,4 @@
-# Copyright 2026 British Geological Survey
+# Copyright 2026 UKRI / British Geological Survey
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 """
@@ -31,16 +31,16 @@ from qgis.PyQt.QtCore import QMetaType
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from conftest import setup_db_conn
-from plugin.config import (
+from CRAG.config import (
     ATTRIBUTE_TABLES,
     FEATURE_TABLES,
     TABLE_LIST,
     LAYER_TREE_STRUCTURE_INDEXED,
 )
-from plugin.crag import Crag
-from plugin.report_builder import ReportBuilder
-from plugin.about_dialog import AboutDialog
-from plugin.utils import ipdb_breakpoint  # noqa
+from CRAG.crag import Crag
+from CRAG.report_builder import ReportBuilder
+from CRAG.about_dialog import AboutDialog
+from CRAG.utils import ipdb_breakpoint  # noqa
 
 
 def test_instantiation(crag):
@@ -155,7 +155,7 @@ def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     expected_qml_files = [
         # Make the expected path relative to the project root
         Path(qml_file.parent.name) / qml_file.name
-        for qml_file in Path("plugin/styles").glob("*.qml")
+        for qml_file in Path("CRAG/styles").glob("*.qml")
     ]
     expected_slyr_style = Path("BGS_CGDM_styles_2025_v4.xml")
     expected_user_dirs = [
@@ -287,7 +287,7 @@ def test_export_qml_styles(
     }
     # Get a dictionary of filepaths to expected copyright comments
     default_copyright = (
-        "<!--\nCopyright 2026 British Geological Survey\n"
+        "<!--\nCopyright 2026 UKRI / British Geological Survey\n"
         "Licensed under GPLv3 licence\nSPDX-License-Identifier: GPL-3.0-or-later\n-->\n"
     )
     expected_copyright_comments = dict.fromkeys(crag.styles_dir.glob("*.qml"), default_copyright)

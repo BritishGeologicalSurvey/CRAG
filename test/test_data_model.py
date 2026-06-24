@@ -1,4 +1,4 @@
-# Copyright 2026 British Geological Survey
+# Copyright 2026 UKRI / British Geological Survey
 # Licensed under GPLv3 licence
 # SPDX-License-Identifier: GPL-3.0-or-later
 from collections import defaultdict
@@ -8,7 +8,7 @@ from typing import Optional
 import pytest
 import etlhelper as etl
 
-from plugin.config import (
+from CRAG.config import (
     ATTRIBUTE_TABLES,
     DICTIONARIES,
     FEATURE_TABLES,

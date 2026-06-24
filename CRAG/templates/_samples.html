@@ -1,0 +1,32 @@
+<!--
+Copyright 2026 UKRI / British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+{# Table structure for sample metadata #}
+
+            {% if point.children.sample|length > 0 %}
+                <section class="sample">
+                    <h4>Samples</h4>
+                    {% for sample in point.children.sample %}
+                    <table>
+                        <tr>
+                            <td>Sample ID</td>
+                            <td>{{ sample.sample_id }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sample type</td>
+                            <td>{{ sample.description }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sample description</td>
+                            <td>{{ render(sample.sample_description) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Entered</td>
+                            <td>{{ sample.recorded_by }} at {{ sample.recorded_on }}</td>
+                        </tr>
+                    </table>
+                    {% endfor %}
+                </section>
+            {% endif %}

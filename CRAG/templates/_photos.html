@@ -1,0 +1,39 @@
+<!--
+Copyright 2026 UKRI / British Geological Survey
+Licensed under GPLv3 licence
+SPDX-License-Identifier: GPL-3.0-or-later
+-->
+{# Table structure for photo metadata #}
+
+            {% if point.children.photo|length > 0 %}
+                <section class="photo">
+                    <h4>Photos</h4>
+                    {% for photo in point.children.photo %}
+                    <table>
+                        <tr>
+                            <td class="photo" rowspan="5">
+                                <a target="_blank" href="photos/{{ photo.photo_file }}">
+                                    <img src="_crag/_thumbnails/{{ photo.photo_file }}">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>File name</td>
+                            <td>{{ photo.photo_file }}</td>
+                        </tr>
+                        <tr>
+                            <td>Caption</td>
+                            <td>{{ render(photo.caption) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{{ render(photo.description) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Entered</td>
+                            <td>{{ photo.recorded_by }} at {{ photo.recorded_on }}</td>
+                        </tr>
+                    </table>
+                    {% endfor %}
+                </section>
+            {% endif %}
