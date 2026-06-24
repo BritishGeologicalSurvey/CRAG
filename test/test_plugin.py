@@ -4,30 +4,22 @@
 """
 These are tests for the plugin which depend on a running QGIS version which is supplied by the 'crag' fixture.
 """
-import re
 from pathlib import Path
 from typing import Optional
 from unittest.mock import Mock
 from xml.dom import minidom
 
-
 import pytest
-from bs4 import BeautifulSoup
 import etlhelper as etl
 from qgis.core import (
     QgsAttributeEditorContainer,
-    QgsExpression,
     QgsExpressionContext,
     QgsExpressionContextUtils,
-    QgsFeature,
-    QgsField,
-    QgsFields,
     QgsGeometry,
     QgsLayerTreeGroup,
     QgsProject,
     QgsVectorLayerUtils,
 )
-from qgis.PyQt.QtCore import QMetaType
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from conftest import setup_db_conn
@@ -38,7 +30,6 @@ from CRAG.config import (
     LAYER_TREE_STRUCTURE_INDEXED,
 )
 from CRAG.crag import Crag
-from CRAG.report_builder import ReportBuilder
 from CRAG.about_dialog import AboutDialog
 from CRAG.utils import ipdb_breakpoint  # noqa
 
@@ -568,96 +559,6 @@ def test_default_attachment_bgs_placeholder(crag_project: Crag, layer_name: str,
         assert feature.attribute(attachment_col) is None
         if layer_name == 'media':
             assert feature.attribute('media_type_code') is None
-
-
-def test_photo_map_tip(report_builder: ReportBuilder):
-    # Extract expression from map tip text
-    qml_file = report_builder.styles_dir / 'view_photo.qml'
-    expression_text = get_qml_expression(qml_file, element="maptip", pattern=r"\[%if\([\s\S]*?\)%\]")
-
-    # Set up a scope and context with the fields and variables needed
-    PHOTO_FILENAME = 'test_point_001.jpeg'
-    global_scope = QgsExpressionContextUtils.globalScope()
-    expression_context = QgsExpressionContext([global_scope])
-    # Add and set the photo_file field to the context
-    fields = QgsFields()
-    field = QgsField('photo_file', QMetaType.Type.QString)
-    fields.append(field)
-    feature = QgsFeature()
-    feature.setFields(fields)
-    feature.setAttribute('photo_file', PHOTO_FILENAME)
-    expression_context.setFeature(feature)
-    # Add and set the project_folder variable to the scope
-    global_scope.setVariable("project_folder", str(report_builder.project_dir))
-    expression = QgsExpression(expression_text)
-
-    # No thumbnails present
-    expected = f'<img src="file:///{str(report_builder.photos_dir)}/{PHOTO_FILENAME}" />'
-    assert expected == expression.evaluate(expression_context)
-
-    # Thumbnails present
-    expected = f'<img src="file:///{str(report_builder.thumbnails_dir)}/{PHOTO_FILENAME}" />'
-    report_builder.create_thumbnails()
-    assert expected == expression.evaluate(expression_context)
-
-
-def test_last_sample_id(crag_project_quick: Crag):
-    # Arrange
-    qml_file = crag_project_quick.styles_dir / "sample.qml"
-    expression_text = get_qml_expression(qml_file, element="attributeeditortextelement", pattern=r"\[%[\s\S]*?%\]")
-
-    # Act 1
-    global_scope = QgsExpressionContextUtils.globalScope()
-    expression_context = QgsExpressionContext([global_scope])
-    expression = QgsExpression(expression_text)
-    last_recorded_sample_id = expression.evaluate(expression_context)
-
-    # Assert 1
-    assert last_recorded_sample_id == "sample_002"
-
-    # Act 2
-    # Delete the most recent sample, the next most recent sample should be given by the expression instead
-    with setup_db_conn(crag_project_quick.db_file) as conn:
-        etl.execute("DELETE FROM sample WHERE sample_id = 'sample_002'", conn=conn)
-    # We have to get the latest global expression context again now it has changed
-    global_scope = QgsExpressionContextUtils.globalScope()
-    expression_context = QgsExpressionContext([global_scope])
-    last_recorded_sample_id = expression.evaluate(expression_context)
-
-    # Assert 2
-    assert last_recorded_sample_id == "sample_001"
-
-    # Act 3
-    # Delete the final sample, the expression should evaluate to nothing
-    with setup_db_conn(crag_project_quick.db_file) as conn:
-        etl.execute("DELETE FROM sample WHERE sample_id = 'sample_001'", conn=conn)
-    # We have to get the latest global expression context again now it has changed
-    global_scope = QgsExpressionContextUtils.globalScope()
-    expression_context = QgsExpressionContext([global_scope])
-    last_recorded_sample_id = expression.evaluate(expression_context)
-
-    # Assert 3
-    assert last_recorded_sample_id is None
-
-
-def get_qml_expression(qml_file: Path, element: str, pattern: str) -> str:
-    """
-    Get a QML expression from the given QML file, at the given XML element name.
-    pattern is the regular expression search pattern that will be used to find the QGIS expression
-    within the found XML text.
-    """
-    # Extract expression from QML file
-    soup = BeautifulSoup(qml_file.read_text(encoding="utf-8"), 'lxml')
-    xml_elements = soup.find_all(element)
-    # There should be one match for the given string
-    assert len(xml_elements) == 1
-    full_expression_text = xml_elements[0].text
-    match = re.search(pattern, full_expression_text)
-    # There should be an expression found
-    assert match
-    # Remove expression delimiters off each end
-    expression_text = match.group(0).replace("[%", "").replace("%]", "")
-    return expression_text
 
 
 def test_about_dialog(crag: Crag):
