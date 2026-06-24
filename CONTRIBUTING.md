@@ -14,7 +14,7 @@ There are a few overarching principles to bear in mind during development:
 
 + This is not an application, it is a GeoPackage and QGIS configuration optimised for geological field data capture.  The aim of the plugin is to automate the creation of the GeoPackage and Forms.
 + Once created, a project should function by itself, without requiring custom logic from the plugin.
-+ The plugin should not depend on BGS infrastructure nor on Mergin Maps and the liklihood of future translation requirements should be kept in mind.
++ The plugin should not depend on BGS infrastructure nor on Mergin Maps and the likelihood of future translation requirements should be kept in mind.
 
 ## Developer setup
 
@@ -82,13 +82,21 @@ From there, plugin attributes and methods can accessed directly e.g. `crag.add_g
 ### Building documentation
 
 The documentation is created using Sphinx.
-To locally build the documentation, run the following:
+To build the HTML documentation locally, run the following:
  
 ```bash
 sphinx-build -M html docs/user_guide/source/ docs/user_guide/build/
 ```
 
-The documentation can then be viewed at `docs/user_guide/build/index.html`
+The documentation can then be viewed at `docs/user_guide/build/html/index.html`
+
+To build the PDF documentation locally, run the following:
+
+```bash
+sphinx-build -M rinoh docs/user_guide/source/ docs/user_guide/build/
+```
+
+The documentation can then be viewed at `docs/user_guide/build/rinoh/crag_user_guide.pdf`
 
 
 ## Creating a new release
