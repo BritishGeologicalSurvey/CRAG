@@ -495,7 +495,7 @@ class Crag(CragProject):
 
         # Additionally, add action to main QGIS Help -> Plugins menu
         self.help_action = self.add_action(
-            None,
+            str(self.icons_src_dir / "quick_locality_add.png"),
             text=self.tr(u'CRAG'),
             callback=self.show_help,
             add_to_menu=False,
