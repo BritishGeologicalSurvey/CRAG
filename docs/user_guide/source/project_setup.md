@@ -199,18 +199,18 @@ When a new project is first created a number of files and folders are created in
 (adding-baseline-data)=
 ## Adding baseline data
 
-:::{important}
-This part of the User Guide is still in development.
-:::
-
 ### Baseline data folder
 
-Baseline data, such as OS Maps and Digmap 50 maps, should be stored within the `baseline_data`
+Baseline data, such as regional topographical or geological maps, should be stored within the `baseline_data`
 folder within a project folder.
 This ensures that the data are synchronised with the project via the Mergin Maps server.
 
-Note: do not put large files in this folder, e.g. LiDAR DTMs, as they cause problems with project syncing.
-If you need large baseline data files, contact [digitalmapping@bgs.ac.uk](mailto:digitalmapping@bgs.ac.uk) to learn about storing baseline data outside the main project.
+:::{note}
+Do not put large files in this folder, e.g. LiDAR DTMs, as they cause problems with project syncing.
+If you need large baseline data files, please see [Mergin Maps: How to work with very large files](https://merginmaps.com/docs/gis/settingup_background_map/#how-to-work-with-very-large-files)
+to learn about storing baseline data outside the main project.
+:::
+
 
 ### OpenStreetMap web map
 
