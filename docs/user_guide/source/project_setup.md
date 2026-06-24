@@ -49,7 +49,7 @@ Then save the project, clicking on the `Save Project` button.
 *Save Project*
 :::
 
-Navigate to the new project folder (or create on after navigating to the `field_projects` folder), select that folder, enter the project name and click `Save`.
+Navigate to the new project folder (or create one after navigating to the `field_projects` folder), select that folder, enter the project name and click `Save`.
 
 :::{figure-md}
 ![](images/save_project_2.png){align=center}
@@ -124,7 +124,7 @@ Some required fields have a default value.
 Once completed the 'x' turns to a green tick and the highlighting is removed.
 All other fields are optional and set to NULL by default.
 
-In general, single line fields are limited to 250 characters, while multi-line fields are limited to 4000 characters.
+In general, single line fields are limited to 255 characters, while multi-line fields are limited to 4000 characters.
 If the character limit for any field is exceeded the text will turn orange and a small orange 'x' will appear on
 the right. The text in such a field will need to be edited to bring it within the character limit before
 the form can be saved.
