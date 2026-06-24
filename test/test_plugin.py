@@ -573,17 +573,7 @@ def test_default_attachment_bgs_placeholder(crag_project: Crag, layer_name: str,
 def test_photo_map_tip(report_builder: ReportBuilder):
     # Extract expression from map tip text
     qml_file = report_builder.styles_dir / 'view_photo.qml'
-    soup = BeautifulSoup(qml_file.read_text(encoding="utf-8"), 'lxml')
-    map_tips = soup.find_all('maptip')
-    # There should be one map tip
-    assert len(map_tips) == 1
-    full_expression_text = map_tips[0].text
-    pattern = r"\[%if\([\s\S]*?\)%\]"
-    match = re.search(pattern, full_expression_text)
-    # There should be an expression in the map tip
-    assert match
-    # Remove new lines and strip expression delimiters off each end
-    expression_text = match.group(0).replace('\r\n', '').lstrip('[%').rstrip('%]')
+    expression_text = get_qml_expression(qml_file, element="maptip", pattern=r"\[%if\([\s\S]*?\)%\]")
 
     # Set up a scope and context with the fields and variables needed
     PHOTO_FILENAME = 'test_point_001.jpeg'
@@ -609,6 +599,65 @@ def test_photo_map_tip(report_builder: ReportBuilder):
     expected = f'<img src="file:///{str(report_builder.thumbnails_dir)}/{PHOTO_FILENAME}" />'
     report_builder.create_thumbnails()
     assert expected == expression.evaluate(expression_context)
+
+
+def test_last_sample_id(crag_project_quick: Crag):
+    # Arrange
+    qml_file = crag_project_quick.styles_dir / "sample.qml"
+    expression_text = get_qml_expression(qml_file, element="attributeeditortextelement", pattern=r"\[%[\s\S]*?%\]")
+
+    # Act 1
+    global_scope = QgsExpressionContextUtils.globalScope()
+    expression_context = QgsExpressionContext([global_scope])
+    expression = QgsExpression(expression_text)
+    last_recorded_sample_id = expression.evaluate(expression_context)
+
+    # Assert 1
+    assert last_recorded_sample_id == "sample_002"
+
+    # Act 2
+    # Delete the most recent sample, the next most recent sample should be given by the expression instead
+    with setup_db_conn(crag_project_quick.db_file) as conn:
+        etl.execute("DELETE FROM sample WHERE sample_id = 'sample_002'", conn=conn)
+    # We have to get the latest global expression context again now it has changed
+    global_scope = QgsExpressionContextUtils.globalScope()
+    expression_context = QgsExpressionContext([global_scope])
+    last_recorded_sample_id = expression.evaluate(expression_context)
+
+    # Assert 2
+    assert last_recorded_sample_id == "sample_001"
+
+    # Act 3
+    # Delete the final sample, the expression should evaluate to nothing
+    with setup_db_conn(crag_project_quick.db_file) as conn:
+        etl.execute("DELETE FROM sample WHERE sample_id = 'sample_001'", conn=conn)
+    # We have to get the latest global expression context again now it has changed
+    global_scope = QgsExpressionContextUtils.globalScope()
+    expression_context = QgsExpressionContext([global_scope])
+    last_recorded_sample_id = expression.evaluate(expression_context)
+
+    # Assert 3
+    assert last_recorded_sample_id is None
+
+
+def get_qml_expression(qml_file: Path, element: str, pattern: str) -> str:
+    """
+    Get a QML expression from the given QML file, at the given XML element name.
+    pattern is the regular expression search pattern that will be used to find the QGIS expression
+    within the found XML text.
+    """
+    # Extract expression from QML file
+    soup = BeautifulSoup(qml_file.read_text(encoding="utf-8"), 'lxml')
+    xml_elements = soup.find_all(element)
+    # There should be one match for the given string
+    assert len(xml_elements) == 1
+    full_expression_text = xml_elements[0].text
+    match = re.search(pattern, full_expression_text)
+    # There should be an expression found
+    assert match
+    # Remove expression delimiters off each end
+    expression_text = match.group(0).replace("[%", "").replace("%]", "")
+    return expression_text
 
 
 def test_about_dialog(crag: Crag):
