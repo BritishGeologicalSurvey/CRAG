@@ -222,3 +222,114 @@ The simplest way to get a basemap in QGIS is to add the OpenStreetMap web map to
 
 Note that this web map is only available when the system is online.
 Disable or remove this layer when working in the field.
+
+## Mergin Maps
+
+### Uploading a Project to Mergin Maps
+
+Once a project has been created it can be uploaded to a Mergin Maps server. Click on the `Create Mergin Maps project` button on the `Mergin Maps Toolbar`.
+
+:::{note}
+This step is best undertaken with a fast, reliable network connection.
+:::
+
+:::{figure-md}
+![Create Mergin Maps Project](images/mergin_create_project.png){align=center}
+
+*Create Mergin Maps Project*
+:::
+
+Click on the bottom button, `Use current QGIS project as is`.
+
+:::{figure-md}
+![Mergin Maps Upload Project](images/mergin_upload.png){align=center}
+
+*Mergin Maps Upload Project*
+:::
+
+Ensure the Workspace set to the correct name and fill in the Project Name, this should match the .qgz project file name.
+The project folder should already be set to the current project's directory.
+Click Finish.
+
+:::{figure-md}
+![Mergin Maps Project Details](images/mergin_details.png){align=center}
+
+*Mergin Maps Project Details*
+:::
+
+Mergin will scan the project and determine the files to upload.
+If it reports an issue with the projection system and offers to fix it, select that option.
+This will add a `.mergin` folder which stores system information used by Mergin Maps
+and a `proj` folder that contains geoid corrections for converting between OSGB and WGS84 data.
+
+Depending on the size of the project, which will be related to the base map and other baseline data,
+this step could take some time as data is uploaded. A progress dialog should appear.
+
+:::{figure-md}
+![Mergin Maps Upload Progress](images/mergin_progress.png){align=center}
+
+*Mergin Maps Upload Progress*
+:::
+
+Once the project is uploaded you will see a confirmation dialog.
+
+:::{figure-md}
+![Mergin Maps Upload Complete](images/mergin_complete.png){align=center width=400px}
+
+*Mergin Maps Upload Complete*
+:::
+
+You are now ready to start collecting field data with the project and any future changes can be uploaded by synchronising the project.
+
+:::{note}
+The entire contents of the project folder are synced by Mergin and to anyone who downloads it.
+Consider the data protection (GDPR) implications of storing personal information, e.g. landowner contact details, in the project folder.
+:::
+
+### Downloading an Existing Project
+
+If you would like to work on an existing project which has already been uploaded to the Mergin Maps server, this can be downloaded from the Mergin Maps item in the QGIS Browser pane.
+Before downloading a project you should refresh the view.
+Right click on Mergin Maps and select `Refresh` from the menu.
+
+:::{note}
+This step is best undertaken with a fast, reliable network connection.
+:::
+
+:::{figure-md}
+![Mergin Maps Refresh](images/mergin_refresh.png){align=center}
+
+*Mergin Maps Refresh*
+:::
+
+Already downloaded projects are shown with the folder icon, with the cloud icon indicating a project that has not yet been downloaded. To download a specific project, right click on the cloud for that project and select `Download` from the menu.
+
+:::{figure-md}
+![Mergin Maps Download](images/mergin_download.png){align=center}
+
+*Mergin Maps Download*
+:::
+
+QGIS will prompt you to select a folder for the project using the system file browser. The project should be stored in your `field_projects` folder, select that and click OK.
+
+:::{figure-md}
+![Mergin Maps Download](images/mergin_folder.png){align=center}
+
+*Select Folder*
+:::
+
+Depending on the size of the project, which will be related to the base map and other baseline data, this step could take some time as data is downloaded. A progress dialog should appear.
+
+:::{figure-md}
+![Mergin Maps Download Progress](images/mergin_download_progress.png){align=center}
+
+*Mergin Maps Download Progress*
+:::
+
+Once the project is downloaded you will be asked whether you want to open the project now, click Yes if you do. If you want to open the project later that can be done using the QGIS `Open Project` button or `Project` menu item
+
+:::{figure-md}
+![Mergin Maps Download Complete](images/mergin_open_project.png){align=center width=400px}
+
+*Mergin Maps Download Complete*
+:::

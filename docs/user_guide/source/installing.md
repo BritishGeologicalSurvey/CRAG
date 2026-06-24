@@ -79,3 +79,31 @@ The toolbar can be moved within the main toolbars, or repositioned on any edge o
 :::
 
 Other QGIS toolbars can also be moved in the same way.
+
+## Mergin Maps
+
+
+
+### Install Mergin Maps Plugin
+
+To install the Mergin Maps plugin, follow the official instructions [here](https://merginmaps.com/docs/setup/install-mergin-maps-plugin-for-qgis/).
+
+Once installed, the plugin can be accessed from the `Plugins` menu and the `Mergin Maps Toolbar`:
+
+:::{figure-md}
+![Mergin Maps Menu](images/mergin_maps_menu.png){align=center}
+
+*Mergin Maps Menu*
+:::
+
+:::{figure-md}
+![Mergin Maps Toolbar](images/mergin_maps_toolbar.png){align=center}
+
+*Mergin Maps Toolbar*
+:::
+
+To use the plugin requires a user account on the Mergin Maps website or on an independently hosted Mergin Maps server. Please see the [Mergin Maps website](https://merginmaps.com/) for more information.
+
+:::{note}
+When logging into the plugin with your Mergin Maps account, you can save your login details if you have set a Master Password for QGIS. You can find official information about the QGIS Master Password [here](https://docs.qgis.org/latest/en/docs/user_manual/auth_system/auth_overview.html?highlight=password#master-password).
+:::
