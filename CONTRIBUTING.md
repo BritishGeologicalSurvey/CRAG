@@ -50,9 +50,9 @@ pytest -vv test/
 ```
 
 
-### Deploying plugin
+### Deploying the plugin
 
-To copy the plugin to your QGIS plugins folder, run:
+To copy the plugin to your Linux QGIS plugins folder, run:
 
 ```bash
 bin/deploy_plugin.sh
@@ -61,6 +61,15 @@ bin/deploy_plugin.sh
 You may need to manually activate the plugin if it was not installed already.
 
 If you install the QGIS Plugin Reloader plugin, you can use it to quickly reload to the newly installed version.
+
+#### Manually deploying the plugin
+
+If you are developing the plugin using Linux under WSL, but you need to test the plugin using QGIS under Windows,
+you can manually copy the plugin to Windows. From within the repository folder and using your Windows username:
+
+```bash
+cp -rf CRAG /mnt/c/Users/windows_user/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/.
+```
 
 
 ### QGIS debugging tips
