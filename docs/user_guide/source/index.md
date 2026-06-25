@@ -2,6 +2,7 @@
 
 ```{toctree}
 :maxdepth: 3
+introduction.md
 installing.md
 project_setup.md
 locality_points.md

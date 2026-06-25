@@ -1,14 +1,8 @@
 # Installing CRAG
 
-CRAG comprises a plugin for QGIS:
-
- - The CRAG plugin is written by BGS and is used to collect data.
-   It adds the required GeoPackage database and layers to a project so that data can be collected in BGS format.
-   It also provides tools to manage photos, create a field report and validate data.
-
 ## Install QGIS
 
-QGIS, and the required plugin, can be installed on Windows, Linux or Mac computers, installation is [described on the QGIS website](https://qgis.org/resources/installation-guide/).
+QGIS, and the required plugin, can be installed on Windows, Linux or Mac computers, installation is [described on the QGIS website](https://qgis.org/resources/installation-guide/). It is recommended that the current Long Term Release (LTR) version is installed. While the CRAG plugin should function correctly using the Latest Release (LR), this version of QGIS may be subject to change and so the plugin may not offer the best user experience.
 
 
 ## Install CRAG Plugin
@@ -81,8 +75,6 @@ The toolbar can be moved within the main toolbars, or repositioned on any edge o
 Other QGIS toolbars can also be moved in the same way.
 
 ## Mergin Maps
-
-
 
 ### Install Mergin Maps Plugin
 
