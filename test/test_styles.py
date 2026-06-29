@@ -141,7 +141,11 @@ def _has_layers_with_angle_from_azimuth(symbol_element: ET.Element) -> bool:
 def test_photo_map_tip(report_builder: ReportBuilder):
     # Extract expression from map tip text
     qml_file = report_builder.styles_dir / 'view_photo.qml'
-    expression_text = get_qml_expression(qml_file, element="maptip", pattern=r"\[%if\([\s\S]*?\)%\]")
+    expression_text = get_qml_expression(
+        qml_file,
+        element="mapTip",
+        pattern=r"\[%(?P<expression_text>if\([\s\S]*?\))%\]",
+    )
 
     # Set up a scope and context with the fields and variables needed
     PHOTO_FILENAME = 'test_point_001.jpeg'
@@ -172,7 +176,11 @@ def test_photo_map_tip(report_builder: ReportBuilder):
 def test_last_sample_id(crag_project_quick: Crag):
     # Arrange
     qml_file = crag_project_quick.styles_dir / "sample.qml"
-    expression_text = get_qml_expression(qml_file, element="attributeeditortextelement", pattern=r"\[%[\s\S]*?%\]")
+    expression_text = get_qml_expression(
+        qml_file,
+        element="attributeEditorTextElement",
+        pattern=r"\[%(?P<expression_text>[\s\S]*?)%\]",
+    )
 
     # Act 1
     global_scope = QgsExpressionContextUtils.globalScope()
@@ -212,10 +220,12 @@ def get_qml_expression(qml_file: Path, element: str, pattern: str) -> str:
     """
     Get a QML expression from the given QML file, at the given XML element name.
     pattern is the regular expression search pattern that will be used to find the QGIS expression
-    within the found XML text.
+    within the found XML text, it should include a named group: expression_text
     """
     # Extract expression from QML file
     soup = BeautifulSoup(qml_file.read_text(encoding="utf-8"), 'lxml')
+    # Force the element string to be lowercase as lxml makes everything lowercase in it's search
+    element = element.lower()
     xml_elements = soup.find_all(element)
     # There should be one match for the given string
     assert len(xml_elements) == 1
@@ -223,6 +233,5 @@ def get_qml_expression(qml_file: Path, element: str, pattern: str) -> str:
     match = re.search(pattern, full_expression_text)
     # There should be an expression found
     assert match
-    # Remove expression delimiters off each end
-    expression_text = match.group(0).replace("[%", "").replace("%]", "")
+    expression_text = match.groupdict()["expression_text"]
     return expression_text
