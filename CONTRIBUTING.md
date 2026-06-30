@@ -127,24 +127,6 @@ The `format_sql.sh` script takes raw sqlite3 dumps and makes them more readable.
 bin/format_sql.sh raw_dump.sql > sql/V00x__pretty_formatted.sql
 ```
 
-##### Mergin API
-
-The `mergin_api.py` script takes a single string argument which it will use to search for projects in the `SIGMALite` namespace for deletion. It will ask for confirmation before deletion.
-
-```bash
-python bin/mergin_api.py conflict-test
-```
-
-##### Project Data Importer
-
-The `project_data_importer.py` script takes 2 arguments which should both be filepaths to CRAG project directories, it will then copy the first given project's data (source) into the second given project's data (destination). In the event of an error, the destination project will be restored from a backup handled by the script.
-
-_Note: Both the source and destination project must be closed before attempting to import data._
-
-```bash
-python bin/project_data_importer.py my/crag/project_src/ my/crag_project/dest/
-```
-
 
 ### Running tests
 
