@@ -98,24 +98,24 @@ pre, tt, code {
   padding: 0.125em 0.6em;
 }
 
-div.admonition {
-  background: var(--bgs-secondary-rock);
-  border: 0px;
-}
-
-div.important {
-  background: var(--bgs-secondary-sand);
-  border: 0px;
-}
-
-div.caution {
-  background: var(--bgs-secondary-amber);
-  border: 0px;
-}
-
 div.admonition p.admonition-title {
   font-family: 'Aileron', Arial, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.admonition.note {
+  background-color: var(--bgs-secondary-sand);
+  font-weight: bolder;
+}
+
+.admonition.important {
+  background-color: var(--bgs-secondary-haze);
+  font-weight: bolder;
+}
+
+.admonition.caution {
+  background: var(--bgs-secondary-amber);
+  font-weight: bolder;
 }
 
 img {
