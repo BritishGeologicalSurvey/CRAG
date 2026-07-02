@@ -28,6 +28,7 @@ dependencies:
   - sphinx
   - sphinx-copybutton
   - sphinx-subfigure
+  - sphinx-book-theme
   - myst-parser
   - rinohtype
 

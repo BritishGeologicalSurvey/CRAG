@@ -3,6 +3,7 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+from datetime import datetime
 import os
 import sys
 
@@ -10,8 +11,8 @@ import sys
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'CRAG'
-copyright = 'BGS 2026'
-author = 'Colin Blackburn'
+copyright = str(datetime.now().year)
+author = 'British Geological Survey'
 release = '0.1'
 
 # -- General configuration ---------------------------------------------------
@@ -39,20 +40,23 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'alabaster'
+html_theme = 'sphinx_book_theme'
 html_theme_options = {
-    'fixed_sidebar': True,
-}
-html_sidebars = {
-    "**": [
-        "about.html",
-        "searchfield.html",
-        "navigation.html",
+    "show_toc_level": 3,
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/BritishGeologicalSurvey/CRAG",
+            "icon": "fa-brands fa-github",
+        },
     ]
 }
 
 # This directory contains subdirectories to be passed through to the built site
 html_static_path = ['_static']
+
+# Custom CSS file, imports BGS theme
+html_css_files = ["custom.css"]
 
 # rinoh settings
 rinoh_documents = [dict(doc='index',                    # top-level file (index.md)

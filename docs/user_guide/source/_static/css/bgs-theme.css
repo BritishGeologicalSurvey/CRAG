@@ -103,21 +103,6 @@ div.admonition p.admonition-title {
     'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
-.admonition.note {
-  background-color: var(--bgs-secondary-sand);
-  font-weight: bolder;
-}
-
-.admonition.important {
-  background-color: var(--bgs-secondary-haze);
-  font-weight: bolder;
-}
-
-.admonition.caution {
-  background: var(--bgs-secondary-amber);
-  font-weight: bolder;
-}
-
 img {
   max-width: 90%;
   border: 1px solid var(--bgs-primary-black);
