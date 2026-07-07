@@ -93,7 +93,7 @@ For this reason, to update `environment_docker.yml` we have to build the unversi
 environment within the container and then get a shell within it to run the
 export command. The following commands build, run and shell into a container.
 
-```
+```bash
 docker build --target create-environment -t crag .
 docker run --name crag_env --rm -it -d crag
 docker exec -it crag_env /bin/bash
@@ -101,15 +101,15 @@ docker exec -it crag_env /bin/bash
 
 From within the container, acxtivate the environment, export the environment and then exit.
 
-```
-# conda activate crag
-# conda env export > environment_docker.yml
-# exit
+```bash
+conda activate crag
+conda env export > environment_docker.yml
+exit
 ```
 
 Copy out the updated environment file and stop it, it will be removed automatically.
 
-```
+```bash
 docker cp crag_env:environment_docker.yml .
 docker stop crag_env
 ```
