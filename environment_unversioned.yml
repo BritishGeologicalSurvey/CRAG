@@ -9,22 +9,27 @@ dependencies:
   - python=3.12
   - qgis=3.44.9
 
-  - beautifulsoup4
-  - eralchemy
+  # Packages bundled with QGIS
   - exifread
-  - flake8
-  - ipdb
-  - ipython
   - Jinja2
   - lxml
   - pandas
   - pillow
   - pip  # Required to make sure that conda uses the correct pip
+  - reportlab
+
+  # Packages used for support and  testing
+  - beautifulsoup4
+  - eralchemy
+  - flake8
+  - ipdb
+  - ipython
   - pytest
   - rdflib
-  - reportlab
   - sqlalchemy
   - pypdf
+
+  # Packages used to generate user documentation
   - sphinx
   - sphinx-copybutton
   - sphinx-subfigure
@@ -33,7 +38,9 @@ dependencies:
   - rinohtype
 
   - pip:
+      # Packages used for support and  testing
       - etlhelper
       - mergin-client
       - pb_tool==3.1.0
+      # Packages used to generate user documentation
       - rinoh-typeface-texgyreheros

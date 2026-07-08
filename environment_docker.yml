@@ -79,7 +79,7 @@ dependencies:
   - freexl=2.0.0=h9dce30a_2
   - fribidi=1.0.16=hb03c661_0
   - future=1.0.0=pyhd8ed1ab_2
-  - gdal=3.13.1=np2py312h5c5411d_5
+  - gdal=3.13.1=np2py312ha48b277_6
   - gdk-pixbuf=2.44.7=h2b0a6b4_0
   - geos=3.14.1=h480dda7_0
   - geotiff=1.7.4=h2712d98_5
@@ -169,22 +169,22 @@ dependencies:
   - libgcc-ng=15.2.0=h69a702a_19
   - libgcrypt-lib=1.12.2=hb03c661_0
   - libgd=2.3.3=h5fbf134_12
-  - libgdal=3.13.1=hfc2019e_5
-  - libgdal-adbc=3.13.1=ha3980f9_5
-  - libgdal-arrow-parquet=3.13.1=h0349829_5
-  - libgdal-core=3.13.1=h8fccf12_5
-  - libgdal-fits=3.13.1=hba730f6_5
-  - libgdal-grib=3.13.1=h2e9c474_5
-  - libgdal-hdf4=3.13.1=hef72ef8_5
-  - libgdal-hdf5=3.13.1=h83b6819_5
-  - libgdal-jp2openjpeg=3.13.1=ha3980f9_5
-  - libgdal-kea=3.13.1=h83b6819_5
-  - libgdal-netcdf=3.13.1=h34fab6f_5
-  - libgdal-pdf=3.13.1=h79d70a8_5
-  - libgdal-pg=3.13.1=h1772cb1_5
-  - libgdal-postgisraster=3.13.1=h1772cb1_5
-  - libgdal-tiledb=3.13.1=ha3980f9_5
-  - libgdal-xls=3.13.1=ha3980f9_5
+  - libgdal=3.13.1=hfc2019e_6
+  - libgdal-adbc=3.13.1=h598962c_6
+  - libgdal-arrow-parquet=3.13.1=hd9aeefa_6
+  - libgdal-core=3.13.1=h8fccf12_6
+  - libgdal-fits=3.13.1=h4822d67_6
+  - libgdal-grib=3.13.1=hd579ad7_6
+  - libgdal-hdf4=3.13.1=h4e801ce_6
+  - libgdal-hdf5=3.13.1=h21f1bf3_6
+  - libgdal-jp2openjpeg=3.13.1=h598962c_6
+  - libgdal-kea=3.13.1=h21f1bf3_6
+  - libgdal-netcdf=3.13.1=h113a9b0_6
+  - libgdal-pdf=3.13.1=h1f3916a_6
+  - libgdal-pg=3.13.1=h9def510_6
+  - libgdal-postgisraster=3.13.1=h9def510_6
+  - libgdal-tiledb=3.13.1=h598962c_6
+  - libgdal-xls=3.13.1=h598962c_6
   - libgfortran=15.2.0=h69a702a_19
   - libgfortran5=15.2.0=h68bc16d_19
   - libgl=1.7.0=ha4b6fd6_3
@@ -321,7 +321,7 @@ dependencies:
   - plotly=6.8.0=pyhd8ed1ab_0
   - pluggy=1.6.0=pyhf9edf01_1
   - ply=3.11=pyhd8ed1ab_3
-  - poppler=26.05.0=hfdef1ce_3
+  - poppler=26.07.0=he594abd_3
   - poppler-data=0.4.12=hd8ed1ab_0
   - postgresql=18.4=h3dddfe3_1
   - proj=9.8.1=he0df7b0_0
