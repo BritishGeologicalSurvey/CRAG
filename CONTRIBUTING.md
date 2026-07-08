@@ -90,29 +90,18 @@ When re-creating the environment with a new dependency, you should follow these 
 There is an additional issue with building dependencies for the Docker container,
 as libraries that we use in WSL may not have the same versions in the container OS.
 For this reason, to update `environment_docker.yml` we have to build the unversioned
-environment within the container and then get a shell within it to run the
-export command. The following commands build, run and shell into a container.
+environment within the container and then run the container. The following commands build,
+run, copy out the updated environment file and stop it.
 
 ```bash
-docker build --target create-environment -t crag .
-docker run --name crag_env --rm -it -d crag
-docker exec -it crag_env /bin/bash
-```
-
-From within the container, acxtivate the environment, export the environment and then exit.
-
-```bash
-conda activate crag
-conda env export > environment_docker.yml
-exit
-```
-
-Copy out the updated environment file and stop it, it will be removed automatically.
-
-```bash
+docker build --target create-environment --build-arg PIP_INDEX_URL=$PIP_INDEX_URL_FOR_DOCKER -t crag .
+docker run --name crag_env crag
 docker cp crag_env:environment_docker.yml .
-docker stop crag_env
+docker rm crag_env
 ```
+
+Note: that the `build-arg` is only necessary if your system uses a non-standard repository
+such as an internal Nexus server to provide Python packages.
 
 
 ### Bin Scripts

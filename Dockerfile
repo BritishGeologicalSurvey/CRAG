@@ -31,6 +31,9 @@ ARG PIP_INDEX_URL
 ENV PIP_INDEX_URL=$PIP_INDEX_URL
 COPY environment_unversioned.yml /environment_unversioned.yml
 RUN conda env create -f /environment_unversioned.yml
+# Make RUN commands use the new environment:
+SHELL ["conda", "run", "-n", "crag", "/bin/bash", "-c"]
+RUN conda env export > environment_docker.yml
 
 FROM base AS production
 COPY environment_docker.yml /environment_docker.yml
