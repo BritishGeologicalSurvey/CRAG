@@ -221,10 +221,11 @@ Once the form is complete click on `OK` and then the Save Child Layer Edits butt
 #### Sample
 
 Sample details can be added via the Samples tab, a sample ID and type code are both required.
+The most recently saved sample ID is displayed to help in setting the new sample ID.
 There are no constraints on the format of the sample ID - this should be agreed with the project lead.
 
 :::{figure-md}
-![](images/new_point_15.png){align=center width=400px}
+![](images/new_point_new_sample.png){align=center width=400px}
 
 *Sample*
 :::
