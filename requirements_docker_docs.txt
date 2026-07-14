@@ -1,5 +1,6 @@
 sphinx-copybutton
 sphinx-subfigure
+sphinx-book-theme
 myst-parser
 rinohtype
 rinoh-typeface-texgyreheros

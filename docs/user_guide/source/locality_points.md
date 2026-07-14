@@ -260,14 +260,14 @@ The form validation will not allow you to add a photo from outside the appropria
 For a photo, click on the button containing the three dots to select the photo using the file browser or enter the name directly.
 
 :::{figure-md}
-![](images/new_point_17a.png){align=center width=400px}
+![](images/add_photo.png){align=center width=400px}
 
 *Adding a Photo*
 :::
 
 The path to the photo can be edited directly using the pencil button or found by using the file selector button with the three dots.
 :::{figure-md}
-![](images/new_point_17b.png){align=center width=400px}
+![](images/edit_photo_path.png){align=center width=400px}
 
 *Editing the Photo Filepath*
 :::
@@ -275,7 +275,7 @@ The path to the photo can be edited directly using the pencil button or found by
 The photo will display in the form where a caption and description can be added.
 
 :::{figure-md}
-![](images/new_point_17c.png){align=center width=400px}
+![](images/photo_added.png){align=center width=400px}
 
 *Added Photo*
 :::
@@ -288,7 +288,7 @@ Due to the internal specification of BGS systems, the caption is limited to 250 
 Click on `OK` and then the Save Child Layer Edits button and the photo will show in the right panel of the main form. The filename is also a link to open the photo in the system application for viewing images.
 
 :::{figure-md}
-![](images/new_point_17d.png){align=center}
+![](images/photo_added_main_form.png){align=center}
 
 *Photo Added*
 :::

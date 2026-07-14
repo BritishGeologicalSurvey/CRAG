@@ -10,10 +10,10 @@ qgisMaximumVersion=4.99
 description=This plugin aids with field capture of geological data.
 version=local_development
 author=BGS Informatics
-email=digitalmapping@bgs.ac.uk
+email=enquiries@bgs.ac.uk
 about=This plugin aids with field capture of geological data.
-tracker=https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/issues/
-repository=https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms
+tracker=https://github.com/BritishGeologicalSurvey/CRAG/issues
+repository=https://github.com/BritishGeologicalSurvey/CRAG
 
 # End of mandatory metadata
 

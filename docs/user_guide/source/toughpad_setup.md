@@ -1,8 +1,8 @@
 # Field tablet setup
 
-The Toughbook / Toughpad tablets used with the CRAG system use the Windows operating system.
+Toughbook or Toughpad tablets, which use the Windows operating system, can be used with the CRAG system.
 Field data capture is done using QGIS.
-This section describes how to configure the Windows-based tablets.
+This section describes how to configure these Windows-based tablets.
 
 ## GPS systems
 

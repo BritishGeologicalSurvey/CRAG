@@ -3,22 +3,22 @@ This file overrides some of the sphinx alabaster defaults
 to use limited BGS styling.
 
 Style elements are taken from:
-https://kwvmxgit.ad.nerc.ac.uk/handbooks/handbook-resources/-/blob/main/resources/style/style.css
+handbooks/handbook-resources/-/blob/main/resources/style/style.css
 
-with the inline chnages from:
-https://kwvmxgit.ad.nerc.ac.uk/handbooks/bgs-geology-practices-and-procedures/digital-mapping-handbook/-/blob/main/public/index.html
+with the inline changes from:
+handbooks/bgs-geology-practices-and-procedures/digital-mapping-handbook/-/blob/main/public/index.html
 */
 
 /* BGS colours 
 
-https://kwvmxgit.ad.nerc.ac.uk/handbooks/handbook-resources/-/blob/main/resources/style/bgs-colours.css
+handbooks/handbook-resources/-/blob/main/resources/style/bgs-colours.css
 
 */
 @import url("bgs-colours.css");
 
 /* Fonts
 
-https://kwvmxgit.ad.nerc.ac.uk/handbooks/handbook-resources/-/tree/main/resources/assets/fonts/Aileron
+handbooks/handbook-resources/-/tree/main/resources/assets/fonts/Aileron
 
 */
 @font-face {
@@ -96,21 +96,6 @@ pre, tt, code {
   background: #d4d4d4; /* var(--bgs-secondary-rock) is a little too dark */
   color: var(--bgs-primary-black);
   padding: 0.125em 0.6em;
-}
-
-div.admonition {
-  background: var(--bgs-secondary-rock);
-  border: 0px;
-}
-
-div.important {
-  background: var(--bgs-secondary-sand);
-  border: 0px;
-}
-
-div.caution {
-  background: var(--bgs-secondary-amber);
-  border: 0px;
 }
 
 div.admonition p.admonition-title {
