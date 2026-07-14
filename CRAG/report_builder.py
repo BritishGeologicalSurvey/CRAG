@@ -19,6 +19,7 @@ from jinja2 import (
 from PIL import Image, ImageOps, UnidentifiedImageError
 
 from qgis.core import (
+    Qgis,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
     QgsGeometry,
@@ -26,7 +27,7 @@ from qgis.core import (
 )
 from qgis.PyQt.QtWidgets import QMessageBox
 
-from .config import ATTRIBUTE_TABLES, THUMBNAIL_SIZE
+from .config import ATTRIBUTE_TABLES, THUMBNAIL_SIZE, MESSAGE_BAR_TIME_LIMIT
 from .crag_project import CragProject
 from .pdf_content import ReportTemplate
 from .utils import (  # noqa
@@ -100,8 +101,8 @@ class ReportBuilder(CragProject):
         except sqlite3.OperationalError:
             msg = "Unable to access the geopackage\n"
             logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
-            QMessageBox.information(None, "Error",
-                                    f"Failed to create field report\n{msg}See logs for more information")
+            message = f"Failed to create field report\n{msg}See logs for more information"
+            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
             return False, False
 
         html_success = self.create_html_field_report(report_data)
@@ -138,7 +139,8 @@ class ReportBuilder(CragProject):
         except OSError:
             msg = "Unable to write report file\n"
             logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
-            QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
+            message = f"Failed to create field report\n{msg}See logs for more information"
+            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
             return False
 
         return True
@@ -165,7 +167,8 @@ class ReportBuilder(CragProject):
         except OSError:
             msg = "Unable to write report file\n"
             logger.exception(f"Failed to create field report: {self.html_report_file}\n{msg}")
-            QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
+            message = f"Failed to create field report\n{msg}See logs for more information"
+            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
             return False
 
         return True

@@ -8,6 +8,7 @@ from typing import (
 )
 
 from qgis.core import (
+    Qgis,
     QgsProject,
     QgsRuleBasedLabeling,
     QgsSettings,
@@ -21,10 +22,9 @@ from qgis.PyQt.QtGui import (
 from qgis.PyQt.QtWidgets import (
     QFrame,
     QLabel,
-    QMessageBox,
 )
 
-from .config import TABLE_LIST
+from .config import TABLE_LIST, MESSAGE_BAR_TIME_LIMIT
 from .create_gpkg_from_sql import WORKDIR
 from .utils import get_table_rows
 
@@ -288,7 +288,7 @@ class CragProject:
         """
         Get the CRAG layer with the given name.
         Checks will ensure the found layer comes from the main GeoPackage of the project.
-        By default will show a QMessageBox.warning if the layer is not found.
+        By default will show a QGIS messageBar warning if the layer is not found.
         """
         valid_layers = [
             layer
@@ -302,7 +302,8 @@ class CragProject:
             return valid_layers[0]
 
         if warn:
-            QMessageBox.warning(None, "Layer Not Found", f"Could not find the required layer: {layer_name}")
+            message = f"Could not find the required layer: {layer_name}"
+            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
         return None
 
 
@@ -313,7 +314,8 @@ class CragProject:
         if QgsProject.instance().fileName() != '':
             return True
         else:
-            QMessageBox.warning(None, "Warning", "Please open an existing saved project.")
+            message = "Please open an existing saved project."
+            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
             return False
 
 
@@ -379,29 +381,26 @@ class CragProject:
 
         # If we need to check the db_file_exists and the db file does not exist
         if db_file_exists and not self.db_file.exists():
-            QMessageBox.warning(None, "Warning", f"Could not find file:\n\n{self.db_file}")
+            message = f"Could not find file: {self.db_file}"
+            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
             return False
 
         # If we need to check the crag_layers_exist and the crag layers do not exist
         if crag_layers_exist and not self.check_crag_layers_exist():
-            QMessageBox.warning(None, "Warning", "Could not find the required layers for CRAG.")
+            message = "Could not find the required layers for CRAG."
+            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
             return False
 
         # If we need to check that a given layer_name_exists and the given layer name does not exist
         if layer_name_exists is not None and not self.check_layer_exists(layer_name_exists):
-            QMessageBox.warning(None, "Warning", f"Could not find layer: {layer_name_exists}")
-            return False
+            message = f"Could not find layer: {layer_name_exists}"
+            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
 
         # If we need to check that there is 1 saved field_project and there isn't 1
         if field_project_exists and not self.check_field_project_exists():
-            QMessageBox.warning(
-                None,
-                "Warning",
-                (
-                    "No saved field_project feature found. Please ensure you have saved a field_project polygon.\n\n"
-                    "To create and draw a new one, go to 'Plugins' -> 'CRAG' -> 'Add Field Project'"
-                )
-            )
+            message = ("No saved field_project feature found. Please ensure you have saved a field_project polygon.\n\n"
+                       "To create and draw a new one, go to 'Plugins' -> 'CRAG' -> 'Add Field Project'")
+            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
             return False
 
         return True
@@ -419,7 +418,8 @@ class CragProject:
             QDesktopServices.openUrl(QUrl.fromLocalFile(str(filepath.absolute())))
             return True
         else:
-            QMessageBox.warning(None, "File Not Found", f"Could not find file: {filepath}")
+            message = f"Could not find file: {filepath}"
+            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
             return False
 
 
