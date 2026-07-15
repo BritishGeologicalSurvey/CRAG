@@ -11,7 +11,6 @@ from typing import (
 
 import exifread
 from qgis.core import (
-    Qgis,
     QgsFeature,
     QgsVectorLayer,
 )
@@ -41,7 +40,6 @@ from qgis.PyQt.QtWidgets import (
     QWidget,
 )
 
-from .config import MESSAGE_BAR_TIME_LIMIT
 from .crag_project import CragProject
 from .utils import (  # noqa
     CollapsibleWidget,
@@ -340,7 +338,7 @@ class FileLinker(QDialog, CragProject):
             self.close()
 
             message = f"Linked {linked_files} files successfully."
-            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Info, MESSAGE_BAR_TIME_LIMIT)
+            self.iface.messageBar().pushInfo("CRAG", message)
 
 
     def validate_selection(self) -> bool:

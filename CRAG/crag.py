@@ -77,7 +77,6 @@ from .config import (
     ATTRIBUTE_TABLES,
     TABLE_LIST,
     LAYER_TREE_STRUCTURE,
-    MESSAGE_BAR_TIME_LIMIT,
 )
 from .crag_project import CragProject
 from .about_dialog import AboutDialog
@@ -558,7 +557,7 @@ class Crag(CragProject):
         gpkg_from_sql(db_file=self.db_file)
 
         message = f"Created GeoPackage:\n\n{self.db_file}"
-        self.iface.messageBar().pushMessage("CRAG", message, Qgis.Info, MESSAGE_BAR_TIME_LIMIT)
+        self.iface.messageBar().pushInfo("CRAG", message)
         return True
 
 
@@ -630,7 +629,7 @@ class Crag(CragProject):
             self.refresh_relation_reference_widgets(layer)
 
         message = "GeoPackage layers loaded.\n\nNow set field project boundary polygon and metadata."
-        self.iface.messageBar().pushMessage("CRAG", message, Qgis.Info, MESSAGE_BAR_TIME_LIMIT)
+        self.iface.messageBar().pushInfo("CRAG", message)
         return True
 
 
@@ -954,7 +953,7 @@ class Crag(CragProject):
             # If a field_project feature already exists
             if self.check_field_project_exists():
                 message = "A Field Project feature already exists for this project."
-                self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
+                self.iface.messageBar().pushWarning("CRAG", message)
             # If the tool is enabled correctly
             elif self.toggle_quick_map_tool(layer_name, mode="add"):
                 return True
@@ -995,7 +994,7 @@ class Crag(CragProject):
         self.copy_plugin_files_to_project(plugin_src="test/data/unlinked_files", project_dest=self.unlinked_files_dir)
         self.iface.mapCanvas().refresh()
         message = f"Added test data set to:\n\n{self.db_file}"
-        self.iface.messageBar().pushMessage("CRAG", message, Qgis.Info, MESSAGE_BAR_TIME_LIMIT)
+        self.iface.messageBar().pushInfo("CRAG", message)
         return True
 
 
@@ -1054,7 +1053,7 @@ class Crag(CragProject):
                     layer_style_path.write_text(copyright_comment + layer_style_path.read_text(), newline="\n")
 
         message = f"{exported_styles} CRAG styles have been exported to:\n\n{self.styles_dir}"
-        self.iface.messageBar().pushMessage("CRAG", message, Qgis.Info, MESSAGE_BAR_TIME_LIMIT)
+        self.iface.messageBar().pushInfo("CRAG", message)
         return True
 
 
