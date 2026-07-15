@@ -412,8 +412,7 @@ def test_create_thumbnails(report_builder: ReportBuilder):
         ("1\r\n2\r\n3", ["1", "2", "3"])       # Windows line-breaks
     ]
 )
-def test_split_lines(string, split_string):
-    report_builder = ReportBuilder()
+def test_split_lines(report_builder: ReportBuilder, string, split_string):
     assert split_string == report_builder.split_lines(string)
 
 

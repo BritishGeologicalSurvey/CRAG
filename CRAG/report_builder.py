@@ -25,6 +25,7 @@ from qgis.core import (
     QgsGeometry,
     QgsProject,
 )
+from qgis.gui import QgisInterface
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from .config import ATTRIBUTE_TABLES, THUMBNAIL_SIZE, MESSAGE_BAR_TIME_LIMIT
@@ -65,6 +66,10 @@ CHILD_JOINS = {
 
 
 class ReportBuilder(CragProject):
+    def __init__(self, iface: QgisInterface):
+        # Save reference to the QGIS interface
+        self.iface: QgisInterface = iface
+
     def create_field_report(self) -> tuple[bool, bool]:
         """
         Create and save HTML and PDF field reports. If either older report already exists,
