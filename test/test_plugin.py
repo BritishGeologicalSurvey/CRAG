@@ -203,20 +203,15 @@ def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
         assert list(directory.glob("*.*"))[0].name == crag.placeholder_filename
 
 
-@pytest.mark.xfail(reason="Test checks for QMessageBox, warning now goes to QgisMessageBar")
 def test_open_create_field_project_already_exists(crag_project_quick: Crag):
     # Arrange
-    expected_args = [
-        None,
-        "Warning",
-        "A Field Project feature already exists for this project.",
-    ]
+    expected_args = ["CRAG", "A Field Project feature already exists for this project."]
 
     # Act
     crag_project_quick.open_create_field_project()
 
     # Assert
-    QMessageBox.warning.assert_called_with(*expected_args)
+    crag_project_quick.iface.messageBar().pushWarning.assert_called_with(*expected_args)
 
 
 def test_add_test_data_to_project(crag: Crag, qgs_project: Path):
