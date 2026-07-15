@@ -628,8 +628,10 @@ class Crag(CragProject):
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
 
-        message = "GeoPackage layers loaded.\n\nNow set field project boundary polygon and metadata."
-        self.iface.messageBar().pushInfo("CRAG", message)
+        QMessageBox.information(
+            None, "Information",
+            "GeoPackage layers loaded.\n\nNow set field project boundary polygon and metadata.",
+        )
         return True
 
 
