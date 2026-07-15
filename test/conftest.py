@@ -310,11 +310,11 @@ def crag_project_quick(crag: Crag, qgs_project: Path, monkeypatch: pytest.Monkey
 
 
 @pytest.fixture()
-def report_builder(crag_project_quick: Crag) -> ReportBuilder:
+def report_builder(iface: QgisInterface, crag_project_quick: Crag) -> ReportBuilder:
     """
     Setup Report Builder for use in tests.
     """
-    report_builder = ReportBuilder()
+    report_builder = ReportBuilder(iface)
 
     return report_builder
 

@@ -972,7 +972,7 @@ class Crag(CragProject):
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, crag_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        success = ReportBuilder().create_field_report()
+        success = ReportBuilder(self.iface).create_field_report()
         return success
 
 
@@ -1279,7 +1279,7 @@ class Crag(CragProject):
         if not self.validate_qgis_state(project_active=True, db_file_exists=True, crag_layers_exist=True, field_project_exists=True):  # noqa
             return False
 
-        self.file_linker = FileLinker()
+        self.file_linker = FileLinker(self.iface)
         self.file_linker.file_linker_closed.connect(self.close_file_linker)
         # Make it modal so changes are not made whilst importing photos
         self.file_linker.exec()
