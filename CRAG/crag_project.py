@@ -26,7 +26,7 @@ from qgis.PyQt.QtWidgets import (
     QPushButton,
 )
 
-from .config import TABLE_LIST, MESSAGE_BAR_TIME_LIMIT
+from .config import TABLE_LIST
 from .create_gpkg_from_sql import WORKDIR
 from .utils import get_table_rows
 
@@ -305,7 +305,7 @@ class CragProject:
 
         if warn:
             message = f"Could not find the required layer: {layer_name}"
-            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
+            self.iface.messageBar().pushWarning("CRAG", message)
         return None
 
 
@@ -317,7 +317,7 @@ class CragProject:
             return True
         else:
             message = "Please open an existing saved project."
-            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
+            self.iface.messageBar().pushWarning("CRAG", message)
             return False
 
 
@@ -384,19 +384,19 @@ class CragProject:
         # If we need to check the db_file_exists and the db file does not exist
         if db_file_exists and not self.db_file.exists():
             message = f"Could not find file: {self.db_file}"
-            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
+            self.iface.messageBar().pushWarning("CRAG", message)
             return False
 
         # If we need to check the crag_layers_exist and the crag layers do not exist
         if crag_layers_exist and not self.check_crag_layers_exist():
             message = "Could not find the required layers for CRAG."
-            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
+            self.iface.messageBar().pushWarning("CRAG", message)
             return False
 
         # If we need to check that a given layer_name_exists and the given layer name does not exist
         if layer_name_exists is not None and not self.check_layer_exists(layer_name_exists):
             message = f"Could not find layer: {layer_name_exists}"
-            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
+            self.iface.messageBar().pushWarning("CRAG", message)
 
         # If we need to check that there is 1 saved field_project and there isn't 1
         if field_project_exists and not self.check_field_project_exists():
@@ -429,7 +429,7 @@ class CragProject:
             return True
         else:
             message = f"Could not find file: {filepath}"
-            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
+            self.iface.messageBar().pushWarning("CRAG", message)
             return False
 
 

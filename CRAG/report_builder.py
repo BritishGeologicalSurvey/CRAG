@@ -19,7 +19,6 @@ from jinja2 import (
 from PIL import Image, ImageOps, UnidentifiedImageError
 
 from qgis.core import (
-    Qgis,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
     QgsGeometry,
@@ -28,7 +27,7 @@ from qgis.core import (
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtWidgets import QMessageBox
 
-from .config import ATTRIBUTE_TABLES, THUMBNAIL_SIZE, MESSAGE_BAR_TIME_LIMIT
+from .config import ATTRIBUTE_TABLES, THUMBNAIL_SIZE
 from .crag_project import CragProject
 from .pdf_content import ReportTemplate
 from .utils import (  # noqa
@@ -107,7 +106,7 @@ class ReportBuilder(CragProject):
             msg = "Unable to access the geopackage\n"
             logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
             message = f"Failed to create field report\n{msg}See logs for more information"
-            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
+            self.iface.messageBar().pushWarning("CRAG", message)
             return False, False
 
         html_success = self.create_html_field_report(report_data)
@@ -145,7 +144,7 @@ class ReportBuilder(CragProject):
             msg = "Unable to write report file\n"
             logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
             message = f"Failed to create field report\n{msg}See logs for more information"
-            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
+            self.iface.messageBar().pushWarning("CRAG", message)
             return False
 
         return True
@@ -173,7 +172,7 @@ class ReportBuilder(CragProject):
             msg = "Unable to write report file\n"
             logger.exception(f"Failed to create field report: {self.html_report_file}\n{msg}")
             message = f"Failed to create field report\n{msg}See logs for more information"
-            self.iface.messageBar().pushMessage("CRAG", message, Qgis.Warning, MESSAGE_BAR_TIME_LIMIT)
+            self.iface.messageBar().pushWarning("CRAG", message)
             return False
 
         return True
