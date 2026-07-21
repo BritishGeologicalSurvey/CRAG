@@ -61,6 +61,13 @@ LINE_TYPE_CODES = (
     "convex_break_of_slope",
 )
 
+LAYER_NAME_LINE_TYPE_CODE_TUPLES = list(
+    zip(
+        sorted(FEATURE_TABLES_LINES),
+        LINE_TYPE_CODES,
+    )
+)
+
 
 @pytest.fixture()
 def empty_geometry_feature_point() -> QgsFeature:
@@ -306,11 +313,8 @@ def test_manually_disable_editing(
 
 @pytest.mark.parametrize(
     ["layer_name", "line_type_code"],
-    zip(
-        # Ignore the first value from each because it will be the already activated tool
-        sorted(FEATURE_TABLES_LINES)[1:],
-        LINE_TYPE_CODES[1:],
-    ),
+    # Ignore the first value from each because it will be the already activated tool
+    LAYER_NAME_LINE_TYPE_CODE_TUPLES[1:]
 )
 def test_reopen_line_layer_selector(
     layer_name: str,
@@ -621,10 +625,7 @@ def test_locality_delete_cancel(crag_project_quick: Crag, monkeypatch_qmsgbox_qu
 
 @pytest.mark.parametrize(
     ["layer_name", "line_type_code"],
-    zip(
-        sorted(FEATURE_TABLES_LINES),
-        LINE_TYPE_CODES,
-    ),
+    LAYER_NAME_LINE_TYPE_CODE_TUPLES
 )
 def test_lines_add_confirm(
     layer_name: str,
@@ -659,10 +660,7 @@ def test_lines_add_confirm(
 
 @pytest.mark.parametrize(
     ["layer_name", "line_type_code"],
-    zip(
-        sorted(FEATURE_TABLES_LINES),
-        LINE_TYPE_CODES,
-    ),
+    LAYER_NAME_LINE_TYPE_CODE_TUPLES
 )
 def test_lines_add_cancel(
     layer_name: str,
@@ -698,10 +696,7 @@ def test_lines_add_cancel(
 
 @pytest.mark.parametrize(
     ["layer_name", "line_type_code"],
-    zip(
-        sorted(FEATURE_TABLES_LINES),
-        LINE_TYPE_CODES,
-    ),
+    LAYER_NAME_LINE_TYPE_CODE_TUPLES
 )
 def test_lines_add_hide_form(
     layer_name: str,
@@ -769,21 +764,23 @@ def test_lines_edit_confirm(
 
 @pytest.mark.parametrize(
     ["layer_name", "old_value"],
-    zip(
-        sorted(FEATURE_TABLES_LINES),
-        (
-            # Test artificial_line line_label
-            "test_line_artificial",
-            # Test bedrock_line line_label
-            "test_line_bedrock",
-            # Test mass_move_line line_label
-            "test_line_mass_move",
-            # Test superficial_line line_label
-            "test_line_superficial",
-            # Test terrain_line line_label
-            "test_line_terrain",
-        ),
-    ),
+    list(
+        zip(
+            sorted(FEATURE_TABLES_LINES),
+            (
+                # Test artificial_line line_label
+                "test_line_artificial",
+                # Test bedrock_line line_label
+                "test_line_bedrock",
+                # Test mass_move_line line_label
+                "test_line_mass_move",
+                # Test superficial_line line_label
+                "test_line_superficial",
+                # Test terrain_line line_label
+                "test_line_terrain",
+            )
+        )
+    )
 )
 def test_lines_edit_cancel(
     layer_name: str,
