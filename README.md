@@ -27,12 +27,10 @@ There is lots of exploratory work to do in terms of QGIS project configuration.
 This will require multiple QGIS projects to be created.
 We will share these projects via Mergin Maps so that they can be tested and feedback collected.
 
-See the [Versions and Feedback](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/wikis/versions-and-feedback) page on the Wiki for details.
-
 ## File Downloads
 
-- [CRAG GPKG](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/field-data-capture.gpkg?job=publish_artifacts)
-- [Latest development build of plugin from `main` branch](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/crag.zip?job=package_plugin)
+- [CRAG GPKG](https://github.com/BritishGeologicalSurvey/CRAG/releases/latest/download/field-data-capture.gpkg)
+- [Latest development build of plugin from `main` branch](https://github.com/BritishGeologicalSurvey/CRAG/releases/latest/download/field_data_capture.zip)
 
 ### ER Diagram
 
@@ -40,10 +38,9 @@ There are 2 "primary key" columns on the data tables.  `fid` is used by QGIS/Geo
 
 Note that all non-dictionary tables also have `recorded_by` and `recorded_on` columns.
 
-- [Locality Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram-locality.png?job=publish_artifacts)
-- [Lines Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram-lines.png?job=publish_artifacts)
-- [Views Diagram](https://kwvmxgit.ad.nerc.ac.uk/field-data-capture/model-and-forms/-/jobs/artifacts/main/raw/er-diagram-views.png?job=publish_artifacts)
-
+- [Locality Diagram](https://github.com/BritishGeologicalSurvey/CRAG/releases/latest/download/er-diagram-locality.png)
+- [Lines Diagram](https://github.com/BritishGeologicalSurvey/CRAG/releases/latest/download/er-diagram-lines.png)
+- [Views Diagram](https://github.com/BritishGeologicalSurvey/CRAG/releases/latest/download/er-diagram-views.png)
 
 ## Overall philosophy
 
