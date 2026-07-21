@@ -65,7 +65,6 @@ from qgis.PyQt.QtWidgets import (
     QAction,
     QMenu,
     QMessageBox,
-    QPushButton,
     QToolBar,
     QWidget,
 )
@@ -630,16 +629,10 @@ class Crag(CragProject):
             self.refresh_relation_reference_widgets(layer)
 
         message = "GeoPackage layers loaded. Now set field project boundary polygon and metadata."
-        help_message = ("Draw a new field_project polygon:\n"
-                        "using a standard mouse left-click for each point\n"
-                        "and right-click to finish the polygon")
-
-        message_bar = self.iface.messageBar().createMessage("CRAG", message)
-        help_button = QPushButton(message_bar)
-        help_button.setText("Further Details")
-        help_button.pressed.connect(lambda: QMessageBox.information(None, "Information", help_message))
-        message_bar.layout().addWidget(help_button)
-        self.iface.messageBar().pushWidget(message_bar, Qgis.Warning)
+        further_details = ("Draw a new field_project polygon:\n"
+                           "using a standard mouse left-click for each point\n"
+                           "and right-click to finish the polygon")
+        self.messagebar_warning_with_further_details(message, further_details)
 
         return True
 
