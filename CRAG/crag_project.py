@@ -401,12 +401,12 @@ class CragProject:
         # If we need to check that there is 1 saved field_project and there isn't 1
         if field_project_exists and not self.check_field_project_exists():
             message = "No saved field_project feature found. Please ensure you have saved a field_project polygon."
-            help_message = ("To create and draw a new ield_project polygon, go to:\n\n"
+            help_message = ("To create and draw a new field_project polygon, go to:\n\n"
                             "'Plugins' -> 'CRAG' -> 'More...' -. 'Advanced...' -> 'Add Field Project'")
 
             message_bar = self.iface.messageBar().createMessage("CRAG", message)
             help_button = QPushButton(message_bar)
-            help_button.setText("Help")
+            help_button.setText("Further Details")
             help_button.pressed.connect(lambda: QMessageBox.information(None, "Information", help_message))
             message_bar.layout().addWidget(help_button)
             self.iface.messageBar().pushWidget(message_bar, Qgis.Warning)
