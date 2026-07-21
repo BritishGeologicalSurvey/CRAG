@@ -39,10 +39,17 @@ jobs:
       env:
         CONDA_OVERRIDE_ARCHSPEC: x86_64_v4
 
+    - name: Build Empty GeoPackage
+      shell: bash -l {0}
+      run: python CRAG/create_gpkg_from_sql.py
+
+    - name: Generate ER Diagrams
+      shell: bash -l {0}
+      run: python CRAG/create_er_diagram.py
+
     - name: Build HTML
       shell: bash -l {0}
-      run: |
-        sphinx-build -M html docs/user_guide/source/ docs/user_guide/build/
+      run: sphinx-build -M html docs/user_guide/source/ docs/user_guide/build/
 
     - name: PB Tool
       shell: bash -l {0}
@@ -65,12 +72,14 @@ jobs:
 
     - name: Rename Plugin
       shell: bash -l {0}
-      run: |
-        cd CRAG/zip_build
-        mv crag.zip "$PLUGIN_FILE_NAME"
+      run: mv CRAG/zip_build/crag.zip "$PLUGIN_FILE_NAME"
 
     - name: Release Plugin
       uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3
       with:
-        working_directory: CRAG/zip_build
-        files: ${{ env.PLUGIN_FILE_NAME }}
+        files: |
+          ${{ env.PLUGIN_FILE_NAME }}
+          field-data-capture.gpkg
+          er-diagram-lines.png
+          er-diagram-locality.png
+          er-diagram-views.png
