@@ -114,11 +114,17 @@ def test_setup_project_logic_bad(
 
 
 def test_add_gpkg_to_project(crag: Crag, qgs_project: Path):
+    # Arrange
+    expected_messagebar_args = ["CRAG", f"Created GeoPackage:\n\n{crag.db_file}"]
+
     # Act
     crag.add_gpkg_to_project()
 
+    # Assert
     # Check file exists
     assert Path(crag.db_file).exists()
+    # Check messagebar information pushed
+    crag.iface.messageBar().pushInfo.assert_called_with(*expected_messagebar_args)
 
     # Check tables are in file
     conn = setup_db_conn(crag.db_file)
@@ -134,6 +140,11 @@ def test_add_gpkg_to_project(crag: Crag, qgs_project: Path):
 
 def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     # Arrange
+    expected_messagebox_args = [
+        None,
+        "Information",
+        "GeoPackage layers loaded.\n\nNow set field project boundary polygon and metadata.",
+    ]
     crag.add_gpkg_to_project()
     expected_root_names = [
         "locality_point",
@@ -160,6 +171,8 @@ def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     crag.add_gpkg_layers_to_project()
 
     # Assert
+    # Check information messagebox called
+    QMessageBox.information.assert_called_with(*expected_messagebox_args)
     # Check root layers
     root_layers = QgsProject.instance().layerTreeRoot().children()
     root_names = [layer.name() for layer in root_layers]
