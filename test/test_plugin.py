@@ -118,7 +118,7 @@ def test_add_gpkg_to_project(crag: Crag, qgs_project: Path):
     expected_messagebar_args = ["CRAG", f"Created GeoPackage:\n\n{crag.db_file}"]
 
     # Act
-    crag.add_gpkg_to_project()
+    crag.add_gpkg_to_project(notify=True)
 
     # Assert
     # Check file exists
@@ -136,6 +136,15 @@ def test_add_gpkg_to_project(crag: Crag, qgs_project: Path):
     all_table_names = {row[0] for row in table_rows}
     expected_table_names = set(TABLE_LIST)
     assert expected_table_names.issubset(all_table_names)
+
+
+def test_add_gpkg_to_project_no_notification(crag: Crag, qgs_project: Path):
+    # Act
+    crag.add_gpkg_to_project()
+
+    # Assert
+    # Check messagebar information was not pushed
+    crag.iface.messageBar().pushInfo.assert_not_called()
 
 
 def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
@@ -168,7 +177,7 @@ def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     ]
 
     # Act
-    crag.add_gpkg_layers_to_project()
+    crag.add_gpkg_layers_to_project(notify=True)
 
     # Assert
     # Check information messagebox called
@@ -214,6 +223,18 @@ def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     for directory in expected_user_dirs:
         assert directory.exists()
         assert list(directory.glob("*.*"))[0].name == crag.placeholder_filename
+
+
+def test_add_gpkg_layers_to_project_no_notification(crag: Crag, qgs_project: Path):
+    # Arrange
+    crag.add_gpkg_to_project()
+
+    # Act
+    crag.add_gpkg_layers_to_project()
+
+    # Assert
+    # Check information messagebox was not called
+    QMessageBox.information.assert_not_called()
 
 
 def test_open_create_field_project_already_exists(crag_project_quick: Crag):
