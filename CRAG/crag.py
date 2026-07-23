@@ -633,10 +633,12 @@ class Crag(CragProject):
             self.refresh_relation_reference_widgets(layer)
 
         if notify:
-            QMessageBox.information(
-                None, "Information",
-                "GeoPackage layers loaded.\n\nNow set field project boundary polygon and metadata.",
+            message = (
+                "GeoPackage layers loaded. "
+                "Now set field project boundary polygon and metadata using "
+                "Advanced -> Add Field Project Polygon"
             )
+            self.iface.messageBar().pushInfo("CRAG", message)
 
         return True
 

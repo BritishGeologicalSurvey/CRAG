@@ -149,10 +149,13 @@ def test_add_gpkg_to_project_no_notification(crag: Crag, qgs_project: Path):
 
 def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     # Arrange
-    expected_messagebox_args = [
-        None,
-        "Information",
-        "GeoPackage layers loaded.\n\nNow set field project boundary polygon and metadata.",
+    expected_messagebar_args = [
+        "CRAG",
+        (
+            "GeoPackage layers loaded. "
+            "Now set field project boundary polygon and metadata using "
+            "Advanced -> Add Field Project Polygon"
+        )
     ]
     crag.add_gpkg_to_project()
     expected_root_names = [
@@ -180,8 +183,8 @@ def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     crag.add_gpkg_layers_to_project(notify=True)
 
     # Assert
-    # Check information messagebox called
-    QMessageBox.information.assert_called_with(*expected_messagebox_args)
+    # Check information messagebar pushed
+    crag.iface.messageBar().pushInfo.assert_called_with(*expected_messagebar_args)
     # Check root layers
     root_layers = QgsProject.instance().layerTreeRoot().children()
     root_names = [layer.name() for layer in root_layers]
@@ -233,8 +236,8 @@ def test_add_gpkg_layers_to_project_no_notification(crag: Crag, qgs_project: Pat
     crag.add_gpkg_layers_to_project()
 
     # Assert
-    # Check information messagebox was not called
-    QMessageBox.information.assert_not_called()
+    # Check information messagebar was not pushed
+    crag.iface.messageBar().pushInfo.assert_not_called()
 
 
 def test_open_create_field_project_already_exists(crag_project_quick: Crag):
