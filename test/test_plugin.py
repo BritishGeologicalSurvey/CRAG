@@ -250,6 +250,7 @@ def test_open_create_field_project_already_exists(crag_project_quick: Crag):
 
 def test_add_test_data_to_project(crag: Crag, qgs_project: Path):
     # Arrange
+    expected_messagebar_args = ["CRAG", f"Added test data set to:\n\n{crag.db_file}"]
     crag.add_gpkg_to_project()
     crag.add_gpkg_layers_to_project()
     expected_row_counts = {
@@ -265,9 +266,10 @@ def test_add_test_data_to_project(crag: Crag, qgs_project: Path):
     }
 
     # Act
-    crag.add_test_data_to_project()
+    crag.add_test_data_to_project(notify=True)
 
     # Assert
+    crag.iface.messageBar().pushInfo.assert_called_with(*expected_messagebar_args)
     conn = setup_db_conn(crag.db_file)
     for table, expected_row_count in expected_row_counts.items():
         actual_row_count = etl.fetchone(
@@ -284,6 +286,19 @@ def test_add_test_data_to_project(crag: Crag, qgs_project: Path):
         for widget in widgets.values():
             if widget["type"] == "RelationReference":
                 assert widget["config"]["ReferencedLayerId"] in map_layers
+
+
+def test_add_test_data_to_project_no_notification(crag: Crag, qgs_project: Path):
+    # Arrange
+    crag.add_gpkg_to_project()
+    crag.add_gpkg_layers_to_project()
+
+    # Act
+    crag.add_test_data_to_project()
+
+    # Assert
+    # Check messagebar information was not pushed
+    crag.iface.messageBar().pushInfo.assert_not_called()
 
 
 def test_export_qml_styles(
