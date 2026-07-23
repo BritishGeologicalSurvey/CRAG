@@ -65,6 +65,7 @@ from qgis.PyQt.QtWidgets import (
     QAction,
     QMenu,
     QMessageBox,
+    QPushButton,
     QToolBar,
     QWidget,
 )
@@ -391,6 +392,7 @@ class Crag(CragProject):
                 self.add_gpkg_to_project,
                 self.add_gpkg_layers_to_project,
                 self.open_create_field_project,
+                self.notify_setup_project,
             ]),
             parent=self.iface.mainWindow(),
             submenu=self.more_submenu
@@ -428,7 +430,7 @@ class Crag(CragProject):
         self.add_action(
             None,
             text=self.tr(u'Create CRAG GeoPackage'),
-            callback=self.add_gpkg_to_project,
+            callback=lambda: self.add_gpkg_to_project(notify=True),
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=self.advanced_submenu,
@@ -437,7 +439,7 @@ class Crag(CragProject):
         self.add_action(
             None,
             text=self.tr(u'Add GeoPackage Layers to QGIS Project'),
-            callback=self.add_gpkg_layers_to_project,
+            callback=lambda: self.add_gpkg_layers_to_project(notify=True),
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=self.advanced_submenu,
@@ -469,6 +471,7 @@ class Crag(CragProject):
                 self.add_gpkg_to_project,
                 self.add_gpkg_layers_to_project,
                 self.add_test_data_to_project,
+                self.notify_setup_test_project,
             ]),
             add_to_menu=False,
             parent=self.iface.mainWindow(),
@@ -478,7 +481,7 @@ class Crag(CragProject):
         self.add_action(
             None,
             text=self.tr(u'Add Test Data to Project'),
-            callback=self.add_test_data_to_project,
+            callback=lambda: self.add_test_data_to_project(notify=True),
             add_to_menu=False,
             parent=self.iface.mainWindow(),
             submenu=self.dev_tools_submenu,
@@ -538,7 +541,7 @@ class Crag(CragProject):
         return True
 
 
-    def add_gpkg_to_project(self) -> bool:
+    def add_gpkg_to_project(self, notify: bool = False) -> bool:
         """
         Add the GeoPackage file to the current project.
         Returns a boolean indicating success of the process.
@@ -555,13 +558,14 @@ class Crag(CragProject):
                 return False
 
         gpkg_from_sql(db_file=self.db_file)
+        if notify:
+            message = f"Created GeoPackage:\n\n{self.db_file}"
+            self.iface.messageBar().pushInfo("CRAG", message)
 
-        message = f"Created GeoPackage:\n\n{self.db_file}"
-        self.iface.messageBar().pushInfo("CRAG", message)
         return True
 
 
-    def add_gpkg_layers_to_project(self) -> bool:
+    def add_gpkg_layers_to_project(self, notify: bool = False) -> bool:
         """
         Add the GeoPackage layers to the current project.
         Returns a boolean indicating success of the process.
@@ -628,10 +632,12 @@ class Crag(CragProject):
         for layer in vector_layers:
             self.refresh_relation_reference_widgets(layer)
 
-        QMessageBox.information(
-            None, "Information",
-            "GeoPackage layers loaded.\n\nNow set field project boundary polygon and metadata.",
-        )
+        if notify:
+            QMessageBox.information(
+                None, "Information",
+                "GeoPackage layers loaded.\n\nNow set field project boundary polygon and metadata.",
+            )
+
         return True
 
 
@@ -962,6 +968,18 @@ class Crag(CragProject):
         return False
 
 
+    def notify_setup_project(self) -> bool:
+        QMessageBox.information(
+            None, "Information",
+            (
+                f"Created GeoPackage: {self.db_file} \n\n"
+                "GeoPackage layers loaded.\n\n"
+                "Now set field project boundary polygon and metadata."
+            )
+        )
+        return True
+
+
     def create_field_report(self) -> tuple[bool, bool]:
         """
         Create and save a field report.
@@ -977,7 +995,7 @@ class Crag(CragProject):
         return success
 
 
-    def add_test_data_to_project(self) -> bool:
+    def add_test_data_to_project(self, notify: bool = False) -> bool:
         """
         Add the test data set to the current project.
         Returns a boolean indicating success of the process.
@@ -995,8 +1013,29 @@ class Crag(CragProject):
         self.copy_plugin_files_to_project(plugin_src="test/data/media", project_dest=self.media_dir)
         self.copy_plugin_files_to_project(plugin_src="test/data/unlinked_files", project_dest=self.unlinked_files_dir)
         self.iface.mapCanvas().refresh()
-        message = f"Added test data set to:\n\n{self.db_file}"
-        self.iface.messageBar().pushInfo("CRAG", message)
+        if notify:
+            message = f"Added test data set to:\n\n{self.db_file}"
+            self.iface.messageBar().pushInfo("CRAG", message)
+
+        return True
+
+
+    def notify_setup_test_project(self) -> bool:
+
+        message = "Test project created."
+        help_message = (
+            f"Created GeoPackage: {self.db_file} \n\n"
+            "GeoPackage layers loaded.\n\n"
+            f"Added test data set to:\n\n{self.db_file}"
+        )
+
+        message_bar = self.iface.messageBar().createMessage("CRAG", message)
+        help_button = QPushButton(message_bar)
+        help_button.setText("Further Details")
+        help_button.pressed.connect(lambda: QMessageBox.information(None, "Information", help_message))
+        message_bar.layout().addWidget(help_button)
+        self.iface.messageBar().pushWidget(message_bar, Qgis.Warning)
+
         return True
 
 
