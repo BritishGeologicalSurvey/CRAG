@@ -242,7 +242,7 @@ def test_add_gpkg_layers_to_project_no_notification(crag: Crag, qgs_project: Pat
 
 def test_open_create_field_project_already_exists(crag_project_quick: Crag):
     # Arrange
-    expected_args = ["CRAG", "A Field Project feature already exists for this project."]
+    expected_args = ["CRAG", "A field_project feature already exists for this project."]
 
     # Act
     crag_project_quick.open_create_field_project()
