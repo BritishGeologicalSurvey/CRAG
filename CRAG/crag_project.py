@@ -400,7 +400,8 @@ class CragProject:
 
         # If we need to check that there is 1 saved field_project and there isn't 1
         if field_project_exists and not self.check_field_project_exists():
-            message = "No saved field_project feature found. Please ensure you have created a field_project boundary polygon."
+            message = ("No saved field_project feature found. """
+                       "Please ensure you have created a field_project boundary polygon.")
             help_message = ("To create and draw a new field_project polygon, go to:\n\n"
                             "'Plugins' -> 'CRAG' -> 'More...' -> 'Advanced...' -> 'Add Field Project'")
 
