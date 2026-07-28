@@ -41,6 +41,7 @@ from xml.etree.ElementTree import canonicalize
 
 from qgis.core import (
     Qgis,
+    QgsApplication,
     QgsEditorWidgetSetup,
     QgsLayerTree,
     QgsLayerTreeGroup,
@@ -1261,8 +1262,8 @@ class Crag(CragProject):
             message_box.setText(f"There are unsaved edits on the following layer(s):\n\n{joined_names}")
             message_box.setStandardButtons(QMessageBox.StandardButton.Ok)
             # Get the 'Current Edits' red pencils icon as a pixmap the size of the default QMessageBox icons
-            red_pencils_pixmap = self.iface.actionAllEdits().icon().pixmap(48, 48)
-            # Set the icon using the pixmap
+            red_pencils_pixmap = QgsApplication.getThemeIcon("mActionAllEdits.svg").pixmap(48, 48)
+            # Set the icon using the pixmap, we can't use msgbox.setIcon because it only takes msgbox.Icon types
             message_box.setIconPixmap(red_pencils_pixmap)
             # Open the message box
             message_box.exec()
