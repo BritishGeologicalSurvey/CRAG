@@ -974,7 +974,7 @@ class Crag(CragProject):
         QMessageBox.information(
             None, "Information",
             (
-                f"Created GeoPackage: {self.db_file} \n\n"
+                f"Created GeoPackage:\n{self.db_file} \n\n"
                 "GeoPackage layers loaded.\n\n"
                 "Now set field project boundary polygon and metadata."
             )
