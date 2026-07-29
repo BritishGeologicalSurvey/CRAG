@@ -24,6 +24,7 @@ from qgis.core import (
     QgsGeometry,
     QgsProject,
 )
+from qgis.gui import QgisInterface
 from qgis.PyQt.QtWidgets import QMessageBox
 
 from .config import ATTRIBUTE_TABLES, THUMBNAIL_SIZE
@@ -64,6 +65,10 @@ CHILD_JOINS = {
 
 
 class ReportBuilder(CragProject):
+    def __init__(self, iface: QgisInterface):
+        # Save reference to the QGIS interface
+        self.iface: QgisInterface = iface
+
     def create_field_report(self) -> tuple[bool, bool]:
         """
         Create and save HTML and PDF field reports. If either older report already exists,
@@ -100,8 +105,8 @@ class ReportBuilder(CragProject):
         except sqlite3.OperationalError:
             msg = "Unable to access the geopackage\n"
             logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
-            QMessageBox.information(None, "Error",
-                                    f"Failed to create field report\n{msg}See logs for more information")
+            message = f"Failed to create field report\n{msg}See logs for more information"
+            self.iface.messageBar().pushWarning("CRAG", message)
             return False, False
 
         html_success = self.create_html_field_report(report_data)
@@ -138,7 +143,8 @@ class ReportBuilder(CragProject):
         except OSError:
             msg = "Unable to write report file\n"
             logger.exception(f"Failed to create field report: {self.pdf_report_file}\n{msg}")
-            QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
+            message = f"Failed to create field report\n{msg}See logs for more information"
+            self.iface.messageBar().pushWarning("CRAG", message)
             return False
 
         return True
@@ -165,7 +171,8 @@ class ReportBuilder(CragProject):
         except OSError:
             msg = "Unable to write report file\n"
             logger.exception(f"Failed to create field report: {self.html_report_file}\n{msg}")
-            QMessageBox.information(None, "Error", f"Failed to create field report\n{msg}See logs for more information")
+            message = f"Failed to create field report\n{msg}See logs for more information"
+            self.iface.messageBar().pushWarning("CRAG", message)
             return False
 
         return True

@@ -114,11 +114,17 @@ def test_setup_project_logic_bad(
 
 
 def test_add_gpkg_to_project(crag: Crag, qgs_project: Path):
-    # Act
-    crag.add_gpkg_to_project()
+    # Arrange
+    expected_messagebar_args = ["CRAG", f"Created GeoPackage:\n\n{crag.db_file}"]
 
+    # Act
+    crag.add_gpkg_to_project(notify=True)
+
+    # Assert
     # Check file exists
     assert Path(crag.db_file).exists()
+    # Check messagebar information pushed
+    crag.iface.messageBar().pushInfo.assert_called_with(*expected_messagebar_args)
 
     # Check tables are in file
     conn = setup_db_conn(crag.db_file)
@@ -132,8 +138,25 @@ def test_add_gpkg_to_project(crag: Crag, qgs_project: Path):
     assert expected_table_names.issubset(all_table_names)
 
 
+def test_add_gpkg_to_project_no_notification(crag: Crag, qgs_project: Path):
+    # Act
+    crag.add_gpkg_to_project()
+
+    # Assert
+    # Check messagebar information was not pushed
+    crag.iface.messageBar().pushInfo.assert_not_called()
+
+
 def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     # Arrange
+    expected_messagebar_args = [
+        "CRAG",
+        (
+            "GeoPackage layers loaded. "
+            "Now set field project boundary polygon and metadata using "
+            "Advanced -> Add Field Project Polygon"
+        )
+    ]
     crag.add_gpkg_to_project()
     expected_root_names = [
         "locality_point",
@@ -157,9 +180,11 @@ def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
     ]
 
     # Act
-    crag.add_gpkg_layers_to_project()
+    crag.add_gpkg_layers_to_project(notify=True)
 
     # Assert
+    # Check information messagebar pushed
+    crag.iface.messageBar().pushInfo.assert_called_with(*expected_messagebar_args)
     # Check root layers
     root_layers = QgsProject.instance().layerTreeRoot().children()
     root_names = [layer.name() for layer in root_layers]
@@ -203,23 +228,32 @@ def test_add_gpkg_layers_to_project(crag: Crag, qgs_project: Path):
         assert list(directory.glob("*.*"))[0].name == crag.placeholder_filename
 
 
+def test_add_gpkg_layers_to_project_no_notification(crag: Crag, qgs_project: Path):
+    # Arrange
+    crag.add_gpkg_to_project()
+
+    # Act
+    crag.add_gpkg_layers_to_project()
+
+    # Assert
+    # Check information messagebar was not pushed
+    crag.iface.messageBar().pushInfo.assert_not_called()
+
+
 def test_open_create_field_project_already_exists(crag_project_quick: Crag):
     # Arrange
-    expected_args = [
-        None,
-        "Warning",
-        "A Field Project feature already exists for this project.",
-    ]
+    expected_args = ["CRAG", "A field_project feature already exists for this project."]
 
     # Act
     crag_project_quick.open_create_field_project()
 
     # Assert
-    QMessageBox.warning.assert_called_with(*expected_args)
+    crag_project_quick.iface.messageBar().pushWarning.assert_called_with(*expected_args)
 
 
 def test_add_test_data_to_project(crag: Crag, qgs_project: Path):
     # Arrange
+    expected_messagebar_args = ["CRAG", f"Added test data set to:\n\n{crag.db_file}"]
     crag.add_gpkg_to_project()
     crag.add_gpkg_layers_to_project()
     expected_row_counts = {
@@ -235,9 +269,10 @@ def test_add_test_data_to_project(crag: Crag, qgs_project: Path):
     }
 
     # Act
-    crag.add_test_data_to_project()
+    crag.add_test_data_to_project(notify=True)
 
     # Assert
+    crag.iface.messageBar().pushInfo.assert_called_with(*expected_messagebar_args)
     conn = setup_db_conn(crag.db_file)
     for table, expected_row_count in expected_row_counts.items():
         actual_row_count = etl.fetchone(
@@ -254,6 +289,19 @@ def test_add_test_data_to_project(crag: Crag, qgs_project: Path):
         for widget in widgets.values():
             if widget["type"] == "RelationReference":
                 assert widget["config"]["ReferencedLayerId"] in map_layers
+
+
+def test_add_test_data_to_project_no_notification(crag: Crag, qgs_project: Path):
+    # Arrange
+    crag.add_gpkg_to_project()
+    crag.add_gpkg_layers_to_project()
+
+    # Act
+    crag.add_test_data_to_project()
+
+    # Assert
+    # Check messagebar information was not pushed
+    crag.iface.messageBar().pushInfo.assert_not_called()
 
 
 def test_export_qml_styles(

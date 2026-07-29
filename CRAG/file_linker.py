@@ -14,6 +14,7 @@ from qgis.core import (
     QgsFeature,
     QgsVectorLayer,
 )
+from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import (
     pyqtSignal,
     Qt,
@@ -32,7 +33,6 @@ from qgis.PyQt.QtWidgets import (
     QFrame,
     QHBoxLayout,
     QLabel,
-    QMessageBox,
     QPushButton,
     QScrollArea,
     QTextEdit,
@@ -110,8 +110,11 @@ class FileLinker(QDialog, CragProject):
     file_linker_closed = pyqtSignal()
 
 
-    def __init__(self):
+    def __init__(self, iface: QgisInterface):
         super().__init__()
+
+        # Save reference to the QGIS interface
+        self.iface: QgisInterface = iface
 
         # Setting the Dialog Box settings
         self.setWindowTitle("Link Files")
@@ -333,7 +336,9 @@ class FileLinker(QDialog, CragProject):
 
                 layer.commitChanges()
             self.close()
-            QMessageBox.information(None, "Linked Files", f"Linked {linked_files} files successfully.")
+
+            message = f"Linked {linked_files} files successfully."
+            self.iface.messageBar().pushInfo("CRAG", message)
 
 
     def validate_selection(self) -> bool:

@@ -315,7 +315,7 @@ def test_create_comboboxes(
     crag_project_quick: Crag,
 ):
     # Act 1
-    file_linker = FileLinker()
+    file_linker = FileLinker(crag_project_quick.iface)
     create_combobox = getattr(file_linker, create_combobox_method)
     combobox = create_combobox()
 

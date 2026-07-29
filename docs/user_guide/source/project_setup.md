@@ -73,17 +73,9 @@ A geopackage file to store field data is added to the project folder.
 :::
 
 :::{figure-md}
-![Created GeoPackage](images/setup_project_dialog_1.png){align=center width=400px}
+![GeoPackage created with layers loaded](images/setup_project_dialog.png){align=center width=400px}
 
-*Confirmation that the GeoPackage has been created*
-:::
-
-Click OK to continue.
-
-:::{figure-md}
-![GeoPackage layers loaded](images/setup_project_dialog_2.png){align=center width=400px}
-
-*Confirmation that the GeoPackage layers are loaded*
+*Confirmation that the GeoPackage has been created and layers have been loaded*
 :::
 
 Click OK to continue.

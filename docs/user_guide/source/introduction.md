@@ -1,9 +1,16 @@
 # Introduction to CRAG
 
 
+:::{admonition} CRAG
+
+*Collection and Reporting of Associated Geodata*
+
+:::
+
+
 ## The CRAG Plugin
 
-The CRAG plugin for QGIS is written by BGS and is used to collect data.
+The CRAG plugin for QGIS is written by the British Geological Survey (BGS) and is used to collect field data.
 It adds the required GeoPackage database and layers to a project so that data can be collected in BGS format.
 It also provides tools to quickly work with points and lines on the map, manage photos, create a field report and validate data.
 
