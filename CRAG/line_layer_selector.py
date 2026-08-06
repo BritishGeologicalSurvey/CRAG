@@ -18,10 +18,7 @@ from qgis.PyQt.QtWidgets import (
 
 from .config import FEATURE_TABLES_LINES
 from .crag_project import CragProject
-from .utils import (  # noqa
-    SearchableComboBox,
-    ipdb_breakpoint,
-)
+from .utils import SearchableComboBox
 
 
 class LineLayerSelector(QDialog, CragProject):

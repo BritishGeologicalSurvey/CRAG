@@ -27,7 +27,6 @@ from conftest import setup_db_conn
 from CRAG.config import FEATURE_TABLES_LINES, VIEWS, LOCALITY_DICTIONARIES
 from CRAG.crag import Crag
 from CRAG.report_builder import ReportBuilder
-from CRAG.utils import ipdb_breakpoint  # noqa
 
 STYLES_DIR = Path(__file__).parent.parent / "CRAG" / "styles"
 

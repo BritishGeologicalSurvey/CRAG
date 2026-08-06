@@ -39,10 +39,7 @@ from .config import (
     TABLE_LIST,
 )
 from .crag_project import CragProject
-from .utils import (  # noqa
-    create_prepopulated_feature,
-    ipdb_breakpoint,
-)
+from .utils import create_prepopulated_feature
 
 
 class QuickMapToolBase(CragProject):

@@ -11,7 +11,6 @@ from CRAG.settings_dialog import (
     RadioButtonGroup,
     SettingsDialog,
 )
-from CRAG.utils import ipdb_breakpoint  # noqa
 
 RADIO_LABEL = "Select an option"
 RADIO_OPTIONS = ["Duck", "Quack", "Honk"]

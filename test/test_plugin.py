@@ -31,7 +31,6 @@ from CRAG.config import (
 )
 from CRAG.crag import Crag
 from CRAG.about_dialog import AboutDialog
-from CRAG.utils import ipdb_breakpoint  # noqa
 
 
 def test_instantiation(crag):

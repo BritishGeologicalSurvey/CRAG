@@ -276,10 +276,14 @@ def get_msgbox_icon_pixmap(icon: QMessageBox.Icon) -> QPixmap:
     return pixmap
 
 
-def ipdb_breakpoint():
+def ipdb_breakpoint(*args, **kwargs) -> None:
     """
     Drops code into IPython debugger when QGIS is run from command line.
     Otherwise returns an error.  Press 'c' to *continue* running code.
+
+    You can set an environment variable to make Python use this breakpoint function
+    when calling the default breakpoint() method without importing it by using:
+    export PYTHONBREAKPOINT="CRAG.utils.ipdb_breakpoint"
     """
     try:
         import ipdb  # noqa - don't import at top level as isn't in default QGIS install

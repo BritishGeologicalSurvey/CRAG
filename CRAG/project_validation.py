@@ -11,10 +11,7 @@ from .config import (
     ATTRIBUTE_TABLES,
 )
 from .crag_project import CragProject
-from .utils import (  # noqa
-    get_table_rows,
-    ipdb_breakpoint,
-)
+from .utils import get_table_rows
 
 
 class ValidationStatus(Enum):

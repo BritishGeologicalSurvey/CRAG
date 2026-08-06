@@ -97,10 +97,7 @@ from .quick_map_tools import (
 )
 from .report_builder import ReportBuilder
 from .settings_dialog import SettingsDialog
-from .utils import (  # noqa
-    MultilineMessageBox,
-    ipdb_breakpoint,
-)
+from .utils import MultilineMessageBox
 
 logger = logging.getLogger('crag')
 logging.basicConfig(level=logging.DEBUG)

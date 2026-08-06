@@ -16,9 +16,6 @@ from conftest import locality_point_count, setup_db_conn
 
 from CRAG.config import THUMBNAIL_SIZE
 from CRAG.report_builder import ReportBuilder
-from CRAG.utils import (  # noqa
-    ipdb_breakpoint,
-)
 
 # Minimum set of columns needed to produce a report using the templates
 EXPECTED_COMMON_COLUMNS = {"recorded_by", "recorded_on"}

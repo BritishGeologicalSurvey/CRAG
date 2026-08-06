@@ -9,10 +9,9 @@ from qgis.PyQt.QtWidgets import QRadioButton
 
 from CRAG.crag import Crag
 from CRAG.line_layer_selector import LineLayerSelector
-from CRAG.utils import (  # noqa
+from CRAG.utils import (
     get_combobox_items_dict,
     set_combobox_index_by_data,
-    ipdb_breakpoint,
 )
 
 

@@ -14,11 +14,7 @@ from CRAG.project_validation import (
     ValidationStatus,
     validate_project,
 )
-from CRAG.utils import (  # noqa
-    MultilineMessageBox,
-    get_msgbox_icon_pixmap,
-    ipdb_breakpoint,
-)
+from CRAG.utils import MultilineMessageBox
 from conftest import create_crag_project_files
 
 
