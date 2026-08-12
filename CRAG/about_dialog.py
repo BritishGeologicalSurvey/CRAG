@@ -15,7 +15,6 @@ except ImportError:
 
 
 from .crag_project import CragProject
-from .utils import ipdb_breakpoint  # noqa
 
 
 class AboutDialog(QDialog, CragProject):

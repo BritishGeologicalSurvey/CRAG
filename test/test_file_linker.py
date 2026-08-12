@@ -26,12 +26,11 @@ from CRAG.file_linker import (
     MAX_PHOTO_DESCRIPTION_LENGTH,
     MAX_MEDIA_DESCRIPTION_LENGTH,
 )
-from CRAG.utils import (  # noqa
+from CRAG.utils import (
     MultilineMessageBox,
     create_prepopulated_feature,
     get_combobox_items_dict,
     set_combobox_index_by_data,
-    ipdb_breakpoint,
 )
 
 UnlinkedTestFiles = dict[str, dict[Path, dict[str, str]]]

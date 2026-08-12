@@ -41,13 +41,12 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from .crag_project import CragProject
-from .utils import (  # noqa
+from .utils import (
     CollapsibleWidget,
     MultilineMessageBox,
     SearchableComboBox,
     create_prepopulated_feature,
     get_table_rows,
-    ipdb_breakpoint,
 )
 
 WidgetsDict = dict[str, QWidget]

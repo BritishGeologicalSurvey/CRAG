@@ -47,7 +47,6 @@ in the root:
 
 ```bash
 conda env create -f environment.yml
-export PYTHONPATH=.
 ```
 
 It is beneficial to install the `libmamba` solver for Anaconda when creating the environment. It can speed up the process and avoid issues. You can find instructions for installing this solver here: https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community
@@ -86,22 +85,6 @@ When re-creating the environment with a new dependency, you should follow these 
 - Re-export your new local environment with: `conda env export > environment.yml`
 - Remove any extra channels/prefix values from the updated `environment.yml`
 - Add both environment files to git and commit them
-
-There is an additional issue with building dependencies for the Docker container,
-as libraries that we use in WSL may not have the same versions in the container OS.
-For this reason, to update `environment_docker.yml` we have to build the unversioned
-environment within the container and then run the container. The following commands build,
-run, copy out the updated environment file and stop it.
-
-```bash
-docker build --target create-environment --build-arg PIP_INDEX_URL=$PIP_INDEX_URL_FOR_DOCKER -t crag .
-docker run --name crag_env crag
-docker cp crag_env:environment_docker.yml .
-docker rm crag_env
-```
-
-Note: that the `build-arg` is only necessary if your system uses a non-standard repository
-such as an internal Nexus server to provide Python packages.
 
 
 ### Bin Scripts

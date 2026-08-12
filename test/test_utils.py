@@ -23,14 +23,13 @@ from qgis.PyQt.QtWidgets import (
 
 from CRAG.config import TABLE_LIST
 from CRAG.crag import Crag
-from CRAG.utils import (  # noqa
+from CRAG.utils import (
     MultilineMessageBox,
     create_prepopulated_feature,
     get_table_rows,
     get_combobox_items_dict,
     set_combobox_index_by_data,
     get_msgbox_icon_pixmap,
-    ipdb_breakpoint,
 )
 
 COMBOBOX_DATA = {

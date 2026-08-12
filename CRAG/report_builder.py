@@ -30,10 +30,7 @@ from qgis.PyQt.QtWidgets import QMessageBox
 from .config import ATTRIBUTE_TABLES, THUMBNAIL_SIZE
 from .crag_project import CragProject
 from .pdf_content import ReportTemplate
-from .utils import (  # noqa
-    get_table_rows,
-    ipdb_breakpoint,
-)
+from .utils import get_table_rows
 
 logger = logging.getLogger('report_builder')
 

@@ -35,7 +35,6 @@ from CRAG.quick_map_tools import (
     QuickEditTool,
     QuickDeleteTool,
 )
-from CRAG.utils import ipdb_breakpoint  # noqa
 from conftest import create_empty_geometry_feature
 
 COMMON_TOOLS = (

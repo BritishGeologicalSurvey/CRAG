@@ -20,7 +20,6 @@ from qgis.PyQt.QtWidgets import (
 )
 
 from .crag_project import CragProject
-from .utils import ipdb_breakpoint  # noqa
 
 
 class RadioButtonGroup:
