@@ -47,7 +47,6 @@ in the root:
 
 ```bash
 conda env create -f environment.yml
-export PYTHONPATH=.
 ```
 
 It is beneficial to install the `libmamba` solver for Anaconda when creating the environment. It can speed up the process and avoid issues. You can find instructions for installing this solver here: https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community

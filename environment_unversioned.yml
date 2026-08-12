@@ -7,9 +7,9 @@ channels:
 dependencies:
   # Correspond to current long-term support versions in Windows
   - python=3.12
-  - qgis=3.44.9
+  - qgis=3.44.11
 
-  # Packages bundled with QGIS
+  # CRAG dependencies that are bundled with QGIS by Windows installer
   - exifread
   - Jinja2
   - lxml
@@ -18,7 +18,7 @@ dependencies:
   - pip  # Required to make sure that conda uses the correct pip
   - reportlab
 
-  # Packages used for support and  testing
+  # Packages used for support and testing
   - beautifulsoup4
   - eralchemy
   - flake8
@@ -38,7 +38,7 @@ dependencies:
   - rinohtype
 
   - pip:
-      # Packages used for support and  testing
+      # Packages used for support and testing
       - etlhelper
       - mergin-client
       - pb_tool==3.1.0
