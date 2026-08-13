@@ -79,6 +79,7 @@ ln -s ${CONDA_PREFIX}/lib/lib-version.so.1.2.3  ${CONDA_PREFIX}/lib/some-lib.so.
 When re-creating the environment with a new dependency, you should follow these steps:
 
 - Add your new library to `environment_unversioned.yml`
+- If the old environment is sctivated, deactivate: `conda deactivate`
 - Delete your existing locality environment with: `conda remove -n crag --all -y`
 - Re-build your local environment with your change using: `conda env create -f environment_unversioned.yml -y`
 - Activate the local environment: `conda activate crag`
