@@ -158,14 +158,6 @@ sphinx-build -M html docs/user_guide/source/ docs/user_guide/build/
 
 The documentation can then be viewed at `docs/user_guide/build/html/index.html`
 
-To build the PDF documentation locally, run the following:
-
-```bash
-sphinx-build -M rinoh docs/user_guide/source/ docs/user_guide/build/
-```
-
-The documentation can then be viewed at `docs/user_guide/build/rinoh/crag_user_guide.pdf`
-
 
 ## Creating a new release
 
