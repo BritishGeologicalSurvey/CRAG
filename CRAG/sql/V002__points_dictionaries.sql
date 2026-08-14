@@ -3,6 +3,13 @@ Copyright 2026 UKRI / British Geological Survey
 Licensed under GPLv3 licence
 SPDX-License-Identifier: GPL-3.0-or-later
 */
+/*
+The Sample Material dictionary contents are based on the SESAR2 vocabulary:
+https://www.geosamples.org/vocabularies/material
+
+An additional term, "Rock (Fossil)" has been added to allow identification of
+samples that contain fossils.
+*/
 -- Dictionary tables and their contents
 
 BEGIN TRANSACTION;
