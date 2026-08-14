@@ -8,8 +8,8 @@ on:
     branches:
       - "*"
     paths:
-      - 'CRAG/**.py'
-      - 'test/**.py'
+      - 'CRAG/**'
+      - 'test/**'
       - 'environment*.yml'
       - '.github/workflows/lint_and_test.yml'
 
