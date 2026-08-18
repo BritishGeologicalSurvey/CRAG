@@ -10,6 +10,7 @@ on:
     paths:
       - 'CRAG/**'
       - 'test/**'
+      - 'docs/user_guide/source'
       - 'environment*.yml'
       - '.github/workflows/lint_and_test.yml'
 
