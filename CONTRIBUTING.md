@@ -85,6 +85,7 @@ When re-creating the environment with a new dependency, you should follow these 
 - Activate the local environment: `conda activate crag`
 - Re-export your new local environment with: `conda env export > environment.yml`
 - Remove any extra channels/prefix values from the updated `environment.yml`
+- Remove the dependency starting with `_x86_64-microarch-level`
 - Add both environment files to git and commit them
 
 
