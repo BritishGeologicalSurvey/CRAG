@@ -62,7 +62,7 @@ jobs:
     - name: Test QGIS Import
       env:
         # This allows Qt to run headless.  It replaces the xvfb command
-        # that we use in the Docker containers.
+        # that we used in the Docker containers.
         QT_QPA_PLATFORM: offscreen
         PYTHONUNBUFFERED: 1
       shell: bash -l {0}
