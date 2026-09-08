@@ -14,9 +14,9 @@ Please report any issues on the [Issue Tracker](https://github.com/BritishGeolog
 
 The CRAG plugin performs three main functions:
 
-  1) sets up any QGIS project for geological mapping work, complete with configured styles, forms and a GeoPackage for storage
-  2) provides tools for efficient data entry/editing and for photo imports
-  3) generates reports in HTML and PDF formats
+  1) Sets up any QGIS project for geological mapping work, complete with configured styles, forms and a GeoPackage for storage
+  2) Provides tools for efficient data entry/editing and for photo imports
+  3) Generates reports in HTML and PDF formats
 
 The underlying data model, feature lists, feature and line types and styling are based on decades of experience of digital geological mapping.
 CRAG projects use advanced features of QGIS forms, such as Relation References and Expressions, and of GeoPackage databases, such as foreign-key references and views, to create a more expressive data model than the flat table structures normally associated with GIS data.
@@ -33,7 +33,7 @@ You can download the latest version of the CRAG plugin as a ZIP file from the la
 
 In QGIS, select _Plugins > Manage and Install Plugins > Install from ZIP_
 
-The release assets also include empty CRAG data GeoPackage and Entity Relationship (ER) diagrams the describe the CRAG data model.
+The release assets also include an empty CRAG data GeoPackage and Entity Relationship (ER) diagrams that describe the CRAG data model.
 
 
 ## Overall philosophy
