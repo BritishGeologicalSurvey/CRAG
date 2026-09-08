@@ -26,7 +26,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=python,geopackage,geology
 
-homepage=http://field-data-capture.glpages.ad.nerc.ac.uk/sigma-q-user-guide/
+homepage=https://britishgeologicalsurvey.github.io/CRAG
 category=Database
 icon=icons/quick_locality_add.png
 # experimental flag
