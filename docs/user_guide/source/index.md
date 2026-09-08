@@ -11,5 +11,4 @@ plugin_tools.md
 mobile_devices.md
 toughpad_setup.md
 qgis_basics.md
-formats.md
 ```

@@ -79,11 +79,13 @@ ln -s ${CONDA_PREFIX}/lib/lib-version.so.1.2.3  ${CONDA_PREFIX}/lib/some-lib.so.
 When re-creating the environment with a new dependency, you should follow these steps:
 
 - Add your new library to `environment_unversioned.yml`
+- If the old environment is sctivated, deactivate: `conda deactivate`
 - Delete your existing locality environment with: `conda remove -n crag --all -y`
 - Re-build your local environment with your change using: `conda env create -f environment_unversioned.yml -y`
 - Activate the local environment: `conda activate crag`
 - Re-export your new local environment with: `conda env export > environment.yml`
 - Remove any extra channels/prefix values from the updated `environment.yml`
+- Remove the dependency starting with `_x86_64-microarch-level`
 - Add both environment files to git and commit them
 
 
@@ -157,14 +159,6 @@ sphinx-build -M html docs/user_guide/source/ docs/user_guide/build/
 ```
 
 The documentation can then be viewed at `docs/user_guide/build/html/index.html`
-
-To build the PDF documentation locally, run the following:
-
-```bash
-sphinx-build -M rinoh docs/user_guide/source/ docs/user_guide/build/
-```
-
-The documentation can then be viewed at `docs/user_guide/build/rinoh/crag_user_guide.pdf`
 
 
 ## Creating a new release

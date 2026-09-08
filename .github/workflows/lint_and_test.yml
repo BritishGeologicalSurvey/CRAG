@@ -54,7 +54,7 @@ jobs:
       shell: bash -l {0}
       env:
         # This allows Qt to run headless.  It replaces the xvfb command
-        # that we use in the Docker containers.
+        # that we used in the Docker containers.
         QT_QPA_PLATFORM: offscreen
       run: |
         pytest -vv test/
