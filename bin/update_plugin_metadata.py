@@ -12,6 +12,9 @@ def update_metadata(metadata_file):
     Recreate the metadata file with an updated version number.
     """
     metadata = ConfigParser()
+    # Use the following setting to preserve the case of "options", i.e. keys.
+    # The QGIS plugin repository is case-sensitive.
+    metadata.optionxform = lambda option: option
     metadata.read(metadata_file)
     metadata['general']['version'] = _get_version()
     with open(metadata_file, 'wt') as f:
