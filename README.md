@@ -9,11 +9,11 @@ SPDX-License-Identifier: GPL-3.0-or-later
 
 > CRAG (Collection and Reporting of Associated Geodata) is a QGIS plugin developed by the British Geological Survey (BGS) for digital field data capture and geological mapping.
 
-⚠ Note to users: The CRAG plugin will be released for external testing and for publication to the _experimental_ QGIS plugin repository.
+⚠ Note to users: The CRAG plugin will be released for external testing to the _experimental_ QGIS plugin repository.
 The aim is to gain feedback, particularly around documentation, prior to a full release.
 Please report any issues on the [Issue Tracker](https://github.com/BritishGeologicalSurvey/CRAG/issues). ⚠
 
-![Screenshot of CRAG project](docs/user_guide/source/images/yorkshire_screenshot.png "Screenshot of CRAG project")
+![Screenshot of CRAG project](docs/yorkshire_screenshot.png "Screenshot of CRAG project")
 
 The CRAG plugin performs three main functions:
 
