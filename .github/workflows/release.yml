@@ -55,6 +55,7 @@ jobs:
       shell: bash -l {0}
       run: |
         cp -r docs/user_guide/build/html/* CRAG/help/.
+        cp LICENSE CRAG/LICENSE
         cd CRAG
         python ../bin/update_plugin_metadata.py metadata.txt >> "$GITHUB_ENV"
         pb_tool zip
@@ -68,7 +69,7 @@ jobs:
       shell: bash -l {0}
       run: |
         cd CRAG/zip_build
-        python -c "from qgis.testing.mocked import get_iface; from crag import classFactory; classFactory(get_iface())"
+        python -c "from qgis.testing.mocked import get_iface; from CRAG import classFactory; classFactory(get_iface())"
 
     - name: Rename Plugin
       shell: bash -l {0}
