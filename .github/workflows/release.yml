@@ -73,7 +73,7 @@ jobs:
 
     - name: Rename Plugin
       shell: bash -l {0}
-      run: mv CRAG/zip_build/crag.zip "$PLUGIN_FILE_NAME"
+      run: mv CRAG/zip_build/CRAG.zip "$PLUGIN_FILE_NAME"
 
     - name: Release Plugin
       uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3
