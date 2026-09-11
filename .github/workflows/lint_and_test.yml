@@ -71,4 +71,4 @@ jobs:
         python ../bin/update_plugin_metadata.py metadata.txt >> "$GITHUB_ENV"
         pb_tool zip
         cd zip_build
-        python -c "from qgis.testing.mocked import get_iface; from crag import classFactory; classFactory(get_iface())"
+        python -c "from qgis.testing.mocked import get_iface; from CRAG import classFactory; classFactory(get_iface())"
