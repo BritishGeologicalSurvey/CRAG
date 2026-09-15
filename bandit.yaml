@@ -1,0 +1,9 @@
+[bandit]
+# bandit recommends defusedxml which is not available in QGIS via Windows installer,
+# so we ignore the vulnerabilities below.
+# QGIS plugin website allows these checks to be disabled.
+skips:
+  - B314  # XML bad ElementTree
+  - B318  # XML bad minidom
+  - B405  # import xml.etree
+  - B408  # import xml.dom.minidom
