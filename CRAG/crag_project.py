@@ -410,7 +410,7 @@ class CragProject:
             help_button.setText("Further Details")
             help_button.pressed.connect(lambda: QMessageBox.information(None, "Information", help_message))
             message_bar.layout().addWidget(help_button)
-            self.iface.messageBar().pushWidget(message_bar, Qgis.Warning)
+            self.iface.messageBar().pushWidget(message_bar, Qgis.MessageLevel.Warning)
 
             return False
 

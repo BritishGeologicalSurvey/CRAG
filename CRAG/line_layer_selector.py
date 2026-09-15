@@ -68,9 +68,11 @@ class LineLayerSelector(QDialog, CragProject):
         for layer in self.layers_to_cats_to_types:
             for line_category in self.layers_to_cats_to_types[layer]:
                 for line_type in self.layers_to_cats_to_types[layer][line_category]:
-                    # Line types should be unique, but assert just in case
-                    assert line_type not in line_type_layers
-                    line_type_layers[line_type] = layer
+                    # Line types should be unique, but raise an exception if not
+                    if line_type not in line_type_layers:
+                        line_type_layers[line_type] = layer
+                    else:
+                        raise ValueError(f"line_type {line_type} is not unique")
 
         line_type_layers = dict(sorted(line_type_layers.items()))
         return line_type_layers

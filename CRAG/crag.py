@@ -1034,7 +1034,7 @@ class Crag(CragProject):
         help_button.setText("Further Details")
         help_button.pressed.connect(lambda: QMessageBox.information(None, "Information", help_message))
         message_bar.layout().addWidget(help_button)
-        self.iface.messageBar().pushWidget(message_bar, Qgis.Warning)
+        self.iface.messageBar().pushWidget(message_bar, Qgis.MessageLevel.Warning)
 
         return True
 
@@ -1050,8 +1050,7 @@ class Crag(CragProject):
 
         # Compare the QGIS version in the existing styles to the current QGIS version
         # Get the first existing QML style and parse it's XML
-        # bandit recommends defusedxml which is not available in QGIS, so we ignore the vulnerability below
-        existing_xml_style = minidom.parse(str(list(self.styles_dir.glob("*.qml"))[0]))  # nosec: B318
+        existing_xml_style = minidom.parse(str(list(self.styles_dir.glob("*.qml"))[0]))
         existing_version = existing_xml_style.getElementsByTagName("qgis")[0].attributes["version"].value
         current_version = Qgis.version()
         if existing_version != current_version:
