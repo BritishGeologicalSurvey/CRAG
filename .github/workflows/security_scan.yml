@@ -10,6 +10,7 @@ on:
     paths:
       - 'CRAG/**.py'
       - '.github/workflows/security_scan.yml'
+      - 'bandit.yaml'
 
 jobs:
   security:
