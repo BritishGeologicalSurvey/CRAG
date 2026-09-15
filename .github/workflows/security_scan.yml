@@ -32,7 +32,7 @@ jobs:
 
     - name: Bandit Scan
       # Scan the CRAG folder for vulnerabilities
-      run: bandit -r ./CRAG/ -ll
+      run: bandit -c bandit.yaml -r ./CRAG/ -ll
 
     - name: Detect Secrets
       # Scan the plugin directory for hardcoded secrets/credentials
