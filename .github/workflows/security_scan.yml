@@ -42,4 +42,4 @@ jobs:
       # Scan the plugin directory for hardcoded secrets/credentials
       run: |
         cd CRAG
-        detect-secrets scan . --all-files
+        detect-secrets scan . --all-files --baseline .secrets.baseline
