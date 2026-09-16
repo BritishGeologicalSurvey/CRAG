@@ -9,8 +9,10 @@ on:
       - "*"
     paths:
       - 'CRAG/**.py'
+      - 'CRAG/**.sql'
       - '.github/workflows/security_scan.yml'
-      - 'bandit.yaml'
+      - 'CRAG/.bandit'
+      - 'CRAG/.secrets.baseline'
 
 jobs:
   security:
@@ -32,8 +34,12 @@ jobs:
 
     - name: Bandit Scan
       # Scan the CRAG folder for vulnerabilities
-      run: bandit -c bandit.yaml -r ./CRAG/ -ll
+      run: |
+        cd CRAG
+        bandit -r . -ll
 
     - name: Detect Secrets
       # Scan the plugin directory for hardcoded secrets/credentials
-      run: detect-secrets scan ./CRAG/ --all-files
+      run: |
+        cd CRAG
+        detect-secrets scan . --all-files
