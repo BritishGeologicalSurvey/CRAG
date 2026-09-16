@@ -1,9 +1,11 @@
 # bandit recommends defusedxml which is not available in QGIS via Windows installer,
 # so we ignore the vulnerabilities below.
+# Some SQL statements are built using f-strings using internal values only.
 # QGIS plugin website allows these checks to be disabled.
 # B314:XML bad ElementTree
 # B318:XML bad minidom
 # B405:import xml.etree
 # B408:import xml.dom.minidom
+# B608:hardcoded_sql_expressions
 [bandit]
-skips = B314,B318,B405,B408
+skips = B314,B318,B405,B408,B608
