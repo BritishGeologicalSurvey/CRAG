@@ -40,6 +40,8 @@ jobs:
 
     - name: Detect Secrets
       # Scan the plugin directory for hardcoded secrets/credentials
-      run: |
-        cd CRAG
-        detect-secrets scan --all-files --exclude-files metadata.txt --exclude-files .secrets.baseline --baseline .secrets.baseline .
+      run: >
+        cd CRAG && detect-secrets scan --all-files
+        --exclude-files metadata.txt
+        --exclude-files .secrets.baseline
+        --baseline .secrets.baseline .
