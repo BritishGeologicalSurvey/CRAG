@@ -33,13 +33,13 @@ jobs:
         pip install bandit detect-secrets
 
     - name: Bandit Scan
-      # Scan the CRAG folder for vulnerabilities
-      run: |
-        cd CRAG
-        bandit -r . -ll
+      # Scan the plugin folder folder for vulnerabilities.
+      # Exclusions are included in the .bandit file.
+      run: cd CRAG && bandit -r . -ll
 
     - name: Detect Secrets
-      # Scan the plugin directory for hardcoded secrets/credentials
+      # Scan the plugin folder for hardcoded secrets/credentials.
+      # Allowable secrets, including false positives, are in the .secrets.baseline file.
       run: >
         cd CRAG && detect-secrets scan --all-files
         --exclude-files metadata.txt
