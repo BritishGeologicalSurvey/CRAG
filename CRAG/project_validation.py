@@ -111,7 +111,7 @@ def check_features_valid_parents(project: CragProject) -> ValidationResult:
         feature_identifier = FEATURE_STR_IDENTIFIERS[table]
         rows = get_table_rows(
             project.db_file,
-            f"SELECT field_project_fuid, {feature_identifier} FROM {table}",  # nosec: B608 no user input
+            f"SELECT field_project_fuid, {feature_identifier} FROM {table}",
         )
 
         # Perform check
@@ -148,7 +148,7 @@ def check_locality_children_valid_parents(project: CragProject) -> ValidationRes
         feature_identifier = FEATURE_STR_IDENTIFIERS[table]
         rows = get_table_rows(
             project.db_file,
-            f"SELECT locality_fuid, {feature_identifier} FROM {table}",  # nosec: B608 no user input
+            f"SELECT locality_fuid, {feature_identifier} FROM {table}",
         )
 
         # Perform check
@@ -230,7 +230,7 @@ def check_attached_filepaths_not_null(project: CragProject) -> ValidationResult:
             row["fid"]
             for row in get_table_rows(
                 project.db_file,
-                f"SELECT fid FROM {table} WHERE {attachment_col} IS NULL",  # nosec: B608 no user input
+                f"SELECT fid FROM {table} WHERE {attachment_col} IS NULL",
             )
         ]
 
@@ -259,7 +259,7 @@ def check_attached_filepaths_not_placeholder(project: CragProject) -> Validation
             row["fid"]
             for row in get_table_rows(
                 project.db_file,
-                f"SELECT fid FROM {table} WHERE {attachment_col} = ?",  # nosec: B608 no user input
+                f"SELECT fid FROM {table} WHERE {attachment_col} = ?",
                 parameters=(project.default_attachment_str,),
             )
         ]
@@ -291,7 +291,7 @@ def check_attached_filepaths_exist(project: CragProject) -> ValidationResult:
             row[attachment_col]
             for row in get_table_rows(
                 project.db_file,
-                f"SELECT {attachment_col} FROM {table} WHERE {attachment_col} != ?",  # nosec: B608 no user input
+                f"SELECT {attachment_col} FROM {table} WHERE {attachment_col} != ?",
                 parameters=(project.default_attachment_str,),
             )
             # If the attachment_column has a valid value but the filepath does not exist

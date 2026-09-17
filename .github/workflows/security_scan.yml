@@ -9,8 +9,10 @@ on:
       - "*"
     paths:
       - 'CRAG/**.py'
+      - 'CRAG/**.sql'
+      - 'CRAG/.bandit'
+      - 'CRAG/.secrets.baseline'
       - '.github/workflows/security_scan.yml'
-      - 'bandit.yaml'
 
 jobs:
   security:
@@ -31,9 +33,15 @@ jobs:
         pip install bandit detect-secrets
 
     - name: Bandit Scan
-      # Scan the CRAG folder for vulnerabilities
-      run: bandit -c bandit.yaml -r ./CRAG/ -ll
+      # Scan the plugin folder folder for vulnerabilities.
+      # Exclusions are included in the .bandit file.
+      run: cd CRAG && bandit -r . -ll
 
     - name: Detect Secrets
-      # Scan the plugin directory for hardcoded secrets/credentials
-      run: detect-secrets scan ./CRAG/ --all-files
+      # Scan the plugin folder for hardcoded secrets/credentials.
+      # Allowable secrets, including false positives, are in the .secrets.baseline file.
+      run: >
+        cd CRAG && detect-secrets scan --all-files
+        --exclude-files metadata.txt
+        --exclude-files .secrets.baseline
+        --baseline .secrets.baseline .

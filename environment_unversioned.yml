@@ -19,6 +19,7 @@ dependencies:
   - reportlab
 
   # Packages used for support and testing
+  - bandit
   - beautifulsoup4
   - eralchemy
   - flake8
@@ -38,6 +39,7 @@ dependencies:
 
   - pip:
       # Packages used for support and testing
+      - detect-secrets
       - etlhelper
       - mergin-client
       - pb_tool==3.1.0

@@ -495,7 +495,7 @@ class CragProject:
             Path(row[attachment_col])
             for row in get_table_rows(
                 self.db_file,
-                f"SELECT {attachment_col} FROM {layer_name}",  # nosec: B608 no user input
+                f"SELECT {attachment_col} FROM {layer_name}",
             )
             if row[attachment_col] is not None
         }

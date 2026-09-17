@@ -213,7 +213,7 @@ class FileLinker(QDialog, CragProject):
         for table, attachment_col in self.layers_to_file_attributes.items():
             for row in get_table_rows(
                 self.db_file,
-                f"SELECT locality_point FROM view_{table} WHERE {attachment_col} = ?",  # nosec: B608 no user input
+                f"SELECT locality_point FROM view_{table} WHERE {attachment_col} = ?",
                 parameters=(self.default_attachment_str,),
             ):
                 locality_point_names.add("• " + row["locality_point"])
